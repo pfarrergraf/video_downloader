@@ -1,0 +1,2 @@
+"""Classy video downloader package."""
+

@@ -1,0 +1,49 @@
+﻿from __future__ import annotations
+
+from pathlib import Path
+
+from video_downloader.models import DownloadResult
+from video_downloader.queue_runner import QueueRunner
+from video_downloader.queue_store import QueueStore
+
+
+class FakeManager:
+    def __init__(self, logger=None) -> None:
+        self.logger = logger
+
+    def download(self, request):
+        request.output_dir.mkdir(parents=True, exist_ok=True)
+        output = request.output_dir / "fake.mp4"
+        output.write_bytes(b"ok")
+        return DownloadResult(
+            file_path=output,
+            method="yt-dlp",
+            source_url=request.source_url,
+            downloaded_files=[output],
+        )
+
+
+def test_queue_runner_completes_job(tmp_path: Path, monkeypatch) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    default_profile = store.ensure_default_profile()
+
+    job_id = store.add_job(
+        source="https://example.com/video",
+        profile_id=default_profile.id,
+        output_dir=str(tmp_path / "out"),
+    )
+
+    monkeypatch.setattr("video_downloader.queue_runner.DownloadManager", FakeManager)
+    runner = QueueRunner(store=store, default_output_dir=tmp_path / "out")
+    summary = runner.run(workers=1)
+
+    assert summary.processed == 1
+    assert summary.completed == 1
+    assert summary.failed == 0
+
+    job = store.get_job(job_id)
+    assert job is not None
+    assert job.status == "completed"
+    files = store.list_job_files(job_id)
+    assert len(files) == 1

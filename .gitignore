@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+*.whl
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Build artifacts
+build/
+dist/
+bundled_bins/
+
+# PyInstaller
+*.manifest
+*.spec.bak
+
+# IDE / editor
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+desktop.ini
+Thumbs.db
+
+# OS
+.DS_Store
+
+# Test artifacts
+downloads/
+downloads_test/
+downloads_smoke*/
+tmp_site/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Signing artifacts (never commit private keys or certs)
+classydl-selfsign.pfx
+classydl-selfsign.pfx.pass.txt
+classydl-selfsign.cer
+*.pfx
+*.cer
+
+# uv lock kept in repo for reproducibility — do NOT ignore uv.lock
