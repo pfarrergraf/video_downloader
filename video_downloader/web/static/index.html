@@ -1,175 +1,242 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>ClassyDL</title>
-<meta name="theme-color" content="#0b0710" />
+<meta name="theme-color" content="#0e0c14" />
 <link rel="manifest" href="/manifest.webmanifest" />
 <link rel="icon" href="/icon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/icon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #0b0710;
-    --bg-panel: #14101c;
-    --bg-panel-2: #1c1524;
-    --border: #3a2a4a;
-    --gold: #b89150;
-    --gold-bright: #d9b968;
-    --blood: #7a1530;
-    --text: #d8cfe0;
-    --text-dim: #93889f;
+    --bg: #0e0c14;
+    --bg-panel: #17141f;
+    --border: #2c2836;
+    --accent: #c9a869;
+    --accent-dim: #8a7550;
+    --text: #e4e0ea;
+    --text-dim: #948da3;
+    --danger: #c96a6a;
+    --ok: #7fbf8f;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
-    background:
-      radial-gradient(ellipse at top, #1a1223 0%, #0b0710 60%),
-      var(--bg);
+    background: var(--bg);
     color: var(--text);
     font-family: 'EB Garamond', Georgia, serif;
-    font-size: 18px;
+    font-size: 17px;
+    line-height: 1.45;
     min-height: 100vh;
     padding-bottom: 3rem;
   }
-  h1, h2, h3 { font-family: 'Cinzel Decorative', 'EB Garamond', serif; color: var(--gold-bright); font-weight: 700; }
+  h1, h2 { font-weight: 600; margin: 0; }
+  h2 { font-size: 1.05rem; color: var(--text); letter-spacing: 0.02em; }
   header {
     text-align: center;
-    padding: 2rem 1rem 1rem;
-    border-bottom: 1px solid var(--border);
+    padding: 1.75rem 1rem 1.25rem;
   }
-  header h1 { font-size: 1.9rem; margin: 0 0 0.25rem; letter-spacing: 0.05em; text-shadow: 0 0 12px rgba(184,145,80,0.35); }
-  header p { color: var(--text-dim); margin: 0; font-style: italic; }
-  main { max-width: 720px; margin: 0 auto; padding: 1.25rem; }
+  header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+  header p { color: var(--text-dim); margin: 0.35rem 0 0; font-size: 0.9rem; }
+  main { max-width: 640px; margin: 0 auto; padding: 0 1rem; }
   .card {
-    background: linear-gradient(180deg, var(--bg-panel), var(--bg-panel-2));
+    background: var(--bg-panel);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.25rem;
-    margin-bottom: 1.25rem;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+    border-radius: 12px;
+    padding: 1.1rem 1.2rem 1.3rem;
+    margin-bottom: 1rem;
   }
-  .card h2 { margin-top: 0; font-size: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-  label { display: block; margin: 0.75rem 0 0.3rem; color: var(--text-dim); font-size: 0.95rem; }
+  .card h2 { padding-bottom: 0.6rem; margin-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+  label { display: block; margin: 0.7rem 0 0.3rem; color: var(--text-dim); font-size: 0.85rem; }
   input[type=text], input[type=password], input[type=url] {
     width: 100%;
-    padding: 0.65rem 0.75rem;
-    background: #0e0a15;
+    padding: 0.6rem 0.7rem;
+    background: #0b0a10;
     border: 1px solid var(--border);
     color: var(--text);
-    border-radius: 6px;
+    border-radius: 8px;
     font-family: inherit;
     font-size: 1rem;
   }
-  input:focus { outline: none; border-color: var(--gold); }
+  input:focus { outline: none; border-color: var(--accent-dim); }
   button {
-    font-family: 'Cinzel Decorative', serif;
-    background: linear-gradient(180deg, var(--blood), #4a0d1e);
-    color: #f2e6d0;
-    border: 1px solid var(--gold);
-    border-radius: 6px;
-    padding: 0.6rem 1.1rem;
-    font-size: 0.85rem;
-    letter-spacing: 0.04em;
+    font-family: inherit;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    padding: 0.55rem 1rem;
     cursor: pointer;
-    margin-top: 0.85rem;
-    margin-right: 0.5rem;
+    border: 1px solid transparent;
   }
-  button:active { transform: translateY(1px); }
-  button.secondary { background: linear-gradient(180deg, #2a2035, #1c1524); }
-  button:disabled { opacity: 0.5; cursor: default; }
-  .row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
-  .checkbox-row { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem; color: var(--text-dim); font-size: 0.9rem; }
-  ul.media-list, ul.job-list { list-style: none; padding: 0; margin: 0.75rem 0 0; }
-  ul.media-list li, ul.job-list li {
+  button.primary {
+    background: var(--accent);
+    color: #14121a;
+    font-weight: 600;
+  }
+  button.primary:hover { background: #d8ba85; }
+  button.secondary {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--text);
+  }
+  button.secondary:hover { border-color: var(--accent-dim); }
+  button.ghost {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 0.35rem 0.55rem;
+    font-size: 0.82rem;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  button.ghost:hover { color: var(--accent); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  .row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.85rem; }
+  .checkbox-row { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem; color: var(--text-dim); font-size: 0.88rem; }
+
+  .results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .results-bar .actions { display: flex; gap: 0.25rem; }
+
+  ul.media-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    max-height: 320px;
+    overflow-y: auto;
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 8px;
+  }
+  ul.media-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 0.65rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  ul.media-list li:last-child { border-bottom: none; }
+  ul.media-list li:hover { background: rgba(255,255,255,0.03); }
+  ul.media-list li.empty { color: var(--text-dim); justify-content: center; padding: 1rem; }
+
+  ul.job-list { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+  ul.job-list li {
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 0.6rem 0.75rem;
     margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    background: rgba(0,0,0,0.2);
-    font-size: 0.92rem;
-    word-break: break-all;
+    font-size: 0.9rem;
   }
+
   .tag {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border: 1px solid var(--gold);
-    color: var(--gold-bright);
+    letter-spacing: 0.03em;
+    color: var(--accent);
+    border: 1px solid var(--accent-dim);
     border-radius: 4px;
-    padding: 0.1rem 0.4rem;
+    padding: 0.05rem 0.35rem;
     flex-shrink: 0;
   }
-  .job-status { font-size: 0.75rem; padding: 0.1rem 0.5rem; border-radius: 10px; flex-shrink: 0; }
+  .job-status { font-size: 0.72rem; padding: 0.1rem 0.5rem; border-radius: 10px; flex-shrink: 0; }
   .status-pending, .status-in_progress { background: #4a3a10; color: #f0d78a; }
-  .status-completed { background: #1e4a2a; color: #9be0a8; }
-  .status-failed, .status-cancelled { background: #4a1520; color: #f0a0ac; }
-  .item-name { flex: 1; }
+  .status-completed { background: #1e3a26; color: var(--ok); }
+  .status-failed, .status-cancelled { background: #3a1e22; color: var(--danger); }
+
+  .item-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .muted { color: var(--text-dim); font-size: 0.85rem; }
-  a.dl-link { color: var(--gold-bright); text-decoration: none; border-bottom: 1px dotted var(--gold); }
+  a.dl-link { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent-dim); }
+
   #login-overlay {
-    position: fixed; inset: 0; background: rgba(6,4,10,0.92);
+    position: fixed; inset: 0; background: rgba(6,5,10,0.94);
     display: flex; align-items: center; justify-content: center; z-index: 50; padding: 1rem;
   }
-  #login-overlay .card { max-width: 340px; width: 100%; }
+  #login-overlay .card { max-width: 320px; width: 100%; }
   #toast {
     position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
-    background: #2a0d16; border: 1px solid var(--blood); color: #f2d0d0;
-    padding: 0.6rem 1rem; border-radius: 6px; font-size: 0.9rem; max-width: 90vw;
+    background: #241820; border: 1px solid var(--danger); color: #f2d5d5;
+    padding: 0.6rem 1rem; border-radius: 8px; font-size: 0.88rem; max-width: 90vw;
     display: none; z-index: 60;
   }
   .hidden { display: none !important; }
-  footer { text-align: center; color: var(--text-dim); font-size: 0.8rem; padding: 1.5rem 1rem; }
+  footer { text-align: center; color: var(--text-dim); font-size: 0.78rem; padding: 1.5rem 1rem; }
 </style>
 </head>
 <body>
 
 <div id="login-overlay">
   <div class="card">
-    <h2>Enter the Crypt</h2>
-    <label for="login-password">Password</label>
+    <h2>Anmelden</h2>
+    <label for="login-password">Passwort</label>
     <input type="password" id="login-password" autocomplete="current-password" />
-    <div class="row"><button id="login-btn">Unlock</button></div>
+    <div class="row"><button class="primary" id="login-btn">Entsperren</button></div>
     <p class="muted" id="login-error"></p>
   </div>
 </div>
 
 <div id="app" class="hidden">
   <header>
-    <h1>&#10013; ClassyDL &#10013;</h1>
-    <p>Summon media from any page, from any device</p>
+    <h1>ClassyDL</h1>
+    <p>Medien von jeder Seite herunterladen, von jedem Gerät aus</p>
   </header>
   <main>
     <div class="card">
-      <h2>Scrape a Page</h2>
-      <label for="scrape-url">Page URL</label>
-      <input type="url" id="scrape-url" placeholder="https://example.com/gallery" />
-      <div class="checkbox-row"><input type="checkbox" id="scrape-deep" /><label for="scrape-deep" style="margin:0">Deep scrape (follow links)</label></div>
+      <h2>Seite durchsuchen</h2>
+      <label for="scrape-url">Seiten-URL</label>
+      <input type="url" id="scrape-url" placeholder="https://example.com/galerie" />
+      <div class="checkbox-row"><input type="checkbox" id="scrape-deep" /><label for="scrape-deep" style="margin:0">Tief durchsuchen (Links folgen)</label></div>
       <div class="row">
-        <button id="scrape-btn">Scrape</button>
-        <button class="secondary" id="direct-queue-btn">Video downloaden</button>
+        <button class="primary" id="direct-queue-btn">Video downloaden</button>
         <button class="secondary" id="direct-audio-btn">Audio downloaden</button>
+        <button class="secondary" id="scrape-btn">Seite durchsuchen</button>
       </div>
-      <ul class="media-list" id="media-list"></ul>
-      <div class="row hidden" id="scrape-actions">
-        <button id="queue-selected-btn">Queue Selected</button>
-        <button class="secondary" id="select-all-btn">Select All</button>
+
+      <div id="scrape-results" class="hidden">
+        <div class="results-bar">
+          <span class="muted" id="results-count"></span>
+          <div class="actions">
+            <button class="ghost" id="select-all-btn">Alle auswählen</button>
+            <button class="ghost" id="deselect-all-btn">Auswahl aufheben</button>
+            <button class="ghost" id="clear-results-btn">Liste leeren</button>
+          </div>
+        </div>
+        <ul class="media-list" id="media-list"></ul>
+        <div class="row">
+          <button class="primary" id="queue-selected-btn">Ausgewählte herunterladen</button>
+        </div>
       </div>
     </div>
 
     <div class="card">
-      <h2>Queue</h2>
-      <p class="muted">Refreshes automatically every few seconds.</p>
+      <h2>Warteschlange</h2>
+      <p class="muted">Aktualisiert sich automatisch.</p>
       <ul class="job-list" id="job-list"></ul>
     </div>
   </main>
-  <footer>ClassyDL &mdash; download only media you have the right to access.</footer>
+  <footer>ClassyDL &mdash; lade nur Medien herunter, an denen du Rechte hast.</footer>
 </div>
 
 <div id="toast"></div>
@@ -221,18 +288,31 @@ $('login-btn').addEventListener('click', async () => {
     $('login-password').value = '';
     setAuthed(true);
   } catch (e) {
-    $('login-error').textContent = 'Wrong password.';
+    $('login-error').textContent = 'Falsches Passwort.';
   }
 });
 $('login-password').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('login-btn').click(); });
+
+function updateResultsCount() {
+  const total = document.querySelectorAll('.media-pick').length;
+  const picked = document.querySelectorAll('.media-pick:checked').length;
+  $('results-count').textContent = `${total} gefunden, ${picked} ausgewählt`;
+}
+
+function clearResults() {
+  lastScrape = null;
+  $('media-list').innerHTML = '';
+  $('scrape-results').classList.add('hidden');
+}
 
 function renderMedia(result) {
   lastScrape = result;
   const list = $('media-list');
   list.innerHTML = '';
   if (!result.items.length) {
-    list.innerHTML = '<li class="muted">No media found on this page.</li>';
-    $('scrape-actions').classList.add('hidden');
+    list.innerHTML = '<li class="empty">Keine Medien auf dieser Seite gefunden.</li>';
+    $('scrape-results').classList.remove('hidden');
+    $('results-count').textContent = '';
     return;
   }
   result.items.forEach((item, idx) => {
@@ -240,23 +320,28 @@ function renderMedia(result) {
     li.innerHTML = `
       <input type="checkbox" class="media-pick" data-idx="${idx}" />
       <span class="tag">${item.media_type}</span>
-      <span class="item-name">${item.filename}</span>
+      <span class="item-name" title="${item.filename}">${item.filename}</span>
     `;
     list.appendChild(li);
   });
-  $('scrape-actions').classList.remove('hidden');
+  $('scrape-results').classList.remove('hidden');
+  updateResultsCount();
 }
+
+$('media-list').addEventListener('change', (e) => {
+  if (e.target.classList.contains('media-pick')) updateResultsCount();
+});
 
 $('scrape-btn').addEventListener('click', async () => {
   const url = $('scrape-url').value.trim();
-  if (!url) return toast('Enter a URL first.');
+  if (!url) return toast('Erst eine URL eingeben.');
   $('scrape-btn').disabled = true;
   try {
     const result = await api('/api/scrape', { method: 'POST', body: { url, deep: $('scrape-deep').checked } });
     renderMedia(result);
     if (result.errors && result.errors.length) toast(result.errors[0]);
   } catch (e) {
-    toast(e.message || 'Scrape failed.');
+    toast(e.message || 'Durchsuchen fehlgeschlagen.');
   } finally {
     $('scrape-btn').disabled = false;
   }
@@ -264,36 +349,46 @@ $('scrape-btn').addEventListener('click', async () => {
 
 async function queueSource(source, audioOnly) {
   await api('/api/queue', { method: 'POST', body: { source, audio_only: !!audioOnly } });
-  toast('Queued.');
+  toast('In Warteschlange eingereiht.');
   refreshQueue();
 }
 
 $('direct-queue-btn').addEventListener('click', () => {
   const url = $('scrape-url').value.trim();
-  if (!url) return toast('Enter a URL first.');
-  queueSource(url, false).catch((e) => toast(e.message || 'Failed to queue.'));
+  if (!url) return toast('Erst eine URL eingeben.');
+  queueSource(url, false).catch((e) => toast(e.message || 'Fehler beim Einreihen.'));
 });
 
 $('direct-audio-btn').addEventListener('click', () => {
   const url = $('scrape-url').value.trim();
-  if (!url) return toast('Enter a URL first.');
-  queueSource(url, true).catch((e) => toast(e.message || 'Failed to queue.'));
+  if (!url) return toast('Erst eine URL eingeben.');
+  queueSource(url, true).catch((e) => toast(e.message || 'Fehler beim Einreihen.'));
 });
 
 $('select-all-btn').addEventListener('click', () => {
   document.querySelectorAll('.media-pick').forEach((cb) => { cb.checked = true; });
+  updateResultsCount();
+});
+
+$('deselect-all-btn').addEventListener('click', () => {
+  document.querySelectorAll('.media-pick').forEach((cb) => { cb.checked = false; });
+  updateResultsCount();
+});
+
+$('clear-results-btn').addEventListener('click', () => {
+  clearResults();
 });
 
 $('queue-selected-btn').addEventListener('click', async () => {
   if (!lastScrape) return;
   const picked = Array.from(document.querySelectorAll('.media-pick:checked')).map((cb) => lastScrape.items[Number(cb.dataset.idx)]);
-  if (!picked.length) return toast('Select at least one item.');
+  if (!picked.length) return toast('Mindestens ein Element auswählen.');
   try {
     for (const item of picked) {
       await queueSource(item.url, false);
     }
   } catch (e) {
-    toast(e.message || 'Failed to queue selection.');
+    toast(e.message || 'Fehler beim Einreihen der Auswahl.');
   }
 });
 
@@ -307,11 +402,10 @@ function jobRow(job) {
   if (job.status === 'pending' || job.status === 'in_progress') {
     const btn = document.createElement('button');
     btn.className = 'secondary';
-    btn.textContent = 'Cancel';
-    btn.style.marginTop = '0';
+    btn.textContent = 'Abbrechen';
     btn.addEventListener('click', async () => {
       try { await api(`/api/queue/${job.id}/cancel`, { method: 'POST' }); refreshQueue(); }
-      catch (e) { toast(e.message || 'Failed to cancel.'); }
+      catch (e) { toast(e.message || 'Abbrechen fehlgeschlagen.'); }
     });
     li.appendChild(btn);
   }
@@ -324,7 +418,7 @@ async function refreshQueue() {
     const list = $('job-list');
     list.innerHTML = '';
     if (!data.jobs.length) {
-      list.innerHTML = '<li class="muted">Nothing queued yet.</li>';
+      list.innerHTML = '<li class="muted">Noch nichts in der Warteschlange.</li>';
       return;
     }
     data.jobs.forEach((job) => list.appendChild(jobRow(job)));
