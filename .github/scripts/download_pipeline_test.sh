@@ -31,7 +31,17 @@ jobs = json.load(sys.stdin)['jobs']
 job = next((j for j in jobs if j['id'] == $JOB_ID), None)
 print(job['status'] if job else 'missing')
 ")"
-  echo "Job $JOB_ID status: $STATUS"
+  ERROR="$(echo "$RESPONSE" | python3 -c "
+import json, sys
+jobs = json.load(sys.stdin)['jobs']
+job = next((j for j in jobs if j['id'] == $JOB_ID), None)
+print((job or {}).get('error') or '')
+")"
+  if [ -n "$ERROR" ]; then
+    echo "Job $JOB_ID status: $STATUS (last error: $ERROR)"
+  else
+    echo "Job $JOB_ID status: $STATUS"
+  fi
   if [ "$STATUS" = "completed" ] || [ "$STATUS" = "failed" ]; then
     break
   fi
@@ -39,7 +49,8 @@ print(job['status'] if job else 'missing')
 done
 
 if [ "$STATUS" != "completed" ]; then
-  echo "Job did not complete (status: $STATUS)" >&2
+  echo "Job did not complete (status: $STATUS, error: $ERROR)" >&2
+  adb logcat -d -s python.stdout python.stderr ClassyDL 2>/dev/null | tail -n 100 || true
   exit 1
 fi
 
