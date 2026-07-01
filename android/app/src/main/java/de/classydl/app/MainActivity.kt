@@ -42,7 +42,10 @@ class MainActivity : AppCompatActivity() {
         // CI's debug-build download_pipeline_test.sh — which never sets a
         // license key — keeps exercising the always-unrestricted path it
         // was written against, unaffected by free-tier limits.
-        private const val LICENSE_API_BASE = "https://downloadthat-license-server.YOUR-SUBDOMAIN.workers.dev"
+        // The backend lives in pro/website/functions/api/ and is deployed as a
+        // Cloudflare Pages project — the live URL will be
+        // https://<your-project>.pages.dev (not a workers.dev URL).
+        private const val LICENSE_API_BASE = "https://YOUR-PROJECT.pages.dev"
 
         // Idempotency guard: Android may recreate the Activity (e.g. on a
         // config change) without restarting the process, causing onCreate →
