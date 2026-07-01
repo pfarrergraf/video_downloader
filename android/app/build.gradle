@@ -4,6 +4,14 @@ plugins {
     id 'com.chaquo.python'
 }
 
+// Lets the release CI job build an arm64-only APK (`-PabiFilters=arm64-v8a`) to
+// avoid shipping the x86_64 slice — that ABI only exists so the *debug* build
+// also runs unmodified on CI/desktop emulators. Any other invocation (local
+// dev, the debug/emulator-smoke-test CI job) gets both ABIs as before.
+def abiFilterList = project.hasProperty('abiFilters')
+    ? project.abiFilters.split(',') as List<String>
+    : ["arm64-v8a", "x86_64"]
+
 android {
     namespace 'de.classydl.app'
     compileSdk 35
@@ -18,18 +26,50 @@ android {
         versionName "0.1.0"
 
         // Chaquopy requires abiFilters to be set explicitly (it has no "all ABIs"
-        // default). x86_64 is included so the debug build also runs unmodified on
-        // CI/desktop emulators; Phase 4 (release pipeline) should drop x86_64/x86
-        // to shrink the APK that's actually distributed to real phones.
+        // default).
         ndk {
-            abiFilters "arm64-v8a", "x86_64"
+            abiFilters(*abiFilterList)
+        }
+    }
+
+    signingConfigs {
+        release {
+            // Populated only when the release CI job supplies these via env
+            // vars (sourced from GitHub Actions secrets — see
+            // .github/workflows/android-release.yml and
+            // docs/ANDROID_APP_PLAN.md for the one-time keystore setup). Left
+            // unset for local `gradle assembleRelease` runs without secrets,
+            // which still succeeds but produces an unsigned (uninstallable
+            // as-is) APK — same as plain AGP's default behavior, no
+            // regression from before this signingConfig existed.
+            def keystoreBase64 = System.getenv("ANDROID_KEYSTORE_BASE64")
+            if (keystoreBase64) {
+                def decodedKeystore = new File("${buildDir}/release-keystore.jks")
+                decodedKeystore.parentFile.mkdirs()
+                decodedKeystore.bytes = keystoreBase64.decodeBase64()
+                storeFile decodedKeystore
+                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+            }
         }
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            if (System.getenv("ANDROID_KEYSTORE_BASE64")) {
+                signingConfig signingConfigs.release
+            }
         }
+    }
+
+    buildFeatures {
+        // Generates BuildConfig.DEBUG, which MainActivity uses to pick a
+        // fixed password in debug builds (CI/local dev) vs. a random
+        // per-install one in release builds. AGP 8+ defaults this feature
+        // off, so it must be requested explicitly.
+        buildConfig true
     }
 
     compileOptions {

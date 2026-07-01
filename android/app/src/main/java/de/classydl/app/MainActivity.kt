@@ -10,6 +10,8 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
+import org.json.JSONObject
+import java.security.SecureRandom
 
 /**
  * Hosts the Gothic UI in a WebView, backed by the same Python web server used on
@@ -20,21 +22,27 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "ClassyDL"
         private const val PORT = 8420
-        // TODO(Phase 1 follow-up): prompt for/store a real password instead of a
-        // hardcoded default; this only binds to 127.0.0.1 so the immediate risk is
-        // low, but it shouldn't stay hardcoded once this leaves the scaffold stage.
-        private const val PASSWORD = "classydl"
         private const val SERVER_URL = "http://127.0.0.1:$PORT"
         private const val MAX_LOAD_RETRIES = 20
+        private const val PREFS_NAME = "classydl_prefs"
+        private const val PREFS_PASSWORD_KEY = "server_password"
+        // Fixed in debug builds so CI's download_pipeline_test.sh (and anyone
+        // testing locally) can log in without needing to read it back out of
+        // the app's SharedPreferences. Release builds (the ones actually
+        // sideloaded onto other people's phones) always get a random
+        // per-install password instead — see getOrCreatePassword().
+        private const val DEBUG_PASSWORD = "classydl"
     }
 
     private var loadRetries = 0
+    private lateinit var password: String
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        password = getOrCreatePassword()
         startPythonServer()
 
         val webView = findViewById<WebView>(R.id.webview)
@@ -63,8 +71,50 @@ class MainActivity : AppCompatActivity() {
                     Log.e(TAG, "Giving up loading $failingUrl: $description")
                 }
             }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                // The server-side password gate exists to stop other apps on
+                // the same device from hitting the loopback port, not to
+                // challenge the user of this app — so log in automatically
+                // instead of making them type a password they were never
+                // shown. JSONObject.quote produces a safely escaped JS string
+                // literal (belt-and-braces here since `password` is always
+                // our own generated/fixed value, never external input).
+                val quotedPassword = JSONObject.quote(password)
+                view?.evaluateJavascript(
+                    """
+                    (function() {
+                        var pw = document.getElementById('login-password');
+                        var btn = document.getElementById('login-btn');
+                        if (pw && btn) { pw.value = $quotedPassword; btn.click(); }
+                    })();
+                    """.trimIndent(),
+                    null,
+                )
+            }
         }
         webView.loadUrl(SERVER_URL)
+    }
+
+    /**
+     * Debug builds (what CI builds and what `gradle installDebug` gives a
+     * developer) use a fixed password for reproducibility. Release builds —
+     * the APKs actually meant for sideloading onto other people's phones —
+     * generate a random one on first launch and persist it, so no two
+     * installs of the distributed app share a credential.
+     */
+    private fun getOrCreatePassword(): String {
+        if (BuildConfig.DEBUG) {
+            return DEBUG_PASSWORD
+        }
+        val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        prefs.getString(PREFS_PASSWORD_KEY, null)?.let { return it }
+        val bytes = ByteArray(18)
+        SecureRandom().nextBytes(bytes)
+        val generated = bytes.joinToString("") { "%02x".format(it) }
+        prefs.edit().putString(PREFS_PASSWORD_KEY, generated).apply()
+        return generated
     }
 
     private fun startPythonServer() {
@@ -85,7 +135,7 @@ class MainActivity : AppCompatActivity() {
                     .resolve("classydl-downloads").absolutePath
                 Python.getInstance()
                     .getModule("video_downloader.android_entry")
-                    .callAttr("start", dataDir, outputDir, PASSWORD, PORT, resolveFfmpegBinary())
+                    .callAttr("start", dataDir, outputDir, password, PORT, resolveFfmpegBinary())
             } catch (e: Throwable) {
                 Log.e(TAG, "Server thread crashed", e)
             }

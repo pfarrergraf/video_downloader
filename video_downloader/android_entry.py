@@ -34,7 +34,15 @@ from .queue_store import QueueStore
 from .web.server import run_server
 
 _PUBLISH_MARKER_SUFFIX = ".mediastore-published"
-_PUBLISH_POLL_SECONDS = 3.0
+# Kept short: each poll is just a cheap local sqlite query (store.list_jobs),
+# and a long interval here directly shows up as a delay between "download
+# completed" and "file visible in the stock Files app" from the user's
+# perspective — worth optimizing for responsiveness over marginal battery
+# cost. Also narrows the race a test observed: CI's download_pipeline_test.sh
+# checked the MediaStore Downloads collection ~1.6s after job completion,
+# which used to be well inside the previous 3s gap and could report a false
+# "not found" even though nothing was actually broken.
+_PUBLISH_POLL_SECONDS = 1.0
 
 
 def _already_published(path: Path) -> bool:

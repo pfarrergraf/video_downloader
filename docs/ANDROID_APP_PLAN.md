@@ -198,11 +198,15 @@ because they cover different Android versions/failure modes:
   want downloads to land somewhere other than the default Downloads folder.
 - **Done when:** a completed download is visible from the stock Android Files
   app. ✅ Done — confirmed via `download_pipeline_test.sh` passing in CI run
-  #15. (The MediaStore Downloads-collection publish itself is still
-  unconfirmed by the test — its check is explicitly non-fatal/best-effort and
-  didn't find the file in that run; the external-files-dir copy, which is what
-  the "done when" bar requires, is confirmed. Worth revisiting 3b's publish
-  logic if that persists.)
+  #15. (The MediaStore Downloads-collection publish itself went unconfirmed in
+  that specific run — its check is explicitly non-fatal/best-effort and didn't
+  find the file — but this was very likely just a timing race, not a real
+  publish failure: the check ran ~1.6s after job completion while the
+  publisher only polled every 3s, so it could easily have checked before the
+  publisher's next cycle ran. Fixed by shrinking
+  `android_entry._PUBLISH_POLL_SECONDS` to 1.0 and having the CI check retry
+  for up to 10s instead of a single shot, so a future run will show a real
+  publish failure if there is one instead of a false negative.)
 
 **Critical fix found by Phase 3's own CI test:** the first real, non-mocked
 download attempt on Android (via `download_pipeline_test.sh`) failed even
@@ -226,13 +230,64 @@ same directory-diff fallback (`_find_new_files`) for its primary file
 detection in some cases anyway.
 
 ### Phase 4 — Release pipeline
-- Generate a signing keystore once (self-signed is fine for sideloading), store as a
-  GitHub Actions secret.
-- `android-build.yml` gains a release job: on a version tag, run
-  `assembleRelease`, sign, attach the APK to a GitHub Release.
-- Distribution becomes: `git tag vX.Y.Z && git push --tags` → CI produces a signed
-  APK on the repo's Releases page → anyone downloads and installs it directly.
-- **Done when:** a tagged release produces a working signed APK download link.
+
+**Status: implemented, needs a one-time secret setup before it can run for
+real.** A release keystore was generated (`keytool -genkeypair`, RSA 4096,
+10000-day validity, PKCS12) and delivered directly to you off-repo (never
+committed — a signing key is a permanent secret; anyone with it can publish
+updates that Android will accept as "the same app" as yours) — see the chat
+message it was sent in for the file and passwords.
+
+**One-time setup required before the release workflow can produce a signed
+APK** — add these four repository secrets (Settings → Secrets and variables →
+Actions → New repository secret) in `pfarrergraf/video_downloader`:
+- `ANDROID_KEYSTORE_BASE64` — the base64-encoded keystore file contents
+- `ANDROID_KEYSTORE_PASSWORD`
+- `ANDROID_KEY_ALIAS` — `classydl`
+- `ANDROID_KEY_PASSWORD` (same as the keystore password for this PKCS12
+  keystore — `keytool` doesn't support separate store/key passwords for that
+  format)
+
+**⚠️ Back up the keystore file itself somewhere safe (password manager,
+offline storage) independent of these GitHub secrets.** If it's ever lost,
+there is no way to publish an update that replaces the existing app on
+someone's phone with the same signing identity — they'd have to uninstall
+the old one and install a new one from scratch under a new signature.
+
+Once those secrets exist:
+- `.github/workflows/android-release.yml` (a separate workflow from
+  `android-build.yml` — see the file's header comment for why: a `push.tags`
+  trigger combined with a `paths` filter would AND them together and could
+  skip a release whose tag commit doesn't touch those specific paths, which
+  defeats the point of "tag it to release it") triggers on any tag matching
+  `v*.*.*`.
+- It cross-compiles ffmpeg for `arm64-v8a` only (release ships one ABI, see
+  below), builds via `gradle :app:assembleRelease -PabiFilters=arm64-v8a`
+  with the four secrets as env vars, and attaches
+  `DownloadThat-<tag>.apk` to an auto-created GitHub Release via
+  `softprops/action-gh-release`.
+- A "verify signing secrets are configured" step fails the build early with a
+  clear error if the secrets are missing, instead of silently publishing an
+  unsigned (uninstallable) APK.
+- `app/build.gradle`'s `signingConfigs.release` reads the four env vars
+  (`System.getenv(...)`) and decodes the keystore into `$buildDir` at
+  configure time; if unset (e.g. a contributor running `gradle
+  assembleRelease` locally without the secrets), the release build type is
+  simply left unsigned — same as plain AGP's default, no new failure mode.
+- `-PabiFilters=arm64-v8a` narrows `ndk.abiFilters` for that one build
+  invocation via a Gradle project property (`app/build.gradle`'s
+  `abiFilterList`, defaulting to `arm64-v8a,x86_64` when the property isn't
+  passed) — the debug/CI-emulator build stays on both ABIs unchanged, only
+  the release build drops `x86_64` (which only ever existed so the debug APK
+  could run on CI/desktop emulators, not for real phones).
+- Distribution becomes: `git tag vX.Y.Z && git push origin vX.Y.Z` → CI
+  produces a signed APK on the repo's Releases page → anyone downloads and
+  installs it directly (with Android's standard "unrecognized developer"
+  warning for a non-Play-Store APK, expected and harmless).
+- **Done when:** a tagged release produces a working signed, installable APK
+  download link. Pending: the one-time secrets setup above, then pushing a
+  real tag to confirm the workflow end-to-end (not yet done — needs the repo
+  owner to add the secrets first).
 
 ### Phase 5 (optional) — F-Droid
 - Submit to F-Droid once the app is stable — gives auto-updates and organic discovery
@@ -242,12 +297,25 @@ detection in some cases anyway.
 
 ## Known risks / things that will probably need a fix-it round
 
+- **Resolved — hardcoded password:** `MainActivity.kt` used to hardcode
+  `PASSWORD = "classydl"` for every install (a Phase 1 scaffold shortcut,
+  flagged as a TODO ever since). Fixed: debug builds (CI, local `gradle
+  installDebug`) still use that fixed value on purpose, so existing tests and
+  dev workflows keep working unchanged; release builds now generate a random
+  per-install password on first launch via `SecureRandom`, persisted in
+  `SharedPreferences`, and log in automatically by injecting it into the
+  login form via `WebView.evaluateJavascript` on `onPageFinished` — the user
+  never sees or types a password, but no two sideloaded installs share one.
+  Distinguished via the generated `BuildConfig.DEBUG` flag (needed
+  `buildFeatures { buildConfig true }`, off by default since AGP 8).
 - **Android exec restrictions**: newer Android versions (10+) restrict executing
   arbitrary files from writable storage; the `jniLibs` trick in Phase 2 is the
   standard workaround but needs verifying on-device.
-- **APK size**: bundling ffmpeg per-ABI adds tens of MB; may want to ship only
-  `arm64-v8a` initially (covers the vast majority of phones from the last ~6 years)
-  and add `armeabi-v7a` only if someone actually needs it.
+- **Resolved — APK size**: the release build (Phase 4) now passes
+  `-PabiFilters=arm64-v8a` to drop the `x86_64` slice that only existed for
+  CI/desktop emulator testing — the distributed APK ships `arm64-v8a` only,
+  covering the vast majority of real phones from the last ~6 years.
+  `armeabi-v7a` can be added later if someone actually needs it.
 - **Google Play Protect** will likely show an "unrecognized app" warning on install
   since it's unsigned by a known publisher — expected for any sideloaded APK, not a
   bug, but worth telling recipients in advance so they're not alarmed.
@@ -259,12 +327,16 @@ detection in some cases anyway.
 ## Next step
 
 Phases 1–3 are done and confirmed green in CI (run #15, including a real
-end-to-end download landing on-device). Next up is Phase 4: the release
-pipeline (signing keystore, tagged-release CI job producing a signed APK on
-GitHub Releases).
+end-to-end download landing on-device). Phase 4's code (signing config,
+release workflow, per-install password, arm64-only release ABI) is now
+implemented but **blocked on a one-time manual step**: add the four
+`ANDROID_KEYSTORE_*`/`ANDROID_KEY_*` secrets to the GitHub repo (see Phase 4
+above for exact names — the keystore itself was generated and sent to you
+directly, not committed). Once those secrets exist, push a tag
+(`git tag v0.1.0 && git push origin v0.1.0`) to trigger the first real signed
+release build and confirm it end-to-end.
 
-In the meantime, the current debug APK from CI run #15 can already be downloaded
-and sideloaded onto a real phone to try the full scraping/queue/download UI
-end-to-end (including ffmpeg-dependent audio formats): see the workflow run's
-Artifacts section at
-https://github.com/pfarrergraf/video_downloader/actions/runs/28519642270
+In the meantime, the current debug APK can already be downloaded and
+sideloaded onto a real phone to try the full scraping/queue/download UI
+end-to-end (including ffmpeg-dependent audio formats): see the latest
+`android-build.yml` run's Artifacts section on the repo's Actions tab.

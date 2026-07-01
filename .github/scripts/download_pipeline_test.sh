@@ -116,10 +116,24 @@ fi
 echo "Confirmed on-device file: $DEVICE_PATH ($SIZE bytes)"
 
 echo "Checking MediaStore Downloads collection (best-effort, non-fatal)..."
-if adb shell content query --uri content://media/external/downloads --projection _display_name 2>/dev/null | grep -q "$FILENAME"; then
+# The publisher thread polls every ~1s (android_entry._PUBLISH_POLL_SECONDS), so
+# give it a few cycles' worth of headroom instead of checking once immediately
+# after the job completes — a single-shot check here previously reported a
+# false "not found" purely from being faster than the publisher's next poll,
+# not from an actual publish failure.
+MEDIASTORE_FOUND=""
+for i in $(seq 1 10); do
+  if adb shell content query --uri content://media/external/downloads --projection _display_name 2>/dev/null | grep -q "$FILENAME"; then
+    MEDIASTORE_FOUND="1"
+    break
+  fi
+  sleep 1
+done
+if [ -n "$MEDIASTORE_FOUND" ]; then
   echo "Confirmed: file also published to MediaStore Downloads."
 else
-  echo "NOTE: file not found in MediaStore Downloads query (non-fatal) — check android_entry publish logic if this persists." >&2
+  echo "NOTE: file not found in MediaStore Downloads query after 10s (non-fatal) — dumping publisher-related logcat for diagnosis:" >&2
+  adb logcat -d -s python.stdout python.stderr ClassyDL 2>/dev/null | tail -n 100 || true
 fi
 
 echo "Download pipeline smoke test passed."

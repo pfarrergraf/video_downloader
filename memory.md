@@ -3,6 +3,59 @@
 A running log of decisions and incidents worth remembering, in case future work
 (by Claude or a human) needs the "why," not just the "what." Newest entries on top.
 
+## 2026-07-01 — Phase 4 (signed release) + password hardening + a false-alarm MediaStore gap
+
+Three things done together after Phase 3 went green, all under "make everything
+ready" for real distribution:
+
+**1. Hardcoded password removed.** `MainActivity.kt` had hardcoded
+`PASSWORD = "classydl"` since Phase 1 (flagged as a TODO the whole time). Fixed
+by branching on the generated `BuildConfig.DEBUG` flag: debug builds (what CI
+and local `gradle installDebug` produce) keep the fixed password so existing
+tests/scripts need no changes; release builds generate a random per-install
+password via `SecureRandom`, persist it in `SharedPreferences`, and the app logs
+itself in automatically (`WebView.evaluateJavascript` on `onPageFinished`,
+filling `#login-password` and clicking `#login-btn`) so the end user never sees
+or types it. `BuildConfig` had to be explicitly re-enabled via
+`buildFeatures { buildConfig true }` — AGP 8 turns it off by default.
+
+**2. Phase 4 release pipeline.** Generated a real signing keystore
+(`keytool -genkeypair`, RSA 4096, PKCS12, 10000-day validity) and delivered it
+directly to the user (never committed to the repo — it's a permanent secret;
+losing it means all future updates need a new signature and users must
+uninstall/reinstall). Added `.github/workflows/android-release.yml`, a
+*separate* workflow from `android-build.yml` triggered on `push.tags:
+v*.*.*` — deliberately not folded into the existing paths-filtered `push`
+trigger, since combining `tags` and `paths` filters on one `push` block ANDs
+them, which could silently skip a release whose tag commit doesn't happen to
+touch `android/**`/`video_downloader/**`. The release job cross-compiles
+ffmpeg for `arm64-v8a` only, builds via `gradle :app:assembleRelease
+-PabiFilters=arm64-v8a` (a new Gradle property in `app/build.gradle` that
+narrows `ndk.abiFilters` for just that invocation, leaving the debug/CI build
+on both ABIs), signs using four secrets
+(`ANDROID_KEYSTORE_BASE64`/`_PASSWORD`, `ANDROID_KEY_ALIAS`/`_PASSWORD`) that
+still need to be added to the repo manually — nothing in the available
+tooling can write GitHub Actions secrets programmatically. An explicit
+"verify signing secrets are configured" step fails loudly if they're missing,
+rather than silently shipping an unsigned/uninstallable APK.
+
+**3. MediaStore "not found" was a race, not a bug.** CI run #15's Phase 3 test
+reported the downloaded file wasn't in the MediaStore Downloads collection
+(non-fatal check). Investigated by working out the timeline instead of
+guessing: the check ran ~1.6s after job completion, and
+`android_entry._run_downloads_publisher` only polled every 3s — the test could
+easily have checked before the publisher's next cycle ran, for a completely
+innocent reason. No exception was ever logged for the publish path. Fixed by
+shrinking the poll interval to 1s (cheap — it's just a local sqlite query) and
+making the CI check retry for up to 10s with a real logcat dump on a genuine
+miss, so a *future* failure would actually mean something instead of being
+another false alarm.
+
+**Standing lesson:** before treating a non-fatal CI warning as "a bug to fix
+in the publish/network logic," check whether it's explainable by timing/races
+in the *test* first — reduces the chance of chasing a phantom bug in code
+that was actually working.
+
 ## 2026-07-01 — CI download test's 403 was Wikimedia blocking the runner, not Android
 
 After the in-process yt-dlp rewrite (below) shipped, `download_pipeline_test.sh`
