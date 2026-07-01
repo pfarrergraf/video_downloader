@@ -32,6 +32,17 @@ class MainActivity : AppCompatActivity() {
         // sideloaded onto other people's phones) always get a random
         // per-install password instead — see getOrCreatePassword().
         private const val DEBUG_PASSWORD = "classydl"
+
+        // TODO: replace with the real deployed Worker URL once
+        // pro/worker is deployed (see pro/README.md) — until then this is
+        // an unreachable placeholder, which is safe: android_entry.py's
+        // LicenseManager fails closed (free-tier) on any network error, it
+        // never grants Pro just because the license server is unreachable.
+        // Only wired up for release builds (see resolveLicenseApiBase()) so
+        // CI's debug-build download_pipeline_test.sh — which never sets a
+        // license key — keeps exercising the always-unrestricted path it
+        // was written against, unaffected by free-tier limits.
+        private const val LICENSE_API_BASE = "https://downloadthat-license-server.YOUR-SUBDOMAIN.workers.dev"
     }
 
     private var loadRetries = 0
@@ -117,6 +128,9 @@ class MainActivity : AppCompatActivity() {
         return generated
     }
 
+    /** Empty string means "licensing off" to android_entry.start() — see its docstring. */
+    private fun resolveLicenseApiBase(): String = if (BuildConfig.DEBUG) "" else LICENSE_API_BASE
+
     private fun startPythonServer() {
         if (!Python.isStarted()) {
             Python.start(AndroidPlatform(this))
@@ -135,7 +149,7 @@ class MainActivity : AppCompatActivity() {
                     .resolve("classydl-downloads").absolutePath
                 Python.getInstance()
                     .getModule("video_downloader.android_entry")
-                    .callAttr("start", dataDir, outputDir, password, PORT, resolveFfmpegBinary())
+                    .callAttr("start", dataDir, outputDir, password, PORT, resolveFfmpegBinary(), resolveLicenseApiBase())
             } catch (e: Throwable) {
                 Log.e(TAG, "Server thread crashed", e)
             }

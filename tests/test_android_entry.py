@@ -8,7 +8,7 @@ from video_downloader import android_entry
 def test_start_wires_store_and_output_dir(tmp_path: Path, monkeypatch) -> None:
     captured = {}
 
-    def fake_run_server(*, store, output_dir, password, host, port, workers, ffmpeg_binary):
+    def fake_run_server(*, store, output_dir, password, host, port, workers, ffmpeg_binary, license_manager):
         captured["store"] = store
         captured["output_dir"] = output_dir
         captured["password"] = password
@@ -16,6 +16,7 @@ def test_start_wires_store_and_output_dir(tmp_path: Path, monkeypatch) -> None:
         captured["port"] = port
         captured["workers"] = workers
         captured["ffmpeg_binary"] = ffmpeg_binary
+        captured["license_manager"] = license_manager
 
     monkeypatch.setattr(android_entry, "run_server", fake_run_server)
 
@@ -29,6 +30,26 @@ def test_start_wires_store_and_output_dir(tmp_path: Path, monkeypatch) -> None:
     assert captured["host"] == "127.0.0.1"
     assert captured["port"] == 8420
     assert captured["ffmpeg_binary"] == "/opt/bin/ffmpeg"
+    assert captured["license_manager"] is None  # no license_api_base passed -> licensing off
+
+
+def test_start_wires_license_manager_when_api_base_given(tmp_path: Path, monkeypatch) -> None:
+    captured = {}
+
+    def fake_run_server(*, license_manager, **_ignored):
+        captured["license_manager"] = license_manager
+
+    monkeypatch.setattr(android_entry, "run_server", fake_run_server)
+
+    data_dir = tmp_path / "data"
+    output_dir = tmp_path / "downloads"
+    android_entry.start(
+        str(data_dir), str(output_dir), "secret", 8420, "ffmpeg", "https://license.example.com"
+    )
+
+    manager = captured["license_manager"]
+    assert manager is not None
+    assert manager.status().valid is False
 
 
 def test_publish_to_downloads_is_a_noop_without_the_java_bridge(tmp_path: Path) -> None:

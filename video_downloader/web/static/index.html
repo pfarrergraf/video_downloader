@@ -236,6 +236,15 @@
     <p>Medien von jeder Seite herunterladen, von jedem Gerät aus</p>
   </header>
   <main>
+    <div class="card hidden" id="license-card">
+      <h2>Lizenz</h2>
+      <p class="muted" id="license-status">—</p>
+      <div class="row">
+        <input type="text" id="license-key-input" placeholder="DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
+        <button class="secondary" id="license-save-btn">Speichern</button>
+      </div>
+    </div>
+
     <div class="card">
       <h2>Seite durchsuchen</h2>
       <label for="scrape-url">Seiten-URL</label>
@@ -338,8 +347,42 @@ async function checkAuth() {
 function setAuthed(authed) {
   $('login-overlay').classList.toggle('hidden', authed);
   $('app').classList.toggle('hidden', !authed);
-  if (authed) { refreshQueue(); }
+  if (authed) { refreshQueue(); refreshLicense(); }
 }
+
+async function refreshLicense() {
+  try {
+    const status = await api('/api/license');
+    if (!status.configured) {
+      // Termux/desktop: licensing isn't enforced there, so there's nothing
+      // to show — the card stays hidden (its default state).
+      return;
+    }
+    $('license-card').classList.remove('hidden');
+    if (status.valid) {
+      $('license-status').textContent = `Pro aktiv (${status.tier || 'unbekannt'}). Danke für deine Unterstützung!`;
+    } else if (status.has_key) {
+      $('license-status').textContent = 'Kostenlos — der hinterlegte Schlüssel ist ungültig oder abgelaufen.';
+    } else {
+      $('license-status').textContent = 'Kostenlos — Downloads sind auf 720p und eins gleichzeitig begrenzt.';
+    }
+  } catch (e) {
+    // Not authenticated yet, or a transient error — just leave the card hidden.
+  }
+}
+
+$('license-save-btn').addEventListener('click', async () => {
+  const key = $('license-key-input').value.trim();
+  if (!key) return toast('Erst einen Lizenzschlüssel eingeben.');
+  try {
+    await api('/api/license', { method: 'POST', body: { key } });
+    $('license-key-input').value = '';
+    toast('Lizenz aktiviert.');
+    refreshLicense();
+  } catch (e) {
+    toast(e.message || 'Lizenzschlüssel ungültig.');
+  }
+});
 
 $('login-btn').addEventListener('click', async () => {
   const password = $('login-password').value;

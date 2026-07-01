@@ -23,7 +23,8 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, unquote, urlsplit
 
-from ..models import JOB_STATUS_COMPLETED, DownloadProfile, JobRecord
+from ..licensing import FREE_FORMAT_SELECTOR, FREE_PROFILE_NAME, LicenseManager
+from ..models import JOB_STATUS_COMPLETED, JOB_STATUS_IN_PROGRESS, JOB_STATUS_PENDING, DownloadProfile, JobRecord
 from ..queue_runner import QueueRunner
 from ..queue_store import QueueStore
 from ..scraper import SiteScraper
@@ -95,14 +96,24 @@ class BackgroundQueueWorker:
                 self._stop.wait(2.0)
 
 
-def _resolve_profile(store: QueueStore, audio_only: bool) -> DownloadProfile:
-    if not audio_only:
+def _resolve_profile(store: QueueStore, audio_only: bool, is_pro: bool) -> DownloadProfile:
+    if audio_only:
+        existing = store.get_profile_by_name(AUDIO_PROFILE_NAME)
+        if existing is not None:
+            return existing
+        return store.create_profile(
+            DownloadProfile(id=None, name=AUDIO_PROFILE_NAME, format_selector="ba/b", audio_only=True)
+        )
+    if is_pro:
         return store.ensure_default_profile()
-    existing = store.get_profile_by_name(AUDIO_PROFILE_NAME)
+    # Free tier on the distributed Android app: cap resolution rather than
+    # touching the "default" profile every other platform (Termux/desktop/
+    # CLI, which never sets a license_manager and is always is_pro=True) uses.
+    existing = store.get_profile_by_name(FREE_PROFILE_NAME)
     if existing is not None:
         return existing
     return store.create_profile(
-        DownloadProfile(id=None, name=AUDIO_PROFILE_NAME, format_selector="ba/b", audio_only=True)
+        DownloadProfile(id=None, name=FREE_PROFILE_NAME, format_selector=FREE_FORMAT_SELECTOR)
     )
 
 
@@ -143,12 +154,14 @@ class ClassyDLServer(ThreadingHTTPServer):
         password: str,
         workers: int,
         ffmpeg_binary: str = "ffmpeg",
+        license_manager: LicenseManager | None = None,
     ) -> None:
         super().__init__(address, ClassyDLRequestHandler)
         self.store = store
         self.output_dir = output_dir
         self.password = password
         self.ffmpeg_binary = ffmpeg_binary
+        self.license_manager = license_manager
         self.sessions = SessionStore()
         self.worker = BackgroundQueueWorker(store=store, output_dir=output_dir, workers=workers)
 
@@ -250,6 +263,19 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
         if path == "/api/me":
             self._send_json(200, {"authenticated": self._authed()})
             return
+        if path == "/api/license":
+            if not self._require_auth():
+                return
+            manager = self.server.license_manager
+            if manager is None:
+                self._send_json(200, {"configured": False})
+                return
+            state = manager.status()
+            self._send_json(
+                200,
+                {"configured": True, "valid": state.valid, "tier": state.tier, "has_key": bool(state.key)},
+            )
+            return
         if path == "/api/queue":
             if not self._require_auth():
                 return
@@ -293,6 +319,25 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
         if path == "/api/logout":
             self.server.sessions.revoke(self._session_token())
             self._send_json(200, {"authenticated": False}, delete_cookie=True)
+            return
+
+        if path == "/api/license":
+            if not self._require_auth():
+                return
+            manager = self.server.license_manager
+            if manager is None:
+                self._send_json(400, {"detail": "Licensing is not enabled on this platform."})
+                return
+            body = self._read_json()
+            key = str(body.get("key", "")).strip()
+            if not key:
+                self._send_json(400, {"detail": "key is required"})
+                return
+            state = manager.set_key(key)
+            if not state.valid:
+                self._send_json(400, {"detail": "This license key is not valid or has expired."})
+                return
+            self._send_json(200, {"valid": True, "tier": state.tier})
             return
 
         if path == "/api/scrape":
@@ -346,7 +391,23 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 self._send_json(400, {"detail": "source is required"})
                 return
 
-            profile = _resolve_profile(self.server.store, bool(body.get("audio_only", False)))
+            manager = self.server.license_manager
+            is_pro = manager is None or manager.is_pro()
+            if not is_pro:
+                busy = self.server.store.list_jobs(status=JOB_STATUS_PENDING, limit=1) or self.server.store.list_jobs(
+                    status=JOB_STATUS_IN_PROGRESS, limit=1
+                )
+                if busy:
+                    self._send_json(
+                        402,
+                        {
+                            "detail": "Free tier allows one download at a time. "
+                            "Upgrade to Pro for unlimited/batch downloads."
+                        },
+                    )
+                    return
+
+            profile = _resolve_profile(self.server.store, bool(body.get("audio_only", False)), is_pro)
             job_id = self.server.store.add_job(
                 source=source,
                 profile_id=profile.id,
@@ -379,6 +440,7 @@ def create_server(
     port: int = 8420,
     workers: int = 3,
     ffmpeg_binary: str = "ffmpeg",
+    license_manager: LicenseManager | None = None,
 ) -> ClassyDLServer:
     if not password:
         raise ValueError(
@@ -392,6 +454,7 @@ def create_server(
         password=password,
         workers=workers,
         ffmpeg_binary=ffmpeg_binary,
+        license_manager=license_manager,
     )
 
 
@@ -404,6 +467,7 @@ def run_server(
     port: int = 8420,
     workers: int = 3,
     ffmpeg_binary: str = "ffmpeg",
+    license_manager: LicenseManager | None = None,
 ) -> None:
     server = create_server(
         store=store,
@@ -413,6 +477,7 @@ def run_server(
         port=port,
         workers=workers,
         ffmpeg_binary=ffmpeg_binary,
+        license_manager=license_manager,
     )
     server.start_background_worker()
     try:

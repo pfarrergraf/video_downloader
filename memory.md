@@ -3,6 +3,55 @@
 A running log of decisions and incidents worth remembering, in case future work
 (by Claude or a human) needs the "why," not just the "what." Newest entries on top.
 
+## 2026-07-01 — Monetization: Stripe + Cloudflare backend, license gating, repo split reversed
+
+Decided to sell the Android app (free core + Pro tier: €1/mo, €5/yr, €12 lifetime),
+inspired by a competitor screenshot. Two session-scope limits shaped how this went:
+
+**This remote session's GitHub access is scoped to just `video_downloader`** —
+`create_repository` fails with a 403 regardless of what's asked of it, even from a
+different chat turn. Initially planned a separate private `downloadthat-pro` repo (to
+protect license-gating code even after this repo went proprietary-licensed) and hit that
+403. The user then explicitly said not to bother with a second repo — moved the
+Cloudflare Worker + marketing website into this repo under `pro/` instead, excluded from
+the Android app's Chaquopy source set (`build.gradle`'s `exclude "pro/**"`).
+**Lesson: a repo-creation 403 in one message means it's a structural session
+constraint, not a fluke — retrying identically (even via a full context dump prompt)
+reproduces the same 403. Confirmed this by literally re-attempting before explaining it
+to the user, rather than assuming.**
+
+**This session's Cloudflare MCP connection can manage D1/KV/R2/Hyperdrive but has no
+Worker-deploy or DNS tool** — confirmed by search, not assumption. Could create the D1
+database and schema directly, but the actual `wrangler deploy` and DNS/custom-domain
+setup had to be handed to the user as exact copy-paste commands (`pro/README.md`)
+instead of being run end-to-end. Stripe, by contrast, has a generic `stripe_api_write`
+passthrough — created the actual Product/Prices/Payment Links for real (in the connected
+account's **sandbox/test mode** — confirmed via `get_stripe_account_info` before doing
+anything, since accidentally creating live, real-money products would have been a much
+worse mistake to walk back).
+
+**License-gating design**, once "just implement it" was the instruction:
+- `video_downloader/licensing.py`: a `LicenseManager` that calls the (not-yet-deployed)
+  Worker's `/api/validate`, caches results for 6h, and keeps trusting a last-known-good
+  "valid" result for up to 7 days offline before falling back to free — fails closed on
+  any network error, never open.
+- Gating lives in `web/server.py` (a `web-free` profile capping resolution at 720p, plus
+  a one-job-at-a-time concurrency cap in `/api/queue`) but is **entirely opt-in**: no
+  `license_manager` configured (the default) means unconditionally Pro. This is what
+  keeps Termux/desktop/CLI/tests exactly as free as they've always been — only Android
+  release builds pass a real `license_api_base` into `android_entry.start(...)`; debug
+  builds (what CI installs) pass an empty string on purpose, so
+  `download_pipeline_test.sh` keeps testing the same always-unrestricted path it always
+  has, with zero risk of the resolution cap breaking that test's direct-file download.
+- Verified the actual UI (license card show/hide, invalid-key toast, free-tier status
+  copy) with a local server + Playwright screenshots before committing, not just unit
+  tests — this project's established habit for anything UI-facing.
+
+**Standing lesson:** when a tool call fails with what looks like a permissions error,
+verify whether it's session-scoped (won't change no matter what's asked) versus
+genuinely fixable, and say so plainly instead of leaving the user to assume a retry from
+their end would work differently.
+
 ## 2026-07-01 — Open follow-up: intermittent duplicate server start on Android
 
 CI run #17 (after the `jint()` MediaStore fix landed) confirmed the

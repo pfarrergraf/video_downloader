@@ -314,6 +314,56 @@ Once those secrets exist:
   be fully reproducible from source (F-Droid builds it themselves from the tag), which
   Phase 1–4 already sets up.
 
+### Phase 6 — Monetization (free/Pro tiers)
+
+**Status: implemented, blocked on deploying the license server.** The project's license
+changed from MIT to proprietary (all-rights-reserved) as part of this — see `LICENSE`.
+
+- **Stripe** (currently a sandbox/test-mode account "Gaistreich sandbox"): a "DownloadThat
+  Pro" product with 3 prices/Payment Links — €1/month, €5/year, €12 one-time lifetime.
+- **`pro/`** (in this repo, excluded from the Android app's Chaquopy source set via
+  `build.gradle`'s `exclude "pro/**"` since it's a separate JS/HTML deployment, not part
+  of the Python package):
+  - `pro/worker/` — a Cloudflare Worker that verifies Stripe webhooks (via Web Crypto
+    HMAC, no SDK/`nodejs_compat` needed), issues license keys into a Cloudflare D1
+    database (`downloadthat-licenses`, already created) on `checkout.session.completed`,
+    keeps them in sync on subscription renewal/cancellation, and exposes
+    `GET /api/validate?key=...` for the app to check.
+  - `pro/website/` — a marketing landing page (pricing tiers linking to the real Payment
+    Links) and a `success.html` that shows the buyer their license key right after
+    checkout (polls the Worker by Stripe checkout session ID — no email service needed).
+  - `pro/README.md` — exact deploy commands (`wrangler deploy`, secrets, Stripe webhook
+    setup, optional `geistreich.com` subdomain routing). **Not yet deployed** — this
+    needs to happen from a session with real `wrangler`/Cloudflare account access, which
+    this sandboxed session's Cloudflare MCP connection doesn't have (it can manage
+    D1/KV/R2 but has no Worker-deploy or DNS tool).
+- **App-side gating** (`video_downloader/licensing.py`, wired into `web/server.py` and
+  `android_entry.py`):
+  - Free tier (no key, or an invalid/expired one): video capped at 720p via a dedicated
+    `web-free` profile, and only one download can be queued/running at a time (`402`
+    from `/api/queue` if another is already pending/in-progress).
+  - Pro tier (valid key): unrestricted resolution (the existing `default` profile,
+    unchanged), unlimited concurrent/batch downloads.
+  - Entirely opt-in: `LicenseManager` is only constructed when a `license_api_base` is
+    passed to `android_entry.start(...)` — Termux/desktop/CLI/tests never pass one, so
+    they're always treated as Pro and completely unaffected. Even on Android, only
+    **release** builds pass a real `LICENSE_API_BASE`; debug builds (what CI's
+    `download_pipeline_test.sh` installs) pass an empty string, keeping the established
+    CI path exercising exactly what it always has.
+  - Fails closed, not open: a network error talking to the license server is treated as
+    "not Pro" (never as "Pro just because we couldn't check") — see
+    `licensing.LicenseManager.refresh`'s offline-grace-then-expire logic.
+  - A small "Lizenz" card in `static/index.html` shows status and lets the user paste a
+    key; it hides itself entirely when `GET /api/license` reports `configured: false`
+    (Termux/desktop), so nothing changes for those platforms visually either.
+- **`MainActivity.kt`'s `LICENSE_API_BASE` is a placeholder** — an unreachable
+  `*.workers.dev` URL — until the Worker in `pro/worker/` is actually deployed and that
+  constant is updated to the real URL.
+- **Done when:** a real purchase on the deployed marketing site produces a key that
+  unlocks Pro in a real release APK. Pending: deploying `pro/worker/` (needs real
+  Cloudflare/Stripe dashboard access, see `pro/README.md`), then updating
+  `LICENSE_API_BASE`.
+
 ## Known risks / things that will probably need a fix-it round
 
 - **Resolved — hardcoded password:** `MainActivity.kt` used to hardcode

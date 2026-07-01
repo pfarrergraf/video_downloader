@@ -126,6 +126,9 @@ chaquopy {
             exclude "dist/**"
             exclude "build/**"
             exclude "bundled_bins/**"
+            // Cloudflare Worker + marketing website for the paid tier's backend —
+            // JS/HTML for a separate deployment, not part of the Python package.
+            exclude "pro/**"
         }
     }
 }

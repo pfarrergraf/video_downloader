@@ -29,6 +29,7 @@ import threading
 import traceback
 from pathlib import Path
 
+from .licensing import LicenseManager
 from .models import JOB_STATUS_COMPLETED
 from .queue_store import QueueStore
 from .web.server import run_server
@@ -139,6 +140,7 @@ def start(
     password: str,
     port: int,
     ffmpeg_binary: str = "ffmpeg",
+    license_api_base: str = "",
 ) -> None:
     store = QueueStore(Path(data_dir) / "state.db")
     store.init()
@@ -150,6 +152,13 @@ def start(
         name="classydl-downloads-publisher",
     ).start()
 
+    # Empty string (not None — Chaquopy's Kotlin->Python call is simpler with
+    # plain str args, see the module docstring) means licensing is off:
+    # Termux/desktop callers never pass this, and every request is free to
+    # use the full "default" profile — see licensing.py and web/server.py's
+    # _resolve_profile.
+    license_manager = LicenseManager(Path(data_dir) / "license.json", license_api_base) if license_api_base else None
+
     run_server(
         store=store,
         output_dir=Path(output_dir),
@@ -158,4 +167,5 @@ def start(
         port=port,
         workers=2,
         ffmpeg_binary=ffmpeg_binary,
+        license_manager=license_manager,
     )

@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from video_downloader.licensing import LicenseManager, LicenseState
 from video_downloader.queue_store import QueueStore
 from video_downloader.web.server import ClassyDLServer, create_server
 
@@ -109,6 +110,185 @@ def test_create_server_requires_password(tmp_path: Path) -> None:
     store.init()
     with pytest.raises(ValueError):
         create_server(store=store, output_dir=tmp_path / "downloads", password="")
+
+
+class _FakeLicenseManager:
+    """Interface-compatible stand-in for LicenseManager, no network involved."""
+
+    def __init__(self, *, valid: bool, tier: str | None = None, key: str | None = "DLT-EXISTING") -> None:
+        self._state = LicenseState(key=key, valid=valid, tier=tier)
+
+    def is_pro(self) -> bool:
+        return self._state.valid
+
+    def status(self) -> LicenseState:
+        return self._state
+
+    def set_key(self, key: str) -> LicenseState:
+        valid = key.startswith("GOOD")
+        self._state = LicenseState(key=key, valid=valid, tier="lifetime" if valid else None)
+        return self._state
+
+
+def _make_server(tmp_path: Path, *, license_manager=None) -> ClassyDLServer:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    srv = create_server(
+        store=store,
+        output_dir=tmp_path / "downloads",
+        password="crypt-keeper",
+        host="127.0.0.1",
+        port=0,
+        workers=1,
+        license_manager=license_manager,
+    )
+    thread = threading.Thread(target=srv.serve_forever, daemon=True)
+    thread.start()
+    return srv
+
+
+def _teardown(srv: ClassyDLServer) -> None:
+    srv.shutdown()
+    srv.stop_background_worker()
+    srv.server_close()
+
+
+def test_license_endpoint_reports_not_configured_without_a_manager(tmp_path: Path) -> None:
+    srv = _make_server(tmp_path)
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+        status, body, _ = _request(srv, "GET", "/api/license", cookie=cookie)
+        assert status == 200
+        assert body == {"configured": False}
+    finally:
+        _teardown(srv)
+
+
+def test_license_endpoint_reports_status_when_configured(tmp_path: Path) -> None:
+    srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=True, tier="yearly"))
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+        status, body, _ = _request(srv, "GET", "/api/license", cookie=cookie)
+        assert status == 200
+        assert body == {"configured": True, "valid": True, "tier": "yearly", "has_key": True}
+    finally:
+        _teardown(srv)
+
+
+def test_license_post_rejects_invalid_key(tmp_path: Path) -> None:
+    srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False, key=None))
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+        status, body, _ = _request(srv, "POST", "/api/license", {"key": "DLT-BADKEY"}, cookie=cookie)
+        assert status == 400
+    finally:
+        _teardown(srv)
+
+
+def test_license_post_accepts_valid_key(tmp_path: Path) -> None:
+    srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False, key=None))
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+        status, body, _ = _request(srv, "POST", "/api/license", {"key": "GOOD-KEY"}, cookie=cookie)
+        assert status == 200
+        assert body == {"valid": True, "tier": "lifetime"}
+    finally:
+        _teardown(srv)
+
+
+def test_free_tier_blocks_a_second_concurrent_download(tmp_path: Path) -> None:
+    srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False))
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+
+        status, _, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/1"}, cookie=cookie)
+        assert status == 200
+
+        status, body, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/2"}, cookie=cookie)
+        assert status == 402
+        assert "one download at a time" in body["detail"]
+    finally:
+        _teardown(srv)
+
+
+def test_free_tier_allows_a_new_job_once_the_first_is_cancelled(tmp_path: Path) -> None:
+    srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False))
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+
+        _, body, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/1"}, cookie=cookie)
+        first_job_id = body["job_id"]
+        _request(srv, "POST", f"/api/queue/{first_job_id}/cancel", cookie=cookie)
+
+        status, _, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/2"}, cookie=cookie)
+        assert status == 200
+    finally:
+        _teardown(srv)
+
+
+def test_free_tier_caps_resolution_via_a_dedicated_profile(tmp_path: Path) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    srv = create_server(
+        store=store,
+        output_dir=tmp_path / "downloads",
+        password="crypt-keeper",
+        host="127.0.0.1",
+        port=0,
+        workers=1,
+        license_manager=_FakeLicenseManager(valid=False),
+    )
+    thread = threading.Thread(target=srv.serve_forever, daemon=True)
+    thread.start()
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+        _, body, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/1"}, cookie=cookie)
+        job = store.get_job(body["job_id"])
+        assert job is not None
+        profile = store.get_profile_by_id(job.profile_id)
+        assert profile is not None
+        assert profile.name == "web-free"
+        assert "height<=720" in profile.format_selector
+    finally:
+        _teardown(srv)
+
+
+def test_pro_tier_uses_the_unrestricted_default_profile(tmp_path: Path) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    srv = create_server(
+        store=store,
+        output_dir=tmp_path / "downloads",
+        password="crypt-keeper",
+        host="127.0.0.1",
+        port=0,
+        workers=1,
+        license_manager=_FakeLicenseManager(valid=True, tier="lifetime"),
+    )
+    thread = threading.Thread(target=srv.serve_forever, daemon=True)
+    thread.start()
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+        _, body, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/1"}, cookie=cookie)
+        job = store.get_job(body["job_id"])
+        assert job is not None
+        profile = store.get_profile_by_id(job.profile_id)
+        assert profile is not None
+        assert profile.name == "default"
+
+        # Pro also isn't limited to one concurrent download.
+        status, _, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/2"}, cookie=cookie)
+        assert status == 200
+    finally:
+        _teardown(srv)
 
 
 def test_queued_jobs_use_the_servers_ffmpeg_binary(tmp_path: Path) -> None:

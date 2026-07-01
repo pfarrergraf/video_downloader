@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thanks — DownloadThat Pro</title>
+<style>
+  :root {
+    --bg: #0e0c14; --card: #1b1626; --border: #2c2438;
+    --text: #f1ede4; --text-dim: #a89fb3; --accent: #c9a869;
+  }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 480px; margin: 10vh auto; padding: 0 24px; text-align: center; }
+  h1 { font-size: 1.7rem; margin-bottom: 8px; }
+  p.lead { color: var(--text-dim); margin-bottom: 32px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; }
+  .key {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.15rem;
+    color: var(--accent); letter-spacing: 0.02em; word-break: break-all; margin: 14px 0;
+  }
+  .btn {
+    display: inline-block; margin-top: 14px; padding: 10px 20px; border-radius: 8px;
+    background: var(--accent); color: #14111c; font-weight: 600; cursor: pointer; border: none; font-size: 0.9rem;
+  }
+  .muted { color: var(--text-dim); font-size: 0.85rem; margin-top: 18px; }
+  .spinner { color: var(--text-dim); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Thanks for going Pro!</h1>
+  <p class="lead">Your license key is below — enter it in the app's settings screen.</p>
+  <div class="card" id="result">
+    <p class="spinner">Finalizing your purchase…</p>
+  </div>
+  <p class="muted">This page checks automatically for a few seconds after payment. If nothing appears, refresh this page or contact <a href="mailto:support@geistreich.com" style="color:var(--accent)">support@geistreich.com</a> with your payment confirmation.</p>
+</div>
+
+<script>
+  // Set this to the deployed Worker's URL (custom domain or *.workers.dev) —
+  // see downloadthat-pro/README.md for deploy steps.
+  const LICENSE_API_BASE = "https://downloadthat-license-server.YOUR-SUBDOMAIN.workers.dev";
+
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get("session_id");
+  const resultEl = document.getElementById("result");
+
+  function renderKey(licenseKey, tier) {
+    resultEl.innerHTML = `
+      <div>Tier: <strong>${tier}</strong></div>
+      <div class="key">${licenseKey}</div>
+      <button class="btn" onclick="navigator.clipboard.writeText('${licenseKey}')">Copy key</button>
+    `;
+  }
+
+  function renderError() {
+    resultEl.innerHTML = `<p>We couldn't find your license yet. Please refresh this page in a moment.</p>`;
+  }
+
+  async function poll() {
+    if (!sessionId) {
+      resultEl.innerHTML = `<p>Missing session — please use the link from your payment confirmation email.</p>`;
+      return;
+    }
+    for (let i = 0; i < 8; i++) {
+      try {
+        const res = await fetch(`${LICENSE_API_BASE}/api/license-for-session?session_id=${encodeURIComponent(sessionId)}`);
+        const data = await res.json();
+        if (data.found) {
+          renderKey(data.license_key, data.tier);
+          return;
+        }
+      } catch (err) {
+        // ignore and retry
+      }
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+    }
+    renderError();
+  }
+
+  poll();
+</script>
+</body>
+</html>
