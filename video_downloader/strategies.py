@@ -40,6 +40,7 @@ class YtDlpStrategy(Strategy):
     def download(self, request: DownloadRequest, source_url: str) -> DownloadResult:
         ensure_output_dir(request.output_dir)
         before_files = _snapshot_files(request.output_dir)
+        ffmpeg_available = shutil.which(request.ffmpeg_binary) is not None
 
         if request.output_template:
             template = request.output_template
@@ -65,7 +66,7 @@ class YtDlpStrategy(Strategy):
             "-o",
             template,
             "-f",
-            "ba/b" if request.audio_only else request.format_selector,
+            _audio_format_selector(ffmpeg_available) if request.audio_only else request.format_selector,
             "--print",
             "after_move:filepath",
             "--continue",
@@ -86,7 +87,9 @@ class YtDlpStrategy(Strategy):
             cmd.extend(["--add-header", f"{key}: {value}"])
         if request.cookies_from_browser:
             cmd.extend(["--cookies-from-browser", request.cookies_from_browser])
-        if request.audio_only:
+        if ffmpeg_available:
+            cmd.extend(["--ffmpeg-location", request.ffmpeg_binary])
+        if request.audio_only and ffmpeg_available:
             cmd.extend(["-x", "--audio-format", "mp3", "--audio-quality", "0"])
         if request.subtitle_langs:
             cmd.extend(["--write-subs", "--sub-langs", request.subtitle_langs])
@@ -244,6 +247,15 @@ class DirectDownloadStrategy(Strategy):
             source_url=source_url,
             downloaded_files=[output],
         )
+
+
+def _audio_format_selector(ffmpeg_available: bool) -> str:
+    if ffmpeg_available:
+        return "ba/b"
+    # Without ffmpeg, yt-dlp can't extract/remux audio out of a combined
+    # stream or re-encode it — only ever pick a format that's already
+    # audio-only, so the file it saves needs no further processing.
+    return "bestaudio"
 
 
 def _tail_lines(text: str, count: int) -> str:

@@ -92,15 +92,39 @@ platform-specific → fix → rebuild, until it's green.
   ✅ Done.
 
 ### Phase 2 — Bundle ffmpeg
-- Static `ffmpeg` binaries per ABI (`arm64-v8a`, `armeabi-v7a`) placed under
-  `android/app/src/main/jniLibs/<abi>/libffmpeg.so` (Android only allows executing
-  binaries shipped as `.so` under `jniLibs` post-scoped-storage — naming it as a
-  "library" is the standard workaround, not an actual shared library).
-- At startup, the app resolves the real path to the bundled binary and passes it to
-  `video_downloader`'s `ffmpeg_binary` request field (already a supported parameter —
-  see `DownloadRequest.ffmpeg_binary` in `models.py`), no core code changes needed.
-- **Done when:** an audio-only download that requires ffmpeg extraction succeeds
-  on-device.
+
+**Step 2a — pragmatic fallback: DONE.** `DownloadRequest.ffmpeg_binary` was never
+actually wired into the yt-dlp subprocess call (only the separate, rarely-used
+FFmpeg strategy checked it) — `strategies.YtDlpStrategy.download` now checks
+`shutil.which(request.ffmpeg_binary)` and:
+- if ffmpeg is available: unchanged behavior (`-f ba/b` + `-x --audio-format mp3`,
+  now also passing `--ffmpeg-location` explicitly instead of relying on yt-dlp's
+  own PATH search — needed for wherever Phase 2b's bundled binary ends up living),
+- if not: selects `-f bestaudio` and skips `-x`/`--audio-format` entirely, so
+  yt-dlp saves whatever audio-only container the source already provides
+  (m4a/opus/webm) with **no extraction or re-encoding**, which needs no ffmpeg at
+  all.
+
+This means audio downloads already work on the current Android APK today, just
+not always as a universally-converted MP3. Covered by
+`tests/test_strategies_audio_fallback.py`.
+
+**Step 2b — real ffmpeg build: not started.** Rejected embedding an unverified
+prebuilt ffmpeg-for-Android binary from a third-party source (supply-chain trust
+risk — no way to verify what's actually in an unaudited binary blob shipped inside
+the app). The trustworthy path is cross-compiling ffmpeg from source using the
+Android NDK, in CI, producing a binary placed under
+`android/app/src/main/jniLibs/<abi>/libffmpeg.so` (Android only allows executing
+files shipped as `.so` under `jniLibs` post-scoped-storage — naming it as a
+"library" is the standard workaround, not an actual shared library). Expect this
+to need several slow CI iterations (each full ffmpeg compile is minutes, not
+seconds, unlike the Gradle-only Phase 1 failures) since ffmpeg's cross-compilation
+configure flags are finicky to get right blind. Wiring the result in on the app
+side is just setting `ffmpeg_binary` to the resolved path before calling
+`android_entry.start(...)` — no further core code changes needed since Step 2a
+already made the yt-dlp call path ffmpeg-path-aware.
+- **Done when:** an audio-only download produces a converted MP3 on-device (not
+  just the pragmatic native-format fallback).
 
 ### Phase 3 — Storage
 - Scoped storage: write to the app's external files dir by default (always writable,
