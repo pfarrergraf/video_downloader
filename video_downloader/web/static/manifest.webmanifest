@@ -1,0 +1,12 @@
+{
+  "name": "ClassyDL",
+  "short_name": "ClassyDL",
+  "description": "Gothic browser UI for the ClassyDL downloader",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0710",
+  "theme_color": "#0b0710",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

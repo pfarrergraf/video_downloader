@@ -25,10 +25,18 @@ build = [
 ]
 dev = [
   "pytest>=8.3.0",
+  "httpx>=0.27.0",
+]
+web = [
+  "fastapi>=0.110.0",
+  "uvicorn[standard]>=0.29.0",
 ]
 
 [project.scripts]
 classydl = "video_downloader.cli:main"
 
 [tool.setuptools]
-packages = ["video_downloader"]
+packages = ["video_downloader", "video_downloader.web"]
+
+[tool.setuptools.package-data]
+"video_downloader.web" = ["static/*"]

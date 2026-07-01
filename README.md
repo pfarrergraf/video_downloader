@@ -166,6 +166,48 @@ TUI keys:
 - `y` retry selected failed/cancelled job
 - `[` / `]` raise/lower priority for selected pending/paused job
 
+## Web UI (Gothic, browser-based)
+
+A dark, gothic-themed page that runs entirely in the browser — open it from a phone,
+tablet, or any device with an internet connection, no app install required. The page
+itself is a thin client; the actual scraping/downloading/ffmpeg work happens on
+whatever machine runs `classydl web`.
+
+```bash
+uv sync --extra web
+CLASSYDL_WEB_PASSWORD="pick-something-strong" uv run classydl web --port 8420
+```
+
+Then open `http://<that-machine's-address>:8420` in a browser. On a phone, use
+"Add to Home Screen" from the browser menu to get an app-like icon — this avoids the
+packaging problems of a native app while still feeling like one.
+
+Options:
+
+| Flag / env var | Purpose |
+| ------ | --------- |
+| `--password` / `CLASSYDL_WEB_PASSWORD` | Required. Single shared password gating the whole site. |
+| `--host` | Bind address (default `0.0.0.0`) |
+| `--port` | Bind port (default `8420`) |
+| `--output` | Where finished downloads are written/served from |
+| `--workers` | Concurrent download workers |
+| `CLASSYDL_DATA_DIR` | Where the queue database/config/logs live (defaults to the platform-specific path; set this on Linux/Docker) |
+
+**Reachability from "any device with internet access"** requires the server to be on
+a network reachable from the internet — running it on your own PC alone only reaches
+devices on the same LAN. Options, in increasing order of effort:
+
+- **Your own PC + Tailscale/ngrok** — no hosting cost, gives a private URL reachable from your phone anywhere, without exposing the machine publicly.
+- **A small VPS (DigitalOcean/Hetzner/etc.) or a PaaS (Render/Fly.io/Railway)** — run the bundled `Dockerfile`, get a public HTTPS URL.
+
+```bash
+docker build -t classydl .
+docker run -p 8420:8420 -e CLASSYDL_WEB_PASSWORD=pick-something-strong -v classydl-data:/data classydl
+```
+
+⚠️ This proxies downloads from arbitrary URLs — always set a real password, and don't
+expose it without one.
+
 ## Easy Desktop UI
 
 Launch a simpler click-first UI with built-in site scraping:
