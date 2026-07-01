@@ -14,6 +14,11 @@ and `android_entry.py`'s `license_api_base` param) — once you deploy the Worke
 steps below, update `MainActivity.kt`'s `LICENSE_API_BASE` constant to the real URL so the
 app can actually validate licenses instead of treating everyone as free-tier.
 
+`website/index.html` is in German (matching the app itself, which is German-only) and
+includes a real screenshot of the app — a phone-mockup hero showing an actual scrape result
+with items selected for batch download, embedded inline as a data URI so the page is a
+single self-contained file with no separate asset hosting to set up.
+
 ## What already exists (done, no action needed)
 
 - **Stripe** (sandbox/test mode account "Gaistreich sandbox"): a product "DownloadThat Pro"

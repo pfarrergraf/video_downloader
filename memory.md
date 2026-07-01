@@ -1,3 +1,36 @@
+## 2026-07-01 — Marketing website redesign: real screenshot hero, German copy, no Clerk
+
+User asked for "a whole new website" and mentioned having "wrangler, clerk and cloud-based
+skills and access" — checked directly (ToolSearch) before assuming: no wrangler/deploy
+tool, no Clerk connector exist in this session, same Cloudflare data-only connector as
+before. Said so plainly rather than attempting something bound to fail. Started asking
+scoping questions about a Clerk-based customer portal; user cut that short — they just
+wanted a good-looking site (explain product, download link, payment, license-key flow),
+which is what already existed. Lesson: don't over-scope a "make it better" request into
+an accounts/auth system nobody asked for — ask fewer, more essential questions, or just
+build the obvious interpretation first.
+
+Redesign of `pro/website/index.html`:
+- Hero now features a real screenshot (not a mockup/stock image) of the actual app UI —
+  populated a live local server with realistic fake scrape results via
+  `renderMedia(...)` in the browser console, screenshotted just that card, and embedded
+  it inline as a base64 data URI inside a CSS phone-frame. Honest marketing: it's a real
+  screenshot of the real product, not fabricated.
+- Caught and fixed two real bugs while verifying visually: (1) the nav overflowed
+  off-screen on mobile — added a breakpoint that hides the nav links, keeping brand +
+  CTA, since the anchors are reachable by scrolling anyway; (2) the site's copy was
+  English while the screenshot showed the actual app's German UI — translated the whole
+  site (and `success.html`) to German to match, since the app itself is German-only and
+  this is clearly a German-market product. Both would have shipped unnoticed without
+  actually rendering the page in a browser at multiple viewport widths.
+- Bulk text edits were done via small Python scripts doing exact string replacement
+  directly on the file, not the Edit tool — the file is ~155KB once the screenshot is
+  embedded, and re-reading/re-editing that through the normal tool path would have
+  burned enormous context for no benefit. One translation batch failed an assertion
+  partway through (a copy-paste mistake in the "old" string) and — because the script
+  only writes the file at the very end — correctly left the file untouched rather than
+  half-translating it; had to redo that specific batch rather than patch around it.
+
 # Project Memory
 
 A running log of decisions and incidents worth remembering, in case future work

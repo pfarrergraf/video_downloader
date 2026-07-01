@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Thanks — DownloadThat Pro</title>
+<title>Danke — DownloadThat Pro</title>
 <style>
   :root {
     --bg: #0e0c14; --card: #1b1626; --border: #2c2438;
@@ -28,12 +28,12 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>Thanks for going Pro!</h1>
-  <p class="lead">Your license key is below — enter it in the app's settings screen.</p>
+  <h1>Danke für deinen Kauf!</h1>
+  <p class="lead">Dein Lizenzschlüssel steht unten — trage ihn in den Einstellungen der App ein.</p>
   <div class="card" id="result">
-    <p class="spinner">Finalizing your purchase…</p>
+    <p class="spinner">Kauf wird abgeschlossen …</p>
   </div>
-  <p class="muted">This page checks automatically for a few seconds after payment. If nothing appears, refresh this page or contact <a href="mailto:support@geistreich.com" style="color:var(--accent)">support@geistreich.com</a> with your payment confirmation.</p>
+  <p class="muted">Diese Seite prüft nach der Zahlung automatisch ein paar Sekunden lang. Falls nichts erscheint, lade die Seite neu oder schreib an <a href="mailto:support@geistreich.com" style="color:var(--accent)">support@geistreich.com</a> mit deiner Zahlungsbestätigung.</p>
 </div>
 
 <script>
@@ -45,21 +45,23 @@
   const sessionId = params.get("session_id");
   const resultEl = document.getElementById("result");
 
+  const TIER_LABELS = { monthly: "Monatlich", yearly: "Jährlich", lifetime: "Lebenslang" };
+
   function renderKey(licenseKey, tier) {
     resultEl.innerHTML = `
-      <div>Tier: <strong>${tier}</strong></div>
+      <div>Tarif: <strong>${TIER_LABELS[tier] || tier}</strong></div>
       <div class="key">${licenseKey}</div>
-      <button class="btn" onclick="navigator.clipboard.writeText('${licenseKey}')">Copy key</button>
+      <button class="btn" onclick="navigator.clipboard.writeText('${licenseKey}')">Schlüssel kopieren</button>
     `;
   }
 
   function renderError() {
-    resultEl.innerHTML = `<p>We couldn't find your license yet. Please refresh this page in a moment.</p>`;
+    resultEl.innerHTML = `<p>Wir konnten deine Lizenz noch nicht finden. Bitte lade diese Seite gleich noch einmal.</p>`;
   }
 
   async function poll() {
     if (!sessionId) {
-      resultEl.innerHTML = `<p>Missing session — please use the link from your payment confirmation email.</p>`;
+      resultEl.innerHTML = `<p>Sitzung fehlt — bitte nutze den Link aus deiner Zahlungsbestätigung.</p>`;
       return;
     }
     for (let i = 0; i < 8; i++) {
