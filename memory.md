@@ -3,6 +3,37 @@
 A running log of decisions and incidents worth remembering, in case future work
 (by Claude or a human) needs the "why," not just the "what." Newest entries on top.
 
+## 2026-07-01 — CI download test's 403 was Wikimedia blocking the runner, not Android
+
+After the in-process yt-dlp rewrite (below) shipped, `download_pipeline_test.sh`
+still failed in CI — `HTTP Error 403: Forbidden` from
+`https://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg`, three retries,
+all 403. First hypothesis was an SSL/CA-store gap (Android has no OpenSSL system
+cert store at the paths Python's `ssl` module checks by default — a real, separate
+issue, fixed by setting `SSL_CERT_FILE` to `certifi.where()` in
+`android_entry.py`). That fix shipped and the *same* 403 still happened —
+proof it was never a cert problem, since a `CERTIFICATE_VERIFY_FAILED` never
+appeared in any log, only a clean HTTP 403 response.
+
+Root cause: Wikimedia's upload servers apply anti-bot/datacenter-IP blocking that
+GitHub Actions runner IPs run into — unrelated to Chaquopy, Android, or this app.
+Nothing wrong with the download pipeline; the test's *choice of external URL* was
+the flaky part.
+
+**Fix:** stopped depending on any real internet host for this test. `.github/scripts/download_pipeline_test.sh`
+now generates a tiny WAV file with Python's stdlib `wave` module, serves it via
+`python3 -m http.server` bound to the runner's loopback, and uses `adb reverse` (not
+`adb forward` — the request originates from the emulator/guest reaching back to the
+host) so the app running inside the emulator can fetch it as an ordinary HTTP URL.
+Verified locally first: spun up the same loopback server and confirmed yt-dlp's
+generic extractor downloads it correctly before touching CI.
+
+**Standing lesson:** don't let a CI test's correctness depend on a third-party
+site's tolerance for automated/datacenter traffic. When a pipeline needs "a URL to
+download," serve the fixture yourself (`adb reverse`/`adb forward` + a stdlib
+`http.server`) instead of reaching for a real external host — it removes an entire
+category of "looks like our bug but isn't" flakiness.
+
 ## 2026-07-01 — yt-dlp downloads were silently broken on Android from day one
 
 Phase 3's new `download_pipeline_test.sh` was the first CI check to actually

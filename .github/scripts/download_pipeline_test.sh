@@ -1,16 +1,59 @@
 #!/usr/bin/env bash
-# Exercises a real, tiny, stable download through the queue end-to-end and
-# verifies the resulting file lands where MainActivity.kt points output_dir
-# (Phase 3's app-specific external storage) — proving the whole pipeline
-# actually works on-device, not just that health-check/ffmpeg run in isolation.
+# Exercises a real download through the queue end-to-end and verifies the
+# resulting file lands where MainActivity.kt points output_dir (Phase 3's
+# app-specific external storage) — proving the whole pipeline actually works
+# on-device, not just that health-check/ffmpeg run in isolation.
+#
+# The test file is served from the CI runner itself (via `adb reverse`, so
+# the emulator's loopback reaches back to the host) rather than fetched from
+# a real internet host: upload.wikimedia.org and similar hosts intermittently
+# 403 requests from GitHub Actions runner IPs (datacenter/anti-bot blocking
+# unrelated to this app), which made earlier versions of this test flaky in a
+# way that looked like an Android/Chaquopy bug but wasn't. Serving our own
+# tiny file removes that external dependency entirely.
 set -euo pipefail
 
 BASE="http://127.0.0.1:8420"
 PASSWORD="classydl"  # matches MainActivity.kt's hardcoded PASSWORD constant
-TEST_URL="https://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg"
+FILE_PORT=8421
 
+TEST_DIR="$(mktemp -d)"
 COOKIE_JAR="$(mktemp)"
-trap 'rm -f "$COOKIE_JAR"' EXIT
+SERVER_PID=""
+cleanup() {
+  rm -f "$COOKIE_JAR"
+  rm -rf "$TEST_DIR"
+  if [ -n "$SERVER_PID" ]; then
+    kill "$SERVER_PID" 2>/dev/null || true
+  fi
+}
+trap cleanup EXIT
+
+python3 - "$TEST_DIR/testfile.wav" <<'PY'
+import struct
+import sys
+import wave
+
+with wave.open(sys.argv[1], "wb") as w:
+    w.setnchannels(1)
+    w.setsampwidth(2)
+    w.setframerate(8000)
+    w.writeframes(struct.pack("<h", 0) * 4000)  # 0.5s of silence
+PY
+
+python3 -m http.server "$FILE_PORT" --bind 127.0.0.1 --directory "$TEST_DIR" &
+SERVER_PID=$!
+
+for i in $(seq 1 20); do
+  if curl -sf "http://127.0.0.1:$FILE_PORT/testfile.wav" -o /dev/null; then
+    break
+  fi
+  sleep 0.5
+done
+
+adb reverse "tcp:$FILE_PORT" "tcp:$FILE_PORT"
+
+TEST_URL="http://127.0.0.1:$FILE_PORT/testfile.wav"
 
 curl -sf -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
   -H "Content-Type: application/json" \
