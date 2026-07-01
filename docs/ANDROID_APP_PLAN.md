@@ -339,11 +339,14 @@ changed from MIT to proprietary (all-rights-reserved) as part of this — see `L
     D1/KV/R2 but has no Worker-deploy or DNS tool).
 - **App-side gating** (`video_downloader/licensing.py`, wired into `web/server.py` and
   `android_entry.py`):
-  - Free tier (no key, or an invalid/expired one): video capped at 720p via a dedicated
-    `web-free` profile, and only one download can be queued/running at a time (`402`
-    from `/api/queue` if another is already pending/in-progress).
-  - Pro tier (valid key): unrestricted resolution (the existing `default` profile,
-    unchanged), unlimited concurrent/batch downloads.
+  - Free tier (no key, or an invalid/expired one): same quality as Pro (the existing
+    `default` profile, unchanged), but rationed to 1 download per rolling 24h window —
+    `402` from `/api/queue` if that's already been used (counting
+    pending/in-progress/completed jobs from the last 24h; cancelled/failed ones don't
+    count, so a source that didn't work out doesn't burn the day's quota). Originally
+    gated by a 720p resolution cap instead of a daily count — changed based on
+    feedback that "1 free download a day, full quality" is the clearer offer.
+  - Pro tier (valid key): no daily quota at all.
   - Entirely opt-in: `LicenseManager` is only constructed when a `license_api_base` is
     passed to `android_entry.start(...)` — Termux/desktop/CLI/tests never pass one, so
     they're always treated as Pro and completely unaffected. Even on Android, only

@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 import json
+import sqlite3
 import threading
+from datetime import UTC, datetime, timedelta
 from http.client import HTTPConnection
 from pathlib import Path
 
 import pytest
 
-from video_downloader.licensing import LicenseManager, LicenseState
+from video_downloader.licensing import LicenseState
 from video_downloader.queue_store import QueueStore
 from video_downloader.web.server import ClassyDLServer, create_server
 
@@ -200,7 +202,7 @@ def test_license_post_accepts_valid_key(tmp_path: Path) -> None:
         _teardown(srv)
 
 
-def test_free_tier_blocks_a_second_concurrent_download(tmp_path: Path) -> None:
+def test_free_tier_blocks_a_second_download_within_24_hours(tmp_path: Path) -> None:
     srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False))
     try:
         _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
@@ -211,7 +213,7 @@ def test_free_tier_blocks_a_second_concurrent_download(tmp_path: Path) -> None:
 
         status, body, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/2"}, cookie=cookie)
         assert status == 402
-        assert "one download at a time" in body["detail"]
+        assert "1 download per 24h" in body["detail"]
     finally:
         _teardown(srv)
 
@@ -232,7 +234,39 @@ def test_free_tier_allows_a_new_job_once_the_first_is_cancelled(tmp_path: Path) 
         _teardown(srv)
 
 
-def test_free_tier_caps_resolution_via_a_dedicated_profile(tmp_path: Path) -> None:
+def test_free_tier_allows_a_new_download_after_the_daily_window_passes(tmp_path: Path) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    srv = create_server(
+        store=store,
+        output_dir=tmp_path / "downloads",
+        password="crypt-keeper",
+        host="127.0.0.1",
+        port=0,
+        workers=1,
+        license_manager=_FakeLicenseManager(valid=False),
+    )
+    thread = threading.Thread(target=srv.serve_forever, daemon=True)
+    thread.start()
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+        _, body, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/1"}, cookie=cookie)
+        job_id = body["job_id"]
+
+        # Backdate the job past the rolling 24h window directly in the DB —
+        # simulating "yesterday's download" without sleeping in the test.
+        old_ts = (datetime.now(UTC) - timedelta(hours=25)).isoformat()
+        with sqlite3.connect(tmp_path / "state.db") as conn:
+            conn.execute("UPDATE jobs SET created_at = ? WHERE id = ?", (old_ts, job_id))
+
+        status, _, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/2"}, cookie=cookie)
+        assert status == 200
+    finally:
+        _teardown(srv)
+
+
+def test_free_and_pro_tiers_use_the_same_unrestricted_profile(tmp_path: Path) -> None:
     store = QueueStore(tmp_path / "state.db")
     store.init()
     srv = create_server(
@@ -254,39 +288,22 @@ def test_free_tier_caps_resolution_via_a_dedicated_profile(tmp_path: Path) -> No
         assert job is not None
         profile = store.get_profile_by_id(job.profile_id)
         assert profile is not None
-        assert profile.name == "web-free"
-        assert "height<=720" in profile.format_selector
+        assert profile.name == "default"
+        assert profile.format_selector == "bv*+ba/b"
     finally:
         _teardown(srv)
 
 
-def test_pro_tier_uses_the_unrestricted_default_profile(tmp_path: Path) -> None:
-    store = QueueStore(tmp_path / "state.db")
-    store.init()
-    srv = create_server(
-        store=store,
-        output_dir=tmp_path / "downloads",
-        password="crypt-keeper",
-        host="127.0.0.1",
-        port=0,
-        workers=1,
-        license_manager=_FakeLicenseManager(valid=True, tier="lifetime"),
-    )
-    thread = threading.Thread(target=srv.serve_forever, daemon=True)
-    thread.start()
+def test_pro_tier_has_no_daily_quota(tmp_path: Path) -> None:
+    srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=True, tier="lifetime"))
     try:
         _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
         cookie = set_cookie.split(";")[0]
-        _, body, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/1"}, cookie=cookie)
-        job = store.get_job(body["job_id"])
-        assert job is not None
-        profile = store.get_profile_by_id(job.profile_id)
-        assert profile is not None
-        assert profile.name == "default"
-
-        # Pro also isn't limited to one concurrent download.
-        status, _, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/2"}, cookie=cookie)
-        assert status == 200
+        for i in range(3):
+            status, _, _ = _request(
+                srv, "POST", "/api/queue", {"source": f"https://example.com/{i}"}, cookie=cookie
+            )
+            assert status == 200
     finally:
         _teardown(srv)
 

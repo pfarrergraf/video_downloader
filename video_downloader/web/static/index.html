@@ -364,7 +364,7 @@ async function refreshLicense() {
     } else if (status.has_key) {
       $('license-status').textContent = 'Kostenlos — der hinterlegte Schlüssel ist ungültig oder abgelaufen.';
     } else {
-      $('license-status').textContent = 'Kostenlos — Downloads sind auf 720p und eins gleichzeitig begrenzt.';
+      $('license-status').textContent = 'Kostenlos — 1 Download pro Tag. Pro: unbegrenzt.';
     }
   } catch (e) {
     // Not authenticated yet, or a transient error — just leave the card hidden.

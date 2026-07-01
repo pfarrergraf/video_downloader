@@ -120,9 +120,10 @@ from real customers:
 
 ## What the Android app now does with this (as of this commit)
 
-- Free tier (no key, or an invalid/expired key): video downloads capped at 720p, and only
-  one download can be queued/running at a time (blocks batch/multi-select downloads).
-- Pro tier (valid key): unrestricted resolution, unlimited concurrent/batch downloads.
+- Free tier (no key, or an invalid/expired key): full quality, same as Pro — but rationed
+  to 1 download per rolling 24h window (a completed/pending/in-progress job within the
+  last 24h blocks a new one with `402`; cancelled/failed jobs don't count against it).
+- Pro tier (valid key): no daily limit.
 - The license card in the app's web UI is entirely hidden on Termux/desktop — gating only
   applies when `MainActivity.kt` passes a `license_api_base` into `android_entry.start(...)`.
 - **`MainActivity.kt`'s `LICENSE_API_BASE` is still a placeholder** pointing at an

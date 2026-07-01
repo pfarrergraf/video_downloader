@@ -16,6 +16,7 @@ import re
 import secrets
 import threading
 import time
+from datetime import UTC, datetime, timedelta
 from http.client import responses as HTTP_REASONS
 from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -23,7 +24,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, unquote, urlsplit
 
-from ..licensing import FREE_FORMAT_SELECTOR, FREE_PROFILE_NAME, LicenseManager
+from ..licensing import FREE_DAILY_DOWNLOAD_LIMIT, FREE_WINDOW_HOURS, LicenseManager
 from ..models import JOB_STATUS_COMPLETED, JOB_STATUS_IN_PROGRESS, JOB_STATUS_PENDING, DownloadProfile, JobRecord
 from ..queue_runner import QueueRunner
 from ..queue_store import QueueStore
@@ -34,6 +35,10 @@ STATIC_DIR = Path(__file__).parent / "static"
 SESSION_COOKIE = "classydl_session"
 SESSION_TTL_SECONDS = 30 * 24 * 3600  # 30 days
 AUDIO_PROFILE_NAME = "web-audio"
+# Statuses that count against the free tier's daily quota: an attempt that's
+# running or succeeded uses up the day's download. Cancelled/failed jobs
+# don't, so a user isn't punished for a source that didn't work out.
+FREE_TIER_COUNTED_STATUSES = (JOB_STATUS_PENDING, JOB_STATUS_IN_PROGRESS, JOB_STATUS_COMPLETED)
 
 QUEUE_CANCEL_RE = re.compile(r"^/api/queue/(\d+)/cancel$")
 DOWNLOAD_RE = re.compile(r"^/api/download/(\d+)/([^/]+)$")
@@ -96,25 +101,31 @@ class BackgroundQueueWorker:
                 self._stop.wait(2.0)
 
 
-def _resolve_profile(store: QueueStore, audio_only: bool, is_pro: bool) -> DownloadProfile:
-    if audio_only:
-        existing = store.get_profile_by_name(AUDIO_PROFILE_NAME)
-        if existing is not None:
-            return existing
-        return store.create_profile(
-            DownloadProfile(id=None, name=AUDIO_PROFILE_NAME, format_selector="ba/b", audio_only=True)
-        )
-    if is_pro:
+def _resolve_profile(store: QueueStore, audio_only: bool) -> DownloadProfile:
+    # Quality is the same for free and Pro — the free tier is rationed by
+    # download count (see _recent_job_count), not by resolution.
+    if not audio_only:
         return store.ensure_default_profile()
-    # Free tier on the distributed Android app: cap resolution rather than
-    # touching the "default" profile every other platform (Termux/desktop/
-    # CLI, which never sets a license_manager and is always is_pro=True) uses.
-    existing = store.get_profile_by_name(FREE_PROFILE_NAME)
+    existing = store.get_profile_by_name(AUDIO_PROFILE_NAME)
     if existing is not None:
         return existing
     return store.create_profile(
-        DownloadProfile(id=None, name=FREE_PROFILE_NAME, format_selector=FREE_FORMAT_SELECTOR)
+        DownloadProfile(id=None, name=AUDIO_PROFILE_NAME, format_selector="ba/b", audio_only=True)
     )
+
+
+def _recent_job_count(store: QueueStore, *, within_hours: int) -> int:
+    cutoff = datetime.now(UTC) - timedelta(hours=within_hours)
+    count = 0
+    for status in FREE_TIER_COUNTED_STATUSES:
+        for job in store.list_jobs(status=status, limit=200):
+            try:
+                created = datetime.fromisoformat(job.created_at)
+            except ValueError:
+                continue
+            if created >= cutoff:
+                count += 1
+    return count
 
 
 def _serialize_job(store: QueueStore, job: JobRecord) -> dict[str, Any]:
@@ -394,20 +405,18 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             manager = self.server.license_manager
             is_pro = manager is None or manager.is_pro()
             if not is_pro:
-                busy = self.server.store.list_jobs(status=JOB_STATUS_PENDING, limit=1) or self.server.store.list_jobs(
-                    status=JOB_STATUS_IN_PROGRESS, limit=1
-                )
-                if busy:
+                used = _recent_job_count(self.server.store, within_hours=FREE_WINDOW_HOURS)
+                if used >= FREE_DAILY_DOWNLOAD_LIMIT:
                     self._send_json(
                         402,
                         {
-                            "detail": "Free tier allows one download at a time. "
-                            "Upgrade to Pro for unlimited/batch downloads."
+                            "detail": f"Free tier allows {FREE_DAILY_DOWNLOAD_LIMIT} download per "
+                            f"{FREE_WINDOW_HOURS}h. Upgrade to Pro for unlimited downloads."
                         },
                     )
                     return
 
-            profile = _resolve_profile(self.server.store, bool(body.get("audio_only", False)), is_pro)
+            profile = _resolve_profile(self.server.store, bool(body.get("audio_only", False)))
             job_id = self.server.store.add_job(
                 source=source,
                 profile_id=profile.id,

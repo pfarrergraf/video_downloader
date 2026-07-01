@@ -3,6 +3,29 @@
 A running log of decisions and incidents worth remembering, in case future work
 (by Claude or a human) needs the "why," not just the "what." Newest entries on top.
 
+## 2026-07-01 — Free-tier model changed: 1 download/day instead of a 720p cap
+
+The first cut of free/Pro gating capped free-tier video at 720p (via a dedicated
+`web-free` profile) plus a one-concurrent-download limit. Changed to a simpler model on
+request: free tier gets full quality (same `default` profile as Pro, no separate
+profile needed anymore) but only 1 download per rolling 24h window; Pro has no quota at
+all. Rolling window (not calendar-day) specifically to avoid a "download at 23:59,
+download again at 00:01" loophole.
+
+Implementation note: the daily count only considers pending/in-progress/completed jobs
+(`FREE_TIER_COUNTED_STATUSES` in `web/server.py`) — cancelled/failed jobs don't burn the
+quota, so a source that didn't work out doesn't cost the user their one free download.
+Verified this with a real DB-backdating test (`test_free_tier_allows_a_new_download_after_the_daily_window_passes`)
+rather than mocking `datetime.now` globally, since the code calls `datetime.now(UTC)`
+as a bound method on a builtin — directly updating a job's `created_at` via a raw
+sqlite3 connection to simulate "yesterday" was simpler and more robust than trying to
+monkeypatch that.
+
+Also updated the Stripe product's `marketing_features`/description and the marketing
+website copy to stop saying "Unlimited HD/4K downloads" as the Pro differentiator (no
+longer true — quality was never actually tier-gated in the new model) in favor of
+"Unlimited downloads (no daily limit)".
+
 ## 2026-07-01 — Monetization: Stripe + Cloudflare backend, license gating, repo split reversed
 
 Decided to sell the Android app (free core + Pro tier: €1/mo, €5/yr, €12 lifetime),
