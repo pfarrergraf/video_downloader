@@ -109,3 +109,33 @@ def test_create_server_requires_password(tmp_path: Path) -> None:
     store.init()
     with pytest.raises(ValueError):
         create_server(store=store, output_dir=tmp_path / "downloads", password="")
+
+
+def test_queued_jobs_use_the_servers_ffmpeg_binary(tmp_path: Path) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    srv = create_server(
+        store=store,
+        output_dir=tmp_path / "downloads",
+        password="crypt-keeper",
+        host="127.0.0.1",
+        port=0,
+        workers=1,
+        ffmpeg_binary="/data/app/de.classydl.app/lib/arm64/libffmpeg.so",
+    )
+    thread = threading.Thread(target=srv.serve_forever, daemon=True)
+    thread.start()
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+
+        _, body, _ = _request(
+            srv, "POST", "/api/queue", {"source": "https://example.com/video"}, cookie=cookie
+        )
+        job = store.get_job(body["job_id"])
+        assert job is not None
+        assert job.ffmpeg_binary == "/data/app/de.classydl.app/lib/arm64/libffmpeg.so"
+    finally:
+        srv.shutdown()
+        srv.stop_background_worker()
+        srv.server_close()

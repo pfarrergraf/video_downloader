@@ -10,7 +10,38 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  build-ffmpeg:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        abi: [arm64-v8a, x86_64]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install NDK
+        run: |
+          SDKMANAGER="$(command -v sdkmanager || true)"
+          if [ -z "$SDKMANAGER" ]; then
+            SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -1)"
+          fi
+          "$SDKMANAGER" --install "ndk;26.1.10909125"
+
+      - name: Build ffmpeg for ${{ matrix.abi }}
+        env:
+          ANDROID_NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/26.1.10909125
+        run: bash .github/scripts/build_ffmpeg_android.sh "${{ matrix.abi }}" "$PWD/ffmpeg-out"
+
+      - name: Upload ffmpeg binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: ffmpeg-${{ matrix.abi }}
+          path: ffmpeg-out/bin/ffmpeg
+
   build:
+    needs: build-ffmpeg
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -37,6 +68,22 @@ jobs:
         with:
           gradle-version: "8.10.2"
 
+      - name: Download ffmpeg binaries
+        uses: actions/download-artifact@v4
+        with:
+          pattern: ffmpeg-*
+          path: android/ffmpeg-artifacts
+
+      - name: Place ffmpeg binaries into jniLibs
+        run: |
+          for abi_dir in ffmpeg-artifacts/*/; do
+            abi_name="$(basename "$abi_dir" | sed 's/^ffmpeg-//')"
+            mkdir -p "app/src/main/jniLibs/${abi_name}"
+            cp "${abi_dir}ffmpeg" "app/src/main/jniLibs/${abi_name}/libffmpeg.so"
+            chmod +x "app/src/main/jniLibs/${abi_name}/libffmpeg.so"
+          done
+          find app/src/main/jniLibs -type f
+
       - name: Build debug APK
         run: gradle :app:assembleDebug --stacktrace
 
@@ -58,13 +105,19 @@ jobs:
           name: classydl-debug-apk
           path: apk
 
+      - name: Download x86_64 ffmpeg binary
+        uses: actions/download-artifact@v4
+        with:
+          name: ffmpeg-x86_64
+          path: ffmpeg-x86_64
+
       - name: Enable KVM for hardware-accelerated emulation
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - name: Install app in emulator and smoke-test /api/health
+      - name: Install app in emulator, smoke-test /api/health and ffmpeg
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
@@ -77,3 +130,4 @@ jobs:
             adb shell am start -n de.classydl.app/.MainActivity
             adb forward tcp:8420 tcp:8420
             bash ${{ github.workspace }}/.github/scripts/smoke_test.sh
+            bash ${{ github.workspace }}/.github/scripts/ffmpeg_exec_test.sh ${{ github.workspace }}/ffmpeg-x86_64/ffmpeg

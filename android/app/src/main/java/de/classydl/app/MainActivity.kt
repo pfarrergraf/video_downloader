@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                 val outputDir = filesDir.resolve("classydl-downloads").absolutePath
                 Python.getInstance()
                     .getModule("video_downloader.android_entry")
-                    .callAttr("start", dataDir, outputDir, PASSWORD, PORT)
+                    .callAttr("start", dataDir, outputDir, PASSWORD, PORT, resolveFfmpegBinary())
             } catch (e: Throwable) {
                 Log.e(TAG, "Server thread crashed", e)
             }
@@ -80,5 +80,19 @@ class MainActivity : AppCompatActivity() {
             isDaemon = true
             start()
         }
+    }
+
+    /**
+     * The bundled ffmpeg CLI (cross-compiled for Android, see
+     * .github/scripts/build_ffmpeg_android.sh) ships under jniLibs — Android's
+     * package installer extracts those into nativeLibraryDir with execute
+     * permission already set, which is one of the few app-private locations
+     * still allowed to run arbitrary native executables post-scoped-storage.
+     * Falls back to the plain "ffmpeg" command name if the bundled binary
+     * isn't present (e.g. an older APK built before Phase 2b).
+     */
+    private fun resolveFfmpegBinary(): String {
+        val bundled = java.io.File(applicationInfo.nativeLibraryDir, "libffmpeg.so")
+        return if (bundled.exists()) bundled.absolutePath else "ffmpeg"
     }
 }

@@ -13,7 +13,13 @@ from .queue_store import QueueStore
 from .web.server import run_server
 
 
-def start(data_dir: str, output_dir: str, password: str, port: int) -> None:
+def start(
+    data_dir: str,
+    output_dir: str,
+    password: str,
+    port: int,
+    ffmpeg_binary: str = "ffmpeg",
+) -> None:
     store = QueueStore(Path(data_dir) / "state.db")
     store.init()
     run_server(
@@ -23,4 +29,5 @@ def start(data_dir: str, output_dir: str, password: str, port: int) -> None:
         host="127.0.0.1",
         port=port,
         workers=2,
+        ffmpeg_binary=ffmpeg_binary,
     )

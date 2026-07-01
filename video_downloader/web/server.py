@@ -142,11 +142,13 @@ class ClassyDLServer(ThreadingHTTPServer):
         output_dir: Path,
         password: str,
         workers: int,
+        ffmpeg_binary: str = "ffmpeg",
     ) -> None:
         super().__init__(address, ClassyDLRequestHandler)
         self.store = store
         self.output_dir = output_dir
         self.password = password
+        self.ffmpeg_binary = ffmpeg_binary
         self.sessions = SessionStore()
         self.worker = BackgroundQueueWorker(store=store, output_dir=output_dir, workers=workers)
 
@@ -349,6 +351,7 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 source=source,
                 profile_id=profile.id,
                 output_dir=str(self.server.output_dir),
+                ffmpeg_binary=self.server.ffmpeg_binary,
             )
             self._send_json(200, {"job_id": job_id})
             return
@@ -375,6 +378,7 @@ def create_server(
     host: str = "0.0.0.0",
     port: int = 8420,
     workers: int = 3,
+    ffmpeg_binary: str = "ffmpeg",
 ) -> ClassyDLServer:
     if not password:
         raise ValueError(
@@ -387,6 +391,7 @@ def create_server(
         output_dir=output_dir,
         password=password,
         workers=workers,
+        ffmpeg_binary=ffmpeg_binary,
     )
 
 
@@ -398,6 +403,7 @@ def run_server(
     host: str = "0.0.0.0",
     port: int = 8420,
     workers: int = 3,
+    ffmpeg_binary: str = "ffmpeg",
 ) -> None:
     server = create_server(
         store=store,
@@ -406,6 +412,7 @@ def run_server(
         host=host,
         port=port,
         workers=workers,
+        ffmpeg_binary=ffmpeg_binary,
     )
     server.start_background_worker()
     try:
