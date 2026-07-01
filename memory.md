@@ -3,6 +3,24 @@
 A running log of decisions and incidents worth remembering, in case future work
 (by Claude or a human) needs the "why," not just the "what." Newest entries on top.
 
+## 2026-07-01 — "Sometimes downloads the wrong file" bug (shared output directory)
+
+User reported via Termux that queuing a YouTube link with "Queue URL Directly"
+sometimes produced the wrong downloaded file. Root cause found in
+`strategies.YtDlpStrategy.download`: when yt-dlp's own `--print after_move:filepath`
+output can't be confirmed (e.g. a delayed `Path.exists()` on Android's
+`~/storage/*` shared-storage FUSE bridge, or two jobs' downloads overlapping in
+time), it falls back to `_find_new_files` — "whichever file appeared in the output
+directory since I started." All queued jobs previously wrote into one flat shared
+directory (`queue_runner._build_request`), so that fallback could attribute an
+unrelated job's file (or a leftover file from an earlier, different download) to
+the wrong job. Fixed by giving each job its own subdirectory
+(`output_dir/job-<id>/`) — the fallback can now only ever see that job's own
+files, so misattribution across jobs is structurally impossible regardless of
+what triggers the fallback path. Verified with two concurrent fake jobs writing
+same-named files into a shared base dir — each still ends up in its own
+`job-<id>/` folder untouched by the other.
+
 ## 2026-07-01 — Standalone Android app (Chaquopy), Phase 1 scaffold to green CI
 
 **Goal:** after the Termux success, the user wanted something distributable to
