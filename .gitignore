@@ -47,5 +47,14 @@ classydl-selfsign.pfx.pass.txt
 classydl-selfsign.cer
 *.pfx
 *.cer
+*.keystore
+*.jks
+
+# Android / Gradle
+android/.gradle/
+android/local.properties
+android/**/build/
+android/.idea/
+*.hprof
 
 # uv lock kept in repo for reproducibility — do NOT ignore uv.lock

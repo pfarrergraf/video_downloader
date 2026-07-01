@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.chaquo.python'
+}
+
+android {
+    namespace 'de.classydl.app'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "de.classydl.app"
+        // Chaquopy 17 requires minSdk >= 24; 26 is used here so adaptive launcher
+        // icons (mipmap-anydpi-v26) don't need a legacy raster fallback.
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName "0.1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    // Deliberately not restricting ABIs here: the debug build includes x86_64 so it
+    // can run unmodified on CI/desktop emulators. Phase 4 (release pipeline) should
+    // scope this down to arm64-v8a (+ armeabi-v7a if needed) to shrink the APK that
+    // actually gets distributed to real phones.
+}
+
+chaquopy {
+    defaultConfig {
+        version "3.11"
+        pip {
+            // Kept to what video_downloader.web.server's import chain actually needs
+            // (queue_store -> models/utils, core -> strategies/scraper). rich/textual
+            // are CLI/TUI-only and intentionally excluded to keep the APK smaller.
+            install "beautifulsoup4>=4.12.0"
+            install "requests>=2.32.0"
+            install "yt-dlp>=2024.12.13"
+        }
+    }
+    sourceSets {
+        main {
+            // Points at the repo root (two levels up from android/app) so the
+            // existing video_downloader/ package is bundled directly from source —
+            // no separate copy, no wheel-building step.
+            srcDir "${projectDir}/../.."
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.webkit:webkit:1.12.1'
+}

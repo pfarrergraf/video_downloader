@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Simple gothic cross, matching the web UI's icon.svg motif. -->
+    <path
+        android:fillColor="#d9b968"
+        android:pathData="M48,20L60,20L60,88L48,88Z M24,38L84,38L84,50L24,50Z" />
+</vector>
