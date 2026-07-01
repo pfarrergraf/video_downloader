@@ -13,7 +13,7 @@ echo "==> Requesting shared storage access (lets downloads show up in the Files 
 termux-setup-storage || true
 
 echo "==> Installing ClassyDL + web extras"
-pip install --upgrade pip
+# Termux manages pip itself via 'pkg' — don't try to self-upgrade it.
 if ! pip install ".[web]"; then
   echo "==> Compiled-dependency install failed, retrying with a Rust toolchain"
   pkg install -y rust binutils clang
