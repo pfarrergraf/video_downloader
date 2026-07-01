@@ -150,7 +150,11 @@ an unaudited binary blob shipped inside the app). Instead:
 
 ### Phase 3 — Storage
 
-**Status: implemented, CI-verified pending latest run.** Two layers, both needed
+**Status: DONE and verified green in CI** (2026-07-01, run #15:
+https://github.com/pfarrergraf/video_downloader/actions/runs/28519642270).
+`download_pipeline_test.sh` completed end-to-end on-device: job queued, downloaded,
+and confirmed at `/sdcard/Android/data/de.classydl.app/files/classydl-downloads/job-1/`
+(8044 bytes). Two layers, both needed
 because they cover different Android versions/failure modes:
 
 - **3a (base layer):** `MainActivity` now points `output_dir` at
@@ -176,20 +180,29 @@ because they cover different Android versions/failure modes:
 - `.github/scripts/download_pipeline_test.sh` extends the CI emulator job to
   exercise a real download end-to-end for the first time (previous phases only
   checked `/api/health` and a standalone `ffmpeg -version`): queues a tiny
-  stable Wikimedia-hosted test file via the actual HTTP API, polls until
-  completion, confirms the file exists at the expected external-storage path
-  via `adb shell`, and does a best-effort (non-fatal) MediaStore query check —
-  non-fatal specifically because the Java-bridge MediaStore code is the
-  riskiest untested new piece; the external-storage check is the hard
-  pass/fail gate.
+  test file via the actual HTTP API, polls until completion, confirms the file
+  exists at the expected external-storage path via `adb shell`, and does a
+  best-effort (non-fatal) MediaStore query check — non-fatal specifically
+  because the Java-bridge MediaStore code is the riskiest untested new piece;
+  the external-storage check is the hard pass/fail gate. The test file is
+  generated on the fly (stdlib `wave` module) and served from the CI runner
+  itself via `python3 -m http.server` + `adb reverse`, rather than fetched
+  from a real internet host — an earlier version pointed at a Wikimedia URL
+  and got intermittently 403'd by Wikimedia's anti-bot/datacenter-IP blocking
+  of GitHub Actions runners, which looked like an Android bug but wasn't; see
+  `memory.md`'s "CI download test's 403 was Wikimedia blocking the runner, not
+  Android" entry.
 - **Not done:** no Storage Access Framework picker for a user-chosen folder —
   the automatic Downloads-collection publish covers the "done when" bar without
   needing one; a picker could still be added later as a nice-to-have if users
   want downloads to land somewhere other than the default Downloads folder.
 - **Done when:** a completed download is visible from the stock Android Files
-  app. Pending confirmation from the next CI run (this was implemented and
-  pushed but not yet observed green, unlike Phases 1–2 which were confirmed
-  before being marked done).
+  app. ✅ Done — confirmed via `download_pipeline_test.sh` passing in CI run
+  #15. (The MediaStore Downloads-collection publish itself is still
+  unconfirmed by the test — its check is explicitly non-fatal/best-effort and
+  didn't find the file in that run; the external-files-dir copy, which is what
+  the "done when" bar requires, is confirmed. Worth revisiting 3b's publish
+  logic if that persists.)
 
 **Critical fix found by Phase 3's own CI test:** the first real, non-mocked
 download attempt on Android (via `download_pipeline_test.sh`) failed even
@@ -245,11 +258,13 @@ detection in some cases anyway.
 
 ## Next step
 
-Phase 1 is done. Next up is Phase 2: bundle ffmpeg for Android so audio-only
-downloads (which need ffmpeg extraction) work on-device, not just plain video
-downloads that yt-dlp can save directly.
+Phases 1–3 are done and confirmed green in CI (run #15, including a real
+end-to-end download landing on-device). Next up is Phase 4: the release
+pipeline (signing keystore, tagged-release CI job producing a signed APK on
+GitHub Releases).
 
-In the meantime, the current debug APK from CI run #5 can already be downloaded
-and sideloaded onto a real phone to try the scraping/queue/download UI end-to-end
-(without ffmpeg-dependent formats): see the workflow run's Artifacts section at
-https://github.com/pfarrergraf/video_downloader/actions/runs/28512295438
+In the meantime, the current debug APK from CI run #15 can already be downloaded
+and sideloaded onto a real phone to try the full scraping/queue/download UI
+end-to-end (including ffmpeg-dependent audio formats): see the workflow run's
+Artifacts section at
+https://github.com/pfarrergraf/video_downloader/actions/runs/28519642270
