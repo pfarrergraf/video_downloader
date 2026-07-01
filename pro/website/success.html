@@ -37,10 +37,8 @@
 </div>
 
 <script>
-  // Set this to the deployed Worker's URL (custom domain or *.workers.dev) —
-  // see downloadthat-pro/README.md for deploy steps.
-  const LICENSE_API_BASE = "https://downloadthat-license-server.YOUR-SUBDOMAIN.workers.dev";
-
+  // /api/* is served by this same Pages project (see functions/api/) — no
+  // separate backend URL to configure, since site and API deploy together.
   const params = new URLSearchParams(window.location.search);
   const sessionId = params.get("session_id");
   const resultEl = document.getElementById("result");
@@ -66,7 +64,7 @@
     }
     for (let i = 0; i < 8; i++) {
       try {
-        const res = await fetch(`${LICENSE_API_BASE}/api/license-for-session?session_id=${encodeURIComponent(sessionId)}`);
+        const res = await fetch(`/api/license-for-session?session_id=${encodeURIComponent(sessionId)}`);
         const data = await res.json();
         if (data.found) {
           renderKey(data.license_key, data.tier);

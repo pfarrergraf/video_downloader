@@ -1,3 +1,37 @@
+## 2026-07-01 — Cloudflare deploy blocked at the network layer, not just missing tools
+
+User is phone-only (no laptop, can't run `wrangler`/local commands at all) and asked me
+to deploy directly. Before assuming that was possible with the right credential, tested
+it: this session's outbound HTTPS proxy explicitly denies `api.cloudflare.com` with a
+403 "policy denial" (`curl $HTTPS_PROXY/__agentproxy/status` showed it in
+`recentRelayFailures`). The proxy's own README is explicit: "do not retry organization
+policy denials... report them instead" — so no Cloudflare API token, however scoped,
+would have helped; installing `wrangler` in this sandbox (node/npm are present and
+registry.npmjs.org *is* reachable) would still fail the moment it tried to talk to
+Cloudflare's API. Confirmed this with an actual `curl` test rather than assuming from
+the MCP connector's limited tool list alone — the two are separate facts (missing MCP
+tool vs. blocked network egress) and conflating them would have led to a wrong
+"just give me a token" ask that could never have worked.
+
+**Fix: restructured the backend to deploy without any CLI or credential exchange at
+all.** Converted the standalone Cloudflare Worker (`pro/worker/`) into Cloudflare Pages
+Functions (`pro/website/functions/api/*.js`, shared logic in `_lib.js`) so the entire
+backend — static site AND API routes — is one Pages project deployable via Cloudflare's
+"Connect to Git" dashboard flow: connect the repo once (phone browser is fine), and
+every push auto-deploys. No wrangler, no token ever needs to reach this session or the
+user's phone typing a secret into chat. Bonus: since site and API now share an origin,
+`success.html`'s cross-origin `LICENSE_API_BASE` fetch became a plain relative path —
+one less thing to configure. Verified the Functions' actual logic (license generation,
+webhook signature verification with both a correct and a tampered signature, D1 query
+shapes) by importing the modules directly in plain Node against hand-written fake D1
+bindings, since `wrangler pages dev` needs the same blocked network path to fetch the
+local runtime — this was the only way to test it in this sandbox at all.
+
+**Standing lesson:** when a remote action fails, test the actual failure mode (missing
+tool? blocked network? missing credential?) before proposing a fix — each implies a
+completely different next step, and guessing wrong wastes the user's turn re-explaining
+a constraint that a 30-second `curl` would have surfaced directly.
+
 ## 2026-07-01 — Marketing website redesign: real screenshot hero, German copy, no Clerk
 
 User asked for "a whole new website" and mentioned having "wrangler, clerk and cloud-based

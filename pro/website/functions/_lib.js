@@ -1,0 +1,138 @@
+// Shared helpers for the /api/* Pages Functions routes. Files/dirs prefixed
+// with "_" aren't routed by Cloudflare Pages, so this is a safe place for a
+// plain module import.
+//
+// This used to be a standalone Cloudflare Worker (see git history / pro/worker/)
+// deployed separately from the static site. Moved into Pages Functions so the
+// whole backend deploys via Cloudflare's git integration alongside the site —
+// no wrangler CLI, no separate deploy step, no API token to hand anyone. Also
+// means /api/* is same-origin from the website's own JS, so no CORS handling
+// is needed here (the Android app's HTTP client doesn't enforce CORS either —
+// that's a browser-only mechanism).
+
+export function jsonResponse(body, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
+}
+
+// Stripe signs webhooks as header `t=<timestamp>,v1=<hex hmac>` computed over
+// `${timestamp}.${payload}` with the endpoint's signing secret.
+export async function verifyStripeSignature(payload, header, secret) {
+  const parts = Object.fromEntries(header.split(",").map((kv) => kv.split("=")));
+  const timestamp = parts.t;
+  const expectedSig = parts.v1;
+  if (!timestamp || !expectedSig) return false;
+
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const signatureBuffer = await crypto.subtle.sign(
+    "HMAC",
+    key,
+    new TextEncoder().encode(`${timestamp}.${payload}`),
+  );
+  const computedSig = [...new Uint8Array(signatureBuffer)]
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  if (computedSig.length !== expectedSig.length) return false;
+  let diff = 0;
+  for (let i = 0; i < computedSig.length; i++) {
+    diff |= computedSig.charCodeAt(i) ^ expectedSig.charCodeAt(i);
+  }
+  return diff === 0;
+}
+
+export function generateLicenseKey() {
+  const bytes = crypto.getRandomValues(new Uint8Array(12));
+  const hex = [...bytes].map((b) => b.toString(16).padStart(2, "0")).join("").toUpperCase();
+  return `DLT-${hex.slice(0, 8)}-${hex.slice(8, 16)}-${hex.slice(16, 24)}`;
+}
+
+async function fetchStripeSubscription(subscriptionId, env) {
+  const res = await fetch(`https://api.stripe.com/v1/subscriptions/${subscriptionId}`, {
+    headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}` },
+  });
+  if (!res.ok) throw new Error(`Stripe subscription fetch failed: ${res.status}`);
+  return res.json();
+}
+
+async function handleCheckoutCompleted(session, env) {
+  const tier = session.metadata?.tier;
+  if (!tier || !["monthly", "yearly", "lifetime"].includes(tier)) {
+    console.error("checkout.session.completed missing/unknown tier metadata", session.id);
+    return;
+  }
+
+  const email = session.customer_details?.email ?? session.customer_email ?? "unknown";
+  const now = Math.floor(Date.now() / 1000);
+  let currentPeriodEnd = null;
+
+  if (session.subscription) {
+    const subscription = await fetchStripeSubscription(session.subscription, env);
+    currentPeriodEnd = subscription.current_period_end ?? null;
+  }
+
+  const licenseKey = generateLicenseKey();
+
+  await env.DB.prepare(
+    `INSERT INTO licenses
+      (license_key, tier, email, stripe_customer_id, stripe_subscription_id,
+       stripe_checkout_session_id, status, current_period_end, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, 'active', ?, ?, ?)`,
+  )
+    .bind(
+      licenseKey,
+      tier,
+      email,
+      session.customer ?? null,
+      session.subscription ?? null,
+      session.id,
+      currentPeriodEnd,
+      now,
+      now,
+    )
+    .run();
+}
+
+async function handleSubscriptionUpdated(subscription, env) {
+  const now = Math.floor(Date.now() / 1000);
+  const status = subscription.status === "active" || subscription.status === "trialing" ? "active" : "expired";
+  await env.DB.prepare(
+    `UPDATE licenses SET status = ?, current_period_end = ?, updated_at = ?
+     WHERE stripe_subscription_id = ?`,
+  )
+    .bind(status, subscription.current_period_end ?? null, now, subscription.id)
+    .run();
+}
+
+async function handleSubscriptionDeleted(subscription, env) {
+  const now = Math.floor(Date.now() / 1000);
+  await env.DB.prepare(
+    `UPDATE licenses SET status = 'canceled', updated_at = ? WHERE stripe_subscription_id = ?`,
+  )
+    .bind(now, subscription.id)
+    .run();
+}
+
+export async function handleStripeEvent(event, env) {
+  switch (event.type) {
+    case "checkout.session.completed":
+      await handleCheckoutCompleted(event.data.object, env);
+      break;
+    case "customer.subscription.updated":
+      await handleSubscriptionUpdated(event.data.object, env);
+      break;
+    case "customer.subscription.deleted":
+      await handleSubscriptionDeleted(event.data.object, env);
+      break;
+    default:
+      break;
+  }
+}

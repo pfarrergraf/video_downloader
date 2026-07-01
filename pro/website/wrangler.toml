@@ -1,0 +1,11 @@
+# Cloudflare Pages reads this for Functions bindings even when the project is
+# deployed via git integration (dashboard "Connect to Git") rather than the
+# wrangler CLI — no local wrangler command is needed to apply this.
+name = "downloadthat"
+compatibility_date = "2026-07-01"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "downloadthat-licenses"
+database_id = "cee415b0-dad7-4ae5-a080-48872a37d057"
