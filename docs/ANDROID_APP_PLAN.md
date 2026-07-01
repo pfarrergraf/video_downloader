@@ -197,16 +197,30 @@ because they cover different Android versions/failure modes:
   needing one; a picker could still be added later as a nice-to-have if users
   want downloads to land somewhere other than the default Downloads folder.
 - **Done when:** a completed download is visible from the stock Android Files
-  app. ✅ Done — confirmed via `download_pipeline_test.sh` passing in CI run
-  #15. (The MediaStore Downloads-collection publish itself went unconfirmed in
-  that specific run — its check is explicitly non-fatal/best-effort and didn't
-  find the file — but this was very likely just a timing race, not a real
-  publish failure: the check ran ~1.6s after job completion while the
-  publisher only polled every 3s, so it could easily have checked before the
-  publisher's next cycle ran. Fixed by shrinking
-  `android_entry._PUBLISH_POLL_SECONDS` to 1.0 and having the CI check retry
-  for up to 10s instead of a single shot, so a future run will show a real
-  publish failure if there is one instead of a false negative.)
+  app. ✅ Done via the external-files-dir copy (3a), confirmed by
+  `download_pipeline_test.sh` passing in CI run #15. The MediaStore
+  Downloads-collection publish (3b) turned out to have been completely
+  broken since it was written — see "3b was never actually working" below —
+  now fixed and confirmed inserting real rows as of CI run #17.
+
+**3b was never actually working, and the CI test's non-fatal check hid it.**
+Run #15's MediaStore check reported "not found" for the downloaded file;
+first hypothesis was a timing race (the check ran ~1.6s after job completion
+while the publisher only polled every 3s). Shrunk
+`android_entry._PUBLISH_POLL_SECONDS` to 1.0 and made the CI check retry for
+up to 10s so a real failure would be distinguishable from a race — and the
+very next run (#16) surfaced a genuine, previously-silent exception:
+`TypeError: android.content.ContentValues.put is ambiguous for arguments
+(str, int)`. Root cause: `values.put("is_pending", 1)` passed a bare Python
+`int` across the Chaquopy/Java bridge to an overloaded method (Byte/Short/
+Integer/Long/Float/Double all accept `put(String, ...)`), which Chaquopy
+can't resolve without help — it had been raising and getting silently
+swallowed by `_publish_file_to_downloads`'s broad `except Exception` on
+every single call since Phase 3 was written. Fixed by wrapping both
+`is_pending` values with Chaquopy's `jint()` type-disambiguation helper
+(`from java import jclass, jint`). See `memory.md` for the full incident —
+the standing lesson: a "best-effort, non-fatal" check that swallows its own
+exceptions can hide a completely broken code path indefinitely.
 
 **Critical fix found by Phase 3's own CI test:** the first real, non-mocked
 download attempt on Android (via `download_pipeline_test.sh`) failed even

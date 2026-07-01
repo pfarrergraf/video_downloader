@@ -64,7 +64,7 @@ def _publish_file_to_downloads(path: Path) -> None:
     succeeds, so this must never be allowed to affect the download itself.
     """
     try:
-        from java import jclass  # type: ignore[import-not-found]
+        from java import jclass, jint  # type: ignore[import-not-found]
     except ImportError:
         return  # not running under Chaquopy (Termux/desktop/CLI) — nothing to do here
 
@@ -87,7 +87,14 @@ def _publish_file_to_downloads(path: Path) -> None:
         values = content_values_class()
         values.put("_display_name", path.name)
         values.put("mime_type", mime_type)
-        values.put("is_pending", 1)
+        # A bare Python int is ambiguous to Chaquopy here: ContentValues.put
+        # is overloaded for Byte/Short/Integer/Long (among others), and
+        # nothing about a plain int says which one to pick — it raised
+        # "ContentValues.put is ambiguous for arguments (str, int)" every
+        # single time, silently swallowed by this function's broad except
+        # below, so the MediaStore publish step had never actually worked.
+        # jint() disambiguates by explicitly typing it as a Java int.
+        values.put("is_pending", jint(1))
 
         uri = resolver.insert(media_store_downloads.EXTERNAL_CONTENT_URI, values)
         if uri is None:
@@ -105,7 +112,7 @@ def _publish_file_to_downloads(path: Path) -> None:
             out_stream.close()
 
         done_values = content_values_class()
-        done_values.put("is_pending", 0)
+        done_values.put("is_pending", jint(0))
         resolver.update(uri, done_values, None, None)
     except Exception:
         traceback.print_exc()

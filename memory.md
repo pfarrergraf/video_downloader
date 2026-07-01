@@ -3,6 +3,47 @@
 A running log of decisions and incidents worth remembering, in case future work
 (by Claude or a human) needs the "why," not just the "what." Newest entries on top.
 
+## 2026-07-01 — MediaStore publish was never actually working: ContentValues.put ambiguity
+
+The previous entry below concluded run #15's MediaStore "not found" was just a
+timing race (test checked before the 3s-interval publisher's next cycle) and
+fixed it by shrinking the poll interval to 1s and having the CI check retry
+for 10s. That fix was itself correct, but it also did its job as a
+diagnostic: the very next CI run (#16) hit real headroom to actually run the
+publish code, and it immediately failed with a genuine exception that had
+been silently swallowed by `_publish_file_to_downloads`'s broad
+`except Exception: traceback.print_exc()` since Phase 3 was written:
+
+```
+TypeError: android.content.ContentValues.put is ambiguous for arguments
+(str, int): options are void ContentValues.put(String, Byte), ...Double,
+...Float, ...Integer, ...Long, ...Short
+```
+
+Root cause: `values.put("is_pending", 1)` passes a bare Python `int` across
+the Chaquopy/Java bridge to an overloaded method, and nothing about a plain
+int says which of Byte/Short/Integer/Long/Float/Double to pick — Chaquopy
+can't resolve the overload and raises instead of guessing. So the
+MediaStore-Downloads publish step had *never* actually inserted anything;
+every completed download only ever showed up via the external-files-dir copy
+(3a), never the stock Files app's Downloads section (3b) — since the
+external-files-dir path already satisfied Phase 3's "done when," this went
+unnoticed until the test finally got to see it.
+
+Fixed by importing `jint` from Chaquopy's `java` module (alongside the
+already-used `jclass`) and wrapping both `is_pending` values:
+`values.put("is_pending", jint(1))`. Chaquopy documents `jint`/`jboolean`/
+`jbyte`/`jshort`/`jlong`/`jfloat`/`jdouble` specifically for this purpose —
+disambiguating which overload a Python primitive should map to.
+
+**Standing lesson, reinforced:** a "non-fatal, best-effort" check that
+swallows its own exceptions can hide a completely broken code path
+indefinitely — it takes an active, curious look (or, as here, tightening the
+test until it actually has time to observe the real behavior) to find out
+it's been silently no-op-ing the entire time. Don't assume "test passed,
+non-fatal note printed" means "harmless" without reading what the note
+actually says.
+
 ## 2026-07-01 — Phase 4 (signed release) + password hardening + a false-alarm MediaStore gap
 
 Three things done together after Phase 3 went green, all under "make everything
