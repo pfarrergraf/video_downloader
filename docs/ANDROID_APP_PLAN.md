@@ -200,10 +200,15 @@ because they cover different Android versions/failure modes:
   app. ✅ Done via the external-files-dir copy (3a), confirmed by
   `download_pipeline_test.sh` passing in CI run #15. The MediaStore
   Downloads-collection publish (3b) turned out to have been completely
-  broken since it was written — see "3b was never actually working" below —
-  now fixed and confirmed inserting real rows as of CI run #17.
+  broken since it was written (the `ContentValues.put` bug below) — that bug
+  is now fixed, but 3b still isn't confirmed actually inserting rows: CI run
+  #17 still reported "not found" within the 10s check window, this time
+  because of a separate, pre-existing issue (a duplicate server-start crash —
+  see `memory.md`'s "intermittent duplicate server start" entry). 3b remains
+  a best-effort, unconfirmed nice-to-have; the "done when" bar above is met
+  through 3a regardless.
 
-**3b was never actually working, and the CI test's non-fatal check hid it.**
+**3b was silently broken by a ContentValues.put bug since it was written.**
 Run #15's MediaStore check reported "not found" for the downloaded file;
 first hypothesis was a timing race (the check ran ~1.6s after job completion
 while the publisher only polled every 3s). Shrunk

@@ -3,6 +3,37 @@
 A running log of decisions and incidents worth remembering, in case future work
 (by Claude or a human) needs the "why," not just the "what." Newest entries on top.
 
+## 2026-07-01 — Open follow-up: intermittent duplicate server start on Android
+
+CI run #17 (after the `jint()` MediaStore fix landed) confirmed the
+`ContentValues.put` ambiguity is gone — but the MediaStore publish still
+didn't complete within the check's 10s window, this time because of a
+different, pre-existing issue: logcat showed `ClassyDL: Server thread
+crashed — OSError: [Errno 98] Address already in use`, about 2 minutes after
+the app was launched via `adb shell am start`. This matches a crash first
+noticed (but not investigated) back in run #13's logs, so it's not a
+regression from today's changes — it's an existing, unexplained issue.
+
+Working theory, not yet confirmed: `MainActivity.onCreate` (and therefore
+`startPythonServer()`) runs a second time at some point after the initial
+launch — possibly an Activity recreation Android triggers for a reason not
+yet identified (not clearly caused by the WebView load-retry logic, which
+only spans ~10s, far short of the ~2 minute gap observed). The second
+`run_server()` call fails to bind to the already-listening port 8420 and
+that thread crashes — harmlessly, since the first server instance keeps
+running and the app functions normally — but it also means a *second*
+`_run_downloads_publisher` thread starts (that thread launches before the
+port bind, so it isn't affected by the bind failure), doubling up on
+publish-polling against the same sqlite DB. Not itself confirmed to be *why*
+the MediaStore publish missed the 10s window this run, but worth ruling out
+first.
+
+**Not yet fixed — functionally low priority** since Phase 3's actual "done
+when" bar (a completed download visible via the app's external-files-dir
+copy) is unaffected either way. Worth investigating if it starts causing
+visible problems (e.g. duplicate downloads, doubled log noise) or before
+relying on MediaStore-Downloads visibility for anything user-facing.
+
 ## 2026-07-01 — MediaStore publish was never actually working: ContentValues.put ambiguity
 
 The previous entry below concluded run #15's MediaStore "not found" was just a
