@@ -1,11 +1,11 @@
 {
-  "name": "ClassyDL",
-  "short_name": "ClassyDL",
-  "description": "Gothic browser UI for the ClassyDL downloader",
+  "name": "DownloadThat",
+  "short_name": "DownloadThat",
+  "description": "Browser UI for the ClassyDL downloader",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0b0710",
-  "theme_color": "#0b0710",
+  "background_color": "#0e0c14",
+  "theme_color": "#0e0c14",
   "icons": [
     { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>ClassyDL</title>
+<title>DownloadThat</title>
 <meta name="theme-color" content="#0e0c14" />
 <link rel="manifest" href="/manifest.webmanifest" />
 <link rel="icon" href="/icon.svg" type="image/svg+xml" />
@@ -183,9 +183,42 @@
   }
   .hidden { display: none !important; }
   footer { text-align: center; color: var(--text-dim); font-size: 0.78rem; padding: 1.5rem 1rem; }
+
+  #splash {
+    position: fixed; inset: 0; background: var(--bg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.9rem; z-index: 100;
+    transition: opacity 0.4s ease;
+  }
+  #splash.fade-out { opacity: 0; pointer-events: none; }
+  .splash-icon { animation: splash-bounce 1s ease-in-out infinite; }
+  @keyframes splash-bounce {
+    0%, 100% { transform: translateY(-6px); opacity: 0.7; }
+    50% { transform: translateY(6px); opacity: 1; }
+  }
+  .splash-title {
+    font-family: 'Cinzel', serif;
+    color: var(--accent);
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    opacity: 0;
+    animation: splash-text-in 0.6s ease forwards 0.3s;
+  }
+  @keyframes splash-text-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 </style>
 </head>
 <body>
+
+<div id="splash">
+  <svg class="splash-icon" viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
+    <path d="M32 6 L32 34 M20 24 L32 38 L44 24" stroke="#c9a869" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <rect x="14" y="46" width="36" height="6" rx="3" fill="#c9a869" />
+  </svg>
+  <div class="splash-title">DownloadThat</div>
+</div>
 
 <div id="login-overlay">
   <div class="card">
@@ -199,7 +232,7 @@
 
 <div id="app" class="hidden">
   <header>
-    <h1>ClassyDL</h1>
+    <h1>DownloadThat</h1>
     <p>Medien von jeder Seite herunterladen, von jedem Gerät aus</p>
   </header>
   <main>
@@ -236,7 +269,7 @@
       <ul class="job-list" id="job-list"></ul>
     </div>
   </main>
-  <footer>ClassyDL &mdash; lade nur Medien herunter, an denen du Rechte hast.</footer>
+  <footer>DownloadThat &mdash; lade nur Medien herunter, an denen du Rechte hast.</footer>
 </div>
 
 <div id="toast"></div>
@@ -244,6 +277,34 @@
 <script>
 const $ = (id) => document.getElementById(id);
 let lastScrape = null;
+
+function playDownloadChime() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = ctx.currentTime;
+    [523.25, 783.99].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0, now + i * 0.15);
+      gain.gain.linearRampToValueAtTime(0.2, now + i * 0.15 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.15 + 0.35);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(now + i * 0.15);
+      osc.stop(now + i * 0.15 + 0.4);
+    });
+  } catch (e) {
+    // Autoplay blocked or Web Audio unsupported — the visual splash still plays.
+  }
+}
+
+playDownloadChime();
+setTimeout(() => {
+  const splash = $('splash');
+  splash.classList.add('fade-out');
+  setTimeout(() => splash.remove(), 500);
+}, 1600);
 
 function toast(msg) {
   const t = $('toast');

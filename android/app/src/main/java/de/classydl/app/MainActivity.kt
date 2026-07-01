@@ -40,6 +40,11 @@ class MainActivity : AppCompatActivity() {
         val webView = findViewById<WebView>(R.id.webview)
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
+        // Lets the splash screen's chime (Web Audio API, see static/index.html)
+        // play immediately on load instead of being blocked by the browser-style
+        // autoplay-requires-a-gesture policy — safe here since it's our own
+        // contained WebView, not an arbitrary page.
+        webView.settings.mediaPlaybackRequiresUserGesture = false
         webView.webViewClient = object : WebViewClient() {
             override fun onReceivedError(
                 view: WebView?,
