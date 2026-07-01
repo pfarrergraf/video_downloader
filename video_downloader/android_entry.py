@@ -7,6 +7,23 @@ to construct QueueStore/Path objects from the Kotlin side.
 
 from __future__ import annotations
 
+import os
+
+# Must happen before anything below imports requests/yt_dlp/urllib and opens an
+# HTTPS connection: Android has no OpenSSL system CA store at the filesystem
+# paths Python's ssl module checks by default (unlike desktop Linux/Termux), so
+# every TLS handshake fails with a certificate-verify error until something
+# points it at a real bundle. Setting SSL_CERT_FILE is honored by
+# ssl.create_default_context()/load_default_certs() as an override for the
+# compiled-in default. Harmless (a no-op override) on platforms that already
+# have a working system CA store, so this isn't gated to Android specifically.
+try:
+    import certifi
+
+    os.environ.setdefault("SSL_CERT_FILE", certifi.where())
+except ImportError:
+    pass
+
 import mimetypes
 import threading
 import traceback

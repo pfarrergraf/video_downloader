@@ -58,6 +58,12 @@ chaquopy {
             install "beautifulsoup4>=4.12.0"
             install "requests>=2.32.0"
             install "yt-dlp>=2024.12.13"
+            // Explicit, not just relying on it coming in transitively via requests:
+            // Android has no OpenSSL system cert store at the paths Python's ssl
+            // module checks by default, so HTTPS fails outright unless something
+            // points it at a real CA bundle — see android_entry.py's SSL_CERT_FILE
+            // setup, which needs this package to actually be present.
+            install "certifi"
         }
     }
     sourceSets {
