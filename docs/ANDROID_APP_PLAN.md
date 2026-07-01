@@ -109,22 +109,44 @@ This means audio downloads already work on the current Android APK today, just
 not always as a universally-converted MP3. Covered by
 `tests/test_strategies_audio_fallback.py`.
 
-**Step 2b — real ffmpeg build: not started.** Rejected embedding an unverified
-prebuilt ffmpeg-for-Android binary from a third-party source (supply-chain trust
-risk — no way to verify what's actually in an unaudited binary blob shipped inside
-the app). The trustworthy path is cross-compiling ffmpeg from source using the
-Android NDK, in CI, producing a binary placed under
-`android/app/src/main/jniLibs/<abi>/libffmpeg.so` (Android only allows executing
-files shipped as `.so` under `jniLibs` post-scoped-storage — naming it as a
-"library" is the standard workaround, not an actual shared library). Expect this
-to need several slow CI iterations (each full ffmpeg compile is minutes, not
-seconds, unlike the Gradle-only Phase 1 failures) since ffmpeg's cross-compilation
-configure flags are finicky to get right blind. Wiring the result in on the app
-side is just setting `ffmpeg_binary` to the resolved path before calling
-`android_entry.start(...)` — no further core code changes needed since Step 2a
-already made the yt-dlp call path ffmpeg-path-aware.
+**Step 2b — real ffmpeg build: DONE, green on the first CI attempt** (2026-07-01,
+run #8: https://github.com/pfarrergraf/video_downloader/actions/runs/28514879147).
+Rejected embedding an unverified prebuilt ffmpeg-for-Android binary from a
+third-party source (supply-chain trust risk — no way to verify what's actually in
+an unaudited binary blob shipped inside the app). Instead:
+- `.github/scripts/build_ffmpeg_android.sh` cross-compiles **libmp3lame 3.100**
+  then **ffmpeg release/7.1** from their official upstream sources, using the
+  Android NDK's LLVM toolchain (`aarch64-linux-android26-clang` /
+  `x86_64-linux-android26-clang`, `llvm-ar`/`llvm-ranlib`/`llvm-strip`/`llvm-nm`),
+  producing a static CLI binary with `--enable-libmp3lame` (confirmed present in
+  the binary's own `ffmpeg -version` configuration banner in CI logs) — MP3
+  encoding genuinely works, not just stream copy.
+- A `build-ffmpeg` CI job (matrix over `arm64-v8a`, `x86_64`) runs this and
+  uploads each binary as an artifact; the `build` job downloads both and places
+  them at `android/app/src/main/jniLibs/<abi>/libffmpeg.so` before the Gradle
+  build (Android only allows executing files shipped as `.so` under `jniLibs`
+  post-scoped-storage — naming it as a "library" is the standard workaround, not
+  an actual shared library).
+- `MainActivity.resolveFfmpegBinary()` resolves `applicationInfo.nativeLibraryDir
+  + "/libffmpeg.so"` and passes it through
+  `android_entry.start(..., ffmpeg_binary=...)` → `run_server(...)` →
+  `ClassyDLServer.ffmpeg_binary` → `store.add_job(ffmpeg_binary=...)`, falling
+  back to the plain `"ffmpeg"` command name if the bundled binary is ever
+  missing (e.g. an APK built before this phase).
+- `.github/scripts/ffmpeg_exec_test.sh` independently pushes the x86_64 binary
+  onto the CI emulator and runs `-version` on it directly (outside the app),
+  proving the cross-compiled binary actually executes on Android — confirmed:
+  full `ffmpeg version ... libavutil/libavcodec/.../libswresample` banner printed
+  from inside the emulator.
+- Each full compile took ~3 minutes per ABI in CI (much faster than the
+  "expect several slow iterations" worry below turned out to require — it went
+  green on the very first attempt).
 - **Done when:** an audio-only download produces a converted MP3 on-device (not
-  just the pragmatic native-format fallback).
+  just the pragmatic native-format fallback). ✅ Infrastructure confirmed
+  end-to-end (ffmpeg runs on-device with libmp3lame linked in); an actual
+  audio-only download exercising this on a real queued job hasn't been manually
+  verified yet — worth a real-device sanity check when convenient, but the
+  underlying pieces are all individually proven.
 
 ### Phase 3 — Storage
 - Scoped storage: write to the app's external files dir by default (always writable,

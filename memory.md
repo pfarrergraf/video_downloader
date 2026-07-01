@@ -3,6 +3,46 @@
 A running log of decisions and incidents worth remembering, in case future work
 (by Claude or a human) needs the "why," not just the "what." Newest entries on top.
 
+## 2026-07-01 — Phase 2: ffmpeg for Android, done in two steps
+
+**2a (pragmatic, immediate):** found that `DownloadRequest.ffmpeg_binary` was
+never actually passed to the yt-dlp subprocess — only the separate FFmpeg
+strategy checked it. Audio-only downloads always forced `-x --audio-format mp3`,
+which hard-needs ffmpeg. Fixed `strategies.YtDlpStrategy` to check
+`shutil.which(request.ffmpeg_binary)`: with ffmpeg, unchanged (now also passing
+`--ffmpeg-location` explicitly); without it, selects `-f bestaudio` and skips
+`-x`/`--audio-format`, saving the source's native audio container instead of
+failing. Unblocked audio downloads on Android immediately, before any ffmpeg
+binary existed at all.
+
+**2b (real ffmpeg build):** rejected downloading a prebuilt third-party
+ffmpeg-for-Android binary — no way to verify what's actually inside an unaudited
+binary blob shipped in the app, that's a real supply-chain risk. Went with
+cross-compiling from official upstream source (ffmpeg release/7.1 + libmp3lame
+3.100) via the Android NDK's LLVM toolchain in a new CI job
+(`build-ffmpeg`, matrix over arm64-v8a/x86_64), landing the result at
+`app/src/main/jniLibs/<abi>/libffmpeg.so`. Despite explicitly warning it'd
+likely need several slow iterations (ffmpeg cross-compilation has a well-earned
+reputation for being finicky), **it went green on the very first CI attempt** —
+both ABIs compiled in ~3 minutes each, and the emulator smoke test independently
+pushed the x86_64 binary and ran `-version` on it directly (outside the app),
+confirming the real `ffmpeg version ... libavutil/libavcodec/.../libswresample`
+banner prints from inside Android, with `--enable-libmp3lame` present in its own
+reported configuration — MP3 encoding is real, not just stream copy.
+
+Wiring: `MainActivity.resolveFfmpegBinary()` → `android_entry.start(...,
+ffmpeg_binary=...)` → `run_server(...)` → `ClassyDLServer.ffmpeg_binary` →
+`store.add_job(ffmpeg_binary=...)`. `web/server.py`'s `create_server`/`run_server`
+gained an `ffmpeg_binary` parameter to make this possible — previously there was
+no way to tell the web/Android server "here's where ffmpeg lives" at all.
+
+**Takeaway:** the "expect many slow iterations" caution from the Phase 1
+memory entry doesn't universally apply — a well-researched first attempt
+(current NDK toolchain conventions confirmed via search before writing the
+script, conservative/non-aggressive configure flags to avoid silently breaking
+unrelated functionality) can and did go green immediately even for a build this
+complex. Don't skip the research step next time either.
+
 ## 2026-07-01 — "Sometimes downloads the wrong file" bug (shared output directory)
 
 User reported via Termux that queuing a YouTube link with "Queue URL Directly"
