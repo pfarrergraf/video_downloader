@@ -208,6 +208,31 @@ docker run -p 8420:8420 -e CLASSYDL_WEB_PASSWORD=pick-something-strong -v classy
 ⚠️ This proxies downloads from arbitrary URLs — always set a real password, and don't
 expose it without one.
 
+### Run it directly on an Android phone (no external server)
+
+Termux lets the phone run its own Python + ffmpeg, so the whole stack — backend and
+the Gothic page — lives on the device itself. Nothing is exposed to the internet;
+you just open a browser on the same phone.
+
+```bash
+# Inside Termux, in this repo's directory:
+bash scripts/termux_setup.sh   # one-time: installs python/ffmpeg, pip-installs ClassyDL
+bash scripts/termux_run.sh     # starts the server, prompts for a password
+```
+
+Then open `http://127.0.0.1:8420` in Chrome/Firefox on the same phone. Downloads land
+in `~/storage/downloads/ClassyDL`, visible from the normal Android Files app (requires
+having granted storage access when `termux-setup-storage` prompted).
+
+Notes:
+
+- Keep Termux running (don't swipe it away) while a download is in progress; long-press
+  its notification and choose "Acquire wakelock" so Android doesn't suspend it.
+- If `pip install` fails compiling a dependency, `scripts/termux_setup.sh` automatically
+  retries after installing a Rust toolchain (`pkg install rust binutils clang`).
+- This mode binds to `127.0.0.1` only — it is not reachable from other devices, by
+  design, since nothing here is meant to leave the phone.
+
 ## Easy Desktop UI
 
 Launch a simpler click-first UI with built-in site scraping:
