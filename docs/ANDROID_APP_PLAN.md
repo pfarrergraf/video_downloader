@@ -42,8 +42,11 @@ platform-specific → fix → rebuild, until it's green.
 ## Phases
 
 ### Phase 1 — Scaffold the app, get a debug APK building (and self-testing) in CI
-- **Status: scaffolded**, see `android/`, `video_downloader/android_entry.py`, and
-  `.github/workflows/android-build.yml`.
+- **Status: DONE and verified green in CI** (2026-07-01, run #5:
+  https://github.com/pfarrergraf/video_downloader/actions/runs/28512295438).
+  `/api/health` answered `{"status": "ok"}` from inside a freshly booted CI
+  emulator with the just-built debug APK installed — the embedded Python server
+  is genuinely alive on-device.
 - `android/` Gradle project (Chaquopy 17.0.0 + AGP 8.7.3): `app/build.gradle` bundles
   the existing `video_downloader` package straight from the repo root as a Chaquopy
   Python source set (no wheel-building step), plus a `pip{}` block for `requests`,
@@ -60,21 +63,33 @@ platform-specific → fix → rebuild, until it's green.
   APK via `gradle/actions/setup-gradle`, no committed wrapper jar needed — see
   below) and `emulator-smoke-test` (boots a hardware-accelerated x86_64 emulator via
   `reactivecircus/android-emulator-runner`, installs the APK, launches the activity,
-  and polls `/api/health` through `adb forward`). Both run on free/unlimited minutes
+  and polls `/api/health` through `adb forward`, via `.github/scripts/smoke_test.sh`
+  since the action runs each `script:` line as a separate shell invocation and
+  can't survive a multi-line loop inline). Both run on free/unlimited minutes
   since this repo is public.
-- The debug build intentionally does **not** restrict `abiFilters`, so it includes
-  x86_64 native libs and can run unmodified in the CI/desktop emulator; Phase 4
-  narrows this to `arm64-v8a` for the APK that's actually distributed.
+- `app.build.gradle`'s Chaquopy Python source set excludes `android/**` (and
+  `tests/**`, `scripts/**`, etc.) from the repo-root srcDir — needed because the
+  Android project's own `build/` output directory otherwise nests inside the same
+  tree Chaquopy scans, which Gradle's task-validation flags as an implicit
+  dependency conflict.
+- `ndk.abiFilters` includes both `arm64-v8a` (real phones) and `x86_64` (CI/desktop
+  emulators) — Chaquopy requires this to be set explicitly, unlike plain AGP.
+  Phase 4 narrows this to `arm64-v8a` only for the APK that's actually distributed.
 - No `gradle-wrapper.jar` is committed (a real Gradle distribution can't be produced
   as text) — CI provisions Gradle 8.10.2 directly via `gradle/actions/setup-gradle`.
   Whoever opens this in Android Studio locally will get prompted to generate a
   wrapper, or can run `gradle wrapper` once themselves.
-- **Not yet verified**: none of the above has been compiled — the exact Chaquopy
-  Gradle DSL, emulator-runner options, etc. were written from documentation/best
-  knowledge without a local Android toolchain to check against. First CI run is the
-  real test; expect at least one fix-it round.
+- Chaquopy needs a Python 3.11 interpreter on the **build machine** (separate from
+  the Android-target runtime it bundles) to run pip during packaging — CI installs
+  one via `actions/setup-python@v5`; `buildPython "python3.11"` is pinned explicitly
+  in `app/build.gradle` rather than relying on autodetection.
+- It took 5 CI iterations to go green (missing abiFilters → missing build-time
+  Python → Gradle task-overlap validation → broken multi-line shell script →
+  success), each diagnosed from real CI logs rather than guessed — see `memory.md`
+  for the full blow-by-blow.
 - **Done when:** the `emulator-smoke-test` job goes green — i.e., `/api/health`
   answers from inside a freshly booted emulator with the just-built APK installed.
+  ✅ Done.
 
 ### Phase 2 — Bundle ffmpeg
 - Static `ffmpeg` binaries per ABI (`arm64-v8a`, `armeabi-v7a`) placed under
@@ -127,6 +142,11 @@ platform-specific → fix → rebuild, until it's green.
 
 ## Next step
 
-Start Phase 1: scaffold the `android/` Gradle project + Chaquopy config +
-`MainActivity` + the CI workflow. This is pure file authoring (no Android SDK needed
-on this end) — the first real signal of success is the CI build going green.
+Phase 1 is done. Next up is Phase 2: bundle ffmpeg for Android so audio-only
+downloads (which need ffmpeg extraction) work on-device, not just plain video
+downloads that yt-dlp can save directly.
+
+In the meantime, the current debug APK from CI run #5 can already be downloaded
+and sideloaded onto a real phone to try the scraping/queue/download UI end-to-end
+(without ffmpeg-dependent formats): see the workflow run's Artifacts section at
+https://github.com/pfarrergraf/video_downloader/actions/runs/28512295438

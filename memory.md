@@ -3,6 +3,52 @@
 A running log of decisions and incidents worth remembering, in case future work
 (by Claude or a human) needs the "why," not just the "what." Newest entries on top.
 
+## 2026-07-01 — Standalone Android app (Chaquopy), Phase 1 scaffold to green CI
+
+**Goal:** after the Termux success, the user wanted something distributable to
+*other* Android phones without Google Play — a real sideloadable APK. Full plan in
+`docs/ANDROID_APP_PLAN.md`; chosen approach is Chaquopy (embeds CPython in a native
+Android app) wrapping the same `video_downloader.web.server` used on Termux, shown
+in a WebView. No Android SDK is available in this dev sandbox, so the plan was
+scaffolded as real files and verified entirely through GitHub Actions CI + an
+emulator smoke test (`reactivecircus/android-emulator-runner`, free on this public
+repo). It took 5 push-and-check iterations to go green, each diagnosed from actual
+CI logs:
+
+1. **Missing `ndk.abiFilters`** — Chaquopy requires it set explicitly in
+   `android.defaultConfig`; plain AGP's implicit "build all ABIs" default doesn't
+   apply to it. Fixed by setting `arm64-v8a` (real phones) + `x86_64` (CI/desktop
+   emulators).
+2. **"Couldn't find Python 3.11"** — Chaquopy needs a Python interpreter on the
+   *build* machine (distinct from the Android-target runtime it bundles) to run pip
+   during packaging. CI's Ubuntu image doesn't have one pinned to 3.11 by default.
+   Fixed by adding `actions/setup-python@v5` and pinning `buildPython "python3.11"`
+   explicitly instead of relying on autodetection.
+3. **Gradle implicit-dependency validation failure** on `:app:mergeDebugPythonSources`
+   — the Chaquopy Python source set pointed at the repo root, which also contains
+   `android/app/build/` (this very Gradle project's own output directory) as a
+   nested subdirectory, so Gradle's newer task-validation flagged an unordered
+   overlap with `:app:mergeDebugResources` and friends. Fixed by excluding
+   `android/**` (and `tests/**`, `scripts/**`, etc.) from that source set.
+4. **Emulator smoke test script syntax error** — `reactivecircus/android-emulator-runner`
+   executes each line of its `script:` block as a *separate* shell invocation, so a
+   multi-line `for ... do ... done` loop written inline in the workflow YAML breaks
+   ("`Syntax error: end of file unexpected (expecting done)`"). Fixed by moving the
+   retry loop into `.github/scripts/smoke_test.sh` and invoking it as a single line
+   — and by adding a missing `actions/checkout` step to the emulator job, which
+   needed the repo checked out to find that script.
+5. **Green**: `/api/health` answered `{"status": "ok"}` from inside a freshly
+   booted CI emulator with the just-built debug APK installed — confirming the
+   embedded Python server genuinely starts and serves requests on-device, not just
+   that the build compiles.
+
+**Standing principle:** none of these were guessable from documentation alone —
+Chaquopy's Gradle integration has several hard requirements (explicit abiFilters,
+a separate build-time Python, source-set boundaries) that only surface as build
+failures. Treat any future Android/Gradle change here as needing a real CI round-trip
+before considering it done; don't assume Gradle config compiles just because it
+looks syntactically right.
+
 ## 2026-07-01 — Gothic web UI, Termux deployment, two debugging rounds
 
 **Goal:** let ClassyDL be driven from a phone via a browser, initially explored as a

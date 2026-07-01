@@ -49,6 +49,27 @@ the config/state DB/logs live — needed because the original Windows-only path
 resolution otherwise creates a literal `AppData/Roaming/...` folder under `$HOME` on
 Linux/Termux, which works but is ugly. Set it explicitly in non-Windows deployments.
 
+## Standalone Android app (`android/`)
+
+A real sideloadable APK (no Play Store) is being built via Chaquopy — embeds CPython
+in a native Android app, wrapping `video_downloader.web.server` unmodified behind a
+WebView. Full plan and phase status: `docs/ANDROID_APP_PLAN.md`. Key things to know
+before touching `android/`:
+
+- There is no Android SDK in this dev sandbox — `android/` changes can only be
+  verified via CI (`.github/workflows/android-build.yml`), which builds a debug APK
+  and boots it in an emulator to smoke-test `/api/health`. Push, then check the
+  Actions run; don't assume Gradle/Chaquopy config is correct just because it looks
+  right — it took 5 iterations to get Phase 1 green, see `memory.md`.
+- Chaquopy has several non-obvious hard requirements learned the hard way: explicit
+  `ndk.abiFilters`, a separate build-time Python 3.11 (`buildPython` pinned, plus
+  `actions/setup-python` in CI), and Python source-set directories that must not
+  overlap with the Gradle project's own `build/` output (hence `exclude "android/**"`
+  on a source set rooted at the repo root).
+- `reactivecircus/android-emulator-runner`'s `script:` block runs each line as a
+  separate shell invocation — no multi-line control flow (loops, if/fi) survives
+  inline; put anything like that in a script file under `.github/scripts/` instead.
+
 ## Testing
 
 ```bash
