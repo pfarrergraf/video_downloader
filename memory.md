@@ -1,3 +1,31 @@
+## 2026-07-01 — Duplicate server start bug fixed; legal pages added
+
+**Duplicate server start (MainActivity.kt):** Root cause confirmed as Activity
+recreation. Android can call `onCreate()` a second time on the same process (e.g. for
+a config change, or simply because the system recreated the Activity while the Python
+server thread — a daemon — stayed alive from the first launch). The second call to
+`startPythonServer()` tried to `run_server()` on port 8420, which was already bound by
+the first invocation, raising `OSError: [Errno 98] Address already in use` and crashing
+the second server thread. The `_run_downloads_publisher` thread launched *before* the
+bind attempt, so it survived and doubled up on SQLite polling — harmless but noisy.
+
+Fix: added a `@Volatile private var serverStarted` boolean flag in `MainActivity`'s
+companion object. `startPythonServer()` now returns immediately if `serverStarted` is
+already `true`, making the call idempotent regardless of how many times Android
+recreates the Activity. `@Volatile` ensures the write is visible across threads without
+needing a full `synchronized` block (the flag is only ever flipped from false → true,
+never back, so a data race on the initial read is benign — worst case: two threads both
+see `false` on the very first call, both try to start, second one fails at the port
+bind just like before, still harmless but no longer expected to happen in practice
+since `startPythonServer()` is always called from the main thread).
+
+**Legal pages:** Added `pro/website/impressum.html` (German TMG legal notice) and
+`pro/website/datenschutz.html` (German GDPR privacy notice), both matching the
+existing dark/gold visual style. All fields requiring real personal data
+(name, address, VAT ID, etc.) are clearly marked `[PLACEHOLDER]` — the owner must
+fill these in before the site goes live. Updated `index.html`'s footer to link to
+both pages.
+
 ## 2026-07-01 — Cloudflare deploy blocked at the network layer, not just missing tools
 
 User is phone-only (no laptop, can't run `wrangler`/local commands at all) and asked me

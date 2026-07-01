@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         // per-install password instead — see getOrCreatePassword().
         private const val DEBUG_PASSWORD = "classydl"
 
-        // TODO: replace with the real deployed Worker URL once
-        // pro/worker is deployed (see pro/README.md) — until then this is
+        // TODO: replace with the real deployed Pages URL once deployed via
+        // Cloudflare "Connect to Git" (see pro/README.md) — until then this is
         // an unreachable placeholder, which is safe: android_entry.py's
         // LicenseManager fails closed (free-tier) on any network error, it
         // never grants Pro just because the license server is unreachable.
@@ -43,6 +43,17 @@ class MainActivity : AppCompatActivity() {
         // license key — keeps exercising the always-unrestricted path it
         // was written against, unaffected by free-tier limits.
         private const val LICENSE_API_BASE = "https://downloadthat-license-server.YOUR-SUBDOMAIN.workers.dev"
+
+        // Idempotency guard: Android may recreate the Activity (e.g. on a
+        // config change) without restarting the process, causing onCreate →
+        // startPythonServer() to be called a second time. The second
+        // run_server() call would fail to bind the already-occupied port 8420
+        // (OSError: [Errno 98] Address already in use) and crash that thread —
+        // harmlessly for the app itself but also redundantly starts a second
+        // _run_downloads_publisher thread, doubling SQLite polling. This flag
+        // prevents both issues. @Volatile ensures the write is immediately
+        // visible to any thread that reads it after onCreate returns.
+        @Volatile private var serverStarted = false
     }
 
     private var loadRetries = 0
@@ -132,6 +143,8 @@ class MainActivity : AppCompatActivity() {
     private fun resolveLicenseApiBase(): String = if (BuildConfig.DEBUG) "" else LICENSE_API_BASE
 
     private fun startPythonServer() {
+        if (serverStarted) return
+        serverStarted = true
         if (!Python.isStarted()) {
             Python.start(AndroidPlatform(this))
         }
