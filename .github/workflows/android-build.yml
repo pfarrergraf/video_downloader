@@ -131,3 +131,4 @@ jobs:
             adb forward tcp:8420 tcp:8420
             bash ${{ github.workspace }}/.github/scripts/smoke_test.sh
             bash ${{ github.workspace }}/.github/scripts/ffmpeg_exec_test.sh ${{ github.workspace }}/ffmpeg-x86_64/ffmpeg
+            bash ${{ github.workspace }}/.github/scripts/download_pipeline_test.sh

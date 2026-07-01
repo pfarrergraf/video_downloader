@@ -69,7 +69,15 @@ class MainActivity : AppCompatActivity() {
         Thread {
             try {
                 val dataDir = filesDir.resolve("classydl-data").absolutePath
-                val outputDir = filesDir.resolve("classydl-downloads").absolutePath
+                // App-specific external storage, not internal filesDir: needs no
+                // permission on any supported API level (scoped storage exempts an
+                // app's own directory under Android/data/<package>/), and — unlike
+                // internal storage — is reachable by a file manager and by `adb
+                // shell` without root. Falls back to internal storage in the rare
+                // case external storage isn't currently available (e.g. removed
+                // SD card on a device that redirected it there).
+                val outputDir = (getExternalFilesDir(null) ?: filesDir)
+                    .resolve("classydl-downloads").absolutePath
                 Python.getInstance()
                     .getModule("video_downloader.android_entry")
                     .callAttr("start", dataDir, outputDir, PASSWORD, PORT, resolveFfmpegBinary())

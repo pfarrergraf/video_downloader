@@ -29,3 +29,23 @@ def test_start_wires_store_and_output_dir(tmp_path: Path, monkeypatch) -> None:
     assert captured["host"] == "127.0.0.1"
     assert captured["port"] == 8420
     assert captured["ffmpeg_binary"] == "/opt/bin/ffmpeg"
+
+
+def test_publish_to_downloads_is_a_noop_without_the_java_bridge(tmp_path: Path) -> None:
+    # Off-Android (this sandbox, CI, Termux, desktop) there is no `java` module
+    # to import, so publishing must silently do nothing rather than error.
+    output = tmp_path / "video.mp4"
+    output.write_bytes(b"data")
+
+    android_entry._publish_file_to_downloads(output)
+
+    assert not android_entry._already_published(output)
+
+
+def test_publish_marker_roundtrip(tmp_path: Path) -> None:
+    output = tmp_path / "video.mp4"
+    output.write_bytes(b"data")
+
+    assert not android_entry._already_published(output)
+    android_entry._mark_published(output)
+    assert android_entry._already_published(output)

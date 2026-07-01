@@ -149,11 +149,47 @@ an unaudited binary blob shipped inside the app). Instead:
   underlying pieces are all individually proven.
 
 ### Phase 3 — Storage
-- Scoped storage: write to the app's external files dir by default (always writable,
-  no permission prompt), and offer a Storage Access Framework picker so the user can
-  point downloads at the shared `Downloads/` folder if they want them visible outside
-  the app without a file manager that shows app-private storage.
-- **Done when:** a completed download is visible from the stock Android Files app.
+
+**Status: implemented, CI-verified pending latest run.** Two layers, both needed
+because they cover different Android versions/failure modes:
+
+- **3a (base layer):** `MainActivity` now points `output_dir` at
+  `getExternalFilesDir(null)` instead of internal `filesDir` — app-specific
+  external storage, which needs no runtime permission on any supported API
+  level (scoped storage explicitly exempts an app's own directory under
+  `Android/data/<package>/`), and is reachable via `adb shell` and most file
+  manager apps without root, unlike internal storage. Falls back to `filesDir`
+  in the rare case external storage isn't currently available.
+- **3b (Downloads-collection layer):** `video_downloader/android_entry.py` runs
+  a background poller (`_run_downloads_publisher`) that watches for newly
+  completed jobs and copies each finished file into Android's shared
+  `MediaStore.Downloads` collection (API 29+) via Chaquopy's `java` bridge
+  (`from java import jclass`) — this is what actually surfaces the file in the
+  stock Files app's "Downloads" section, not just a technically-reachable path.
+  A per-file `.mediastore-published` marker (sibling file) makes this durable
+  across app restarts without needing a DB schema change. Every step is wrapped
+  in broad exception handling: if the Java bridge call fails for any reason,
+  it's logged and swallowed — the file already exists safely via 3a regardless,
+  so a MediaStore hiccup must never affect the download itself. No-ops cleanly
+  off-Android (Termux/desktop/CI unit tests) since `java` isn't importable
+  there — see `tests/test_android_entry.py`.
+- `.github/scripts/download_pipeline_test.sh` extends the CI emulator job to
+  exercise a real download end-to-end for the first time (previous phases only
+  checked `/api/health` and a standalone `ffmpeg -version`): queues a tiny
+  stable Wikimedia-hosted test file via the actual HTTP API, polls until
+  completion, confirms the file exists at the expected external-storage path
+  via `adb shell`, and does a best-effort (non-fatal) MediaStore query check —
+  non-fatal specifically because the Java-bridge MediaStore code is the
+  riskiest untested new piece; the external-storage check is the hard
+  pass/fail gate.
+- **Not done:** no Storage Access Framework picker for a user-chosen folder —
+  the automatic Downloads-collection publish covers the "done when" bar without
+  needing one; a picker could still be added later as a nice-to-have if users
+  want downloads to land somewhere other than the default Downloads folder.
+- **Done when:** a completed download is visible from the stock Android Files
+  app. Pending confirmation from the next CI run (this was implemented and
+  pushed but not yet observed green, unlike Phases 1–2 which were confirmed
+  before being marked done).
 
 ### Phase 4 — Release pipeline
 - Generate a signing keystore once (self-signed is fine for sideloading), store as a
