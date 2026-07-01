@@ -45,6 +45,12 @@ android {
 chaquopy {
     defaultConfig {
         version "3.11"
+        // Chaquopy needs a Python 3.11 interpreter on the BUILD machine (distinct
+        // from the Android-target runtime it bundles) to run pip during packaging.
+        // CI installs one via actions/setup-python; on a local machine this needs
+        // to resolve too — install Python 3.11 and ensure it's on PATH, or point
+        // this at an explicit path (see chaquo.com/chaquopy/doc/current/android.html#buildpython).
+        buildPython "python3.11"
         pip {
             // Kept to what video_downloader.web.server's import chain actually needs
             // (queue_store -> models/utils, core -> strategies/scraper). rich/textual
