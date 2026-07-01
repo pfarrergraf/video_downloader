@@ -127,9 +127,17 @@ class QueueRunner:
         return self.store.ensure_default_profile()
 
     def _build_request(self, job: JobRecord, profile: DownloadProfile) -> DownloadRequest:
-        output_dir = ensure_output_dir(
+        base_output_dir = (
             Path(job.output_dir).expanduser().resolve() if job.output_dir else self.default_output_dir
         )
+        # Each job gets its own subdirectory rather than sharing one flat folder.
+        # strategies.YtDlpStrategy._find_new_files falls back to "whatever file
+        # appeared in the output dir since I started" when yt-dlp's own reported
+        # filename can't be confirmed (e.g. a delayed stat() on Android's shared
+        # storage FUSE bridge) — with a shared folder that fallback can attribute
+        # a *different* job's (or an old, pre-existing) file to this job. A
+        # per-job directory makes that misattribution structurally impossible.
+        output_dir = ensure_output_dir(base_output_dir / f"job-{job.id}")
 
         external_downloader: str | None = None
         external_downloader_args: str | None = None
