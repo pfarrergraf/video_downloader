@@ -64,8 +64,22 @@ chaquopy {
         main {
             // Points at the repo root (two levels up from android/app) so the
             // existing video_downloader/ package is bundled directly from source —
-            // no separate copy, no wheel-building step.
+            // no separate copy, no wheel-building step. Everything except the
+            // package itself is excluded: in particular "android/**" must be
+            // excluded because it contains this very Gradle project's own build/
+            // output directory, which otherwise creates an implicit-dependency
+            // conflict between :app:mergeDebugPythonSources and the tasks that
+            // produce Android build outputs nested inside the same source tree.
             srcDir "${projectDir}/../.."
+            exclude "android/**"
+            exclude "tests/**"
+            exclude "scripts/**"
+            exclude "docs/**"
+            exclude ".git/**"
+            exclude ".venv/**"
+            exclude "dist/**"
+            exclude "build/**"
+            exclude "bundled_bins/**"
         }
     }
 }
