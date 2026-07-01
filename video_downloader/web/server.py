@@ -1,24 +1,27 @@
-"""FastAPI backend for the Gothic browser UI.
+"""Backend for the Gothic browser UI — standard library only.
 
-This is the piece that actually runs on a server: it wraps the existing
-scraper / queue / download-manager modules behind a small HTTP API so any
-browser (phone included) can drive ClassyDL without installing anything.
+This intentionally avoids FastAPI/uvicorn/pydantic: pydantic-core has no
+prebuilt wheel for Termux (Android) and falls back to compiling a Rust
+crate from source, which is slow and fragile on a phone. Using only the
+stdlib http.server means this installs identically everywhere ClassyDL's
+base dependencies already do — Termux, Docker, a VPS, Windows.
 """
 
 from __future__ import annotations
 
 import hmac
+import json
+import mimetypes
+import re
 import secrets
 import threading
 import time
-from contextlib import asynccontextmanager
+from http.client import responses as HTTP_REASONS
+from http.cookies import SimpleCookie
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
-
-from fastapi import FastAPI, HTTPException, Request, Response
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
-from starlette.concurrency import run_in_threadpool
+from urllib.parse import parse_qs, unquote, urlsplit
 
 from ..models import JOB_STATUS_COMPLETED, DownloadProfile, JobRecord
 from ..queue_runner import QueueRunner
@@ -30,6 +33,12 @@ STATIC_DIR = Path(__file__).parent / "static"
 SESSION_COOKIE = "classydl_session"
 SESSION_TTL_SECONDS = 30 * 24 * 3600  # 30 days
 AUDIO_PROFILE_NAME = "web-audio"
+
+QUEUE_CANCEL_RE = re.compile(r"^/api/queue/(\d+)/cancel$")
+DOWNLOAD_RE = re.compile(r"^/api/download/(\d+)/([^/]+)$")
+
+mimetypes.add_type("application/manifest+json", ".webmanifest")
+mimetypes.add_type("image/svg+xml", ".svg")
 
 
 class SessionStore:
@@ -121,156 +130,264 @@ def _serialize_job(store: QueueStore, job: JobRecord) -> dict[str, Any]:
     }
 
 
-def create_app(
+class ClassyDLServer(ThreadingHTTPServer):
+    daemon_threads = True
+    allow_reuse_address = True
+
+    def __init__(
+        self,
+        address: tuple[str, int],
+        *,
+        store: QueueStore,
+        output_dir: Path,
+        password: str,
+        workers: int,
+    ) -> None:
+        super().__init__(address, ClassyDLRequestHandler)
+        self.store = store
+        self.output_dir = output_dir
+        self.password = password
+        self.sessions = SessionStore()
+        self.worker = BackgroundQueueWorker(store=store, output_dir=output_dir, workers=workers)
+
+    def start_background_worker(self) -> None:
+        self.worker.start()
+
+    def stop_background_worker(self) -> None:
+        self.worker.stop()
+
+
+class ClassyDLRequestHandler(BaseHTTPRequestHandler):
+    server: ClassyDLServer  # type: ignore[assignment]
+    protocol_version = "HTTP/1.1"
+
+    def log_message(self, fmt: str, *args: Any) -> None:  # quieter default logging
+        pass
+
+    # -- helpers ----------------------------------------------------------
+    def _session_token(self) -> str | None:
+        cookie = SimpleCookie(self.headers.get("Cookie", ""))
+        morsel = cookie.get(SESSION_COOKIE)
+        return morsel.value if morsel else None
+
+    def _authed(self) -> bool:
+        return self.server.sessions.is_valid(self._session_token())
+
+    def _read_json(self) -> dict[str, Any]:
+        length = int(self.headers.get("Content-Length", 0) or 0)
+        if length == 0:
+            return {}
+        raw = self.rfile.read(length)
+        try:
+            return json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            return {}
+
+    def _send_json(
+        self,
+        status: int,
+        payload: dict[str, Any],
+        *,
+        set_cookie: str | None = None,
+        delete_cookie: bool = False,
+    ) -> None:
+        body = json.dumps(payload).encode("utf-8")
+        self.send_response(status, HTTP_REASONS.get(status, ""))
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        if set_cookie:
+            self.send_header(
+                "Set-Cookie",
+                f"{SESSION_COOKIE}={set_cookie}; Max-Age={SESSION_TTL_SECONDS}; HttpOnly; SameSite=Lax; Path=/",
+            )
+        if delete_cookie:
+            self.send_header("Set-Cookie", f"{SESSION_COOKIE}=; Max-Age=0; HttpOnly; SameSite=Lax; Path=/")
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _send_file(self, path: Path, *, download_name: str | None = None) -> None:
+        try:
+            data = path.read_bytes()
+        except OSError:
+            self._send_json(404, {"detail": "File no longer available"})
+            return
+        content_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+        self.send_response(200)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Length", str(len(data)))
+        if download_name:
+            self.send_header("Content-Disposition", f'attachment; filename="{download_name}"')
+        self.end_headers()
+        self.wfile.write(data)
+
+    def _require_auth(self) -> bool:
+        if not self._authed():
+            self._send_json(401, {"detail": "Not authenticated"})
+            return False
+        return True
+
+    def _static_path(self, url_path: str) -> Path | None:
+        rel = unquote(url_path.lstrip("/")) or "index.html"
+        base = STATIC_DIR.resolve()
+        candidate = (base / rel).resolve()
+        try:
+            candidate.relative_to(base)
+        except ValueError:
+            return None
+        return candidate if candidate.is_file() else None
+
+    # -- routing ------------------------------------------------------------
+    def do_GET(self) -> None:  # noqa: N802 - stdlib naming convention
+        parts = urlsplit(self.path)
+        path = parts.path
+        query = parse_qs(parts.query)
+
+        if path == "/api/health":
+            self._send_json(200, {"status": "ok"})
+            return
+        if path == "/api/me":
+            self._send_json(200, {"authenticated": self._authed()})
+            return
+        if path == "/api/queue":
+            if not self._require_auth():
+                return
+            status = (query.get("status") or [None])[0]
+            jobs = self.server.store.list_jobs(status=status, limit=200)
+            self._send_json(200, {"jobs": [_serialize_job(self.server.store, job) for job in jobs]})
+            return
+
+        match = DOWNLOAD_RE.match(path)
+        if match:
+            if not self._require_auth():
+                return
+            job_id, filename = int(match.group(1)), unquote(match.group(2))
+            for candidate in self.server.store.list_job_files(job_id):
+                candidate_path = Path(candidate)
+                if candidate_path.name == filename:
+                    self._send_file(candidate_path, download_name=candidate_path.name)
+                    return
+            self._send_json(404, {"detail": "File not found for this job"})
+            return
+
+        static_path = self._static_path(path)
+        if static_path is not None:
+            self._send_file(static_path)
+            return
+        self._send_json(404, {"detail": "Not found"})
+
+    def do_POST(self) -> None:  # noqa: N802 - stdlib naming convention
+        path = urlsplit(self.path).path
+
+        if path == "/api/login":
+            body = self._read_json()
+            supplied = str(body.get("password", ""))
+            if not hmac.compare_digest(supplied, self.server.password):
+                self._send_json(401, {"detail": "Wrong password"})
+                return
+            token = self.server.sessions.issue()
+            self._send_json(200, {"authenticated": True}, set_cookie=token)
+            return
+
+        if path == "/api/logout":
+            self.server.sessions.revoke(self._session_token())
+            self._send_json(200, {"authenticated": False}, delete_cookie=True)
+            return
+
+        if path == "/api/scrape":
+            if not self._require_auth():
+                return
+            body = self._read_json()
+            url = str(body.get("url", "")).strip()
+            if not url:
+                self._send_json(400, {"detail": "url is required"})
+                return
+
+            media_types = body.get("media_types") or None
+            scraper = SiteScraper()
+            try:
+                result = scraper.scrape(
+                    url,
+                    same_domain=bool(body.get("same_domain", False)),
+                    media_types=set(media_types) if media_types else None,
+                    name_filter=body.get("name_filter") or None,
+                    deep=bool(body.get("deep", False)),
+                )
+            except Exception as exc:  # network/parsing failures surface to the caller
+                self._send_json(502, {"detail": str(exc)})
+                return
+
+            self._send_json(
+                200,
+                {
+                    "page_url": result.page_url,
+                    "page_title": result.page_title,
+                    "errors": result.errors,
+                    "items": [
+                        {
+                            "url": item.url,
+                            "media_type": item.media_type,
+                            "filename": item.filename,
+                            "size_bytes": item.size_bytes,
+                        }
+                        for item in result.items
+                    ],
+                },
+            )
+            return
+
+        if path == "/api/queue":
+            if not self._require_auth():
+                return
+            body = self._read_json()
+            source = str(body.get("source", "")).strip()
+            if not source:
+                self._send_json(400, {"detail": "source is required"})
+                return
+
+            profile = _resolve_profile(self.server.store, bool(body.get("audio_only", False)))
+            job_id = self.server.store.add_job(
+                source=source,
+                profile_id=profile.id,
+                output_dir=str(self.server.output_dir),
+            )
+            self._send_json(200, {"job_id": job_id})
+            return
+
+        match = QUEUE_CANCEL_RE.match(path)
+        if match:
+            if not self._require_auth():
+                return
+            ok = self.server.store.mark_job_cancelled(int(match.group(1)))
+            if not ok:
+                self._send_json(404, {"detail": "Job not found or already finished"})
+                return
+            self._send_json(200, {"cancelled": True})
+            return
+
+        self._send_json(404, {"detail": "Not found"})
+
+
+def create_server(
     *,
     store: QueueStore,
     output_dir: Path,
     password: str,
+    host: str = "0.0.0.0",
+    port: int = 8420,
     workers: int = 3,
-) -> FastAPI:
+) -> ClassyDLServer:
     if not password:
         raise ValueError(
             "A password is required to run the web UI. Set --password or CLASSYDL_WEB_PASSWORD."
         )
-
     output_dir = ensure_output_dir(output_dir)
-    sessions = SessionStore()
-    worker = BackgroundQueueWorker(store=store, output_dir=output_dir, workers=workers)
-
-    @asynccontextmanager
-    async def lifespan(_: FastAPI):
-        worker.start()
-        try:
-            yield
-        finally:
-            worker.stop()
-
-    app = FastAPI(title="ClassyDL", docs_url=None, redoc_url=None, lifespan=lifespan)
-    app.state.sessions = sessions
-
-    def _authed(request: Request) -> bool:
-        return sessions.is_valid(request.cookies.get(SESSION_COOKIE))
-
-    def _require_auth(request: Request) -> None:
-        if not _authed(request):
-            raise HTTPException(status_code=401, detail="Not authenticated")
-
-    @app.get("/api/health")
-    def health() -> dict[str, Any]:
-        return {"status": "ok"}
-
-    @app.get("/api/me")
-    def me(request: Request) -> dict[str, Any]:
-        return {"authenticated": _authed(request)}
-
-    @app.post("/api/login")
-    async def login(request: Request, response: Response) -> dict[str, Any]:
-        body = await request.json()
-        supplied = str(body.get("password", ""))
-        if not hmac.compare_digest(supplied, password):
-            raise HTTPException(status_code=401, detail="Wrong password")
-        token = sessions.issue()
-        response.set_cookie(
-            SESSION_COOKIE,
-            token,
-            max_age=SESSION_TTL_SECONDS,
-            httponly=True,
-            samesite="lax",
-        )
-        return {"authenticated": True}
-
-    @app.post("/api/logout")
-    def logout(request: Request, response: Response) -> dict[str, Any]:
-        sessions.revoke(request.cookies.get(SESSION_COOKIE))
-        response.delete_cookie(SESSION_COOKIE)
-        return {"authenticated": False}
-
-    @app.post("/api/scrape")
-    async def scrape(request: Request) -> dict[str, Any]:
-        _require_auth(request)
-        body = await request.json()
-        url = str(body.get("url", "")).strip()
-        if not url:
-            raise HTTPException(status_code=400, detail="url is required")
-
-        media_types = body.get("media_types") or None
-        name_filter = body.get("name_filter") or None
-        deep = bool(body.get("deep", False))
-        same_domain = bool(body.get("same_domain", False))
-
-        scraper = SiteScraper()
-        try:
-            result = await run_in_threadpool(
-                scraper.scrape,
-                url,
-                same_domain=same_domain,
-                media_types=set(media_types) if media_types else None,
-                name_filter=name_filter,
-                deep=deep,
-            )
-        except Exception as exc:  # network/parsing failures surface to the caller
-            raise HTTPException(status_code=502, detail=str(exc)) from exc
-
-        return {
-            "page_url": result.page_url,
-            "page_title": result.page_title,
-            "errors": result.errors,
-            "items": [
-                {
-                    "url": item.url,
-                    "media_type": item.media_type,
-                    "filename": item.filename,
-                    "size_bytes": item.size_bytes,
-                }
-                for item in result.items
-            ],
-        }
-
-    @app.post("/api/queue")
-    async def queue_add(request: Request) -> dict[str, Any]:
-        _require_auth(request)
-        body = await request.json()
-        source = str(body.get("source", "")).strip()
-        if not source:
-            raise HTTPException(status_code=400, detail="source is required")
-
-        audio_only = bool(body.get("audio_only", False))
-        profile = _resolve_profile(store, audio_only)
-        job_id = store.add_job(
-            source=source,
-            profile_id=profile.id,
-            output_dir=str(output_dir),
-        )
-        return {"job_id": job_id}
-
-    @app.get("/api/queue")
-    def queue_list(request: Request, status: str | None = None) -> dict[str, Any]:
-        _require_auth(request)
-        jobs = store.list_jobs(status=status, limit=200)
-        return {"jobs": [_serialize_job(store, job) for job in jobs]}
-
-    @app.post("/api/queue/{job_id}/cancel")
-    def queue_cancel(request: Request, job_id: int) -> dict[str, Any]:
-        _require_auth(request)
-        ok = store.mark_job_cancelled(job_id)
-        if not ok:
-            raise HTTPException(status_code=404, detail="Job not found or already finished")
-        return {"cancelled": True}
-
-    @app.get("/api/download/{job_id}/{filename}")
-    def download_file(request: Request, job_id: int, filename: str) -> FileResponse:
-        _require_auth(request)
-        for candidate in store.list_job_files(job_id):
-            path = Path(candidate)
-            if path.name == filename:
-                if not path.is_file():
-                    raise HTTPException(status_code=404, detail="File no longer available")
-                return FileResponse(path, filename=path.name)
-        raise HTTPException(status_code=404, detail="File not found for this job")
-
-    app.mount("/", StaticFiles(directory=STATIC_DIR, html=True), name="static")
-
-    return app
+    return ClassyDLServer(
+        (host, port),
+        store=store,
+        output_dir=output_dir,
+        password=password,
+        workers=workers,
+    )
 
 
 def run_server(
@@ -282,7 +399,19 @@ def run_server(
     port: int = 8420,
     workers: int = 3,
 ) -> None:
-    import uvicorn
-
-    app = create_app(store=store, output_dir=output_dir, password=password, workers=workers)
-    uvicorn.run(app, host=host, port=port)
+    server = create_server(
+        store=store,
+        output_dir=output_dir,
+        password=password,
+        host=host,
+        port=port,
+        workers=workers,
+    )
+    server.start_background_worker()
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        server.stop_background_worker()
+        server.server_close()

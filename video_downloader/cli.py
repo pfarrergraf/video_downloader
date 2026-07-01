@@ -418,12 +418,7 @@ def _command_web(
     config: AppConfig,
     args: argparse.Namespace,
 ) -> None:
-    try:
-        from .web.server import run_server
-    except ModuleNotFoundError as exc:
-        raise ValueError(
-            "The web UI needs extra dependencies. Install with: uv sync --extra web"
-        ) from exc
+    from .web.server import run_server
 
     password = args.password or os.environ.get("CLASSYDL_WEB_PASSWORD", "")
     if not password:

@@ -6,7 +6,7 @@ RUN apt-get update \
 
 WORKDIR /app
 COPY . .
-RUN pip install --no-cache-dir ".[web]"
+RUN pip install --no-cache-dir "."
 
 ENV CLASSYDL_DATA_DIR=/data
 VOLUME ["/data"]

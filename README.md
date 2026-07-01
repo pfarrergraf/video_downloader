@@ -171,10 +171,12 @@ TUI keys:
 A dark, gothic-themed page that runs entirely in the browser — open it from a phone,
 tablet, or any device with an internet connection, no app install required. The page
 itself is a thin client; the actual scraping/downloading/ffmpeg work happens on
-whatever machine runs `classydl web`.
+whatever machine runs `classydl web`. The backend is standard-library-only (no
+FastAPI/pydantic), so it needs nothing beyond ClassyDL's normal install — this
+matters on platforms without prebuilt wheels for compiled packages, like Termux.
 
 ```bash
-uv sync --extra web
+uv sync
 CLASSYDL_WEB_PASSWORD="pick-something-strong" uv run classydl web --port 8420
 ```
 
@@ -228,8 +230,8 @@ Notes:
 
 - Keep Termux running (don't swipe it away) while a download is in progress; long-press
   its notification and choose "Acquire wakelock" so Android doesn't suspend it.
-- If `pip install` fails compiling a dependency, `scripts/termux_setup.sh` automatically
-  retries after installing a Rust toolchain (`pkg install rust binutils clang`).
+- Every dependency here is pure Python, so `pip install` should be quick — no Rust or
+  C compiler needed.
 - This mode binds to `127.0.0.1` only — it is not reachable from other devices, by
   design, since nothing here is meant to leave the phone.
 

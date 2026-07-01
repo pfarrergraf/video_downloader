@@ -12,13 +12,10 @@ pkg install -y python git ffmpeg
 echo "==> Requesting shared storage access (lets downloads show up in the Files app)"
 termux-setup-storage || true
 
-echo "==> Installing ClassyDL + web extras"
+echo "==> Installing ClassyDL"
 # Termux manages pip itself via 'pkg' — don't try to self-upgrade it.
-if ! pip install ".[web]"; then
-  echo "==> Compiled-dependency install failed, retrying with a Rust toolchain"
-  pkg install -y rust binutils clang
-  pip install ".[web]"
-fi
+# The web UI has no extra/compiled dependencies, so a plain install is enough.
+pip install .
 
 echo
 echo "Setup complete. Start the app with: bash scripts/termux_run.sh"
