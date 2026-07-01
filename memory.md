@@ -3,6 +3,39 @@
 A running log of decisions and incidents worth remembering, in case future work
 (by Claude or a human) needs the "why," not just the "what." Newest entries on top.
 
+## 2026-07-01 — yt-dlp downloads were silently broken on Android from day one
+
+Phase 3's new `download_pipeline_test.sh` was the first CI check to actually
+exercise a real download (Phases 1–2 only checked `/api/health` and a
+standalone `ffmpeg -version`) — and it failed, even though everything before
+it had gone green. Root cause: `YtDlpStrategy.download` ran
+`subprocess.run([sys.executable, "-m", "yt_dlp", ...])`. That's fine on a
+normal OS but not under Chaquopy: Android's Python runs embedded as a library,
+there's no standalone `python` binary at `sys.executable` for `subprocess` to
+exec, and Chaquopy's own issue tracker documents exactly this failure mode
+("Permission denied" from `subprocess.Popen`). So every yt-dlp download had
+been silently broken on Android since Phase 1 — nothing had ever actually
+tried one.
+
+Fixed by rewriting `YtDlpStrategy` to call yt-dlp **in-process** via
+`yt_dlp.YoutubeDL(opts).download(urls)` instead of subprocess — the officially
+supported way to embed yt-dlp anyway, and a strict improvement on every
+platform (Termux, desktop, Windows), not just an Android-specific workaround.
+Verified the internal option dict keys (`outtmpl` as `{"default": path}`,
+`cookiesfrombrowser` as a 4-tuple, `postprocessors` list shape, etc.) by
+grepping the *installed* yt-dlp package's own `__init__.py` CLI-to-API mapping
+rather than guessing from CLI flag names or training-data memory — cheap and
+removed real risk of subtle wrong-key bugs. Confirmed working end-to-end
+against a local `http.server` instance (this dev sandbox's outbound proxy
+blocks arbitrary real hosts like Wikimedia, so a loopback server was the way
+to get a genuine network-download test locally instead of only in CI).
+
+**Standing lesson:** a green CI pipeline only proves what it actually
+exercises. `/api/health` proves the server boots; `ffmpeg -version` proves
+that one binary runs — neither proves the actual download path works. Add the
+end-to-end check (Phase 3's real-download test) as early as possible, not
+after several phases of "looks done" builds on assumptions.
+
 ## 2026-07-01 — Phase 2: ffmpeg for Android, done in two steps
 
 **2a (pragmatic, immediate):** found that `DownloadRequest.ffmpeg_binary` was

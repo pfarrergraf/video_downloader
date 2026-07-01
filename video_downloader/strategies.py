@@ -2,13 +2,13 @@ from __future__ import annotations
 
 import shutil
 import subprocess
-import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlparse
 
 import requests
+import yt_dlp
 
 from .models import DownloadRequest, DownloadResult
 from .utils import (
@@ -34,6 +34,15 @@ class Strategy:
 
 
 class YtDlpStrategy(Strategy):
+    """Runs yt-dlp in-process via its Python API.
+
+    This used to shell out to `sys.executable -m yt_dlp`, which works on a
+    normal OS but not under Chaquopy (Android): Python there is embedded as a
+    library, not a standalone executable, so `sys.executable` isn't something
+    that can be subprocess-spawned — every download failed with a permission/
+    exec error. Calling yt-dlp as a library works identically everywhere.
+    """
+
     def __init__(self) -> None:
         super().__init__(name="yt-dlp")
 
@@ -53,93 +62,69 @@ class YtDlpStrategy(Strategy):
                 else "%(title)s [%(id)s].%(ext)s"
             )
 
-        cmd = [
-            sys.executable,
-            "-m",
-            "yt_dlp",
-            source_url,
-            "--newline",
-            "--no-warnings",
-            "--restrict-filenames",
-            "-P",
-            str(request.output_dir),
-            "-o",
-            template,
-            "-f",
-            _audio_format_selector(ffmpeg_available) if request.audio_only else request.format_selector,
-            "--print",
-            "after_move:filepath",
-            "--continue",
-        ]
-        if request.allow_playlist:
-            cmd.append("--yes-playlist")
-        else:
-            cmd.append("--no-playlist")
-        if request.max_items is not None:
-            cmd.extend(["--max-downloads", str(request.max_items)])
-
+        http_headers: dict[str, str] = {}
         if request.user_agent:
-            cmd.extend(["--user-agent", request.user_agent])
+            http_headers["User-Agent"] = request.user_agent
         referer = _effective_referer(request, source_url)
         if referer:
-            cmd.extend(["--referer", referer])
-        for key, value in request.headers.items():
-            cmd.extend(["--add-header", f"{key}: {value}"])
-        if request.cookies_from_browser:
-            cmd.extend(["--cookies-from-browser", request.cookies_from_browser])
-        if ffmpeg_available:
-            cmd.extend(["--ffmpeg-location", request.ffmpeg_binary])
+            http_headers["Referer"] = referer
+        http_headers.update(request.headers)
+
+        postprocessors: list[dict[str, object]] = []
         if request.audio_only and ffmpeg_available:
-            cmd.extend(["-x", "--audio-format", "mp3", "--audio-quality", "0"])
-        if request.subtitle_langs:
-            cmd.extend(["--write-subs", "--sub-langs", request.subtitle_langs])
-        if request.embed_subs:
-            cmd.append("--embed-subs")
-        if request.external_downloader:
-            cmd.extend(["--downloader", request.external_downloader])
-        if request.external_downloader_args:
-            if request.external_downloader:
-                cmd.extend(
-                    [
-                        "--downloader-args",
-                        f"{request.external_downloader}:{request.external_downloader_args}",
-                    ]
-                )
-            else:
-                cmd.extend(["--downloader-args", request.external_downloader_args])
-
-        run = subprocess.run(cmd, capture_output=True, text=True)
-        printed_files: list[Path] = []
-        for line in run.stdout.splitlines():
-            candidate = Path(line.strip())
-            if candidate.exists() and candidate.is_file():
-                printed_files.append(candidate)
-
-        if printed_files:
-            details = _yt_dlp_non_zero_details(run)
-            return DownloadResult(
-                file_path=printed_files[-1],
-                method=self.name,
-                source_url=source_url,
-                details=details,
-                downloaded_files=printed_files,
+            postprocessors.append(
+                {"key": "FFmpegExtractAudio", "preferredcodec": "mp3", "preferredquality": "0"}
             )
+        if request.embed_subs:
+            postprocessors.append({"key": "FFmpegEmbedSubtitle"})
+
+        ydl_opts: dict[str, object] = {
+            "outtmpl": {"default": str(request.output_dir / template)},
+            "format": _audio_format_selector(ffmpeg_available) if request.audio_only else request.format_selector,
+            "noplaylist": not request.allow_playlist,
+            "restrictfilenames": True,
+            "continuedl": True,
+            "quiet": True,
+            "no_warnings": True,
+            "noprogress": True,
+            "socket_timeout": request.timeout_seconds,
+            "http_headers": http_headers,
+        }
+        if request.max_items is not None:
+            ydl_opts["max_downloads"] = request.max_items
+        if request.cookies_from_browser:
+            ydl_opts["cookiesfrombrowser"] = (request.cookies_from_browser, None, None, None)
+        if ffmpeg_available:
+            ydl_opts["ffmpeg_location"] = request.ffmpeg_binary
+        if request.subtitle_langs:
+            ydl_opts["writesubtitles"] = True
+            ydl_opts["subtitleslangs"] = request.subtitle_langs.split(",")
+        if postprocessors:
+            ydl_opts["postprocessors"] = postprocessors
+        if request.external_downloader:
+            ydl_opts["external_downloader"] = request.external_downloader
+        if request.external_downloader_args:
+            key = request.external_downloader or "default"
+            ydl_opts["external_downloader_args"] = {key: [request.external_downloader_args]}
+
+        error_message = ""
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                ydl.download([source_url])
+        except Exception as exc:  # yt_dlp raises DownloadError and friends
+            error_message = str(exc)
 
         new_files = _find_new_files(request.output_dir, before_files)
         if new_files:
-            details = _yt_dlp_non_zero_details(run)
             return DownloadResult(
                 file_path=new_files[-1],
                 method=self.name,
                 source_url=source_url,
-                details=details,
+                details=error_message,
                 downloaded_files=new_files,
             )
 
-        if run.returncode != 0:
-            failure = _tail_lines(run.stderr, 15) or _tail_lines(run.stdout, 15) or "yt-dlp failed."
-            raise StrategyError(failure)
-        raise StrategyError("yt-dlp reported success but output file could not be located.")
+        raise StrategyError(error_message or "yt-dlp reported success but output file could not be located.")
 
 
 class FFmpegStrategy(Strategy):
@@ -306,15 +291,6 @@ def _response_looks_like_media(url: str, content_type: str | None) -> bool:
         return True
     allow_markers = ("octet-stream", "application/mp4", "mpegurl", "dash+xml")
     return any(marker in lower for marker in allow_markers)
-
-
-def _yt_dlp_non_zero_details(run: subprocess.CompletedProcess[str]) -> str:
-    if run.returncode == 0:
-        return ""
-    message = _tail_lines(run.stderr, 10) or _tail_lines(run.stdout, 10)
-    if not message:
-        message = f"yt-dlp exited with code {run.returncode} after partial success."
-    return f"Partial success with non-zero yt-dlp exit: {message}"
 
 
 def _effective_referer(request: DownloadRequest, source_url: str) -> str | None:

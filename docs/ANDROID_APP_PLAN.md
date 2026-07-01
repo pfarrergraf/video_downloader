@@ -191,6 +191,27 @@ because they cover different Android versions/failure modes:
   pushed but not yet observed green, unlike Phases 1–2 which were confirmed
   before being marked done).
 
+**Critical fix found by Phase 3's own CI test:** the first real, non-mocked
+download attempt on Android (via `download_pipeline_test.sh`) failed even
+though `/api/health` and `ffmpeg -version` both passed — proving those two
+checks alone weren't sufficient coverage. Root cause: `YtDlpStrategy` shelled
+out to `sys.executable -m yt_dlp` via `subprocess`. That works on a normal OS
+but not under Chaquopy — Python is embedded as a library there, not a
+standalone executable, so `sys.executable` isn't something `subprocess` can
+exec (matches Chaquopy's documented `subprocess.Popen`/"Permission denied"
+limitation). Every yt-dlp download failed on Android from the very start of
+Phase 1, silently, because nothing before this exercised an actual download.
+Fixed by rewriting `YtDlpStrategy` to call yt-dlp in-process via its Python
+API (`yt_dlp.YoutubeDL(opts).download(...)`) instead of subprocess — verified
+option names against the installed yt-dlp source directly (`outtmpl` needs a
+dict with a `'default'` key, `cookiesfrombrowser` a 4-tuple, etc., rather than
+guessing from the CLI flag names) and confirmed working end-to-end against a
+local HTTP server (network access to real hosts isn't available in this dev
+sandbox). This is a strict improvement on every platform, not just an Android
+workaround — one less subprocess spawn, and it was already relying on the
+same directory-diff fallback (`_find_new_files`) for its primary file
+detection in some cases anyway.
+
 ### Phase 4 — Release pipeline
 - Generate a signing keystore once (self-signed is fine for sideloading), store as a
   GitHub Actions secret.

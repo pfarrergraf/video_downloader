@@ -69,6 +69,15 @@ before touching `android/`:
 - `reactivecircus/android-emulator-runner`'s `script:` block runs each line as a
   separate shell invocation — no multi-line control flow (loops, if/fi) survives
   inline; put anything like that in a script file under `.github/scripts/` instead.
+- **Never shell out to `sys.executable` (or spawn a new Python interpreter via
+  `subprocess`) anywhere in code reachable from Android.** Chaquopy embeds
+  Python as a library, not a standalone binary — `sys.executable` isn't
+  something `subprocess` can exec there. This is why `YtDlpStrategy` calls
+  `yt_dlp.YoutubeDL(...)` in-process instead of `python -m yt_dlp`; see
+  `memory.md`. `/api/health` and `ffmpeg -version` passing does NOT mean
+  downloads work — only `download_pipeline_test.sh`'s real download actually
+  exercises this path, which is exactly how this bug was caught (three phases
+  after it was introduced).
 
 ## Testing
 

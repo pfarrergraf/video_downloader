@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import subprocess
 from pathlib import Path
 
 from video_downloader.models import DownloadRequest
@@ -16,18 +15,25 @@ def _make_request(tmp_path: Path, *, audio_only: bool, ffmpeg_binary: str = "ffm
     )
 
 
-def _run_and_capture_cmd(monkeypatch, tmp_path: Path, request: DownloadRequest) -> list[str]:
-    captured: dict[str, list[str]] = {}
+def _run_and_capture_opts(monkeypatch, tmp_path: Path, request: DownloadRequest) -> dict:
+    captured: dict[str, dict] = {}
 
-    def fake_run(cmd, **kwargs):
-        captured["cmd"] = cmd
-        output = tmp_path / "downloaded.file"
-        output.write_bytes(b"data")
-        return subprocess.CompletedProcess(cmd, 0, stdout=f"{output}\n", stderr="")
+    class FakeYoutubeDL:
+        def __init__(self, opts):
+            captured["opts"] = opts
 
-    monkeypatch.setattr("video_downloader.strategies.subprocess.run", fake_run)
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *exc_info):
+            return False
+
+        def download(self, urls):
+            (tmp_path / "downloaded.file").write_bytes(b"data")
+
+    monkeypatch.setattr("video_downloader.strategies.yt_dlp.YoutubeDL", FakeYoutubeDL)
     YtDlpStrategy().download(request, request.source_url)
-    return captured["cmd"]
+    return captured["opts"]
 
 
 def test_audio_format_selector_prefers_extraction_when_ffmpeg_available() -> None:
@@ -42,21 +48,21 @@ def test_audio_only_without_ffmpeg_skips_extraction_flags(tmp_path: Path, monkey
     monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
     request = _make_request(tmp_path, audio_only=True, ffmpeg_binary="/no/such/ffmpeg")
 
-    cmd = _run_and_capture_cmd(monkeypatch, tmp_path, request)
+    opts = _run_and_capture_opts(monkeypatch, tmp_path, request)
 
-    assert "-x" not in cmd
-    assert "--audio-format" not in cmd
-    assert "--ffmpeg-location" not in cmd
-    assert "bestaudio" in cmd
+    assert "postprocessors" not in opts
+    assert "ffmpeg_location" not in opts
+    assert opts["format"] == "bestaudio"
 
 
 def test_audio_only_with_ffmpeg_extracts_mp3(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: "/usr/bin/ffmpeg")
     request = _make_request(tmp_path, audio_only=True)
 
-    cmd = _run_and_capture_cmd(monkeypatch, tmp_path, request)
+    opts = _run_and_capture_opts(monkeypatch, tmp_path, request)
 
-    assert "-x" in cmd
-    assert "--audio-format" in cmd
-    assert "--ffmpeg-location" in cmd
-    assert "ba/b" in cmd
+    assert opts["postprocessors"] == [
+        {"key": "FFmpegExtractAudio", "preferredcodec": "mp3", "preferredquality": "0"}
+    ]
+    assert opts["ffmpeg_location"] == "ffmpeg"
+    assert opts["format"] == "ba/b"
