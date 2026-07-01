@@ -50,6 +50,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
@@ -74,13 +76,4 @@ jobs:
             adb install -r apk/app-debug.apk
             adb shell am start -n de.classydl.app/.MainActivity
             adb forward tcp:8420 tcp:8420
-            for i in $(seq 1 20); do
-              if curl -sf http://127.0.0.1:8420/api/health; then
-                echo "Server responded — smoke test passed."
-                exit 0
-              fi
-              sleep 2
-            done
-            echo "Server never responded on /api/health" >&2
-            adb logcat -d | tail -n 200
-            exit 1
+            bash ${{ github.workspace }}/.github/scripts/smoke_test.sh
