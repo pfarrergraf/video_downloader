@@ -102,13 +102,21 @@ jobs:
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: gradle :app:assembleRelease -PabiFilters=arm64-v8a --stacktrace
 
+      # Two copies: the versioned name is what shows up on the release page;
+      # the "-latest" name is a stable filename so the website's download
+      # button (releases/latest/download/DownloadThat-latest.apk) never needs
+      # updating across releases - GitHub's "latest" alias only works for an
+      # asset name that stays identical release to release.
       - name: Rename APK to include version tag
         run: |
           mkdir -p release-out
           cp app/build/outputs/apk/release/app-release.apk "release-out/DownloadThat-${{ github.ref_name }}.apk"
+          cp app/build/outputs/apk/release/app-release.apk "release-out/DownloadThat-latest.apk"
 
       - name: Attach APK to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: android/release-out/DownloadThat-${{ github.ref_name }}.apk
+          files: |
+            android/release-out/DownloadThat-${{ github.ref_name }}.apk
+            android/release-out/DownloadThat-latest.apk
           generate_release_notes: true
