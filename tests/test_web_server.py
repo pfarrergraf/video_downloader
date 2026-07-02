@@ -336,3 +336,78 @@ def test_queued_jobs_use_the_servers_ffmpeg_binary(tmp_path: Path) -> None:
         srv.shutdown()
         srv.stop_background_worker()
         srv.server_close()
+
+
+def _login(server: ClassyDLServer) -> str:
+    _, _, set_cookie = _request(server, "POST", "/api/login", {"password": "crypt-keeper"})
+    return set_cookie.split(";")[0]
+
+
+def test_settings_defaults_to_auto_language_and_no_folder(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    assert status == 200
+    assert body == {"language": "auto", "export_folder_label": None}
+
+
+def test_settings_persists_language(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, body, _ = _request(server, "POST", "/api/settings", {"language": "de"}, cookie=cookie)
+    assert status == 200
+    assert body == {"saved": True}
+
+    _, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    assert body["language"] == "de"
+
+
+def test_settings_stores_and_resets_export_folder(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    _request(
+        server,
+        "POST",
+        "/api/settings",
+        {"export_folder_uri": "content://tree/abc", "export_folder_label": "My Folder"},
+        cookie=cookie,
+    )
+    _, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    assert body["export_folder_label"] == "My Folder"
+
+    _request(server, "POST", "/api/settings", {"reset_folder": True}, cookie=cookie)
+    _, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    assert body["export_folder_label"] is None
+
+
+def test_settings_requires_auth(server: ClassyDLServer) -> None:
+    status, _, _ = _request(server, "GET", "/api/settings")
+    assert status == 401
+    status, _, _ = _request(server, "POST", "/api/settings", {"language": "de"})
+    assert status == 401
+
+
+def test_open_endpoint_returns_false_off_android(server: ClassyDLServer, tmp_path: Path) -> None:
+    # android_bridge.open_file() no-ops (returns False) outside Chaquopy —
+    # this exercises the full job-file lookup path without needing a real
+    # Android environment, matching how the download endpoint is tested.
+    cookie = _login(server)
+    status, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/video"}, cookie=cookie
+    )
+    job_id = body["job_id"]
+    output_file = tmp_path / "downloads" / "video.mp4"
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    output_file.write_bytes(b"fake video")
+    server.store.mark_job_completed(job_id, [output_file])
+
+    status, body, _ = _request(
+        server, "POST", "/api/open", {"job_id": job_id, "filename": "video.mp4"}, cookie=cookie
+    )
+    assert status == 200
+    assert body == {"opened": False}
+
+
+def test_open_endpoint_404_for_unknown_file(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, _, _ = _request(
+        server, "POST", "/api/open", {"job_id": 999999, "filename": "nope.mp4"}, cookie=cookie
+    )
+    assert status == 404

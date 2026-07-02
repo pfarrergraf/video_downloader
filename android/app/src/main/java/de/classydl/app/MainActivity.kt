@@ -1,13 +1,19 @@
 package de.classydl.app
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.documentfile.provider.DocumentFile
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
 import org.json.JSONObject
@@ -47,6 +53,8 @@ class MainActivity : AppCompatActivity() {
 
     private var loadRetries = 0
     private lateinit var password: String
+    private lateinit var webView: WebView
+    private lateinit var folderPickerLauncher: ActivityResultLauncher<Uri?>
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,9 +64,16 @@ class MainActivity : AppCompatActivity() {
         password = getOrCreatePassword()
         startPythonServer()
 
-        val webView = findViewById<WebView>(R.id.webview)
+        // Must be registered before STARTED (i.e. here in onCreate, not lazily
+        // inside the bridge call) — ActivityResultRegistry throws otherwise.
+        folderPickerLauncher = registerForActivityResult(
+            ActivityResultContracts.OpenDocumentTree(),
+        ) { uri -> onFolderPicked(uri) }
+
+        webView = findViewById(R.id.webview)
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
+        webView.addJavascriptInterface(WebAppBridge(), "AndroidBridge")
         // Lets the splash screen's chime (Web Audio API, see static/index.html)
         // play immediately on load instead of being blocked by the browser-style
         // autoplay-requires-a-gesture policy — safe here since it's our own
@@ -106,6 +121,37 @@ class MainActivity : AppCompatActivity() {
             }
         }
         webView.loadUrl(SERVER_URL)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // The SAF folder picker (and any other system UI) pauses this Activity
+        // while it's open — refresh the settings panel on return so a newly
+        // picked folder's label shows up without the user reloading manually.
+        webView.evaluateJavascript("window.refreshSettings && window.refreshSettings();", null)
+    }
+
+    private fun onFolderPicked(uri: Uri?) {
+        if (uri == null) return
+        contentResolver.takePersistableUriPermission(
+            uri,
+            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION,
+        )
+        val label = DocumentFile.fromTreeUri(this, uri)?.name ?: uri.toString()
+        Python.getInstance()
+            .getModule("video_downloader.android_entry")
+            .callAttr("set_export_folder", uri.toString(), label)
+    }
+
+    /** Exposed to the WebView as `window.AndroidBridge` — see static/index.html's settings panel. */
+    private inner class WebAppBridge {
+        @JavascriptInterface
+        fun pickExportFolder() {
+            runOnUiThread { folderPickerLauncher.launch(null) }
+        }
+
+        @JavascriptInterface
+        fun isAvailable(): Boolean = true
     }
 
     /**

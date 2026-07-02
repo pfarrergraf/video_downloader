@@ -113,6 +113,11 @@ class QueueStore:
                     created_at TEXT NOT NULL,
                     FOREIGN KEY(job_id) REFERENCES jobs(id) ON DELETE SET NULL
                 );
+
+                CREATE TABLE IF NOT EXISTS settings (
+                    key TEXT PRIMARY KEY,
+                    value TEXT NOT NULL
+                );
                 """
             )
             self._migrate_jobs_columns(conn)
@@ -127,6 +132,23 @@ class QueueStore:
             conn.execute("ALTER TABLE jobs ADD COLUMN downloaded_bytes INTEGER NOT NULL DEFAULT 0")
         if "total_bytes" not in existing:
             conn.execute("ALTER TABLE jobs ADD COLUMN total_bytes INTEGER")
+
+    def get_setting(self, key: str, default: str | None = None) -> str | None:
+        with self._connect() as conn:
+            row = conn.execute("SELECT value FROM settings WHERE key = ?", (key,)).fetchone()
+            return str(row["value"]) if row is not None else default
+
+    def set_setting(self, key: str, value: str) -> None:
+        with self._connect() as conn:
+            conn.execute(
+                "INSERT INTO settings (key, value) VALUES (?, ?) "
+                "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+                (key, str(value)),
+            )
+
+    def clear_setting(self, key: str) -> None:
+        with self._connect() as conn:
+            conn.execute("DELETE FROM settings WHERE key = ?", (key,))
 
     def ensure_default_profile(self) -> DownloadProfile:
         profile = self.get_profile_by_name("default")

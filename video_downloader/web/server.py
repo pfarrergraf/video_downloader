@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, unquote, urlsplit
 
+from .. import android_bridge
 from ..licensing import FREE_DAILY_DOWNLOAD_LIMIT, FREE_WINDOW_HOURS, LicenseManager
 from ..models import JOB_STATUS_COMPLETED, JOB_STATUS_IN_PROGRESS, JOB_STATUS_PENDING, DownloadProfile, JobRecord
 from ..queue_runner import QueueRunner
@@ -302,6 +303,18 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             jobs = self.server.store.list_jobs(status=status, limit=200)
             self._send_json(200, {"jobs": [_serialize_job(self.server.store, job) for job in jobs]})
             return
+        if path == "/api/settings":
+            if not self._require_auth():
+                return
+            store = self.server.store
+            self._send_json(
+                200,
+                {
+                    "language": store.get_setting("language", "auto"),
+                    "export_folder_label": store.get_setting("export_folder_label"),
+                },
+            )
+            return
 
         match = DOWNLOAD_RE.match(path)
         if match:
@@ -357,6 +370,42 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 self._send_json(400, {"detail": "This license key is not valid or has expired."})
                 return
             self._send_json(200, {"valid": True, "tier": state.tier})
+            return
+
+        if path == "/api/settings":
+            if not self._require_auth():
+                return
+            body = self._read_json()
+            store = self.server.store
+            if "language" in body:
+                store.set_setting("language", str(body["language"]))
+            if body.get("reset_folder"):
+                store.clear_setting("export_folder_uri")
+                store.clear_setting("export_folder_label")
+            elif "export_folder_uri" in body:
+                store.set_setting("export_folder_uri", str(body["export_folder_uri"]))
+                store.set_setting("export_folder_label", str(body.get("export_folder_label", "")))
+            self._send_json(200, {"saved": True})
+            return
+
+        if path == "/api/open":
+            if not self._require_auth():
+                return
+            body = self._read_json()
+            job_id = body.get("job_id")
+            filename = str(body.get("filename", ""))
+            try:
+                job_id = int(job_id)
+            except (TypeError, ValueError):
+                self._send_json(400, {"detail": "job_id is required"})
+                return
+            for candidate in self.server.store.list_job_files(job_id):
+                candidate_path = Path(candidate)
+                if candidate_path.name == filename:
+                    opened = android_bridge.open_file(candidate_path)
+                    self._send_json(200, {"opened": opened})
+                    return
+            self._send_json(404, {"detail": "File not found for this job"})
             return
 
         if path == "/api/scrape":

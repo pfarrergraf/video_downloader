@@ -29,12 +29,19 @@ import threading
 import traceback
 from pathlib import Path
 
+from . import android_bridge
 from .licensing import LicenseManager
 from .models import JOB_STATUS_COMPLETED
 from .queue_store import QueueStore
 from .web.server import run_server
 
+# Set by start() and read by set_export_folder() — MainActivity's SAF folder
+# picker calls back into this same running store instance (via Chaquopy)
+# rather than opening a second sqlite connection to the same file.
+_current_store: QueueStore | None = None
+
 _PUBLISH_MARKER_SUFFIX = ".mediastore-published"
+_EXPORT_MARKER_SUFFIX = ".folder-exported"
 # Kept short: each poll is just a cheap local sqlite query (store.list_jobs),
 # and a long interval here directly shows up as a delay between "download
 # completed" and "file visible in the stock Files app" from the user's
@@ -52,6 +59,24 @@ def _already_published(path: Path) -> bool:
 
 def _mark_published(path: Path) -> None:
     Path(str(path) + _PUBLISH_MARKER_SUFFIX).touch()
+
+
+def _already_exported(path: Path) -> bool:
+    return Path(str(path) + _EXPORT_MARKER_SUFFIX).exists()
+
+
+def _mark_exported(path: Path) -> None:
+    Path(str(path) + _EXPORT_MARKER_SUFFIX).touch()
+
+
+def set_export_folder(uri: str, label: str) -> None:
+    """Called from MainActivity.kt after the user picks a folder via the
+    Storage Access Framework. `uri` is a persisted-permission tree Uri
+    (opaque to Python); `label` is a human-readable name for display only.
+    """
+    if _current_store is not None:
+        _current_store.set_setting("export_folder_uri", uri)
+        _current_store.set_setting("export_folder_label", label)
 
 
 def _publish_file_to_downloads(path: Path) -> None:
@@ -122,13 +147,19 @@ def _publish_file_to_downloads(path: Path) -> None:
 def _run_downloads_publisher(store: QueueStore) -> None:
     while True:
         try:
+            export_uri = store.get_setting("export_folder_uri")
             for job in store.list_jobs(status=JOB_STATUS_COMPLETED, limit=200):
                 for file_path in store.list_job_files(job.id):
                     path = Path(file_path)
-                    if _already_published(path):
-                        continue
-                    _publish_file_to_downloads(path)
-                    _mark_published(path)
+                    if not _already_published(path):
+                        _publish_file_to_downloads(path)
+                        _mark_published(path)
+                    if export_uri and not _already_exported(path):
+                        # Unlike _publish_file_to_downloads, only mark on success:
+                        # a revoked/unmounted SAF permission should keep retrying
+                        # every poll rather than silently give up on this file.
+                        if android_bridge.export_file(path, export_uri):
+                            _mark_exported(path)
         except Exception:
             traceback.print_exc()
         threading.Event().wait(_PUBLISH_POLL_SECONDS)
@@ -142,8 +173,10 @@ def start(
     ffmpeg_binary: str = "ffmpeg",
     license_api_base: str = "",
 ) -> None:
+    global _current_store
     store = QueueStore(Path(data_dir) / "state.db")
     store.init()
+    _current_store = store
 
     threading.Thread(
         target=_run_downloads_publisher,
