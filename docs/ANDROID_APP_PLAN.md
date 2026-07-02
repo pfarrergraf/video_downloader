@@ -333,7 +333,7 @@ changed from MIT to proprietary (all-rights-reserved) as part of this — see `L
     Links) and a `success.html` that shows the buyer their license key right after
     checkout (polls the Worker by Stripe checkout session ID — no email service needed).
   - `pro/README.md` — exact deploy commands (`wrangler deploy`, secrets, Stripe webhook
-    setup, optional `geistreich.com` subdomain routing). **Not yet deployed** — this
+    setup, optional `gaistreich.com` subdomain routing). **Not yet deployed** — this
     needs to happen from a session with real `wrangler`/Cloudflare account access, which
     this sandboxed session's Cloudflare MCP connection doesn't have (it can manage
     D1/KV/R2 but has no Worker-deploy or DNS tool).

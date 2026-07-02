@@ -84,12 +84,12 @@ Stripe dashboard → **Developers** → **Webhooks** → **Add endpoint**.
 Stripe shows a signing secret (`whsec_...`) once created — that's the
 `STRIPE_WEBHOOK_SECRET` value for step 3.
 
-### 5. (Optional) Put it behind your geistreich.com domain
+### 5. (Optional) Put it behind your gaistreich.com domain
 
-Pages project → **Custom domains** → add e.g. `downloadthat.geistreich.com` — only
-possible if `geistreich.com` is already a zone in this Cloudflare account. If you do
+Pages project → **Custom domains** → add e.g. `downloadthat.gaistreich.com` — only
+possible if `gaistreich.com` is already a zone in this Cloudflare account. If you do
 this, update the 3 Stripe Payment Links' redirect URL (currently pointing at
-`https://downloadthat.geistreich.com/success.html?...`) to match whatever domain you
+`https://downloadthat.gaistreich.com/success.html?...`) to match whatever domain you
 actually end up with — tell me the URL and I'll update them via the Stripe API.
 
 ### 6. Test it end-to-end
