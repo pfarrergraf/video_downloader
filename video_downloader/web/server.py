@@ -243,6 +243,12 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(data)))
+        # The Android WebView's HTTP cache survives app updates (only wiped on
+        # uninstall) and this server never sent a validator (ETag/Last-Modified)
+        # for it to revalidate against, so without this a "successfully
+        # updated" install could keep rendering whatever index.html/JS the
+        # WebView had cached from a previous version.
+        self.send_header("Cache-Control", "no-store")
         if download_name:
             self.send_header("Content-Disposition", f'attachment; filename="{download_name}"')
         self.end_headers()
