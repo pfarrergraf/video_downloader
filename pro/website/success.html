@@ -50,6 +50,10 @@
       <div>Tarif: <strong>${TIER_LABELS[tier] || tier}</strong></div>
       <div class="key">${licenseKey}</div>
       <button class="btn" onclick="navigator.clipboard.writeText('${licenseKey}')">Schlüssel kopieren</button>
+      <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);">
+        <p class="muted" style="margin:0 0 10px;">App noch nicht installiert?</p>
+        <a class="btn" href="https://github.com/pfarrergraf/video_downloader/releases/latest/download/DownloadThat-latest.apk">App herunterladen</a>
+      </div>
     `;
   }
 
