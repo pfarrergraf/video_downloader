@@ -140,6 +140,7 @@
     padding: 0.6rem 0.75rem;
     margin-bottom: 0.5rem;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.6rem;
     font-size: 0.9rem;
@@ -166,6 +167,26 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+  .progress-track {
+    flex-basis: 100%;
+    height: 8px;
+    background: #f1ede4;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 0.35rem;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #8fe28f, #2e9e4f);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    flex-basis: 100%;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    margin-top: 0.15rem;
   }
   .muted { color: var(--text-dim); font-size: 0.85rem; }
   a.dl-link { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent-dim); }
@@ -496,12 +517,26 @@ $('queue-selected-btn').addEventListener('click', async () => {
   }
 });
 
+function formatBytes(bytes) {
+  if (!bytes || bytes < 0) return '0 MB';
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 function jobRow(job) {
   const li = document.createElement('li');
   const files = (job.files || []).map((f) => `<a class="dl-link" href="${f.download_url}">${f.filename}</a>`).join(' &middot; ');
+  let progressHtml = '';
+  if (job.status === 'in_progress' && job.total_bytes) {
+    const pct = Math.min(100, Math.max(0, (job.downloaded_bytes / job.total_bytes) * 100));
+    progressHtml = `
+      <div class="progress-track"><div class="progress-fill" style="width:${pct.toFixed(1)}%"></div></div>
+      <div class="progress-label">${formatBytes(job.downloaded_bytes)} / ${formatBytes(job.total_bytes)} (${pct.toFixed(0)}%)</div>
+    `;
+  }
   li.innerHTML = `
     <span class="job-status status-${job.status}">${job.status}</span>
     <span class="item-name">${job.source}${job.error ? `<br/><span class="muted">${job.error}</span>` : ''}${files ? `<br/>${files}` : ''}</span>
+    ${progressHtml}
   `;
   if (job.status === 'pending' || job.status === 'in_progress') {
     const btn = document.createElement('button');

@@ -167,6 +167,9 @@ class QueueRunner:
             external_downloader_args=external_downloader_args,
             job_id=job.id,
             profile_name=profile.name,
+            progress_callback=lambda downloaded, total, _job_id=job.id: self.store.update_job_progress(
+                _job_id, downloaded, total
+            ),
         )
 
     def _log(self, message: str) -> None:

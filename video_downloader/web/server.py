@@ -149,6 +149,8 @@ def _serialize_job(store: QueueStore, job: JobRecord) -> dict[str, Any]:
         "created_at": job.created_at,
         "updated_at": job.updated_at,
         "files": files,
+        "downloaded_bytes": job.downloaded_bytes,
+        "total_bytes": job.total_bytes,
     }
 
 

@@ -67,6 +67,8 @@ class QueueStore:
                     max_items INTEGER,
                     timeout_seconds INTEGER NOT NULL DEFAULT 30,
                     ffmpeg_binary TEXT NOT NULL DEFAULT 'ffmpeg',
+                    downloaded_bytes INTEGER NOT NULL DEFAULT 0,
+                    total_bytes INTEGER,
                     created_at TEXT NOT NULL,
                     started_at TEXT,
                     finished_at TEXT,
@@ -113,8 +115,18 @@ class QueueStore:
                 );
                 """
             )
+            self._migrate_jobs_columns(conn)
 
         self.ensure_default_profile()
+
+    def _migrate_jobs_columns(self, conn: sqlite3.Connection) -> None:
+        # CREATE TABLE IF NOT EXISTS leaves pre-existing DBs (from before these
+        # columns existed) without them - add them here so upgrades don't break.
+        existing = {row["name"] for row in conn.execute("PRAGMA table_info(jobs)")}
+        if "downloaded_bytes" not in existing:
+            conn.execute("ALTER TABLE jobs ADD COLUMN downloaded_bytes INTEGER NOT NULL DEFAULT 0")
+        if "total_bytes" not in existing:
+            conn.execute("ALTER TABLE jobs ADD COLUMN total_bytes INTEGER")
 
     def ensure_default_profile(self) -> DownloadProfile:
         profile = self.get_profile_by_name("default")
@@ -265,6 +277,20 @@ class QueueStore:
             conn.execute(
                 "UPDATE jobs SET attempt = ?, updated_at = ? WHERE id = ?",
                 (int(attempt), _utcnow(), job_id),
+            )
+            conn.execute(
+                "UPDATE jobs SET downloaded_bytes = 0, total_bytes = NULL WHERE id = ?",
+                (job_id,),
+            )
+
+    def update_job_progress(self, job_id: int, downloaded_bytes: int, total_bytes: int | None) -> None:
+        # Deliberately doesn't touch updated_at - this fires many times per
+        # download and updated_at is used elsewhere as a "last real activity"
+        # timestamp, not a progress heartbeat.
+        with self._connect() as conn:
+            conn.execute(
+                "UPDATE jobs SET downloaded_bytes = ?, total_bytes = ? WHERE id = ? AND status = ?",
+                (int(downloaded_bytes), total_bytes, job_id, JOB_STATUS_IN_PROGRESS),
             )
 
     def mark_job_completed(self, job_id: int, file_paths: Iterable[Path], details: str = "") -> None:
@@ -609,6 +635,8 @@ class QueueStore:
             started_at=str(row["started_at"]) if row["started_at"] is not None else None,
             finished_at=str(row["finished_at"]) if row["finished_at"] is not None else None,
             updated_at=str(row["updated_at"]),
+            downloaded_bytes=int(row["downloaded_bytes"]),
+            total_bytes=int(row["total_bytes"]) if row["total_bytes"] is not None else None,
         )
 
     def _row_to_subscription(self, row: sqlite3.Row) -> SubscriptionRecord:

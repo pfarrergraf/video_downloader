@@ -106,6 +106,8 @@ class YtDlpStrategy(Strategy):
         if request.external_downloader_args:
             key = request.external_downloader or "default"
             ydl_opts["external_downloader_args"] = {key: [request.external_downloader_args]}
+        if request.progress_callback:
+            ydl_opts["progress_hooks"] = [_yt_dlp_progress_hook(request.progress_callback)]
 
         error_message = ""
         try:
@@ -125,6 +127,25 @@ class YtDlpStrategy(Strategy):
             )
 
         raise StrategyError(error_message or "yt-dlp reported success but output file could not be located.")
+
+
+def _yt_dlp_progress_hook(callback):
+    # yt-dlp calls this many times per second; throttling avoids hammering
+    # the queue store (SQLite) with a write on every chunk.
+    last_call = [0.0]
+
+    def hook(status: dict[str, object]) -> None:
+        if status.get("status") != "downloading":
+            return
+        now = time.monotonic()
+        if now - last_call[0] < 0.5:
+            return
+        last_call[0] = now
+        downloaded = int(status.get("downloaded_bytes") or 0)
+        total = status.get("total_bytes") or status.get("total_bytes_estimate")
+        callback(downloaded, int(total) if total else None)
+
+    return hook
 
 
 class FFmpegStrategy(Strategy):
@@ -215,12 +236,22 @@ class DirectDownloadStrategy(Strategy):
                 else:
                     filename = f"video_{int(time.time())}{extension}"
 
+        content_length = response.headers.get("Content-Length")
+        total_bytes = int(content_length) if content_length and content_length.isdigit() else None
+        downloaded_bytes = 0
+        last_report = time.monotonic()
+
         output = request.output_dir / filename
         try:
             with output.open("wb") as file_obj:
                 for chunk in response.iter_content(chunk_size=1024 * 1024):
-                    if chunk:
-                        file_obj.write(chunk)
+                    if not chunk:
+                        continue
+                    file_obj.write(chunk)
+                    downloaded_bytes += len(chunk)
+                    if request.progress_callback and time.monotonic() - last_report >= 0.5:
+                        last_report = time.monotonic()
+                        request.progress_callback(downloaded_bytes, total_bytes)
         finally:
             response.close()
 
