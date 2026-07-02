@@ -3,33 +3,176 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Impressum - DownloadThat</title>
+<title>Impressum — DownloadThat</title>
 <style>
-:root{--bg:#0e0c14;--card:#1b1626;--border:#2c2438;--text:#f1ede4;--dim:#a89fb3;--accent:#c9a869}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}.wrap{max-width:860px;margin:0 auto;padding:48px 24px}.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px}.placeholder{color:var(--accent);font-weight:700}p,li{color:var(--dim)}header,footer{padding:24px;text-align:center}header{border-bottom:1px solid var(--border)}footer{border-top:1px solid var(--border);color:var(--dim);font-size:.9rem}
+  :root {
+    --bg: #0e0c14;
+    --bg-elevated: #16121f;
+    --card: #1b1626;
+    --border: #2c2438;
+    --text: #f1ede4;
+    --text-dim: #a89fb3;
+    --accent: #c9a869;
+    --accent-dim: #8a713f;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(14, 12, 20, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 720px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.02em; color: var(--text); }
+  .brand-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(160deg, var(--accent), var(--accent-dim));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: #14111c;
+  }
+
+  main { padding: 56px 24px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 8px; }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 40px; }
+  h2 { font-size: 1.15rem; color: var(--accent); margin: 36px 0 10px; }
+  p, address { color: var(--text-dim); line-height: 1.7; font-style: normal; margin: 0 0 12px; }
+  .placeholder {
+    background: var(--bg-elevated); border: 1px dashed var(--accent-dim);
+    color: var(--accent); border-radius: 4px; padding: 2px 6px;
+    font-style: italic; white-space: nowrap;
+  }
+  .notice {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 36px; font-size: 0.9rem; color: var(--text-dim);
+  }
+
+  footer { border-top: 1px solid var(--border); padding: 36px 24px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+  footer a { color: var(--text-dim); }
+  footer .foot-links { display: flex; gap: 18px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
 </style>
 </head>
 <body>
-<header><a href="./">DownloadThat</a></header>
-<main class="wrap">
-<h1>Impressum</h1>
-<p><strong>Vor Livegang ausfuellen:</strong> Diese Platzhalter muessen durch die echten Anbieterangaben ersetzt und rechtlich geprueft werden.</p>
-<section class="card">
-<h2>Angaben zum Anbieter</h2>
-<p><span class="placeholder">[PLACEHOLDER: Vollstaendiger rechtlicher Name / Firma]</span><br><span class="placeholder">[PLACEHOLDER: Strasse und Hausnummer]</span><br><span class="placeholder">[PLACEHOLDER: PLZ und Ort]</span><br><span class="placeholder">[PLACEHOLDER: Land]</span></p>
-<h2>Kontakt</h2>
-<p>E-Mail: <span class="placeholder">[PLACEHOLDER: Kontakt-E-Mail]</span><br>Telefon: <span class="placeholder">[PLACEHOLDER: Telefonnummer, falls erforderlich]</span></p>
-<h2>Vertretungsberechtigt</h2>
-<p><span class="placeholder">[PLACEHOLDER: Name, falls abweichend oder bei Gesellschaft erforderlich]</span></p>
-<h2>Umsatzsteuer</h2>
-<p>Umsatzsteuer-ID: <span class="placeholder">[PLACEHOLDER: USt-IdNr. oder Hinweis, falls keine vorhanden]</span></p>
-<h2>Registereintrag</h2>
-<p>Registergericht: <span class="placeholder">[PLACEHOLDER: falls vorhanden]</span><br>Registernummer: <span class="placeholder">[PLACEHOLDER: falls vorhanden]</span></p>
-<h2>Verantwortlich fuer Inhalte</h2>
-<p><span class="placeholder">[PLACEHOLDER: Name und Anschrift der verantwortlichen Person, falls erforderlich]</span></p>
-<h2>Haftung fuer Links</h2>
-<p>Fuer Inhalte verlinkter externer Seiten sind ausschliesslich deren Betreiber verantwortlich.</p>
-</section>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="brand-icon">⬇</span> DownloadThat</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Impressum</h1>
+    <p class="subtitle">Angaben gemäß § 5 Telemediengesetz (TMG)</p>
+
+    <div class="notice">
+      ⚠️ <strong>Hinweis für den Seitenbetreiber:</strong> Alle mit
+      <span class="placeholder">[PLACEHOLDER]</span> markierten Felder müssen vor der
+      Veröffentlichung mit deinen echten Angaben ausgefüllt werden. Das Impressum
+      ist gesetzlich vorgeschrieben und muss vollständig sein, bevor diese Seite live geht.
+    </div>
+
+    <h2>Verantwortlicher</h2>
+    <address>
+      <span class="placeholder">[VORNAME NACHNAME]</span><br />
+      <span class="placeholder">[STRAßE HAUSNUMMER]</span><br />
+      <span class="placeholder">[POSTLEITZAHL ORT]</span><br />
+      Deutschland
+    </address>
+
+    <h2>Kontakt</h2>
+    <p>
+      E-Mail: <a href="mailto:support@geistreich.com">support@geistreich.com</a><br />
+      Telefon: <span class="placeholder">[TELEFONNUMMER oder „nicht öffentlich"]</span>
+    </p>
+
+    <h2>Umsatzsteuer-ID</h2>
+    <p>
+      Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br />
+      <span class="placeholder">[USt-IdNr. oder „nicht vorhanden (Kleinunternehmer § 19 UStG)"]</span>
+    </p>
+
+    <h2>Berufsbezeichnung und berufsrechtliche Regelungen</h2>
+    <p>
+      Es handelt sich um ein privates/gewerbliches Angebot ohne reglementierten Beruf.
+      <span class="placeholder">[Ggf. anpassen, falls zutreffend.]</span>
+    </p>
+
+    <h2>Redaktionell verantwortlich</h2>
+    <address>
+      <span class="placeholder">[VORNAME NACHNAME]</span><br />
+      <span class="placeholder">[STRAßE HAUSNUMMER, POSTLEITZAHL ORT]</span>
+    </address>
+
+    <h2>EU-Streitschlichtung</h2>
+    <p>
+      Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+      <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">
+        https://ec.europa.eu/consumers/odr/
+      </a>.<br />
+      Unsere E-Mail-Adresse finden Sie oben im Impressum.
+    </p>
+
+    <h2>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
+    <p>
+      Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
+      Verbraucherschlichtungsstelle teilzunehmen.
+    </p>
+
+    <h2>Haftung für Inhalte</h2>
+    <p>
+      Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen
+      Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir
+      als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde
+      Informationen zu überwachen oder nach Umständen zu forschen, die auf eine
+      rechtswidrige Tätigkeit hinweisen.
+    </p>
+    <p>
+      Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den
+      allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist
+      jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich.
+      Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte
+      umgehend entfernen.
+    </p>
+
+    <h2>Haftung für Links</h2>
+    <p>
+      Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir
+      keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine
+      Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige
+      Anbieter oder Betreiber der Seiten verantwortlich.
+    </p>
+
+    <h2>Urheberrecht</h2>
+    <p>
+      Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
+      unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung,
+      Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes
+      bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+    </p>
+  </div>
 </main>
-<footer><a href="./datenschutz.html">Datenschutz</a> | <a href="./">Startseite</a><br>© 2026 DownloadThat</footer>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html">Startseite</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="mailto:support@geistreich.com">Support</a>
+    </div>
+    <div>© 2026 DownloadThat. Alle Rechte vorbehalten.</div>
+  </div>
+</footer>
+
 </body>
 </html>
