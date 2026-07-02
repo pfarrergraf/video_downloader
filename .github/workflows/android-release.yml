@@ -132,11 +132,15 @@ jobs:
       - name: Attach APK to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          # tag_name/name are required here (not just github.ref_name):  on a
+          # tag_name/name are required here (not just github.ref_name): on a
           # workflow_dispatch run there is no tag yet, so this action creates
-          # one pointing at the current commit.
+          # one. target_commitish must be explicit too - GitHub's API defaults
+          # a brand-new tag to the repo's default branch (master, stuck on an
+          # ancient commit here) when it's omitted, not to the commit actually
+          # built from.
           tag_name: ${{ env.RELEASE_TAG }}
           name: ${{ env.RELEASE_TAG }}
+          target_commitish: ${{ github.sha }}
           files: |
             android/release-out/DownloadThat-${{ env.RELEASE_TAG }}.apk
             android/release-out/DownloadThat-latest.apk
