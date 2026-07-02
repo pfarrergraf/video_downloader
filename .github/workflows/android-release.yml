@@ -10,6 +10,17 @@ on:
   push:
     tags:
       - "v*.*.*"
+  # Fallback trigger: GitHub's mobile "New release" web form has proven
+  # unreliable (POST hangs on "Publishing..." and silently produces no tag
+  # or release, no error shown) — this lets a release be built and published
+  # from the much simpler Actions "Run workflow" form instead, without
+  # needing the release-creation UI to work at all.
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag to release, e.g. v0.2.0"
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -51,6 +62,11 @@ jobs:
     defaults:
       run:
         working-directory: android
+    env:
+      # On a tag push, github.ref_name is already the tag (e.g. v0.2.0). On a
+      # manual workflow_dispatch run, ref_name would be the branch name
+      # instead, so the tag to release has to come from the input.
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
 
@@ -110,13 +126,18 @@ jobs:
       - name: Rename APK to include version tag
         run: |
           mkdir -p release-out
-          cp app/build/outputs/apk/release/app-release.apk "release-out/DownloadThat-${{ github.ref_name }}.apk"
+          cp app/build/outputs/apk/release/app-release.apk "release-out/DownloadThat-${RELEASE_TAG}.apk"
           cp app/build/outputs/apk/release/app-release.apk "release-out/DownloadThat-latest.apk"
 
       - name: Attach APK to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          # tag_name/name are required here (not just github.ref_name):  on a
+          # workflow_dispatch run there is no tag yet, so this action creates
+          # one pointing at the current commit.
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: ${{ env.RELEASE_TAG }}
           files: |
-            android/release-out/DownloadThat-${{ github.ref_name }}.apk
+            android/release-out/DownloadThat-${{ env.RELEASE_TAG }}.apk
             android/release-out/DownloadThat-latest.apk
           generate_release_notes: true
