@@ -1,0 +1,59 @@
+name: Deploy Pro website to Cloudflare Pages
+
+# Runs entirely on GitHub's own runners, which have normal internet access —
+# unlike the Claude Code sessions that authored this repo's code, whose
+# network egress is policy-blocked from reaching api.cloudflare.com
+# (confirmed directly, see memory.md). This is the actual deploy mechanism:
+# push code -> this workflow ships it -> no wrangler CLI needed on anyone's
+# phone/laptop, no dashboard clicking after the one-time secrets setup below.
+#
+# One-time setup (repo Settings -> Secrets and variables -> Actions):
+#   CLOUDFLARE_API_TOKEN   - Cloudflare dashboard -> My Profile -> API Tokens
+#                            -> Create Token -> template "Edit Cloudflare Workers"
+#   CLOUDFLARE_ACCOUNT_ID  - Cloudflare dashboard right sidebar on any page
+#   STRIPE_SECRET_KEY      - Stripe dashboard -> Developers -> API keys (sk_test_...)
+#   STRIPE_WEBHOOK_SECRET  - only exists AFTER the first deploy (need the URL to
+#                            create the Stripe webhook first) - add this one later,
+#                            then re-run this workflow manually (workflow_dispatch)
+#                            or push again.
+on:
+  push:
+    branches: ["claude/gothic-downloader-website-bp7r2u", "master"]
+    paths:
+      - "pro/website/**"
+      - ".github/workflows/deploy-pro-website.yml"
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy static site + Functions to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: pro/website
+          command: pages deploy . --project-name=downloadthat
+
+      - name: Set STRIPE_SECRET_KEY on the Pages project
+        if: ${{ secrets.STRIPE_SECRET_KEY != '' }}
+        run: echo "$STRIPE_SECRET_KEY" | npx wrangler pages secret put STRIPE_SECRET_KEY --project-name=downloadthat
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+
+      # Doesn't exist until the Stripe webhook has been created (needs this
+      # deploy's URL first) - continue-on-error so the first run isn't marked
+      # failed just because this secret isn't set up yet.
+      - name: Set STRIPE_WEBHOOK_SECRET on the Pages project
+        if: ${{ secrets.STRIPE_WEBHOOK_SECRET != '' }}
+        continue-on-error: true
+        run: echo "$STRIPE_WEBHOOK_SECRET" | npx wrangler pages secret put STRIPE_WEBHOOK_SECRET --project-name=downloadthat
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
