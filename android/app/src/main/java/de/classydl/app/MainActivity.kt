@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.webkit.JavascriptInterface
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.result.ActivityResultLauncher
@@ -80,6 +81,20 @@ class MainActivity : AppCompatActivity() {
         // contained WebView, not an arbitrary page.
         webView.settings.mediaPlaybackRequiresUserGesture = false
         webView.webViewClient = object : WebViewClient() {
+            // WebAppBridge is exposed to whatever page this WebView has loaded —
+            // without this, following any link to a non-local page (e.g. one
+            // reflected from a scraped site's content) would hand that page's
+            // JavaScript the same native bridge (folder picker, etc.) that's
+            // meant only for our own bundled UI.
+            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                val host = request?.url?.host
+                return if (host != "127.0.0.1") {
+                    true // blocked: don't navigate, don't hand off to another app either
+                } else {
+                    false
+                }
+            }
+
             override fun onReceivedError(
                 view: WebView?,
                 errorCode: Int,

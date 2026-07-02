@@ -86,10 +86,13 @@ def export_file(path: Path, tree_uri: str) -> bool:
 
         # Overwrite semantics: drop any earlier export of the same filename
         # first, otherwise SAF's createFile silently appends "(1)" etc. and
-        # re-exporting the same job would keep piling up duplicates.
+        # re-exporting the same job would keep piling up duplicates. If the
+        # delete itself fails (transient SAF hiccup, revoked permission),
+        # bail out instead of creating a same-named duplicate next to a file
+        # that's still there - the caller retries this on the next poll.
         existing = tree_dir.findFile(path.name)
-        if existing is not None:
-            existing.delete()
+        if existing is not None and not existing.delete():
+            return False
 
         mime_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
         new_file = tree_dir.createFile(mime_type, path.name)

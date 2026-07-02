@@ -298,7 +298,11 @@
     <select id="settings-language"></select>
 
     <label data-i18n="app.settings.folder_label">Download folder</label>
-    <p class="muted" id="settings-folder-label" data-i18n="app.settings.folder_default">App storage (default)</p>
+    <!-- No data-i18n here on purpose: refreshSettings() sets this to either
+         the real custom folder label or t('app.settings.folder_default') -
+         a static data-i18n would let a language switch clobber a real,
+         already-picked folder name back to the "default" placeholder text. -->
+    <p class="muted" id="settings-folder-label">App storage (default)</p>
     <div class="row">
       <button class="secondary" id="settings-folder-pick-btn" data-i18n="app.settings.folder_pick_btn">Choose folder</button>
       <button class="ghost" id="settings-folder-reset-btn" data-i18n="app.settings.folder_reset_btn">Reset to default</button>
@@ -780,7 +784,15 @@ async function refreshQueue() {
 }
 
 setInterval(() => { if (!$('app').classList.contains('hidden')) refreshQueue(); }, 4000);
-setLanguage('auto', { skipPersist: true }).then(checkAuth);
+// Disabled until the initial language load resolves: logging in before then
+// (e.g. a password manager's autofill+autosubmit racing the /i18n/en.json
+// fetch) would call setAuthed(true) while STRINGS is still {}, briefly
+// showing raw i18n keys instead of translated text.
+$('login-btn').disabled = true;
+setLanguage('auto', { skipPersist: true }).then(() => {
+  $('login-btn').disabled = false;
+  checkAuth();
+});
 </script>
 </body>
 </html>
