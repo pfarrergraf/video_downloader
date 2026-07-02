@@ -22,9 +22,9 @@ export async function onRequestPost({ request, env }) {
     }
 
     const event = JSON.parse(payload);
-    await handleStripeEvent(event, env);
+    const result = await handleStripeEvent(event, env);
 
-    return jsonResponse({ received: true });
+    return jsonResponse({ received: true, result });
   } catch (err) {
     console.error("Webhook handling failed", err);
     return jsonResponse({ error: "handler error", message: String(err?.message ?? err), stack: err?.stack }, 500);

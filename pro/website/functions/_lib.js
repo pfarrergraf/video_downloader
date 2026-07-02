@@ -67,7 +67,7 @@ async function handleCheckoutCompleted(session, env) {
   const tier = session.metadata?.tier;
   if (!tier || !["monthly", "yearly", "lifetime"].includes(tier)) {
     console.error("checkout.session.completed missing/unknown tier metadata", session.id);
-    return;
+    return { created: false, reason: "missing/unknown tier metadata", session_metadata: session.metadata ?? null };
   }
 
   const email = session.customer_details?.email ?? session.customer_email ?? "unknown";
@@ -99,6 +99,8 @@ async function handleCheckoutCompleted(session, env) {
       now,
     )
     .run();
+
+  return { created: true, license_key: licenseKey };
 }
 
 async function handleSubscriptionUpdated(subscription, env) {
@@ -124,15 +126,14 @@ async function handleSubscriptionDeleted(subscription, env) {
 export async function handleStripeEvent(event, env) {
   switch (event.type) {
     case "checkout.session.completed":
-      await handleCheckoutCompleted(event.data.object, env);
-      break;
+      return (await handleCheckoutCompleted(event.data.object, env)) ?? { handled: true };
     case "customer.subscription.updated":
       await handleSubscriptionUpdated(event.data.object, env);
-      break;
+      return { handled: true };
     case "customer.subscription.deleted":
       await handleSubscriptionDeleted(event.data.object, env);
-      break;
+      return { handled: true };
     default:
-      break;
+      return { handled: false, type: event.type };
   }
 }
