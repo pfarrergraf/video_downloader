@@ -76,12 +76,12 @@
     cursor: pointer;
     border: 1px solid transparent;
   }
-  button.primary {
+  button.primary, a.primary {
     background: var(--accent);
     color: #14121a;
     font-weight: 600;
   }
-  button.primary:hover { background: #d8ba85; }
+  button.primary:hover, a.primary:hover { background: #d8ba85; }
   button.secondary {
     background: transparent;
     border-color: var(--border);
@@ -264,6 +264,7 @@
         <input type="text" id="license-key-input" placeholder="DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
         <button class="secondary" id="license-save-btn">Speichern</button>
       </div>
+      <a class="primary hidden" id="license-buy-link" href="https://downloadthat.pages.dev/#pricing" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.6rem; text-decoration:none; border-radius:8px; padding:0.55rem 1rem; font-size:0.9rem;">Pro kaufen</a>
     </div>
 
     <div class="card">
@@ -387,6 +388,7 @@ async function refreshLicense() {
     } else {
       $('license-status').textContent = 'Kostenlos — 1 Download pro Tag. Pro: unbegrenzt.';
     }
+    $('license-buy-link').classList.toggle('hidden', !!status.valid);
   } catch (e) {
     // Not authenticated yet, or a transient error — just leave the card hidden.
   }
