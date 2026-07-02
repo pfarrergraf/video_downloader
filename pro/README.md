@@ -106,6 +106,56 @@ Then check it validates (from any browser, including your phone's):
 Once it's live, tell me the URL and I'll update `MainActivity.kt`'s `LICENSE_API_BASE`
 constant and push — that's a plain repo edit, nothing I need any credential for.
 
+## Alternative: deploy from Termux with `wrangler` instead
+
+If you'd rather run the actual deploy commands yourself (from the same Termux setup
+this project already uses for the Android/Termux build — see the repo root `CLAUDE.md`)
+instead of clicking through Cloudflare's dashboard, this works too and needs only one
+dashboard visit (to mint an API token — nothing bypasses that, some credential always
+has to originate there):
+
+```bash
+pkg update -y && pkg install -y nodejs git
+git clone https://github.com/pfarrergraf/video_downloader.git   # or: cd video_downloader && git pull
+cd video_downloader
+git checkout claude/gothic-downloader-website-bp7r2u
+```
+
+Create a token: Cloudflare dashboard (any browser, phone is fine) → profile icon →
+**My Profile** → **API Tokens** → **Create Token** → template **"Edit Cloudflare
+Workers"** (covers Pages + D1 + Workers Scripts). Copy the token value — Cloudflare
+shows it exactly once.
+
+```bash
+export CLOUDFLARE_API_TOKEN=paste-the-token-here     # only lives in this shell session
+cd pro/website
+npx wrangler pages deploy . --project-name=downloadthat
+```
+
+That single command creates the Pages project, deploys the static site + the
+`functions/api/*` routes, AND applies the D1 binding from the checked-in
+`wrangler.toml` — no dashboard binding step needed with this path. Note the
+`*.pages.dev` URL it prints.
+
+Then set the two secrets (prompts for the value, doesn't echo it, isn't logged):
+
+```bash
+npx wrangler pages secret put STRIPE_SECRET_KEY --project-name=downloadthat
+```
+
+Create the Stripe webhook per step 4 above, using the printed `*.pages.dev` URL, then:
+
+```bash
+npx wrangler pages secret put STRIPE_WEBHOOK_SECRET --project-name=downloadthat
+```
+
+Continue from step 6 (test it end-to-end) above — same steps either way from here.
+
+`wrangler login` (browser OAuth instead of a pasted token) also works from Termux in
+principle, since the OAuth callback goes to `localhost` on the same phone Termux is
+running on — but the API token above is more reliable and doesn't depend on the OAuth
+redirect completing correctly, so it's the recommended path here.
+
 ## Going live (real payments)
 
 The Stripe account connected here is a **sandbox**. Activating real payments needs Stripe's
