@@ -38,6 +38,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # `wrangler pages deploy` needs the project to already exist - it can't
+      # create one non-interactively (unlike some older wrangler versions'
+      # `pages publish`). continue-on-error so subsequent runs, where the
+      # project already exists, aren't marked failed just because this
+      # command errors on the "already exists" case.
+      - name: Ensure Cloudflare Pages project exists
+        continue-on-error: true
+        run: npx -y wrangler@3 pages project create downloadthat --production-branch=master
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
       - name: Deploy static site + Functions to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
