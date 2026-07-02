@@ -22,8 +22,12 @@ android {
         // icons (mipmap-anydpi-v26) don't need a legacy raster fallback.
         minSdk 26
         targetSdk 35
-        versionCode 1
-        versionName "0.1.0"
+        // Release CI passes the real version derived from the git tag
+        // (-PversionNameOverride=0.2.0 -PversionCodeOverride=200); every
+        // other build (local dev, debug/emulator-smoke-test CI) keeps this
+        // placeholder, since it isn't a real release.
+        versionCode project.hasProperty('versionCodeOverride') ? (project.versionCodeOverride as Integer) : 1
+        versionName project.hasProperty('versionNameOverride') ? project.versionNameOverride : "0.1.0"
 
         // Chaquopy requires abiFilters to be set explicitly (it has no "all ABIs"
         // default).

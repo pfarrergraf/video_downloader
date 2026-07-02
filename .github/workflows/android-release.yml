@@ -110,13 +110,29 @@ jobs:
             exit 1
           fi
 
+      # Without this, every release build kept Chaquopy's placeholder
+      # versionCode/versionName (1 / "0.1.0") baked into the APK regardless
+      # of the git tag - v0.2.0's binary was correct, but nothing in the app
+      # itself would ever show it, so an installed update was indistinguishable
+      # from the previous one. versionCode must strictly increase release over
+      # release for Android to treat an install as an update.
+      - name: Derive version code/name from tag
+        run: |
+          VERSION_NAME="${RELEASE_TAG#v}"
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION_NAME"
+          VERSION_CODE=$((MAJOR * 10000 + MINOR * 100 + PATCH))
+          echo "VERSION_NAME=$VERSION_NAME" >> "$GITHUB_ENV"
+          echo "VERSION_CODE=$VERSION_CODE" >> "$GITHUB_ENV"
+
       - name: Build signed release APK (arm64-v8a only)
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-        run: gradle :app:assembleRelease -PabiFilters=arm64-v8a --stacktrace
+        run: |
+          gradle :app:assembleRelease -PabiFilters=arm64-v8a \
+            -PversionNameOverride="$VERSION_NAME" -PversionCodeOverride="$VERSION_CODE" --stacktrace
 
       # Two copies: the versioned name is what shows up on the release page;
       # the "-latest" name is a stable filename so the website's download
