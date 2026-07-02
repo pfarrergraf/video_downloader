@@ -377,14 +377,16 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 return
             body = self._read_json()
             store = self.server.store
-            if "language" in body:
-                store.set_setting("language", str(body["language"]))
-            if body.get("reset_folder"):
+            if isinstance(body.get("language"), str) and body["language"]:
+                store.set_setting("language", body["language"])
+            if body.get("reset_folder") is True:
                 store.clear_setting("export_folder_uri")
                 store.clear_setting("export_folder_label")
-            elif "export_folder_uri" in body:
-                store.set_setting("export_folder_uri", str(body["export_folder_uri"]))
-                store.set_setting("export_folder_label", str(body.get("export_folder_label", "")))
+            else:
+                if isinstance(body.get("export_folder_uri"), str) and body["export_folder_uri"]:
+                    store.set_setting("export_folder_uri", body["export_folder_uri"])
+                if isinstance(body.get("export_folder_label"), str) and body["export_folder_label"]:
+                    store.set_setting("export_folder_label", body["export_folder_label"])
             self._send_json(200, {"saved": True})
             return
 
