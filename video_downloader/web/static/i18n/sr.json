@@ -1,0 +1,167 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Preuzimajte sadržaj sa bilo kog sajta, na bilo kom uređaju",
+    "login": {
+      "title": "Prijava",
+      "password_label": "Lozinka",
+      "unlock_btn": "Otključaj",
+      "error": "Pogrešna lozinka."
+    },
+    "license": {
+      "title": "Licenca",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Sačuvaj",
+      "buy_btn": "Nabavi Pro",
+      "status_active": "Pro aktiviran ({tier}). Hvala na podršci!",
+      "status_invalid": "Besplatno — sačuvani ključ je nevažeći ili je istekao.",
+      "status_free": "Besplatno — 1 preuzimanje dnevno. Pro: neograničeno.",
+      "need_key_toast": "Prvo unesite licencni ključ.",
+      "activated_toast": "Licenca je aktivirana.",
+      "invalid_toast": "Nevažeći licencni ključ."
+    },
+    "scrape": {
+      "title": "Pretraži stranicu",
+      "url_label": "URL stranice",
+      "deep_label": "Duboka pretraga (prati linkove)",
+      "video_btn": "Preuzmi video",
+      "audio_btn": "Preuzmi audio",
+      "search_btn": "Pretraži stranicu",
+      "select_all": "Izaberi sve",
+      "deselect_all": "Poništi izbor",
+      "clear": "Očisti listu",
+      "queue_selected": "Preuzmi izabrano",
+      "results_count": "Pronađeno {total}, izabrano {picked}",
+      "empty": "Na ovoj stranici nije pronađen nijedan medijski sadržaj.",
+      "need_url_toast": "Prvo unesite URL.",
+      "search_failed_toast": "Pretraga nije uspela.",
+      "queue_failed_toast": "Dodavanje u red nije uspelo.",
+      "queue_selection_failed_toast": "Dodavanje izbora u red nije uspelo.",
+      "need_selection_toast": "Izaberite bar jednu stavku."
+    },
+    "queue": {
+      "title": "Red za preuzimanje",
+      "subtitle": "Automatski se ažurira.",
+      "empty": "Red za preuzimanje je trenutno prazan.",
+      "cancel_btn": "Otkaži",
+      "cancel_failed_toast": "Otkazivanje nije uspelo.",
+      "queued_toast": "Dodato u red.",
+      "open_btn": "Otvori",
+      "open_failed_toast": "Nije moguće otvoriti ovaj fajl — probajte link.",
+      "open_unsupported_toast": "Otvaranje fajlova radi samo u Android aplikaciji."
+    },
+    "settings": {
+      "gear_label": "Podešavanja",
+      "title": "Podešavanja",
+      "language_label": "Jezik",
+      "language_auto": "Automatski (jezik uređaja)",
+      "folder_label": "Fascikla za preuzimanje",
+      "folder_default": "Memorija aplikacije (podrazumevano)",
+      "folder_pick_btn": "Izaberi fasciklu",
+      "folder_reset_btn": "Vrati na podrazumevano",
+      "folder_not_supported": "Dostupno samo u Android aplikaciji.",
+      "folder_picking": "Čeka se izbor fascikle…",
+      "saved_toast": "Podešavanja su sačuvana.",
+      "close_btn": "Zatvori"
+    },
+    "footer": "DownloadThat — preuzimajte samo sadržaj na koji imate pravo."
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — preuzimanje video, audio i slika za Android",
+      "description": "Preuzimajte video, audio i slike direktno na svoj Android telefon. Bez Play prodavnice, bez reklama, bez ograničenja. Osnovna verzija besplatna, Pro od 1€/mesečno."
+    },
+    "nav": {
+      "features": "Funkcije",
+      "pricing": "Cene",
+      "faq": "Pitanja",
+      "download": "Preuzimanje"
+    },
+    "hero": {
+      "eyebrow": "Besplatna osnovna verzija · Bez reklama · Nije potreban nalog",
+      "title_html": "Preuzmite {emphasis}.<br/>Direktno na telefon.",
+      "title_emphasis": "sve",
+      "lead": "Video, audio i slike sa gotovo bilo kog sajta — preuzeti direktno na vaš Android telefon. Bez slanja u oblak, podaci nikada ne napuštaju vaš uređaj, nije potrebna Play prodavnica.",
+      "cta_primary": "Preuzmi besplatan APK",
+      "cta_secondary": "Pogledaj Pro cene",
+      "badge1": "Google Play nije potreban",
+      "badge2": "Radi 100% na vašem uređaju",
+      "badge3": "Podrška za HD i 4K",
+      "badge4": "Osnovna verzija zauvek besplatna"
+    },
+    "features": {
+      "h2": "Sve što vam treba, ništa suvišno",
+      "lead": "Brz i privatan downloader koji jednostavno radi — sa Pro nivoom za sve koji žele više.",
+      "f1_title": "Bilo koji video ili audio",
+      "f1_desc": "Nalepite link, izaberite kvalitet, preuzmite. Radi sa većinom video, audio i sajtova sa slikama.",
+      "f2_title": "Grupno preuzimanje",
+      "f2_desc": "Skenirajte stranicu za sve medijske fajlove i preuzmite ih zajedno, uz biranje/poništavanje izbora.",
+      "f3_title": "Privatnost po dizajnu",
+      "f3_desc": "Sve se odvija lokalno na vašem telefonu. Ništa se ne šalje na server koji vi ne kontrolišete.",
+      "f4_title": "Bez reklama, bez praćenja",
+      "f4_desc": "Bez reklamnih mreža, bez analitičkih SDK-ova, bez skrivenih trikova za plaćanje. Samo aplikacija.",
+      "f5_title": "Izdvajanje audia",
+      "f5_desc": "Izdvojte samo audio zapis iz bilo kog videa i sačuvajte ga kao MP3.",
+      "f6_title": "Nije potrebna prodavnica aplikacija",
+      "f6_desc": "Instalirajte APK direktno. Bez naloga, bez procesa provere na Play prodavnici, bez regionalnih ograničenja."
+    },
+    "pricing": {
+      "h2": "Jednostavne, poštene cene",
+      "lead": "Zauvek besplatno: 1 preuzimanje dnevno u punom HD/4K kvalitetu. Neograničeno uz Pro.",
+      "monthly_title": "Mesečno",
+      "monthly_note": "Otkažite u bilo kom trenutku",
+      "yearly_flag": "Najbolja vrednost",
+      "yearly_title": "Godišnje",
+      "yearly_note": "Manje od 0.42€ mesečno",
+      "lifetime_title": "Doživotno",
+      "lifetime_amount_suffix": "jednokratno",
+      "lifetime_note": "Platite jednom, koristite zauvek",
+      "feature_unlimited": "Neograničena preuzimanja (bez dnevnog limita)",
+      "feature_batch": "Grupno preuzimanje",
+      "feature_priority_updates": "Prioritetna ažuriranja",
+      "feature_all_updates": "Uključena sva buduća ažuriranja",
+      "cta_monthly": "Izaberi mesečno",
+      "cta_yearly": "Izaberi godišnje",
+      "cta_lifetime": "Izaberi doživotno",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year"
+    },
+    "faq": {
+      "h2": "Često postavljana pitanja",
+      "q1_title": "Da li mi je potreban Pro da bih koristio aplikaciju?",
+      "q1_body": "Ne. Aplikacija je besplatna i potpuno upotrebljiva. Pro uklanja ograničenja i podržava razvoj.",
+      "q2_title": "Da li ovo radi bez Google Play-a?",
+      "q2_body": "Da — to je samostalni APK koji instalirate direktno. Nije potreban nalog niti odobrenje Play prodavnice.",
+      "q3_title": "Gde unosim svoj licencni ključ?",
+      "q3_body": "Odmah nakon kupovine videćete svoj licencni ključ na stranici sa potvrdom — unesite ga u podešavanjima aplikacije.",
+      "q4_title": "Mogu li dobiti povraćaj novca?",
+      "q4_body": "Kontaktirajte nas u roku od 14 dana od kupovine i vratićemo vam novac, bez pitanja.",
+      "q5_title": "Da li je ovo legalno?",
+      "q5_body": "Vi ste odgovorni za način na koji koristite preuzeti sadržaj. Molimo poštujte autorska prava i uslove korišćenja sajtova sa kojih preuzimate."
+    },
+    "footer": {
+      "download": "Preuzimanje",
+      "pricing": "Cene",
+      "imprint": "Impresum",
+      "privacy": "Privatnost",
+      "support": "Podrška",
+      "copyright": "© 2026 DownloadThat. Sva prava zadržana."
+    },
+    "success": {
+      "title": "Hvala — DownloadThat Pro",
+      "h1": "Hvala na kupovini!",
+      "lead": "Vaš licencni ključ je ispod — unesite ga u podešavanjima aplikacije.",
+      "pending": "Završavamo vašu kupovinu…",
+      "tier_monthly": "Mesečno",
+      "tier_yearly": "Godišnje",
+      "tier_lifetime": "Doživotno",
+      "plan_label": "Plan",
+      "copy_btn": "Kopiraj ključ",
+      "not_installed": "Još nemate aplikaciju?",
+      "download_app": "Preuzmite aplikaciju",
+      "error": "Još nismo uspeli da pronađemo vašu licencu. Molimo osvežite stranicu za trenutak.",
+      "no_session": "Sesija nedostaje — molimo koristite link iz potvrde kupovine.",
+      "footer_note": "Ova stranica automatski proverava nekoliko sekundi nakon plaćanja. Ako se ništa ne pojavi, osvežite stranicu ili pošaljite email na {support_email} sa potvrdom o plaćanju."
+    }
+  }
+}

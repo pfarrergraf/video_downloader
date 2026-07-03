@@ -1,0 +1,167 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Atsisiųsk turinį iš bet kokios svetainės, bet kuriame įrenginyje",
+    "login": {
+      "title": "Prisijungimas",
+      "password_label": "Slaptažodis",
+      "unlock_btn": "Atrakinti",
+      "error": "Neteisingas slaptažodis."
+    },
+    "license": {
+      "title": "Licencija",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Išsaugoti",
+      "buy_btn": "Įsigyti Pro",
+      "status_active": "Pro aktyvi ({tier}). Dėkojame už paramą!",
+      "status_invalid": "Nemokama versija — išsaugotas raktas negalioja arba nebegaliojantis.",
+      "status_free": "Nemokama versija — 1 atsisiuntimas per dieną. Pro: neribotai.",
+      "need_key_toast": "Pirmiausia įveskite licencijos raktą.",
+      "activated_toast": "Licencija aktyvuota.",
+      "invalid_toast": "Neteisingas licencijos raktas."
+    },
+    "scrape": {
+      "title": "Ieškoti puslapyje",
+      "url_label": "Puslapio URL",
+      "deep_label": "Gilioji paieška (sekti nuorodas)",
+      "video_btn": "Atsisiųsti vaizdo įrašą",
+      "audio_btn": "Atsisiųsti garso įrašą",
+      "search_btn": "Ieškoti puslapyje",
+      "select_all": "Pažymėti viską",
+      "deselect_all": "Panaikinti žymėjimą",
+      "clear": "Išvalyti sąrašą",
+      "queue_selected": "Atsisiųsti pažymėtus",
+      "results_count": "Rasta: {total}, pažymėta: {picked}",
+      "empty": "Šiame puslapyje turinio nerasta.",
+      "need_url_toast": "Pirmiausia įveskite URL.",
+      "search_failed_toast": "Paieška nepavyko.",
+      "queue_failed_toast": "Nepavyko pridėti į eilę.",
+      "queue_selection_failed_toast": "Nepavyko pridėti pažymėtų į eilę.",
+      "need_selection_toast": "Pažymėkite bent vieną elementą."
+    },
+    "queue": {
+      "title": "Eilė",
+      "subtitle": "Atnaujinama automatiškai.",
+      "empty": "Eilėje kol kas nieko nėra.",
+      "cancel_btn": "Atšaukti",
+      "cancel_failed_toast": "Nepavyko atšaukti.",
+      "queued_toast": "Pridėta į eilę.",
+      "open_btn": "Atidaryti",
+      "open_failed_toast": "Nepavyko atidaryti šio failo — pabandykite nuorodą.",
+      "open_unsupported_toast": "Failų atidarymas veikia tik „Android“ programėlėje."
+    },
+    "settings": {
+      "gear_label": "Nustatymai",
+      "title": "Nustatymai",
+      "language_label": "Kalba",
+      "language_auto": "Automatinė (įrenginio kalba)",
+      "folder_label": "Atsisiuntimų aplankas",
+      "folder_default": "Programėlės saugykla (numatytoji)",
+      "folder_pick_btn": "Pasirinkti aplanką",
+      "folder_reset_btn": "Atkurti numatytąjį",
+      "folder_not_supported": "Prieinama tik „Android“ programėlėje.",
+      "folder_picking": "Laukiama aplanko pasirinkimo…",
+      "saved_toast": "Nustatymai išsaugoti.",
+      "close_btn": "Uždaryti"
+    },
+    "footer": "DownloadThat — atsisiųskite tik tą turinį, kurį turite teisę atsisiųsti."
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — vaizdo, garso ir nuotraukų atsisiuntimo programėlė „Android“",
+      "description": "Atsisiųsk vaizdo įrašus, garso įrašus ir nuotraukas tiesiai į „Android“ telefoną. Jokios „Play Store“, jokios reklamos, jokių įsipareigojimų. Nemokama pagrindinė versija, Pro nuo 1 €/mėn."
+    },
+    "nav": {
+      "features": "Galimybės",
+      "pricing": "Kainos",
+      "faq": "DUK",
+      "download": "Atsisiųsti"
+    },
+    "hero": {
+      "eyebrow": "Nemokama pagrindinė versija · Jokios reklamos · Paskyra nereikalinga",
+      "title_html": "Atsisiųsk {emphasis}.<br/>Tiesiai į telefoną.",
+      "title_emphasis": "viską",
+      "lead": "Vaizdo įrašai, garso įrašai ir nuotraukos iš beveik bet kurios svetainės — atsisiunčiami tiesiai į „Android“ telefoną. Jokio įkėlimo į debesį, jokie duomenys nepalieka jūsų įrenginio, „Play Store“ nereikalinga.",
+      "cta_primary": "Atsisiųsti nemokamą APK",
+      "cta_secondary": "Peržiūrėti Pro kainas",
+      "badge1": "„Google Play“ nereikalinga",
+      "badge2": "Veikia 100 % jūsų įrenginyje",
+      "badge3": "HD ir 4K palaikymas",
+      "badge4": "Pagrindinė versija visada nemokama"
+    },
+    "features": {
+      "h2": "Viskas, ko reikia, ir nieko nereikalingo",
+      "lead": "Greitas ir privatus atsisiuntimo įrankis, kuris tiesiog veikia — su Pro lygiu tiems, kam reikia daugiau.",
+      "f1_title": "Bet koks vaizdo ar garso įrašas",
+      "f1_desc": "Įklijuok nuorodą, pasirink kokybę, atsisiųsk. Veikia su dauguma vaizdo, garso ir nuotraukų svetainių.",
+      "f2_title": "Atsisiuntimai grupėmis",
+      "f2_desc": "Nuskenuok puslapį ir rask visus jame esančius failus, tada atsisiųsk juos kartu, pažymėdamas arba panaikindamas žymėjimą.",
+      "f3_title": "Privatumas iš esmės",
+      "f3_desc": "Viskas vyksta vietoje, tavo telefone. Niekas neįkeliama į tau nepriklausantį serverį.",
+      "f4_title": "Jokios reklamos, jokio sekimo",
+      "f4_desc": "Jokių reklamos tinklų, jokių analitikos SDK, jokių apgaulingų mokėjimo langų. Tik programėlė.",
+      "f5_title": "Garso ištraukimas",
+      "f5_desc": "Ištrauk vien garso takelį iš bet kurio vaizdo įrašo ir išsaugok kaip MP3.",
+      "f6_title": "Programėlių parduotuvė nereikalinga",
+      "f6_desc": "Įdiek APK failą tiesiogiai. Jokios paskyros, jokio „Play Store“ peržiūros proceso, jokių regiono apribojimų."
+    },
+    "pricing": {
+      "h2": "Paprastos, sąžiningos kainos",
+      "lead": "Visada nemokama: 1 atsisiuntimas per dieną pilnos HD/4K kokybės. Neribotai su Pro.",
+      "monthly_title": "Mėnesinis",
+      "monthly_note": "Atšauk bet kada",
+      "yearly_flag": "Geriausia vertė",
+      "yearly_title": "Metinis",
+      "yearly_note": "Mažiau nei 0,42 €/mėn.",
+      "lifetime_title": "Visam laikui",
+      "lifetime_amount_suffix": "vienkartinis mokėjimas",
+      "lifetime_note": "Sumokėk vieną kartą, naudokis visada",
+      "feature_unlimited": "Neriboti atsisiuntimai (be dienos limito)",
+      "feature_batch": "Atsisiuntimai grupėmis",
+      "feature_priority_updates": "Prioritetiniai atnaujinimai",
+      "feature_all_updates": "Įtraukti visi būsimi atnaujinimai",
+      "cta_monthly": "Rinktis mėnesinį",
+      "cta_yearly": "Rinktis metinį",
+      "cta_lifetime": "Rinktis visam laikui",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year"
+    },
+    "faq": {
+      "h2": "Dažniausiai užduodami klausimai",
+      "q1_title": "Ar norint naudotis programėle būtina Pro versija?",
+      "q1_body": "Ne. Programėlė nemokama ir visiškai naudotina. Pro panaikina apribojimus ir palaiko kūrimą.",
+      "q2_title": "Ar tai veikia be „Google Play“?",
+      "q2_body": "Taip — tai atskiras APK failas, kurį įdiegi tiesiogiai. „Play Store“ paskyra ar patvirtinimas nereikalingi.",
+      "q3_title": "Kur įvesti savo licencijos raktą?",
+      "q3_body": "Iškart po pirkimo patvirtinimo puslapyje pamatysi savo licencijos raktą — įvesk jį programėlės nustatymuose.",
+      "q4_title": "Ar galiu susigrąžinti pinigus?",
+      "q4_body": "Susisiek su mumis per 14 dienų nuo pirkimo, ir be papildomų klausimų grąžinsime pinigus.",
+      "q5_title": "Ar tai teisėta?",
+      "q5_body": "Tu pats atsakai už tai, kaip naudoji atsisiųstą turinį. Prašome gerbti autorių teises ir svetainių, iš kurių atsisiunčiate, taisykles."
+    },
+    "footer": {
+      "download": "Atsisiųsti",
+      "pricing": "Kainos",
+      "imprint": "Įmonės rekvizitai",
+      "privacy": "Privatumas",
+      "support": "Pagalba",
+      "copyright": "© 2026 DownloadThat. Visos teisės saugomos."
+    },
+    "success": {
+      "title": "Ačiū — DownloadThat Pro",
+      "h1": "Dėkojame už pirkinį!",
+      "lead": "Tavo licencijos raktas žemiau — įvesk jį programėlės nustatymuose.",
+      "pending": "Baigiama tvarkyti tavo pirkimą…",
+      "tier_monthly": "Mėnesinis",
+      "tier_yearly": "Metinis",
+      "tier_lifetime": "Visam laikui",
+      "plan_label": "Planas",
+      "copy_btn": "Kopijuoti raktą",
+      "not_installed": "Dar neturi programėlės?",
+      "download_app": "Atsisiųsti programėlę",
+      "error": "Kol kas nepavyko rasti tavo licencijos. Perkrauk šį puslapį po akimirkos.",
+      "no_session": "Trūksta sesijos — naudok nuorodą iš pirkimo patvirtinimo.",
+      "footer_note": "Šis puslapis automatiškai tikrina po apmokėjimo kelias sekundes. Jei nieko neatsiranda, perkrauk puslapį arba parašyk el. paštu {support_email} su savo mokėjimo patvirtinimu."
+    }
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Laadi meediat alla ükskõik millisest saidist, ükskõik millises seadmes",
+    "login": {
+      "title": "Logi sisse",
+      "password_label": "Parool",
+      "unlock_btn": "Ava lukust",
+      "error": "Vale parool."
+    },
+    "license": {
+      "title": "Litsents",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Salvesta",
+      "buy_btn": "Hangi Pro",
+      "status_active": "Pro on aktiivne ({tier}). Täname toetuse eest!",
+      "status_invalid": "Tasuta — salvestatud võti on kehtetu või aegunud.",
+      "status_free": "Tasuta — 1 allalaadimine päevas. Pro: piiramatult.",
+      "need_key_toast": "Sisesta esmalt litsentsivõti.",
+      "activated_toast": "Litsents aktiveeritud.",
+      "invalid_toast": "Vigane litsentsivõti."
+    },
+    "scrape": {
+      "title": "Otsi lehelt",
+      "url_label": "Lehe URL",
+      "deep_label": "Süvaotsing (järgi linke)",
+      "video_btn": "Laadi video alla",
+      "audio_btn": "Laadi heli alla",
+      "search_btn": "Otsi lehte",
+      "select_all": "Vali kõik",
+      "deselect_all": "Tühista kõigi valik",
+      "clear": "Tühjenda loend",
+      "queue_selected": "Laadi valitud alla",
+      "results_count": "Leitud {total}, valitud {picked}",
+      "empty": "Sellelt lehelt meediat ei leitud.",
+      "need_url_toast": "Sisesta esmalt URL.",
+      "search_failed_toast": "Otsing ebaõnnestus.",
+      "queue_failed_toast": "Järjekorda lisamine ebaõnnestus.",
+      "queue_selection_failed_toast": "Valiku järjekorda lisamine ebaõnnestus.",
+      "need_selection_toast": "Vali vähemalt üks üksus."
+    },
+    "queue": {
+      "title": "Järjekord",
+      "subtitle": "Uueneb automaatselt.",
+      "empty": "Järjekorras pole veel midagi.",
+      "cancel_btn": "Tühista",
+      "cancel_failed_toast": "Tühistamine ebaõnnestus.",
+      "queued_toast": "Lisatud järjekorda.",
+      "open_btn": "Ava",
+      "open_failed_toast": "Seda faili ei õnnestunud avada — proovi selle asemel linki.",
+      "open_unsupported_toast": "Failide avamine toimib ainult Androidi rakenduses."
+    },
+    "settings": {
+      "gear_label": "Seaded",
+      "title": "Seaded",
+      "language_label": "Keel",
+      "language_auto": "Automaatne (seadme keel)",
+      "folder_label": "Allalaadimiskaust",
+      "folder_default": "Rakenduse mälu (vaikimisi)",
+      "folder_pick_btn": "Vali kaust",
+      "folder_reset_btn": "Lähtesta vaikeseadeele",
+      "folder_not_supported": "Saadaval ainult Androidi rakenduses.",
+      "folder_picking": "Ootan kausta valimist…",
+      "saved_toast": "Seaded salvestatud.",
+      "close_btn": "Sulge"
+    },
+    "footer": "DownloadThat — laadi alla ainult meediat, mille kasutamiseks on sul õigus."
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — video-, heli- ja pildiallalaadija Androidile",
+      "description": "Laadi videoid, heli ja pilte otse oma Androidi telefoni. Ilma Play Store'ita, reklaamideta ja kohustusteta. Põhifunktsioonid tasuta, Pro alates 1 €/kuus."
+    },
+    "nav": {
+      "features": "Funktsioonid",
+      "pricing": "Hinnad",
+      "faq": "KKK",
+      "download": "Laadi alla"
+    },
+    "hero": {
+      "eyebrow": "Põhifunktsioonid tasuta · Reklaamideta · Konto pole vajalik",
+      "title_html": "Laadi alla {emphasis}.<br/>Otse oma telefoni.",
+      "title_emphasis": "kõik",
+      "lead": "Video, heli ja pildid peaaegu igalt saidilt — laaditud otse sinu Androidi telefoni. Pilve üleslaadimist pole, andmed ei lahku kunagi sinu seadmest ja Play Store'i pole vaja.",
+      "cta_primary": "Laadi alla tasuta APK",
+      "cta_secondary": "Vaata Pro hindu",
+      "badge1": "Google Play't pole vaja",
+      "badge2": "Töötab 100% sinu seadmes",
+      "badge3": "HD ja 4K tugi",
+      "badge4": "Põhifunktsioonid on igavesti tasuta"
+    },
+    "features": {
+      "h2": "Kõik, mida vaja, mitte midagi liigset",
+      "lead": "Kiire ja privaatne allalaadija, mis lihtsalt töötab — ning Pro tase neile, kes soovivad rohkem.",
+      "f1_title": "Iga video või heli",
+      "f1_desc": "Kleebi link, vali kvaliteet, laadi alla. Töötab enamiku video-, heli- ja pildisaitidega.",
+      "f2_title": "Kogumina allalaadimine",
+      "f2_desc": "Skaneeri leht kõigi meediafailide leidmiseks ja laadi need korraga alla, valides või tühistades valiku.",
+      "f3_title": "Privaatne juba disainilt",
+      "f3_desc": "Kõik töötab kohalikult sinu telefonis. Midagi ei laadita üles serverisse, mida sa ei kontrolli.",
+      "f4_title": "Reklaamideta ja jälgimiseta",
+      "f4_desc": "Ei reklaamivõrke, analüütika SDK-sid ega petlikke tasumüüre. Ainult rakendus.",
+      "f5_title": "Heli eraldamine",
+      "f5_desc": "Eralda mis tahes videost ainult helirada ja salvesta see MP3-na.",
+      "f6_title": "Rakenduste poodi pole vaja",
+      "f6_desc": "Paigalda APK otse. Kontot pole vaja, Play Store'i ülevaatusprotsessi pole ja regioonipiiranguid pole."
+    },
+    "pricing": {
+      "h2": "Lihtne ja aus hinnakiri",
+      "lead": "Igavesti tasuta: 1 allalaadimine päevas täielikus HD/4K kvaliteedis. Pro'ga piiramatult.",
+      "monthly_title": "Kuutasu",
+      "monthly_note": "Tühista igal ajal",
+      "yearly_flag": "Parim hind",
+      "yearly_title": "Aastatasu",
+      "yearly_note": "Vähem kui 0,42 €/kuus",
+      "lifetime_title": "Eluaegne",
+      "lifetime_amount_suffix": "ühekordne",
+      "lifetime_note": "Maksa üks kord, kasuta igavesti",
+      "feature_unlimited": "Piiramatud allalaadimised (päevast piirangut pole)",
+      "feature_batch": "Kogumina allalaadimine",
+      "feature_priority_updates": "Prioriteetsed uuendused",
+      "feature_all_updates": "Kõik tulevased uuendused sisalduvad",
+      "cta_monthly": "Vali kuutasu",
+      "cta_yearly": "Vali aastatasu",
+      "cta_lifetime": "Vali eluaegne",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year"
+    },
+    "faq": {
+      "h2": "Korduma kippuvad küsimused",
+      "q1_title": "Kas rakenduse kasutamiseks on vaja Pro't?",
+      "q1_body": "Ei. Rakendus on tasuta ja täielikult kasutatav. Pro eemaldab piirangud ja toetab arendust.",
+      "q2_title": "Kas see töötab ilma Google Play'ta?",
+      "q2_body": "Jah — see on iseseisev APK, mille paigaldad otse. Play Store'i kontot ega heakskiitu pole vaja.",
+      "q3_title": "Kuhu sisestan oma litsentsivõtme?",
+      "q3_body": "Kohe pärast ostu näed litsentsivõtit kinnituslehel — sisesta see rakenduse seadetes.",
+      "q4_title": "Kas saan raha tagasi?",
+      "q4_body": "Võta meiega ühendust 14 päeva jooksul pärast ostu ning tagastame raha, ilma lisaküsimusteta.",
+      "q5_title": "Kas see on seaduslik?",
+      "q5_body": "Sina vastutad allalaaditud sisu kasutamise eest. Palun austa autoriõigusi ja nende saitide kasutustingimusi, millelt alla laadid."
+    },
+    "footer": {
+      "download": "Laadi alla",
+      "pricing": "Hinnad",
+      "imprint": "Väljaandja andmed",
+      "privacy": "Privaatsus",
+      "support": "Tugi",
+      "copyright": "© 2026 DownloadThat. Kõik õigused kaitstud."
+    },
+    "success": {
+      "title": "Täname — DownloadThat Pro",
+      "h1": "Täname ostu eest!",
+      "lead": "Sinu litsentsivõti on allpool — sisesta see rakenduse seadetes.",
+      "pending": "Ostu vormistamine lõpetamisel…",
+      "tier_monthly": "Kuutasu",
+      "tier_yearly": "Aastatasu",
+      "tier_lifetime": "Eluaegne",
+      "plan_label": "Pakett",
+      "copy_btn": "Kopeeri võti",
+      "not_installed": "Rakendust pole veel?",
+      "download_app": "Laadi rakendus alla",
+      "error": "Me ei leidnud veel sinu litsentsi. Palun laadi see leht mõne hetke pärast uuesti.",
+      "no_session": "Seanss puudub — palun kasuta linki oma ostukinnitusest.",
+      "footer_note": "See leht kontrollib automaatselt mõne sekundi jooksul pärast makset. Kui midagi ei ilmu, laadi leht uuesti või saada e-kiri aadressile {support_email} koos maksekinnitusega."
+    }
+  }
+}

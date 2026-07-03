@@ -1,0 +1,167 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "在任何设备上，从任何网站下载媒体",
+    "login": {
+      "title": "登录",
+      "password_label": "密码",
+      "unlock_btn": "解锁",
+      "error": "密码错误。"
+    },
+    "license": {
+      "title": "许可证",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "保存",
+      "buy_btn": "获取专业版",
+      "status_active": "专业版已激活（{tier}）。感谢您的支持！",
+      "status_invalid": "免费版 — 已保存的密钥无效或已过期。",
+      "status_free": "免费版 — 每天可下载 1 次。专业版：无限制。",
+      "need_key_toast": "请先输入许可证密钥。",
+      "activated_toast": "许可证已激活。",
+      "invalid_toast": "许可证密钥无效。"
+    },
+    "scrape": {
+      "title": "搜索页面",
+      "url_label": "页面网址",
+      "deep_label": "深度搜索（跟踪链接）",
+      "video_btn": "下载视频",
+      "audio_btn": "下载音频",
+      "search_btn": "搜索页面",
+      "select_all": "全选",
+      "deselect_all": "取消全选",
+      "clear": "清空列表",
+      "queue_selected": "下载所选项",
+      "results_count": "找到 {total} 项，已选择 {picked} 项",
+      "empty": "此页面未找到任何媒体。",
+      "need_url_toast": "请先输入网址。",
+      "search_failed_toast": "搜索失败。",
+      "queue_failed_toast": "加入队列失败。",
+      "queue_selection_failed_toast": "所选项加入队列失败。",
+      "need_selection_toast": "请至少选择一项。"
+    },
+    "queue": {
+      "title": "队列",
+      "subtitle": "自动更新。",
+      "empty": "队列中还没有任务。",
+      "cancel_btn": "取消",
+      "cancel_failed_toast": "取消失败。",
+      "queued_toast": "已加入队列。",
+      "open_btn": "打开",
+      "open_failed_toast": "无法打开此文件 — 请改用链接。",
+      "open_unsupported_toast": "打开文件功能仅在 Android 应用中可用。"
+    },
+    "settings": {
+      "gear_label": "设置",
+      "title": "设置",
+      "language_label": "语言",
+      "language_auto": "自动（设备语言）",
+      "folder_label": "下载文件夹",
+      "folder_default": "应用存储空间（默认）",
+      "folder_pick_btn": "选择文件夹",
+      "folder_reset_btn": "恢复默认设置",
+      "folder_not_supported": "仅在 Android 应用中可用。",
+      "folder_picking": "等待选择文件夹…",
+      "saved_toast": "设置已保存。",
+      "close_btn": "关闭"
+    },
+    "footer": "DownloadThat — 请仅下载您拥有权利的媒体内容。"
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Android 视频、音频与图片下载器",
+      "description": "直接将视频、音频和图片下载到您的 Android 手机。无需 Play 商店，无广告，无捆绑限制。核心功能免费，专业版每月低至 €1。"
+    },
+    "nav": {
+      "features": "功能",
+      "pricing": "价格",
+      "faq": "常见问题",
+      "download": "下载"
+    },
+    "hero": {
+      "eyebrow": "核心功能免费 · 无广告 · 无需账号",
+      "title_html": "下载{emphasis}。<br/>直接传到您的手机。",
+      "title_emphasis": "一切",
+      "lead": "几乎任何网站的视频、音频和图片 — 直接下载到您的 Android 手机。无需上传云端，数据绝不离开您的设备，也无需 Play 商店。",
+      "cta_primary": "下载免费 APK",
+      "cta_secondary": "查看专业版价格",
+      "badge1": "无需 Google Play",
+      "badge2": "100% 在您的设备上运行",
+      "badge3": "支持高清与 4K",
+      "badge4": "核心功能永久免费"
+    },
+    "features": {
+      "h2": "您需要的一切，没有多余的东西",
+      "lead": "快速、私密、开箱即用的下载工具 — 想要更多功能的用户还可选择专业版。",
+      "f1_title": "任意视频或音频",
+      "f1_desc": "粘贴链接，选择画质，下载即可。支持大多数视频、音频和图片网站。",
+      "f2_title": "批量下载",
+      "f2_desc": "扫描页面中的所有媒体文件，可自由勾选后一并下载。",
+      "f3_title": "隐私优先设计",
+      "f3_desc": "一切均在您的手机本地运行，不会上传到您无法掌控的服务器。",
+      "f4_title": "无广告，无追踪",
+      "f4_desc": "没有广告网络，没有分析 SDK，没有暗黑模式付费墙。只有这一个应用。",
+      "f5_title": "音频提取",
+      "f5_desc": "从任意视频中提取音轨，并保存为 MP3。",
+      "f6_title": "无需应用商店",
+      "f6_desc": "直接安装 APK。无需账号，无需 Play 商店审核流程，也没有地区限制。"
+    },
+    "pricing": {
+      "h2": "简单透明的定价",
+      "lead": "永久免费：每天可下载 1 次全高清/4K 画质内容。升级专业版即可无限下载。",
+      "monthly_title": "月付",
+      "monthly_note": "随时可取消",
+      "yearly_flag": "最超值",
+      "yearly_title": "年付",
+      "yearly_note": "低至每月 €0.42",
+      "lifetime_title": "终身版",
+      "lifetime_amount_suffix": "一次性付费",
+      "lifetime_note": "一次付费，永久使用",
+      "feature_unlimited": "无限下载（无每日限额）",
+      "feature_batch": "批量下载",
+      "feature_priority_updates": "优先获取更新",
+      "feature_all_updates": "包含未来所有更新",
+      "cta_monthly": "选择月付",
+      "cta_yearly": "选择年付",
+      "cta_lifetime": "选择终身版",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year"
+    },
+    "faq": {
+      "h2": "常见问题",
+      "q1_title": "使用该应用需要专业版吗？",
+      "q1_body": "不需要。该应用免费且功能完整可用。专业版可解除限制，并支持我们的开发工作。",
+      "q2_title": "不使用 Google Play 也能用吗？",
+      "q2_body": "可以 — 这是一个可直接安装的独立 APK，无需 Play 商店账号或审核。",
+      "q3_title": "在哪里输入许可证密钥？",
+      "q3_body": "购买成功后，您会在确认页面上看到许可证密钥 — 在应用的设置中输入即可。",
+      "q4_title": "可以退款吗？",
+      "q4_body": "在购买后 14 天内联系我们，我们将无条件为您退款。",
+      "q5_title": "这样做合法吗？",
+      "q5_body": "您需要对下载内容的使用方式负责。请尊重版权，并遵守所下载网站的相关条款。"
+    },
+    "footer": {
+      "download": "下载",
+      "pricing": "价格",
+      "imprint": "版权信息",
+      "privacy": "隐私政策",
+      "support": "支持",
+      "copyright": "© 2026 DownloadThat。保留所有权利。"
+    },
+    "success": {
+      "title": "感谢您 — DownloadThat 专业版",
+      "h1": "感谢您的购买！",
+      "lead": "您的许可证密钥如下 — 请在应用的设置中输入。",
+      "pending": "正在完成您的购买…",
+      "tier_monthly": "月付",
+      "tier_yearly": "年付",
+      "tier_lifetime": "终身版",
+      "plan_label": "套餐",
+      "copy_btn": "复制密钥",
+      "not_installed": "还没有安装应用？",
+      "download_app": "下载应用",
+      "error": "我们暂时未能找到您的许可证。请稍后重新加载此页面。",
+      "no_session": "会话信息缺失 — 请使用购买确认邮件中的链接。",
+      "footer_note": "付款完成后，本页面会自动检查几秒钟。如果没有显示任何内容，请重新加载页面，或将您的付款确认信息发送至 {support_email}。"
+    }
+  }
+}

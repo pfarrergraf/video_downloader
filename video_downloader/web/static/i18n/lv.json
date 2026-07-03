@@ -1,0 +1,167 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Lejupielādē saturu no jebkuras vietnes, jebkurā ierīcē",
+    "login": {
+      "title": "Pieteikties",
+      "password_label": "Parole",
+      "unlock_btn": "Atbloķēt",
+      "error": "Nepareiza parole."
+    },
+    "license": {
+      "title": "Licence",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Saglabāt",
+      "buy_btn": "Iegūt Pro",
+      "status_active": "Pro aktīvs ({tier}). Paldies par atbalstu!",
+      "status_invalid": "Bezmaksas — saglabātā atslēga nav derīga vai ir beigusies.",
+      "status_free": "Bezmaksas — 1 lejupielāde dienā. Pro: neierobežoti.",
+      "need_key_toast": "Vispirms ievadiet licences atslēgu.",
+      "activated_toast": "Licence aktivizēta.",
+      "invalid_toast": "Nederīga licences atslēga."
+    },
+    "scrape": {
+      "title": "Meklēt lapā",
+      "url_label": "Lapas URL",
+      "deep_label": "Padziļināta meklēšana (sekot saitēm)",
+      "video_btn": "Lejupielādēt video",
+      "audio_btn": "Lejupielādēt audio",
+      "search_btn": "Meklēt lapā",
+      "select_all": "Atlasīt visu",
+      "deselect_all": "Noņemt atlasi",
+      "clear": "Notīrīt sarakstu",
+      "queue_selected": "Lejupielādēt atlasītos",
+      "results_count": "Atrasti {total}, atlasīti {picked}",
+      "empty": "Šajā lapā nekas nav atrasts.",
+      "need_url_toast": "Vispirms ievadiet URL.",
+      "search_failed_toast": "Meklēšana neizdevās.",
+      "queue_failed_toast": "Neizdevās pievienot rindai.",
+      "queue_selection_failed_toast": "Neizdevās pievienot atlasi rindai.",
+      "need_selection_toast": "Atlasiet vismaz vienu vienumu."
+    },
+    "queue": {
+      "title": "Rinda",
+      "subtitle": "Atjaunojas automātiski.",
+      "empty": "Rindā vēl nekā nav.",
+      "cancel_btn": "Atcelt",
+      "cancel_failed_toast": "Neizdevās atcelt.",
+      "queued_toast": "Pievienots rindai.",
+      "open_btn": "Atvērt",
+      "open_failed_toast": "Neizdevās atvērt šo failu — mēģiniet izmantot saiti.",
+      "open_unsupported_toast": "Failu atvēršana darbojas tikai Android lietotnē."
+    },
+    "settings": {
+      "gear_label": "Iestatījumi",
+      "title": "Iestatījumi",
+      "language_label": "Valoda",
+      "language_auto": "Automātiski (ierīces valoda)",
+      "folder_label": "Lejupielāžu mape",
+      "folder_default": "Lietotnes krātuve (noklusējums)",
+      "folder_pick_btn": "Izvēlēties mapi",
+      "folder_reset_btn": "Atiestatīt uz noklusējumu",
+      "folder_not_supported": "Pieejams tikai Android lietotnē.",
+      "folder_picking": "Gaida mapes izvēli…",
+      "saved_toast": "Iestatījumi saglabāti.",
+      "close_btn": "Aizvērt"
+    },
+    "footer": "DownloadThat — lejupielādējiet tikai to saturu, uz kuru jums ir tiesības."
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — video, audio un attēlu lejupielādētājs Android ierīcēm",
+      "description": "Lejupielādējiet video, audio un attēlus tieši savā Android tālrunī. Bez Play veikala, bez reklāmām, bez piesaistes. Bezmaksas pamatfunkcijas, Pro no €1/mēnesī."
+    },
+    "nav": {
+      "features": "Iespējas",
+      "pricing": "Cenas",
+      "faq": "Biežāk uzdotie jautājumi",
+      "download": "Lejupielādēt"
+    },
+    "hero": {
+      "eyebrow": "Bezmaksas pamatfunkcijas · Bez reklāmām · Konts nav nepieciešams",
+      "title_html": "Lejupielādē {emphasis}.<br/>Tieši savā tālrunī.",
+      "title_emphasis": "visu",
+      "lead": "Video, audio un attēli gandrīz no jebkuras vietnes — lejupielādēti tieši jūsu Android tālrunī. Bez augšupielādes mākonī, dati nekad nepamet jūsu ierīci, Play veikals nav nepieciešams.",
+      "cta_primary": "Lejupielādēt bezmaksas APK",
+      "cta_secondary": "Skatīt Pro cenas",
+      "badge1": "Google Play nav nepieciešams",
+      "badge2": "Darbojas 100% jūsu ierīcē",
+      "badge3": "HD un 4K atbalsts",
+      "badge4": "Pamatfunkcijas vienmēr bez maksas"
+    },
+    "features": {
+      "h2": "Viss, kas nepieciešams, nekā liekā",
+      "lead": "Ātrs, privāts lejupielādētājs, kas vienkārši darbojas — ar Pro versiju tiem, kas vēlas vairāk.",
+      "f1_title": "Jebkurš video vai audio",
+      "f1_desc": "Ielīmējiet saiti, izvēlieties kvalitāti, lejupielādējiet. Darbojas ar lielāko daļu video, audio un attēlu vietņu.",
+      "f2_title": "Lejupielāde partijās",
+      "f2_desc": "Skenējiet lapu, lai atrastu visus multivides failus, un lejupielādējiet tos kopā, atlasot vai noņemot atlasi.",
+      "f3_title": "Privāts pēc dizaina",
+      "f3_desc": "Viss darbojas lokāli jūsu tālrunī. Nekas netiek augšupielādēts serverī, kuru jūs nekontrolējat.",
+      "f4_title": "Bez reklāmām, bez izsekošanas",
+      "f4_desc": "Bez reklāmu tīkliem, bez analītikas rīkiem, bez maldinošiem maksas apjomiem. Tikai lietotne.",
+      "f5_title": "Audio izvilkšana",
+      "f5_desc": "Izvelciet audio celiņu no jebkura video un saglabājiet to kā MP3.",
+      "f6_title": "Lietotņu veikals nav nepieciešams",
+      "f6_desc": "Instalējiet APK failu tieši. Bez konta, bez Play veikala pārbaudes procesa, bez reģionāliem ierobežojumiem."
+    },
+    "pricing": {
+      "h2": "Vienkāršas, godīgas cenas",
+      "lead": "Vienmēr bez maksas: 1 lejupielāde dienā pilnā HD/4K kvalitātē. Neierobežoti ar Pro.",
+      "monthly_title": "Mēneša",
+      "monthly_note": "Atceliet jebkurā laikā",
+      "yearly_flag": "Izdevīgākais piedāvājums",
+      "yearly_title": "Gada",
+      "yearly_note": "Mazāk nekā €0.42/mēnesī",
+      "lifetime_title": "Mūža",
+      "lifetime_amount_suffix": "vienreizējs maksājums",
+      "lifetime_note": "Maksājiet vienreiz, lietojiet mūžīgi",
+      "feature_unlimited": "Neierobežotas lejupielādes (bez dienas limita)",
+      "feature_batch": "Lejupielāde partijās",
+      "feature_priority_updates": "Prioritāri atjauninājumi",
+      "feature_all_updates": "Iekļauti visi turpmākie atjauninājumi",
+      "cta_monthly": "Izvēlēties mēneša plānu",
+      "cta_yearly": "Izvēlēties gada plānu",
+      "cta_lifetime": "Izvēlēties mūža plānu",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year"
+    },
+    "faq": {
+      "h2": "Biežāk uzdotie jautājumi",
+      "q1_title": "Vai man ir nepieciešams Pro, lai lietotu lietotni?",
+      "q1_body": "Nē. Lietotne ir bezmaksas un pilnībā lietojama. Pro noņem ierobežojumus un atbalsta izstrādi.",
+      "q2_title": "Vai tas darbojas bez Google Play?",
+      "q2_body": "Jā — tas ir patstāvīgs APK fails, ko instalējat tieši. Play veikala konts vai apstiprinājums nav nepieciešams.",
+      "q3_title": "Kur man ievadīt savu licences atslēgu?",
+      "q3_body": "Uzreiz pēc pirkuma jūs redzēsiet savu licences atslēgu apstiprinājuma lapā — ievadiet to lietotnes iestatījumos.",
+      "q4_title": "Vai varu saņemt naudas atmaksu?",
+      "q4_body": "Sazinieties ar mums 14 dienu laikā pēc pirkuma, un mēs atmaksāsim naudu bez liekiem jautājumiem.",
+      "q5_title": "Vai tas ir likumīgi?",
+      "q5_body": "Jūs esat atbildīgs par to, kā izmantojat lejupielādēto saturu. Lūdzu, ievērojiet autortiesības un to vietņu noteikumus, no kurām lejupielādējat."
+    },
+    "footer": {
+      "download": "Lejupielādēt",
+      "pricing": "Cenas",
+      "imprint": "Impresums",
+      "privacy": "Konfidencialitāte",
+      "support": "Atbalsts",
+      "copyright": "© 2026 DownloadThat. Visas tiesības aizsargātas."
+    },
+    "success": {
+      "title": "Paldies — DownloadThat Pro",
+      "h1": "Paldies par pirkumu!",
+      "lead": "Jūsu licences atslēga ir zemāk — ievadiet to lietotnes iestatījumos.",
+      "pending": "Pabeidzam jūsu pirkumu…",
+      "tier_monthly": "Mēneša",
+      "tier_yearly": "Gada",
+      "tier_lifetime": "Mūža",
+      "plan_label": "Plāns",
+      "copy_btn": "Kopēt atslēgu",
+      "not_installed": "Vēl nav lietotnes?",
+      "download_app": "Lejupielādēt lietotni",
+      "error": "Mēs vēl neatradām jūsu licenci. Lūdzu, pēc brīža pārlādējiet šo lapu.",
+      "no_session": "Sesija nav atrasta — lūdzu, izmantojiet saiti no jūsu pirkuma apstiprinājuma.",
+      "footer_note": "Šī lapa automātiski pārbauda dažas sekundes pēc apmaksas. Ja nekas nerādās, pārlādējiet lapu vai rakstiet uz {support_email}, pievienojot maksājuma apstiprinājumu."
+    }
+  }
+}

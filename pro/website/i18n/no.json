@@ -1,0 +1,167 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Last ned medier fra hvilken som helst side, på hvilken som helst enhet",
+    "login": {
+      "title": "Logg inn",
+      "password_label": "Passord",
+      "unlock_btn": "Lås opp",
+      "error": "Feil passord."
+    },
+    "license": {
+      "title": "Lisens",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Lagre",
+      "buy_btn": "Få Pro",
+      "status_active": "Pro aktiv ({tier}). Takk for støtten!",
+      "status_invalid": "Gratis — den lagrede nøkkelen er ugyldig eller utløpt.",
+      "status_free": "Gratis — 1 nedlasting per dag. Pro: ubegrenset.",
+      "need_key_toast": "Skriv inn en lisensnøkkel først.",
+      "activated_toast": "Lisens aktivert.",
+      "invalid_toast": "Ugyldig lisensnøkkel."
+    },
+    "scrape": {
+      "title": "Søk på en side",
+      "url_label": "Side-URL",
+      "deep_label": "Dypsøk (følg lenker)",
+      "video_btn": "Last ned video",
+      "audio_btn": "Last ned lyd",
+      "search_btn": "Søk på siden",
+      "select_all": "Velg alle",
+      "deselect_all": "Fjern alle valg",
+      "clear": "Tøm listen",
+      "queue_selected": "Last ned valgte",
+      "results_count": "{total} funnet, {picked} valgt",
+      "empty": "Ingen medier funnet på denne siden.",
+      "need_url_toast": "Skriv inn en URL først.",
+      "search_failed_toast": "Søket mislyktes.",
+      "queue_failed_toast": "Kunne ikke legge i kø.",
+      "queue_selection_failed_toast": "Kunne ikke legge utvalget i kø.",
+      "need_selection_toast": "Velg minst ett element."
+    },
+    "queue": {
+      "title": "Kø",
+      "subtitle": "Oppdateres automatisk.",
+      "empty": "Ingenting i køen ennå.",
+      "cancel_btn": "Avbryt",
+      "cancel_failed_toast": "Kunne ikke avbryte.",
+      "queued_toast": "Lagt i kø.",
+      "open_btn": "Åpne",
+      "open_failed_toast": "Kunne ikke åpne denne filen — prøv lenken i stedet.",
+      "open_unsupported_toast": "Å åpne filer fungerer kun i Android-appen."
+    },
+    "settings": {
+      "gear_label": "Innstillinger",
+      "title": "Innstillinger",
+      "language_label": "Språk",
+      "language_auto": "Automatisk (enhetens språk)",
+      "folder_label": "Nedlastingsmappe",
+      "folder_default": "Appens lagring (standard)",
+      "folder_pick_btn": "Velg mappe",
+      "folder_reset_btn": "Tilbakestill til standard",
+      "folder_not_supported": "Kun tilgjengelig i Android-appen.",
+      "folder_picking": "Venter på mappevalg…",
+      "saved_toast": "Innstillinger lagret.",
+      "close_btn": "Lukk"
+    },
+    "footer": "DownloadThat — last kun ned medier du har rettighetene til."
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Video-, lyd- og bildenedlaster for Android",
+      "description": "Last ned videoer, lyd og bilder direkte til Android-telefonen din. Ingen Play Store, ingen reklame, ingen binding. Gratis kjernefunksjoner, Pro fra €1/måned."
+    },
+    "nav": {
+      "features": "Funksjoner",
+      "pricing": "Priser",
+      "faq": "Ofte stilte spørsmål",
+      "download": "Last ned"
+    },
+    "hero": {
+      "eyebrow": "Gratis kjerne · Ingen reklame · Ingen konto nødvendig",
+      "title_html": "Last ned {emphasis}.<br/>Rett til telefonen din.",
+      "title_emphasis": "alt",
+      "lead": "Video, lyd og bilder fra nesten hvilken som helst side — lastet ned direkte til Android-telefonen din. Ingen skyopplasting, ingen data forlater noensinne enheten din, ingen Play Store nødvendig.",
+      "cta_primary": "Last ned den gratis APK-en",
+      "cta_secondary": "Se Pro-priser",
+      "badge1": "Ingen Google Play nødvendig",
+      "badge2": "Kjører 100 % på enheten din",
+      "badge3": "Støtte for HD og 4K",
+      "badge4": "Kjernen er gratis for alltid"
+    },
+    "features": {
+      "h2": "Alt du trenger, ingenting du ikke trenger",
+      "lead": "En rask, privat nedlaster som bare fungerer — med et Pro-nivå for de som vil ha mer.",
+      "f1_title": "All video eller lyd",
+      "f1_desc": "Lim inn en lenke, velg kvalitet, last ned. Fungerer med de fleste video-, lyd- og bildesider.",
+      "f2_title": "Batch-nedlastinger",
+      "f2_desc": "Skann en side for alle mediefiler og last dem ned samlet, med mulighet til å velge/fravelge.",
+      "f3_title": "Privat av natur",
+      "f3_desc": "Alt kjører lokalt på telefonen din. Ingenting lastes opp til en server du ikke kontrollerer.",
+      "f4_title": "Ingen reklame, ingen sporing",
+      "f4_desc": "Ingen reklamenettverk, ingen analyse-SDK-er, ingen lureri-betalingsmurer. Bare appen.",
+      "f5_title": "Lyduttrekk",
+      "f5_desc": "Hent ut kun lydsporet fra en hvilken som helst video og lagre det som MP3.",
+      "f6_title": "Ingen app-butikk nødvendig",
+      "f6_desc": "Installer APK-en direkte. Ingen konto, ingen Play Store-godkjenningsprosess, ingen regionsperringer."
+    },
+    "pricing": {
+      "h2": "Enkel, ærlig prising",
+      "lead": "Gratis for alltid: 1 nedlasting om dagen i full HD/4K-kvalitet. Ubegrenset med Pro.",
+      "monthly_title": "Månedlig",
+      "monthly_note": "Avbryt når som helst",
+      "yearly_flag": "Best verdi",
+      "yearly_title": "Årlig",
+      "yearly_note": "Mindre enn €0,42/måned",
+      "lifetime_title": "Livstid",
+      "lifetime_amount_suffix": "engangsbeløp",
+      "lifetime_note": "Betal én gang, bruk for alltid",
+      "feature_unlimited": "Ubegrensede nedlastinger (ingen daglig grense)",
+      "feature_batch": "Batch-nedlastinger",
+      "feature_priority_updates": "Prioriterte oppdateringer",
+      "feature_all_updates": "Alle fremtidige oppdateringer inkludert",
+      "cta_monthly": "Velg månedlig",
+      "cta_yearly": "Velg årlig",
+      "cta_lifetime": "Velg livstid",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year"
+    },
+    "faq": {
+      "h2": "Ofte stilte spørsmål",
+      "q1_title": "Trenger jeg Pro for å bruke appen?",
+      "q1_body": "Nei. Appen er gratis og fullt brukbar. Pro fjerner begrensninger og støtter videreutvikling.",
+      "q2_title": "Fungerer dette uten Google Play?",
+      "q2_body": "Ja — det er en frittstående APK du installerer direkte. Ingen Play Store-konto eller godkjenning nødvendig.",
+      "q3_title": "Hvor legger jeg inn lisensnøkkelen min?",
+      "q3_body": "Rett etter kjøpet ser du lisensnøkkelen din på bekreftelsessiden — legg den inn i appens innstillinger.",
+      "q4_title": "Kan jeg få pengene tilbake?",
+      "q4_body": "Kontakt oss innen 14 dager etter kjøpet, så refunderer vi deg uten spørsmål.",
+      "q5_title": "Er dette lovlig?",
+      "q5_body": "Du er selv ansvarlig for hvordan du bruker innhold du laster ned. Vennligst respekter opphavsrett og vilkårene til sidene du laster ned fra."
+    },
+    "footer": {
+      "download": "Last ned",
+      "pricing": "Priser",
+      "imprint": "Om oss",
+      "privacy": "Personvern",
+      "support": "Support",
+      "copyright": "© 2026 DownloadThat. Alle rettigheter forbeholdt."
+    },
+    "success": {
+      "title": "Takk — DownloadThat Pro",
+      "h1": "Takk for kjøpet!",
+      "lead": "Lisensnøkkelen din finner du nedenfor — legg den inn i appens innstillinger.",
+      "pending": "Fullfører kjøpet ditt…",
+      "tier_monthly": "Månedlig",
+      "tier_yearly": "Årlig",
+      "tier_lifetime": "Livstid",
+      "plan_label": "Plan",
+      "copy_btn": "Kopier nøkkel",
+      "not_installed": "Har du ikke appen ennå?",
+      "download_app": "Last ned appen",
+      "error": "Vi fant ikke lisensen din ennå. Vennligst last siden på nytt om et øyeblikk.",
+      "no_session": "Økten mangler — bruk lenken fra kjøpsbekreftelsen din.",
+      "footer_note": "Denne siden sjekker automatisk i noen sekunder etter betalingen. Hvis ingenting dukker opp, last siden på nytt eller send en e-post til {support_email} med betalingsbekreftelsen din."
+    }
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Descarcă materiale media de pe orice site, pe orice dispozitiv",
+    "login": {
+      "title": "Conectare",
+      "password_label": "Parolă",
+      "unlock_btn": "Deblochează",
+      "error": "Parolă greșită."
+    },
+    "license": {
+      "title": "Licență",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Salvează",
+      "buy_btn": "Obține Pro",
+      "status_active": "Pro activ ({tier}). Mulțumim pentru sprijin!",
+      "status_invalid": "Gratuit — cheia salvată este nevalidă sau a expirat.",
+      "status_free": "Gratuit — 1 descărcare pe zi. Pro: nelimitat.",
+      "need_key_toast": "Introdu mai întâi o cheie de licență.",
+      "activated_toast": "Licență activată.",
+      "invalid_toast": "Cheie de licență nevalidă."
+    },
+    "scrape": {
+      "title": "Caută pe o pagină",
+      "url_label": "URL pagină",
+      "deep_label": "Căutare aprofundată (urmărește linkurile)",
+      "video_btn": "Descarcă video",
+      "audio_btn": "Descarcă audio",
+      "search_btn": "Caută pagina",
+      "select_all": "Selectează tot",
+      "deselect_all": "Deselectează tot",
+      "clear": "Golește lista",
+      "queue_selected": "Descarcă selecția",
+      "results_count": "{total} găsite, {picked} selectate",
+      "empty": "Nu s-a găsit niciun fișier media pe această pagină.",
+      "need_url_toast": "Introdu mai întâi un URL.",
+      "search_failed_toast": "Căutarea a eșuat.",
+      "queue_failed_toast": "Adăugarea în coadă a eșuat.",
+      "queue_selection_failed_toast": "Adăugarea selecției în coadă a eșuat.",
+      "need_selection_toast": "Selectează cel puțin un element."
+    },
+    "queue": {
+      "title": "Coadă",
+      "subtitle": "Se actualizează automat.",
+      "empty": "Coada este goală momentan.",
+      "cancel_btn": "Anulează",
+      "cancel_failed_toast": "Anularea a eșuat.",
+      "queued_toast": "Adăugat în coadă.",
+      "open_btn": "Deschide",
+      "open_failed_toast": "Nu s-a putut deschide acest fișier — încearcă linkul în schimb.",
+      "open_unsupported_toast": "Deschiderea fișierelor funcționează doar în aplicația Android."
+    },
+    "settings": {
+      "gear_label": "Setări",
+      "title": "Setări",
+      "language_label": "Limbă",
+      "language_auto": "Automat (limba dispozitivului)",
+      "folder_label": "Folder de descărcare",
+      "folder_default": "Stocarea aplicației (implicit)",
+      "folder_pick_btn": "Alege folder",
+      "folder_reset_btn": "Revino la implicit",
+      "folder_not_supported": "Disponibil doar în aplicația Android.",
+      "folder_picking": "Se așteaptă selectarea folderului…",
+      "saved_toast": "Setări salvate.",
+      "close_btn": "Închide"
+    },
+    "footer": "DownloadThat — descarcă doar materiale media pentru care ai drepturi."
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Descărcător de Video, Audio și Imagini pentru Android",
+      "description": "Descarcă videoclipuri, audio și imagini direct pe telefonul tău Android. Fără Play Store, fără reclame, fără blocaje. Nucleu gratuit, Pro de la 1 €/lună."
+    },
+    "nav": {
+      "features": "Funcționalități",
+      "pricing": "Prețuri",
+      "faq": "Întrebări frecvente",
+      "download": "Descărcare"
+    },
+    "hero": {
+      "eyebrow": "Nucleu gratuit · Fără reclame · Fără cont necesar",
+      "title_html": "Descarcă {emphasis}.<br/>Direct pe telefonul tău.",
+      "title_emphasis": "tot",
+      "lead": "Video, audio și imagini de pe aproape orice site — descărcate direct pe telefonul tău Android. Fără încărcare în cloud, datele tale nu părăsesc niciodată dispozitivul, fără nevoie de Play Store.",
+      "cta_primary": "Descarcă APK-ul gratuit",
+      "cta_secondary": "Vezi prețurile Pro",
+      "badge1": "Fără nevoie de Google Play",
+      "badge2": "Funcționează 100% pe dispozitivul tău",
+      "badge3": "Suport HD și 4K",
+      "badge4": "Nucleul este gratuit pentru totdeauna"
+    },
+    "features": {
+      "h2": "Tot ce ai nevoie, nimic în plus",
+      "lead": "Un descărcător rapid și privat care pur și simplu funcționează — cu un nivel Pro pentru cei care vor mai mult.",
+      "f1_title": "Orice video sau audio",
+      "f1_desc": "Lipește un link, alege o calitate, descarcă. Funcționează cu majoritatea site-urilor de video, audio și imagini.",
+      "f2_title": "Descărcări în lot",
+      "f2_desc": "Scanează o pagină pentru toate fișierele media și descarcă-le împreună, cu selectare/deselectare.",
+      "f3_title": "Confidențial din concepție",
+      "f3_desc": "Totul rulează local pe telefonul tău. Nimic nu este încărcat pe un server pe care nu îl controlezi.",
+      "f4_title": "Fără reclame, fără urmărire",
+      "f4_desc": "Fără rețele de publicitate, fără SDK-uri de analiză, fără paywall-uri înșelătoare. Doar aplicația.",
+      "f5_title": "Extragere audio",
+      "f5_desc": "Extrage doar pista audio din orice videoclip și salveaz-o ca MP3.",
+      "f6_title": "Fără nevoie de magazin de aplicații",
+      "f6_desc": "Instalează APK-ul direct. Fără cont, fără proces de verificare Play Store, fără restricții regionale."
+    },
+    "pricing": {
+      "h2": "Prețuri simple și corecte",
+      "lead": "Gratuit pentru totdeauna: 1 descărcare pe zi în calitate Full HD/4K. Nelimitat cu Pro.",
+      "monthly_title": "Lunar",
+      "monthly_note": "Anulează oricând",
+      "yearly_flag": "Cea mai bună ofertă",
+      "yearly_title": "Anual",
+      "yearly_note": "Mai puțin de 0,42 €/lună",
+      "lifetime_title": "Pe viață",
+      "lifetime_amount_suffix": "plată unică",
+      "lifetime_note": "Plătești o dată, folosești pentru totdeauna",
+      "feature_unlimited": "Descărcări nelimitate (fără limită zilnică)",
+      "feature_batch": "Descărcări în lot",
+      "feature_priority_updates": "Actualizări prioritare",
+      "feature_all_updates": "Toate actualizările viitoare incluse",
+      "cta_monthly": "Alege planul lunar",
+      "cta_yearly": "Alege planul anual",
+      "cta_lifetime": "Alege planul pe viață",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year"
+    },
+    "faq": {
+      "h2": "Întrebări frecvente",
+      "q1_title": "Am nevoie de Pro pentru a folosi aplicația?",
+      "q1_body": "Nu. Aplicația este gratuită și complet funcțională. Pro elimină limitele și susține dezvoltarea.",
+      "q2_title": "Funcționează fără Google Play?",
+      "q2_body": "Da — este un APK de sine stătător pe care îl instalezi direct. Nu este nevoie de cont Play Store sau de aprobare.",
+      "q3_title": "Unde introduc cheia de licență?",
+      "q3_body": "Imediat după achiziție vei vedea cheia de licență pe pagina de confirmare — introdu-o în setările aplicației.",
+      "q4_title": "Pot primi o rambursare?",
+      "q4_body": "Contactează-ne în termen de 14 zile de la achiziție și te vom rambursa, fără întrebări.",
+      "q5_title": "Este legal?",
+      "q5_body": "Tu ești responsabil pentru modul în care folosești conținutul descărcat. Te rugăm să respecți drepturile de autor și termenii site-urilor de pe care descarci."
+    },
+    "footer": {
+      "download": "Descărcare",
+      "pricing": "Prețuri",
+      "imprint": "Mențiuni legale",
+      "privacy": "Confidențialitate",
+      "support": "Asistență",
+      "copyright": "© 2026 DownloadThat. Toate drepturile rezervate."
+    },
+    "success": {
+      "title": "Mulțumim — DownloadThat Pro",
+      "h1": "Mulțumim pentru achiziție!",
+      "lead": "Cheia ta de licență este mai jos — introdu-o în setările aplicației.",
+      "pending": "Se finalizează achiziția…",
+      "tier_monthly": "Lunar",
+      "tier_yearly": "Anual",
+      "tier_lifetime": "Pe viață",
+      "plan_label": "Plan",
+      "copy_btn": "Copiază cheia",
+      "not_installed": "Nu ai încă aplicația?",
+      "download_app": "Descarcă aplicația",
+      "error": "Nu am putut găsi încă licența ta. Te rugăm să reîncarci această pagină peste puțin timp.",
+      "no_session": "Sesiune lipsă — te rugăm să folosești linkul din confirmarea achiziției.",
+      "footer_note": "Această pagină verifică automat timp de câteva secunde după plată. Dacă nu apare nimic, reîncarcă pagina sau trimite un e-mail la {support_email} cu confirmarea plății."
+    }
+  }
+}

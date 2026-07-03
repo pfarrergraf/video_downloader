@@ -1,0 +1,167 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Lade Medien von jeder Seite herunter, auf jedem Gerät",
+    "login": {
+      "title": "Anmelden",
+      "password_label": "Passwort",
+      "unlock_btn": "Entsperren",
+      "error": "Falsches Passwort."
+    },
+    "license": {
+      "title": "Lizenz",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Speichern",
+      "buy_btn": "Pro holen",
+      "status_active": "Pro aktiv ({tier}). Danke für deine Unterstützung!",
+      "status_invalid": "Kostenlos — der gespeicherte Schlüssel ist ungültig oder abgelaufen.",
+      "status_free": "Kostenlos — 1 Download pro Tag. Pro: unbegrenzt.",
+      "need_key_toast": "Gib zuerst einen Lizenzschlüssel ein.",
+      "activated_toast": "Lizenz aktiviert.",
+      "invalid_toast": "Ungültiger Lizenzschlüssel."
+    },
+    "scrape": {
+      "title": "Seite durchsuchen",
+      "url_label": "Seiten-URL",
+      "deep_label": "Tiefensuche (Links folgen)",
+      "video_btn": "Video herunterladen",
+      "audio_btn": "Audio herunterladen",
+      "search_btn": "Seite durchsuchen",
+      "select_all": "Alle auswählen",
+      "deselect_all": "Auswahl aufheben",
+      "clear": "Liste leeren",
+      "queue_selected": "Auswahl herunterladen",
+      "results_count": "{total} gefunden, {picked} ausgewählt",
+      "empty": "Keine Medien auf dieser Seite gefunden.",
+      "need_url_toast": "Gib zuerst eine URL ein.",
+      "search_failed_toast": "Suche fehlgeschlagen.",
+      "queue_failed_toast": "Konnte nicht zur Warteschlange hinzugefügt werden.",
+      "queue_selection_failed_toast": "Auswahl konnte nicht zur Warteschlange hinzugefügt werden.",
+      "need_selection_toast": "Wähle mindestens ein Element aus."
+    },
+    "queue": {
+      "title": "Warteschlange",
+      "subtitle": "Aktualisiert sich automatisch.",
+      "empty": "Noch nichts in der Warteschlange.",
+      "cancel_btn": "Abbrechen",
+      "cancel_failed_toast": "Abbrechen fehlgeschlagen.",
+      "queued_toast": "Zur Warteschlange hinzugefügt.",
+      "open_btn": "Öffnen",
+      "open_failed_toast": "Diese Datei konnte nicht geöffnet werden — versuche stattdessen den Link.",
+      "open_unsupported_toast": "Das Öffnen von Dateien funktioniert nur in der Android-App."
+    },
+    "settings": {
+      "gear_label": "Einstellungen",
+      "title": "Einstellungen",
+      "language_label": "Sprache",
+      "language_auto": "Automatisch (Gerätesprache)",
+      "folder_label": "Download-Ordner",
+      "folder_default": "App-Speicher (Standard)",
+      "folder_pick_btn": "Ordner wählen",
+      "folder_reset_btn": "Auf Standard zurücksetzen",
+      "folder_not_supported": "Nur in der Android-App verfügbar.",
+      "folder_picking": "Warte auf Ordnerauswahl…",
+      "saved_toast": "Einstellungen gespeichert.",
+      "close_btn": "Schließen"
+    },
+    "footer": "DownloadThat — lade nur Medien herunter, an denen du die Rechte besitzt."
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Video-, Audio- & Bilder-Downloader für Android",
+      "description": "Lade Videos, Audio und Bilder direkt auf dein Android-Handy herunter. Kein Play Store, keine Werbung, keine Bindung. Kostenloser Kern, Pro ab 1 €/Monat."
+    },
+    "nav": {
+      "features": "Funktionen",
+      "pricing": "Preise",
+      "faq": "FAQ",
+      "download": "Download"
+    },
+    "hero": {
+      "eyebrow": "Kostenloser Kern · Keine Werbung · Kein Konto nötig",
+      "title_html": "Lade {emphasis} herunter.<br/>Direkt auf dein Handy.",
+      "title_emphasis": "alles",
+      "lead": "Video, Audio und Bilder von fast jeder Seite — direkt auf dein Android-Handy heruntergeladen. Kein Cloud-Upload, keine Daten verlassen jemals dein Gerät, kein Play Store nötig.",
+      "cta_primary": "Kostenlose APK herunterladen",
+      "cta_secondary": "Pro-Preise ansehen",
+      "badge1": "Kein Google Play nötig",
+      "badge2": "Läuft 100 % auf deinem Gerät",
+      "badge3": "HD- & 4K-Unterstützung",
+      "badge4": "Kern für immer kostenlos"
+    },
+    "features": {
+      "h2": "Alles, was du brauchst, nichts, was du nicht brauchst",
+      "lead": "Ein schneller, privater Downloader, der einfach funktioniert — mit einer Pro-Stufe für alle, die mehr wollen.",
+      "f1_title": "Jedes Video oder Audio",
+      "f1_desc": "Link einfügen, Qualität wählen, herunterladen. Funktioniert mit den meisten Video-, Audio- und Bilderseiten.",
+      "f2_title": "Stapel-Downloads",
+      "f2_desc": "Durchsuche eine Seite nach allen Mediendateien und lade sie gemeinsam herunter, mit Auswahl/Abwahl.",
+      "f3_title": "Privat von Grund auf",
+      "f3_desc": "Alles läuft lokal auf deinem Handy. Nichts wird auf einen Server hochgeladen, den du nicht kontrollierst.",
+      "f4_title": "Keine Werbung, kein Tracking",
+      "f4_desc": "Keine Werbenetzwerke, keine Analyse-SDKs, keine Dark-Pattern-Bezahlschranken. Nur die App.",
+      "f5_title": "Audio-Extraktion",
+      "f5_desc": "Extrahiere einfach die Audiospur aus jedem Video und speichere sie als MP3.",
+      "f6_title": "Kein App Store nötig",
+      "f6_desc": "Installiere die APK direkt. Kein Konto, kein Play-Store-Prüfprozess, keine Regionssperren."
+    },
+    "pricing": {
+      "h2": "Einfache, ehrliche Preise",
+      "lead": "Für immer kostenlos: 1 Download pro Tag in voller HD/4K-Qualität. Unbegrenzt mit Pro.",
+      "monthly_title": "Monatlich",
+      "monthly_note": "Jederzeit kündbar",
+      "yearly_flag": "Bestes Angebot",
+      "yearly_title": "Jährlich",
+      "yearly_note": "Weniger als 0,42 €/Monat",
+      "lifetime_title": "Lebenslang",
+      "lifetime_amount_suffix": "einmalig",
+      "lifetime_note": "Einmal zahlen, für immer nutzen",
+      "feature_unlimited": "Unbegrenzte Downloads (kein Tageslimit)",
+      "feature_batch": "Stapel-Downloads",
+      "feature_priority_updates": "Bevorzugte Updates",
+      "feature_all_updates": "Alle zukünftigen Updates inklusive",
+      "cta_monthly": "Monatlich wählen",
+      "cta_yearly": "Jährlich wählen",
+      "cta_lifetime": "Lebenslang wählen",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year"
+    },
+    "faq": {
+      "h2": "Häufig gestellte Fragen",
+      "q1_title": "Brauche ich Pro, um die App zu nutzen?",
+      "q1_body": "Nein. Die App ist kostenlos und voll nutzbar. Pro entfernt Limits und unterstützt die Entwicklung.",
+      "q2_title": "Funktioniert das ohne Google Play?",
+      "q2_body": "Ja — es ist eine eigenständige APK, die du direkt installierst. Kein Play-Store-Konto oder -Freigabe nötig.",
+      "q3_title": "Wo gebe ich meinen Lizenzschlüssel ein?",
+      "q3_body": "Direkt nach dem Kauf siehst du deinen Lizenzschlüssel auf der Bestätigungsseite — gib ihn in den Einstellungen der App ein.",
+      "q4_title": "Kann ich eine Rückerstattung bekommen?",
+      "q4_body": "Kontaktiere uns innerhalb von 14 Tagen nach dem Kauf, und wir erstatten dir den Betrag ohne Rückfragen.",
+      "q5_title": "Ist das legal?",
+      "q5_body": "Du bist selbst dafür verantwortlich, wie du heruntergeladene Inhalte nutzt. Bitte respektiere das Urheberrecht und die Nutzungsbedingungen der Seiten, von denen du herunterlädst."
+    },
+    "footer": {
+      "download": "Download",
+      "pricing": "Preise",
+      "imprint": "Impressum",
+      "privacy": "Datenschutz",
+      "support": "Support",
+      "copyright": "© 2026 DownloadThat. Alle Rechte vorbehalten."
+    },
+    "success": {
+      "title": "Danke — DownloadThat Pro",
+      "h1": "Danke für deinen Kauf!",
+      "lead": "Dein Lizenzschlüssel steht unten — gib ihn in den Einstellungen der App ein.",
+      "pending": "Dein Kauf wird abgeschlossen…",
+      "tier_monthly": "Monatlich",
+      "tier_yearly": "Jährlich",
+      "tier_lifetime": "Lebenslang",
+      "plan_label": "Plan",
+      "copy_btn": "Schlüssel kopieren",
+      "not_installed": "Hast du die App noch nicht?",
+      "download_app": "App herunterladen",
+      "error": "Wir konnten deine Lizenz noch nicht finden. Bitte lade diese Seite gleich noch einmal.",
+      "no_session": "Sitzung fehlt — bitte verwende den Link aus deiner Kaufbestätigung.",
+      "footer_note": "Diese Seite prüft nach der Zahlung automatisch für ein paar Sekunden. Falls nichts erscheint, lade die Seite neu oder schreibe eine E-Mail an {support_email} mit deiner Zahlungsbestätigung."
+    }
+  }
+}

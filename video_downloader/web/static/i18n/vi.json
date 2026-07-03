@@ -1,0 +1,167 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Tải media từ mọi trang web, trên mọi thiết bị",
+    "login": {
+      "title": "Đăng nhập",
+      "password_label": "Mật khẩu",
+      "unlock_btn": "Mở khóa",
+      "error": "Sai mật khẩu."
+    },
+    "license": {
+      "title": "Giấy phép",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Lưu",
+      "buy_btn": "Nâng cấp Pro",
+      "status_active": "Đã kích hoạt Pro ({tier}). Cảm ơn bạn đã ủng hộ!",
+      "status_invalid": "Miễn phí — mã đã lưu không hợp lệ hoặc đã hết hạn.",
+      "status_free": "Miễn phí — 1 lượt tải mỗi ngày. Pro: không giới hạn.",
+      "need_key_toast": "Vui lòng nhập mã giấy phép trước.",
+      "activated_toast": "Đã kích hoạt giấy phép.",
+      "invalid_toast": "Mã giấy phép không hợp lệ."
+    },
+    "scrape": {
+      "title": "Tìm kiếm trên trang",
+      "url_label": "URL trang",
+      "deep_label": "Tìm kiếm sâu (theo liên kết)",
+      "video_btn": "Tải video",
+      "audio_btn": "Tải âm thanh",
+      "search_btn": "Tìm trên trang",
+      "select_all": "Chọn tất cả",
+      "deselect_all": "Bỏ chọn tất cả",
+      "clear": "Xóa danh sách",
+      "queue_selected": "Tải mục đã chọn",
+      "results_count": "Tìm thấy {total}, đã chọn {picked}",
+      "empty": "Không tìm thấy media nào trên trang này.",
+      "need_url_toast": "Vui lòng nhập URL trước.",
+      "search_failed_toast": "Tìm kiếm thất bại.",
+      "queue_failed_toast": "Không thể thêm vào hàng đợi.",
+      "queue_selection_failed_toast": "Không thể thêm các mục đã chọn vào hàng đợi.",
+      "need_selection_toast": "Vui lòng chọn ít nhất một mục."
+    },
+    "queue": {
+      "title": "Hàng đợi",
+      "subtitle": "Tự động cập nhật.",
+      "empty": "Hàng đợi hiện chưa có gì.",
+      "cancel_btn": "Hủy",
+      "cancel_failed_toast": "Không thể hủy.",
+      "queued_toast": "Đã thêm vào hàng đợi.",
+      "open_btn": "Mở",
+      "open_failed_toast": "Không thể mở tệp này — hãy thử dùng liên kết thay thế.",
+      "open_unsupported_toast": "Mở tệp chỉ khả dụng trên ứng dụng Android."
+    },
+    "settings": {
+      "gear_label": "Cài đặt",
+      "title": "Cài đặt",
+      "language_label": "Ngôn ngữ",
+      "language_auto": "Tự động (theo ngôn ngữ thiết bị)",
+      "folder_label": "Thư mục tải xuống",
+      "folder_default": "Bộ nhớ ứng dụng (mặc định)",
+      "folder_pick_btn": "Chọn thư mục",
+      "folder_reset_btn": "Đặt lại về mặc định",
+      "folder_not_supported": "Chỉ khả dụng trên ứng dụng Android.",
+      "folder_picking": "Đang chờ chọn thư mục…",
+      "saved_toast": "Đã lưu cài đặt.",
+      "close_btn": "Đóng"
+    },
+    "footer": "DownloadThat — chỉ tải những media mà bạn có quyền sử dụng."
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Trình tải Video, Âm thanh & Hình ảnh cho Android",
+      "description": "Tải video, âm thanh và hình ảnh trực tiếp về điện thoại Android của bạn. Không cần Play Store, không quảng cáo, không ràng buộc. Miễn phí bản cơ bản, Pro từ €1/tháng."
+    },
+    "nav": {
+      "features": "Tính năng",
+      "pricing": "Bảng giá",
+      "faq": "Câu hỏi thường gặp",
+      "download": "Tải xuống"
+    },
+    "hero": {
+      "eyebrow": "Miễn phí bản cơ bản · Không quảng cáo · Không cần tài khoản",
+      "title_html": "Tải {emphasis}.<br/>Trực tiếp về điện thoại của bạn.",
+      "title_emphasis": "mọi thứ",
+      "lead": "Video, âm thanh và hình ảnh từ hầu hết mọi trang web — tải trực tiếp về điện thoại Android của bạn. Không tải lên đám mây, dữ liệu không bao giờ rời khỏi thiết bị, không cần Play Store.",
+      "cta_primary": "Tải APK miễn phí",
+      "cta_secondary": "Xem giá gói Pro",
+      "badge1": "Không cần Google Play",
+      "badge2": "Chạy 100% trên thiết bị của bạn",
+      "badge3": "Hỗ trợ HD & 4K",
+      "badge4": "Bản cơ bản miễn phí trọn đời"
+    },
+    "features": {
+      "h2": "Mọi thứ bạn cần, không thứ gì thừa",
+      "lead": "Một trình tải nhanh, riêng tư và hoạt động ổn định — với gói Pro cho ai muốn nhiều hơn thế.",
+      "f1_title": "Mọi video hoặc âm thanh",
+      "f1_desc": "Dán liên kết, chọn chất lượng, tải xuống. Hoạt động với hầu hết các trang video, âm thanh và hình ảnh.",
+      "f2_title": "Tải hàng loạt",
+      "f2_desc": "Quét một trang để tìm mọi tệp media và tải chúng cùng lúc, với tùy chọn chọn/bỏ chọn.",
+      "f3_title": "Riêng tư ngay từ thiết kế",
+      "f3_desc": "Mọi thứ chạy cục bộ trên điện thoại của bạn. Không có gì được tải lên máy chủ mà bạn không kiểm soát.",
+      "f4_title": "Không quảng cáo, không theo dõi",
+      "f4_desc": "Không mạng quảng cáo, không SDK phân tích, không tường phí kiểu lừa đảo. Chỉ là ứng dụng thuần túy.",
+      "f5_title": "Trích xuất âm thanh",
+      "f5_desc": "Tách riêng track âm thanh từ bất kỳ video nào và lưu thành MP3.",
+      "f6_title": "Không cần cửa hàng ứng dụng",
+      "f6_desc": "Cài đặt APK trực tiếp. Không cần tài khoản, không qua quy trình kiểm duyệt của Play Store, không khóa vùng."
+    },
+    "pricing": {
+      "h2": "Giá cả đơn giản, minh bạch",
+      "lead": "Miễn phí trọn đời: 1 lượt tải mỗi ngày ở chất lượng Full HD/4K. Không giới hạn với Pro.",
+      "monthly_title": "Hàng tháng",
+      "monthly_note": "Hủy bất cứ lúc nào",
+      "yearly_flag": "Giá trị tốt nhất",
+      "yearly_title": "Hàng năm",
+      "yearly_note": "Chưa đến €0,42/tháng",
+      "lifetime_title": "Trọn đời",
+      "lifetime_amount_suffix": "thanh toán một lần",
+      "lifetime_note": "Trả một lần, dùng mãi mãi",
+      "feature_unlimited": "Tải không giới hạn (không giới hạn hàng ngày)",
+      "feature_batch": "Tải hàng loạt",
+      "feature_priority_updates": "Cập nhật ưu tiên",
+      "feature_all_updates": "Bao gồm tất cả bản cập nhật trong tương lai",
+      "cta_monthly": "Chọn gói hàng tháng",
+      "cta_yearly": "Chọn gói hàng năm",
+      "cta_lifetime": "Chọn gói trọn đời",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year"
+    },
+    "faq": {
+      "h2": "Câu hỏi thường gặp",
+      "q1_title": "Tôi có cần Pro để dùng ứng dụng không?",
+      "q1_body": "Không. Ứng dụng miễn phí và dùng được đầy đủ. Pro loại bỏ giới hạn và giúp hỗ trợ phát triển ứng dụng.",
+      "q2_title": "Ứng dụng có hoạt động mà không cần Google Play không?",
+      "q2_body": "Có — đây là tệp APK độc lập mà bạn cài đặt trực tiếp. Không cần tài khoản Play Store hay phê duyệt.",
+      "q3_title": "Tôi nhập mã giấy phép ở đâu?",
+      "q3_body": "Ngay sau khi mua, bạn sẽ thấy mã giấy phép trên trang xác nhận — hãy nhập mã đó trong phần cài đặt của ứng dụng.",
+      "q4_title": "Tôi có thể được hoàn tiền không?",
+      "q4_body": "Hãy liên hệ với chúng tôi trong vòng 14 ngày kể từ khi mua và chúng tôi sẽ hoàn tiền cho bạn, không cần hỏi lý do.",
+      "q5_title": "Việc này có hợp pháp không?",
+      "q5_body": "Bạn chịu trách nhiệm về cách sử dụng nội dung đã tải xuống. Vui lòng tôn trọng bản quyền và điều khoản của các trang web mà bạn tải từ đó."
+    },
+    "footer": {
+      "download": "Tải xuống",
+      "pricing": "Bảng giá",
+      "imprint": "Thông tin pháp lý",
+      "privacy": "Quyền riêng tư",
+      "support": "Hỗ trợ",
+      "copyright": "© 2026 DownloadThat. Bảo lưu mọi quyền."
+    },
+    "success": {
+      "title": "Cảm ơn — DownloadThat Pro",
+      "h1": "Cảm ơn bạn đã mua hàng!",
+      "lead": "Mã giấy phép của bạn ở bên dưới — hãy nhập mã đó trong phần cài đặt của ứng dụng.",
+      "pending": "Đang hoàn tất giao dịch mua của bạn…",
+      "tier_monthly": "Hàng tháng",
+      "tier_yearly": "Hàng năm",
+      "tier_lifetime": "Trọn đời",
+      "plan_label": "Gói",
+      "copy_btn": "Sao chép mã",
+      "not_installed": "Chưa có ứng dụng?",
+      "download_app": "Tải ứng dụng",
+      "error": "Chúng tôi chưa tìm thấy giấy phép của bạn. Vui lòng tải lại trang này sau ít phút.",
+      "no_session": "Thiếu phiên làm việc — vui lòng dùng liên kết từ email xác nhận mua hàng của bạn.",
+      "footer_note": "Trang này tự động kiểm tra trong vài giây sau khi thanh toán. Nếu không có gì hiện ra, hãy tải lại trang hoặc gửi email đến {support_email} kèm xác nhận thanh toán của bạn."
+    }
+  }
+}

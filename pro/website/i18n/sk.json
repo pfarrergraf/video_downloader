@@ -1,0 +1,167 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Sťahuj médiá z akejkoľvek stránky, na akomkoľvek zariadení",
+    "login": {
+      "title": "Prihlásiť sa",
+      "password_label": "Heslo",
+      "unlock_btn": "Odomknúť",
+      "error": "Nesprávne heslo."
+    },
+    "license": {
+      "title": "Licencia",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Uložiť",
+      "buy_btn": "Získať Pro",
+      "status_active": "Pro aktívne ({tier}). Ďakujeme za podporu!",
+      "status_invalid": "Free — uložený kľúč je neplatný alebo mu vypršala platnosť.",
+      "status_free": "Free — 1 stiahnutie denne. Pro: neobmedzene.",
+      "need_key_toast": "Najprv zadaj licenčný kľúč.",
+      "activated_toast": "Licencia aktivovaná.",
+      "invalid_toast": "Neplatný licenčný kľúč."
+    },
+    "scrape": {
+      "title": "Prehľadať stránku",
+      "url_label": "URL stránky",
+      "deep_label": "Hĺbkové vyhľadávanie (sledovať odkazy)",
+      "video_btn": "Stiahnuť video",
+      "audio_btn": "Stiahnuť zvuk",
+      "search_btn": "Prehľadať stránku",
+      "select_all": "Vybrať všetko",
+      "deselect_all": "Zrušiť výber",
+      "clear": "Vymazať zoznam",
+      "queue_selected": "Stiahnuť vybrané",
+      "results_count": "Nájdených: {total}, vybraných: {picked}",
+      "empty": "Na tejto stránke sa nenašli žiadne médiá.",
+      "need_url_toast": "Najprv zadaj URL adresu.",
+      "search_failed_toast": "Vyhľadávanie zlyhalo.",
+      "queue_failed_toast": "Zaradenie do fronty zlyhalo.",
+      "queue_selection_failed_toast": "Zaradenie výberu do fronty zlyhalo.",
+      "need_selection_toast": "Vyber aspoň jednu položku."
+    },
+    "queue": {
+      "title": "Fronta",
+      "subtitle": "Aktualizuje sa automaticky.",
+      "empty": "Vo fronte zatiaľ nič nie je.",
+      "cancel_btn": "Zrušiť",
+      "cancel_failed_toast": "Zrušenie zlyhalo.",
+      "queued_toast": "Zaradené do fronty.",
+      "open_btn": "Otvoriť",
+      "open_failed_toast": "Tento súbor sa nepodarilo otvoriť — skús namiesto toho odkaz.",
+      "open_unsupported_toast": "Otváranie súborov funguje iba v aplikácii pre Android."
+    },
+    "settings": {
+      "gear_label": "Nastavenia",
+      "title": "Nastavenia",
+      "language_label": "Jazyk",
+      "language_auto": "Automaticky (jazyk zariadenia)",
+      "folder_label": "Priečinok na sťahovanie",
+      "folder_default": "Úložisko aplikácie (predvolené)",
+      "folder_pick_btn": "Vybrať priečinok",
+      "folder_reset_btn": "Obnoviť predvolené",
+      "folder_not_supported": "Dostupné iba v aplikácii pre Android.",
+      "folder_picking": "Čaká sa na výber priečinka…",
+      "saved_toast": "Nastavenia uložené.",
+      "close_btn": "Zavrieť"
+    },
+    "footer": "DownloadThat — sťahuj iba médiá, na ktoré máš práva."
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Sťahovač videí, zvuku a obrázkov pre Android",
+      "description": "Sťahuj videá, zvuk a obrázky priamo do svojho telefónu s Androidom. Bez Play Store, bez reklám, bez záväzkov. Základ zadarmo, Pro už od 1 €/mesiac."
+    },
+    "nav": {
+      "features": "Funkcie",
+      "pricing": "Cenník",
+      "faq": "Časté otázky",
+      "download": "Stiahnuť"
+    },
+    "hero": {
+      "eyebrow": "Základ zadarmo · Bez reklám · Bez potreby účtu",
+      "title_html": "Stiahni si {emphasis}.<br/>Priamo do telefónu.",
+      "title_emphasis": "všetko",
+      "lead": "Video, zvuk a obrázky takmer z akejkoľvek stránky — stiahnuté priamo do tvojho telefónu s Androidom. Žiadne nahrávanie do cloudu, žiadne dáta neopustia tvoje zariadenie, Play Store nepotrebuješ.",
+      "cta_primary": "Stiahnuť bezplatné APK",
+      "cta_secondary": "Pozrieť ceny Pro",
+      "badge1": "Bez potreby Google Play",
+      "badge2": "Beží 100 % na tvojom zariadení",
+      "badge3": "Podpora HD a 4K",
+      "badge4": "Základ je navždy zadarmo"
+    },
+    "features": {
+      "h2": "Všetko, čo potrebuješ, nič navyše",
+      "lead": "Rýchly a súkromný sťahovač, ktorý jednoducho funguje — s úrovňou Pro pre každého, kto chce viac.",
+      "f1_title": "Akékoľvek video alebo zvuk",
+      "f1_desc": "Vlož odkaz, vyber kvalitu, stiahni. Funguje s väčšinou stránok s videom, zvukom a obrázkami.",
+      "f2_title": "Hromadné sťahovanie",
+      "f2_desc": "Prehľadaj stránku a nájdi všetky mediálne súbory, ktoré potom stiahneš spolu, s možnosťou výberu.",
+      "f3_title": "Súkromné už z princípu",
+      "f3_desc": "Všetko beží lokálne v tvojom telefóne. Nič sa nenahráva na server, ktorý nemáš pod kontrolou.",
+      "f4_title": "Bez reklám, bez sledovania",
+      "f4_desc": "Žiadne reklamné siete, žiadne analytické SDK, žiadne klamlivé platobné bariéry. Len aplikácia.",
+      "f5_title": "Extrakcia zvuku",
+      "f5_desc": "Vytiahni z akéhokoľvek videa len zvukovú stopu a ulož ju ako MP3.",
+      "f6_title": "Bez potreby obchodu s aplikáciami",
+      "f6_desc": "Nainštaluj APK priamo. Bez účtu, bez schvaľovacieho procesu Play Store, bez regionálnych obmedzení."
+    },
+    "pricing": {
+      "h2": "Jednoduché a férové ceny",
+      "lead": "Navždy zadarmo: 1 stiahnutie denne v plnej kvalite HD/4K. Neobmedzene s Pro.",
+      "monthly_title": "Mesačne",
+      "monthly_note": "Kedykoľvek zrušiteľné",
+      "yearly_flag": "Najvýhodnejšie",
+      "yearly_title": "Ročne",
+      "yearly_note": "Menej ako 0,42 €/mesiac",
+      "lifetime_title": "Doživotne",
+      "lifetime_amount_suffix": "jednorazovo",
+      "lifetime_note": "Zaplať raz, používaj navždy",
+      "feature_unlimited": "Neobmedzené sťahovanie (bez denného limitu)",
+      "feature_batch": "Hromadné sťahovanie",
+      "feature_priority_updates": "Prioritné aktualizácie",
+      "feature_all_updates": "Všetky budúce aktualizácie v cene",
+      "cta_monthly": "Vybrať mesačne",
+      "cta_yearly": "Vybrať ročne",
+      "cta_lifetime": "Vybrať doživotne",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year"
+    },
+    "faq": {
+      "h2": "Časté otázky",
+      "q1_title": "Potrebujem Pro na používanie aplikácie?",
+      "q1_body": "Nie. Aplikácia je zadarmo a plne funkčná. Pro odstraňuje limity a podporuje vývoj.",
+      "q2_title": "Funguje to bez Google Play?",
+      "q2_body": "Áno — je to samostatné APK, ktoré si nainštaluješ priamo. Nepotrebuješ účet ani schválenie Play Store.",
+      "q3_title": "Kam mám zadať svoj licenčný kľúč?",
+      "q3_body": "Hneď po nákupe uvidíš svoj licenčný kľúč na potvrdzovacej stránke — zadaj ho v nastaveniach aplikácie.",
+      "q4_title": "Môžem dostať vrátenie peňazí?",
+      "q4_body": "Kontaktuj nás do 14 dní od nákupu a peniaze ti vrátime bez zbytočných otázok.",
+      "q5_title": "Je to legálne?",
+      "q5_body": "Za spôsob použitia stiahnutého obsahu zodpovedáš ty. Rešpektuj prosím autorské práva a podmienky stránok, z ktorých sťahuješ."
+    },
+    "footer": {
+      "download": "Stiahnuť",
+      "pricing": "Cenník",
+      "imprint": "Tiráž",
+      "privacy": "Súkromie",
+      "support": "Podpora",
+      "copyright": "© 2026 DownloadThat. Všetky práva vyhradené."
+    },
+    "success": {
+      "title": "Ďakujeme — DownloadThat Pro",
+      "h1": "Ďakujeme za nákup!",
+      "lead": "Tvoj licenčný kľúč je nižšie — zadaj ho v nastaveniach aplikácie.",
+      "pending": "Dokončujeme tvoj nákup…",
+      "tier_monthly": "Mesačný",
+      "tier_yearly": "Ročný",
+      "tier_lifetime": "Doživotný",
+      "plan_label": "Plán",
+      "copy_btn": "Kopírovať kľúč",
+      "not_installed": "Ešte nemáš aplikáciu?",
+      "download_app": "Stiahnuť aplikáciu",
+      "error": "Zatiaľ sa nám nepodarilo nájsť tvoju licenciu. Za chvíľu prosím obnov túto stránku.",
+      "no_session": "Chýba relácia — použi prosím odkaz z potvrdenia o nákupe.",
+      "footer_note": "Táto stránka automaticky kontroluje stav niekoľko sekúnd po platbe. Ak sa nič nezobrazí, obnov stránku alebo napíš e-mail na {support_email} s potvrdením platby."
+    }
+  }
+}
