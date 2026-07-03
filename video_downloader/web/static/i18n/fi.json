@@ -92,18 +92,18 @@
       "p2160": "4K (2160p)"
     },
     "terms": {
-      "title": "Before you start",
-      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
-      "link_terms": "Terms of use",
-      "link_privacy": "Privacy policy",
-      "link_imprint": "Imprint",
-      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
-      "continue_btn": "Continue"
+      "title": "Ennen kuin aloitat",
+      "body": "Tämä sovellus on tekninen työkalu median lataamiseen linkeistä, jotka syötät itse. Olet yksin vastuussa siitä, että sinulla on oikeus ladata ja käyttää sisältöä syöttämäsi linkin takana — kehittäjä ei ota vastuuta siitä, mitä lataat.",
+      "link_terms": "Käyttöehdot",
+      "link_privacy": "Tietosuojaseloste",
+      "link_imprint": "Yhteystiedot",
+      "checkbox_label": "Olen lukenut ja hyväksyn käyttöehdot ja ymmärrän olevani yksin vastuussa lataamastani sisällöstä.",
+      "continue_btn": "Jatka"
     },
     "about": {
-      "title": "About",
-      "developed_by": "Developed by",
-      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+      "title": "Tietoja",
+      "developed_by": "Kehittäjä",
+      "licenses": "Käyttää kirjastoja yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) ja AndroidX (Apache-2.0)."
     }
   },
   "website": {
@@ -165,7 +165,7 @@
       "cta_lifetime": "Valitse elinikäinen",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Pyydän, että käyttöoikeus alkaa välittömästi, ennen kuin lakisääteinen 14 päivän peruuttamisaika päättyy, ja ymmärrän, että tämä tarkoittaa peruuttamisoikeuteni menettämistä heti, kun ostos on suoritettu loppuun (ks. {terms_start}Käyttöehdot{terms_end} §6.3). Voit silti pyytää täyttä hyvitystä 14 päivän kuluessa {refund_start}hyvityssivumme{refund_end} kautta."
     },
     "faq": {
       "h2": "Usein kysytyt kysymykset",
@@ -187,8 +187,8 @@
       "privacy": "Tietosuoja",
       "support": "Tuki",
       "copyright": "© 2026 DownloadThat. Kaikki oikeudet pidätetään.",
-      "terms": "Terms",
-      "home": "Home"
+      "terms": "Käyttöehdot",
+      "home": "Etusivu"
     },
     "success": {
       "title": "Kiitos — DownloadThat Pro",
@@ -207,17 +207,17 @@
       "footer_note": "Tämä sivu tarkistaa automaattisesti muutaman sekunnin ajan maksun jälkeen. Jos mitään ei näy, lataa sivu uudelleen tai lähetä sähköpostia osoitteeseen {support_email} maksuvahvistuksesi kanssa."
     },
     "refund": {
-      "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
-      "license_label": "License key",
-      "email_label": "Email address used at purchase",
-      "submit_btn": "Request refund",
-      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
-      "error_missing_fields": "Please fill in both the license key and the email address.",
-      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
-      "error_already_canceled": "This license has already been refunded or canceled.",
-      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support."
+      "title": "Peruuttaminen ja hyvitys",
+      "body": "Syötä lisenssiavain ja ostoksesi sähköpostiosoite. Jos ostoksesi tehtiin viimeisten 14 päivän aikana, hyvitämme sen kokonaan Stripen kautta ja deaktivoimme lisenssin välittömästi — syytä ei tarvita.",
+      "license_label": "Lisenssiavain",
+      "email_label": "Ostossa käytetty sähköpostiosoite",
+      "submit_btn": "Pyydä hyvitystä",
+      "success": "Hyvitetty. Rahat palautuvat maksupalveluntarjoajallesi muutaman arkipäivän kuluessa, ja lisenssi on deaktivoitu.",
+      "error_missing_fields": "Täytä sekä lisenssiavain että sähköpostiosoite.",
+      "error_no_match": "Emme löytäneet ostosta, joka vastaisi tätä lisenssiavainta ja sähköpostiosoitetta.",
+      "error_already_canceled": "Tämä lisenssi on jo hyvitetty tai peruutettu.",
+      "error_window_expired": "Tämän ostoksen 14 päivän hyvitysaika on päättynyt. Ota yhteyttä tukeen, jos haluat silti keskustella asiasta.",
+      "error_generic": "Jokin meni pieleen. Yritä uudelleen tai ota yhteyttä tukeen."
     }
   }
 }

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Personvernerklæring — DownloadThat</title>
+<style>
+  :root {
+    --bg: #0e0c14;
+    --bg-elevated: #16121f;
+    --card: #1b1626;
+    --border: #2c2438;
+    --text: #f1ede4;
+    --text-dim: #a89fb3;
+    --accent: #c9a869;
+    --accent-dim: #8a713f;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(14, 12, 20, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 720px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.02em; color: var(--text); }
+  .brand-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(160deg, var(--accent), var(--accent-dim));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: #14111c;
+  }
+
+  main { padding: 56px 24px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 8px; }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 40px; }
+  h2 { font-size: 1.15rem; color: var(--accent); margin: 36px 0 10px; }
+  h3 { font-size: 1rem; color: var(--text); margin: 24px 0 8px; }
+  p, li { color: var(--text-dim); line-height: 1.7; margin: 0 0 12px; }
+  ul { padding-left: 20px; margin: 0 0 12px; }
+  .notice {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 36px; font-size: 0.9rem; color: var(--text-dim);
+  }
+
+  footer { border-top: 1px solid var(--border); padding: 36px 24px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+  footer a { color: var(--text-dim); }
+  footer .foot-links { display: flex; gap: 18px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+  .lang-switcher {
+    background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; font-family: inherit; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="brand-icon">⬇</span> DownloadThat</a>
+    <span id="legal-lang-switcher"></span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Personvernerklæring</h1>
+    <p class="subtitle">Sist oppdatert: juli 2026 · i henhold til GDPR og tysk personvernlovgivning</p>
+
+    <div class="notice">
+      Dette er en norsk oversettelse som tilbys for enkelhets skyld. Den
+      tyskspråklige originalen (<a href="datenschutz.html">Datenschutzerklärung</a>)
+      er den juridisk bindende versjonen; ved eventuelle avvik gjelder den tyske
+      originalen.
+    </div>
+
+    <h2>1. Behandlingsansvarlig</h2>
+    <p>
+      Behandlingsansvarlig i henhold til GDPR er:<br />
+      Benjamin Graf<br />
+      Lahneckstraße 8<br />
+      56112 Lahnstein<br />
+      Tyskland<br />
+      E-post: <a href="mailto:gpt.assist.benjamin@gmail.com">gpt.assist.benjamin@gmail.com</a>
+    </p>
+
+    <h2>2. Generell informasjon om databehandling</h2>
+    <p>
+      Vi behandler personopplysninger bare i den grad det er nødvendig for å
+      levere våre tjenester (appen DownloadThat og Pro-lisensiering).
+      Behandlingen skjer på grunnlag av GDPR og den tyske føderale
+      personvernloven (BDSG).
+    </p>
+    <p>
+      Selve appen kjører helt på din enhet og overfører ikke bruksdata eller
+      nedlastet innhold til våre servere. Databehandling skjer kun i
+      forbindelse med kjøp og validering av en Pro-lisens.
+    </p>
+
+    <h2>3. Databehandling ved kjøp av en Pro-lisens</h2>
+
+    <h3>3.1 Betalingsbehandling (Stripe)</h3>
+    <p>
+      Når du kjøper en Pro-lisens, behandles betalingen via tjenesten Stripe
+      (Stripe Inc., 510 Townsend Street, San Francisco, CA 94103, USA). Stripe
+      behandler betalingsopplysninger (f.eks. kortopplysninger), din
+      e-postadresse og annen informasjon som er nødvendig for
+      betalingsbehandlingen.
+    </p>
+    <p>
+      Vi lagrer ikke fullstendige betalingsopplysninger selv. Stripe kan
+      overføre følgende informasjon til oss etter en vellykket betaling:
+    </p>
+    <ul>
+      <li>Stripe-checkout-øktens ID (for å matche kjøpet)</li>
+      <li>E-postadresse (hvis oppgitt av Stripe)</li>
+      <li>Lisensnivå (månedlig / årlig / livstid)</li>
+    </ul>
+    <p>
+      Rettslig grunnlag: Art. 6(1)(b) GDPR (oppfyllelse av en avtale).<br />
+      Mer informasjon om Stripes databehandling finner du på:
+      <a href="https://stripe.com/privacy" target="_blank" rel="noopener">
+        https://stripe.com/privacy
+      </a>.
+    </p>
+
+    <h3>3.2 Lisensnøkkeldatabase (Cloudflare D1)</h3>
+    <p>
+      Etter en vellykket betaling genereres en lisensnøkkel og lagres i en
+      database driftet via Cloudflare D1 (Cloudflare, Inc., 101 Townsend St,
+      San Francisco, CA 94107, USA). Følgende lagres:
+    </p>
+    <ul>
+      <li>En unik lisensnøkkel (UUID)</li>
+      <li>Stripe-checkout-øktens ID</li>
+      <li>Lisensnivået og aktiveringstidspunktet</li>
+      <li>E-postadresse (hvis oppgitt av Stripe)</li>
+    </ul>
+    <p>
+      Dataene lagres så lenge lisensen varer. For livstidslisenser, inntil
+      sletting begjæres av lisensinnehaveren eller tjenesten avvikles.
+      Rettslig grunnlag: Art. 6(1)(b) GDPR (oppfyllelse av en avtale).<br />
+      Cloudflares personvernerklæring:
+      <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">
+        https://www.cloudflare.com/privacypolicy/
+      </a>.
+    </p>
+
+    <h3>3.3 Lisensvalidering i appen</h3>
+    <p>
+      Når du oppgir en lisensnøkkel i appen, overføres den én gang til vårt
+      lisens-API-endepunkt (også hostet på Cloudflare Pages) for validering.
+      Bare selve nøkkelen kontrolleres; ingen enhetsdata, IP-adresser eller
+      annen informasjon lagres permanent.
+    </p>
+    <p>
+      Rettslig grunnlag: Art. 6(1)(b) GDPR (oppfyllelse av en avtale).
+    </p>
+
+    <h3>3.4 Dokumentasjon av samtykke til tidlig kontraktsoppfyllelse</h3>
+    <p>
+      Ved kjøp av en Pro-lisens må du uttrykkelig bekrefte før betaling at
+      kontraktsoppfyllelsen skal begynne før den lovpålagte angrefristen
+      utløper (se <a href="agb.no.html">Bruksvilkår</a> §6.3). For å
+      dokumentere denne erklæringen lagres tidsstempelet for din bekreftelse i
+      tekstform som en del av bestillingsdataene som overføres til Stripe
+      (checkout-øktens referansenummer). Rettslig grunnlag: Art. 6(1)(c) GDPR
+      (rettslig plikt til å føre bevis i henhold til § 356(5) i den tyske
+      sivilloven (BGB)) og Art. 6(1)(f) GDPR (berettiget interesse i å sikre
+      bevis ved en eventuell tvist).
+    </p>
+
+    <h3>3.5 Refusjonsforespørsler</h3>
+    <p>
+      Hvis du ber om refusjon via selvbetjeningsfunksjonen
+      (<a href="widerruf.html">Angrerett og refusjon</a>), behandler vi
+      e-postadressen og lisensnøkkelen du oppgir for å matche kjøpet ditt mot
+      Stripe og for å behandle refusjonen og deaktiveringen av lisensen.
+      Rettslig grunnlag: Art. 6(1)(b) og (c) GDPR (kontraktsbehandling og
+      oppfyllelse av lovpålagte angre- og refusjonsforpliktelser).
+    </p>
+
+    <h2>4. Hosting og teknisk infrastruktur</h2>
+    <p>
+      Dette nettstedet hostes via Cloudflare Pages. Cloudflare kan midlertidig
+      lagre tekniske tilkoblingsdata (f.eks. IP-adresser) i sine logger. Dette
+      tjener driftssikkerheten og er basert på Art. 6(1)(f) GDPR (berettiget
+      interesse i sikker og feilfri levering av nettstedet). Mer informasjon:
+      <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">
+        Cloudflares personvernerklæring
+      </a>.
+    </p>
+
+    <h2>5. Ingen informasjonskapsler, ingen sporing</h2>
+    <p>
+      Dette nettstedet setter ikke egne informasjonskapsler og bruker ikke
+      sporings- eller analysetjenester. Stripe kan sette informasjonskapsler
+      på sine egne sider som en del av betalingsprosessen — disse er utenfor
+      vår innflytelsessfære.
+    </p>
+
+    <h2>6. Dataoverføring til tredjeland</h2>
+    <p>
+      Stripe og Cloudflare har hovedkontor i USA. Dataoverføring er basert på
+      EUs standard personvernbestemmelser (Art. 46(2)(c) GDPR) eller
+      EU-US Data Privacy Framework (der det er relevant). Mer informasjon
+      finnes i de respektive leverandørenes personvernerklæringer.
+    </p>
+
+    <h2>7. Dine rettigheter</h2>
+    <p>Du har følgende rettigheter overfor oss angående dine personopplysninger:</p>
+    <ul>
+      <li><strong>Rett til innsyn</strong> (Art. 15 GDPR)</li>
+      <li><strong>Rett til retting</strong> (Art. 16 GDPR)</li>
+      <li><strong>Rett til sletting</strong> (Art. 17 GDPR)</li>
+      <li><strong>Rett til begrensning av behandling</strong> (Art. 18 GDPR)</li>
+      <li><strong>Rett til dataportabilitet</strong> (Art. 20 GDPR)</li>
+      <li><strong>Rett til å protestere</strong> (Art. 21 GDPR)</li>
+    </ul>
+    <p>
+      For å utøve dine rettigheter, kontakt oss på e-post:
+      <a href="mailto:gpt.assist.benjamin@gmail.com">gpt.assist.benjamin@gmail.com</a>.
+    </p>
+    <p>
+      Du har også rett til å klage til en tilsynsmyndighet for
+      personvern. Kompetent myndighet avhenger av ditt bosted eller stedet
+      for det påståtte bruddet.
+    </p>
+
+    <h2>8. Gyldighet og endringer i denne personvernerklæringen</h2>
+    <p>
+      Denne personvernerklæringen er for tiden gyldig og har datoen angitt
+      ovenfor. På grunn av videreutvikling av vårt nettsted eller endringer i
+      juridiske eller regulatoriske krav, kan det bli nødvendig å endre denne
+      personvernerklæringen.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html">Hjem</a>
+      <a href="impressum.no.html">Juridisk informasjon</a>
+      <a href="datenschutz.no.html">Personvernerklæring</a>
+      <a href="agb.no.html">Bruksvilkår</a>
+      <a href="mailto:support@gaistreich.com">Support</a>
+    </div>
+    <div>© 2026 DownloadThat. Alle rettigheter forbeholdt.</div>
+  </div>
+</footer>
+
+<script src="legal-lang.js" data-doc="datenschutz"></script>
+</body>
+</html>
