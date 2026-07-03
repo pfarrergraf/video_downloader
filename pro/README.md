@@ -37,6 +37,19 @@ doesn't route because it starts with `_`.)
   `cee415b0-dad7-4ae5-a080-48872a37d057`) with the `licenses` table already created —
   `schema.sql` mirrors it for reference.
 - The code for the site and the API routes — nothing left to write, only to connect.
+- **Pricing page consent gate**: the buy buttons on `index.html` are inert until the
+  visitor checks a box confirming they want performance to start immediately (losing
+  their 14-day statutory withdrawal right per § 356 Abs. 5 BGB, see `agb.html` §6.3) -
+  required for that early termination to be legally effective. A timestamp gets
+  stamped into the Stripe Payment Link's `client_reference_id` as evidence of when
+  consent was given.
+- **`widerruf.html` + `functions/api/refund.js`**: a self-service refund page. Anyone
+  can request a full refund within 14 days of purchase (license key + the email used
+  at checkout) regardless of the consent above — this is a voluntary goodwill
+  guarantee, not just the bare legal minimum. Calls Stripe's refund API directly
+  (one-time payment_intent for lifetime, or the subscription's first invoice +
+  immediate cancellation for monthly/yearly) and marks the license `canceled` in D1
+  either way.
 
 ## What you need to do — all from the Cloudflare dashboard, phone-friendly
 

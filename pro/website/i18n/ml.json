@@ -164,7 +164,8 @@
       "cta_yearly": "വാർഷിക പ്ലാൻ തിരഞ്ഞെടുക്കുക",
       "cta_lifetime": "ലൈഫ്‌ടൈം പ്ലാൻ തിരഞ്ഞെടുക്കുക",
       "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year"
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
     },
     "faq": {
       "h2": "പതിവ് ചോദ്യങ്ങൾ",
@@ -186,7 +187,8 @@
       "privacy": "സ്വകാര്യത",
       "support": "പിന്തുണ",
       "copyright": "© 2026 DownloadThat. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.",
-      "terms": "Terms"
+      "terms": "Terms",
+      "home": "Home"
     },
     "success": {
       "title": "നന്ദി — DownloadThat Pro",
@@ -203,6 +205,19 @@
       "error": "ഞങ്ങൾക്ക് ഇതുവരെ നിങ്ങളുടെ ലൈസൻസ് കണ്ടെത്താൻ കഴിഞ്ഞില്ല. ദയവായി അൽപ്പസമയത്തിനുള്ളിൽ ഈ പേജ് വീണ്ടും ലോഡ് ചെയ്യുക.",
       "no_session": "സെഷൻ ലഭ്യമല്ല — ദയവായി നിങ്ങളുടെ വാങ്ങൽ സ്ഥിരീകരണത്തിലെ ലിങ്ക് ഉപയോഗിക്കുക.",
       "footer_note": "പേയ്‌മെന്റിന് ശേഷം ഈ പേജ് കുറച്ച് സെക്കൻഡുകൾ സ്വയമേവ പരിശോധിക്കും. ഒന്നും കാണിക്കുന്നില്ലെങ്കിൽ, പേജ് വീണ്ടും ലോഡ് ചെയ്യുക അല്ലെങ്കിൽ നിങ്ങളുടെ പേയ്‌മെന്റ് സ്ഥിരീകരണത്തോടൊപ്പം {support_email} എന്ന വിലാസത്തിലേക്ക് ഇമെയിൽ ചെയ്യുക."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
     }
   }
 }

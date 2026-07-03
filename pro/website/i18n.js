@@ -56,10 +56,18 @@ async function dtLoadStrings(code) {
 function dtApplyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = dtT(el.dataset.i18n); });
   document.querySelectorAll('[data-i18n-html]').forEach((el) => {
-    // Only used for the one hero headline that legitimately needs an inline
-    // <br/> and an emphasized word — every other string uses plain textContent.
-    const emphasis = dtT('website.hero.title_emphasis');
-    el.innerHTML = dtT(el.dataset.i18nHtml).split('{emphasis}').join(`<span>${emphasis}</span>`);
+    // Used for the small number of strings that legitimately need inline
+    // markup (a <br/>/emphasis span, or an embedded link) - every other
+    // string uses plain textContent, which would escape any HTML in it.
+    const key = el.dataset.i18nHtml;
+    if (key === 'website.hero.title_html') {
+      const emphasis = dtT('website.hero.title_emphasis');
+      el.innerHTML = dtT(key).split('{emphasis}').join(`<span>${emphasis}</span>`);
+    } else if (key === 'website.pricing.consent_label') {
+      el.innerHTML = dtT(key)
+        .split('{terms_start}').join('<a href="agb.html">').split('{terms_end}').join('</a>')
+        .split('{refund_start}').join('<a href="widerruf.html">').split('{refund_end}').join('</a>');
+    }
   });
   document.querySelectorAll('[data-i18n-attr]').forEach((el) => {
     const [attr, key] = el.dataset.i18nAttr.split(':');
@@ -68,13 +76,33 @@ function dtApplyTranslations() {
   dtUpdateStripeLinks();
 }
 
+// The checkbox (index.html's #withdrawal-consent) is the customer's explicit,
+// in-the-order-process confirmation that (a) they want performance to start
+// before the statutory 14-day withdrawal period ends and (b) they understand
+// that doing so ends that right early (§ 356 Abs. 5 BGB) - required for that
+// early-termination to actually be legally effective, not just a formality.
+// Until it's checked, the buy buttons are inert (see .cta-disabled in
+// index.html); once checked, a timestamp is stamped into the Stripe Payment
+// Link's client_reference_id so the specific consent moment is tied to the
+// resulting Checkout Session as evidence.
 function dtUpdateStripeLinks() {
   const lang = localStorage.getItem('dt_lang') || 'auto';
   const effective = lang === 'auto' ? dtDetectLang() : lang;
   const stripeLocale = STRIPE_LOCALE_MAP[effective] || 'auto';
+  const consentBox = document.getElementById('withdrawal-consent');
+  const consentGiven = !!(consentBox && consentBox.checked);
   document.querySelectorAll('a[data-stripe-link]').forEach((a) => {
     const base = a.dataset.stripeLink;
-    a.href = `${base}?locale=${stripeLocale}`;
+    let href = `${base}?locale=${stripeLocale}`;
+    if (consentGiven) {
+      if (!a.dataset.consentTs) a.dataset.consentTs = new Date().toISOString();
+      href += `&client_reference_id=${encodeURIComponent('consent-' + a.dataset.consentTs)}`;
+    } else {
+      delete a.dataset.consentTs;
+    }
+    a.href = href;
+    a.classList.toggle('cta-disabled', !consentGiven);
+    a.setAttribute('aria-disabled', String(!consentGiven));
   });
 }
 

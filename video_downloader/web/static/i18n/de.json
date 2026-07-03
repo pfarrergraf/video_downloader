@@ -164,7 +164,8 @@
       "cta_yearly": "Jährlich wählen",
       "cta_lifetime": "Lebenslang wählen",
       "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year"
+      "yearly_amount_suffix": "/year",
+      "consent_label": "Ich verlange, dass die Ausführung sofort beginnt, bevor die gesetzliche 14-tägige Widerrufsfrist abläuft, und mir ist bewusst, dass ich dadurch mein Widerrufsrecht verliere, sobald der Kauf abgeschlossen ist (siehe {terms_start}Nutzungsbedingungen{terms_end} §6.3). Innerhalb von 14 Tagen kann ich trotzdem jederzeit eine vollständige Rückerstattung über unsere {refund_start}Rückerstattungsseite{refund_end} anfordern."
     },
     "faq": {
       "h2": "Häufig gestellte Fragen",
@@ -186,7 +187,8 @@
       "privacy": "Datenschutz",
       "support": "Support",
       "copyright": "© 2026 DownloadThat. Alle Rechte vorbehalten.",
-      "terms": "AGB"
+      "terms": "AGB",
+      "home": "Startseite"
     },
     "success": {
       "title": "Danke — DownloadThat Pro",
@@ -203,6 +205,19 @@
       "error": "Wir konnten deine Lizenz noch nicht finden. Bitte lade diese Seite gleich noch einmal.",
       "no_session": "Sitzung fehlt — bitte verwende den Link aus deiner Kaufbestätigung.",
       "footer_note": "Diese Seite prüft nach der Zahlung automatisch für ein paar Sekunden. Falls nichts erscheint, lade die Seite neu oder schreibe eine E-Mail an {support_email} mit deiner Zahlungsbestätigung."
+    },
+    "refund": {
+      "title": "Widerruf & Rückerstattung",
+      "body": "Gib den Lizenzschlüssel und die beim Kauf verwendete E-Mail-Adresse ein. Liegt dein Kauf nicht länger als 14 Tage zurück, erstatten wir ihn vollständig über Stripe und deaktivieren die Lizenz sofort — ganz ohne Angabe von Gründen.",
+      "license_label": "Lizenzschlüssel",
+      "email_label": "Beim Kauf verwendete E-Mail-Adresse",
+      "submit_btn": "Rückerstattung anfordern",
+      "success": "Rückerstattung veranlasst. Das Geld erreicht dein Zahlungsmittel innerhalb weniger Werktage, die Lizenz wurde deaktiviert.",
+      "error_missing_fields": "Bitte Lizenzschlüssel und E-Mail-Adresse angeben.",
+      "error_no_match": "Wir konnten keinen Kauf finden, der zu diesem Lizenzschlüssel und dieser E-Mail-Adresse passt.",
+      "error_already_canceled": "Diese Lizenz wurde bereits erstattet oder storniert.",
+      "error_window_expired": "Die 14-tägige Rückerstattungsfrist für diesen Kauf ist abgelaufen. Kontaktiere den Support, falls du das trotzdem besprechen möchtest.",
+      "error_generic": "Etwas ist schiefgelaufen. Bitte versuche es erneut oder kontaktiere den Support."
     }
   }
 }

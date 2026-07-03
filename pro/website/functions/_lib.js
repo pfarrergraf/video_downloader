@@ -63,6 +63,39 @@ async function fetchStripeSubscription(subscriptionId, env) {
   return res.json();
 }
 
+// Generic helpers for refund.js (fetchStripeSubscription above is kept as-is
+// rather than rewritten on top of these, to avoid touching the already-working
+// webhook path for an unrelated feature).
+export async function stripeGet(path, env) {
+  const res = await fetch(`https://api.stripe.com/v1${path}`, {
+    headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}` },
+  });
+  if (!res.ok) throw new Error(`Stripe GET ${path} failed: ${res.status} ${await res.text()}`);
+  return res.json();
+}
+
+export async function stripePost(path, env, body) {
+  const res = await fetch(`https://api.stripe.com/v1${path}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams(body),
+  });
+  if (!res.ok) throw new Error(`Stripe POST ${path} failed: ${res.status} ${await res.text()}`);
+  return res.json();
+}
+
+export async function stripeDelete(path, env) {
+  const res = await fetch(`https://api.stripe.com/v1${path}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}` },
+  });
+  if (!res.ok) throw new Error(`Stripe DELETE ${path} failed: ${res.status} ${await res.text()}`);
+  return res.json();
+}
+
 async function handleCheckoutCompleted(session, env) {
   const tier = session.metadata?.tier;
   if (!tier || !["monthly", "yearly", "lifetime"].includes(tier)) {

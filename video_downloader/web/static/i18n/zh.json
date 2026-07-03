@@ -164,7 +164,8 @@
       "cta_yearly": "选择年付",
       "cta_lifetime": "选择终身版",
       "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year"
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
     },
     "faq": {
       "h2": "常见问题",
@@ -186,7 +187,8 @@
       "privacy": "隐私政策",
       "support": "支持",
       "copyright": "© 2026 DownloadThat。保留所有权利。",
-      "terms": "Terms"
+      "terms": "Terms",
+      "home": "Home"
     },
     "success": {
       "title": "感谢您 — DownloadThat 专业版",
@@ -203,6 +205,19 @@
       "error": "我们暂时未能找到您的许可证。请稍后重新加载此页面。",
       "no_session": "会话信息缺失 — 请使用购买确认邮件中的链接。",
       "footer_note": "付款完成后，本页面会自动检查几秒钟。如果没有显示任何内容，请重新加载页面，或将您的付款确认信息发送至 {support_email}。"
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
     }
   }
 }

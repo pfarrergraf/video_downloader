@@ -164,7 +164,8 @@
       "cta_yearly": "வருடாந்திரத்தைத் தேர்ந்தெடு",
       "cta_lifetime": "வாழ்நாள் முழுவதையும் தேர்ந்தெடு",
       "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year"
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
     },
     "faq": {
       "h2": "அடிக்கடி கேட்கப்படும் கேள்விகள்",
@@ -186,7 +187,8 @@
       "privacy": "தனியுரிமை",
       "support": "ஆதரவு",
       "copyright": "© 2026 DownloadThat. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
-      "terms": "Terms"
+      "terms": "Terms",
+      "home": "Home"
     },
     "success": {
       "title": "நன்றி — DownloadThat Pro",
@@ -203,6 +205,19 @@
       "error": "உங்கள் உரிமத்தை இன்னும் எங்களால் கண்டறிய முடியவில்லை. சிறிது நேரத்தில் இந்தப் பக்கத்தை மீண்டும் ஏற்றவும்.",
       "no_session": "அமர்வு காணவில்லை — உங்கள் வாங்குதல் உறுதிப்படுத்தலில் இருந்த இணைப்பைப் பயன்படுத்தவும்.",
       "footer_note": "பணம் செலுத்திய பிறகு இந்தப் பக்கம் தானாகவே சில வினாடிகள் சரிபார்க்கும். எதுவும் தோன்றவில்லை என்றால், பக்கத்தை மீண்டும் ஏற்றவும் அல்லது உங்கள் பணம் செலுத்திய உறுதிப்படுத்தலுடன் {support_email}க்கு மின்னஞ்சல் அனுப்பவும்."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
     }
   }
 }

@@ -58,6 +58,14 @@
   .btn-primary:hover { background: #d9bb82; text-decoration: none; }
   .btn-ghost { border-color: var(--border); color: var(--text); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+  .cta-disabled { opacity: 0.4; pointer-events: none; cursor: not-allowed; }
+
+  .consent-row {
+    max-width: 640px; margin: 0 auto 28px; display: flex; gap: 10px; align-items: flex-start;
+    font-size: 0.85rem; color: var(--text-dim); line-height: 1.5;
+  }
+  .consent-row input { margin-top: 3px; width: 17px; height: 17px; flex-shrink: 0; }
+  .consent-row a { color: var(--accent); }
 
   .hero { padding: 88px 24px 76px; overflow: hidden; }
   .hero-grid { display: flex; align-items: center; gap: 56px; }
@@ -242,6 +250,16 @@
   <div class="wrap">
     <h2 data-i18n="website.pricing.h2">Simple, honest pricing</h2>
     <p class="section-lead" data-i18n="website.pricing.lead">Free forever: 1 download a day in full HD/4K quality. Unlimited with Pro.</p>
+    <div class="consent-row">
+      <input type="checkbox" id="withdrawal-consent" />
+      <label for="withdrawal-consent" data-i18n-html="website.pricing.consent_label">
+        I request that access begins immediately, before the 14-day statutory withdrawal
+        period ends, and I understand that this means I lose my right of withdrawal once
+        the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can
+        still request a full refund within 14 days via our {refund_start}refund page{refund_end}
+        regardless.
+      </label>
+    </div>
     <div class="pricing">
       <div class="price-card">
         <h3 data-i18n="website.pricing.monthly_title">Monthly</h3>
@@ -323,6 +341,19 @@
 </footer>
 
 <script src="/i18n.js"></script>
-<script>dtInitI18n();</script>
+<script>
+  dtInitI18n();
+  document.getElementById('withdrawal-consent').addEventListener('change', () => {
+    dtUpdateStripeLinks();
+  });
+  // Defensive fallback alongside the CSS .cta-disabled (pointer-events:none) -
+  // a keyboard Enter on a focused <a> isn't blocked by pointer-events, so this
+  // makes sure an un-consented click never reaches Stripe either way.
+  document.querySelectorAll('a[data-stripe-link]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      if (a.classList.contains('cta-disabled')) e.preventDefault();
+    });
+  });
+</script>
 </body>
 </html>
