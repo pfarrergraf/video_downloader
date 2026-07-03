@@ -8,7 +8,9 @@ from video_downloader import android_entry
 def test_start_wires_store_and_output_dir(tmp_path: Path, monkeypatch) -> None:
     captured = {}
 
-    def fake_run_server(*, store, output_dir, password, host, port, workers, ffmpeg_binary, license_manager):
+    def fake_run_server(
+        *, store, output_dir, password, host, port, workers, ffmpeg_binary, license_manager, app_version
+    ):
         captured["store"] = store
         captured["output_dir"] = output_dir
         captured["password"] = password
@@ -17,6 +19,7 @@ def test_start_wires_store_and_output_dir(tmp_path: Path, monkeypatch) -> None:
         captured["workers"] = workers
         captured["ffmpeg_binary"] = ffmpeg_binary
         captured["license_manager"] = license_manager
+        captured["app_version"] = app_version
 
     monkeypatch.setattr(android_entry, "run_server", fake_run_server)
 
@@ -31,6 +34,7 @@ def test_start_wires_store_and_output_dir(tmp_path: Path, monkeypatch) -> None:
     assert captured["port"] == 8420
     assert captured["ffmpeg_binary"] == "/opt/bin/ffmpeg"
     assert captured["license_manager"] is None  # no license_api_base passed -> licensing off
+    assert captured["app_version"] == ""
 
 
 def test_start_wires_license_manager_when_api_base_given(tmp_path: Path, monkeypatch) -> None:

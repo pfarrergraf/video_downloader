@@ -227,6 +227,11 @@
     display: flex; align-items: center; justify-content: center; z-index: 50; padding: 1rem;
   }
   #login-overlay .card { max-width: 320px; width: 100%; }
+  #terms-overlay {
+    position: fixed; inset: 0; background: rgba(6,5,12,0.95);
+    display: flex; align-items: center; justify-content: center; z-index: 52; padding: 1rem;
+  }
+  #terms-overlay .card { max-width: 420px; width: 100%; max-height: 90vh; overflow-y: auto; }
   #settings-overlay {
     position: fixed; inset: 0; background: rgba(6,5,12,0.7);
     display: flex; align-items: flex-end; justify-content: center; z-index: 55;
@@ -296,6 +301,30 @@
   </div>
 </div>
 
+<div id="terms-overlay" class="hidden">
+  <div class="card">
+    <h2 data-i18n="app.terms.title">Before you start</h2>
+    <p class="muted" data-i18n="app.terms.body">
+      This app is a technical tool for downloading media from links you provide yourself.
+      You are solely responsible for making sure you're allowed to download and use the
+      content behind any link you enter — the developer takes no responsibility for what
+      you download.
+    </p>
+    <div class="row" style="margin-top:0.4rem;">
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/agb.html" target="_blank" rel="noopener" data-i18n="app.terms.link_terms">Terms of use</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/datenschutz.html" target="_blank" rel="noopener" data-i18n="app.terms.link_privacy">Privacy policy</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/impressum.html" target="_blank" rel="noopener" data-i18n="app.terms.link_imprint">Imprint</a>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="terms-checkbox" />
+      <label for="terms-checkbox" style="margin:0" data-i18n="app.terms.checkbox_label">I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.</label>
+    </div>
+    <div class="row">
+      <button class="primary" id="terms-accept-btn" disabled><span aria-hidden="true">✔️</span> <span data-i18n="app.terms.continue_btn">Continue</span></button>
+    </div>
+  </div>
+</div>
+
 <div id="settings-overlay" class="hidden">
   <div class="card">
     <h2 data-i18n="app.settings.title">Settings</h2>
@@ -313,6 +342,21 @@
       <button class="ghost" id="settings-folder-reset-btn"><span aria-hidden="true">🔄</span> <span data-i18n="app.settings.folder_reset_btn">Reset to default</span></button>
     </div>
     <p class="muted hidden" id="settings-folder-unsupported" data-i18n="app.settings.folder_not_supported">Only available in the Android app.</p>
+
+    <label data-i18n="app.about.title">About</label>
+    <p class="muted">
+      <span data-i18n="app.about.developed_by">Developed by</span> Benjamin Graf
+      <span id="settings-app-version"></span>
+    </p>
+    <div class="row" style="margin-top:0;">
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/agb.html" target="_blank" rel="noopener" data-i18n="app.terms.link_terms">Terms of use</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/datenschutz.html" target="_blank" rel="noopener" data-i18n="app.terms.link_privacy">Privacy policy</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/impressum.html" target="_blank" rel="noopener" data-i18n="app.terms.link_imprint">Imprint</a>
+    </div>
+    <p class="muted" style="font-size:0.75rem; margin-top:0.6rem;" data-i18n="app.about.licenses">
+      Uses yt-dlp (Unlicense), FFmpeg &amp; LAME (LGPL), Chaquopy (MIT), requests &amp;
+      Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0).
+    </p>
 
     <div class="row">
       <button class="primary" id="settings-close-btn"><span aria-hidden="true">✔️</span> <span data-i18n="app.settings.close_btn">Close</span></button>
@@ -535,11 +579,45 @@ async function checkAuth() {
   } catch (e) { setAuthed(false); }
 }
 
-function setAuthed(authed) {
+async function setAuthed(authed) {
   $('login-overlay').classList.toggle('hidden', authed);
-  $('app').classList.toggle('hidden', !authed);
-  if (authed) { refreshQueue(); refreshLicense(); refreshSettings(); }
+  if (!authed) {
+    $('terms-overlay').classList.add('hidden');
+    $('app').classList.add('hidden');
+    return;
+  }
+
+  let termsAccepted = true;
+  try {
+    const settings = await api('/api/settings');
+    termsAccepted = !!settings.terms_accepted;
+  } catch (e) {
+    // Couldn't check (transient error) - don't get the user stuck behind a
+    // gate they already passed before; show the app rather than the gate.
+  }
+
+  if (!termsAccepted) {
+    $('app').classList.add('hidden');
+    $('terms-overlay').classList.remove('hidden');
+    return;
+  }
+
+  $('terms-overlay').classList.add('hidden');
+  $('app').classList.remove('hidden');
+  refreshQueue(); refreshLicense(); refreshSettings();
 }
+
+$('terms-checkbox').addEventListener('change', (e) => {
+  $('terms-accept-btn').disabled = !e.target.checked;
+});
+$('terms-accept-btn').addEventListener('click', async () => {
+  try {
+    await api('/api/settings', { method: 'POST', body: { accept_terms: true } });
+    setAuthed(true);
+  } catch (e) {
+    toast(e.message || '');
+  }
+});
 
 async function refreshLicense() {
   try {
@@ -601,6 +679,7 @@ async function refreshSettings() {
     $('settings-folder-pick-btn').classList.toggle('hidden', !androidAvailable);
     $('settings-folder-reset-btn').classList.toggle('hidden', !androidAvailable || !settings.export_folder_label);
     $('settings-folder-unsupported').classList.toggle('hidden', androidAvailable);
+    $('settings-app-version').textContent = settings.app_version ? `· v${settings.app_version}` : '';
   } catch (e) {
     // Not authenticated yet — settings will refresh once login succeeds.
   }

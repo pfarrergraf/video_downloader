@@ -42,6 +42,10 @@ AUDIO_PROFILE_NAME = "web-audio"
 # doesn't silently balloon a phone download.
 DEFAULT_QUALITY_HEIGHT = 2160
 ALLOWED_QUALITY_HEIGHTS = {240, 480, 720, 1080, 1440, 2160}
+# Bump this to force every existing install to re-accept the terms overlay
+# (see /api/settings) the next time it's materially changed - stored per
+# install in QueueStore's settings table as "terms_accepted_version".
+CURRENT_TERMS_VERSION = "2026-07"
 # Statuses that count against the free tier's daily quota: an attempt that's
 # running or succeeded uses up the day's download. Cancelled/failed jobs
 # don't, so a user isn't punished for a source that didn't work out.
@@ -186,6 +190,7 @@ class ClassyDLServer(ThreadingHTTPServer):
         workers: int,
         ffmpeg_binary: str = "ffmpeg",
         license_manager: LicenseManager | None = None,
+        app_version: str = "",
     ) -> None:
         super().__init__(address, ClassyDLRequestHandler)
         self.store = store
@@ -193,6 +198,7 @@ class ClassyDLServer(ThreadingHTTPServer):
         self.password = password
         self.ffmpeg_binary = ffmpeg_binary
         self.license_manager = license_manager
+        self.app_version = app_version
         self.sessions = SessionStore()
         self.worker = BackgroundQueueWorker(store=store, output_dir=output_dir, workers=workers)
 
@@ -329,6 +335,8 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 {
                     "language": store.get_setting("language", "auto"),
                     "export_folder_label": store.get_setting("export_folder_label"),
+                    "terms_accepted": store.get_setting("terms_accepted_version") == CURRENT_TERMS_VERSION,
+                    "app_version": self.server.app_version,
                 },
             )
             return
@@ -404,6 +412,8 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                     store.set_setting("export_folder_uri", body["export_folder_uri"])
                 if isinstance(body.get("export_folder_label"), str) and body["export_folder_label"]:
                     store.set_setting("export_folder_label", body["export_folder_label"])
+            if body.get("accept_terms") is True:
+                store.set_setting("terms_accepted_version", CURRENT_TERMS_VERSION)
             self._send_json(200, {"saved": True})
             return
 
@@ -570,6 +580,7 @@ def create_server(
     workers: int = 3,
     ffmpeg_binary: str = "ffmpeg",
     license_manager: LicenseManager | None = None,
+    app_version: str = "",
 ) -> ClassyDLServer:
     if not password:
         raise ValueError(
@@ -584,6 +595,7 @@ def create_server(
         workers=workers,
         ffmpeg_binary=ffmpeg_binary,
         license_manager=license_manager,
+        app_version=app_version,
     )
 
 
@@ -597,6 +609,7 @@ def run_server(
     workers: int = 3,
     ffmpeg_binary: str = "ffmpeg",
     license_manager: LicenseManager | None = None,
+    app_version: str = "",
 ) -> None:
     server = create_server(
         store=store,
@@ -607,6 +620,7 @@ def run_server(
         workers=workers,
         ffmpeg_binary=ffmpeg_binary,
         license_manager=license_manager,
+        app_version=app_version,
     )
     server.start_background_worker()
     try:

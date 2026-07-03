@@ -90,6 +90,20 @@
       "p1080": "Full HD (1080p)",
       "p1440": "2K (1440p)",
       "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Bevor du startest",
+      "body": "Diese App ist ein technisches Werkzeug, mit dem du Medien von selbst eingegebenen Links herunterlädst. Du bist allein dafür verantwortlich, sicherzustellen, dass du berechtigt bist, die Inhalte hinter einem Link herunterzuladen und zu nutzen — der Entwickler übernimmt keine Verantwortung dafür, was du herunterlädst.",
+      "link_terms": "Nutzungsbedingungen",
+      "link_privacy": "Datenschutz",
+      "link_imprint": "Impressum",
+      "checkbox_label": "Ich habe die Nutzungsbedingungen gelesen und akzeptiere sie. Mir ist bewusst, dass ich allein für die von mir heruntergeladenen Inhalte verantwortlich bin.",
+      "continue_btn": "Weiter"
+    },
+    "about": {
+      "title": "Über diese App",
+      "developed_by": "Entwickelt von",
+      "licenses": "Verwendet yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) und AndroidX (Apache-2.0)."
     }
   },
   "website": {
@@ -171,7 +185,8 @@
       "imprint": "Impressum",
       "privacy": "Datenschutz",
       "support": "Support",
-      "copyright": "© 2026 DownloadThat. Alle Rechte vorbehalten."
+      "copyright": "© 2026 DownloadThat. Alle Rechte vorbehalten.",
+      "terms": "AGB"
     },
     "success": {
       "title": "Danke — DownloadThat Pro",

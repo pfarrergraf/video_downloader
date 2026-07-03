@@ -90,6 +90,20 @@
       "p1080": "Full HD (1080p)",
       "p1440": "2K (1440p)",
       "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
     }
   },
   "website": {
@@ -171,7 +185,8 @@
       "imprint": "Colofon",
       "privacy": "Privacy",
       "support": "Ondersteuning",
-      "copyright": "© 2026 DownloadThat. Alle rechten voorbehouden."
+      "copyright": "© 2026 DownloadThat. Alle rechten voorbehouden.",
+      "terms": "Terms"
     },
     "success": {
       "title": "Bedankt — DownloadThat Pro",

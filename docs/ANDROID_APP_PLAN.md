@@ -410,6 +410,24 @@ publisher/signing identity, not the technique itself.
   (German; Play Console doesn't require English specifically, but consider adding an
   English version before a Production listing, since store review skews toward
   English-language material).
+- **Legal prep, done ahead of time**: `pro/website/agb.html` (Terms of Use draft,
+  including the liability disclaimer that the user — not the developer — is
+  responsible for the legality of what they download; **explicitly marked as a
+  draft needing a lawyer's review before real/live use**, especially the digital-
+  content withdrawal-right clause, which the current Stripe Payment Link checkout
+  doesn't yet capture the required explicit consent for). Impressum/Datenschutz name
+  placeholders filled in with "Benjamin Graf" (address/phone/VAT still placeholders —
+  can't be filled in without the real values). In-app: a first-launch terms
+  acceptance gate (`#terms-overlay` in `static/index.html`, persisted via
+  `QueueStore` as `terms_accepted_version`, gated on `server.py`'s
+  `CURRENT_TERMS_VERSION` so bumping that constant re-prompts everyone) and an
+  "About" section in Settings (developer name, links to the legal pages, open-source
+  license attribution for yt-dlp/ffmpeg/LAME/Chaquopy/etc.).
+- **Store listing assets prepared ahead of time**: `store_assets/` (512×512 icon,
+  1024×500 feature graphic, three real screenshots of the running app captured via
+  Playwright, and short/full description text in German and English) — see
+  `store_assets/README.md`. Excluded from the Chaquopy Python source set
+  (`build.gradle`) like `pro/**`.
 - **Done ahead of the 2026-08-31 deadline**: `compileSdk`/`targetSdk` bumped to 36,
   AGP to 8.13.0 (min Gradle 8.13, defaults to NDK 27.0.12077973 — the first NDK
   release whose linker defaults to 16 KB page-aligned native libraries), and the

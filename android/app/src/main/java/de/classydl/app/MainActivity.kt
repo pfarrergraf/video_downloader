@@ -219,7 +219,10 @@ class MainActivity : AppCompatActivity() {
                     .resolve("classydl-downloads").absolutePath
                 Python.getInstance()
                     .getModule("video_downloader.android_entry")
-                    .callAttr("start", dataDir, outputDir, password, PORT, resolveFfmpegBinary(), resolveLicenseApiBase())
+                    .callAttr(
+                        "start", dataDir, outputDir, password, PORT, resolveFfmpegBinary(),
+                        resolveLicenseApiBase(), BuildConfig.VERSION_NAME,
+                    )
             } catch (e: Throwable) {
                 Log.e(TAG, "Server thread crashed", e)
             }

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nutzungsbedingungen (AGB) — DownloadThat</title>
+<style>
+  :root {
+    --bg: #0e0c14;
+    --bg-elevated: #16121f;
+    --card: #1b1626;
+    --border: #2c2438;
+    --text: #f1ede4;
+    --text-dim: #a89fb3;
+    --accent: #c9a869;
+    --accent-dim: #8a713f;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(14, 12, 20, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 720px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.02em; color: var(--text); }
+  .brand-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(160deg, var(--accent), var(--accent-dim));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: #14111c;
+  }
+
+  main { padding: 56px 24px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 8px; }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 40px; }
+  h2 { font-size: 1.15rem; color: var(--accent); margin: 36px 0 10px; }
+  h3 { font-size: 1rem; color: var(--text); margin: 24px 0 8px; }
+  p, li { color: var(--text-dim); line-height: 1.7; margin: 0 0 12px; }
+  ul { padding-left: 20px; margin: 0 0 12px; }
+  strong { color: var(--text); }
+  .placeholder {
+    background: var(--bg-elevated); border: 1px dashed var(--accent-dim);
+    color: var(--accent); border-radius: 4px; padding: 2px 6px;
+    font-style: italic; white-space: nowrap;
+  }
+  .notice {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 36px; font-size: 0.9rem; color: var(--text-dim);
+  }
+  .highlight {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-left: 3px solid #ff8a5c; border-radius: 8px;
+    padding: 16px 20px; margin: 16px 0; font-size: 0.95rem;
+  }
+
+  footer { border-top: 1px solid var(--border); padding: 36px 24px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+  footer a { color: var(--text-dim); }
+  footer .foot-links { display: flex; gap: 18px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="brand-icon">⬇</span> DownloadThat</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Nutzungsbedingungen (AGB)</h1>
+    <p class="subtitle">Stand: Juli 2026</p>
+
+    <div class="notice">
+      ⚠️ <strong>Hinweis für den Seitenbetreiber — WICHTIG:</strong> Dies ist ein
+      <strong>Entwurf</strong>, kein von einem Anwalt geprüfter Rechtstext. Insbesondere
+      der Haftungsausschluss (§6) und die Regelung zum Widerrufsrecht bei digitalen
+      Inhalten (§5.3) sind rechtlich anspruchsvoll — deutsches Recht lässt z. B. keinen
+      wirksamen Ausschluss der Haftung für Vorsatz, grobe Fahrlässigkeit oder Schäden an
+      Leben/Körper/Gesundheit zu (§ 309 Nr. 7 BGB), und ein wirksamer vorzeitiger
+      Verzicht auf das Widerrufsrecht bei digitalen Inhalten setzt eine ausdrückliche,
+      dokumentierte Zustimmung des Kunden <em>im Bestellprozess selbst</em> voraus (§ 356
+      Abs. 5 BGB) — das aktuelle Stripe-Payment-Link-Setup fragt das nicht ausdrücklich
+      ab. Bitte vor echtem, produktivem Einsatz (insbesondere vor der ersten echten
+      Zahlung außerhalb des Testmodus) von einem Anwalt für IT-/Urheberrecht prüfen
+      lassen. Alle <span class="placeholder">[PLATZHALTER]</span> müssen vorher ausgefüllt
+      werden.
+    </div>
+
+    <h2>§1 Geltungsbereich</h2>
+    <p>
+      Diese Nutzungsbedingungen gelten für die Nutzung der Anwendung „DownloadThat"
+      (im Folgenden „App") sowie der zugehörigen Website und der optionalen
+      Pro-Lizenzierung (zusammen „der Dienst"), angeboten von
+      Benjamin Graf (siehe
+      <a href="impressum.html">Impressum</a>, im Folgenden „Anbieter").
+    </p>
+
+    <h2>§2 Leistungsbeschreibung</h2>
+    <p>
+      Die App ist ein technisches Werkzeug, mit dem Nutzer öffentlich über das
+      Internet erreichbare Medieninhalte (Video, Audio, Bilder) von einer
+      selbst gewählten, vom Nutzer eingegebenen Internetadresse (URL) auf ihr
+      eigenes Gerät herunterladen können. Der Anbieter stellt selbst keine
+      Medieninhalte bereit, betreibt keine Plattform mit fremden Inhalten und hat
+      keinen Einfluss darauf, welche URLs Nutzer in die App eingeben oder was sich
+      hinter diesen URLs befindet.
+    </p>
+    <p>
+      Ein Teil der Funktionen („Pro") ist kostenpflichtig und schaltet ein höheres
+      tägliches Download-Kontingent frei (siehe Preisseite). Die kostenlose Version
+      bleibt in Qualität und Funktionsumfang ansonsten unverändert nutzbar.
+    </p>
+
+    <h2>§3 Nutzungsvoraussetzungen</h2>
+    <p>
+      Die Nutzung der App setzt die Fähigkeit zum Abschluss rechtsverbindlicher
+      Erklärungen voraus. Minderjährige benötigen die Zustimmung ihrer
+      Erziehungsberechtigten, insbesondere für den Erwerb einer kostenpflichtigen
+      Pro-Lizenz.
+    </p>
+
+    <h2>§4 Verantwortung des Nutzers für heruntergeladene Inhalte</h2>
+    <div class="highlight">
+      <p>
+        <strong>Der Nutzer ist allein und ausschließlich dafür verantwortlich,
+        sicherzustellen, dass er berechtigt ist, die von ihm ausgewählten Inhalte
+        herunterzuladen, zu speichern und zu verwenden.</strong> Dies gilt insbesondere
+        für urheberrechtlich geschützte Werke (z. B. Musik, Filme, Videos, Fotos).
+        Das bloße öffentliche Zugänglichsein eines Inhalts im Internet begründet
+        <strong>kein</strong> Recht zu dessen Vervielfältigung.
+      </p>
+      <p>
+        Die App verarbeitet ausschließlich vom Nutzer selbst eingegebene Adressen
+        (URLs). Der Anbieter prüft nicht und kann nicht prüfen, ob der Nutzer an den
+        jeweiligen Inhalten die erforderlichen Rechte besitzt, und übernimmt hierfür
+        keine Verantwortung. Nutzer, die Inhalte ohne die erforderlichen Rechte
+        herunterladen, handeln allein auf eigenes rechtliches Risiko und stellen den
+        Anbieter von sämtlichen Ansprüchen Dritter frei, die aus einer solchen
+        rechtswidrigen Nutzung entstehen (§ 5).
+      </p>
+    </div>
+    <p>
+      Verboten sind insbesondere: das Herunterladen und Verbreiten
+      urheberrechtlich geschützter Inhalte ohne Erlaubnis des Rechteinhabers, die
+      Umgehung technischer Schutzmaßnahmen entgegen § 95a UrhG, sowie jede Nutzung,
+      die gegen die Nutzungsbedingungen der jeweiligen Quell-Plattform verstößt.
+    </p>
+
+    <h2>§5 Freistellung</h2>
+    <p>
+      Der Nutzer stellt den Anbieter von allen Ansprüchen Dritter (einschließlich
+      angemessener Rechtsverfolgungskosten) frei, die gegen den Anbieter aufgrund
+      einer rechtswidrigen Nutzung der App durch den Nutzer geltend gemacht werden,
+      soweit der Nutzer die Rechtswidrigkeit zu vertreten hat.
+    </p>
+
+    <h2>§6 Pro-Version, Zahlung, Widerruf</h2>
+    <h3>6.1 Vertragsschluss und Zahlung</h3>
+    <p>
+      Der Erwerb einer Pro-Lizenz erfolgt über den Zahlungsdienstleister Stripe.
+      Mit erfolgreichem Zahlungsabschluss erhält der Nutzer einen Lizenzschlüssel
+      zur Freischaltung in der App. Details zur Datenverarbeitung siehe
+      <a href="datenschutz.html">Datenschutzerklärung</a>.
+    </p>
+    <h3>6.2 Laufzeit und Kündigung</h3>
+    <p>
+      Monats- und Jahresabos verlängern sich automatisch um die jeweilige
+      Laufzeit, sofern sie nicht vor Ablauf gekündigt werden. Die
+      lebenslange Lizenz ist ein einmaliger Kauf ohne wiederkehrende Zahlung.
+      Die Kündigung erfolgt über das Stripe-Kundenportal oder per E-Mail an
+      <a href="mailto:support@gaistreich.com">support@gaistreich.com</a>.
+    </p>
+    <h3>6.3 Widerrufsrecht bei digitalen Inhalten</h3>
+    <p>
+      Verbrauchern steht grundsätzlich ein 14-tägiges Widerrufsrecht bei
+      Fernabsatzverträgen zu. Dieses Widerrufsrecht erlischt bei Verträgen über
+      digitale Inhalte vorzeitig, wenn der Anbieter mit der Ausführung des Vertrags
+      begonnen hat, <strong>nachdem</strong> der Verbraucher ausdrücklich zugestimmt
+      hat, dass der Anbieter vor Ablauf der Widerrufsfrist mit der Vertragsausführung
+      beginnt, und seine Kenntnis davon bestätigt hat, dass er durch seine Zustimmung
+      sein Widerrufsrecht verliert (§ 356 Abs. 5 BGB).
+      <span class="placeholder">[Diese ausdrückliche Zustimmung muss im Bestellprozess
+      selbst eingeholt werden — aktuell durch das Stripe-Payment-Link-Setup noch nicht
+      abgedeckt. Vor echtem Verkaufsstart nachrüsten und von einem Anwalt prüfen
+      lassen.]</span>
+    </p>
+
+    <h2>§7 Verfügbarkeit</h2>
+    <p>
+      Der Anbieter bemüht sich um eine möglichst unterbrechungsfreie Verfügbarkeit
+      des Dienstes, übernimmt hierfür jedoch keine Garantie. Wartungsarbeiten,
+      höhere Gewalt oder Änderungen an von der App genutzten Drittanbieter-Diensten
+      (z. B. Video-Plattformen) können die Funktionsfähigkeit einzelner Funktionen
+      beeinträchtigen.
+    </p>
+
+    <h2>§8 Haftung</h2>
+    <p>
+      Der Anbieter haftet unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie
+      für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit.
+      Für leicht fahrlässige Pflichtverletzungen haftet der Anbieter nur, soweit
+      eine wesentliche Vertragspflicht (Kardinalpflicht) verletzt wird, und in
+      diesem Fall beschränkt auf den vorhersehbaren, vertragstypischen Schaden.
+      Im Übrigen ist die Haftung des Anbieters ausgeschlossen.
+    </p>
+    <p>
+      Der Anbieter haftet insbesondere nicht für Schäden, Ansprüche Dritter oder
+      rechtliche Konsequenzen, die dem Nutzer aus der von ihm selbst
+      veranlassten Verarbeitung einer bestimmten URL entstehen — siehe §4.
+    </p>
+
+    <h2>§9 Änderungen dieser Nutzungsbedingungen</h2>
+    <p>
+      Der Anbieter kann diese Nutzungsbedingungen mit Wirkung für die Zukunft
+      ändern, soweit dies zur Anpassung an geänderte rechtliche oder technische
+      Rahmenbedingungen erforderlich ist. Über wesentliche Änderungen wird der
+      Nutzer bei nächster Gelegenheit in der App informiert und um erneute
+      Zustimmung gebeten.
+    </p>
+
+    <h2>§10 Schlussbestimmungen</h2>
+    <p>
+      Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des
+      UN-Kaufrechts. Ist der Nutzer Verbraucher mit Wohnsitz in einem anderen
+      EU-Mitgliedstaat, bleiben zwingende verbraucherschützende Vorschriften
+      dieses Staates unberührt. Sollten einzelne Bestimmungen dieser
+      Nutzungsbedingungen unwirksam sein, bleibt die Wirksamkeit der übrigen
+      Bestimmungen unberührt.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html">Startseite</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">Nutzungsbedingungen</a>
+      <a href="mailto:support@gaistreich.com">Support</a>
+    </div>
+    <div>© 2026 DownloadThat. Alle Rechte vorbehalten.</div>
+  </div>
+</footer>
+
+</body>
+</html>

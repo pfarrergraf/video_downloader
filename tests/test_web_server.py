@@ -441,7 +441,12 @@ def test_settings_defaults_to_auto_language_and_no_folder(server: ClassyDLServer
     cookie = _login(server)
     status, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
     assert status == 200
-    assert body == {"language": "auto", "export_folder_label": None}
+    assert body == {
+        "language": "auto",
+        "export_folder_label": None,
+        "terms_accepted": False,
+        "app_version": "",
+    }
 
 
 def test_settings_persists_language(server: ClassyDLServer) -> None:
@@ -469,6 +474,42 @@ def test_settings_stores_and_resets_export_folder(server: ClassyDLServer) -> Non
     _request(server, "POST", "/api/settings", {"reset_folder": True}, cookie=cookie)
     _, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
     assert body["export_folder_label"] is None
+
+
+def test_settings_accept_terms_persists(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    _, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    assert body["terms_accepted"] is False
+
+    status, _, _ = _request(server, "POST", "/api/settings", {"accept_terms": True}, cookie=cookie)
+    assert status == 200
+
+    _, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    assert body["terms_accepted"] is True
+
+
+def test_settings_reports_configured_app_version(tmp_path: Path) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    srv = create_server(
+        store=store,
+        output_dir=tmp_path / "downloads",
+        password="crypt-keeper",
+        host="127.0.0.1",
+        port=0,
+        workers=1,
+        app_version="1.2.3",
+    )
+    thread = threading.Thread(target=srv.serve_forever, daemon=True)
+    thread.start()
+    try:
+        cookie = _login(srv)
+        _, body, _ = _request(srv, "GET", "/api/settings", cookie=cookie)
+        assert body["app_version"] == "1.2.3"
+    finally:
+        srv.shutdown()
+        srv.stop_background_worker()
+        srv.server_close()
 
 
 def test_settings_requires_auth(server: ClassyDLServer) -> None:

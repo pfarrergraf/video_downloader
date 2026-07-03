@@ -159,6 +159,9 @@ chaquopy {
             // Cloudflare Worker + marketing website for the paid tier's backend —
             // JS/HTML for a separate deployment, not part of the Python package.
             exclude "pro/**"
+            // Play Console listing assets (icon/screenshots/feature graphic) —
+            // marketing files, not part of the Python package.
+            exclude "store_assets/**"
         }
     }
 }

@@ -172,6 +172,7 @@ def start(
     port: int,
     ffmpeg_binary: str = "ffmpeg",
     license_api_base: str = "",
+    app_version: str = "",
 ) -> None:
     global _current_store
     store = QueueStore(Path(data_dir) / "state.db")
@@ -201,4 +202,5 @@ def start(
         workers=2,
         ffmpeg_binary=ffmpeg_binary,
         license_manager=license_manager,
+        app_version=app_version,
     )
