@@ -168,6 +168,31 @@ jobs:
           cp app/build/outputs/apk/release/app-release.apk "release-out/DownloadThat-${RELEASE_TAG}.apk"
           cp app/build/outputs/apk/release/app-release.apk "release-out/DownloadThat-latest.apk"
 
+      # Lets testers (and android-beta.html) verify the APK they downloaded
+      # actually came from this CI build, not a tampered copy from elsewhere.
+      - name: Generate SHA-256 checksums
+        run: |
+          cd release-out
+          sha256sum "DownloadThat-${RELEASE_TAG}.apk" > "DownloadThat-${RELEASE_TAG}.apk.sha256"
+          sha256sum "DownloadThat-latest.apk" > "DownloadThat-latest.apk.sha256"
+
+      - name: Generate release metadata JSON
+        run: |
+          GENERATED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          SHA256="$(awk '{print $1}' release-out/DownloadThat-latest.apk.sha256)"
+          cat > release-out/DownloadThat-release.json <<JSON
+          {
+            "appName": "DownloadThat",
+            "packageName": "de.classydl.app",
+            "versionName": "${VERSION_NAME}",
+            "versionCode": ${VERSION_CODE},
+            "apkFile": "DownloadThat-latest.apk",
+            "sha256": "${SHA256}",
+            "releaseTag": "${RELEASE_TAG}",
+            "generatedAt": "${GENERATED_AT}"
+          }
+          JSON
+
       - name: Attach APK to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -182,5 +207,8 @@ jobs:
           target_commitish: ${{ github.sha }}
           files: |
             android/release-out/DownloadThat-${{ env.RELEASE_TAG }}.apk
+            android/release-out/DownloadThat-${{ env.RELEASE_TAG }}.apk.sha256
             android/release-out/DownloadThat-latest.apk
+            android/release-out/DownloadThat-latest.apk.sha256
+            android/release-out/DownloadThat-release.json
           generate_release_notes: true
