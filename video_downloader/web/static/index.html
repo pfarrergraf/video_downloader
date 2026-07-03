@@ -783,7 +783,10 @@ async function refreshQueue() {
   }
 }
 
-setInterval(() => { if (!$('app').classList.contains('hidden')) refreshQueue(); }, 4000);
+// 1.5s rather than 4s: short downloads (e.g. small audio-only files) can
+// otherwise finish between polls, so the queue jumps straight from
+// "pending" to "completed" and the progress bar is never seen at all.
+setInterval(() => { if (!$('app').classList.contains('hidden')) refreshQueue(); }, 1500);
 // Disabled until the initial language load resolves: logging in before then
 // (e.g. a password manager's autofill+autosubmit racing the /i18n/en.json
 // fetch) would call setAuthed(true) while STRINGS is still {}, briefly

@@ -85,14 +85,20 @@ class MainActivity : AppCompatActivity() {
             // without this, following any link to a non-local page (e.g. one
             // reflected from a scraped site's content) would hand that page's
             // JavaScript the same native bridge (folder picker, etc.) that's
-            // meant only for our own bundled UI.
+            // meant only for our own bundled UI. The WebView itself must never
+            // navigate off 127.0.0.1, but legitimate outbound links (e.g. the
+            // "Get Pro" button linking to the marketing site) still need to go
+            // somewhere - hand those to the system browser instead of just
+            // silently swallowing them.
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-                val host = request?.url?.host
-                return if (host != "127.0.0.1") {
-                    true // blocked: don't navigate, don't hand off to another app either
-                } else {
-                    false
+                val url = request?.url ?: return true
+                if (url.host == "127.0.0.1") return false
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, url).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                } catch (e: Exception) {
+                    Log.e(TAG, "No app to handle $url", e)
                 }
+                return true
             }
 
             override fun onReceivedError(
