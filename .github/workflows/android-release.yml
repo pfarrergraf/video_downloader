@@ -134,6 +134,29 @@ jobs:
           gradle :app:assembleRelease -PabiFilters=arm64-v8a \
             -PversionNameOverride="$VERSION_NAME" -PversionCodeOverride="$VERSION_CODE" --stacktrace
 
+      # Play Console requires the .aab (App Bundle) format, not a raw APK -
+      # it re-signs this with the app signing key you choose during Play App
+      # Signing enrollment (the keystore below just needs to work as an
+      # "upload key", which our existing release keystore already does fine).
+      # Not attached to the GitHub Release (that's for direct/sideload
+      # installs); this is a separate build artifact for manual upload to
+      # Play Console during testing-track setup.
+      - name: Build signed release App Bundle for Play Console (arm64-v8a only)
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          gradle :app:bundleRelease -PabiFilters=arm64-v8a \
+            -PversionNameOverride="$VERSION_NAME" -PversionCodeOverride="$VERSION_CODE" --stacktrace
+
+      - name: Upload App Bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DownloadThat-${{ env.RELEASE_TAG }}.aab
+          path: android/app/build/outputs/bundle/release/app-release.aab
+
       # Two copies: the versioned name is what shows up on the release page;
       # the "-latest" name is a stable filename so the website's download
       # button (releases/latest/download/DownloadThat-latest.apk) never needs

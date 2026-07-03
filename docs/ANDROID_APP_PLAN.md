@@ -367,6 +367,55 @@ changed from MIT to proprietary (all-rights-reserved) as part of this — see `L
   Cloudflare/Stripe dashboard access, see `pro/README.md`), then updating
   `LICENSE_API_BASE`.
 
+### Phase 7 — Google Play Store publishing
+
+**Status: IN PROGRESS.** Triggered by Play Protect flagging the sideloaded APK as
+"Diese App ist eine Fälschung" (fake/malicious) specifically on *updates*, not fresh
+installs — the pattern matches Play Protect's real-time scanner, which is stricter
+about unregistered developers' apps that update themselves post-install (a common
+malware-dropper technique) and about a bundled executable that isn't a conventional
+JNI shared library (`libffmpeg.so` — see Phase 2 / "Known risks" below). Enrolling as
+a known Play Console developer (Play App Signing) is expected to resolve this
+regardless of the ffmpeg packaging trick, since the trust signal is about the
+publisher/signing identity, not the technique itself.
+
+- **CI now also builds a Play Console-ready artifact**: `android-release.yml`'s
+  `build-signed-release` job runs `gradle :app:bundleRelease` (same signing/version
+  overrides as the APK) and uploads `DownloadThat-<tag>.aab` as a workflow artifact
+  (Actions run → Artifacts, not attached to the public GitHub Release — that stays
+  APK-only for direct/sideload installs). The existing release keystore
+  (`ANDROID_KEYSTORE_*` secrets) works fine as the Play Console "upload key".
+- **Real policy risk, not just a technicality**: Google Play's Intellectual Property /
+  copyright policy explicitly prohibits apps that let users download copyrighted
+  streaming content (e.g. from YouTube) without authorization — a public "Production"
+  listing for a general-purpose video downloader is a real rejection/takedown risk,
+  disclaimer footer notwithstanding. **Internal testing** (or closed testing) doesn't
+  require passing that review and is the recommended track for now: builds are
+  available within seconds/minutes, up to 100 testers via an email allowlist, and —
+  critically — it still enrolls the app's signing identity with Play App Signing,
+  which is what should fix the Play Protect false-positive. Moving to a public
+  Production listing later is a separate decision with real rejection risk that needs
+  revisiting once the app is otherwise feature-complete.
+- **What only the account owner can do** (needs a real identity/payment, no MCP/tool
+  access from this sandbox): create a Google Play Console developer account (one-time
+  $25 fee), complete identity verification (legal name/address/phone; government ID
+  may be requested), create the app entry, choose "Internal testing" as the release
+  track, opt into Play App Signing (let Google manage the app signing key — the
+  keystore in this repo's secrets only needs to work as the *upload* key, which it
+  already does), upload the `.aab` from the workflow artifact, and fill in the Data
+  Safety form (this app collects no personal data beyond what's needed to validate a
+  pasted Pro license key against `pro/worker/`'s D1-backed endpoint — no ads SDK, no
+  analytics, no device identifiers collected).
+- **Privacy policy**: already exists and is public — `pro/website/datenschutz.html`
+  (German; Play Console doesn't require English specifically, but consider adding an
+  English version before a Production listing, since store review skews toward
+  English-language material).
+- **Near-term deadline to track, not urgent yet**: Google requires new apps/updates to
+  target Android 16 (API 36) from **2026-08-31**. `build.gradle` currently targets
+  `compileSdk 35` / `targetSdk 35`. Fine for Internal Testing today; bump both before
+  that date (and re-verify Chaquopy + `android-actions/setup-android`'s API 36
+  platform support in CI first — don't assume it "just works").
+
 ## Known risks / things that will probably need a fix-it round
 
 - **Resolved — hardcoded password:** `MainActivity.kt` used to hardcode
