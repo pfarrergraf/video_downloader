@@ -3,15 +3,18 @@ from __future__ import annotations
 from pathlib import Path
 
 from video_downloader.models import DownloadRequest
-from video_downloader.strategies import YtDlpStrategy, _audio_format_selector
+from video_downloader.strategies import YtDlpStrategy, _audio_format_selector, _video_format_selector
 
 
-def _make_request(tmp_path: Path, *, audio_only: bool, ffmpeg_binary: str = "ffmpeg") -> DownloadRequest:
+def _make_request(
+    tmp_path: Path, *, audio_only: bool, ffmpeg_binary: str = "ffmpeg", format_selector: str = "bv*+ba/b"
+) -> DownloadRequest:
     return DownloadRequest(
         source_url="https://example.com/video",
         output_dir=tmp_path,
         audio_only=audio_only,
         ffmpeg_binary=ffmpeg_binary,
+        format_selector=format_selector,
     )
 
 
@@ -66,3 +69,41 @@ def test_audio_only_with_ffmpeg_extracts_mp3(tmp_path: Path, monkeypatch) -> Non
     ]
     assert opts["ffmpeg_location"] == "ffmpeg"
     assert opts["format"] == "ba/b"
+
+
+def test_video_format_selector_keeps_configured_value_when_ffmpeg_available() -> None:
+    assert _video_format_selector("bv*+ba/b", ffmpeg_available=True) == "bv*+ba/b"
+
+
+def test_video_format_selector_falls_back_to_a_single_stream_without_ffmpeg() -> None:
+    # Regression test: this selector requests separate video+audio streams
+    # that need merging - without ffmpeg, yt-dlp aborted outright ("You have
+    # requested merging of multiple formats but ffmpeg is not installed")
+    # instead of falling back to a pre-muxed format the way audio already did.
+    assert _video_format_selector("bv*+ba/b", ffmpeg_available=False) == "best"
+
+
+def test_video_format_selector_leaves_a_no_merge_selector_untouched() -> None:
+    # A selector with no "+" (e.g. a user-supplied single-format string)
+    # never needed merging in the first place, so there's nothing to degrade.
+    assert _video_format_selector("best", ffmpeg_available=False) == "best"
+
+
+def test_video_without_ffmpeg_falls_back_to_single_stream_format(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
+    request = _make_request(tmp_path, audio_only=False, ffmpeg_binary="/no/such/ffmpeg")
+
+    opts = _run_and_capture_opts(monkeypatch, tmp_path, request)
+
+    assert "ffmpeg_location" not in opts
+    assert opts["format"] == "best"
+
+
+def test_video_with_ffmpeg_keeps_the_configured_selector(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: "/usr/bin/ffmpeg")
+    request = _make_request(tmp_path, audio_only=False)
+
+    opts = _run_and_capture_opts(monkeypatch, tmp_path, request)
+
+    assert opts["ffmpeg_location"] == "ffmpeg"
+    assert opts["format"] == "bv*+ba/b"

@@ -80,7 +80,11 @@ class YtDlpStrategy(Strategy):
 
         ydl_opts: dict[str, object] = {
             "outtmpl": {"default": str(request.output_dir / template)},
-            "format": _audio_format_selector(ffmpeg_available) if request.audio_only else request.format_selector,
+            "format": (
+                _audio_format_selector(ffmpeg_available)
+                if request.audio_only
+                else _video_format_selector(request.format_selector, ffmpeg_available)
+            ),
             "noplaylist": not request.allow_playlist,
             "restrictfilenames": True,
             "continuedl": True,
@@ -272,6 +276,20 @@ def _audio_format_selector(ffmpeg_available: bool) -> str:
     # stream or re-encode it — only ever pick a format that's already
     # audio-only, so the file it saves needs no further processing.
     return "bestaudio"
+
+
+def _video_format_selector(configured_selector: str, ffmpeg_available: bool) -> str:
+    if ffmpeg_available or "+" not in configured_selector:
+        return configured_selector
+    # The default/profile selector ("bv*+ba/b") explicitly requests separate
+    # best-video and best-audio streams merged together, which requires
+    # ffmpeg - yt-dlp aborts outright ("merging of multiple formats but
+    # ffmpeg is not installed") rather than silently downgrading. Falling
+    # back to a single pre-muxed stream mirrors what _audio_format_selector
+    # already does for audio: every device can still download *something*
+    # (typically capped below the split-stream-only 1080p+ tiers on YouTube)
+    # instead of failing outright whenever ffmpeg isn't resolvable.
+    return "best"
 
 
 def _tail_lines(text: str, count: int) -> str:
