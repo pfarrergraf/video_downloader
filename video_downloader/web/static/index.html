@@ -823,15 +823,13 @@ async function refreshQueue() {
 // otherwise finish between polls, so the queue jumps straight from
 // "pending" to "completed" and the progress bar is never seen at all.
 setInterval(() => { if (!$('app').classList.contains('hidden')) refreshQueue(); }, 1500);
-// Disabled until the initial language load resolves: logging in before then
-// (e.g. a password manager's autofill+autosubmit racing the /i18n/en.json
-// fetch) would call setAuthed(true) while STRINGS is still {}, briefly
-// showing raw i18n keys instead of translated text.
-$('login-btn').disabled = true;
-setLanguage('auto', { skipPersist: true }).then(() => {
-  $('login-btn').disabled = false;
-  checkAuth();
-});
+// NOTE: do not gate this on disabling #login-btn until i18n is ready (an
+// earlier attempt at that did exactly this) - MainActivity.kt's WebView
+// auto-login logs in by calling btn.click() from injected JS once the page
+// loads, and a disabled button silently ignores .click(), which broke the
+// normally-invisible auto-login and surfaced the password prompt (which
+// nobody is ever meant to see) with no way to know the real password.
+setLanguage('auto', { skipPersist: true }).then(checkAuth);
 </script>
 </body>
 </html>
