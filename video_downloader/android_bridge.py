@@ -60,6 +60,78 @@ def open_file(path: Path) -> bool:
         return False
 
 
+def open_folder(path: Path) -> bool:
+    """Fire an ACTION_VIEW intent asking a file manager to show `path`'s
+    parent directory.
+
+    Android has no first-class "show this folder" API — this relies on the
+    same "resource/folder" MIME-type trick most file managers (stock AOSP,
+    Files by Google, Samsung My Files) recognize. Not universal, so this is
+    deliberately best-effort: on a device with no app that understands it,
+    startActivity raises ActivityNotFoundException and this just returns
+    False instead of crashing.
+    """
+    try:
+        from java import jclass  # type: ignore[import-not-found]
+    except ImportError:
+        return False  # not running under Chaquopy (Termux/desktop/CLI)
+
+    try:
+        directory = path if path.is_dir() else path.parent
+        if not directory.is_dir():
+            return False
+        context = _application_context()
+
+        file_provider = jclass("androidx.core.content.FileProvider")
+        java_file = jclass("java.io.File")(str(directory))
+        uri = file_provider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, java_file)
+
+        intent_class = jclass("android.content.Intent")
+        intent = intent_class(intent_class.ACTION_VIEW)
+        intent.setDataAndType(uri, "resource/folder")
+        intent.addFlags(intent_class.FLAG_ACTIVITY_NEW_TASK | intent_class.FLAG_GRANT_READ_URI_PERMISSION)
+
+        context.startActivity(intent)
+        return True
+    except Exception:
+        traceback.print_exc()
+        return False
+
+
+def share_file(path: Path) -> bool:
+    """Fire an ACTION_SEND intent so the user can forward `path` via the
+    system share sheet (Bluetooth, messaging apps, email, etc.).
+    """
+    try:
+        from java import jclass  # type: ignore[import-not-found]
+    except ImportError:
+        return False  # not running under Chaquopy (Termux/desktop/CLI)
+
+    try:
+        if not path.is_file():
+            return False
+        context = _application_context()
+
+        file_provider = jclass("androidx.core.content.FileProvider")
+        java_file = jclass("java.io.File")(str(path))
+        uri = file_provider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, java_file)
+
+        mime_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+        intent_class = jclass("android.content.Intent")
+        send_intent = intent_class(intent_class.ACTION_SEND)
+        send_intent.setType(mime_type)
+        send_intent.putExtra(intent_class.EXTRA_STREAM, uri)
+        send_intent.addFlags(intent_class.FLAG_GRANT_READ_URI_PERMISSION)
+
+        chooser = intent_class.createChooser(send_intent, None)
+        chooser.addFlags(intent_class.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(chooser)
+        return True
+    except Exception:
+        traceback.print_exc()
+        return False
+
+
 def export_file(path: Path, tree_uri: str) -> bool:
     """Copy `path` into a user-chosen SAF directory tree (see MainActivity's
     folder picker, which persists `tree_uri` via set_export_folder()).

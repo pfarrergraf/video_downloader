@@ -38,7 +38,8 @@
       "search_failed_toast": "Search failed.",
       "queue_failed_toast": "Failed to queue.",
       "queue_selection_failed_toast": "Failed to queue selection.",
-      "need_selection_toast": "Select at least one item."
+      "need_selection_toast": "Select at least one item.",
+      "quality_label": "Video quality"
     },
     "batch": {
       "title": "Multiple links or a playlist",
@@ -58,7 +59,13 @@
       "queued_toast": "Queued.",
       "open_btn": "Open",
       "open_failed_toast": "Couldn't open this file — try the link instead.",
-      "open_unsupported_toast": "Opening files only works in the Android app."
+      "open_unsupported_toast": "Opening files only works in the Android app.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
     },
     "settings": {
       "gear_label": "Settings",
@@ -74,7 +81,16 @@
       "saved_toast": "Settings saved.",
       "close_btn": "Close"
     },
-    "footer": "DownloadThat — only download media you have the rights to."
+    "footer": "DownloadThat — only download media you have the rights to.",
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    }
   },
   "website": {
     "meta": {

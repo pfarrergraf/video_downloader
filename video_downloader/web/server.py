@@ -36,6 +36,12 @@ STATIC_DIR = Path(__file__).parent / "static"
 SESSION_COOKIE = "classydl_session"
 SESSION_TTL_SECONDS = 30 * 24 * 3600  # 30 days
 AUDIO_PROFILE_NAME = "web-audio"
+# Default cap applied when the client doesn't send an explicit quality_height
+# (older clients, or the UI's own "Auto" option) - the user asked for 4K as
+# the default ceiling, not fully uncapped, so a single 8K/60fps source
+# doesn't silently balloon a phone download.
+DEFAULT_QUALITY_HEIGHT = 2160
+ALLOWED_QUALITY_HEIGHTS = {240, 480, 720, 1080, 1440, 2160}
 # Statuses that count against the free tier's daily quota: an attempt that's
 # running or succeeded uses up the day's download. Cancelled/failed jobs
 # don't, so a user isn't punished for a source that didn't work out.
@@ -113,6 +119,17 @@ def _resolve_profile(store: QueueStore, audio_only: bool) -> DownloadProfile:
     return store.create_profile(
         DownloadProfile(id=None, name=AUDIO_PROFILE_NAME, format_selector="ba/b", audio_only=True)
     )
+
+
+def _resolve_quality_height(body: dict[str, Any]) -> int | None:
+    raw = body.get("quality_height")
+    if raw is None:
+        return DEFAULT_QUALITY_HEIGHT
+    try:
+        height = int(raw)
+    except (TypeError, ValueError):
+        return DEFAULT_QUALITY_HEIGHT
+    return height if height in ALLOWED_QUALITY_HEIGHTS else DEFAULT_QUALITY_HEIGHT
 
 
 def _recent_job_count(store: QueueStore, *, within_hours: int) -> int:
@@ -410,6 +427,46 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             self._send_json(404, {"detail": "File not found for this job"})
             return
 
+        if path == "/api/open-folder":
+            if not self._require_auth():
+                return
+            body = self._read_json()
+            job_id = body.get("job_id")
+            filename = str(body.get("filename", ""))
+            try:
+                job_id = int(job_id)
+            except (TypeError, ValueError):
+                self._send_json(400, {"detail": "job_id is required"})
+                return
+            for candidate in self.server.store.list_job_files(job_id):
+                candidate_path = Path(candidate)
+                if candidate_path.name == filename:
+                    opened = android_bridge.open_folder(candidate_path)
+                    self._send_json(200, {"opened": opened})
+                    return
+            self._send_json(404, {"detail": "File not found for this job"})
+            return
+
+        if path == "/api/share":
+            if not self._require_auth():
+                return
+            body = self._read_json()
+            job_id = body.get("job_id")
+            filename = str(body.get("filename", ""))
+            try:
+                job_id = int(job_id)
+            except (TypeError, ValueError):
+                self._send_json(400, {"detail": "job_id is required"})
+                return
+            for candidate in self.server.store.list_job_files(job_id):
+                candidate_path = Path(candidate)
+                if candidate_path.name == filename:
+                    shared = android_bridge.share_file(candidate_path)
+                    self._send_json(200, {"shared": shared})
+                    return
+            self._send_json(404, {"detail": "File not found for this job"})
+            return
+
         if path == "/api/scrape":
             if not self._require_auth():
                 return
@@ -475,13 +532,15 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                     )
                     return
 
-            profile = _resolve_profile(self.server.store, bool(body.get("audio_only", False)))
+            audio_only = bool(body.get("audio_only", False))
+            profile = _resolve_profile(self.server.store, audio_only)
             job_id = self.server.store.add_job(
                 source=source,
                 profile_id=profile.id,
                 output_dir=str(self.server.output_dir),
                 ffmpeg_binary=self.server.ffmpeg_binary,
                 allow_playlist=bool(body.get("allow_playlist", False)),
+                quality_height=None if audio_only else _resolve_quality_height(body),
             )
             self._send_json(200, {"job_id": job_id})
             return

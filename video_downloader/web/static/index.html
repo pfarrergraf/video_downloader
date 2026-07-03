@@ -215,7 +215,12 @@
   }
   .muted { color: var(--text-dim); font-size: 0.85rem; }
   a.dl-link { color: var(--accent-2); text-decoration: none; font-weight: 500; font-size: 0.85rem; }
-  button.open-btn { padding: 0.35rem 0.8rem; min-height: unset; font-size: 0.8rem; }
+  button.file-icon-btn {
+    width: 36px; height: 36px; min-height: unset;
+    padding: 0; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
 
   #login-overlay {
     position: fixed; inset: 0; background: rgba(6,5,12,0.95);
@@ -286,7 +291,7 @@
     <h2 data-i18n="app.login.title">Log in</h2>
     <label for="login-password" data-i18n="app.login.password_label">Password</label>
     <input type="password" id="login-password" autocomplete="current-password" />
-    <div class="row"><button class="primary" id="login-btn" data-i18n="app.login.unlock_btn">Unlock</button></div>
+    <div class="row"><button class="primary" id="login-btn"><span aria-hidden="true">🔓</span> <span data-i18n="app.login.unlock_btn">Unlock</span></button></div>
     <p class="muted" id="login-error"></p>
   </div>
 </div>
@@ -304,13 +309,13 @@
          already-picked folder name back to the "default" placeholder text. -->
     <p class="muted" id="settings-folder-label">App storage (default)</p>
     <div class="row">
-      <button class="secondary" id="settings-folder-pick-btn" data-i18n="app.settings.folder_pick_btn">Choose folder</button>
-      <button class="ghost" id="settings-folder-reset-btn" data-i18n="app.settings.folder_reset_btn">Reset to default</button>
+      <button class="secondary" id="settings-folder-pick-btn"><span aria-hidden="true">📁</span> <span data-i18n="app.settings.folder_pick_btn">Choose folder</span></button>
+      <button class="ghost" id="settings-folder-reset-btn"><span aria-hidden="true">🔄</span> <span data-i18n="app.settings.folder_reset_btn">Reset to default</span></button>
     </div>
     <p class="muted hidden" id="settings-folder-unsupported" data-i18n="app.settings.folder_not_supported">Only available in the Android app.</p>
 
     <div class="row">
-      <button class="primary" id="settings-close-btn" data-i18n="app.settings.close_btn">Close</button>
+      <button class="primary" id="settings-close-btn"><span aria-hidden="true">✔️</span> <span data-i18n="app.settings.close_btn">Close</span></button>
     </div>
   </div>
 </div>
@@ -329,20 +334,30 @@
       <p class="muted" id="license-status">—</p>
       <div class="row">
         <input type="text" id="license-key-input" data-i18n-placeholder="app.license.placeholder" placeholder="DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
-        <button class="secondary" id="license-save-btn" data-i18n="app.license.save_btn">Save</button>
+        <button class="secondary" id="license-save-btn"><span aria-hidden="true">💾</span> <span data-i18n="app.license.save_btn">Save</span></button>
       </div>
-      <a class="btn primary hidden" id="license-buy-link" href="https://downloadthat.pages.dev/#pricing" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;" data-i18n="app.license.buy_btn">Get Pro</a>
+      <a class="btn primary hidden" id="license-buy-link" href="https://downloadthat.pages.dev/#pricing" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;"><span aria-hidden="true">✨</span> <span data-i18n="app.license.buy_btn">Get Pro</span></a>
     </div>
 
     <div class="card">
       <h2 data-i18n="app.scrape.title">Search a page</h2>
       <label for="scrape-url" data-i18n="app.scrape.url_label">Page URL</label>
       <input type="url" id="scrape-url" data-i18n-placeholder="app.scrape.url_placeholder" placeholder="Paste the link here" />
+      <label for="quality-select" data-i18n="app.scrape.quality_label">Video quality</label>
+      <select id="quality-select">
+        <option value="2160" data-i18n="app.quality.auto">Auto (up to 4K)</option>
+        <option value="240" data-i18n="app.quality.p240">240p</option>
+        <option value="480" data-i18n="app.quality.p480">480p</option>
+        <option value="720" data-i18n="app.quality.p720">HD (720p)</option>
+        <option value="1080" data-i18n="app.quality.p1080">Full HD (1080p)</option>
+        <option value="1440" data-i18n="app.quality.p1440">2K (1440p)</option>
+        <option value="2160" data-i18n="app.quality.p2160">4K (2160p)</option>
+      </select>
       <div class="checkbox-row"><input type="checkbox" id="scrape-deep" /><label for="scrape-deep" style="margin:0" data-i18n="app.scrape.deep_label">Deep search (follow links)</label></div>
       <div class="row">
-        <button class="primary" id="direct-queue-btn" data-i18n="app.scrape.video_btn">Download video</button>
-        <button class="secondary" id="direct-audio-btn" data-i18n="app.scrape.audio_btn">Download audio</button>
-        <button class="secondary" id="scrape-btn" data-i18n="app.scrape.search_btn">Search page</button>
+        <button class="primary" id="direct-queue-btn"><span aria-hidden="true">⬇️</span> <span data-i18n="app.scrape.video_btn">Download video</span></button>
+        <button class="secondary" id="direct-audio-btn"><span aria-hidden="true">🎧</span> <span data-i18n="app.scrape.audio_btn">Download audio</span></button>
+        <button class="secondary" id="scrape-btn"><span aria-hidden="true">🔍</span> <span data-i18n="app.scrape.search_btn">Search page</span></button>
       </div>
 
       <div id="scrape-results" class="hidden">
@@ -356,7 +371,7 @@
         </div>
         <ul class="media-list" id="media-list"></ul>
         <div class="row">
-          <button class="primary" id="queue-selected-btn" data-i18n="app.scrape.queue_selected">Download selected</button>
+          <button class="primary" id="queue-selected-btn"><span aria-hidden="true">⬇️</span> <span data-i18n="app.scrape.queue_selected">Download selected</span></button>
         </div>
       </div>
     </div>
@@ -366,7 +381,7 @@
       <label for="batch-urls" data-i18n="app.batch.label">One link per line, or a single playlist link</label>
       <textarea id="batch-urls" rows="4" data-i18n-placeholder="app.batch.placeholder" placeholder="Paste multiple links (one per line), or a single playlist link" style="width:100%; padding:0.75rem 0.9rem; background:#0d0c18; border:1px solid var(--border); color:var(--text); border-radius:14px; font-family:inherit; font-size:1rem; resize:vertical;"></textarea>
       <div class="row">
-        <button class="primary" id="batch-queue-btn" data-i18n="app.batch.download_btn">Download all</button>
+        <button class="primary" id="batch-queue-btn"><span aria-hidden="true">📥</span> <span data-i18n="app.batch.download_btn">Download all</span></button>
       </div>
     </div>
 
@@ -674,7 +689,12 @@ $('scrape-btn').addEventListener('click', async () => {
 });
 
 async function queueSource(source, audioOnly, allowPlaylist) {
-  await api('/api/queue', { method: 'POST', body: { source, audio_only: !!audioOnly, allow_playlist: !!allowPlaylist } });
+  const qualitySelect = $('quality-select');
+  const qualityHeight = qualitySelect ? Number(qualitySelect.value) : undefined;
+  await api('/api/queue', {
+    method: 'POST',
+    body: { source, audio_only: !!audioOnly, allow_playlist: !!allowPlaylist, quality_height: qualityHeight },
+  });
   refreshQueue();
 }
 
@@ -759,6 +779,24 @@ async function openFile(jobId, filename, btn) {
   }
 }
 
+async function openFolder(jobId, filename) {
+  try {
+    const result = await api('/api/open-folder', { method: 'POST', body: { job_id: jobId, filename } });
+    if (!result.opened) toast(t('app.queue.open_folder_unsupported_toast'));
+  } catch (e) {
+    toast(t('app.queue.open_folder_failed_toast'));
+  }
+}
+
+async function shareFile(jobId, filename) {
+  try {
+    const result = await api('/api/share', { method: 'POST', body: { job_id: jobId, filename } });
+    if (!result.shared) toast(t('app.queue.share_unsupported_toast'));
+  } catch (e) {
+    toast(t('app.queue.share_failed_toast'));
+  }
+}
+
 function jobRow(job) {
   const li = document.createElement('li');
   let progressHtml = '';
@@ -783,18 +821,39 @@ function jobRow(job) {
       link.href = f.download_url;
       link.textContent = f.filename;
       fileRow.appendChild(link);
+
       const openBtn = document.createElement('button');
-      openBtn.className = 'secondary open-btn';
-      openBtn.textContent = t('app.queue.open_btn');
+      openBtn.className = 'secondary file-icon-btn';
+      openBtn.textContent = '▶️';
+      openBtn.title = t('app.queue.open_btn');
+      openBtn.setAttribute('aria-label', t('app.queue.open_btn'));
       openBtn.addEventListener('click', () => openFile(job.id, f.filename, openBtn));
       fileRow.appendChild(openBtn);
+
+      const folderBtn = document.createElement('button');
+      folderBtn.className = 'secondary file-icon-btn';
+      folderBtn.textContent = '📁';
+      folderBtn.title = t('app.queue.open_folder_btn');
+      folderBtn.setAttribute('aria-label', t('app.queue.open_folder_btn'));
+      folderBtn.addEventListener('click', () => openFolder(job.id, f.filename));
+      fileRow.appendChild(folderBtn);
+
+      const shareBtn = document.createElement('button');
+      shareBtn.className = 'secondary file-icon-btn';
+      shareBtn.textContent = '📤';
+      shareBtn.title = t('app.queue.share_btn');
+      shareBtn.setAttribute('aria-label', t('app.queue.share_btn'));
+      shareBtn.addEventListener('click', () => shareFile(job.id, f.filename));
+      fileRow.appendChild(shareBtn);
     });
     li.appendChild(fileRow);
   }
   if (job.status === 'pending' || job.status === 'in_progress') {
     const btn = document.createElement('button');
-    btn.className = 'secondary';
-    btn.textContent = t('app.queue.cancel_btn');
+    btn.className = 'secondary file-icon-btn';
+    btn.textContent = '✖️';
+    btn.title = t('app.queue.cancel_btn');
+    btn.setAttribute('aria-label', t('app.queue.cancel_btn'));
     btn.addEventListener('click', async () => {
       try { await api(`/api/queue/${job.id}/cancel`, { method: 'POST' }); refreshQueue(); }
       catch (e) { toast(e.message || t('app.queue.cancel_failed_toast')); }

@@ -37,6 +37,7 @@ class DownloadRequest:
     job_id: int | None = None
     profile_name: str | None = None
     progress_callback: Callable[[int, int | None], None] | None = None
+    quality_height: int | None = None
 
 
 @dataclass(slots=True)
@@ -99,6 +100,7 @@ class JobRecord:
     updated_at: str
     downloaded_bytes: int = 0
     total_bytes: int | None = None
+    quality_height: int | None = None
 
 
 @dataclass(slots=True)

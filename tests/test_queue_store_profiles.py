@@ -62,3 +62,32 @@ def test_job_pause_resume_and_reprioritize(tmp_path: Path) -> None:
     resumed = store.get_job(job_id)
     assert resumed is not None
     assert resumed.status == "pending"
+
+
+def test_quality_height_roundtrips_through_add_job_and_retry(tmp_path: Path) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    profile = store.ensure_default_profile()
+
+    job_id = store.add_job(source="https://example.com/video", profile_id=profile.id, quality_height=1080)
+    job = store.get_job(job_id)
+    assert job is not None
+    assert job.quality_height == 1080
+
+    store.mark_job_failed(job_id, "boom")
+    retried_id = store.retry_job(job_id)
+    assert retried_id is not None
+    retried = store.get_job(retried_id)
+    assert retried is not None
+    assert retried.quality_height == 1080
+
+
+def test_quality_height_defaults_to_none(tmp_path: Path) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    profile = store.ensure_default_profile()
+
+    job_id = store.add_job(source="https://example.com/video", profile_id=profile.id)
+    job = store.get_job(job_id)
+    assert job is not None
+    assert job.quality_height is None

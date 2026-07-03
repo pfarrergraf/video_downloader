@@ -89,6 +89,26 @@ def test_video_format_selector_leaves_a_no_merge_selector_untouched() -> None:
     assert _video_format_selector("best", ffmpeg_available=False) == "best"
 
 
+def test_video_format_selector_applies_quality_cap_with_ffmpeg() -> None:
+    assert (
+        _video_format_selector("bv*+ba/b", ffmpeg_available=True, quality_height=1080)
+        == "bv*[height<=1080]+ba/b[height<=1080]/best"
+    )
+
+
+def test_video_format_selector_applies_quality_cap_without_ffmpeg() -> None:
+    # No ffmpeg means the "+" alternative is unusable, but the cap should
+    # still apply to whatever single pre-muxed stream is picked instead.
+    assert (
+        _video_format_selector("bv*+ba/b", ffmpeg_available=False, quality_height=720)
+        == "best[height<=720]/best"
+    )
+
+
+def test_video_format_selector_ignores_cap_when_none() -> None:
+    assert _video_format_selector("bv*+ba/b", ffmpeg_available=True, quality_height=None) == "bv*+ba/b"
+
+
 def test_video_without_ffmpeg_falls_back_to_single_stream_format(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
     request = _make_request(tmp_path, audio_only=False, ffmpeg_binary="/no/such/ffmpeg")

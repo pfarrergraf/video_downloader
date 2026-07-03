@@ -38,7 +38,8 @@
       "queue_failed_toast": "క్యూలో పెట్టడం విఫలమైంది.",
       "queue_selection_failed_toast": "ఎంపికను క్యూలో పెట్టడం విఫలమైంది.",
       "need_selection_toast": "కనీసం ఒక అంశాన్ని ఎంచుకోండి.",
-      "url_placeholder": "Paste the link here"
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
     },
     "queue": {
       "title": "క్యూ",
@@ -49,7 +50,13 @@
       "queued_toast": "క్యూలో ఉంచబడింది.",
       "open_btn": "తెరవండి",
       "open_failed_toast": "ఈ ఫైల్‌ను తెరవలేకపోయాము — బదులుగా లింక్‌ని ప్రయత్నించండి.",
-      "open_unsupported_toast": "ఫైల్‌లను తెరవడం Android యాప్‌లో మాత్రమే పనిచేస్తుంది."
+      "open_unsupported_toast": "ఫైల్‌లను తెరవడం Android యాప్‌లో మాత్రమే పనిచేస్తుంది.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
     },
     "settings": {
       "gear_label": "సెట్టింగ్‌లు",
@@ -74,6 +81,15 @@
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
     }
   },
   "website": {

@@ -38,7 +38,8 @@
       "queue_failed_toast": "কিউতে যোগ করা যায়নি।",
       "queue_selection_failed_toast": "নির্বাচিতগুলো কিউতে যোগ করা যায়নি।",
       "need_selection_toast": "অন্তত একটি আইটেম নির্বাচন করুন।",
-      "url_placeholder": "Paste the link here"
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
     },
     "queue": {
       "title": "কিউ",
@@ -49,7 +50,13 @@
       "queued_toast": "কিউতে যোগ করা হয়েছে।",
       "open_btn": "খুলুন",
       "open_failed_toast": "এই ফাইলটি খোলা যায়নি — এর পরিবর্তে লিংকটি ব্যবহার করে দেখুন।",
-      "open_unsupported_toast": "ফাইল খোলা শুধু Android অ্যাপে কাজ করে।"
+      "open_unsupported_toast": "ফাইল খোলা শুধু Android অ্যাপে কাজ করে।",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
     },
     "settings": {
       "gear_label": "সেটিংস",
@@ -74,6 +81,15 @@
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
     }
   },
   "website": {

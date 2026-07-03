@@ -83,7 +83,9 @@ class YtDlpStrategy(Strategy):
             "format": (
                 _audio_format_selector(ffmpeg_available)
                 if request.audio_only
-                else _video_format_selector(request.format_selector, ffmpeg_available)
+                else _video_format_selector(
+                    request.format_selector, ffmpeg_available, request.quality_height
+                )
             ),
             "noplaylist": not request.allow_playlist,
             "restrictfilenames": True,
@@ -278,17 +280,30 @@ def _audio_format_selector(ffmpeg_available: bool) -> str:
     return "bestaudio"
 
 
-def _video_format_selector(configured_selector: str, ffmpeg_available: bool) -> str:
-    if ffmpeg_available or "+" not in configured_selector:
-        return configured_selector
-    # The default/profile selector ("bv*+ba/b") explicitly requests separate
-    # best-video and best-audio streams merged together, which requires
-    # ffmpeg - yt-dlp aborts outright ("merging of multiple formats but
-    # ffmpeg is not installed") rather than silently downgrading. Falling
-    # back to a single pre-muxed stream mirrors what _audio_format_selector
-    # already does for audio: every device can still download *something*
-    # (typically capped below the split-stream-only 1080p+ tiers on YouTube)
-    # instead of failing outright whenever ffmpeg isn't resolvable.
+def _video_format_selector(
+    configured_selector: str, ffmpeg_available: bool, quality_height: int | None = None
+) -> str:
+    if quality_height:
+        # height<=N picks the best quality at or below the requested cap
+        # (not "next higher available", which would silently blow past a
+        # cap the user picked specifically to save bandwidth/storage).
+        height_filter = f"[height<={int(quality_height)}]"
+        selector = f"bv*{height_filter}+ba/b{height_filter}/best"
+    else:
+        selector = configured_selector
+    if ffmpeg_available or "+" not in selector:
+        return selector
+    # The selector explicitly requests separate best-video and best-audio
+    # streams merged together, which requires ffmpeg - yt-dlp aborts outright
+    # ("merging of multiple formats but ffmpeg is not installed") rather than
+    # silently downgrading. Falling back to a single pre-muxed stream mirrors
+    # what _audio_format_selector already does for audio: every device can
+    # still download *something* (typically capped below the split-stream-only
+    # 1080p+ tiers on YouTube) instead of failing outright whenever ffmpeg
+    # isn't resolvable. When a quality cap was requested, keep it applied to
+    # the single-stream fallback too.
+    if quality_height:
+        return f"best[height<={int(quality_height)}]/best"
     return "best"
 
 

@@ -38,7 +38,8 @@
       "queue_failed_toast": "रांगेत टाकण्यात अयशस्वी.",
       "queue_selection_failed_toast": "निवड रांगेत टाकण्यात अयशस्वी.",
       "need_selection_toast": "किमान एक आयटम निवडा.",
-      "url_placeholder": "Paste the link here"
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
     },
     "queue": {
       "title": "रांग",
@@ -49,7 +50,13 @@
       "queued_toast": "रांगेत टाकले.",
       "open_btn": "उघडा",
       "open_failed_toast": "ही फाइल उघडता आली नाही — त्याऐवजी लिंक वापरून पहा.",
-      "open_unsupported_toast": "फाइल्स उघडणे फक्त Android अ‍ॅपमध्येच शक्य आहे."
+      "open_unsupported_toast": "फाइल्स उघडणे फक्त Android अ‍ॅपमध्येच शक्य आहे.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
     },
     "settings": {
       "gear_label": "सेटिंग्ज",
@@ -74,6 +81,15 @@
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
     }
   },
   "website": {

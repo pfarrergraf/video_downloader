@@ -38,7 +38,8 @@
       "queue_failed_toast": "Không thể thêm vào hàng đợi.",
       "queue_selection_failed_toast": "Không thể thêm các mục đã chọn vào hàng đợi.",
       "need_selection_toast": "Vui lòng chọn ít nhất một mục.",
-      "url_placeholder": "Paste the link here"
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
     },
     "queue": {
       "title": "Hàng đợi",
@@ -49,7 +50,13 @@
       "queued_toast": "Đã thêm vào hàng đợi.",
       "open_btn": "Mở",
       "open_failed_toast": "Không thể mở tệp này — hãy thử dùng liên kết thay thế.",
-      "open_unsupported_toast": "Mở tệp chỉ khả dụng trên ứng dụng Android."
+      "open_unsupported_toast": "Mở tệp chỉ khả dụng trên ứng dụng Android.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
     },
     "settings": {
       "gear_label": "Cài đặt",
@@ -74,6 +81,15 @@
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
     }
   },
   "website": {

@@ -38,7 +38,8 @@
       "search_failed_toast": "Suche fehlgeschlagen.",
       "queue_failed_toast": "Konnte nicht zur Warteschlange hinzugefügt werden.",
       "queue_selection_failed_toast": "Auswahl konnte nicht zur Warteschlange hinzugefügt werden.",
-      "need_selection_toast": "Wähle mindestens ein Element aus."
+      "need_selection_toast": "Wähle mindestens ein Element aus.",
+      "quality_label": "Videoqualität"
     },
     "batch": {
       "title": "Mehrere Links oder eine Playlist",
@@ -58,7 +59,13 @@
       "queued_toast": "Zur Warteschlange hinzugefügt.",
       "open_btn": "Öffnen",
       "open_failed_toast": "Diese Datei konnte nicht geöffnet werden — versuche stattdessen den Link.",
-      "open_unsupported_toast": "Das Öffnen von Dateien funktioniert nur in der Android-App."
+      "open_unsupported_toast": "Das Öffnen von Dateien funktioniert nur in der Android-App.",
+      "open_folder_btn": "Ordner öffnen",
+      "open_folder_failed_toast": "Der Ordner konnte nicht geöffnet werden.",
+      "open_folder_unsupported_toast": "Ordner öffnen funktioniert nur in der Android-App.",
+      "share_btn": "Teilen",
+      "share_failed_toast": "Die Datei konnte nicht geteilt werden.",
+      "share_unsupported_toast": "Teilen funktioniert nur in der Android-App."
     },
     "settings": {
       "gear_label": "Einstellungen",
@@ -74,7 +81,16 @@
       "saved_toast": "Einstellungen gespeichert.",
       "close_btn": "Schließen"
     },
-    "footer": "DownloadThat — lade nur Medien herunter, an denen du die Rechte besitzt."
+    "footer": "DownloadThat — lade nur Medien herunter, an denen du die Rechte besitzt.",
+    "quality": {
+      "auto": "Automatisch (bis 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    }
   },
   "website": {
     "meta": {

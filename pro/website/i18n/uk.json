@@ -38,7 +38,8 @@
       "queue_failed_toast": "Не вдалося додати до черги.",
       "queue_selection_failed_toast": "Не вдалося додати вибране до черги.",
       "need_selection_toast": "Виберіть хоча б один елемент.",
-      "url_placeholder": "Paste the link here"
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
     },
     "queue": {
       "title": "Черга",
@@ -49,7 +50,13 @@
       "queued_toast": "Додано до черги.",
       "open_btn": "Відкрити",
       "open_failed_toast": "Не вдалося відкрити цей файл — спробуйте скористатися посиланням.",
-      "open_unsupported_toast": "Відкриття файлів працює лише в додатку для Android."
+      "open_unsupported_toast": "Відкриття файлів працює лише в додатку для Android.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
     },
     "settings": {
       "gear_label": "Налаштування",
@@ -74,6 +81,15 @@
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
     }
   },
   "website": {

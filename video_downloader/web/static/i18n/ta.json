@@ -38,7 +38,8 @@
       "queue_failed_toast": "வரிசைப்படுத்த முடியவில்லை.",
       "queue_selection_failed_toast": "தேர்வை வரிசைப்படுத்த முடியவில்லை.",
       "need_selection_toast": "குறைந்தது ஒரு உருப்படியையாவது தேர்ந்தெடுக்கவும்.",
-      "url_placeholder": "Paste the link here"
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
     },
     "queue": {
       "title": "வரிசை",
@@ -49,7 +50,13 @@
       "queued_toast": "வரிசைப்படுத்தப்பட்டது.",
       "open_btn": "திற",
       "open_failed_toast": "இந்தக் கோப்பைத் திறக்க முடியவில்லை — அதற்குப் பதிலாக இணைப்பை முயற்சிக்கவும்.",
-      "open_unsupported_toast": "கோப்புகளைத் திறப்பது Android பயன்பாட்டில் மட்டுமே செயல்படும்."
+      "open_unsupported_toast": "கோப்புகளைத் திறப்பது Android பயன்பாட்டில் மட்டுமே செயல்படும்.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
     },
     "settings": {
       "gear_label": "அமைப்புகள்",
@@ -74,6 +81,15 @@
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
     }
   },
   "website": {

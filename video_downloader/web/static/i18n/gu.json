@@ -38,7 +38,8 @@
       "queue_failed_toast": "ક્યુમાં ઉમેરવામાં નિષ્ફળ.",
       "queue_selection_failed_toast": "પસંદગીને ક્યુમાં ઉમેરવામાં નિષ્ફળ.",
       "need_selection_toast": "ઓછામાં ઓછી એક વસ્તુ પસંદ કરો.",
-      "url_placeholder": "Paste the link here"
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
     },
     "queue": {
       "title": "ક્યુ",
@@ -49,7 +50,13 @@
       "queued_toast": "ક્યુમાં ઉમેર્યું.",
       "open_btn": "ખોલો",
       "open_failed_toast": "આ ફાઇલ ખોલી શકાઈ નહીં — તેના બદલે લિંક અજમાવો.",
-      "open_unsupported_toast": "ફાઇલો ખોલવાનું ફક્ત Android એપમાં જ કામ કરે છે."
+      "open_unsupported_toast": "ફાઇલો ખોલવાનું ફક્ત Android એપમાં જ કામ કરે છે.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
     },
     "settings": {
       "gear_label": "સેટિંગ્સ",
@@ -74,6 +81,15 @@
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
     }
   },
   "website": {

@@ -38,7 +38,8 @@
       "queue_failed_toast": "Error al añadir a la cola.",
       "queue_selection_failed_toast": "Error al añadir la selección a la cola.",
       "need_selection_toast": "Selecciona al menos un elemento.",
-      "url_placeholder": "Paste the link here"
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
     },
     "queue": {
       "title": "Cola",
@@ -49,7 +50,13 @@
       "queued_toast": "Añadido a la cola.",
       "open_btn": "Abrir",
       "open_failed_toast": "No se pudo abrir este archivo; prueba con el enlace.",
-      "open_unsupported_toast": "Abrir archivos solo funciona en la aplicación de Android."
+      "open_unsupported_toast": "Abrir archivos solo funciona en la aplicación de Android.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
     },
     "settings": {
       "gear_label": "Ajustes",
@@ -74,6 +81,15 @@
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
     }
   },
   "website": {

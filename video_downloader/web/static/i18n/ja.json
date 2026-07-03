@@ -38,7 +38,8 @@
       "queue_failed_toast": "キューへの追加に失敗しました。",
       "queue_selection_failed_toast": "選択項目のキュー追加に失敗しました。",
       "need_selection_toast": "少なくとも1つの項目を選択してください。",
-      "url_placeholder": "Paste the link here"
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
     },
     "queue": {
       "title": "キュー",
@@ -49,7 +50,13 @@
       "queued_toast": "キューに追加しました。",
       "open_btn": "開く",
       "open_failed_toast": "このファイルを開けませんでした — 代わりにリンクをお試しください。",
-      "open_unsupported_toast": "ファイルを開く機能はAndroidアプリでのみ利用できます。"
+      "open_unsupported_toast": "ファイルを開く機能はAndroidアプリでのみ利用できます。",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
     },
     "settings": {
       "gear_label": "設定",
@@ -74,6 +81,15 @@
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
     }
   },
   "website": {

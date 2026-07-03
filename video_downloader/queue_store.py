@@ -69,6 +69,7 @@ class QueueStore:
                     ffmpeg_binary TEXT NOT NULL DEFAULT 'ffmpeg',
                     downloaded_bytes INTEGER NOT NULL DEFAULT 0,
                     total_bytes INTEGER,
+                    quality_height INTEGER,
                     created_at TEXT NOT NULL,
                     started_at TEXT,
                     finished_at TEXT,
@@ -132,6 +133,8 @@ class QueueStore:
             conn.execute("ALTER TABLE jobs ADD COLUMN downloaded_bytes INTEGER NOT NULL DEFAULT 0")
         if "total_bytes" not in existing:
             conn.execute("ALTER TABLE jobs ADD COLUMN total_bytes INTEGER")
+        if "quality_height" not in existing:
+            conn.execute("ALTER TABLE jobs ADD COLUMN quality_height INTEGER")
 
     def get_setting(self, key: str, default: str | None = None) -> str | None:
         with self._connect() as conn:
@@ -224,6 +227,7 @@ class QueueStore:
         max_items: int | None = None,
         timeout_seconds: int = 30,
         ffmpeg_binary: str = "ffmpeg",
+        quality_height: int | None = None,
     ) -> int:
         now = _utcnow()
         with self._connect() as conn:
@@ -232,10 +236,10 @@ class QueueStore:
                 INSERT INTO jobs (
                     source, mode, profile_id, status, priority, attempt, max_attempts, error,
                     output_dir, method, user_agent, referer, headers_json, cookies_from_browser,
-                    allow_playlist, max_items, timeout_seconds, ffmpeg_binary,
+                    allow_playlist, max_items, timeout_seconds, ffmpeg_binary, quality_height,
                     created_at, updated_at
                 )
-                VALUES (?, ?, ?, ?, ?, 0, ?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, 0, ?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     source,
@@ -254,6 +258,7 @@ class QueueStore:
                     max_items,
                     int(timeout_seconds),
                     ffmpeg_binary,
+                    quality_height,
                     now,
                     now,
                 ),
@@ -483,6 +488,7 @@ class QueueStore:
             max_items=original.max_items,
             timeout_seconds=original.timeout_seconds,
             ffmpeg_binary=original.ffmpeg_binary,
+            quality_height=original.quality_height,
         )
 
     def list_history(self, status: str | None = None, limit: int = 200) -> list[JobRecord]:
@@ -659,6 +665,7 @@ class QueueStore:
             updated_at=str(row["updated_at"]),
             downloaded_bytes=int(row["downloaded_bytes"]),
             total_bytes=int(row["total_bytes"]) if row["total_bytes"] is not None else None,
+            quality_height=int(row["quality_height"]) if row["quality_height"] is not None else None,
         )
 
     def _row_to_subscription(self, row: sqlite3.Row) -> SubscriptionRecord:

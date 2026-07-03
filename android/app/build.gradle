@@ -84,6 +84,26 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+
+    packagingOptions {
+        jniLibs {
+            // libffmpeg.so isn't a real JNI library - it's the ffmpeg CLI
+            // binary, given a .so name/location purely so the installer
+            // extracts it with execute permission. AGP's modern default
+            // (useLegacyPackaging=false, the default for minSdk >= 23) keeps
+            // native libs compressed inside the APK and dlopen()s them
+            // directly without ever writing a standalone file, which left
+            // MainActivity's applicationInfo.nativeLibraryDir/libffmpeg.so
+            // check finding nothing - resolveFfmpegBinary() silently fell
+            // back to a bare "ffmpeg" that doesn't exist anywhere on
+            // Android, so every video download silently ran without ffmpeg
+            // (capped to whatever pre-muxed single-stream format YouTube
+            // offered, e.g. 640x272) instead of using the real cross-compiled
+            // binary. Forcing legacy packaging makes Android actually extract
+            // it to a real, executable file at install time.
+            useLegacyPackaging = true
+        }
+    }
 }
 
 chaquopy {

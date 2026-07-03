@@ -122,6 +122,65 @@ def test_queue_defaults_allow_playlist_to_false(server: ClassyDLServer) -> None:
     assert job.allow_playlist is False
 
 
+def test_queue_defaults_quality_height_to_4k(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/video"}, cookie=cookie
+    )
+    assert status == 200
+    job = server.store.get_job(body["job_id"])
+    assert job is not None
+    assert job.quality_height == 2160
+
+
+def test_queue_accepts_explicit_quality_height(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, body, _ = _request(
+        server,
+        "POST",
+        "/api/queue",
+        {"source": "https://example.com/video", "quality_height": 720},
+        cookie=cookie,
+    )
+    assert status == 200
+    job = server.store.get_job(body["job_id"])
+    assert job is not None
+    assert job.quality_height == 720
+
+
+def test_queue_rejects_unsupported_quality_height(server: ClassyDLServer) -> None:
+    # Anything not one of the UI's offered tiers (a tampered/garbage value)
+    # falls back to the same 4K default rather than being passed through
+    # verbatim to yt-dlp's format selector.
+    cookie = _login(server)
+    status, body, _ = _request(
+        server,
+        "POST",
+        "/api/queue",
+        {"source": "https://example.com/video", "quality_height": 9999},
+        cookie=cookie,
+    )
+    assert status == 200
+    job = server.store.get_job(body["job_id"])
+    assert job is not None
+    assert job.quality_height == 2160
+
+
+def test_queue_leaves_quality_height_unset_for_audio_only(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, body, _ = _request(
+        server,
+        "POST",
+        "/api/queue",
+        {"source": "https://example.com/video", "audio_only": True, "quality_height": 1080},
+        cookie=cookie,
+    )
+    assert status == 200
+    job = server.store.get_job(body["job_id"])
+    assert job is not None
+    assert job.quality_height is None
+
+
 def test_logout_revokes_session(server: ClassyDLServer) -> None:
     _, _, set_cookie = _request(server, "POST", "/api/login", {"password": "crypt-keeper"})
     cookie = set_cookie.split(";")[0]
@@ -444,5 +503,57 @@ def test_open_endpoint_404_for_unknown_file(server: ClassyDLServer) -> None:
     cookie = _login(server)
     status, _, _ = _request(
         server, "POST", "/api/open", {"job_id": 999999, "filename": "nope.mp4"}, cookie=cookie
+    )
+    assert status == 404
+
+
+def test_open_folder_endpoint_returns_false_off_android(server: ClassyDLServer, tmp_path: Path) -> None:
+    cookie = _login(server)
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/video"}, cookie=cookie
+    )
+    job_id = body["job_id"]
+    output_file = tmp_path / "downloads" / "video.mp4"
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    output_file.write_bytes(b"fake video")
+    server.store.mark_job_completed(job_id, [output_file])
+
+    status, body, _ = _request(
+        server, "POST", "/api/open-folder", {"job_id": job_id, "filename": "video.mp4"}, cookie=cookie
+    )
+    assert status == 200
+    assert body == {"opened": False}
+
+
+def test_open_folder_endpoint_404_for_unknown_file(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, _, _ = _request(
+        server, "POST", "/api/open-folder", {"job_id": 999999, "filename": "nope.mp4"}, cookie=cookie
+    )
+    assert status == 404
+
+
+def test_share_endpoint_returns_false_off_android(server: ClassyDLServer, tmp_path: Path) -> None:
+    cookie = _login(server)
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/video"}, cookie=cookie
+    )
+    job_id = body["job_id"]
+    output_file = tmp_path / "downloads" / "video.mp4"
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    output_file.write_bytes(b"fake video")
+    server.store.mark_job_completed(job_id, [output_file])
+
+    status, body, _ = _request(
+        server, "POST", "/api/share", {"job_id": job_id, "filename": "video.mp4"}, cookie=cookie
+    )
+    assert status == 200
+    assert body == {"shared": False}
+
+
+def test_share_endpoint_404_for_unknown_file(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, _, _ = _request(
+        server, "POST", "/api/share", {"job_id": 999999, "filename": "nope.mp4"}, cookie=cookie
     )
     assert status == 404

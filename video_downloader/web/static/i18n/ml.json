@@ -38,7 +38,8 @@
       "queue_failed_toast": "ക്യൂവിൽ ചേർക്കാൻ കഴിഞ്ഞില്ല.",
       "queue_selection_failed_toast": "തിരഞ്ഞെടുത്തവ ക്യൂവിൽ ചേർക്കാൻ കഴിഞ്ഞില്ല.",
       "need_selection_toast": "കുറഞ്ഞത് ഒരു ഇനമെങ്കിലും തിരഞ്ഞെടുക്കുക.",
-      "url_placeholder": "Paste the link here"
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
     },
     "queue": {
       "title": "ക്യൂ",
@@ -49,7 +50,13 @@
       "queued_toast": "ക്യൂവിൽ ചേർത്തു.",
       "open_btn": "തുറക്കുക",
       "open_failed_toast": "ഈ ഫയൽ തുറക്കാൻ കഴിഞ്ഞില്ല — പകരം ലിങ്ക് ഉപയോഗിച്ച് നോക്കുക.",
-      "open_unsupported_toast": "ഫയലുകൾ തുറക്കുന്നത് Android ആപ്പിൽ മാത്രമേ പ്രവർത്തിക്കൂ."
+      "open_unsupported_toast": "ഫയലുകൾ തുറക്കുന്നത് Android ആപ്പിൽ മാത്രമേ പ്രവർത്തിക്കൂ.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
     },
     "settings": {
       "gear_label": "ക്രമീകരണങ്ങൾ",
@@ -74,6 +81,15 @@
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
     }
   },
   "website": {
