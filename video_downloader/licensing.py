@@ -1,10 +1,11 @@
 """Tracks whether this install has a valid DownloadThat Pro license.
 
-Talks to the license-verification Worker (see downloadthat-pro/worker/ — a
-separate Cloudflare Worker, not part of this package) at most once every
-CACHE_TTL_SECONDS, and keeps trusting the last successful result for up to
-OFFLINE_GRACE_SECONDS if the phone has no connectivity, so a brief network
-outage doesn't downgrade a paying user mid-session.
+Talks to the license-verification endpoint (GET /api/validate?key=... —
+see pro/website/functions/api/validate.js, a Cloudflare Pages Function on
+the same deployment as the marketing site, not a separate Worker) at most
+once every CACHE_TTL_SECONDS, and keeps trusting the last successful result
+for up to OFFLINE_GRACE_SECONDS if the phone has no connectivity, so a brief
+network outage doesn't downgrade a paying user mid-session.
 
 Deliberately opt-in: when no api_base is configured (Termux, desktop, CLI,
 tests), `LicenseManager` isn't constructed at all and callers treat that as

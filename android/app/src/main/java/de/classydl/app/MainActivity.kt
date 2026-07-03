@@ -40,16 +40,19 @@ class MainActivity : AppCompatActivity() {
         // per-install password instead — see getOrCreatePassword().
         private const val DEBUG_PASSWORD = "classydl"
 
-        // TODO: replace with the real deployed Worker URL once
-        // pro/worker is deployed (see pro/README.md) — until then this is
-        // an unreachable placeholder, which is safe: android_entry.py's
-        // LicenseManager fails closed (free-tier) on any network error, it
-        // never grants Pro just because the license server is unreachable.
+        // The license-check endpoint (pro/website/functions/api/validate.js)
+        // is a Cloudflare Pages Function on the same deployment as the
+        // marketing site/webhook, not a separate Worker - this used to point
+        // at an unreplaced placeholder Worker subdomain, so
+        // LicenseManager.refresh() always failed to resolve it and every
+        // license key silently fell back to "invalid" (fails closed by
+        // design - see licensing.py - which is why this went unnoticed
+        // rather than erroring loudly).
         // Only wired up for release builds (see resolveLicenseApiBase()) so
         // CI's debug-build download_pipeline_test.sh — which never sets a
         // license key — keeps exercising the always-unrestricted path it
         // was written against, unaffected by free-tier limits.
-        private const val LICENSE_API_BASE = "https://downloadthat-license-server.YOUR-SUBDOMAIN.workers.dev"
+        private const val LICENSE_API_BASE = "https://downloadthat.pages.dev"
     }
 
     private var loadRetries = 0
