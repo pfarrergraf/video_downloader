@@ -340,9 +340,9 @@
     </div>
 
     <div class="card">
-      <h2 data-i18n="app.scrape.title">Search a page</h2>
-      <label for="scrape-url" data-i18n="app.scrape.url_label">Page URL</label>
-      <input type="url" id="scrape-url" data-i18n-placeholder="app.scrape.url_placeholder" placeholder="Paste the link here" />
+      <h2 data-i18n="app.batch.title">Download</h2>
+      <label for="batch-urls" data-i18n="app.batch.label">Paste a link, multiple links (one per line), or a playlist link</label>
+      <textarea id="batch-urls" rows="4" data-i18n-placeholder="app.batch.placeholder" placeholder="Paste a link, multiple links (one per line), or a playlist link" style="width:100%; padding:0.75rem 0.9rem; background:#0d0c18; border:1px solid var(--border); color:var(--text); border-radius:14px; font-family:inherit; font-size:1rem; resize:vertical;"></textarea>
       <label for="quality-select" data-i18n="app.scrape.quality_label">Video quality</label>
       <select id="quality-select">
         <option value="2160" data-i18n="app.quality.auto">Auto (up to 4K)</option>
@@ -353,10 +353,18 @@
         <option value="1440" data-i18n="app.quality.p1440">2K (1440p)</option>
         <option value="2160" data-i18n="app.quality.p2160">4K (2160p)</option>
       </select>
+      <div class="row">
+        <button class="primary" id="queue-video-btn"><span aria-hidden="true">⬇️</span> <span data-i18n="app.scrape.video_btn">Download video</span></button>
+        <button class="secondary" id="queue-audio-btn"><span aria-hidden="true">🎧</span> <span data-i18n="app.scrape.audio_btn">Download audio</span></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="app.scrape.title">Search a page</h2>
+      <label for="scrape-url" data-i18n="app.scrape.url_label">Page URL</label>
+      <input type="url" id="scrape-url" data-i18n-placeholder="app.scrape.url_placeholder" placeholder="Paste the link here" />
       <div class="checkbox-row"><input type="checkbox" id="scrape-deep" /><label for="scrape-deep" style="margin:0" data-i18n="app.scrape.deep_label">Deep search (follow links)</label></div>
       <div class="row">
-        <button class="primary" id="direct-queue-btn"><span aria-hidden="true">⬇️</span> <span data-i18n="app.scrape.video_btn">Download video</span></button>
-        <button class="secondary" id="direct-audio-btn"><span aria-hidden="true">🎧</span> <span data-i18n="app.scrape.audio_btn">Download audio</span></button>
         <button class="secondary" id="scrape-btn"><span aria-hidden="true">🔍</span> <span data-i18n="app.scrape.search_btn">Search page</span></button>
       </div>
 
@@ -373,15 +381,6 @@
         <div class="row">
           <button class="primary" id="queue-selected-btn"><span aria-hidden="true">⬇️</span> <span data-i18n="app.scrape.queue_selected">Download selected</span></button>
         </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2 data-i18n="app.batch.title">Multiple links or a playlist</h2>
-      <label for="batch-urls" data-i18n="app.batch.label">One link per line, or a single playlist link</label>
-      <textarea id="batch-urls" rows="4" data-i18n-placeholder="app.batch.placeholder" placeholder="Paste multiple links (one per line), or a single playlist link" style="width:100%; padding:0.75rem 0.9rem; background:#0d0c18; border:1px solid var(--border); color:var(--text); border-radius:14px; font-family:inherit; font-size:1rem; resize:vertical;"></textarea>
-      <div class="row">
-        <button class="primary" id="batch-queue-btn"><span aria-hidden="true">📥</span> <span data-i18n="app.batch.download_btn">Download all</span></button>
       </div>
     </div>
 
@@ -702,32 +701,17 @@ function isPlaylistUrl(url) {
   return /[?&]list=/.test(url) || /\/playlist(\?|$)/.test(url) || /\/sets\//.test(url);
 }
 
-$('direct-queue-btn').addEventListener('click', () => {
-  const url = $('scrape-url').value.trim();
-  if (!url) return toast(t('app.scrape.need_url_toast'));
-  queueSource(url, false, false).then(() => toast(t('app.queue.queued_toast')))
-    .catch((e) => toast(e.message || t('app.scrape.queue_failed_toast')));
-});
-
-$('direct-audio-btn').addEventListener('click', () => {
-  const url = $('scrape-url').value.trim();
-  if (!url) return toast(t('app.scrape.need_url_toast'));
-  queueSource(url, true, false).then(() => toast(t('app.queue.queued_toast')))
-    .catch((e) => toast(e.message || t('app.scrape.queue_failed_toast')));
-});
-
-$('batch-queue-btn').addEventListener('click', async () => {
+async function queueLinks(audioOnly) {
   const lines = $('batch-urls').value.split('\n').map((s) => s.trim()).filter(Boolean);
   if (!lines.length) return toast(t('app.batch.need_links_toast'));
   try {
     if (lines.length === 1) {
       // A single line that looks like a playlist is downloaded as a whole
-      // playlist; a single ordinary link just behaves like the plain
-      // "Download video" button above.
-      await queueSource(lines[0], false, isPlaylistUrl(lines[0]));
+      // playlist; a single ordinary link is just one download.
+      await queueSource(lines[0], audioOnly, isPlaylistUrl(lines[0]));
     } else {
       for (const line of lines) {
-        await queueSource(line, false, false);
+        await queueSource(line, audioOnly, false);
       }
     }
     toast(t('app.batch.queued_toast', { count: lines.length }));
@@ -735,7 +719,10 @@ $('batch-queue-btn').addEventListener('click', async () => {
   } catch (e) {
     toast(e.message || t('app.batch.queue_failed_toast'));
   }
-});
+}
+
+$('queue-video-btn').addEventListener('click', () => queueLinks(false));
+$('queue-audio-btn').addEventListener('click', () => queueLinks(true));
 
 $('select-all-btn').addEventListener('click', () => {
   document.querySelectorAll('.media-pick').forEach((cb) => { cb.checked = true; });

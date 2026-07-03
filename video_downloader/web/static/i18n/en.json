@@ -42,9 +42,9 @@
       "quality_label": "Video quality"
     },
     "batch": {
-      "title": "Multiple links or a playlist",
-      "label": "One link per line, or a single playlist link",
-      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "title": "Download",
+      "label": "Paste a link, multiple links (one per line), or a playlist link",
+      "placeholder": "Paste a link, multiple links (one per line), or a playlist link",
       "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",

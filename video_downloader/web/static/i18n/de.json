@@ -42,9 +42,9 @@
       "quality_label": "Videoqualität"
     },
     "batch": {
-      "title": "Mehrere Links oder eine Playlist",
-      "label": "Ein Link pro Zeile, oder ein einzelner Playlist-Link",
-      "placeholder": "Füge mehrere Links ein (einer pro Zeile), oder einen einzelnen Playlist-Link",
+      "title": "Herunterladen",
+      "label": "Füge einen Link, mehrere Links (einer pro Zeile) oder einen Playlist-Link ein",
+      "placeholder": "Link, mehrere Links (einer pro Zeile) oder einen Playlist-Link einfügen",
       "download_btn": "Alle herunterladen",
       "need_links_toast": "Füge zuerst mindestens einen Link ein.",
       "queued_toast": "{count} zur Warteschlange hinzugefügt.",
