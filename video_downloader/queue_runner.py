@@ -23,6 +23,17 @@ from .utils import ensure_output_dir
 BACKOFF_SECONDS = (5, 20, 60)
 
 
+def _format_workflow_error(exc: DownloadWorkflowError) -> str:
+    # str(exc) alone is just the generic "All download methods failed." -
+    # exc.attempts carries each strategy's real failure message, which used
+    # to be discarded here, making every failed job equally uninformative
+    # regardless of the actual cause (extractor error, network error, etc.).
+    if not exc.attempts:
+        return str(exc)
+    details = "; ".join(f"{attempt.method}: {attempt.message}" for attempt in exc.attempts)
+    return f"{exc}: {details}"
+
+
 @dataclass(slots=True)
 class RunSummary:
     processed: int = 0
@@ -99,7 +110,7 @@ class QueueRunner:
                 self.store.mark_job_completed(job.id, files, details=result.details)
                 return True
             except DownloadWorkflowError as exc:
-                error = str(exc)
+                error = _format_workflow_error(exc)
             except Exception as exc:  # pragma: no cover - defensive catch for worker threads
                 error = str(exc)
 
