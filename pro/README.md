@@ -171,12 +171,13 @@ browser. Once live mode is active:
 ## What the Android app does with this (as of this commit)
 
 - Free tier (no key, or an invalid/expired key): full quality, same as Pro — but rationed
-  to 1 download per rolling 24h window (a completed/pending/in-progress job within the
-  last 24h blocks a new one with `402`; cancelled/failed jobs don't count against it).
+  to `FREE_DAILY_DOWNLOAD_LIMIT` (currently 5) downloads per rolling 24h window (a
+  completed/pending/in-progress job within the last 24h counts against it; cancelled/failed
+  jobs don't).
 - Pro tier (valid key): no daily limit.
 - The license card in the app's web UI is entirely hidden on Termux/desktop — gating only
   applies when `MainActivity.kt` passes a `license_api_base` into `android_entry.start(...)`.
-- **`MainActivity.kt`'s `LICENSE_API_BASE` is still a placeholder** pointing at an
-  undeployed URL. Until step 7 above happens, the app can't reach the license server —
-  it fails closed as free-tier (a network error on `/api/validate` is treated as "not
-  Pro", never as "Pro").
+- **`MainActivity.kt`'s `LICENSE_API_BASE` now points at the real deployed URL**
+  (`https://downloadthat.pages.dev`, set once the site above went live). It fails closed
+  as free-tier on any network error talking to `/api/validate` (never "Pro" just because a
+  check couldn't complete).
