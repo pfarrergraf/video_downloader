@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Integritetspolicy — DownloadThat</title>
+<style>
+  :root {
+    --bg: #0e0c14;
+    --bg-elevated: #16121f;
+    --card: #1b1626;
+    --border: #2c2438;
+    --text: #f1ede4;
+    --text-dim: #a89fb3;
+    --accent: #c9a869;
+    --accent-dim: #8a713f;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(14, 12, 20, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 720px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.02em; color: var(--text); }
+  .brand-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(160deg, var(--accent), var(--accent-dim));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: #14111c;
+  }
+
+  main { padding: 56px 24px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 8px; }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 40px; }
+  h2 { font-size: 1.15rem; color: var(--accent); margin: 36px 0 10px; }
+  h3 { font-size: 1rem; color: var(--text); margin: 24px 0 8px; }
+  p, li { color: var(--text-dim); line-height: 1.7; margin: 0 0 12px; }
+  ul { padding-left: 20px; margin: 0 0 12px; }
+  .notice {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 36px; font-size: 0.9rem; color: var(--text-dim);
+  }
+
+  footer { border-top: 1px solid var(--border); padding: 36px 24px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+  footer a { color: var(--text-dim); }
+  footer .foot-links { display: flex; gap: 18px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+  .lang-switcher {
+    background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; font-family: inherit; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="brand-icon">⬇</span> DownloadThat</a>
+    <span id="legal-lang-switcher"></span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Integritetspolicy</h1>
+    <p class="subtitle">Senast uppdaterad: juli 2026 · i enlighet med GDPR och tysk dataskyddslagstiftning</p>
+
+    <div class="notice">
+      Detta är en svensk översättning som tillhandahålls för bekvämlighets skull.
+      Det tyskspråkiga originalet (<a href="datenschutz.html">Datenschutzerklärung</a>)
+      är den juridiskt bindande versionen; vid eventuella avvikelser gäller det
+      tyska originalet.
+    </div>
+
+    <h2>1. Personuppgiftsansvarig</h2>
+    <p>
+      Personuppgiftsansvarig i den mening som avses i GDPR är:<br />
+      Benjamin Graf<br />
+      Lahneckstraße 8<br />
+      56112 Lahnstein<br />
+      Germany<br />
+      E-post: <a href="mailto:gpt.assist.benjamin@gmail.com">gpt.assist.benjamin@gmail.com</a>
+    </p>
+
+    <h2>2. Allmän information om databehandling</h2>
+    <p>
+      Vi behandlar personuppgifter endast i den utsträckning det är nödvändigt
+      för att tillhandahålla våra tjänster (DownloadThat-appen och
+      Pro-licensiering). Behandlingen sker med stöd av GDPR samt den tyska
+      federala dataskyddslagen (BDSG).
+    </p>
+    <p>
+      Appen körs helt och hållet på din enhet och överför varken
+      användningsdata eller nedladdat innehåll till våra servrar. Databehandling
+      sker endast i samband med köp och validering av en Pro-licens.
+    </p>
+
+    <h2>3. Databehandling vid köp av en Pro-licens</h2>
+
+    <h3>3.1 Betalningshantering (Stripe)</h3>
+    <p>
+      När du köper en Pro-licens hanteras betalningen via tjänsten Stripe
+      (Stripe Inc., 510 Townsend Street, San Francisco, CA 94103, USA). Stripe
+      behandlar betalningsuppgifter (t.ex. kortuppgifter), din e-postadress
+      samt eventuell annan information som krävs för betalningshanteringen.
+    </p>
+    <p>
+      Vi lagrar själva inga fullständiga betalningsuppgifter. Stripe kan efter
+      en godkänd betalning överföra följande information till oss:
+    </p>
+    <ul>
+      <li>Stripes sessions-ID för kassan (för att matcha köpet)</li>
+      <li>E-postadress (om den tillhandahålls av Stripe)</li>
+      <li>Licensnivå (månadsvis / årsvis / livstid)</li>
+    </ul>
+    <p>
+      Rättslig grund: Art. 6.1 b GDPR (fullgörande av avtal).<br />
+      Mer information om Stripes databehandling finns på:
+      <a href="https://stripe.com/privacy" target="_blank" rel="noopener">
+        https://stripe.com/privacy
+      </a>.
+    </p>
+
+    <h3>3.2 Databas för licensnycklar (Cloudflare D1)</h3>
+    <p>
+      Efter en godkänd betalning genereras en licensnyckel som lagras i en
+      databas som drivs via Cloudflare D1 (Cloudflare, Inc., 101 Townsend St,
+      San Francisco, CA 94107, USA). Följande lagras:
+    </p>
+    <ul>
+      <li>En unik licensnyckel (UUID)</li>
+      <li>Stripes sessions-ID för kassan</li>
+      <li>Licensnivå och tidpunkt för aktivering</li>
+      <li>E-postadress (om den tillhandahålls av Stripe)</li>
+    </ul>
+    <p>
+      Uppgifterna lagras under licensens löptid. För livstidslicenser fram
+      till dess att licenstagaren begär radering eller tjänsten upphör.
+      Rättslig grund: Art. 6.1 b GDPR (fullgörande av avtal).<br />
+      Cloudflares integritetspolicy:
+      <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">
+        https://www.cloudflare.com/privacypolicy/
+      </a>.
+    </p>
+
+    <h3>3.3 Licensvalidering i appen</h3>
+    <p>
+      När du anger en licensnyckel i appen skickas den en gång till vår
+      licens-API-slutpunkt (som också är hostad på Cloudflare Pages) för
+      validering. Endast själva nyckeln kontrolleras; inga enhetsdata,
+      IP-adresser eller annan information lagras permanent.
+    </p>
+    <p>
+      Rättslig grund: Art. 6.1 b GDPR (fullgörande av avtal).
+    </p>
+
+    <h3>3.4 Bevis på samtycke till förtida fullgörande av avtalet</h3>
+    <p>
+      Vid köp av en Pro-licens måste du innan betalningen uttryckligen
+      bekräfta att fullgörandet av avtalet ska påbörjas innan den lagstadgade
+      ångerfristen har löpt ut (se <a href="agb.sv.html">Användarvillkor</a>
+      §6.3). Som bevis på denna förklaring lagras tidpunkten för din
+      bekräftelse i textform som en del av de beställningsuppgifter som
+      överförs till Stripe (kassasessionens referensnummer). Rättslig grund:
+      Art. 6.1 c GDPR (rättslig skyldighet att kunna styrka detta enligt
+      § 356.5 i den tyska civillagen (BGB)) samt Art. 6.1 f GDPR (berättigat
+      intresse av att säkra bevisning vid en eventuell tvist).
+    </p>
+
+    <h3>3.5 Återbetalningsförfrågningar</h3>
+    <p>
+      Om du begär en återbetalning via självbetjäningsfunktionen
+      (<a href="widerruf.html">Ångerrätt och återbetalning</a>) behandlar vi
+      den e-postadress och licensnyckel du anger för att matcha ditt köp mot
+      Stripe och för att verkställa återbetalningen och avaktiveringen av
+      licensen. Rättslig grund: Art. 6.1 b och c GDPR (avtalsfullgörande
+      respektive uppfyllande av lagstadgade skyldigheter avseende ångerrätt
+      och återbetalning).
+    </p>
+
+    <h2>4. Hosting och teknisk infrastruktur</h2>
+    <p>
+      Denna webbplats hostas via Cloudflare Pages. Cloudflare kan tillfälligt
+      lagra tekniska anslutningsdata (t.ex. IP-adresser) i sina loggar. Detta
+      tjänar driftsäkerheten och sker med stöd av Art. 6.1 f GDPR (berättigat
+      intresse av att kunna tillhandahålla webbplatsen på ett säkert och
+      felfritt sätt). Mer information: <a href="https://www.cloudflare.com/privacypolicy/"
+      target="_blank" rel="noopener">Cloudflares integritetspolicy</a>.
+    </p>
+
+    <h2>5. Inga cookies, ingen spårning</h2>
+    <p>
+      Denna webbplats sätter inga egna cookies och använder inga
+      spårnings- eller analystjänster. Stripe kan sätta cookies på sina egna
+      sidor som en del av betalningsprocessen – dessa ligger utanför vår
+      kontroll.
+    </p>
+
+    <h2>6. Överföring av uppgifter till tredje land</h2>
+    <p>
+      Stripe och Cloudflare har sitt huvudkontor i USA. Överföringen av
+      uppgifter sker med stöd av EU:s standardavtalsklausuler (Art. 46.2 c
+      GDPR) respektive EU-US Data Privacy Framework (i tillämpliga fall). Mer
+      information finns i respektive leverantörs integritetspolicy.
+    </p>
+
+    <h2>7. Dina rättigheter</h2>
+    <p>Du har följande rättigheter gentemot oss avseende dina personuppgifter:</p>
+    <ul>
+      <li><strong>Rätt till tillgång</strong> (Art. 15 GDPR)</li>
+      <li><strong>Rätt till rättelse</strong> (Art. 16 GDPR)</li>
+      <li><strong>Rätt till radering</strong> (Art. 17 GDPR)</li>
+      <li><strong>Rätt till begränsning av behandling</strong> (Art. 18 GDPR)</li>
+      <li><strong>Rätt till dataportabilitet</strong> (Art. 20 GDPR)</li>
+      <li><strong>Rätt att invända</strong> (Art. 21 GDPR)</li>
+    </ul>
+    <p>
+      För att utöva dina rättigheter, vänligen kontakta oss via e-post på:
+      <a href="mailto:gpt.assist.benjamin@gmail.com">gpt.assist.benjamin@gmail.com</a>.
+    </p>
+    <p>
+      Du har även rätt att lämna in ett klagomål till en tillsynsmyndighet för
+      dataskydd. Vilken myndighet som är behörig beror på din bosättningsort
+      eller platsen för den påstådda överträdelsen.
+    </p>
+
+    <h2>8. Giltighet och ändringar av denna integritetspolicy</h2>
+    <p>
+      Denna integritetspolicy är för närvarande gällande och har det datum
+      som anges ovan. Till följd av vidareutveckling av vår webbplats eller
+      ändrade lagkrav eller myndighetskrav kan det bli nödvändigt att ändra
+      denna integritetspolicy.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html">Hem</a>
+      <a href="impressum.sv.html">Juridisk information</a>
+      <a href="datenschutz.sv.html">Integritetspolicy</a>
+      <a href="agb.sv.html">Användarvillkor</a>
+      <a href="mailto:support@gaistreich.com">Support</a>
+    </div>
+    <div>© 2026 DownloadThat. Alla rättigheter förbehållna.</div>
+  </div>
+</footer>
+
+<script src="legal-lang.js" data-doc="datenschutz"></script>
+</body>
+</html>

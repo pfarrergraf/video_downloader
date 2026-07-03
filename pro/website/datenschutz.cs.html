@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Zásady ochrany osobních údajů — DownloadThat</title>
+<style>
+  :root {
+    --bg: #0e0c14;
+    --bg-elevated: #16121f;
+    --card: #1b1626;
+    --border: #2c2438;
+    --text: #f1ede4;
+    --text-dim: #a89fb3;
+    --accent: #c9a869;
+    --accent-dim: #8a713f;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(14, 12, 20, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 720px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.02em; color: var(--text); }
+  .brand-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(160deg, var(--accent), var(--accent-dim));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: #14111c;
+  }
+
+  main { padding: 56px 24px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 8px; }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 40px; }
+  h2 { font-size: 1.15rem; color: var(--accent); margin: 36px 0 10px; }
+  h3 { font-size: 1rem; color: var(--text); margin: 24px 0 8px; }
+  p, li { color: var(--text-dim); line-height: 1.7; margin: 0 0 12px; }
+  ul { padding-left: 20px; margin: 0 0 12px; }
+  .notice {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 36px; font-size: 0.9rem; color: var(--text-dim);
+  }
+
+  footer { border-top: 1px solid var(--border); padding: 36px 24px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+  footer a { color: var(--text-dim); }
+  footer .foot-links { display: flex; gap: 18px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+  .lang-switcher {
+    background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; font-family: inherit; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="brand-icon">⬇</span> DownloadThat</a>
+    <span id="legal-lang-switcher"></span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Zásady ochrany osobních údajů</h1>
+    <p class="subtitle">Poslední aktualizace: červenec 2026 · podle GDPR a německého práva na ochranu osobních údajů</p>
+
+    <div class="notice">
+      Toto je český překlad poskytnutý pro snazší orientaci. Právně závaznou verzí je
+      německý originál (<a href="datenschutz.html">Datenschutzerklärung</a>); v případě
+      jakéhokoli rozporu má přednost německé znění.
+    </div>
+
+    <h2>1. Správce údajů</h2>
+    <p>
+      Správcem ve smyslu GDPR je:<br />
+      Benjamin Graf<br />
+      Lahneckstraße 8<br />
+      56112 Lahnstein<br />
+      Německo<br />
+      E-mail: <a href="mailto:gpt.assist.benjamin@gmail.com">gpt.assist.benjamin@gmail.com</a>
+    </p>
+
+    <h2>2. Obecné informace o zpracování údajů</h2>
+    <p>
+      Osobní údaje zpracováváme pouze v rozsahu nezbytném pro poskytování
+      našich služeb (aplikace DownloadThat a licencování verze Pro).
+      Zpracování probíhá na základě GDPR a německého spolkového zákona o
+      ochraně osobních údajů (BDSG).
+    </p>
+    <p>
+      Samotná aplikace běží zcela na vašem zařízení a nepřenáší žádná data o
+      užívání ani stažený obsah na naše servery. Ke zpracování údajů dochází
+      pouze v souvislosti s pořízením a ověřením licence Pro.
+    </p>
+
+    <h2>3. Zpracování údajů při zakoupení licence Pro</h2>
+
+    <h3>3.1 Zpracování plateb (Stripe)</h3>
+    <p>
+      Při zakoupení licence Pro je platba zpracována prostřednictvím služby
+      Stripe (Stripe Inc., 510 Townsend Street, San Francisco, CA 94103, USA).
+      Stripe přitom zpracovává platební údaje (např. údaje o platební kartě),
+      vaši e-mailovou adresu a případné další údaje potřebné ke zpracování
+      platby.
+    </p>
+    <p>
+      My sami neukládáme žádné úplné platební údaje. Stripe nám může po
+      úspěšném provedení platby předat následující informace:
+    </p>
+    <ul>
+      <li>ID platební relace Stripe (pro přiřazení nákupu)</li>
+      <li>E-mailovou adresu (pokud ji Stripe poskytne)</li>
+      <li>Úroveň licence (měsíční / roční / doživotní)</li>
+    </ul>
+    <p>
+      Právní základ: čl. 6 odst. 1 písm. b) GDPR (plnění smlouvy).<br />
+      Další informace o zpracování údajů společností Stripe naleznete na:
+      <a href="https://stripe.com/privacy" target="_blank" rel="noopener">
+        https://stripe.com/privacy
+      </a>.
+    </p>
+
+    <h3>3.2 Databáze licenčních klíčů (Cloudflare D1)</h3>
+    <p>
+      Po úspěšné platbě je vygenerován licenční klíč a uložen v databázi
+      provozované prostřednictvím Cloudflare D1 (Cloudflare, Inc., 101
+      Townsend St, San Francisco, CA 94107, USA). Ukládají se přitom tyto
+      údaje:
+    </p>
+    <ul>
+      <li>Jedinečný licenční klíč (UUID)</li>
+      <li>ID platební relace Stripe</li>
+      <li>Úroveň licence a okamžik aktivace</li>
+      <li>E-mailová adresa (pokud ji Stripe poskytne)</li>
+    </ul>
+    <p>
+      Údaje jsou uchovávány po dobu trvání licence. U doživotních licencí až
+      do jejich smazání na žádost držitele licence nebo do ukončení provozu
+      služby. Právní základ: čl. 6 odst. 1 písm. b) GDPR (plnění smlouvy).<br />
+      Zásady ochrany osobních údajů společnosti Cloudflare:
+      <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">
+        https://www.cloudflare.com/privacypolicy/
+      </a>.
+    </p>
+
+    <h3>3.3 Ověření licence v aplikaci</h3>
+    <p>
+      Když do aplikace zadáte licenční klíč, je tento klíč jednorázově
+      odeslán k ověření na náš licenční API endpoint (rovněž hostovaný na
+      Cloudflare Pages). Ověřuje se přitom výhradně samotný klíč; žádné
+      údaje o zařízení, IP adresy ani jiné informace se trvale neukládají.
+    </p>
+    <p>
+      Právní základ: čl. 6 odst. 1 písm. b) GDPR (plnění smlouvy).
+    </p>
+
+    <h3>3.4 Doklad o souhlasu s předčasným zahájením plnění smlouvy</h3>
+    <p>
+      Při zakoupení licence Pro musíte před provedením platby výslovně
+      potvrdit, že plnění smlouvy má začít ještě před uplynutím zákonné
+      lhůty pro odstoupení od smlouvy (viz <a href="agb.html">Podmínky
+      užívání</a>, § 6.3). Za účelem doložení tohoto prohlášení se okamžik
+      vašeho potvrzení v textové podobě ukládá jako součást objednacích
+      údajů předávaných společnosti Stripe (referenční číslo platební
+      relace). Právní základ: čl. 6 odst. 1 písm. c) GDPR (zákonná povinnost
+      vedení dokladů podle § 356 odst. 5 německého občanského zákoníku
+      (BGB)) a čl. 6 odst. 1 písm. f) GDPR (oprávněný zájem na zajištění
+      důkazů pro případ sporu).
+    </p>
+
+    <h3>3.5 Žádosti o vrácení peněz</h3>
+    <p>
+      Pokud požádáte o vrácení peněz prostřednictvím samoobslužné funkce
+      (<a href="widerruf.html">Odstoupení a vrácení peněz</a>), zpracováváme
+      vámi zadanou e-mailovou adresu a licenční klíč, abychom přiřadili váš
+      nákup u společnosti Stripe a zajistili vrácení platby a deaktivaci
+      licence. Právní základ: čl. 6 odst. 1 písm. b) a c) GDPR (vyřízení
+      smlouvy, resp. splnění zákonných povinností souvisejících s
+      odstoupením a vrácením platby).
+    </p>
+
+    <h2>4. Hosting a technická infrastruktura</h2>
+    <p>
+      Tento web je hostován prostřednictvím Cloudflare Pages. Cloudflare
+      může dočasně ukládat technické údaje o připojení (např. IP adresy) do
+      svých protokolů. To slouží k zajištění provozní bezpečnosti a probíhá
+      na základě čl. 6 odst. 1 písm. f) GDPR (oprávněný zájem na bezpečném a
+      bezchybném poskytování webu). Další informace:
+      <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">
+        Zásady ochrany osobních údajů společnosti Cloudflare
+      </a>.
+    </p>
+
+    <h2>5. Žádné cookies, žádné sledovací nástroje</h2>
+    <p>
+      Tento web nevyužívá vlastní cookies ani žádné sledovací či analytické
+      služby. Stripe může v rámci platebního procesu nastavovat cookies na
+      svých vlastních stránkách — ty jsou mimo naši sféru vlivu.
+    </p>
+
+    <h2>6. Předávání údajů do třetích zemí</h2>
+    <p>
+      Stripe a Cloudflare mají sídlo v USA. Předávání údajů probíhá na
+      základě standardních smluvních doložek EU (čl. 46 odst. 2 písm. c)
+      GDPR), případně na základě rámce EU–US Data Privacy Framework (pokud
+      je použitelný). Další informace naleznete v příslušných zásadách
+      ochrany osobních údajů jednotlivých poskytovatelů.
+    </p>
+
+    <h2>7. Vaše práva</h2>
+    <p>Vůči nám máte ohledně svých osobních údajů následující práva:</p>
+    <ul>
+      <li><strong>Právo na přístup</strong> (čl. 15 GDPR)</li>
+      <li><strong>Právo na opravu</strong> (čl. 16 GDPR)</li>
+      <li><strong>Právo na výmaz</strong> (čl. 17 GDPR)</li>
+      <li><strong>Právo na omezení zpracování</strong> (čl. 18 GDPR)</li>
+      <li><strong>Právo na přenositelnost údajů</strong> (čl. 20 GDPR)</li>
+      <li><strong>Právo vznést námitku</strong> (čl. 21 GDPR)</li>
+    </ul>
+    <p>
+      Pro uplatnění svých práv nás prosím kontaktujte e-mailem na adrese:
+      <a href="mailto:gpt.assist.benjamin@gmail.com">gpt.assist.benjamin@gmail.com</a>.
+    </p>
+    <p>
+      Máte také právo podat stížnost u dozorového úřadu pro ochranu osobních
+      údajů. Příslušný úřad se určuje podle vašeho bydliště nebo podle místa
+      údajného porušení.
+    </p>
+
+    <h2>8. Aktuálnost a změny těchto zásad ochrany osobních údajů</h2>
+    <p>
+      Tyto zásady ochrany osobních údajů jsou v současné době platné a mají
+      výše uvedené datum. V důsledku dalšího vývoje našeho webu nebo změn
+      právních či úředních požadavků může být nutné tyto zásady upravit.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html">Domů</a>
+      <a href="impressum.cs.html">Právní informace</a>
+      <a href="datenschutz.cs.html">Ochrana osobních údajů</a>
+      <a href="agb.cs.html">Podmínky užívání</a>
+      <a href="mailto:support@gaistreich.com">Podpora</a>
+    </div>
+    <div>© 2026 DownloadThat. Všechna práva vyhrazena.</div>
+  </div>
+</footer>
+
+<script src="legal-lang.js" data-doc="datenschutz"></script>
+</body>
+</html>

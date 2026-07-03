@@ -92,18 +92,18 @@
       "p2160": "4K (2160p)"
     },
     "terms": {
-      "title": "Before you start",
-      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
-      "link_terms": "Terms of use",
-      "link_privacy": "Privacy policy",
-      "link_imprint": "Imprint",
-      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
-      "continue_btn": "Continue"
+      "title": "Før du starter",
+      "body": "Denne app er et teknisk værktøj til at downloade medier fra links, du selv angiver. Du er selv eneansvarlig for at sikre dig, at du har lov til at downloade og bruge indholdet bag ethvert link, du indtaster — udvikleren påtager sig intet ansvar for det, du downloader.",
+      "link_terms": "Vilkår for brug",
+      "link_privacy": "Privatlivspolitik",
+      "link_imprint": "Kolofon",
+      "checkbox_label": "Jeg har læst og accepterer vilkårene for brug, og jeg forstår, at jeg er eneansvarlig for det indhold, jeg downloader.",
+      "continue_btn": "Fortsæt"
     },
     "about": {
-      "title": "About",
-      "developed_by": "Developed by",
-      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+      "title": "Om appen",
+      "developed_by": "Udviklet af",
+      "licenses": "Bruger yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) og AndroidX (Apache-2.0)."
     }
   },
   "website": {
@@ -165,7 +165,7 @@
       "cta_lifetime": "Vælg livstid",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Jeg anmoder om, at adgangen begynder med det samme, før den 14-dages lovbestemte fortrydelsesfrist udløber, og jeg forstår, at det betyder, at jeg mister min fortrydelsesret, så snart købet er gennemført (se {terms_start}Vilkår for brug{terms_end} §6.3). Du kan uanset dette stadig anmode om fuld tilbagebetaling inden for 14 dage via vores {refund_start}side til tilbagebetaling{refund_end}."
     },
     "faq": {
       "h2": "Ofte stillede spørgsmål",
@@ -187,8 +187,8 @@
       "privacy": "Privatliv",
       "support": "Support",
       "copyright": "© 2026 DownloadThat. Alle rettigheder forbeholdes.",
-      "terms": "Terms",
-      "home": "Home"
+      "terms": "Vilkår",
+      "home": "Forside"
     },
     "success": {
       "title": "Tak — DownloadThat Pro",
@@ -207,17 +207,17 @@
       "footer_note": "Denne side tjekker automatisk i nogle sekunder efter betalingen. Hvis intet vises, så genindlæs siden eller send en e-mail til {support_email} med din betalingsbekræftelse."
     },
     "refund": {
-      "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
-      "license_label": "License key",
-      "email_label": "Email address used at purchase",
-      "submit_btn": "Request refund",
-      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
-      "error_missing_fields": "Please fill in both the license key and the email address.",
-      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
-      "error_already_canceled": "This license has already been refunded or canceled.",
-      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support."
+      "title": "Fortrydelse & tilbagebetaling",
+      "body": "Indtast licensnøglen og den e-mailadresse, du brugte ved købet. Hvis dit køb blev foretaget inden for de seneste 14 dage, tilbagebetaler vi det fuldt ud via Stripe og deaktiverer licensen med det samme — uden at du behøver at angive en grund.",
+      "license_label": "Licensnøgle",
+      "email_label": "E-mailadresse brugt ved købet",
+      "submit_btn": "Anmod om tilbagebetaling",
+      "success": "Tilbagebetalt. Pengene vil være tilbage hos din betalingsudbyder inden for få hverdage, og licensen er blevet deaktiveret.",
+      "error_missing_fields": "Udfyld venligst både licensnøglen og e-mailadressen.",
+      "error_no_match": "Vi kunne ikke finde et køb, der matcher denne licensnøgle og e-mailadresse.",
+      "error_already_canceled": "Denne licens er allerede blevet tilbagebetalt eller annulleret.",
+      "error_window_expired": "14-dages-fristen for tilbagebetaling af dette køb er udløbet. Kontakt support, hvis du stadig gerne vil drøfte dette.",
+      "error_generic": "Noget gik galt. Prøv venligst igen, eller kontakt support."
     }
   }
 }

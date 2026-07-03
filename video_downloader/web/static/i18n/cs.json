@@ -92,18 +92,18 @@
       "p2160": "4K (2160p)"
     },
     "terms": {
-      "title": "Before you start",
-      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
-      "link_terms": "Terms of use",
-      "link_privacy": "Privacy policy",
-      "link_imprint": "Imprint",
-      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
-      "continue_btn": "Continue"
+      "title": "Než začnete",
+      "body": "Tato aplikace je technický nástroj pro stahování médií z odkazů, které sami zadáte. Za to, že máte oprávnění stahovat a používat obsah, na který daný odkaz vede, odpovídáte výhradně vy — vývojář nenese žádnou odpovědnost za to, co si stáhnete.",
+      "link_terms": "Podmínky užívání",
+      "link_privacy": "Zásady ochrany osobních údajů",
+      "link_imprint": "Právní informace",
+      "checkbox_label": "Přečetl(a) jsem si podmínky užívání a souhlasím s nimi a beru na vědomí, že za obsah, který si stáhnu, odpovídám výhradně já.",
+      "continue_btn": "Pokračovat"
     },
     "about": {
-      "title": "About",
-      "developed_by": "Developed by",
-      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+      "title": "O aplikaci",
+      "developed_by": "Vyvinul",
+      "licenses": "Používá yt-dlp (Unlicense), FFmpeg a LAME (LGPL), Chaquopy (MIT), requests a Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) a AndroidX (Apache-2.0)."
     }
   },
   "website": {
@@ -165,7 +165,7 @@
       "cta_lifetime": "Vybrat doživotní",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Žádám, aby přístup začal okamžitě, ještě před uplynutím 14denní zákonné lhůty pro odstoupení od smlouvy, a beru na vědomí, že tím po dokončení nákupu ztrácím právo na odstoupení od smlouvy (viz {terms_start}Podmínky užívání{terms_end} §6.3). I přesto můžete do 14 dnů požádat o plné vrácení peněz prostřednictvím naší {refund_start}stránky pro vrácení peněz{refund_end}."
     },
     "faq": {
       "h2": "Časté dotazy",
@@ -187,8 +187,8 @@
       "privacy": "Soukromí",
       "support": "Podpora",
       "copyright": "© 2026 DownloadThat. Všechna práva vyhrazena.",
-      "terms": "Terms",
-      "home": "Home"
+      "terms": "Podmínky",
+      "home": "Domů"
     },
     "success": {
       "title": "Děkujeme — DownloadThat Pro",
@@ -207,17 +207,17 @@
       "footer_note": "Tato stránka po platbě automaticky kontroluje stav po dobu několika sekund. Pokud se nic nezobrazí, načtěte stránku znovu nebo napište e-mail na {support_email} s potvrzením platby."
     },
     "refund": {
-      "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
-      "license_label": "License key",
-      "email_label": "Email address used at purchase",
-      "submit_btn": "Request refund",
-      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
-      "error_missing_fields": "Please fill in both the license key and the email address.",
-      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
-      "error_already_canceled": "This license has already been refunded or canceled.",
-      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support."
+      "title": "Odstoupení od smlouvy a vrácení peněz",
+      "body": "Zadejte licenční klíč a e-mailovou adresu použitou při nákupu. Pokud byl váš nákup proveden během posledních 14 dnů, vrátíme vám peníze v plné výši prostřednictvím Stripe a licenci okamžitě deaktivujeme — bez udání důvodu.",
+      "license_label": "Licenční klíč",
+      "email_label": "E-mailová adresa použitá při nákupu",
+      "submit_btn": "Požádat o vrácení peněz",
+      "success": "Peníze byly vráceny. Částka se vám vrátí u vašeho poskytovatele platebních služeb během několika pracovních dnů a licence byla deaktivována.",
+      "error_missing_fields": "Vyplňte prosím licenční klíč i e-mailovou adresu.",
+      "error_no_match": "Nepodařilo se nám najít nákup odpovídající tomuto licenčnímu klíči a e-mailové adrese.",
+      "error_already_canceled": "Tato licence již byla vrácena nebo zrušena.",
+      "error_window_expired": "14denní lhůta pro vrácení peněz u tohoto nákupu již uplynula. Pokud to chcete přesto řešit, kontaktujte podporu.",
+      "error_generic": "Něco se pokazilo. Zkuste to prosím znovu nebo kontaktujte podporu."
     }
   }
 }
