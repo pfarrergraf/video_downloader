@@ -61,6 +61,10 @@
   footer { border-top: 1px solid var(--border); padding: 36px 24px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
   footer a { color: var(--text-dim); }
   footer .foot-links { display: flex; gap: 18px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+  .lang-switcher {
+    background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; font-family: inherit; cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -68,6 +72,7 @@
 <header class="nav">
   <div class="nav-inner">
     <a href="index.html" class="brand"><span class="brand-icon">⬇</span> DownloadThat</a>
+    <span id="legal-lang-switcher"></span>
   </div>
 </header>
 
@@ -249,5 +254,6 @@
   </div>
 </footer>
 
+<script src="legal-lang.js" data-doc="datenschutz"></script>
 </body>
 </html>
