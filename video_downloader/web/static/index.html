@@ -572,11 +572,29 @@ async function api(path, opts = {}) {
   return data;
 }
 
+// On Android, MainActivity re-logs the user in automatically (injected JS,
+// see MainActivity.kt's onPageFinished) at the same time this page's own
+// checkAuth() runs against whatever session cookie was already stored from
+// before - normal after the app process was killed and relaunched, since
+// the server's in-memory session store resets but the WebView's cookie jar
+// persists. Both are async and hit the same local server, so they can
+// resolve in either order. Without this guard, checkAuth()'s answer for the
+// OLD (now invalid) cookie could arrive after the fresh auto-login already
+// succeeded and incorrectly flip the UI back to "logged out" - the user
+// would then be stuck looking at a login screen for a password they were
+// never shown, even though the app is actually authenticated. authGeneration
+// lets a login bump the generation so any earlier, now-stale checkAuth()
+// call discards its result instead of clobbering the newer state.
+let authGeneration = 0;
+
 async function checkAuth() {
+  const myGeneration = authGeneration;
   try {
     const me = await api('/api/me');
-    setAuthed(me.authenticated);
-  } catch (e) { setAuthed(false); }
+    if (myGeneration === authGeneration) setAuthed(me.authenticated);
+  } catch (e) {
+    if (myGeneration === authGeneration) setAuthed(false);
+  }
 }
 
 async function setAuthed(authed) {
@@ -660,6 +678,7 @@ $('login-btn').addEventListener('click', async () => {
   try {
     await api('/api/login', { method: 'POST', body: { password } });
     $('login-password').value = '';
+    authGeneration++;
     setAuthed(true);
   } catch (e) {
     $('login-error').textContent = t('app.login.error');
