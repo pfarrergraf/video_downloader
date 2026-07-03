@@ -98,3 +98,23 @@ Web UI work happened on `claude/gothic-downloader-website-bp7r2u`. The user test
 Android/Termux changes on their own phone and reports back errors as screenshots —
 expect a debug loop of "push a fix → user pulls and reruns in Termux → reports the
 next error" for anything touching `scripts/termux_*.sh` or `video_downloader/web/`.
+
+## Android permission guardrail
+
+**Do not add dangerous Android permissions to `android/app/src/main/AndroidManifest.xml` without explicit written approval from the repository owner.**
+
+Currently approved permissions:
+- `android.permission.INTERNET` — required for downloads
+
+Specifically prohibited without documented owner approval and a written reason:
+- Any `READ_*` / `WRITE_*` permissions for contacts, SMS, call log, storage beyond what Chaquopy needs
+- `ACCESS_FINE_LOCATION` / `ACCESS_COARSE_LOCATION`
+- `CAMERA` / `RECORD_AUDIO`
+- `REQUEST_INSTALL_PACKAGES`
+- `SYSTEM_ALERT_WINDOW` (overlay)
+- `BIND_ACCESSIBILITY_SERVICE`
+- `DEVICE_ADMIN`
+
+Also: preserve `android:allowBackup="false"` in the manifest unless explicitly instructed to change it, and document any change with a rationale.
+
+These rules exist to keep the permission footprint minimal during beta distribution, where Google Play Protect warnings are already a known friction point. See `docs/ANDROID_BETA_DISTRIBUTION_AND_STRIPE_PLAN_2026-07-03.md` section 3.1.

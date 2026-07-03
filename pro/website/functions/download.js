@@ -11,9 +11,29 @@ export async function onRequestGet() {
     return new Response("Download temporarily unavailable", { status: 502 });
   }
 
-  const headers = new Headers(upstream.headers);
+  const headers = new Headers();
+  headers.set("Content-Type", "application/vnd.android.package-archive");
   headers.set("Content-Disposition", 'attachment; filename="DownloadThat.apk"');
-  headers.delete("set-cookie");
+  headers.set("X-Content-Type-Options", "nosniff");
+  headers.set("Cache-Control", "no-store");
+  // Forward Content-Length if present so the browser can show download progress
+  const contentLength = upstream.headers.get("Content-Length");
+  if (contentLength) {
+    headers.set("Content-Length", contentLength);
+  }
 
   return new Response(upstream.body, { status: 200, headers });
+}
+
+export async function onRequestHead() {
+  const upstream = await fetch(APK_URL, { method: "HEAD", redirect: "follow" });
+  const headers = new Headers();
+  headers.set("Content-Type", "application/vnd.android.package-archive");
+  headers.set("X-Content-Type-Options", "nosniff");
+  headers.set("Cache-Control", "no-store");
+  const contentLength = upstream.headers.get("Content-Length");
+  if (contentLength) {
+    headers.set("Content-Length", contentLength);
+  }
+  return new Response(null, { status: upstream.ok ? 200 : 502, headers });
 }
