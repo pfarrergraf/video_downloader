@@ -253,9 +253,12 @@
     <!-- TEST MODE NOTICE: payment links below are Stripe test-mode links.
          Replace with live links before public production launch.
          Do not remove this comment until test links are gone. -->
-    <p style="background:#2c1a10;border:1px solid #7a3c1a;border-radius:8px;padding:12px 16px;font-size:0.85rem;color:#f1a85a;margin:0 0 24px;">
-      🧪 <strong>Beta / Testmodus:</strong> Die Kauflinks auf dieser Seite führen zu Stripe-Testzahlungen.
-      Es werden keine echten Kosten berechnet. Live-Zahlungen werden nach dem offiziellen Launch aktiviert.
+    <!-- Intentionally not in the i18n system: this banner is a temporary
+         beta/staging notice that must be removed before live launch. -->
+    <p data-testmode-notice style="background:#2c1a10;border:1px solid #7a3c1a;border-radius:8px;padding:12px 16px;font-size:0.85rem;color:#f1a85a;margin:0 0 24px;">
+      🧪 <strong>Beta / Test mode:</strong>
+      <span lang="de">Die Kauflinks auf dieser Seite führen zu Stripe-Testzahlungen. Es werden keine echten Kosten berechnet. Live-Zahlungen werden nach dem offiziellen Launch aktiviert.</span>
+      <span lang="en"> / Payment links on this page use Stripe test mode. No real charges are made. Live payments will be enabled after official launch.</span>
     </p>
     <div class="consent-row">
       <input type="checkbox" id="withdrawal-consent" />
