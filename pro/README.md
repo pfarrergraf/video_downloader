@@ -171,15 +171,61 @@ redirect completing correctly, so it's the recommended path here.
 
 ## Going live (real payments)
 
-The Stripe account connected here is a **sandbox**. Activating real payments needs Stripe's
-own identity/business verification, which is inherently a human-only step (yours) done
-in the Stripe dashboard — no API key or token changes that. It works fine from a phone
-browser. Once live mode is active:
+The Stripe account connected here (`acct_1ThQGXQioe5jETnQ`, "Gaistreich sandbox") is
+still in **test mode**. Test mode and live mode are two fully separate data
+environments in Stripe — Products, Prices, Payment Links, and Customers genuinely do
+not carry over. That part is unavoidable (it's how Stripe's architecture works, not
+something this project overcomplicated), but most of the actual work to recreate them
+is scriptable — it is **not** a from-scratch rebuild. Checked against Stripe's API
+directly:
 
-1. Live mode has separate Products/Prices/Payment Links from test mode — tell me once
-   you're verified and I'll recreate the same 3 prices in live mode via the API.
-2. Create a second webhook endpoint for live mode (same URL, same events), and swap
-   `STRIPE_SECRET_KEY`/`STRIPE_WEBHOOK_SECRET` in the Pages project to the live values.
+**Steps that only you can do (human/Dashboard-only):**
+
+1. **Business verification.** Stripe dashboard → activate your account: legal name,
+   address, bank account, ID if requested. This is what actually unlocks live mode —
+   nothing below works until this is done. Works fine from a phone browser.
+2. **Statement descriptor.** Dashboard → **Settings** → **Business settings** →
+   **Public details** → set the statement descriptor to `DOWNLOADTHAT` (this is what
+   shows up on the customer's bank/card statement; it's an account-level setting, not
+   something set per payment).
+3. **Confirm the payout bank account** is attached (same Settings area) — you said
+   this is probably already done from an earlier step; just double check it once
+   verification is live.
+4. **Create the live webhook endpoint.** Dashboard → **Developers** → **Webhooks** →
+   **Add endpoint**, same URL and events as the test one (`checkout.session.completed`,
+   `customer.subscription.updated`, `customer.subscription.deleted`), but pick **live**
+   mode in the mode toggle first. Copy the resulting `whsec_...` signing secret. Webhook
+   endpoint creation is one of the few Stripe operations not exposed through my Stripe
+   tools (probably deliberately, since the response carries a secret you should only
+   ever see once, directly from Stripe) — this step has to happen by hand either way.
+5. **2FA** on the Stripe account (you're checking this yourself).
+6. **Update secrets**: in the Cloudflare Pages project, swap `STRIPE_SECRET_KEY` to the
+   live `sk_live_...` key and `STRIPE_WEBHOOK_SECRET` to the new live `whsec_...`, then
+   redeploy so the Functions pick them up.
+
+**Steps I can do for you via the Stripe API, once you tell me verification is done**
+(confirmed today that `PostProducts`, `PostPrices`, and `PostPaymentLinks` are all
+live-mode-capable API calls my Stripe connection can make — this hasn't been tested
+against an actually-verified account yet, since this one is still sandboxed):
+
+7. Recreate the product + the 3 prices (monthly/yearly/lifetime) in live mode.
+8. Recreate the 3 Payment Links, same redirect URLs as today
+   (`https://downloadthat.pages.dev/success.html?session_id={CHECKOUT_SESSION_ID}`).
+9. Update the 3 hardcoded Payment Link URLs in `pro/website/index.html` to the new
+   live ones and push.
+
+**On the "Kundennummer"/reconciliation reference you asked about:** the license
+database (`licenses` table in D1) already stores, per purchase, the license key,
+email, Stripe customer ID, subscription ID, and checkout session ID — that's already
+a complete reconciliation key for refunds or a future invoice, no extra work needed.
+The one thing that setup can't do is put a *per-customer* value directly on the
+customer's own bank/card statement text — Stripe's `statement_descriptor_suffix` field
+does exist, but only as a static, per-Payment-Link value (same text for every buyer of
+that link), not a per-customer dynamic one. A truly dynamic per-customer statement
+suffix would require switching from static Payment Links to creating a Checkout
+Session via the API for every single purchase — a real architecture change, and not
+needed for what you described (reconciliation/invoicing), since the D1 table already
+covers that. Recommend leaving this as-is.
 
 ## What the Android app does with this (as of this commit)
 
