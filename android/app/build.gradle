@@ -14,14 +14,20 @@ def abiFilterList = project.hasProperty('abiFilters')
 
 android {
     namespace 'de.classydl.app'
-    compileSdk 35
+    // Google requires new apps/updates to target Android 16 (API 36) from
+    // 2026-08-31, and separately rejects submissions with non-16KB-page-aligned
+    // native libraries after 2026-05-31 (already past) - see this file's AGP
+    // 8.13.0 comment in ../build.gradle and
+    // .github/scripts/build_ffmpeg_android.sh for the NDK/linker side of the
+    // second requirement.
+    compileSdk 36
 
     defaultConfig {
         applicationId "de.classydl.app"
         // Chaquopy 17 requires minSdk >= 24; 26 is used here so adaptive launcher
         // icons (mipmap-anydpi-v26) don't need a legacy raster fallback.
         minSdk 26
-        targetSdk 35
+        targetSdk 36
         // Release CI passes the real version derived from the git tag
         // (-PversionNameOverride=0.2.0 -PversionCodeOverride=200); every
         // other build (local dev, debug/emulator-smoke-test CI) keeps this

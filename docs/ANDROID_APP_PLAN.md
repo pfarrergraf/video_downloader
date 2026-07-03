@@ -410,11 +410,16 @@ publisher/signing identity, not the technique itself.
   (German; Play Console doesn't require English specifically, but consider adding an
   English version before a Production listing, since store review skews toward
   English-language material).
-- **Near-term deadline to track, not urgent yet**: Google requires new apps/updates to
-  target Android 16 (API 36) from **2026-08-31**. `build.gradle` currently targets
-  `compileSdk 35` / `targetSdk 35`. Fine for Internal Testing today; bump both before
-  that date (and re-verify Chaquopy + `android-actions/setup-android`'s API 36
-  platform support in CI first — don't assume it "just works").
+- **Done ahead of the 2026-08-31 deadline**: `compileSdk`/`targetSdk` bumped to 36,
+  AGP to 8.13.0 (min Gradle 8.13, defaults to NDK 27.0.12077973 — the first NDK
+  release whose linker defaults to 16 KB page-aligned native libraries), and the
+  self-built ffmpeg binary now also passes explicit
+  `-Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384` linker flags. This also
+  covers Google's separate 16 KB native-library alignment requirement (already past
+  its 2026-05-31 enforcement date for new Play Console submissions). Verified via
+  `android-build.yml`/`android-release.yml` CI, not locally (no Android SDK in this
+  sandbox) — Chaquopy 17.0 documents support for AGP 8.9 through 8.13, so no
+  Chaquopy version bump was needed.
 
 ## Known risks / things that will probably need a fix-it round
 

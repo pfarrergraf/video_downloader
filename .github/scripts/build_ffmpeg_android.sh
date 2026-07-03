@@ -71,6 +71,10 @@ git clone --branch "$FFMPEG_REF" --depth 1 https://github.com/FFmpeg/FFmpeg.git 
 cd ffmpeg-src
 
 echo "==> [$ABI] Configuring ffmpeg"
+# max-page-size/common-page-size=16384: Google requires native libraries to
+# be 16 KB page-aligned (devices are moving to 16 KB memory pages); NDK
+# r27+'s linker defaults to this already, but setting it explicitly doesn't
+# depend on that default surviving future NDK bumps.
 PATH="$LAME_PREFIX/bin:$PATH" ./configure \
   --prefix="$OUT_DIR" \
   --target-os=android \
@@ -80,7 +84,7 @@ PATH="$LAME_PREFIX/bin:$PATH" ./configure \
   --cc="$CC" --cxx="$CXX" --ar="$AR" --ranlib="$RANLIB" --strip="$STRIP" --nm="$NM" \
   --sysroot="$TOOLCHAIN/sysroot" \
   --extra-cflags="-O2 -fPIC -I$LAME_PREFIX/include" \
-  --extra-ldflags="-pie -L$LAME_PREFIX/lib" \
+  --extra-ldflags="-pie -Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384 -L$LAME_PREFIX/lib" \
   --disable-shared --enable-static \
   --disable-doc --disable-debug --disable-symver \
   --enable-libmp3lame

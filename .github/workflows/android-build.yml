@@ -28,11 +28,11 @@ jobs:
           if [ -z "$SDKMANAGER" ]; then
             SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -1)"
           fi
-          "$SDKMANAGER" --install "ndk;26.1.10909125"
+          "$SDKMANAGER" --install "ndk;27.0.12077973"
 
       - name: Build ffmpeg for ${{ matrix.abi }}
         env:
-          ANDROID_NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/26.1.10909125
+          ANDROID_NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/27.0.12077973
         run: bash .github/scripts/build_ffmpeg_android.sh "${{ matrix.abi }}" "$PWD/ffmpeg-out"
 
       - name: Upload ffmpeg binary
@@ -67,7 +67,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "8.10.2"
+          gradle-version: "8.13"
 
       - name: Download ffmpeg binaries
         uses: actions/download-artifact@v4
