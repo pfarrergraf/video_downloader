@@ -60,37 +60,57 @@ def open_file(path: Path) -> bool:
         return False
 
 
-def open_folder(path: Path) -> bool:
-    """Fire an ACTION_VIEW intent asking a file manager to show `path`'s
-    parent directory.
+# The MIME type SAF/DocumentsUI uses to mean "this Uri is a directory" —
+# hardcoded rather than resolved via android.provider.DocumentsContract$Document
+# (a nested interface, awkward to reach through Chaquopy's jclass) since it's
+# a stable public constant, not an implementation detail.
+_SAF_DIRECTORY_MIME_TYPE = "vnd.android.document/directory"
 
-    Android has no first-class "show this folder" API — this relies on the
-    same "resource/folder" MIME-type trick most file managers (stock AOSP,
-    Files by Google, Samsung My Files) recognize. Not universal, so this is
-    deliberately best-effort: on a device with no app that understands it,
-    startActivity raises ActivityNotFoundException and this just returns
-    False instead of crashing.
+
+def open_folder(export_folder_uri: str | None = None) -> bool:
+    """Show the user where their downloads are.
+
+    Android has no intent for "show this exact filesystem path" - a
+    FileProvider content:// Uri pointed at an arbitrary directory (tried
+    first, with a "resource/folder" MIME-type hack) has no consistent
+    handler and was observed opening a random, unrelated app instead of a
+    file manager. Two things actually work reliably:
+
+    1. If the user picked an export folder via Settings (a real SAF tree
+       Uri, not an app-private path), DocumentsUI can browse it directly -
+       that's exactly what a tree Uri is for.
+    2. Otherwise, every finished download is also copied into the system's
+       shared Downloads collection via MediaStore on API 29+ (see
+       android_entry.py's _publish_file_to_downloads), so the stock
+       "Downloads" screen (DownloadManager.ACTION_VIEW_DOWNLOADS, a real
+       platform intent every Android device resolves) is a reliable place
+       to point the user, even though it isn't scoped to just this app.
     """
     try:
         from java import jclass  # type: ignore[import-not-found]
     except ImportError:
         return False  # not running under Chaquopy (Termux/desktop/CLI)
 
+    context = _application_context()
+    intent_class = jclass("android.content.Intent")
+
+    if export_folder_uri:
+        try:
+            uri_class = jclass("android.net.Uri")
+            tree_uri = uri_class.parse(export_folder_uri)
+            intent = intent_class(intent_class.ACTION_VIEW)
+            intent.setDataAndType(tree_uri, _SAF_DIRECTORY_MIME_TYPE)
+            intent.addFlags(intent_class.FLAG_ACTIVITY_NEW_TASK | intent_class.FLAG_GRANT_READ_URI_PERMISSION)
+            context.startActivity(intent)
+            return True
+        except Exception:
+            traceback.print_exc()
+            # Fall through to the Downloads screen rather than giving up.
+
     try:
-        directory = path if path.is_dir() else path.parent
-        if not directory.is_dir():
-            return False
-        context = _application_context()
-
-        file_provider = jclass("androidx.core.content.FileProvider")
-        java_file = jclass("java.io.File")(str(directory))
-        uri = file_provider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, java_file)
-
-        intent_class = jclass("android.content.Intent")
-        intent = intent_class(intent_class.ACTION_VIEW)
-        intent.setDataAndType(uri, "resource/folder")
-        intent.addFlags(intent_class.FLAG_ACTIVITY_NEW_TASK | intent_class.FLAG_GRANT_READ_URI_PERMISSION)
-
+        download_manager = jclass("android.app.DownloadManager")
+        intent = intent_class(download_manager.ACTION_VIEW_DOWNLOADS)
+        intent.addFlags(intent_class.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
         return True
     except Exception:

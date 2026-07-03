@@ -441,7 +441,8 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             for candidate in self.server.store.list_job_files(job_id):
                 candidate_path = Path(candidate)
                 if candidate_path.name == filename:
-                    opened = android_bridge.open_folder(candidate_path)
+                    export_uri = self.server.store.get_setting("export_folder_uri")
+                    opened = android_bridge.open_folder(export_uri)
                     self._send_json(200, {"opened": opened})
                     return
             self._send_json(404, {"detail": "File not found for this job"})
