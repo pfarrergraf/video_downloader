@@ -92,18 +92,18 @@
       "p2160": "4K (2160p)"
     },
     "terms": {
-      "title": "Before you start",
-      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
-      "link_terms": "Terms of use",
-      "link_privacy": "Privacy policy",
-      "link_imprint": "Imprint",
-      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
-      "continue_btn": "Continue"
+      "title": "Πριν ξεκινήσετε",
+      "body": "Αυτή η εφαρμογή είναι ένα τεχνικό εργαλείο για τη λήψη πολυμέσων από συνδέσμους που εσείς οι ίδιοι παρέχετε. Είστε αποκλειστικά υπεύθυνοι να βεβαιωθείτε ότι έχετε δικαίωμα να κατεβάσετε και να χρησιμοποιήσετε το περιεχόμενο πίσω από κάθε σύνδεσμο που εισάγετε — ο προγραμματιστής δεν φέρει καμία ευθύνη για το τι κατεβάζετε.",
+      "link_terms": "Όροι χρήσης",
+      "link_privacy": "Πολιτική απορρήτου",
+      "link_imprint": "Στοιχεία εκδότη",
+      "checkbox_label": "Έχω διαβάσει και αποδέχομαι τους όρους χρήσης και κατανοώ ότι είμαι αποκλειστικά υπεύθυνος/η για το περιεχόμενο που κατεβάζω.",
+      "continue_btn": "Συνέχεια"
     },
     "about": {
-      "title": "About",
-      "developed_by": "Developed by",
-      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+      "title": "Σχετικά",
+      "developed_by": "Ανάπτυξη από",
+      "licenses": "Χρησιμοποιεί τα yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), και AndroidX (Apache-2.0)."
     }
   },
   "website": {
@@ -165,7 +165,7 @@
       "cta_lifetime": "Επιλογή εφ' όρου ζωής",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Ζητώ η πρόσβαση να ξεκινήσει άμεσα, πριν από τη λήξη της 14ήμερης νόμιμης προθεσμίας υπαναχώρησης, και κατανοώ ότι αυτό σημαίνει πως χάνω το δικαίωμα υπαναχώρησης μόλις ολοκληρωθεί η αγορά (βλ. {terms_start}Όρους Χρήσης{terms_end} §6.3). Παρόλα αυτά, μπορείτε να ζητήσετε πλήρη επιστροφή χρημάτων εντός 14 ημερών μέσω της {refund_start}σελίδας επιστροφών{refund_end} μας."
     },
     "faq": {
       "h2": "Συχνές ερωτήσεις",
@@ -187,8 +187,8 @@
       "privacy": "Απόρρητο",
       "support": "Υποστήριξη",
       "copyright": "© 2026 DownloadThat. Με επιφύλαξη παντός δικαιώματος.",
-      "terms": "Terms",
-      "home": "Home"
+      "terms": "Όροι",
+      "home": "Αρχική"
     },
     "success": {
       "title": "Ευχαριστούμε — DownloadThat Pro",
@@ -207,17 +207,17 @@
       "footer_note": "Αυτή η σελίδα ελέγχει αυτόματα για λίγα δευτερόλεπτα μετά την πληρωμή. Αν δεν εμφανιστεί τίποτα, επαναφορτώστε τη σελίδα ή στείλτε email στο {support_email} με την επιβεβαίωση πληρωμής σας."
     },
     "refund": {
-      "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
-      "license_label": "License key",
-      "email_label": "Email address used at purchase",
-      "submit_btn": "Request refund",
-      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
-      "error_missing_fields": "Please fill in both the license key and the email address.",
-      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
-      "error_already_canceled": "This license has already been refunded or canceled.",
-      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support."
+      "title": "Υπαναχώρηση & επιστροφή χρημάτων",
+      "body": "Εισαγάγετε το κλειδί άδειας χρήσης και τη διεύθυνση email από την αγορά σας. Αν η αγορά σας πραγματοποιήθηκε τις τελευταίες 14 ημέρες, θα σας επιστρέψουμε πλήρως τα χρήματα μέσω Stripe και θα απενεργοποιήσουμε αμέσως την άδεια — χωρίς να χρειάζεται αιτιολόγηση.",
+      "license_label": "Κλειδί άδειας χρήσης",
+      "email_label": "Διεύθυνση email που χρησιμοποιήθηκε στην αγορά",
+      "submit_btn": "Αίτημα επιστροφής χρημάτων",
+      "success": "Έγινε επιστροφή χρημάτων. Τα χρήματα θα επιστραφούν στον πάροχο πληρωμών σας εντός λίγων εργάσιμων ημερών και η άδεια έχει απενεργοποιηθεί.",
+      "error_missing_fields": "Παρακαλούμε συμπληρώστε τόσο το κλειδί άδειας χρήσης όσο και τη διεύθυνση email.",
+      "error_no_match": "Δεν βρέθηκε αγορά που να αντιστοιχεί σε αυτό το κλειδί άδειας χρήσης και τη διεύθυνση email.",
+      "error_already_canceled": "Αυτή η άδεια έχει ήδη επιστραφεί ή ακυρωθεί.",
+      "error_window_expired": "Η 14ήμερη προθεσμία επιστροφής χρημάτων για αυτή την αγορά έχει λήξει. Επικοινωνήστε με την υποστήριξη αν θέλετε ακόμα να το συζητήσουμε.",
+      "error_generic": "Κάτι πήγε στραβά. Παρακαλούμε δοκιμάστε ξανά ή επικοινωνήστε με την υποστήριξη."
     }
   }
 }

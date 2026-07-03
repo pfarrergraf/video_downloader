@@ -92,18 +92,18 @@
       "p2160": "4K (2160p)"
     },
     "terms": {
-      "title": "Before you start",
-      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
-      "link_terms": "Terms of use",
-      "link_privacy": "Privacy policy",
-      "link_imprint": "Imprint",
-      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
-      "continue_btn": "Continue"
+      "title": "Antes de empezar",
+      "body": "Esta aplicación es una herramienta técnica para descargar contenido multimedia a partir de enlaces que tú mismo proporcionas. Eres el único responsable de asegurarte de que tienes permiso para descargar y usar el contenido al que apunta cualquier enlace que introduzcas; el desarrollador no asume ninguna responsabilidad sobre lo que descargues.",
+      "link_terms": "Términos de uso",
+      "link_privacy": "Política de privacidad",
+      "link_imprint": "Aviso legal",
+      "checkbox_label": "He leído y acepto los términos de uso, y entiendo que soy el único responsable del contenido que descargo.",
+      "continue_btn": "Continuar"
     },
     "about": {
-      "title": "About",
-      "developed_by": "Developed by",
-      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+      "title": "Acerca de",
+      "developed_by": "Desarrollado por",
+      "licenses": "Utiliza yt-dlp (Unlicense), FFmpeg y LAME (LGPL), Chaquopy (MIT), requests y Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) y AndroidX (Apache-2.0)."
     }
   },
   "website": {
@@ -165,7 +165,7 @@
       "cta_lifetime": "Elegir de por vida",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Solicito que el acceso comience de inmediato, antes de que finalice el plazo legal de desistimiento de 14 días, y entiendo que esto significa que pierdo mi derecho de desistimiento en cuanto se complete la compra (véanse los {terms_start}Términos de uso{terms_end}, §6.3). Aun así, puedes solicitar un reembolso completo dentro de los 14 días a través de nuestra {refund_start}página de reembolsos{refund_end}."
     },
     "faq": {
       "h2": "Preguntas frecuentes",
@@ -187,8 +187,8 @@
       "privacy": "Privacidad",
       "support": "Soporte",
       "copyright": "© 2026 DownloadThat. Todos los derechos reservados.",
-      "terms": "Terms",
-      "home": "Home"
+      "terms": "Términos",
+      "home": "Inicio"
     },
     "success": {
       "title": "Gracias: DownloadThat Pro",
@@ -207,17 +207,17 @@
       "footer_note": "Esta página se actualiza automáticamente durante unos segundos después del pago. Si no aparece nada, recarga la página o envía un correo a {support_email} con tu confirmación de pago."
     },
     "refund": {
-      "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
-      "license_label": "License key",
-      "email_label": "Email address used at purchase",
-      "submit_btn": "Request refund",
-      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
-      "error_missing_fields": "Please fill in both the license key and the email address.",
-      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
-      "error_already_canceled": "This license has already been refunded or canceled.",
-      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support."
+      "title": "Desistimiento y reembolso",
+      "body": "Introduce la clave de licencia y la dirección de correo electrónico de tu compra. Si la compra se realizó en los últimos 14 días, te la reembolsaremos íntegramente a través de Stripe y desactivaremos la licencia de inmediato, sin necesidad de justificación.",
+      "license_label": "Clave de licencia",
+      "email_label": "Dirección de correo electrónico usada en la compra",
+      "submit_btn": "Solicitar reembolso",
+      "success": "Reembolso realizado. El dinero se abonará en tu método de pago en unos días hábiles y la licencia ha sido desactivada.",
+      "error_missing_fields": "Por favor, rellena tanto la clave de licencia como la dirección de correo electrónico.",
+      "error_no_match": "No hemos encontrado ninguna compra que coincida con esa clave de licencia y esa dirección de correo electrónico.",
+      "error_already_canceled": "Esta licencia ya ha sido reembolsada o cancelada.",
+      "error_window_expired": "El plazo de 14 días para el reembolso de esta compra ha finalizado. Ponte en contacto con soporte si aún deseas hablar sobre ello.",
+      "error_generic": "Algo salió mal. Inténtalo de nuevo o ponte en contacto con soporte."
     }
   }
 }
