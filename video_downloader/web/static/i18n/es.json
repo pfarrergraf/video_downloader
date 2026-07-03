@@ -37,7 +37,8 @@
       "search_failed_toast": "Error al buscar.",
       "queue_failed_toast": "Error al añadir a la cola.",
       "queue_selection_failed_toast": "Error al añadir la selección a la cola.",
-      "need_selection_toast": "Selecciona al menos un elemento."
+      "need_selection_toast": "Selecciona al menos un elemento.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Cola",
@@ -64,7 +65,16 @@
       "saved_toast": "Ajustes guardados.",
       "close_btn": "Cerrar"
     },
-    "footer": "DownloadThat: descarga solo contenido multimedia sobre el que tengas derechos."
+    "footer": "DownloadThat: descarga solo contenido multimedia sobre el que tengas derechos.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

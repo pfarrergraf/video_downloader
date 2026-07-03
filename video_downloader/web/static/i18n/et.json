@@ -37,7 +37,8 @@
       "search_failed_toast": "Otsing ebaõnnestus.",
       "queue_failed_toast": "Järjekorda lisamine ebaõnnestus.",
       "queue_selection_failed_toast": "Valiku järjekorda lisamine ebaõnnestus.",
-      "need_selection_toast": "Vali vähemalt üks üksus."
+      "need_selection_toast": "Vali vähemalt üks üksus.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Järjekord",
@@ -64,7 +65,16 @@
       "saved_toast": "Seaded salvestatud.",
       "close_btn": "Sulge"
     },
-    "footer": "DownloadThat — laadi alla ainult meediat, mille kasutamiseks on sul õigus."
+    "footer": "DownloadThat — laadi alla ainult meediat, mille kasutamiseks on sul õigus.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

@@ -37,7 +37,8 @@
       "search_failed_toast": "検索に失敗しました。",
       "queue_failed_toast": "キューへの追加に失敗しました。",
       "queue_selection_failed_toast": "選択項目のキュー追加に失敗しました。",
-      "need_selection_toast": "少なくとも1つの項目を選択してください。"
+      "need_selection_toast": "少なくとも1つの項目を選択してください。",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "キュー",
@@ -64,7 +65,16 @@
       "saved_toast": "設定を保存しました。",
       "close_btn": "閉じる"
     },
-    "footer": "DownloadThat — 権利を持つメディアのみダウンロードしてください。"
+    "footer": "DownloadThat — 権利を持つメディアのみダウンロードしてください。",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

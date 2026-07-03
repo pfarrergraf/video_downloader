@@ -37,7 +37,8 @@
       "search_failed_toast": "Iskanje ni uspelo.",
       "queue_failed_toast": "Dodajanje v vrsto ni uspelo.",
       "queue_selection_failed_toast": "Dodajanje izbora v vrsto ni uspelo.",
-      "need_selection_toast": "Izberi vsaj eno vsebino."
+      "need_selection_toast": "Izberi vsaj eno vsebino.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Vrsta",
@@ -64,7 +65,16 @@
       "saved_toast": "Nastavitve shranjene.",
       "close_btn": "Zapri"
     },
-    "footer": "DownloadThat — prenašaj samo vsebine, za katere imaš pravice."
+    "footer": "DownloadThat — prenašaj samo vsebine, za katere imaš pravice.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

@@ -37,7 +37,8 @@
       "search_failed_toast": "Søgning mislykkedes.",
       "queue_failed_toast": "Kunne ikke tilføje til køen.",
       "queue_selection_failed_toast": "Kunne ikke tilføje valget til køen.",
-      "need_selection_toast": "Vælg mindst ét element."
+      "need_selection_toast": "Vælg mindst ét element.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Kø",
@@ -64,7 +65,16 @@
       "saved_toast": "Indstillinger gemt.",
       "close_btn": "Luk"
     },
-    "footer": "DownloadThat — download kun medier, du har rettighederne til."
+    "footer": "DownloadThat — download kun medier, du har rettighederne til.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

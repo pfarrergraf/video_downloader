@@ -37,7 +37,8 @@
       "search_failed_toast": "Search failed.",
       "queue_failed_toast": "Failed to queue.",
       "queue_selection_failed_toast": "Failed to queue selection.",
-      "need_selection_toast": "Select at least one item."
+      "need_selection_toast": "Select at least one item.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Queue",
@@ -64,7 +65,16 @@
       "saved_toast": "Settings saved.",
       "close_btn": "Close"
     },
-    "footer": "DownloadThat — only download media you have the rights to."
+    "footer": "DownloadThat — only download media you have the rights to.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

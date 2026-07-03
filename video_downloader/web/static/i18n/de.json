@@ -15,7 +15,7 @@
       "buy_btn": "Pro holen",
       "status_active": "Pro aktiv ({tier}). Danke für deine Unterstützung!",
       "status_invalid": "Kostenlos — der gespeicherte Schlüssel ist ungültig oder abgelaufen.",
-      "status_free": "Kostenlos — 1 Download pro Tag. Pro: unbegrenzt.",
+      "status_free": "Kostenlos — 5 Downloads pro Tag. Pro: unbegrenzt.",
       "need_key_toast": "Gib zuerst einen Lizenzschlüssel ein.",
       "activated_toast": "Lizenz aktiviert.",
       "invalid_toast": "Ungültiger Lizenzschlüssel."
@@ -23,6 +23,7 @@
     "scrape": {
       "title": "Seite durchsuchen",
       "url_label": "Seiten-URL",
+      "url_placeholder": "Füge hier den Link ein",
       "deep_label": "Tiefensuche (Links folgen)",
       "video_btn": "Video herunterladen",
       "audio_btn": "Audio herunterladen",
@@ -38,6 +39,15 @@
       "queue_failed_toast": "Konnte nicht zur Warteschlange hinzugefügt werden.",
       "queue_selection_failed_toast": "Auswahl konnte nicht zur Warteschlange hinzugefügt werden.",
       "need_selection_toast": "Wähle mindestens ein Element aus."
+    },
+    "batch": {
+      "title": "Mehrere Links oder eine Playlist",
+      "label": "Ein Link pro Zeile, oder ein einzelner Playlist-Link",
+      "placeholder": "Füge mehrere Links ein (einer pro Zeile), oder einen einzelnen Playlist-Link",
+      "download_btn": "Alle herunterladen",
+      "need_links_toast": "Füge zuerst mindestens einen Link ein.",
+      "queued_toast": "{count} zur Warteschlange hinzugefügt.",
+      "queue_failed_toast": "Ein oder mehrere Links konnten nicht hinzugefügt werden."
     },
     "queue": {
       "title": "Warteschlange",

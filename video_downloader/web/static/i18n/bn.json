@@ -37,7 +37,8 @@
       "search_failed_toast": "অনুসন্ধান ব্যর্থ হয়েছে।",
       "queue_failed_toast": "কিউতে যোগ করা যায়নি।",
       "queue_selection_failed_toast": "নির্বাচিতগুলো কিউতে যোগ করা যায়নি।",
-      "need_selection_toast": "অন্তত একটি আইটেম নির্বাচন করুন।"
+      "need_selection_toast": "অন্তত একটি আইটেম নির্বাচন করুন।",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "কিউ",
@@ -64,7 +65,16 @@
       "saved_toast": "সেটিংস সংরক্ষিত হয়েছে।",
       "close_btn": "বন্ধ করুন"
     },
-    "footer": "DownloadThat — শুধুমাত্র সেই মিডিয়া ডাউনলোড করুন যার অধিকার আপনার আছে।"
+    "footer": "DownloadThat — শুধুমাত্র সেই মিডিয়া ডাউনলোড করুন যার অধিকার আপনার আছে।",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

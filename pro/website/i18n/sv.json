@@ -37,7 +37,8 @@
       "search_failed_toast": "Sökningen misslyckades.",
       "queue_failed_toast": "Kunde inte köa.",
       "queue_selection_failed_toast": "Kunde inte köa urvalet.",
-      "need_selection_toast": "Välj minst ett objekt."
+      "need_selection_toast": "Välj minst ett objekt.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Kö",
@@ -64,7 +65,16 @@
       "saved_toast": "Inställningar sparade.",
       "close_btn": "Stäng"
     },
-    "footer": "DownloadThat — ladda bara ner media du har rättigheter till."
+    "footer": "DownloadThat — ladda bara ner media du har rättigheter till.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

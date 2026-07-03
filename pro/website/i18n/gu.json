@@ -37,7 +37,8 @@
       "search_failed_toast": "શોધ નિષ્ફળ થઈ.",
       "queue_failed_toast": "ક્યુમાં ઉમેરવામાં નિષ્ફળ.",
       "queue_selection_failed_toast": "પસંદગીને ક્યુમાં ઉમેરવામાં નિષ્ફળ.",
-      "need_selection_toast": "ઓછામાં ઓછી એક વસ્તુ પસંદ કરો."
+      "need_selection_toast": "ઓછામાં ઓછી એક વસ્તુ પસંદ કરો.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "ક્યુ",
@@ -64,7 +65,16 @@
       "saved_toast": "સેટિંગ્સ સાચવવામાં આવી.",
       "close_btn": "બંધ કરો"
     },
-    "footer": "DownloadThat — ફક્ત એ જ મીડિયા ડાઉનલોડ કરો જેના પર તમારો અધિકાર છે."
+    "footer": "DownloadThat — ફક્ત એ જ મીડિયા ડાઉનલોડ કરો જેના પર તમારો અધિકાર છે.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

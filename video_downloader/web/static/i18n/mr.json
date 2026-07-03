@@ -37,7 +37,8 @@
       "search_failed_toast": "शोध अयशस्वी झाला.",
       "queue_failed_toast": "रांगेत टाकण्यात अयशस्वी.",
       "queue_selection_failed_toast": "निवड रांगेत टाकण्यात अयशस्वी.",
-      "need_selection_toast": "किमान एक आयटम निवडा."
+      "need_selection_toast": "किमान एक आयटम निवडा.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "रांग",
@@ -64,7 +65,16 @@
       "saved_toast": "सेटिंग्ज जतन झाल्या.",
       "close_btn": "बंद करा"
     },
-    "footer": "DownloadThat — फक्त तुमचे हक्क असलेली मीडियाच डाउनलोड करा."
+    "footer": "DownloadThat — फक्त तुमचे हक्क असलेली मीडियाच डाउनलोड करा.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

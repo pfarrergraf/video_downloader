@@ -37,7 +37,8 @@
       "search_failed_toast": "தேடல் தோல்வியடைந்தது.",
       "queue_failed_toast": "வரிசைப்படுத்த முடியவில்லை.",
       "queue_selection_failed_toast": "தேர்வை வரிசைப்படுத்த முடியவில்லை.",
-      "need_selection_toast": "குறைந்தது ஒரு உருப்படியையாவது தேர்ந்தெடுக்கவும்."
+      "need_selection_toast": "குறைந்தது ஒரு உருப்படியையாவது தேர்ந்தெடுக்கவும்.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "வரிசை",
@@ -64,7 +65,16 @@
       "saved_toast": "அமைப்புகள் சேமிக்கப்பட்டன.",
       "close_btn": "மூடு"
     },
-    "footer": "DownloadThat — உங்களுக்கு உரிமை உள்ள மீடியாவை மட்டுமே பதிவிறக்கவும்."
+    "footer": "DownloadThat — உங்களுக்கு உரிமை உள்ள மீடியாவை மட்டுமே பதிவிறக்கவும்.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

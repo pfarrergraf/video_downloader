@@ -37,7 +37,8 @@
       "search_failed_toast": "Falha na busca.",
       "queue_failed_toast": "Falha ao adicionar à fila.",
       "queue_selection_failed_toast": "Falha ao adicionar a seleção à fila.",
-      "need_selection_toast": "Selecione pelo menos um item."
+      "need_selection_toast": "Selecione pelo menos um item.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Fila",
@@ -64,7 +65,16 @@
       "saved_toast": "Configurações salvas.",
       "close_btn": "Fechar"
     },
-    "footer": "DownloadThat — baixe apenas mídia sobre a qual você tem direitos."
+    "footer": "DownloadThat — baixe apenas mídia sobre a qual você tem direitos.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

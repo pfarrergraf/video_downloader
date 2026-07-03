@@ -37,7 +37,8 @@
       "search_failed_toast": "खोज विफल रही।",
       "queue_failed_toast": "कतार में जोड़ने में विफल।",
       "queue_selection_failed_toast": "चयन को कतार में जोड़ने में विफल।",
-      "need_selection_toast": "कम से कम एक आइटम चुनें।"
+      "need_selection_toast": "कम से कम एक आइटम चुनें।",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "कतार",
@@ -64,7 +65,16 @@
       "saved_toast": "सेटिंग्स सेव हो गईं।",
       "close_btn": "बंद करें"
     },
-    "footer": "DownloadThat — केवल वही मीडिया डाउनलोड करें जिसके अधिकार आपके पास हों।"
+    "footer": "DownloadThat — केवल वही मीडिया डाउनलोड करें जिसके अधिकार आपके पास हों।",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

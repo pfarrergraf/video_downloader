@@ -37,7 +37,8 @@
       "search_failed_toast": "搜索失败。",
       "queue_failed_toast": "加入队列失败。",
       "queue_selection_failed_toast": "所选项加入队列失败。",
-      "need_selection_toast": "请至少选择一项。"
+      "need_selection_toast": "请至少选择一项。",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "队列",
@@ -64,7 +65,16 @@
       "saved_toast": "设置已保存。",
       "close_btn": "关闭"
     },
-    "footer": "DownloadThat — 请仅下载您拥有权利的媒体内容。"
+    "footer": "DownloadThat — 请仅下载您拥有权利的媒体内容。",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

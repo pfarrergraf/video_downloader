@@ -37,7 +37,8 @@
       "search_failed_toast": "검색에 실패했습니다.",
       "queue_failed_toast": "대기열에 추가하지 못했습니다.",
       "queue_selection_failed_toast": "선택 항목을 대기열에 추가하지 못했습니다.",
-      "need_selection_toast": "항목을 하나 이상 선택하세요."
+      "need_selection_toast": "항목을 하나 이상 선택하세요.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "대기열",
@@ -64,7 +65,16 @@
       "saved_toast": "설정이 저장되었습니다.",
       "close_btn": "닫기"
     },
-    "footer": "DownloadThat — 권리가 있는 미디어만 다운로드하세요."
+    "footer": "DownloadThat — 권리가 있는 미디어만 다운로드하세요.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

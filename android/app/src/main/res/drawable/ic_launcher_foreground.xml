@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Simple gothic cross, matching the web UI's icon.svg motif. -->
+    <!-- Download arrow into a tray, same coral-to-teal gradient and motif as
+         the web UI's splash screen and header wordmark (see
+         video_downloader/web/static/index.html) - kept within the 72x72
+         adaptive-icon safe zone (18..90) so masking never clips it. -->
     <path
-        android:fillColor="#d9b968"
-        android:pathData="M48,20L60,20L60,88L48,88Z M24,38L84,38L84,50L24,50Z" />
+        android:strokeWidth="7"
+        android:strokeColor="#ff5c7a"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M54,24 L54,60 M38,44 L54,62 L70,44">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:type="linear"
+                android:startX="30"
+                android:startY="24"
+                android:endX="78"
+                android:endY="62"
+                android:startColor="#ff5c7a"
+                android:centerColor="#ff8a5c"
+                android:endColor="#22e0c9" />
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M30,72 L78,72 L78,80 L30,80 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="30"
+                android:startY="72"
+                android:endX="78"
+                android:endY="72"
+                android:startColor="#ff5c7a"
+                android:centerColor="#ff8a5c"
+                android:endColor="#22e0c9" />
+        </aapt:attr>
+    </path>
 </vector>

@@ -37,7 +37,8 @@
       "search_failed_toast": "శోధన విఫలమైంది.",
       "queue_failed_toast": "క్యూలో పెట్టడం విఫలమైంది.",
       "queue_selection_failed_toast": "ఎంపికను క్యూలో పెట్టడం విఫలమైంది.",
-      "need_selection_toast": "కనీసం ఒక అంశాన్ని ఎంచుకోండి."
+      "need_selection_toast": "కనీసం ఒక అంశాన్ని ఎంచుకోండి.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "క్యూ",
@@ -64,7 +65,16 @@
       "saved_toast": "సెట్టింగ్‌లు సేవ్ చేయబడ్డాయి.",
       "close_btn": "మూసివేయండి"
     },
-    "footer": "DownloadThat — మీకు హక్కులు ఉన్న మీడియాను మాత్రమే డౌన్‌లోడ్ చేయండి."
+    "footer": "DownloadThat — మీకు హక్కులు ఉన్న మీడియాను మాత్రమే డౌన్‌లోడ్ చేయండి.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

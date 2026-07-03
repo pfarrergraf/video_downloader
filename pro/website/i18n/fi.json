@@ -37,7 +37,8 @@
       "search_failed_toast": "Haku epäonnistui.",
       "queue_failed_toast": "Jonoon lisääminen epäonnistui.",
       "queue_selection_failed_toast": "Valinnan lisääminen jonoon epäonnistui.",
-      "need_selection_toast": "Valitse vähintään yksi kohde."
+      "need_selection_toast": "Valitse vähintään yksi kohde.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Jono",
@@ -64,7 +65,16 @@
       "saved_toast": "Asetukset tallennettu.",
       "close_btn": "Sulje"
     },
-    "footer": "DownloadThat — lataa vain mediaa, johon sinulla on oikeudet."
+    "footer": "DownloadThat — lataa vain mediaa, johon sinulla on oikeudet.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

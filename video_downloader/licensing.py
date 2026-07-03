@@ -26,7 +26,7 @@ import requests
 # 24h window (not calendar-day, so there's no "download at 23:59, download
 # again at 00:01" loophole). Pro: no quota at all. See web/server.py's
 # _recent_job_count for how this is enforced.
-FREE_DAILY_DOWNLOAD_LIMIT = 1
+FREE_DAILY_DOWNLOAD_LIMIT = 5
 FREE_WINDOW_HOURS = 24
 CACHE_TTL_SECONDS = 6 * 3600
 OFFLINE_GRACE_SECONDS = 7 * 24 * 3600

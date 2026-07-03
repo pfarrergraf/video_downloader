@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from video_downloader.licensing import LicenseState
+from video_downloader.licensing import FREE_DAILY_DOWNLOAD_LIMIT, LicenseState
 from video_downloader.queue_store import QueueStore
 from video_downloader.web.server import ClassyDLServer, create_server
 
@@ -90,6 +90,36 @@ def test_login_then_queue_and_list(server: ClassyDLServer) -> None:
 
     _, body, _ = _request(server, "GET", "/api/queue", cookie=cookie)
     assert any(job["id"] == job_id and job["source"] == "https://example.com/video" for job in body["jobs"])
+
+
+def test_queue_accepts_allow_playlist_flag(server: ClassyDLServer) -> None:
+    _, _, set_cookie = _request(server, "POST", "/api/login", {"password": "crypt-keeper"})
+    cookie = set_cookie.split(";")[0]
+
+    status, body, _ = _request(
+        server,
+        "POST",
+        "/api/queue",
+        {"source": "https://youtube.com/playlist?list=abc123", "allow_playlist": True},
+        cookie=cookie,
+    )
+    assert status == 200
+    job = server.store.get_job(body["job_id"])
+    assert job is not None
+    assert job.allow_playlist is True
+
+
+def test_queue_defaults_allow_playlist_to_false(server: ClassyDLServer) -> None:
+    _, _, set_cookie = _request(server, "POST", "/api/login", {"password": "crypt-keeper"})
+    cookie = set_cookie.split(";")[0]
+
+    status, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/video"}, cookie=cookie
+    )
+    assert status == 200
+    job = server.store.get_job(body["job_id"])
+    assert job is not None
+    assert job.allow_playlist is False
 
 
 def test_logout_revokes_session(server: ClassyDLServer) -> None:
@@ -202,18 +232,23 @@ def test_license_post_accepts_valid_key(tmp_path: Path) -> None:
         _teardown(srv)
 
 
-def test_free_tier_blocks_a_second_download_within_24_hours(tmp_path: Path) -> None:
+def test_free_tier_blocks_downloads_beyond_the_daily_limit(tmp_path: Path) -> None:
     srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False))
     try:
         _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
         cookie = set_cookie.split(";")[0]
 
-        status, _, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/1"}, cookie=cookie)
-        assert status == 200
+        for i in range(FREE_DAILY_DOWNLOAD_LIMIT):
+            status, _, _ = _request(
+                srv, "POST", "/api/queue", {"source": f"https://example.com/{i}"}, cookie=cookie
+            )
+            assert status == 200
 
-        status, body, _ = _request(srv, "POST", "/api/queue", {"source": "https://example.com/2"}, cookie=cookie)
+        status, body, _ = _request(
+            srv, "POST", "/api/queue", {"source": "https://example.com/one-too-many"}, cookie=cookie
+        )
         assert status == 402
-        assert "1 download per 24h" in body["detail"]
+        assert f"{FREE_DAILY_DOWNLOAD_LIMIT} download" in body["detail"]
     finally:
         _teardown(srv)
 

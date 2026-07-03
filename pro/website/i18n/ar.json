@@ -37,7 +37,8 @@
       "search_failed_toast": "فشل البحث.",
       "queue_failed_toast": "فشلت إضافة العنصر إلى قائمة الانتظار.",
       "queue_selection_failed_toast": "فشلت إضافة التحديد إلى قائمة الانتظار.",
-      "need_selection_toast": "حدد عنصرًا واحدًا على الأقل."
+      "need_selection_toast": "حدد عنصرًا واحدًا على الأقل.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "قائمة الانتظار",
@@ -64,7 +65,16 @@
       "saved_toast": "تم حفظ الإعدادات.",
       "close_btn": "إغلاق"
     },
-    "footer": "DownloadThat — نزّل فقط الوسائط التي تملك الحق في تنزيلها."
+    "footer": "DownloadThat — نزّل فقط الوسائط التي تملك الحق في تنزيلها.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

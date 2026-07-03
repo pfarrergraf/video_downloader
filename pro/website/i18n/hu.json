@@ -37,7 +37,8 @@
       "search_failed_toast": "A keresés sikertelen volt.",
       "queue_failed_toast": "Nem sikerült sorba állítani.",
       "queue_selection_failed_toast": "Nem sikerült sorba állítani a kijelölést.",
-      "need_selection_toast": "Válassz ki legalább egy elemet."
+      "need_selection_toast": "Válassz ki legalább egy elemet.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Várólista",
@@ -64,7 +65,16 @@
       "saved_toast": "Beállítások mentve.",
       "close_btn": "Bezárás"
     },
-    "footer": "DownloadThat — csak olyan médiatartalmat tölts le, amelyhez jogosultsággal rendelkezel."
+    "footer": "DownloadThat — csak olyan médiatartalmat tölts le, amelyhez jogosultsággal rendelkezel.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

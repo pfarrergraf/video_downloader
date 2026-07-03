@@ -37,7 +37,8 @@
       "search_failed_toast": "Căutarea a eșuat.",
       "queue_failed_toast": "Adăugarea în coadă a eșuat.",
       "queue_selection_failed_toast": "Adăugarea selecției în coadă a eșuat.",
-      "need_selection_toast": "Selectează cel puțin un element."
+      "need_selection_toast": "Selectează cel puțin un element.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Coadă",
@@ -64,7 +65,16 @@
       "saved_toast": "Setări salvate.",
       "close_btn": "Închide"
     },
-    "footer": "DownloadThat — descarcă doar materiale media pentru care ai drepturi."
+    "footer": "DownloadThat — descarcă doar materiale media pentru care ai drepturi.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

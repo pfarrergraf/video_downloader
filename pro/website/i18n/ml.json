@@ -37,7 +37,8 @@
       "search_failed_toast": "തിരയൽ പരാജയപ്പെട്ടു.",
       "queue_failed_toast": "ക്യൂവിൽ ചേർക്കാൻ കഴിഞ്ഞില്ല.",
       "queue_selection_failed_toast": "തിരഞ്ഞെടുത്തവ ക്യൂവിൽ ചേർക്കാൻ കഴിഞ്ഞില്ല.",
-      "need_selection_toast": "കുറഞ്ഞത് ഒരു ഇനമെങ്കിലും തിരഞ്ഞെടുക്കുക."
+      "need_selection_toast": "കുറഞ്ഞത് ഒരു ഇനമെങ്കിലും തിരഞ്ഞെടുക്കുക.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "ക്യൂ",
@@ -64,7 +65,16 @@
       "saved_toast": "ക്രമീകരണങ്ങൾ സേവ് ചെയ്തു.",
       "close_btn": "അടയ്ക്കുക"
     },
-    "footer": "DownloadThat — അവകാശമുള്ള മീഡിയ മാത്രം ഡൗൺലോഡ് ചെയ്യുക."
+    "footer": "DownloadThat — അവകാശമുള്ള മീഡിയ മാത്രം ഡൗൺലോഡ് ചെയ്യുക.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

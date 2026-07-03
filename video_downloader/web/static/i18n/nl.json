@@ -37,7 +37,8 @@
       "search_failed_toast": "Zoeken mislukt.",
       "queue_failed_toast": "In wachtrij plaatsen mislukt.",
       "queue_selection_failed_toast": "Selectie in wachtrij plaatsen mislukt.",
-      "need_selection_toast": "Selecteer minstens één item."
+      "need_selection_toast": "Selecteer minstens één item.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Wachtrij",
@@ -64,7 +65,16 @@
       "saved_toast": "Instellingen opgeslagen.",
       "close_btn": "Sluiten"
     },
-    "footer": "DownloadThat — download alleen media waarvoor je de rechten hebt."
+    "footer": "DownloadThat — download alleen media waarvoor je de rechten hebt.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

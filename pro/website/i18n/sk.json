@@ -37,7 +37,8 @@
       "search_failed_toast": "Vyhľadávanie zlyhalo.",
       "queue_failed_toast": "Zaradenie do fronty zlyhalo.",
       "queue_selection_failed_toast": "Zaradenie výberu do fronty zlyhalo.",
-      "need_selection_toast": "Vyber aspoň jednu položku."
+      "need_selection_toast": "Vyber aspoň jednu položku.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Fronta",
@@ -64,7 +65,16 @@
       "saved_toast": "Nastavenia uložené.",
       "close_btn": "Zavrieť"
     },
-    "footer": "DownloadThat — sťahuj iba médiá, na ktoré máš práva."
+    "footer": "DownloadThat — sťahuj iba médiá, na ktoré máš práva.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

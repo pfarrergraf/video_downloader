@@ -15,7 +15,7 @@
       "buy_btn": "Get Pro",
       "status_active": "Pro active ({tier}). Thanks for your support!",
       "status_invalid": "Free — the saved key is invalid or expired.",
-      "status_free": "Free — 1 download per day. Pro: unlimited.",
+      "status_free": "Free — 5 downloads per day. Pro: unlimited.",
       "need_key_toast": "Enter a license key first.",
       "activated_toast": "License activated.",
       "invalid_toast": "Invalid license key."
@@ -23,6 +23,7 @@
     "scrape": {
       "title": "Search a page",
       "url_label": "Page URL",
+      "url_placeholder": "Paste the link here",
       "deep_label": "Deep search (follow links)",
       "video_btn": "Download video",
       "audio_btn": "Download audio",
@@ -38,6 +39,15 @@
       "queue_failed_toast": "Failed to queue.",
       "queue_selection_failed_toast": "Failed to queue selection.",
       "need_selection_toast": "Select at least one item."
+    },
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
     },
     "queue": {
       "title": "Queue",

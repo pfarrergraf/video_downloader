@@ -37,7 +37,8 @@
       "search_failed_toast": "Търсенето не бе успешно.",
       "queue_failed_toast": "Добавянето в опашката не бе успешно.",
       "queue_selection_failed_toast": "Добавянето на избраното в опашката не бе успешно.",
-      "need_selection_toast": "Избери поне един елемент."
+      "need_selection_toast": "Избери поне един елемент.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Опашка",
@@ -64,7 +65,16 @@
       "saved_toast": "Настройките са запазени.",
       "close_btn": "Затвори"
     },
-    "footer": "DownloadThat — изтегляй само съдържание, за което имаш права."
+    "footer": "DownloadThat — изтегляй само съдържание, за което имаш права.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

@@ -337,7 +337,7 @@
     <div class="card">
       <h2 data-i18n="app.scrape.title">Search a page</h2>
       <label for="scrape-url" data-i18n="app.scrape.url_label">Page URL</label>
-      <input type="url" id="scrape-url" placeholder="https://example.com/gallery" />
+      <input type="url" id="scrape-url" data-i18n-placeholder="app.scrape.url_placeholder" placeholder="Paste the link here" />
       <div class="checkbox-row"><input type="checkbox" id="scrape-deep" /><label for="scrape-deep" style="margin:0" data-i18n="app.scrape.deep_label">Deep search (follow links)</label></div>
       <div class="row">
         <button class="primary" id="direct-queue-btn" data-i18n="app.scrape.video_btn">Download video</button>
@@ -358,6 +358,15 @@
         <div class="row">
           <button class="primary" id="queue-selected-btn" data-i18n="app.scrape.queue_selected">Download selected</button>
         </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="app.batch.title">Multiple links or a playlist</h2>
+      <label for="batch-urls" data-i18n="app.batch.label">One link per line, or a single playlist link</label>
+      <textarea id="batch-urls" rows="4" data-i18n-placeholder="app.batch.placeholder" placeholder="Paste multiple links (one per line), or a single playlist link" style="width:100%; padding:0.75rem 0.9rem; background:#0d0c18; border:1px solid var(--border); color:var(--text); border-radius:14px; font-family:inherit; font-size:1rem; resize:vertical;"></textarea>
+      <div class="row">
+        <button class="primary" id="batch-queue-btn" data-i18n="app.batch.download_btn">Download all</button>
       </div>
     </div>
 
@@ -664,22 +673,48 @@ $('scrape-btn').addEventListener('click', async () => {
   }
 });
 
-async function queueSource(source, audioOnly) {
-  await api('/api/queue', { method: 'POST', body: { source, audio_only: !!audioOnly } });
-  toast(t('app.queue.queued_toast'));
+async function queueSource(source, audioOnly, allowPlaylist) {
+  await api('/api/queue', { method: 'POST', body: { source, audio_only: !!audioOnly, allow_playlist: !!allowPlaylist } });
   refreshQueue();
+}
+
+function isPlaylistUrl(url) {
+  return /[?&]list=/.test(url) || /\/playlist(\?|$)/.test(url) || /\/sets\//.test(url);
 }
 
 $('direct-queue-btn').addEventListener('click', () => {
   const url = $('scrape-url').value.trim();
   if (!url) return toast(t('app.scrape.need_url_toast'));
-  queueSource(url, false).catch((e) => toast(e.message || t('app.scrape.queue_failed_toast')));
+  queueSource(url, false, false).then(() => toast(t('app.queue.queued_toast')))
+    .catch((e) => toast(e.message || t('app.scrape.queue_failed_toast')));
 });
 
 $('direct-audio-btn').addEventListener('click', () => {
   const url = $('scrape-url').value.trim();
   if (!url) return toast(t('app.scrape.need_url_toast'));
-  queueSource(url, true).catch((e) => toast(e.message || t('app.scrape.queue_failed_toast')));
+  queueSource(url, true, false).then(() => toast(t('app.queue.queued_toast')))
+    .catch((e) => toast(e.message || t('app.scrape.queue_failed_toast')));
+});
+
+$('batch-queue-btn').addEventListener('click', async () => {
+  const lines = $('batch-urls').value.split('\n').map((s) => s.trim()).filter(Boolean);
+  if (!lines.length) return toast(t('app.batch.need_links_toast'));
+  try {
+    if (lines.length === 1) {
+      // A single line that looks like a playlist is downloaded as a whole
+      // playlist; a single ordinary link just behaves like the plain
+      // "Download video" button above.
+      await queueSource(lines[0], false, isPlaylistUrl(lines[0]));
+    } else {
+      for (const line of lines) {
+        await queueSource(line, false, false);
+      }
+    }
+    toast(t('app.batch.queued_toast', { count: lines.length }));
+    $('batch-urls').value = '';
+  } catch (e) {
+    toast(e.message || t('app.batch.queue_failed_toast'));
+  }
 });
 
 $('select-all-btn').addEventListener('click', () => {
@@ -702,8 +737,9 @@ $('queue-selected-btn').addEventListener('click', async () => {
   if (!picked.length) return toast(t('app.scrape.need_selection_toast'));
   try {
     for (const item of picked) {
-      await queueSource(item.url, false);
+      await queueSource(item.url, false, false);
     }
+    toast(t('app.queue.queued_toast'));
   } catch (e) {
     toast(e.message || t('app.scrape.queue_selection_failed_toast'));
   }

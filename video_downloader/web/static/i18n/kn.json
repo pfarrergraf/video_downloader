@@ -37,7 +37,8 @@
       "search_failed_toast": "ಹುಡುಕಾಟ ವಿಫಲವಾಗಿದೆ.",
       "queue_failed_toast": "ಕ್ಯೂಗೆ ಸೇರಿಸಲು ವಿಫಲವಾಗಿದೆ.",
       "queue_selection_failed_toast": "ಆಯ್ಕೆಯನ್ನು ಕ್ಯೂಗೆ ಸೇರಿಸಲು ವಿಫಲವಾಗಿದೆ.",
-      "need_selection_toast": "ಕನಿಷ್ಠ ಒಂದು ಐಟಂ ಆಯ್ಕೆಮಾಡಿ."
+      "need_selection_toast": "ಕನಿಷ್ಠ ಒಂದು ಐಟಂ ಆಯ್ಕೆಮಾಡಿ.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "ಕ್ಯೂ",
@@ -64,7 +65,16 @@
       "saved_toast": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ.",
       "close_btn": "ಮುಚ್ಚಿ"
     },
-    "footer": "DownloadThat — ನಿಮಗೆ ಹಕ್ಕುಗಳಿರುವ ಮೀಡಿಯಾವನ್ನು ಮಾತ್ರ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ."
+    "footer": "DownloadThat — ನಿಮಗೆ ಹಕ್ಕುಗಳಿರುವ ಮೀಡಿಯಾವನ್ನು ಮಾತ್ರ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

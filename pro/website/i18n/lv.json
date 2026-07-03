@@ -37,7 +37,8 @@
       "search_failed_toast": "Meklēšana neizdevās.",
       "queue_failed_toast": "Neizdevās pievienot rindai.",
       "queue_selection_failed_toast": "Neizdevās pievienot atlasi rindai.",
-      "need_selection_toast": "Atlasiet vismaz vienu vienumu."
+      "need_selection_toast": "Atlasiet vismaz vienu vienumu.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Rinda",
@@ -64,7 +65,16 @@
       "saved_toast": "Iestatījumi saglabāti.",
       "close_btn": "Aizvērt"
     },
-    "footer": "DownloadThat — lejupielādējiet tikai to saturu, uz kuru jums ir tiesības."
+    "footer": "DownloadThat — lejupielādējiet tikai to saturu, uz kuru jums ir tiesības.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

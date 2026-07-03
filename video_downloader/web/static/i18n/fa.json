@@ -37,7 +37,8 @@
       "search_failed_toast": "جستجو ناموفق بود.",
       "queue_failed_toast": "افزودن به صف ناموفق بود.",
       "queue_selection_failed_toast": "افزودن موارد انتخاب‌شده به صف ناموفق بود.",
-      "need_selection_toast": "حداقل یک مورد را انتخاب کنید."
+      "need_selection_toast": "حداقل یک مورد را انتخاب کنید.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "صف",
@@ -64,7 +65,16 @@
       "saved_toast": "تنظیمات ذخیره شد.",
       "close_btn": "بستن"
     },
-    "footer": "DownloadThat — فقط رسانه‌ای را دانلود کنید که حق استفاده از آن را دارید."
+    "footer": "DownloadThat — فقط رسانه‌ای را دانلود کنید که حق استفاده از آن را دارید.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

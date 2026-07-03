@@ -37,7 +37,8 @@
       "search_failed_toast": "Tìm kiếm thất bại.",
       "queue_failed_toast": "Không thể thêm vào hàng đợi.",
       "queue_selection_failed_toast": "Không thể thêm các mục đã chọn vào hàng đợi.",
-      "need_selection_toast": "Vui lòng chọn ít nhất một mục."
+      "need_selection_toast": "Vui lòng chọn ít nhất một mục.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Hàng đợi",
@@ -64,7 +65,16 @@
       "saved_toast": "Đã lưu cài đặt.",
       "close_btn": "Đóng"
     },
-    "footer": "DownloadThat — chỉ tải những media mà bạn có quyền sử dụng."
+    "footer": "DownloadThat — chỉ tải những media mà bạn có quyền sử dụng.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

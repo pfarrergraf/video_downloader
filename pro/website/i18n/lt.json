@@ -37,7 +37,8 @@
       "search_failed_toast": "Paieška nepavyko.",
       "queue_failed_toast": "Nepavyko pridėti į eilę.",
       "queue_selection_failed_toast": "Nepavyko pridėti pažymėtų į eilę.",
-      "need_selection_toast": "Pažymėkite bent vieną elementą."
+      "need_selection_toast": "Pažymėkite bent vieną elementą.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Eilė",
@@ -64,7 +65,16 @@
       "saved_toast": "Nustatymai išsaugoti.",
       "close_btn": "Uždaryti"
     },
-    "footer": "DownloadThat — atsisiųskite tik tą turinį, kurį turite teisę atsisiųsti."
+    "footer": "DownloadThat — atsisiųskite tik tą turinį, kurį turite teisę atsisiųsti.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

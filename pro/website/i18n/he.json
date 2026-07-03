@@ -37,7 +37,8 @@
       "search_failed_toast": "החיפוש נכשל.",
       "queue_failed_toast": "הוספה לתור נכשלה.",
       "queue_selection_failed_toast": "הוספת הבחירה לתור נכשלה.",
-      "need_selection_toast": "יש לבחור לפחות פריט אחד."
+      "need_selection_toast": "יש לבחור לפחות פריט אחד.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "תור",
@@ -64,7 +65,16 @@
       "saved_toast": "ההגדרות נשמרו.",
       "close_btn": "סגירה"
     },
-    "footer": "DownloadThat — הורידו רק מדיה שיש לכם את הזכויות להוריד."
+    "footer": "DownloadThat — הורידו רק מדיה שיש לכם את הזכויות להוריד.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {

@@ -481,6 +481,7 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 profile_id=profile.id,
                 output_dir=str(self.server.output_dir),
                 ffmpeg_binary=self.server.ffmpeg_binary,
+                allow_playlist=bool(body.get("allow_playlist", False)),
             )
             self._send_json(200, {"job_id": job_id})
             return

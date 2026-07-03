@@ -37,7 +37,8 @@
       "search_failed_toast": "Ricerca non riuscita.",
       "queue_failed_toast": "Impossibile aggiungere alla coda.",
       "queue_selection_failed_toast": "Impossibile aggiungere la selezione alla coda.",
-      "need_selection_toast": "Seleziona almeno un elemento."
+      "need_selection_toast": "Seleziona almeno un elemento.",
+      "url_placeholder": "Paste the link here"
     },
     "queue": {
       "title": "Coda",
@@ -64,7 +65,16 @@
       "saved_toast": "Impostazioni salvate.",
       "close_btn": "Chiudi"
     },
-    "footer": "DownloadThat — scarica solo contenuti multimediali di cui hai i diritti."
+    "footer": "DownloadThat — scarica solo contenuti multimediali di cui hai i diritti.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    }
   },
   "website": {
     "meta": {
