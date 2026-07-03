@@ -1,9 +1,20 @@
 ﻿# ClassyDL
 
-> Queue-driven video / audio / image downloader for Windows — CLI, TUI dashboard, and desktop GUI.
+> Queue-driven video / audio / image downloader — CLI, TUI dashboard, desktop GUI, and a
+> standalone Android app.
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: Proprietary](https://img.shields.io/badge/license-Proprietary-lightgrey.svg)](LICENSE)
+
+## Get the app
+
+**[Download DownloadThat for Android →](https://downloadthat.pages.dev)** — sideloadable
+APK, no Play Store, no ads, no git clone or Python install needed. Free tier included;
+Pro removes the daily download limit.
+
+Everything below is developer documentation for building and running ClassyDL's engine
+from source (Windows CLI/TUI/desktop GUI, Termux, Docker) — skip it if you just want the
+app.
 
 ## Features
 
