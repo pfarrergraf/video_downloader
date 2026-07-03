@@ -53,6 +53,17 @@ class MainActivity : AppCompatActivity() {
         // license key — keeps exercising the always-unrestricted path it
         // was written against, unaffected by free-tier limits.
         private const val LICENSE_API_BASE = "https://downloadthat.pages.dev"
+
+        // Idempotency guard: Android may recreate the Activity (e.g. on a
+        // config change) without restarting the process, causing onCreate →
+        // startPythonServer() to run a second time. The second run_server()
+        // call would fail to bind the already-occupied port 8420 (OSError:
+        // [Errno 98] Address already in use) and crash that thread —
+        // harmlessly for the app itself, but it also redundantly starts a
+        // second _run_downloads_publisher thread, doubling SQLite polling.
+        // @Volatile ensures the write is immediately visible to any thread
+        // that reads it after onCreate returns.
+        @Volatile private var serverStarted = false
     }
 
     private var loadRetries = 0
@@ -202,6 +213,8 @@ class MainActivity : AppCompatActivity() {
     private fun resolveLicenseApiBase(): String = if (BuildConfig.DEBUG) "" else LICENSE_API_BASE
 
     private fun startPythonServer() {
+        if (serverStarted) return
+        serverStarted = true
         if (!Python.isStarted()) {
             Python.start(AndroidPlatform(this))
         }
