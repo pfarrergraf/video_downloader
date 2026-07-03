@@ -11,7 +11,6 @@
          adaptive-icon safe zone (18..90) so masking never clips it. -->
     <path
         android:strokeWidth="7"
-        android:strokeColor="#ff5c7a"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
         android:pathData="M54,24 L54,60 M38,44 L54,62 L70,44">
