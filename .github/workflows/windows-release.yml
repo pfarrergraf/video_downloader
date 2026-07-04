@@ -1,0 +1,91 @@
+name: Windows release
+
+# Shares the same tag pattern as android-release.yml so one `git tag vX.Y.Z push`
+# triggers both platform builds, which both attach their artifacts to the same
+# GitHub Release (softprops/action-gh-release upserts assets into an existing
+# release for the same tag rather than erroring or overwriting the other
+# platform's files).
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag to release, e.g. v0.2.0"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows-release:
+    runs-on: windows-latest
+    env:
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      # classydl_web.spec bundles the same Gothic web UI (video_downloader/web)
+      # used by Android/Termux/desktop, packaged as a single windowless .exe
+      # that runs its own local server and opens a browser to it - the closest
+      # Windows equivalent to what the Android app already does, rather than
+      # the older Tkinter-based classydl.exe.
+      #
+      # No bundled ffmpeg/aria2c (-BundleAll) for this first pass - out of
+      # scope here, same as iOS shipping without ffmpeg. strategies.py already
+      # falls back to progressive/pre-muxed formats when ffmpeg isn't found,
+      # so this still produces real, working downloads without it.
+      - name: Build classydl-web.exe
+        shell: pwsh
+        run: pwsh -File scripts/build_windows.ps1 -Target web
+
+      # No code-signing certificate configured yet (unlike Android's
+      # ANDROID_KEYSTORE_BASE64 secret) - ships unsigned for now, which means
+      # Windows SmartScreen will show an "unrecognized publisher" warning
+      # ("More info" -> "Run anyway") on first launch. That's real friction
+      # but not a hard block the way Apple's code-signing requirements are on
+      # iOS: any user can still choose to run it. Getting rid of the warning
+      # entirely needs a paid EV/OV code-signing certificate from a CA - see
+      # scripts/selfsign_local.ps1's own self-signed cert for why that alone
+      # doesn't help (a certificate the public's machines don't already trust
+      # provides no SmartScreen benefit, self-signed or not).
+      # To sign for real once a certificate secret exists, add:
+      #   pwsh -File scripts/build_windows.ps1 -Target web `
+      #     -SignCert cert.pfx -SignPassword $env:SIGN_PASSWORD
+      - name: Rename executable to include version tag
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path release-out | Out-Null
+          Copy-Item "dist\classydl-web.exe" "release-out\DownloadThat-$($env:RELEASE_TAG).exe"
+          Copy-Item "dist\classydl-web.exe" "release-out\DownloadThat-latest.exe"
+
+      # Same "-latest" stable-name trick as android-release.yml: the website's
+      # /download-windows proxy always fetches
+      # releases/latest/download/DownloadThat-latest.exe, so that filename
+      # must stay identical release to release.
+      - name: Generate SHA-256 checksums
+        shell: pwsh
+        run: |
+          Get-FileHash "release-out\DownloadThat-$($env:RELEASE_TAG).exe" -Algorithm SHA256 |
+            ForEach-Object { "$($_.Hash.ToLower())  DownloadThat-$($env:RELEASE_TAG).exe" } |
+            Set-Content "release-out\DownloadThat-$($env:RELEASE_TAG).exe.sha256"
+          Get-FileHash "release-out\DownloadThat-latest.exe" -Algorithm SHA256 |
+            ForEach-Object { "$($_.Hash.ToLower())  DownloadThat-latest.exe" } |
+            Set-Content "release-out\DownloadThat-latest.exe.sha256"
+
+      - name: Attach EXE to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: ${{ env.RELEASE_TAG }}
+          target_commitish: ${{ github.sha }}
+          files: |
+            release-out/DownloadThat-${{ env.RELEASE_TAG }}.exe
+            release-out/DownloadThat-${{ env.RELEASE_TAG }}.exe.sha256
+            release-out/DownloadThat-latest.exe
+            release-out/DownloadThat-latest.exe.sha256
