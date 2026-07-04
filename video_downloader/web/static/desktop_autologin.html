@@ -17,12 +17,10 @@
   history.replaceState(null, '', '/');
   if (token) {
     try {
-      const body = {};
-      body['pass' + 'word'] = token;
       await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ password: token }),
       });
     } catch (e) {}
   }

@@ -35,3 +35,6 @@ packages = ["video_downloader", "video_downloader.web"]
 
 [tool.setuptools.package-data]
 "video_downloader.web" = ["static/**/*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
