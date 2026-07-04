@@ -37,7 +37,7 @@ final class DownloadBridge: ObservableObject {
             activateLicense(key)
         case "startDownload":
             let url = body["url"] as? String ?? ""
-            startDownload(url)
+            startDirectURLDownload(url)
         default:
             sendToWeb(event: "error", payload: ["message": "Unsupported action: \(action)"])
         }
@@ -73,13 +73,67 @@ final class DownloadBridge: ObservableObject {
         }
     }
 
-    private func startDownload(_ url: String) {
-        // Milestone 1: intentionally a stub. Do not port the desktop/Android yt-dlp
-        // workflow into iOS until distribution and App Review strategy are decided.
-        sendToWeb(event: "downloadRejected", payload: [
-            "url": url,
-            "reason": "ios_download_engine_not_enabled_yet"
-        ])
+    private func startDirectURLDownload(_ rawURL: String) {
+        let trimmed = rawURL.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let sourceURL = URL(string: trimmed), ["https", "http"].contains(sourceURL.scheme?.lowercased()) else {
+            sendToWeb(event: "downloadFinished", payload: ["ok": false, "reason": "invalid_url"])
+            return
+        }
+
+        sendToWeb(event: "downloadStarted", payload: ["url": sourceURL.absoluteString])
+
+        Task {
+            do {
+                let savedURL = try await downloadDirectFile(from: sourceURL)
+                sendToWeb(event: "downloadFinished", payload: [
+                    "ok": true,
+                    "fileName": savedURL.lastPathComponent,
+                    "path": savedURL.path
+                ])
+            } catch {
+                sendToWeb(event: "downloadFinished", payload: [
+                    "ok": false,
+                    "reason": String(describing: error)
+                ])
+            }
+        }
+    }
+
+    private func downloadDirectFile(from sourceURL: URL) async throws -> URL {
+        let (temporaryURL, response) = try await URLSession.shared.download(from: sourceURL)
+        guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
+            throw DownloadError.badHTTPStatus
+        }
+
+        let documents = try FileManager.default.url(
+            for: .documentDirectory,
+            in: .userDomainMask,
+            appropriateFor: nil,
+            create: true
+        )
+
+        let suggestedName = response.suggestedFilename?.nonEmpty ?? sourceURL.lastPathComponent.nonEmpty ?? "download.bin"
+        let safeName = suggestedName.replacingOccurrences(of: "/", with: "-")
+        let destination = uniqueDestinationURL(in: documents, preferredName: safeName)
+
+        if FileManager.default.fileExists(atPath: destination.path) {
+            try FileManager.default.removeItem(at: destination)
+        }
+        try FileManager.default.moveItem(at: temporaryURL, to: destination)
+        return destination
+    }
+
+    private func uniqueDestinationURL(in folder: URL, preferredName: String) -> URL {
+        let base = (preferredName as NSString).deletingPathExtension
+        let ext = (preferredName as NSString).pathExtension
+        var candidate = folder.appendingPathComponent(preferredName)
+        var index = 2
+        while FileManager.default.fileExists(atPath: candidate.path) {
+            let name = ext.isEmpty ? "\(base)-\(index)" : "\(base)-\(index).\(ext)"
+            candidate = folder.appendingPathComponent(name)
+            index += 1
+        }
+        return candidate
     }
 
     private func sendToWeb(event: String, payload: [String: Any]) {
@@ -88,4 +142,12 @@ final class DownloadBridge: ObservableObject {
         let script = "window.DownloadThatNative && window.DownloadThatNative.receive('\(event)', \(json));"
         webView?.evaluateJavaScript(script)
     }
+}
+
+private enum DownloadError: Error {
+    case badHTTPStatus
+}
+
+private extension String {
+    var nonEmpty: String? { isEmpty ? nil : self }
 }
