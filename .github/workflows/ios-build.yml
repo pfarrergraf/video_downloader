@@ -25,16 +25,24 @@ jobs:
       - name: Build iOS simulator app
         run: |
           set -euo pipefail
-          DESTINATION=$(xcodebuild -showdestinations \
-            -project ios/DownloadThatIOS/DownloadThatIOS.xcodeproj \
-            -scheme DownloadThatIOS \
-            | awk '/iOS Simulator/ && /iPhone/ {print; exit}' \
-            | sed 's/^[[:space:]]*//')
-          echo "Using destination: ${DESTINATION}"
           xcodebuild \
             -project ios/DownloadThatIOS/DownloadThatIOS.xcodeproj \
             -scheme DownloadThatIOS \
             -configuration Debug \
             -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
             build
+
+      - name: Boot Simulator and launch the app
+        run: |
+          set -euo pipefail
+          APP_PATH="build/Build/Products/Debug-iphonesimulator/DownloadThatIOS.app"
+          BUNDLE_ID=$(xcodebuild -showBuildSettings \
+            -project ios/DownloadThatIOS/DownloadThatIOS.xcodeproj \
+            -scheme DownloadThatIOS \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            | awk -F ' = ' '/PRODUCT_BUNDLE_IDENTIFIER/ {print $2; exit}')
+          echo "Bundle ID: ${BUNDLE_ID}"
+          bash .github/scripts/ios_simulator_smoke_test.sh "$APP_PATH" "$BUNDLE_ID"
