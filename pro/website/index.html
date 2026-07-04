@@ -25,6 +25,10 @@
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     scroll-behavior: smooth;
+    /* Safety net: no single element should ever be able to force sideways
+       scrolling of the whole page on a phone, even if a future addition
+       (or a very long localized string) doesn't shrink cleanly. */
+    overflow-x: hidden;
   }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -50,6 +54,16 @@
   @media (max-width: 700px) {
     nav.links { display: none; }
   }
+  @media (max-width: 400px) {
+    /* Below ~400px (older/smaller phones), brand + language picker + the
+       Download button no longer fit on one line at their default size and
+       force the whole page to scroll sideways - shrink them instead. */
+    .nav-inner { padding: 12px 14px; gap: 6px; }
+    .brand { font-size: 0.92rem; gap: 6px; }
+    .brand-icon { width: 24px; height: 24px; font-size: 0.82rem; }
+    .nav-inner .lang-switcher { padding: 5px 6px; font-size: 0.72rem; }
+    .nav-inner .btn { padding: 8px 12px; font-size: 0.8rem; }
+  }
   .btn {
     display: inline-block; padding: 11px 22px; border-radius: 8px;
     font-weight: 600; font-size: 0.95rem; cursor: pointer; border: 1px solid transparent;
@@ -58,14 +72,27 @@
   .btn-primary:hover { background: #d9bb82; text-decoration: none; }
   .btn-ghost { border-color: var(--border); color: var(--text); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
-  .cta-disabled { opacity: 0.4; pointer-events: none; cursor: not-allowed; }
+  /* No pointer-events:none here (that used to make an un-consented click do
+     nothing at all, with zero feedback - easy to miss why "Buy" didn't work).
+     The click handler below intercepts it and points at the checkbox instead. */
+  .cta-disabled { opacity: 0.4; cursor: not-allowed; }
 
   .consent-row {
     max-width: 640px; margin: 0 auto 28px; display: flex; gap: 10px; align-items: flex-start;
     font-size: 0.85rem; color: var(--text-dim); line-height: 1.5;
+    border-radius: 10px; padding: 8px; transition: box-shadow 0.3s ease, background 0.3s ease;
   }
   .consent-row input { margin-top: 3px; width: 17px; height: 17px; flex-shrink: 0; }
   .consent-row a { color: var(--accent); }
+  .consent-row.consent-highlight {
+    box-shadow: 0 0 0 2px var(--accent);
+    background: rgba(201, 168, 105, 0.12);
+    animation: consent-pulse 0.5s ease 2;
+  }
+  @keyframes consent-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.015); }
+  }
 
   .hero { padding: 88px 24px 76px; overflow: hidden; }
   .hero-grid { display: flex; align-items: center; gap: 56px; }
@@ -335,12 +362,20 @@
   document.getElementById('withdrawal-consent').addEventListener('change', () => {
     dtUpdateStripeLinks();
   });
-  // Defensive fallback alongside the CSS .cta-disabled (pointer-events:none) -
-  // a keyboard Enter on a focused <a> isn't blocked by pointer-events, so this
-  // makes sure an un-consented click never reaches Stripe either way.
+  // Clicking "Choose yearly/lifetime" before checking the consent box used to
+  // just do nothing (no feedback at all, since .cta-disabled was pointer-events:
+  // none) - easy to miss why "Buy" didn't seem to work. Now it always points
+  // the customer at the checkbox instead of silently failing.
   document.querySelectorAll('a[data-stripe-link]').forEach((a) => {
     a.addEventListener('click', (e) => {
-      if (a.classList.contains('cta-disabled')) e.preventDefault();
+      if (!a.classList.contains('cta-disabled')) return;
+      e.preventDefault();
+      const row = document.querySelector('.consent-row');
+      const box = document.getElementById('withdrawal-consent');
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      row.classList.add('consent-highlight');
+      box.focus({ preventScroll: true });
+      setTimeout(() => row.classList.remove('consent-highlight'), 1600);
     });
   });
 </script>
