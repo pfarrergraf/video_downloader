@@ -15,7 +15,7 @@
       "buy_btn": "প্রো নিন",
       "status_active": "প্রো সক্রিয় ({tier})। আপনার সহযোগিতার জন্য ধন্যবাদ!",
       "status_invalid": "ফ্রি — সংরক্ষিত কী-টি অবৈধ বা মেয়াদোত্তীর্ণ।",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "ফ্রি — এই লাইসেন্সটি ইতিমধ্যে এই ধরনের অন্য একটি ডিভাইসে সক্রিয় আছে।",
       "status_free": "ফ্রি — দিনে ৩টি ডাউনলোড। প্রো: আনলিমিটেড।",
       "need_key_toast": "প্রথমে একটি লাইসেন্স কী দিন।",
       "activated_toast": "লাইসেন্স সক্রিয় করা হয়েছে।",

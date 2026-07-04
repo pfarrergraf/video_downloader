@@ -15,7 +15,7 @@
       "buy_btn": "Pro लें",
       "status_active": "Pro सक्रिय है ({tier})। आपके सपोर्ट के लिए धन्यवाद!",
       "status_invalid": "फ्री — सेव की गई कुंजी अमान्य है या समाप्त हो चुकी है।",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "फ्री — यह लाइसेंस पहले से ही इसी तरह के किसी अन्य डिवाइस पर सक्रिय है।",
       "status_free": "फ्री — प्रतिदिन 3 डाउनलोड। Pro: असीमित।",
       "need_key_toast": "पहले एक लाइसेंस कुंजी दर्ज करें।",
       "activated_toast": "लाइसेंस सक्रिय हो गया।",

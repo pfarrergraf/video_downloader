@@ -15,7 +15,7 @@
       "buy_btn": "Απόκτησε το Pro",
       "status_active": "Το Pro είναι ενεργό ({tier}). Ευχαριστούμε για την υποστήριξη!",
       "status_invalid": "Δωρεάν — το αποθηκευμένο κλειδί δεν είναι έγκυρο ή έχει λήξει.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Δωρεάν — αυτή η άδεια είναι ήδη ενεργή σε άλλη συσκευή αυτού του τύπου.",
       "status_free": "Δωρεάν — 3 λήψεις την ημέρα. Pro: απεριόριστες.",
       "need_key_toast": "Εισάγετε πρώτα ένα κλειδί άδειας χρήσης.",
       "activated_toast": "Η άδεια χρήσης ενεργοποιήθηκε.",

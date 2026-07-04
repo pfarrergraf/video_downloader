@@ -15,7 +15,7 @@
       "buy_btn": "Nabavi Pro",
       "status_active": "Pro aktiviran ({tier}). Hvala na podršci!",
       "status_invalid": "Besplatno — sačuvani ključ je nevažeći ili je istekao.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Besplatno — ova licenca je već aktivna na drugom uređaju iste vrste.",
       "status_free": "Besplatno — 3 preuzimanja dnevno. Pro: neograničeno.",
       "need_key_toast": "Prvo unesite licencni ključ.",
       "activated_toast": "Licenca je aktivirana.",

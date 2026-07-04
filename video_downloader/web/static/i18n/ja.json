@@ -15,7 +15,7 @@
       "buy_btn": "Proを購入",
       "status_active": "Pro有効（{tier}）。ご利用ありがとうございます！",
       "status_invalid": "無料版 — 保存されているキーは無効か、期限切れです。",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "無料版 — このライセンスはすでに同じ種類の別の端末で使用されています。",
       "status_free": "無料版 — 1日3回までダウンロード可能。Proなら無制限。",
       "need_key_toast": "先にライセンスキーを入力してください。",
       "activated_toast": "ライセンスを有効化しました。",

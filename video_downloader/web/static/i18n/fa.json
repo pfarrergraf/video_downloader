@@ -15,7 +15,7 @@
       "buy_btn": "دریافت نسخه پرو",
       "status_active": "نسخه پرو فعال است ({tier}). از حمایت شما سپاسگزاریم!",
       "status_invalid": "رایگان — کلید ذخیره‌شده نامعتبر یا منقضی‌شده است.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "رایگان — این مجوز از قبل روی دستگاه دیگری از همین نوع فعال است.",
       "status_free": "رایگان — روزی ۳ دانلود. نسخه پرو: نامحدود.",
       "need_key_toast": "ابتدا یک کلید لایسنس وارد کنید.",
       "activated_toast": "لایسنس فعال شد.",

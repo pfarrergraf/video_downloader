@@ -15,7 +15,7 @@
       "buy_btn": "Получить Pro",
       "status_active": "Pro активирован ({tier}). Спасибо за поддержку!",
       "status_invalid": "Бесплатная версия — сохранённый ключ недействителен или истёк.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Бесплатная версия — эта лицензия уже активна на другом устройстве этого же типа.",
       "status_free": "Бесплатная версия — 3 загрузки в день. Pro: без ограничений.",
       "need_key_toast": "Сначала введите лицензионный ключ.",
       "activated_toast": "Лицензия активирована.",

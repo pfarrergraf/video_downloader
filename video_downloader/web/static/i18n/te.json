@@ -15,7 +15,7 @@
       "buy_btn": "Pro పొందండి",
       "status_active": "Pro యాక్టివ్‌గా ఉంది ({tier}). మీ మద్దతుకు ధన్యవాదాలు!",
       "status_invalid": "ఫ్రీ — సేవ్ చేసిన కీ చెల్లదు లేదా గడువు ముగిసింది.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "ఫ్రీ — ఈ లైసెన్స్ ఇప్పటికే ఇదే రకమైన మరో పరికరంలో యాక్టివ్‌గా ఉంది.",
       "status_free": "ఫ్రీ — రోజుకు 3 డౌన్‌లోడ్‌లు. Pro: అపరిమితం.",
       "need_key_toast": "ముందుగా లైసెన్స్ కీని నమోదు చేయండి.",
       "activated_toast": "లైసెన్స్ యాక్టివేట్ చేయబడింది.",

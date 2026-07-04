@@ -15,7 +15,7 @@
       "buy_btn": "Pro'ya Geç",
       "status_active": "Pro aktif ({tier}). Desteğiniz için teşekkürler!",
       "status_invalid": "Ücretsiz — kayıtlı anahtar geçersiz veya süresi dolmuş.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Ücretsiz — bu lisans zaten aynı türden başka bir cihazda etkin.",
       "status_free": "Ücretsiz — günde 3 indirme. Pro: sınırsız.",
       "need_key_toast": "Önce bir lisans anahtarı girin.",
       "activated_toast": "Lisans etkinleştirildi.",

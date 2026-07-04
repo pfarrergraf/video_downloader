@@ -15,7 +15,7 @@
       "buy_btn": "Pro aanschaffen",
       "status_active": "Pro actief ({tier}). Bedankt voor je steun!",
       "status_invalid": "Gratis — de opgeslagen sleutel is ongeldig of verlopen.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Gratis — deze licentie is al actief op een ander apparaat van hetzelfde type.",
       "status_free": "Gratis — 3 downloads per dag. Pro: onbeperkt.",
       "need_key_toast": "Voer eerst een licentiesleutel in.",
       "activated_toast": "Licentie geactiveerd.",

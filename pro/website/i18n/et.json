@@ -15,7 +15,7 @@
       "buy_btn": "Hangi Pro",
       "status_active": "Pro on aktiivne ({tier}). Täname toetuse eest!",
       "status_invalid": "Tasuta — salvestatud võti on kehtetu või aegunud.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Tasuta — see litsents on juba aktiivne teises samat tüüpi seadmes.",
       "status_free": "Tasuta — 3 allalaadimist päevas. Pro: piiramatult.",
       "need_key_toast": "Sisesta esmalt litsentsivõti.",
       "activated_toast": "Litsents aktiveeritud.",

@@ -15,7 +15,7 @@
       "buy_btn": "પ્રો મેળવો",
       "status_active": "પ્રો સક્રિય ({tier}). તમારા સપોર્ટ માટે આભાર!",
       "status_invalid": "ફ્રી — સાચવેલી કી અમાન્ય છે અથવા સમાપ્ત થઈ ગઈ છે.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "ફ્રી — આ લાઇસન્સ પહેલેથી જ આ પ્રકારના અન્ય ડિવાઇસ પર સક્રિય છે.",
       "status_free": "ફ્રી — દરરોજ 3 ડાઉનલોડ. પ્રો: અમર્યાદિત.",
       "need_key_toast": "પહેલા લાઇસન્સ કી દાખલ કરો.",
       "activated_toast": "લાઇસન્સ સક્રિય કરવામાં આવ્યું.",

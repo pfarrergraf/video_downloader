@@ -15,7 +15,7 @@
       "buy_btn": "Iegūt Pro",
       "status_active": "Pro aktīvs ({tier}). Paldies par atbalstu!",
       "status_invalid": "Bezmaksas — saglabātā atslēga nav derīga vai ir beigusies.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Bezmaksas — šī licence jau ir aktīva citā tāda paša veida ierīcē.",
       "status_free": "Bezmaksas — 3 lejupielādes dienā. Pro: neierobežoti.",
       "need_key_toast": "Vispirms ievadiet licences atslēgu.",
       "activated_toast": "Licence aktivizēta.",

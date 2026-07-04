@@ -15,7 +15,7 @@
       "buy_btn": "Obter Pro",
       "status_active": "Pro ativo ({tier}). Obrigado pelo apoio!",
       "status_invalid": "Gratuito — a chave salva é inválida ou expirou.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Gratuito — esta licença já está ativa em outro dispositivo do mesmo tipo.",
       "status_free": "Gratuito — 3 downloads por dia. Pro: ilimitado.",
       "need_key_toast": "Digite uma chave de licença primeiro.",
       "activated_toast": "Licença ativada.",

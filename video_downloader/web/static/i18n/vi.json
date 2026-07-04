@@ -15,7 +15,7 @@
       "buy_btn": "Nâng cấp Pro",
       "status_active": "Đã kích hoạt Pro ({tier}). Cảm ơn bạn đã ủng hộ!",
       "status_invalid": "Miễn phí — mã đã lưu không hợp lệ hoặc đã hết hạn.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Miễn phí — giấy phép này đã được kích hoạt trên một thiết bị khác cùng loại.",
       "status_free": "Miễn phí — 3 lượt tải mỗi ngày. Pro: không giới hạn.",
       "need_key_toast": "Vui lòng nhập mã giấy phép trước.",
       "activated_toast": "Đã kích hoạt giấy phép.",

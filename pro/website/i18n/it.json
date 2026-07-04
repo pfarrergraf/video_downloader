@@ -15,7 +15,7 @@
       "buy_btn": "Passa a Pro",
       "status_active": "Pro attivo ({tier}). Grazie per il tuo supporto!",
       "status_invalid": "Free — la chiave salvata non è valida o è scaduta.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Free — questa licenza è già attiva su un altro dispositivo dello stesso tipo.",
       "status_free": "Free — 3 download al giorno. Pro: illimitati.",
       "need_key_toast": "Inserisci prima una chiave di licenza.",
       "activated_toast": "Licenza attivata.",

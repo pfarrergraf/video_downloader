@@ -15,7 +15,7 @@
       "buy_btn": "שדרוג ל-Pro",
       "status_active": "מנוי Pro פעיל ({tier}). תודה על התמיכה!",
       "status_invalid": "חינמי — מפתח הרישיון השמור לא תקין או שפג תוקפו.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "חינמי — הרישיון הזה כבר פעיל במכשיר אחר מאותו סוג.",
       "status_free": "חינמי — 3 הורדות ביום. עם Pro: ללא הגבלה.",
       "need_key_toast": "יש להזין קודם מפתח רישיון.",
       "activated_toast": "הרישיון הופעל.",

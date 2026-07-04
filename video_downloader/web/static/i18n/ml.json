@@ -15,7 +15,7 @@
       "buy_btn": "പ്രോ നേടുക",
       "status_active": "പ്രോ സജീവമാണ് ({tier}). നിങ്ങളുടെ പിന്തുണയ്ക്ക് നന്ദി!",
       "status_invalid": "ഫ്രീ — സേവ് ചെയ്ത കീ അസാധുവാണ് അല്ലെങ്കിൽ കാലഹരണപ്പെട്ടിരിക്കുന്നു.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "ഫ്രീ — ഈ ലൈസൻസ് ഇതേ തരത്തിലുള്ള മറ്റൊരു ഉപകരണത്തിൽ ഇതിനകം സജീവമാണ്.",
       "status_free": "ഫ്രീ — ദിവസത്തിൽ 3 ഡൗൺലോഡ്. പ്രോ: പരിധിയില്ലാതെ.",
       "need_key_toast": "ആദ്യം ഒരു ലൈസൻസ് കീ നൽകുക.",
       "activated_toast": "ലൈസൻസ് സജീവമാക്കി.",

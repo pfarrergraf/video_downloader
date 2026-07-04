@@ -15,7 +15,7 @@
       "buy_btn": "Získať Pro",
       "status_active": "Pro aktívne ({tier}). Ďakujeme za podporu!",
       "status_invalid": "Free — uložený kľúč je neplatný alebo mu vypršala platnosť.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Free — táto licencia je už aktívna na inom zariadení rovnakého typu.",
       "status_free": "Free — 3 stiahnutia denne. Pro: neobmedzene.",
       "need_key_toast": "Najprv zadaj licenčný kľúč.",
       "activated_toast": "Licencia aktivovaná.",

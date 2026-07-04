@@ -15,7 +15,7 @@
       "buy_btn": "Hanki Pro",
       "status_active": "Pro käytössä ({tier}). Kiitos tuestasi!",
       "status_invalid": "Ilmainen — tallennettu avain on virheellinen tai vanhentunut.",
-      "status_device_limit": "Free — this license is already active on another device of this type.",
+      "status_device_limit": "Ilmainen — tämä lisenssi on jo käytössä toisessa samantyyppisessä laitteessa.",
       "status_free": "Ilmainen — 3 latausta päivässä. Pro: rajoittamaton.",
       "need_key_toast": "Anna lisenssiavain ensin.",
       "activated_toast": "Lisenssi aktivoitu.",
