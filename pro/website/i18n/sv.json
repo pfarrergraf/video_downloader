@@ -126,7 +126,7 @@
       "title_html": "Ladda ner {emphasis}.<br/>Direkt till din telefon.",
       "title_emphasis": "allt",
       "lead": "Video, ljud och bilder från nästan vilken sajt som helst — nedladdade direkt till din Android-telefon. Ingen molnuppladdning, ingen data lämnar någonsin din enhet, ingen Play Store behövs.",
-      "cta_primary": "Ladda ner den kostnadsfria APK-filen",
+      "cta_primary": "Ladda ner den kostnadsfria Android-versionen",
       "cta_secondary": "Se Pro-priser",
       "badge1": "Ingen Google Play behövs",
       "badge2": "Körs 100 % på din enhet",
@@ -147,7 +147,7 @@
       "f5_title": "Ljudextrahering",
       "f5_desc": "Extrahera bara ljudspåret från valfri video och spara det som MP3.",
       "f6_title": "Ingen appbutik behövs",
-      "f6_desc": "Installera APK-filen direkt. Inget konto, ingen granskningsprocess i Play Store, inga regionlås."
+      "f6_desc": "Installera Android-versionen direkt. Inget konto, ingen granskningsprocess i Play Store, inga regionlås."
     },
     "pricing": {
       "h2": "Enkel, ärlig prissättning",
@@ -176,7 +176,7 @@
       "q1_title": "Behöver jag Pro för att använda appen?",
       "q1_body": "Nej. Appen är gratis och fullt användbar. Pro tar bort begränsningar och stödjer utvecklingen.",
       "q2_title": "Fungerar det här utan Google Play?",
-      "q2_body": "Ja — det är en fristående APK som du installerar direkt. Inget Play Store-konto eller godkännande behövs.",
+      "q2_body": "Ja — det är en fristående Android-version du installerar direkt. Inget Play Store-konto eller godkännande behövs.",
       "q3_title": "Var anger jag min licensnyckel?",
       "q3_body": "Direkt efter köpet ser du din licensnyckel på bekräftelsesidan — ange den i appens inställningar.",
       "q4_title": "Kan jag få pengarna tillbaka?",

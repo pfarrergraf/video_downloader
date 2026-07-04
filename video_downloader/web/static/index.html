@@ -26,7 +26,16 @@
     --ok: #22e0a0;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body { margin: 0; padding: 0; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    /* Safety net: some Android WebView versions render flex-wrap slightly
+       differently than desktop Chromium, and translated strings (German
+       especially) run noticeably longer than English - if a row's content
+       ever fails to wrap in time, this stops it from forcing the whole page
+       to scroll sideways instead of just clipping the rare overflow. */
+    overflow-x: hidden;
+  }
   body {
     background: var(--bg);
     color: var(--text);
@@ -76,6 +85,12 @@
     padding: 1.2rem 1.2rem 1.35rem;
     margin-bottom: 1rem;
     box-shadow: 0 12px 30px -18px rgba(0,0,0,0.6);
+    /* Overlay cards are flex items of their fixed-position overlay
+       container; a flex item's default min-width is its content's
+       min-content size, which can silently override "width: 100%" /
+       max-width and push the card wider than the screen. This forces it
+       to actually respect the constraint instead. */
+    min-width: 0;
   }
   .card h2 { padding-bottom: 0.65rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
   label { display: block; margin: 0.8rem 0 0.35rem; color: var(--text-dim); font-size: 0.83rem; font-weight: 500; }

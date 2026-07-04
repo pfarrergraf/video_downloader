@@ -126,7 +126,7 @@
       "title_html": "Atsisiųsk {emphasis}.<br/>Tiesiai į telefoną.",
       "title_emphasis": "viską",
       "lead": "Vaizdo įrašai, garso įrašai ir nuotraukos iš beveik bet kurios svetainės — atsisiunčiami tiesiai į „Android“ telefoną. Jokio įkėlimo į debesį, jokie duomenys nepalieka jūsų įrenginio, „Play Store“ nereikalinga.",
-      "cta_primary": "Atsisiųsti nemokamą APK",
+      "cta_primary": "Atsisiųsti nemokamą Android versiją",
       "cta_secondary": "Peržiūrėti Pro kainas",
       "badge1": "„Google Play“ nereikalinga",
       "badge2": "Veikia 100 % jūsų įrenginyje",
@@ -147,7 +147,7 @@
       "f5_title": "Garso ištraukimas",
       "f5_desc": "Ištrauk vien garso takelį iš bet kurio vaizdo įrašo ir išsaugok kaip MP3.",
       "f6_title": "Programėlių parduotuvė nereikalinga",
-      "f6_desc": "Įdiek APK failą tiesiogiai. Jokios paskyros, jokio „Play Store“ peržiūros proceso, jokių regiono apribojimų."
+      "f6_desc": "Įdiek Android versiją tiesiogiai. Jokios paskyros, jokio „Play Store“ peržiūros proceso, jokių regiono apribojimų."
     },
     "pricing": {
       "h2": "Paprastos, sąžiningos kainos",
@@ -176,7 +176,7 @@
       "q1_title": "Ar norint naudotis programėle būtina Pro versija?",
       "q1_body": "Ne. Programėlė nemokama ir visiškai naudotina. Pro panaikina apribojimus ir palaiko kūrimą.",
       "q2_title": "Ar tai veikia be „Google Play“?",
-      "q2_body": "Taip — tai atskiras APK failas, kurį įdiegi tiesiogiai. „Play Store“ paskyra ar patvirtinimas nereikalingi.",
+      "q2_body": "Taip — tai atskira Android versija, kurią įdiegi tiesiogiai. „Play Store“ paskyra ar patvirtinimas nereikalingi.",
       "q3_title": "Kur įvesti savo licencijos raktą?",
       "q3_body": "Iškart po pirkimo patvirtinimo puslapyje pamatysi savo licencijos raktą — įvesk jį programėlės nustatymuose.",
       "q4_title": "Ar galiu susigrąžinti pinigus?",

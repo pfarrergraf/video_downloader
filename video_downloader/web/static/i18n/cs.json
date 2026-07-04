@@ -126,7 +126,7 @@
       "title_html": "Stáhněte si {emphasis}.<br/>Přímo do telefonu.",
       "title_emphasis": "všechno",
       "lead": "Videa, zvuk a obrázky téměř z jakéhokoli webu — stažené přímo do vašeho telefonu s Androidem. Žádné nahrávání do cloudu, žádná data neopustí vaše zařízení, Obchod Play není potřeba.",
-      "cta_primary": "Stáhnout bezplatný APK",
+      "cta_primary": "Stáhnout bezplatnou verzi pro Android",
       "cta_secondary": "Zobrazit ceny Pro",
       "badge1": "Google Play není potřeba",
       "badge2": "Běží 100 % na vašem zařízení",
@@ -147,7 +147,7 @@
       "f5_title": "Extrakce zvuku",
       "f5_desc": "Vytáhněte zvukovou stopu z libovolného videa a uložte ji jako MP3.",
       "f6_title": "Bez obchodu s aplikacemi",
-      "f6_desc": "Nainstalujte APK přímo. Žádný účet, žádný schvalovací proces Obchodu Play, žádná regionální omezení."
+      "f6_desc": "Nainstalujte verzi pro Android přímo. Žádný účet, žádný schvalovací proces Obchodu Play, žádná regionální omezení."
     },
     "pricing": {
       "h2": "Jednoduchý, poctivý ceník",
@@ -176,7 +176,7 @@
       "q1_title": "Potřebuji Pro k používání aplikace?",
       "q1_body": "Ne. Aplikace je zdarma a plně použitelná. Pro odstraňuje omezení a podporuje vývoj.",
       "q2_title": "Funguje to bez Google Play?",
-      "q2_body": "Ano — jde o samostatný APK, který nainstalujete přímo. Není potřeba účet ani schválení v Obchodě Play.",
+      "q2_body": "Ano — jde o samostatnou verzi pro Android, kterou nainstalujete přímo. Není potřeba účet ani schválení v Obchodě Play.",
       "q3_title": "Kam zadám svůj licenční klíč?",
       "q3_body": "Hned po nákupu uvidíte svůj licenční klíč na potvrzovací stránce — zadejte jej v nastavení aplikace.",
       "q4_title": "Mohu dostat vrácení peněz?",

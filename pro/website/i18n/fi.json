@@ -126,7 +126,7 @@
       "title_html": "Lataa {emphasis}.<br/>Suoraan puhelimeesi.",
       "title_emphasis": "kaikki",
       "lead": "Videot, äänet ja kuvat lähes miltä tahansa sivustolta — ladattuna suoraan Android-puhelimeesi. Ei pilveen lähetystä, tietosi eivät koskaan poistu laitteeltasi, eikä Play Kauppaa tarvita.",
-      "cta_primary": "Lataa ilmainen APK",
+      "cta_primary": "Lataa ilmainen Android-versio",
       "cta_secondary": "Katso Pro-hinnoittelu",
       "badge1": "Google Playta ei tarvita",
       "badge2": "Toimii 100 % laitteellasi",
@@ -147,7 +147,7 @@
       "f5_title": "Äänen erottelu",
       "f5_desc": "Poimi pelkkä ääniraita mistä tahansa videosta ja tallenna se MP3-muodossa.",
       "f6_title": "Ei sovelluskauppaa tarvita",
-      "f6_desc": "Asenna APK suoraan. Ei tiliä, ei Play Kaupan arviointiprosessia, ei aluelukituksia."
+      "f6_desc": "Asenna Android-versio suoraan. Ei tiliä, ei Play Kaupan arviointiprosessia, ei aluelukituksia."
     },
     "pricing": {
       "h2": "Yksinkertainen, rehellinen hinnoittelu",
@@ -176,7 +176,7 @@
       "q1_title": "Tarvitsenko Pro-version käyttääkseni sovellusta?",
       "q1_body": "Et. Sovellus on ilmainen ja täysin käyttökelpoinen. Pro poistaa rajoitukset ja tukee kehitystä.",
       "q2_title": "Toimiiko tämä ilman Google Playta?",
-      "q2_body": "Kyllä — se on itsenäinen APK, jonka asennat suoraan. Play Kaupan tiliä tai hyväksyntää ei tarvita.",
+      "q2_body": "Kyllä — se on itsenäinen Android-versio, jonka asennat suoraan. Play Kaupan tiliä tai hyväksyntää ei tarvita.",
       "q3_title": "Mistä syötän lisenssiavaimeni?",
       "q3_body": "Heti ostoksen jälkeen näet lisenssiavaimesi vahvistussivulla — syötä se sovelluksen asetuksiin.",
       "q4_title": "Voinko saada rahat takaisin?",

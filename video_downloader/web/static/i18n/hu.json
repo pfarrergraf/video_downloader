@@ -126,7 +126,7 @@
       "title_html": "Töltsd le {emphasis}.<br/>Egyenesen a telefonodra.",
       "title_emphasis": "mindent",
       "lead": "Videók, hangfájlok és képek szinte bármely oldalról — egyenesen az Android telefonodra töltve. Nincs felhőbe töltés, az adataid soha nem hagyják el az eszközödet, és nincs szükség Play Store-ra.",
-      "cta_primary": "Ingyenes APK letöltése",
+      "cta_primary": "Ingyenes Android-verzió letöltése",
       "cta_secondary": "Pro árak megtekintése",
       "badge1": "Nincs szükség Google Play-re",
       "badge2": "100%-ban az eszközödön fut",
@@ -147,7 +147,7 @@
       "f5_title": "Hangkinyerés",
       "f5_desc": "Nyerd ki bármely videó hangsávját, és mentsd el MP3 formátumban.",
       "f6_title": "Nincs szükség áruházra",
-      "f6_desc": "Telepítsd az APK-t közvetlenül. Nincs szükség fiókra, Play Store-jóváhagyásra vagy régiós korlátozásra."
+      "f6_desc": "Telepítsd az Android-verziót közvetlenül. Nincs szükség fiókra, Play Store-jóváhagyásra vagy régiós korlátozásra."
     },
     "pricing": {
       "h2": "Egyszerű, tisztességes árazás",
@@ -176,7 +176,7 @@
       "q1_title": "Szükségem van Pro-ra az alkalmazás használatához?",
       "q1_body": "Nem. Az alkalmazás ingyenes és teljes mértékben használható. A Pro megszünteti a korlátokat, és támogatja a fejlesztést.",
       "q2_title": "Ez Google Play nélkül is működik?",
-      "q2_body": "Igen — ez egy önálló APK, amelyet közvetlenül telepítesz. Nincs szükség Play Store-fiókra vagy jóváhagyásra.",
+      "q2_body": "Igen — ez egy önálló Android-verzió, amelyet közvetlenül telepítesz. Nincs szükség Play Store-fiókra vagy jóváhagyásra.",
       "q3_title": "Hol adhatom meg a licenckulcsomat?",
       "q3_body": "Közvetlenül a vásárlás után megjelenik a licenckulcsod a visszaigazoló oldalon — add meg az alkalmazás beállításaiban.",
       "q4_title": "Kaphatok visszatérítést?",

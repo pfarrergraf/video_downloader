@@ -126,7 +126,7 @@
       "title_html": "Laadi alla {emphasis}.<br/>Otse oma telefoni.",
       "title_emphasis": "kõik",
       "lead": "Video, heli ja pildid peaaegu igalt saidilt — laaditud otse sinu Androidi telefoni. Pilve üleslaadimist pole, andmed ei lahku kunagi sinu seadmest ja Play Store'i pole vaja.",
-      "cta_primary": "Laadi alla tasuta APK",
+      "cta_primary": "Laadi alla tasuta Androidi versioon",
       "cta_secondary": "Vaata Pro hindu",
       "badge1": "Google Play't pole vaja",
       "badge2": "Töötab 100% sinu seadmes",
@@ -147,7 +147,7 @@
       "f5_title": "Heli eraldamine",
       "f5_desc": "Eralda mis tahes videost ainult helirada ja salvesta see MP3-na.",
       "f6_title": "Rakenduste poodi pole vaja",
-      "f6_desc": "Paigalda APK otse. Kontot pole vaja, Play Store'i ülevaatusprotsessi pole ja regioonipiiranguid pole."
+      "f6_desc": "Paigalda Androidi versioon otse. Kontot pole vaja, Play Store'i ülevaatusprotsessi pole ja regioonipiiranguid pole."
     },
     "pricing": {
       "h2": "Lihtne ja aus hinnakiri",
@@ -176,7 +176,7 @@
       "q1_title": "Kas rakenduse kasutamiseks on vaja Pro't?",
       "q1_body": "Ei. Rakendus on tasuta ja täielikult kasutatav. Pro eemaldab piirangud ja toetab arendust.",
       "q2_title": "Kas see töötab ilma Google Play'ta?",
-      "q2_body": "Jah — see on iseseisev APK, mille paigaldad otse. Play Store'i kontot ega heakskiitu pole vaja.",
+      "q2_body": "Jah — see on iseseisev Androidi versioon, mille paigaldad otse. Play Store'i kontot ega heakskiitu pole vaja.",
       "q3_title": "Kuhu sisestan oma litsentsivõtme?",
       "q3_body": "Kohe pärast ostu näed litsentsivõtit kinnituslehel — sisesta see rakenduse seadetes.",
       "q4_title": "Kas saan raha tagasi?",

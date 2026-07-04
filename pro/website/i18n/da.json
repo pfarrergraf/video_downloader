@@ -126,7 +126,7 @@
       "title_html": "Download {emphasis}.<br/>Direkte til din telefon.",
       "title_emphasis": "alt",
       "lead": "Video, lyd og billeder fra næsten alle sider — downloadet direkte til din Android-telefon. Ingen upload til skyen, ingen data forlader nogensinde din enhed, ingen Play Store nødvendig.",
-      "cta_primary": "Download den gratis APK",
+      "cta_primary": "Download den gratis Android-version",
       "cta_secondary": "Se Pro-priser",
       "badge1": "Ingen Google Play nødvendig",
       "badge2": "Kører 100% på din enhed",
@@ -147,7 +147,7 @@
       "f5_title": "Lyduddrag",
       "f5_desc": "Træk kun lydsporet ud af en hvilken som helst video, og gem det som MP3.",
       "f6_title": "Ingen app store nødvendig",
-      "f6_desc": "Installer APK'en direkte. Ingen konto, ingen godkendelsesproces i Play Store, ingen regionslåsning."
+      "f6_desc": "Installer Android-versionen direkte. Ingen konto, ingen godkendelsesproces i Play Store, ingen regionslåsning."
     },
     "pricing": {
       "h2": "Enkle, ærlige priser",
@@ -176,7 +176,7 @@
       "q1_title": "Skal jeg have Pro for at bruge appen?",
       "q1_body": "Nej. Appen er gratis og fuldt brugbar. Pro fjerner begrænsninger og støtter den videre udvikling.",
       "q2_title": "Virker det uden Google Play?",
-      "q2_body": "Ja — det er en selvstændig APK, du installerer direkte. Ingen Play Store-konto eller godkendelse nødvendig.",
+      "q2_body": "Ja — det er en selvstændig Android-version, du installerer direkte. Ingen Play Store-konto eller godkendelse nødvendig.",
       "q3_title": "Hvor indtaster jeg min licensnøgle?",
       "q3_body": "Lige efter købet ser du din licensnøgle på bekræftelsessiden — indtast den i appens indstillinger.",
       "q4_title": "Kan jeg få pengene refunderet?",

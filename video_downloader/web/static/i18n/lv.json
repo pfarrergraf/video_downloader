@@ -126,7 +126,7 @@
       "title_html": "Lejupielādē {emphasis}.<br/>Tieši savā tālrunī.",
       "title_emphasis": "visu",
       "lead": "Video, audio un attēli gandrīz no jebkuras vietnes — lejupielādēti tieši jūsu Android tālrunī. Bez augšupielādes mākonī, dati nekad nepamet jūsu ierīci, Play veikals nav nepieciešams.",
-      "cta_primary": "Lejupielādēt bezmaksas APK",
+      "cta_primary": "Lejupielādēt bezmaksas Android versiju",
       "cta_secondary": "Skatīt Pro cenas",
       "badge1": "Google Play nav nepieciešams",
       "badge2": "Darbojas 100% jūsu ierīcē",
@@ -147,7 +147,7 @@
       "f5_title": "Audio izvilkšana",
       "f5_desc": "Izvelciet audio celiņu no jebkura video un saglabājiet to kā MP3.",
       "f6_title": "Lietotņu veikals nav nepieciešams",
-      "f6_desc": "Instalējiet APK failu tieši. Bez konta, bez Play veikala pārbaudes procesa, bez reģionāliem ierobežojumiem."
+      "f6_desc": "Instalējiet Android versiju tieši. Bez konta, bez Play veikala pārbaudes procesa, bez reģionāliem ierobežojumiem."
     },
     "pricing": {
       "h2": "Vienkāršas, godīgas cenas",
@@ -176,7 +176,7 @@
       "q1_title": "Vai man ir nepieciešams Pro, lai lietotu lietotni?",
       "q1_body": "Nē. Lietotne ir bezmaksas un pilnībā lietojama. Pro noņem ierobežojumus un atbalsta izstrādi.",
       "q2_title": "Vai tas darbojas bez Google Play?",
-      "q2_body": "Jā — tas ir patstāvīgs APK fails, ko instalējat tieši. Play veikala konts vai apstiprinājums nav nepieciešams.",
+      "q2_body": "Jā — tā ir patstāvīga Android versija, ko instalējat tieši. Play veikala konts vai apstiprinājums nav nepieciešams.",
       "q3_title": "Kur man ievadīt savu licences atslēgu?",
       "q3_body": "Uzreiz pēc pirkuma jūs redzēsiet savu licences atslēgu apstiprinājuma lapā — ievadiet to lietotnes iestatījumos.",
       "q4_title": "Vai varu saņemt naudas atmaksu?",
