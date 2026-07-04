@@ -321,15 +321,20 @@ class QueueStore:
             )
 
     def mark_job_completed(self, job_id: int, file_paths: Iterable[Path], details: str = "") -> None:
+        # `error` isn't exclusively a failure indicator - a completed job can
+        # still carry a non-fatal note here (e.g. "saved as .opus, MP3
+        # conversion failed"), which the web UI already renders alongside the
+        # job regardless of status. Only completed-with-no-caveats jobs clear
+        # it to NULL.
         now = _utcnow()
         with self._connect() as conn:
             conn.execute(
                 """
                 UPDATE jobs
-                SET status = ?, error = NULL, finished_at = ?, updated_at = ?
+                SET status = ?, error = ?, finished_at = ?, updated_at = ?
                 WHERE id = ?
                 """,
-                (JOB_STATUS_COMPLETED, now, now, job_id),
+                (JOB_STATUS_COMPLETED, details or None, now, now, job_id),
             )
             for path in file_paths:
                 try:
@@ -345,7 +350,7 @@ class QueueStore:
                 )
         self.append_event(job_id, "info", "Job completed successfully")
         if details:
-            self.append_event(job_id, "info", details)
+            self.append_event(job_id, "warning", details)
 
     def mark_job_failed(self, job_id: int, error: str) -> None:
         now = _utcnow()

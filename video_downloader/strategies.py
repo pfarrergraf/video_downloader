@@ -129,14 +129,20 @@ class YtDlpStrategy(Strategy):
             # FFmpegExtractAudio as a separate step - if that postprocessing
             # step itself fails (e.g. the bundled ffmpeg binary can't encode
             # mp3 on this device), the exception above still leaves the raw,
-            # un-converted file on disk. Without this check that raw file
-            # (e.g. .opus/.webm instead of the requested .mp3) would silently
-            # be reported as a successful download instead of a failure.
-            if request.audio_only and ffmpeg_available and result_file.suffix.lower() != ".mp3":
-                raise StrategyError(
-                    error_message
-                    or f"Audio conversion to MP3 failed; only the original "
-                    f"{result_file.suffix} file could be saved."
+            # un-converted file (e.g. .opus/.webm instead of the requested
+            # .mp3) on disk. That file is still a real, playable download -
+            # just not one every device/car stereo can open - so this stays a
+            # success, but surfaces a clear note instead of pretending the
+            # requested MP3 conversion actually happened.
+            if (
+                request.audio_only
+                and ffmpeg_available
+                and result_file.suffix.lower() != ".mp3"
+                and not error_message
+            ):
+                error_message = (
+                    f"MP3 conversion failed; saved as {result_file.suffix} instead. "
+                    "This plays fine on this device but may not on others (e.g. a car stereo)."
                 )
             return DownloadResult(
                 file_path=result_file,
