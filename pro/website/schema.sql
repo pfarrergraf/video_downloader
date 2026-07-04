@@ -19,4 +19,8 @@ CREATE TABLE licenses (
 
 CREATE INDEX idx_licenses_email ON licenses(email);
 CREATE INDEX idx_licenses_stripe_subscription ON licenses(stripe_subscription_id);
-CREATE INDEX idx_licenses_checkout_session ON licenses(stripe_checkout_session_id);
+-- UNIQUE, not just indexed: _lib.js's handleCheckoutCompleted also checks for
+-- an existing row before inserting, but this is defense-in-depth against a
+-- redelivered checkout.session.completed webhook minting a second license
+-- for the same payment.
+CREATE UNIQUE INDEX idx_licenses_checkout_session ON licenses(stripe_checkout_session_id);

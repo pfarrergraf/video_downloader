@@ -201,6 +201,12 @@ class ClassyDLServer(ThreadingHTTPServer):
         self.app_version = app_version
         self.sessions = SessionStore()
         self.worker = BackgroundQueueWorker(store=store, output_dir=output_dir, workers=workers)
+        # Guards the free-tier quota check-then-act sequence in do_POST's
+        # /api/queue handler - without it, concurrent requests on this
+        # ThreadingHTTPServer can all read the same "used" count before any
+        # of them commits a new job, letting a free-tier user queue more than
+        # FREE_DAILY_DOWNLOAD_LIMIT downloads in a burst.
+        self.quota_lock = threading.Lock()
 
     def start_background_worker(self) -> None:
         self.worker.start()
@@ -531,26 +537,50 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
 
             manager = self.server.license_manager
             is_pro = manager is None or manager.is_pro()
+            audio_only = bool(body.get("audio_only", False))
+            # Playlists are effectively unlimited downloads in a single job -
+            # counting them as "1" against the free-tier quota would let a
+            # free-tier user bypass the limit entirely by always using
+            # playlist URLs, so only Pro accounts get to request one.
+            allow_playlist = bool(body.get("allow_playlist", False)) and is_pro
+
             if not is_pro:
-                used = _recent_job_count(self.server.store, within_hours=FREE_WINDOW_HOURS)
-                if used >= FREE_DAILY_DOWNLOAD_LIMIT:
-                    self._send_json(
-                        402,
-                        {
-                            "detail": f"Free tier allows {FREE_DAILY_DOWNLOAD_LIMIT} download per "
-                            f"{FREE_WINDOW_HOURS}h. Upgrade to Pro for unlimited downloads."
-                        },
+                # Holds the lock across the whole check-then-add sequence, not
+                # just the read: without this, concurrent requests near the
+                # quota boundary can all read the same "used" count before any
+                # of them commits a job, letting a burst of requests exceed
+                # FREE_DAILY_DOWNLOAD_LIMIT.
+                with self.server.quota_lock:
+                    used = _recent_job_count(self.server.store, within_hours=FREE_WINDOW_HOURS)
+                    if used >= FREE_DAILY_DOWNLOAD_LIMIT:
+                        self._send_json(
+                            402,
+                            {
+                                "detail": f"Free tier allows {FREE_DAILY_DOWNLOAD_LIMIT} download per "
+                                f"{FREE_WINDOW_HOURS}h. Upgrade to Pro for unlimited downloads."
+                            },
+                        )
+                        return
+
+                    profile = _resolve_profile(self.server.store, audio_only)
+                    job_id = self.server.store.add_job(
+                        source=source,
+                        profile_id=profile.id,
+                        output_dir=str(self.server.output_dir),
+                        ffmpeg_binary=self.server.ffmpeg_binary,
+                        allow_playlist=allow_playlist,
+                        quality_height=None if audio_only else _resolve_quality_height(body),
                     )
+                    self._send_json(200, {"job_id": job_id})
                     return
 
-            audio_only = bool(body.get("audio_only", False))
             profile = _resolve_profile(self.server.store, audio_only)
             job_id = self.server.store.add_job(
                 source=source,
                 profile_id=profile.id,
                 output_dir=str(self.server.output_dir),
                 ffmpeg_binary=self.server.ffmpeg_binary,
-                allow_playlist=bool(body.get("allow_playlist", False)),
+                allow_playlist=allow_playlist,
                 quality_height=None if audio_only else _resolve_quality_height(body),
             )
             self._send_json(200, {"job_id": job_id})

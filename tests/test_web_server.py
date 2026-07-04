@@ -388,6 +388,55 @@ def test_free_and_pro_tiers_use_the_same_unrestricted_profile(tmp_path: Path) ->
         _teardown(srv)
 
 
+def test_free_tier_cannot_use_allow_playlist_to_bypass_the_quota(tmp_path: Path) -> None:
+    srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False))
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+
+        status, body, _ = _request(
+            srv,
+            "POST",
+            "/api/queue",
+            {"source": "https://youtube.com/playlist?list=abc123", "allow_playlist": True},
+            cookie=cookie,
+        )
+        assert status == 200
+        job = srv.store.get_job(body["job_id"])
+        assert job is not None
+        assert job.allow_playlist is False
+    finally:
+        _teardown(srv)
+
+
+def test_free_tier_quota_check_is_race_safe_under_concurrent_requests(tmp_path: Path) -> None:
+    srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False))
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+
+        statuses: list[int] = []
+        lock = threading.Lock()
+
+        def fire(i: int) -> None:
+            status, _, _ = _request(
+                srv, "POST", "/api/queue", {"source": f"https://example.com/{i}"}, cookie=cookie
+            )
+            with lock:
+                statuses.append(status)
+
+        threads = [threading.Thread(target=fire, args=(i,)) for i in range(FREE_DAILY_DOWNLOAD_LIMIT + 5)]
+        for th in threads:
+            th.start()
+        for th in threads:
+            th.join()
+
+        assert statuses.count(200) == FREE_DAILY_DOWNLOAD_LIMIT
+        assert statuses.count(402) == 5
+    finally:
+        _teardown(srv)
+
+
 def test_pro_tier_has_no_daily_quota(tmp_path: Path) -> None:
     srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=True, tier="lifetime"))
     try:

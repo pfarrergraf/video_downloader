@@ -53,20 +53,28 @@ export async function onRequestPost({ request, env }) {
         paymentIntentId = invoice.payment_intent?.id ?? invoice.payment_intent ?? null;
       }
       // Cancel the subscription immediately so it doesn't renew again while
-      // the refund itself is being processed.
-      await stripeDelete(`/subscriptions/${row.stripe_subscription_id}`, env).catch((err) => {
+      // the refund itself is being processed. If this fails, bail out entirely
+      // rather than refunding+revoking anyway - otherwise the customer loses
+      // their license while Stripe keeps billing the still-active subscription.
+      try {
+        await stripeDelete(`/subscriptions/${row.stripe_subscription_id}`, env);
+      } catch (err) {
         console.error("Subscription cancel during refund failed", row.stripe_subscription_id, err);
-      });
+        return jsonResponse({ error: "subscription_cancel_failed" }, 502);
+      }
     }
 
-    if (paymentIntentId) {
-      await stripePost(`/refunds`, env, {
-        payment_intent: paymentIntentId,
-        reason: "requested_by_customer",
-      });
-    } else {
+    // No payment_intent means we can't actually refund anything - don't tell
+    // the customer they were refunded and revoke their license for nothing.
+    if (!paymentIntentId) {
       console.error("Refund requested but no payment_intent found", licenseKey);
+      return jsonResponse({ error: "payment_not_found" }, 502);
     }
+
+    await stripePost(`/refunds`, env, {
+      payment_intent: paymentIntentId,
+      reason: "requested_by_customer",
+    });
 
     await env.DB.prepare(`UPDATE licenses SET status = 'canceled', updated_at = ? WHERE license_key = ?`)
       .bind(now, licenseKey)

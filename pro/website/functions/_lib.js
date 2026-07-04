@@ -17,6 +17,11 @@ export function jsonResponse(body, status = 200) {
   });
 }
 
+// Stripe's own recommended tolerance for webhook signature timestamps -
+// rejects a captured/replayed request (from logs, a proxy, a debug artifact)
+// that would otherwise still pass the HMAC check no matter how old it is.
+const WEBHOOK_TOLERANCE_SECONDS = 5 * 60;
+
 // Stripe signs webhooks as header `t=<timestamp>,v1=<hex hmac>` computed over
 // `${timestamp}.${payload}` with the endpoint's signing secret.
 export async function verifyStripeSignature(payload, header, secret) {
@@ -24,6 +29,7 @@ export async function verifyStripeSignature(payload, header, secret) {
   const timestamp = parts.t;
   const expectedSig = parts.v1;
   if (!timestamp || !expectedSig) return false;
+  if (Math.abs(Math.floor(Date.now() / 1000) - Number(timestamp)) > WEBHOOK_TOLERANCE_SECONDS) return false;
 
   const key = await crypto.subtle.importKey(
     "raw",
@@ -103,6 +109,18 @@ async function handleCheckoutCompleted(session, env) {
     return { created: false, reason: "missing/unknown tier metadata", session_metadata: session.metadata ?? null };
   }
 
+  // Stripe uses at-least-once webhook delivery and can redeliver this event
+  // (e.g. if our response was slow/lost) - without this check a redelivery
+  // would mint a second distinct license key for the same single payment.
+  const existing = await env.DB.prepare(
+    `SELECT license_key FROM licenses WHERE stripe_checkout_session_id = ?`,
+  )
+    .bind(session.id)
+    .first();
+  if (existing) {
+    return { created: false, reason: "already processed", license_key: existing.license_key };
+  }
+
   const email = session.customer_details?.email ?? session.customer_email ?? "unknown";
   const now = Math.floor(Date.now() / 1000);
   let currentPeriodEnd = null;
@@ -152,7 +170,18 @@ async function handleCheckoutAsyncPaymentFailed(session, env) {
 
 async function handleSubscriptionUpdated(subscription, env) {
   const now = Math.floor(Date.now() / 1000);
-  const status = subscription.status === "active" || subscription.status === "trialing" ? "active" : "expired";
+  // Mirrors handleSubscriptionDeleted's and refund.js's use of 'canceled' for
+  // the same "no longer active" condition - Stripe can send this via an
+  // .updated event with status: 'canceled' instead of (or before) a separate
+  // .deleted event, and treating it as 'expired' here made an intentional
+  // cancellation indistinguishable from a lapsed/unpaid subscription in
+  // reporting, even though both are denied the same way by validate.js.
+  const status =
+    subscription.status === "active" || subscription.status === "trialing"
+      ? "active"
+      : subscription.status === "canceled"
+        ? "canceled"
+        : "expired";
   await env.DB.prepare(
     `UPDATE licenses SET status = ?, current_period_end = ?, updated_at = ?
      WHERE stripe_subscription_id = ?`,
