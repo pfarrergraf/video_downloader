@@ -8,11 +8,12 @@ enum ExtractedItem {
     /// A ready-to-download file that already has audio (progressive/muxed stream, or
     /// a site that only ever serves single files).
     case complete(url: URL, suggestedName: String?)
-    /// A video-only stream with no matching audio merge available yet (see
-    /// AVFoundation passthrough remux, tracked separately). Downloading this alone
-    /// produces a silent video - callers should surface that plainly rather than
-    /// silently shipping a broken file.
-    case videoOnlyNoAudioYet(url: URL, suggestedName: String?)
+    /// Video and (optionally) audio as two separate streams with no merge available
+    /// yet (see AVFoundation passthrough remux, tracked separately). `audio` is nil
+    /// when the source genuinely has no audio track (e.g. a silent clip) rather than
+    /// merge support being missing - callers should still surface "not merged" plainly
+    /// when audio is present, since two separate files isn't what the user asked for.
+    case separateVideoAudio(video: URL, audio: URL?, suggestedVideoName: String?, suggestedAudioName: String?)
 }
 
 enum VideoExtractorError: Error {
@@ -30,7 +31,7 @@ enum VideoExtractor {
 
     static func isKnownHost(_ url: URL) -> Bool {
         guard let host = url.host?.lowercased() else { return false }
-        return isYouTubeHost(host)
+        return isYouTubeHost(host) || isVimeoHost(host) || isRedditHost(host)
     }
 
     /// Expands a URL that may reference a collection (a YouTube playlist) into the
@@ -52,6 +53,12 @@ enum VideoExtractor {
         guard let host = url.host?.lowercased() else { throw VideoExtractorError.unsupportedHost }
         if isYouTubeHost(host) {
             return try await resolveYouTube(url: url)
+        }
+        if isVimeoHost(host) {
+            return try await resolveVimeo(url: url)
+        }
+        if isRedditHost(host) {
+            return try await resolveReddit(url: url)
         }
         throw VideoExtractorError.unsupportedHost
     }
@@ -103,21 +110,23 @@ enum VideoExtractor {
             .highestResolutionStream() {
             return .complete(
                 url: progressive.url,
-                suggestedName: suggestedFileName(videoID: videoID, fileExtension: progressive.fileExtension)
+                suggestedName: suggestedFileName(id: videoID, fileExtension: progressive.fileExtension)
             )
         }
 
-        // No pre-muxed stream at a usable quality - fall back to video-only rather
-        // than failing outright. Merging with a separately-downloaded audio track
-        // isn't implemented yet (AVFoundation passthrough remux, tracked separately).
-        if let videoOnly = streams.filterVideoOnly().highestResolutionStream() {
-            return .videoOnlyNoAudioYet(
-                url: videoOnly.url,
-                suggestedName: suggestedFileName(videoID: videoID, fileExtension: videoOnly.fileExtension)
-            )
+        // No pre-muxed stream at a usable quality - fall back to separate video/audio
+        // streams rather than failing outright. Merging them isn't implemented yet
+        // (AVFoundation passthrough remux, tracked separately).
+        guard let videoOnly = streams.filterVideoOnly().highestResolutionStream() else {
+            throw VideoExtractorError.noPlayableStream
         }
-
-        throw VideoExtractorError.noPlayableStream
+        let audioOnly = streams.filterAudioOnly().highestAudioBitrateStream()
+        return .separateVideoAudio(
+            video: videoOnly.url,
+            audio: audioOnly?.url,
+            suggestedVideoName: suggestedFileName(id: videoID, fileExtension: videoOnly.fileExtension),
+            suggestedAudioName: audioOnly.map { suggestedFileName(id: "\(videoID)-audio", fileExtension: $0.fileExtension) }
+        )
     }
 
     private static func expandYouTubePlaylist(playlistID: String) async throws -> [URL] {
@@ -141,34 +150,140 @@ enum VideoExtractor {
             throw VideoExtractorError.malformedResponse
         }
 
-        let videoIDs = extractVideoIDs(from: text)
+        let videoIDs = extractAll(pattern: "\"videoId\":\"([a-zA-Z0-9_-]{11})\"", in: text)
         guard !videoIDs.isEmpty else { throw VideoExtractorError.noPlayableStream }
         return videoIDs.compactMap { URL(string: "https://www.youtube.com/watch?v=\($0)") }
     }
 
-    /// YouTube's internal `browse` response is a deeply nested structure that
-    /// reshuffles unrelated fields often enough that modeling the exact path is
-    /// brittle. Scanning the raw JSON text for `videoId` occurrences directly is more
-    /// resilient - that key name itself has been stable for years even as the
-    /// surrounding structure hasn't.
-    private static func extractVideoIDs(from jsonText: String) -> [String] {
-        guard let regex = try? NSRegularExpression(pattern: "\"videoId\":\"([a-zA-Z0-9_-]{11})\"") else {
-            return []
+    // MARK: - Vimeo
+
+    private static func isVimeoHost(_ host: String) -> Bool {
+        host == "vimeo.com" || host.hasSuffix(".vimeo.com")
+    }
+
+    private static func vimeoVideoID(from url: URL) -> String? {
+        url.pathComponents.first { $0.count >= 6 && $0.allSatisfy(\.isNumber) }
+    }
+
+    private struct VimeoConfig: Decodable {
+        struct Request: Decodable {
+            struct Files: Decodable {
+                struct Progressive: Decodable {
+                    let url: URL
+                    let width: Int?
+                    let height: Int?
+                }
+                let progressive: [Progressive]?
+            }
+            let files: Files
         }
-        let range = NSRange(jsonText.startIndex..., in: jsonText)
+        let request: Request
+    }
+
+    private static func resolveVimeo(url: URL) async throws -> ExtractedItem {
+        guard let videoID = vimeoVideoID(from: url),
+              let configURL = URL(string: "https://player.vimeo.com/video/\(videoID)/config") else {
+            throw VideoExtractorError.unsupportedHost
+        }
+
+        let (data, response) = try await URLSession.shared.data(from: configURL)
+        guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+            throw VideoExtractorError.malformedResponse
+        }
+
+        let config = try JSONDecoder().decode(VimeoConfig.self, from: data)
+        // Long videos are DASH-only (no progressive rendition) on Vimeo - out of scope
+        // for now, same reasoning as skipping ffmpeg/DASH-manifest work elsewhere.
+        guard let best = config.request.files.progressive?.max(by: { ($0.height ?? 0) < ($1.height ?? 0) }) else {
+            throw VideoExtractorError.noPlayableStream
+        }
+        return .complete(url: best.url, suggestedName: "\(videoID).mp4")
+    }
+
+    // MARK: - Reddit
+
+    private static func isRedditHost(_ host: String) -> Bool {
+        host == "reddit.com" || host.hasSuffix(".reddit.com")
+    }
+
+    private struct RedditListing: Decodable {
+        struct Child: Decodable {
+            struct Data: Decodable {
+                struct SecureMedia: Decodable {
+                    struct RedditVideo: Decodable {
+                        let fallbackURL: URL
+                        enum CodingKeys: String, CodingKey { case fallbackURL = "fallback_url" }
+                    }
+                    let redditVideo: RedditVideo?
+                    enum CodingKeys: String, CodingKey { case redditVideo = "reddit_video" }
+                }
+                let secureMedia: SecureMedia?
+                enum CodingKeys: String, CodingKey { case secureMedia = "secure_media" }
+            }
+            let data: Data
+        }
+        struct Listing: Decodable {
+            let children: [Child]
+        }
+        let data: Listing
+    }
+
+    private static func resolveReddit(url: URL) async throws -> ExtractedItem {
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            throw VideoExtractorError.malformedResponse
+        }
+        components.host = "www.reddit.com"
+        components.path = components.path.hasSuffix("/") ? components.path + ".json" : components.path + "/.json"
+        guard let jsonURL = components.url else { throw VideoExtractorError.malformedResponse }
+
+        var request = URLRequest(url: jsonURL)
+        request.setValue("DownloadThatIOS/1.0", forHTTPHeaderField: "User-Agent")
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+            throw VideoExtractorError.malformedResponse
+        }
+
+        let listings = try JSONDecoder().decode([RedditListing].self, from: data)
+        guard let fallbackURL = listings.first?.data.children.first?.data.secureMedia?.redditVideo?.fallbackURL else {
+            throw VideoExtractorError.noPlayableStream
+        }
+
+        // v.redd.it serves the video track at e.g. https://v.redd.it/<id>/DASH_720.mp4;
+        // the matching audio-only track (when the clip has audio at all) conventionally
+        // lives alongside it as DASH_audio.mp4. There's no manifest fetch to confirm
+        // this ahead of time - DownloadBridge attempts the audio download best-effort
+        // and just drops it if that guess doesn't exist (e.g. a silent clip).
+        let audioURL = fallbackURL.deletingLastPathComponent().appendingPathComponent("DASH_audio.mp4")
+        let baseName = url.pathComponents.last { $0 != "/" } ?? "reddit-video"
+        return .separateVideoAudio(
+            video: fallbackURL,
+            audio: audioURL,
+            suggestedVideoName: "\(baseName).mp4",
+            suggestedAudioName: "\(baseName)-audio.m4a"
+        )
+    }
+
+    // MARK: - Shared helpers
+
+    /// Scans raw text for a regex with one capture group, returning distinct matches
+    /// in first-seen order. Used instead of modeling exact JSON structure where that
+    /// structure is known to reshuffle often (see the YouTube playlist comment above).
+    private static func extractAll(pattern: String, in text: String) -> [String] {
+        guard let regex = try? NSRegularExpression(pattern: pattern) else { return [] }
+        let range = NSRange(text.startIndex..., in: text)
         var seen = Set<String>()
         var ordered: [String] = []
-        regex.enumerateMatches(in: jsonText, range: range) { match, _, _ in
-            guard let match, let idRange = Range(match.range(at: 1), in: jsonText) else { return }
-            let id = String(jsonText[idRange])
-            if seen.insert(id).inserted {
-                ordered.append(id)
+        regex.enumerateMatches(in: text, range: range) { match, _, _ in
+            guard let match, let idRange = Range(match.range(at: 1), in: text) else { return }
+            let value = String(text[idRange])
+            if seen.insert(value).inserted {
+                ordered.append(value)
             }
         }
         return ordered
     }
 
-    private static func suggestedFileName(videoID: String, fileExtension: FileExtension) -> String {
-        "\(videoID).\(String(describing: fileExtension))"
+    private static func suggestedFileName(id: String, fileExtension: FileExtension) -> String {
+        "\(id).\(String(describing: fileExtension))"
     }
 }

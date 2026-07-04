@@ -141,22 +141,30 @@ final class DownloadBridge: ObservableObject {
             sendToWeb(event: "downloadStarted", payload: ["url": itemURL.absoluteString])
             do {
                 let extracted = try await VideoExtractor.resolve(itemURL)
-                let (mediaURL, suggestedName, warning): (URL, String?, String?)
+                var payload: [String: Any] = ["ok": true, "url": itemURL.absoluteString]
+
                 switch extracted {
                 case .complete(let url, let name):
-                    (mediaURL, suggestedName, warning) = (url, name, nil)
-                case .videoOnlyNoAudioYet(let url, let name):
-                    (mediaURL, suggestedName, warning) = (url, name, "video_only_no_audio")
+                    let savedURL = try await downloadDirectFile(from: url, suggestedName: name)
+                    payload["fileName"] = savedURL.lastPathComponent
+                    payload["path"] = savedURL.path
+
+                case .separateVideoAudio(let videoURL, let audioURL, let videoName, let audioName):
+                    let savedVideo = try await downloadDirectFile(from: videoURL, suggestedName: videoName)
+                    payload["fileName"] = savedVideo.lastPathComponent
+                    payload["path"] = savedVideo.path
+                    // Best-effort: some sources genuinely have no audio track (silent
+                    // clips), so a failed audio fetch just means "no audio" rather
+                    // than a real error - the video half is still a valid result.
+                    if let audioURL, let savedAudio = try? await downloadDirectFile(from: audioURL, suggestedName: audioName) {
+                        payload["audioFileName"] = savedAudio.lastPathComponent
+                        payload["audioPath"] = savedAudio.path
+                        payload["warning"] = "not_merged"
+                    } else {
+                        payload["warning"] = "video_only_no_audio"
+                    }
                 }
 
-                let savedURL = try await downloadDirectFile(from: mediaURL, suggestedName: suggestedName)
-                var payload: [String: Any] = [
-                    "ok": true,
-                    "url": itemURL.absoluteString,
-                    "fileName": savedURL.lastPathComponent,
-                    "path": savedURL.path
-                ]
-                if let warning { payload["warning"] = warning }
                 sendToWeb(event: "downloadFinished", payload: payload)
             } catch {
                 sendToWeb(event: "downloadFinished", payload: [

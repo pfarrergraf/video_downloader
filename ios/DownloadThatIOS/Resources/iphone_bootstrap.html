@@ -100,6 +100,8 @@ window.DownloadThatNative = {
         entry.textContent = `Gespeichert: ${payload.fileName}\n${payload.path}`;
         if (payload.warning === 'video_only_no_audio') {
           entry.textContent += '\n(ohne Ton - Zusammenführen mit separater Audiospur noch nicht verfügbar)';
+        } else if (payload.warning === 'not_merged' && payload.audioFileName) {
+          entry.textContent += `\n+ Audio separat: ${payload.audioFileName}\n(noch nicht zusammengeführt - Video und Ton liegen als zwei Dateien vor)`;
         }
       } else {
         entry.className = 'log-entry bad';
