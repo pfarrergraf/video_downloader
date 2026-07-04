@@ -14,6 +14,9 @@ if getattr(sys, "frozen", False):
         os.environ["PATH"] = _bundled + os.pathsep + os.environ.get("PATH", "")
 
 
+LICENSE_API_BASE = os.environ.get("CLASSYDL_LICENSE_API_BASE", "https://downloadthat.pages.dev")
+
+
 def _show_crash_dialog() -> None:
     if not getattr(sys, "frozen", False):
         return
@@ -37,6 +40,7 @@ def main() -> None:
     from urllib.parse import quote
 
     from video_downloader.app_config import load_or_create_config, resolve_paths
+    from video_downloader.licensing import LicenseManager
     from video_downloader.logging_setup import configure_logging
     from video_downloader.queue_store import QueueStore
     from video_downloader.utils import ensure_output_dir
@@ -65,6 +69,7 @@ def main() -> None:
     output_dir = ensure_output_dir(Path(config.default_output_dir).expanduser().resolve())
     workers = max(1, min(int(config.default_workers), int(config.max_workers), 8))
     autologin_url = f"http://{host}:{port}/desktop_autologin.html?t={quote(password)}"
+    license_manager = LicenseManager(paths.config_file.parent / "license.json", LICENSE_API_BASE)
 
     try:
         server = create_server(
@@ -74,6 +79,7 @@ def main() -> None:
             host=host,
             port=port,
             workers=workers,
+            license_manager=license_manager,
         )
     except OSError:
         # Most likely another ClassyDL desktop-web instance is already bound to
