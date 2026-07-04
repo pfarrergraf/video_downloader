@@ -3,8 +3,12 @@ import Foundation
 import Security
 
 final class DeviceIdentity {
-    private let service = "com.downloadthat.ios"
+    private let service: String
     private let account = "install-id"
+
+    init(service: String = Bundle.main.bundleIdentifier ?? "com.gaistreich.downloadthat.ios") {
+        self.service = service
+    }
 
     func hashedInstallId() -> String {
         let raw = installId()
@@ -16,19 +20,25 @@ final class DeviceIdentity {
         if let existing = readFromKeychain() {
             return existing
         }
+
         let created = UUID().uuidString
         saveToKeychain(created)
         return created
     }
 
-    private func readFromKeychain() -> String? {
-        let query: [String: Any] = [
+    private func baseQuery() -> [String: Any] {
+        [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
-            kSecAttrAccount as String: account,
-            kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne
+            kSecAttrAccount as String: account
         ]
+    }
+
+    private func readFromKeychain() -> String? {
+        var query = baseQuery()
+        query[kSecReturnData as String] = true
+        query[kSecMatchLimit as String] = kSecMatchLimitOne
+
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &item)
         guard status == errSecSuccess, let data = item as? Data else { return nil }
@@ -37,13 +47,15 @@ final class DeviceIdentity {
 
     private func saveToKeychain(_ value: String) {
         let data = Data(value.utf8)
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: account,
-            kSecValueData as String: data
-        ]
-        SecItemDelete(query as CFDictionary)
-        SecItemAdd(query as CFDictionary, nil)
+        var addQuery = baseQuery()
+        addQuery[kSecValueData as String] = data
+        addQuery[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+
+        let addStatus = SecItemAdd(addQuery as CFDictionary, nil)
+        if addStatus == errSecDuplicateItem {
+            let updateQuery = baseQuery()
+            let attributes: [String: Any] = [kSecValueData as String: data]
+            SecItemUpdate(updateQuery as CFDictionary, attributes as CFDictionary)
+        }
     }
 }
