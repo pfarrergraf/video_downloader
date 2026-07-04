@@ -64,7 +64,7 @@ def main() -> None:
 
     output_dir = ensure_output_dir(Path(config.default_output_dir).expanduser().resolve())
     workers = max(1, min(int(config.default_workers), int(config.max_workers), 8))
-    autologin_url = f"http://{host}:{port}/desktop_autologin.html?password={quote(password)}"
+    autologin_url = f"http://{host}:{port}/desktop_autologin.html?t={quote(password)}"
 
     try:
         server = create_server(
