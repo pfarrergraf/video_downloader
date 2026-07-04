@@ -170,7 +170,7 @@
       "cta_lifetime": "Elegir de por vida",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Solicito que el acceso comience de inmediato, antes de que finalice el plazo legal de desistimiento de 14 días, y entiendo que esto significa que pierdo mi derecho de desistimiento en cuanto se complete la compra (véanse los {terms_start}Términos de uso{terms_end}, §6.3). Aun así, puedes solicitar un reembolso completo dentro de los 14 días a través de nuestra {refund_start}página de reembolsos{refund_end}."
+      "consent_label": "Solicito que el acceso comience de inmediato, antes de que finalice el plazo legal de desistimiento de 14 días. Entiendo que esto significa que pierdo mi derecho de desistimiento en cuanto se complete la compra (ver {terms_start}Términos de uso{terms_end} §6.3 y el {refund_start}Aviso de desistimiento{refund_end}). No hay reembolso automático después de la activación."
     },
     "faq": {
       "h2": "Preguntas frecuentes",

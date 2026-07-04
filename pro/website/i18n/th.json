@@ -170,7 +170,7 @@
       "cta_lifetime": "Choose lifetime",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "ฉันขอให้เริ่มการเข้าถึงทันที ก่อนที่ระยะเวลาการเพิกถอนตามกฎหมาย 14 วันจะสิ้นสุดลง ฉันเข้าใจว่าสิ่งนี้หมายความว่าฉันจะสูญเสียสิทธิ์ในการเพิกถอนทันทีที่การซื้อเสร็จสมบูรณ์ (ดู {terms_start}ข้อกำหนดการใช้งาน{terms_end} §6.3 และ {refund_start}ประกาศการเพิกถอน{refund_end}) ไม่มีการคืนเงินอัตโนมัติหลังจากเปิดใช้งาน"
     },
     "faq": {
       "h2": "Frequently asked questions",

@@ -170,7 +170,7 @@
       "cta_lifetime": "Vælg livstid",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Jeg anmoder om, at adgangen begynder med det samme, før den 14-dages lovbestemte fortrydelsesfrist udløber, og jeg forstår, at det betyder, at jeg mister min fortrydelsesret, så snart købet er gennemført (se {terms_start}Vilkår for brug{terms_end} §6.3). Du kan uanset dette stadig anmode om fuld tilbagebetaling inden for 14 dage via vores {refund_start}side til tilbagebetaling{refund_end}."
+      "consent_label": "Jeg anmoder om, at adgangen begynder med det samme, før den lovpligtige 14-dages fortrydelsesfrist udløber. Jeg er klar over, at jeg dermed mister min fortrydelsesret, så snart købet er gennemført (se {terms_start}Brugsbetingelserne{terms_end} §6.3 og {refund_start}Fortrydelsesvejledningen{refund_end}). Der er ingen automatisk refundering efter aktivering."
     },
     "faq": {
       "h2": "Ofte stillede spørgsmål",

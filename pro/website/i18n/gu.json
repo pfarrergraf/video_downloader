@@ -170,7 +170,7 @@
       "cta_lifetime": "લાઇફટાઇમ પસંદ કરો",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "ખરીદી પૂર્ણ થતાં જ મારો ઉપાડનો અધિકાર ગુમાવીશ એ સમજીને, કાયદેસર 14 દિવસની ઉપાડ મુદત પૂરી થાય તે પહેલાં જ ઍક્સેસ તરત શરૂ થાય તેવી હું વિનંતી કરું છું ({terms_start}ઉપયોગની શરતો{terms_end} §6.3 અને {refund_start}ઉપાડ સૂચના{refund_end} જુઓ). સક્રિયકરણ પછી કોઈ સ્વયંસંચાલિત રિફંડ નથી."
     },
     "faq": {
       "h2": "વારંવાર પુછાતા પ્રશ્નો",

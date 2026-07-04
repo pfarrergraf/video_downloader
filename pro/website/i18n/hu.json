@@ -170,7 +170,7 @@
       "cta_lifetime": "Élethosszig tartó csomag választása",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Kérem, hogy a hozzáférés azonnal induljon, még a törvényben előírt 14 napos elállási határidő lejárta előtt. Tudomásul veszem, hogy ezáltal elveszítem elállási jogomat, amint a vásárlás befejeződik (lásd: {terms_start}Felhasználási feltételek{terms_end} 6.3. pont és a {refund_start}Elállási tájékoztató{refund_end}). Aktiválás után nincs automatikus visszatérítés."
     },
     "faq": {
       "h2": "Gyakran ismételt kérdések",

@@ -170,7 +170,7 @@
       "cta_lifetime": "Choose lifetime",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Hinihiling ko na magsimula agad ang access, bago matapos ang legal na 14 araw na palugit ng pag-withdraw. Nauunawaan ko na ibig sabihin nito, mawawala ang aking karapatang mag-withdraw sa sandaling matapos ang pagbili (tingnan ang {terms_start}Mga Tuntunin ng Paggamit{terms_end} §6.3 at ang {refund_start}Paunawa sa Pag-withdraw{refund_end}). Walang awtomatikong refund pagkatapos ng activation."
     },
     "faq": {
       "h2": "Frequently asked questions",

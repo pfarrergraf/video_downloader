@@ -170,7 +170,7 @@
       "cta_lifetime": "لائف ٹائم منتخب کریں",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "میں درخواست کرتا/کرتی ہوں کہ رسائی فوری طور پر شروع ہو جائے، قانونی 14 دن کی واپسی مدت ختم ہونے سے پہلے۔ میں سمجھتا/سمجھتی ہوں کہ اس کا مطلب یہ ہے کہ خریداری مکمل ہوتے ہی میں اپنا حقِ واپسی کھو دوں گا/گی ({terms_start}استعمال کی شرائط{terms_end} شق 6.3 اور {refund_start}واپسی نوٹس{refund_end} دیکھیں)۔ فعال ہونے کے بعد خودکار رقم کی واپسی نہیں ہوتی۔"
     },
     "faq": {
       "h2": "اکثر پوچھے جانے والے سوالات",

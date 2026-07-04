@@ -170,7 +170,7 @@
       "cta_lifetime": "选择终身版",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "我要求在法定14天撤回期结束之前立即开通访问权限。我理解这意味着一旦购买完成，我将失去撤回权（参见{terms_start}使用条款{terms_end}第6.3条和{refund_start}撤回须知{refund_end}）。激活后不提供自动退款。"
     },
     "faq": {
       "h2": "常见问题",

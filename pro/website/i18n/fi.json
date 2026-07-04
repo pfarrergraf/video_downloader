@@ -170,7 +170,7 @@
       "cta_lifetime": "Valitse elinikäinen",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Pyydän, että käyttöoikeus alkaa välittömästi, ennen kuin lakisääteinen 14 päivän peruuttamisaika päättyy, ja ymmärrän, että tämä tarkoittaa peruuttamisoikeuteni menettämistä heti, kun ostos on suoritettu loppuun (ks. {terms_start}Käyttöehdot{terms_end} §6.3). Voit silti pyytää täyttä hyvitystä 14 päivän kuluessa {refund_start}hyvityssivumme{refund_end} kautta."
+      "consent_label": "Pyydän, että käyttöoikeus alkaa välittömästi, ennen kuin lakisääteinen 14 päivän peruutusaika päättyy. Ymmärrän, että menetän tämän vuoksi peruutusoikeuteni heti, kun ostos on suoritettu (katso {terms_start}Käyttöehdot{terms_end} §6.3 ja {refund_start}Peruutusohje{refund_end}). Aktivoinnin jälkeen ei makseta automaattista hyvitystä."
     },
     "faq": {
       "h2": "Usein kysytyt kysymykset",

@@ -170,7 +170,7 @@
       "cta_lifetime": "Alege planul pe viață",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Solicit ca accesul să înceapă imediat, înainte de expirarea termenului legal de retragere de 14 zile, și înțeleg că astfel îmi pierd dreptul de retragere de îndată ce achiziția este finalizată (vezi {terms_start}Termenii și condițiile{terms_end} §6.3). Poți totuși solicita o rambursare integrală în termen de 14 zile prin intermediul {refund_start}paginii de rambursare{refund_end}."
+      "consent_label": "Solicit ca accesul să înceapă imediat, înainte de expirarea perioadei legale de retragere de 14 zile. Înțeleg că astfel îmi pierd dreptul de retragere de îndată ce achiziția este finalizată (a se vedea {terms_start}Termenii de utilizare{terms_end} §6.3 și {refund_start}Informarea privind retragerea{refund_end}). Nu există rambursare automată după activare."
     },
     "faq": {
       "h2": "Întrebări frecvente",

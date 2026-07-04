@@ -170,7 +170,7 @@
       "cta_lifetime": "লাইফটাইম বেছে নিন",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "আমি অনুরোধ করছি যে অ্যাক্সেস অবিলম্বে শুরু হোক, আইনি ১৪ দিনের প্রত্যাহার সময়সীমা শেষ হওয়ার আগেই। আমি বুঝি যে এর মানে হলো ক্রয় সম্পন্ন হওয়ার সাথে সাথেই আমি আমার প্রত্যাহারের অধিকার হারাব ({terms_start}ব্যবহারের শর্তাবলী{terms_end} §৬.৩ এবং {refund_start}প্রত্যাহার বিজ্ঞপ্তি{refund_end} দেখুন)। সক্রিয়করণের পরে কোনো স্বয়ংক্রিয় অর্থ ফেরত নেই।"
     },
     "faq": {
       "h2": "সাধারণ জিজ্ঞাসা",

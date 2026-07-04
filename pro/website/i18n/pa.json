@@ -170,7 +170,7 @@
       "cta_lifetime": "ਜੀਵਨ ਭਰ ਚੁਣੋ",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "ਮੈਂ ਬੇਨਤੀ ਕਰਦਾ/ਕਰਦੀ ਹਾਂ ਕਿ ਪਹੁੰਚ ਤੁਰੰਤ ਸ਼ੁਰੂ ਹੋ ਜਾਵੇ, ਕਾਨੂੰਨੀ 14-ਦਿਨਾਂ ਦੀ ਵਾਪਸੀ ਮਿਆਦ ਖਤਮ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ। ਮੈਂ ਸਮਝਦਾ/ਸਮਝਦੀ ਹਾਂ ਕਿ ਇਸਦਾ ਮਤਲਬ ਹੈ ਕਿ ਖਰੀਦ ਪੂਰੀ ਹੁੰਦੇ ਹੀ ਮੈਂ ਆਪਣਾ ਵਾਪਸੀ ਦਾ ਅਧਿਕਾਰ ਗੁਆ ਦੇਵਾਂਗਾ/ਦੇਵਾਂਗੀ ({terms_start}ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ{terms_end} §6.3 ਅਤੇ {refund_start}ਵਾਪਸੀ ਸੂਚਨਾ{refund_end} ਵੇਖੋ)। ਸਰਗਰਮ ਹੋਣ ਤੋਂ ਬਾਅਦ ਕੋਈ ਆਟੋਮੈਟਿਕ ਰਿਫੰਡ ਨਹੀਂ ਹੈ।"
     },
     "faq": {
       "h2": "ਅਕਸਰ ਪੁੱਛੇ ਜਾਂਦੇ ਸਵਾਲ",

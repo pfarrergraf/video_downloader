@@ -170,7 +170,7 @@
       "cta_lifetime": "Velg livstid",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Jeg ber om at tilgangen starter umiddelbart, før den lovpålagte 14-dagers angrefristen utløper, og jeg forstår at dette betyr at jeg mister angreretten min så snart kjøpet er fullført (se {terms_start}Bruksvilkår{terms_end} §6.3). Du kan likevel be om full refusjon innen 14 dager via {refund_start}refusjonssiden vår{refund_end}."
+      "consent_label": "Jeg krever at tilgangen starter umiddelbart, før den lovpålagte 14-dagers angrefristen utløper. Jeg forstår at jeg dermed mister angreretten min så snart kjøpet er fullført (se {terms_start}Bruksvilkårene{terms_end} §6.3 og {refund_start}Angreveiledningen{refund_end}). Det gis ingen automatisk refusjon etter aktivering."
     },
     "faq": {
       "h2": "Ofte stilte spørsmål",

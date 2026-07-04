@@ -170,7 +170,7 @@
       "cta_lifetime": "Scegli a vita",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Richiedo che l'accesso abbia inizio immediatamente, prima della scadenza del periodo legale di recesso di 14 giorni, e comprendo che ciò comporta la perdita del mio diritto di recesso una volta completato l'acquisto (vedi {terms_start}Termini di utilizzo{terms_end} §6.3). Potrai comunque richiedere un rimborso completo entro 14 giorni tramite la nostra {refund_start}pagina di rimborso{refund_end}."
+      "consent_label": "Richiedo che l'accesso inizi immediatamente, prima della scadenza del periodo legale di recesso di 14 giorni. Comprendo che ciò significa perdere il mio diritto di recesso non appena l'acquisto è completato (vedi {terms_start}Termini di utilizzo{terms_end} §6.3 e l'{refund_start}Avviso di recesso{refund_end}). Non è previsto alcun rimborso automatico dopo l'attivazione."
     },
     "faq": {
       "h2": "Domande frequenti",

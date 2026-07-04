@@ -170,7 +170,7 @@
       "cta_lifetime": "Choose lifetime",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Saya meminta agar akses bermula dengan segera, sebelum tempoh penarikan balik berkanun 14 hari tamat. Saya faham bahawa ini bermakna saya kehilangan hak penarikan balik sebaik sahaja pembelian selesai (lihat {terms_start}Terma Penggunaan{terms_end} §6.3 dan {refund_start}Notis Penarikan Balik{refund_end}). Tiada bayaran balik automatik selepas pengaktifan."
     },
     "faq": {
       "h2": "Frequently asked questions",

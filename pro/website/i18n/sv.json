@@ -170,7 +170,7 @@
       "cta_lifetime": "Välj livstid",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Jag begär att tillgången börjar omedelbart, innan den lagstadgade 14-dagars ångerfristen har löpt ut, och jag förstår att detta innebär att jag förlorar min ångerrätt så snart köpet är genomfört (se {terms_start}Användarvillkoren{terms_end} §6.3). Du kan ändå begära full återbetalning inom 14 dagar via vår {refund_start}återbetalningssida{refund_end}."
+      "consent_label": "Jag begär att åtkomsten börjar omedelbart, innan den lagstadgade 14-dagars ångerfristen löper ut. Jag förstår att jag därmed förlorar min ångerrätt så snart köpet är slutfört (se {terms_start}Användarvillkoren{terms_end} §6.3 och {refund_start}Ångerinformationen{refund_end}). Det finns ingen automatisk återbetalning efter aktivering."
     },
     "faq": {
       "h2": "Vanliga frågor",

@@ -170,7 +170,7 @@
       "cta_lifetime": "Vybrat doživotní",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Žádám, aby přístup začal okamžitě, ještě před uplynutím 14denní zákonné lhůty pro odstoupení od smlouvy, a beru na vědomí, že tím po dokončení nákupu ztrácím právo na odstoupení od smlouvy (viz {terms_start}Podmínky užívání{terms_end} §6.3). I přesto můžete do 14 dnů požádat o plné vrácení peněz prostřednictvím naší {refund_start}stránky pro vrácení peněz{refund_end}."
+      "consent_label": "Žádám, aby přístup začal okamžitě, ještě před uplynutím zákonné 14denní lhůty pro odstoupení od smlouvy. Beru na vědomí, že tím ztrácím právo na odstoupení od smlouvy, jakmile je nákup dokončen (viz {terms_start}Podmínky užívání{terms_end} §6.3 a {refund_start}Poučení o odstoupení{refund_end}). Po aktivaci nevzniká nárok na automatické vrácení peněz."
     },
     "faq": {
       "h2": "Časté dotazy",

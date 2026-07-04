@@ -170,7 +170,7 @@
       "cta_lifetime": "買い切りプランを選ぶ",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "法定の14日間のクーリングオフ期間が終了する前に、直ちにアクセスを開始することを求めます。これにより、購入完了と同時にクーリングオフ権を失うことを理解しています({terms_start}利用規約{terms_end}第6.3条および{refund_start}クーリングオフに関する通知{refund_end}を参照)。有効化後の自動返金はありません。"
     },
     "faq": {
       "h2": "よくある質問",

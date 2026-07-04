@@ -170,7 +170,7 @@
       "cta_lifetime": "Escolher vitalício",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Solicito que o acesso comece imediatamente, antes do término do prazo legal de retratação de 14 dias, e entendo que isso significa que perco meu direito de retratação assim que a compra estiver concluída (ver {terms_start}Termos de Uso{terms_end} §6.3). Ainda assim, você pode solicitar um reembolso total dentro de 14 dias por meio da nossa {refund_start}página de reembolso{refund_end}."
+      "consent_label": "Solicito que o acesso comece imediatamente, antes do fim do prazo legal de 14 dias para desistência. Entendo que isso significa que perco meu direito de desistência assim que a compra for concluída (ver {terms_start}Termos de Uso{terms_end} §6.3 e o {refund_start}Aviso de Desistência{refund_end}). Não há reembolso automático após a ativação."
     },
     "faq": {
       "h2": "Perguntas frequentes",
