@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DownloadThat iPhone</title>
+<style>
+  :root { color-scheme: dark; --bg:#0e0c14; --card:#1b1626; --border:#2c2438; --text:#f1ede4; --dim:#a89fb3; --accent:#c9a869; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  main { padding:28px 20px 40px; max-width:560px; margin:0 auto; }
+  h1 { font-size:2rem; line-height:1.1; margin:20px 0 10px; }
+  p { color:var(--dim); line-height:1.55; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px; margin:16px 0; }
+  label { display:block; color:var(--dim); font-size:.85rem; margin:14px 0 6px; }
+  input { width:100%; box-sizing:border-box; padding:12px; border-radius:10px; border:1px solid var(--border); background:#120f19; color:var(--text); font:inherit; }
+  button { width:100%; margin-top:12px; border:0; border-radius:999px; padding:13px 16px; background:var(--accent); color:#14111c; font-weight:700; font:inherit; }
+  .secondary { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+  .status { font-size:.9rem; color:var(--dim); white-space:pre-wrap; }
+</style>
+</head>
+<body>
+<main>
+  <h1>DownloadThat für iPhone</h1>
+  <p>iOS-Prototyp: native Swift-App mit Weboberfläche und sicherer Bridge. Der eigentliche Download-Motor ist in diesem Milestone bewusst noch deaktiviert.</p>
+
+  <section class="card">
+    <strong>Lizenz</strong>
+    <p id="license-status" class="status">Status wird geladen...</p>
+    <label for="license-key">Pro-Lizenzschlüssel</label>
+    <input id="license-key" placeholder="DLT-..." autocomplete="off" />
+    <button onclick="activateLicense()">Lizenz aktivieren</button>
+  </section>
+
+  <section class="card">
+    <strong>Download-Test</strong>
+    <p>Dieser Button testet nur die Bridge. Der iOS-Download-Engine-Entscheid folgt nach Compliance-Prüfung.</p>
+    <label for="download-url">URL</label>
+    <input id="download-url" placeholder="https://example.com/file.mp4" />
+    <button class="secondary" onclick="startDownload()">Download-Bridge testen</button>
+  </section>
+
+  <section class="card">
+    <strong>Roadmap</strong>
+    <p>1. Xcode-Projekt anlegen<br>2. Bridge testen<br>3. Lizenzserver für iOS-Slot erweitern<br>4. App-Store/EU/TestFlight-Route entscheiden</p>
+  </section>
+</main>
+
+<script>
+window.DownloadThatNative = {
+  receive(event, payload) {
+    const status = document.getElementById('license-status');
+    if (event === 'nativeReady') {
+      post('licenseStatus');
+      return;
+    }
+    if (event === 'licenseStatus') {
+      status.textContent = payload.isPro ? `Pro aktiv (${payload.tier})` : 'Free: 3 Downloads pro 24 Stunden';
+      return;
+    }
+    if (event === 'licenseResult') {
+      status.textContent = payload.valid ? `Pro aktiv (${payload.tier})` : `Lizenz nicht aktiv: ${payload.reason || 'unbekannt'}`;
+      return;
+    }
+    if (event === 'downloadRejected') {
+      alert(`iOS-Download-Motor noch deaktiviert: ${payload.reason}`);
+      return;
+    }
+    if (event === 'error') {
+      alert(payload.message || 'Bridge error');
+    }
+  }
+};
+
+function post(action, extra = {}) {
+  window.webkit?.messageHandlers?.downloadThat?.postMessage({ action, ...extra });
+}
+
+function activateLicense() {
+  post('activateLicense', { licenseKey: document.getElementById('license-key').value });
+}
+
+function startDownload() {
+  post('startDownload', { url: document.getElementById('download-url').value });
+}
+</script>
+</body>
+</html>
