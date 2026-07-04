@@ -38,6 +38,7 @@ def test_password_is_generated_once_and_reused(monkeypatch: pytest.MonkeyPatch, 
 
     opened: list[str] = []
     created_passwords: list[str] = []
+    license_managers: list[object] = []
     servers: list[FakeServer] = []
 
     def fake_open(url: str) -> bool:
@@ -46,6 +47,7 @@ def test_password_is_generated_once_and_reused(monkeypatch: pytest.MonkeyPatch, 
 
     def fake_create_server(**kwargs):
         created_passwords.append(kwargs["password"])
+        license_managers.append(kwargs["license_manager"])
         server = FakeServer()
         servers.append(server)
         return server
@@ -59,6 +61,8 @@ def test_password_is_generated_once_and_reused(monkeypatch: pytest.MonkeyPatch, 
     assert len(created_passwords) == 2
     assert created_passwords[0] == created_passwords[1]
     assert (tmp_path / "web_password.txt").read_text(encoding="utf-8").strip() == created_passwords[0]
+    assert (tmp_path / "license.json").parent == tmp_path
+    assert all(manager is not None for manager in license_managers)
     assert _token_from_url(opened[0]) == created_passwords[0]
     assert _token_from_url(opened[1]) == created_passwords[0]
     assert all(server.started and server.served and server.stopped and server.closed for server in servers)
@@ -75,6 +79,7 @@ def test_bind_failure_opens_existing_instance(monkeypatch: pytest.MonkeyPatch, t
         return True
 
     def fake_create_server(**kwargs):
+        assert kwargs["license_manager"] is not None
         raise OSError("address already in use")
 
     monkeypatch.setattr("webbrowser.open", fake_open)
