@@ -17,6 +17,7 @@
 		A00000000000000000000108 /* iphone_bootstrap.html in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000208 /* iphone_bootstrap.html */; };
 		A00000000000000000000109 /* VideoExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000210 /* VideoExtractor.swift */; };
 		A00000000000000000000110 /* FreeTierQuota.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000211 /* FreeTierQuota.swift */; };
+		A00000000000000000000111 /* MediaMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000212 /* MediaMerger.swift */; };
 		A00000000000000000000303 /* YouTubeKit in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000302 /* YouTubeKit */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		A00000000000000000000209 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A00000000000000000000210 /* VideoExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoExtractor.swift; sourceTree = "<group>"; };
 		A00000000000000000000211 /* FreeTierQuota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTierQuota.swift; sourceTree = "<group>"; };
+		A00000000000000000000212 /* MediaMerger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMerger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +46,7 @@
 		A00000000000000000000004 /* DownloadThatIOS */ = {isa = PBXGroup; children = ( A00000000000000000000006 /* App */, A00000000000000000000007 /* Bridge */, A00000000000000000000008 /* Resources */, ); path = .; sourceTree = "<group>"; };
 		A00000000000000000000005 /* Products */ = {isa = PBXGroup; children = ( A00000000000000000000002 /* DownloadThatIOS.app */, ); name = Products; sourceTree = "<group>"; };
 		A00000000000000000000006 /* App */ = {isa = PBXGroup; children = ( A00000000000000000000201 /* DownloadThatIOSApp.swift */, A00000000000000000000202 /* ContentView.swift */, A00000000000000000000203 /* DownloadWebView.swift */, A00000000000000000000209 /* Info.plist */, ); path = App; sourceTree = "<group>"; };
-		A00000000000000000000007 /* Bridge */ = {isa = PBXGroup; children = ( A00000000000000000000204 /* AppConfig.swift */, A00000000000000000000205 /* DeviceIdentity.swift */, A00000000000000000000206 /* LicenseClient.swift */, A00000000000000000000207 /* DownloadBridge.swift */, A00000000000000000000210 /* VideoExtractor.swift */, A00000000000000000000211 /* FreeTierQuota.swift */, ); path = Bridge; sourceTree = "<group>"; };
+		A00000000000000000000007 /* Bridge */ = {isa = PBXGroup; children = ( A00000000000000000000204 /* AppConfig.swift */, A00000000000000000000205 /* DeviceIdentity.swift */, A00000000000000000000206 /* LicenseClient.swift */, A00000000000000000000207 /* DownloadBridge.swift */, A00000000000000000000210 /* VideoExtractor.swift */, A00000000000000000000211 /* FreeTierQuota.swift */, A00000000000000000000212 /* MediaMerger.swift */, ); path = Bridge; sourceTree = "<group>"; };
 		A00000000000000000000008 /* Resources */ = {isa = PBXGroup; children = ( A00000000000000000000208 /* iphone_bootstrap.html */, ); path = Resources; sourceTree = "<group>"; };
 /* End PBXGroup section */
 
@@ -61,7 +63,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A00000000000000000000011 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = ( A00000000000000000000101 /* DownloadThatIOSApp.swift in Sources */, A00000000000000000000102 /* ContentView.swift in Sources */, A00000000000000000000103 /* DownloadWebView.swift in Sources */, A00000000000000000000104 /* AppConfig.swift in Sources */, A00000000000000000000105 /* DeviceIdentity.swift in Sources */, A00000000000000000000106 /* LicenseClient.swift in Sources */, A00000000000000000000107 /* DownloadBridge.swift in Sources */, A00000000000000000000109 /* VideoExtractor.swift in Sources */, A00000000000000000000110 /* FreeTierQuota.swift in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
+		A00000000000000000000011 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = ( A00000000000000000000101 /* DownloadThatIOSApp.swift in Sources */, A00000000000000000000102 /* ContentView.swift in Sources */, A00000000000000000000103 /* DownloadWebView.swift in Sources */, A00000000000000000000104 /* AppConfig.swift in Sources */, A00000000000000000000105 /* DeviceIdentity.swift in Sources */, A00000000000000000000106 /* LicenseClient.swift in Sources */, A00000000000000000000107 /* DownloadBridge.swift in Sources */, A00000000000000000000109 /* VideoExtractor.swift in Sources */, A00000000000000000000110 /* FreeTierQuota.swift in Sources */, A00000000000000000000111 /* MediaMerger.swift in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */

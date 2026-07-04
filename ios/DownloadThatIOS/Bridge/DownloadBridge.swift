@@ -177,17 +177,31 @@ final class DownloadBridge: ObservableObject {
 
                 case .separateVideoAudio(let videoURL, let audioURL, let videoName, let audioName):
                     let savedVideo = try await downloadDirectFile(from: videoURL, suggestedName: videoName)
-                    payload["fileName"] = savedVideo.lastPathComponent
-                    payload["path"] = savedVideo.path
                     // Best-effort: some sources genuinely have no audio track (silent
                     // clips), so a failed audio fetch just means "no audio" rather
                     // than a real error - the video half is still a valid result.
-                    if let audioURL, let savedAudio = try? await downloadDirectFile(from: audioURL, suggestedName: audioName) {
+                    guard let audioURL, let savedAudio = try? await downloadDirectFile(from: audioURL, suggestedName: audioName) else {
+                        payload["fileName"] = savedVideo.lastPathComponent
+                        payload["path"] = savedVideo.path
+                        payload["warning"] = "video_only_no_audio"
+                        break
+                    }
+
+                    // Only H.264/HEVC video + AAC audio can be remuxed without
+                    // ffmpeg (no ffmpeg on iOS at all - see ios/README.md). When that
+                    // doesn't apply, or the merge otherwise fails, fall back to
+                    // reporting both files separately rather than losing the audio.
+                    if let merged = try? await MediaMerger.merge(videoURL: savedVideo, audioURL: savedAudio) {
+                        try? FileManager.default.removeItem(at: savedVideo)
+                        try? FileManager.default.removeItem(at: savedAudio)
+                        payload["fileName"] = merged.lastPathComponent
+                        payload["path"] = merged.path
+                    } else {
+                        payload["fileName"] = savedVideo.lastPathComponent
+                        payload["path"] = savedVideo.path
                         payload["audioFileName"] = savedAudio.lastPathComponent
                         payload["audioPath"] = savedAudio.path
                         payload["warning"] = "not_merged"
-                    } else {
-                        payload["warning"] = "video_only_no_audio"
                     }
                 }
 
