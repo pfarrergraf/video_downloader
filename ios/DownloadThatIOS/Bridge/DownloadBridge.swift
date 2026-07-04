@@ -51,7 +51,11 @@ final class DownloadBridge: ObservableObject {
     }
 
     private func sendLicenseStatus() {
-        sendToWeb(event: "licenseStatus", payload: ["isPro": isPro, "tier": tier])
+        sendToWeb(event: "licenseStatus", payload: [
+            "isPro": isPro,
+            "tier": tier,
+            "remainingFreeDownloads": FreeTierQuota.remainingSlots()
+        ])
     }
 
     private func activateLicense(_ key: String) {
@@ -105,9 +109,20 @@ final class DownloadBridge: ObservableObject {
     }
 
     private func runPlainDownload(for sourceURL: URL) async {
+        guard isPro || FreeTierQuota.hasSlotAvailable() else {
+            sendToWeb(event: "downloadFinished", payload: [
+                "ok": false, "url": sourceURL.absoluteString, "reason": "free_tier_limit"
+            ])
+            return
+        }
+
         sendToWeb(event: "downloadStarted", payload: ["url": sourceURL.absoluteString])
         do {
             let savedURL = try await downloadDirectFile(from: sourceURL, suggestedName: nil)
+            if !isPro {
+                FreeTierQuota.recordSuccessfulDownload()
+                sendLicenseStatus()
+            }
             sendToWeb(event: "downloadFinished", payload: [
                 "ok": true,
                 "url": sourceURL.absoluteString,
@@ -129,7 +144,11 @@ final class DownloadBridge: ObservableObject {
     private func runExtractedDownload(for sourceURL: URL) async {
         let itemURLs: [URL]
         do {
-            itemURLs = try await VideoExtractor.expand(sourceURL)
+            // Playlists are Pro-only, same as web/server.py's allow_playlist gating -
+            // a free-tier caller gets just the single input URL back, not every video
+            // the playlist contains, so a playlist link can't be used to bypass the
+            // per-download quota below.
+            itemURLs = try await VideoExtractor.expand(sourceURL, allowPlaylist: isPro)
         } catch {
             sendToWeb(event: "downloadFinished", payload: [
                 "ok": false, "url": sourceURL.absoluteString, "reason": "playlist_expand_failed"
@@ -138,6 +157,13 @@ final class DownloadBridge: ObservableObject {
         }
 
         for itemURL in itemURLs {
+            guard isPro || FreeTierQuota.hasSlotAvailable() else {
+                sendToWeb(event: "downloadFinished", payload: [
+                    "ok": false, "url": itemURL.absoluteString, "reason": "free_tier_limit"
+                ])
+                continue
+            }
+
             sendToWeb(event: "downloadStarted", payload: ["url": itemURL.absoluteString])
             do {
                 let extracted = try await VideoExtractor.resolve(itemURL)
@@ -165,6 +191,10 @@ final class DownloadBridge: ObservableObject {
                     }
                 }
 
+                if !isPro {
+                    FreeTierQuota.recordSuccessfulDownload()
+                    sendLicenseStatus()
+                }
                 sendToWeb(event: "downloadFinished", payload: payload)
             } catch {
                 sendToWeb(event: "downloadFinished", payload: [

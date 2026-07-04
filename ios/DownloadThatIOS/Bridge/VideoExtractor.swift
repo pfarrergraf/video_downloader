@@ -39,8 +39,14 @@ enum VideoExtractor {
     /// this is also what makes plain multi-line batch input work without a separate
     /// code path, matching how the shared web UI already treats batch as client-side
     /// fan-out (one job per line) rather than a server-side concept.
-    static func expand(_ url: URL) async throws -> [URL] {
-        guard let host = url.host?.lowercased(), isYouTubeHost(host),
+    ///
+    /// `allowPlaylist` mirrors web/server.py's `allow_playlist = ... and is_pro`: a
+    /// playlist is effectively unlimited downloads behind a single URL, so free-tier
+    /// callers pass `false` and get just the single input URL back rather than every
+    /// video the playlist contains.
+    static func expand(_ url: URL, allowPlaylist: Bool) async throws -> [URL] {
+        guard allowPlaylist,
+              let host = url.host?.lowercased(), isYouTubeHost(host),
               let playlistID = youTubePlaylistID(in: url) else {
             return [url]
         }

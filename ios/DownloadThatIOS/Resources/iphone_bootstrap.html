@@ -78,7 +78,9 @@ window.DownloadThatNative = {
       return;
     }
     if (event === 'licenseStatus') {
-      licenseStatus.textContent = payload.isPro ? `Pro aktiv (${payload.tier})` : 'Free: 3 Downloads pro 24 Stunden';
+      licenseStatus.textContent = payload.isPro
+        ? `Pro aktiv (${payload.tier})`
+        : `Free: ${payload.remainingFreeDownloads} von 3 Downloads in den nächsten 24 Stunden übrig`;
       licenseStatus.className = payload.isPro ? 'status ok' : 'status';
       return;
     }
@@ -103,6 +105,9 @@ window.DownloadThatNative = {
         } else if (payload.warning === 'not_merged' && payload.audioFileName) {
           entry.textContent += `\n+ Audio separat: ${payload.audioFileName}\n(noch nicht zusammengeführt - Video und Ton liegen als zwei Dateien vor)`;
         }
+      } else if (payload.reason === 'free_tier_limit') {
+        entry.className = 'log-entry bad';
+        entry.textContent = `Free-Limit erreicht (${payload.url}): 3 Downloads pro 24 Stunden. Für mehr: Pro-Lizenz aktivieren.`;
       } else {
         entry.className = 'log-entry bad';
         entry.textContent = `Fehlgeschlagen (${payload.url}): ${payload.reason || 'unbekannter Fehler'}`;
