@@ -191,7 +191,13 @@ def start(
     # Termux/desktop callers never pass this, and every request is free to
     # use the full "default" profile — see licensing.py and web/server.py's
     # _resolve_profile.
-    license_manager = LicenseManager(Path(data_dir) / "license.json", license_api_base) if license_api_base else None
+    license_manager = (
+        LicenseManager(
+            Path(data_dir) / "license.json", license_api_base, platform="android", app_version=app_version
+        )
+        if license_api_base
+        else None
+    )
 
     run_server(
         store=store,

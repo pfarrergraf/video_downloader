@@ -99,3 +99,63 @@ def test_invalid_cached_json_is_ignored(tmp_path: Path) -> None:
     state_file.write_text("not json")
     manager = LicenseManager(state_file, "https://license.example.com")
     assert manager.is_pro() is False
+
+
+def test_no_platform_never_sends_device_params(tmp_path: Path, monkeypatch) -> None:
+    captured = {}
+
+    def fake_get(url, params=None, timeout=None):
+        captured["params"] = params
+        return FakeResponse({"valid": True, "tier": "lifetime"})
+
+    monkeypatch.setattr(requests, "get", fake_get)
+    manager = LicenseManager(tmp_path / "license.json", "https://license.example.com")
+    manager.set_key("DLT-GOODKEY")
+
+    assert "platform" not in captured["params"]
+    assert "device_id" not in captured["params"]
+    assert manager.status().device_id is None
+
+
+def test_platform_sends_a_persisted_device_id(tmp_path: Path, monkeypatch) -> None:
+    captured = {}
+
+    def fake_get(url, params=None, timeout=None):
+        captured["params"] = params
+        return FakeResponse({"valid": True, "tier": "lifetime", "device_allowed": True})
+
+    monkeypatch.setattr(requests, "get", fake_get)
+    manager = LicenseManager(tmp_path / "license.json", "https://license.example.com", platform="android")
+    device_id = manager.status().device_id
+    assert device_id
+
+    manager.set_key("DLT-GOODKEY")
+    assert captured["params"]["platform"] == "android"
+    assert captured["params"]["device_id"] == device_id
+    assert manager.is_pro() is True
+
+
+def test_device_not_allowed_is_not_pro_even_if_key_valid(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(
+        requests, "get", lambda *a, **k: FakeResponse({"valid": True, "tier": "yearly", "device_allowed": False})
+    )
+    manager = LicenseManager(tmp_path / "license.json", "https://license.example.com", platform="windows")
+    state = manager.set_key("DLT-GOODKEY")
+
+    assert state.valid is True
+    assert state.device_allowed is False
+    assert state.is_pro is False
+    assert manager.is_pro() is False
+
+
+def test_device_id_survives_set_key_and_reload(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(requests, "get", lambda *a, **k: FakeResponse({"valid": True, "tier": "lifetime"}))
+    state_file = tmp_path / "license.json"
+    manager = LicenseManager(state_file, "https://license.example.com", platform="android")
+    device_id = manager.status().device_id
+
+    manager.set_key("DLT-GOODKEY")
+    assert manager.status().device_id == device_id
+
+    reloaded = LicenseManager(state_file, "https://license.example.com", platform="android")
+    assert reloaded.status().device_id == device_id

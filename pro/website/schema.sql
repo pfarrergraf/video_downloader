@@ -24,3 +24,24 @@ CREATE INDEX idx_licenses_stripe_subscription ON licenses(stripe_subscription_id
 -- redelivered checkout.session.completed webhook minting a second license
 -- for the same payment.
 CREATE UNIQUE INDEX idx_licenses_checkout_session ON licenses(stripe_checkout_session_id);
+
+-- Enforces one active device per platform per license key (see
+-- docs/DESKTOP_WEB_UI_PLAN.md's "Device-limit policy" and api/validate.js).
+-- Keys are hashed (SHA-256 hex) rather than stored raw: this table only ever
+-- needs to answer "has this exact device asked about this exact key before",
+-- never to look either value up directly - the `licenses` table already has
+-- the raw key by primary key for support/admin purposes.
+CREATE TABLE license_activations (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  license_key_hash TEXT NOT NULL,
+  platform TEXT NOT NULL,
+  device_id_hash TEXT NOT NULL,
+  first_seen INTEGER NOT NULL,
+  last_seen INTEGER NOT NULL,
+  app_version TEXT,
+  revoked_at INTEGER
+);
+
+CREATE UNIQUE INDEX idx_activations_key_platform_device
+  ON license_activations(license_key_hash, platform, device_id_hash);
+CREATE INDEX idx_activations_key_platform ON license_activations(license_key_hash, platform);

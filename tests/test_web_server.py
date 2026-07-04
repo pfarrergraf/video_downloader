@@ -263,7 +263,13 @@ def test_license_endpoint_reports_status_when_configured(tmp_path: Path) -> None
         cookie = set_cookie.split(";")[0]
         status, body, _ = _request(srv, "GET", "/api/license", cookie=cookie)
         assert status == 200
-        assert body == {"configured": True, "valid": True, "tier": "yearly", "has_key": True}
+        assert body == {
+            "configured": True,
+            "valid": True,
+            "tier": "yearly",
+            "has_key": True,
+            "device_allowed": True,
+        }
     finally:
         _teardown(srv)
 

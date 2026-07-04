@@ -15,6 +15,7 @@
       "buy_btn": "Få Pro",
       "status_active": "Pro aktiv ({tier}). Tak for din støtte!",
       "status_invalid": "Gratis — den gemte nøgle er ugyldig eller udløbet.",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "Gratis — 3 downloads om dagen. Pro: ubegrænset.",
       "need_key_toast": "Indtast en licensnøgle først.",
       "activated_toast": "Licens aktiveret.",

@@ -15,6 +15,7 @@
       "buy_btn": "Nadgradi na Pro",
       "status_active": "Pro je aktiven ({tier}). Hvala za podporo!",
       "status_invalid": "Brezplačno — shranjeni ključ ni veljaven ali je potekel.",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "Brezplačno — 3 prenosi na dan. Pro: neomejeno.",
       "need_key_toast": "Najprej vnesi licenčni ključ.",
       "activated_toast": "Licenca aktivirana.",

@@ -13,11 +13,23 @@ quota; the same Pro license key should unlock Android, Windows desktop, and
 future macOS/iOS/Linux builds. Developer-only/debug paths may still opt out by
 not constructing a LicenseManager, but shipped customer builds should wire it
 up to the production license API.
+
+The same key can still only be *actively used* on one device per platform at
+a time (one Android slot, one Windows slot, etc.) - pass `platform=` (and
+optionally `app_version=`) when constructing a LicenseManager to opt into
+this. The server (pro/website/functions/api/validate.js) tracks device slots
+by a random per-install `device_id` (never a hardware identifier) and returns
+`device_allowed: false` once a different device already holds that
+platform's slot; `LicenseState.is_pro` folds that into the usual valid/expired
+check. Leaving `platform` empty (the default) skips this entirely, which is
+why Termux/desktop-CLI callers that construct LicenseManager without it are
+unaffected.
 """
 
 from __future__ import annotations
 
 import json
+import secrets
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -40,17 +52,34 @@ class LicenseState:
     valid: bool = False
     tier: str | None = None
     checked_at: float = 0.0
+    # Random per-install identifier, never the raw device hardware ID -
+    # generated once and persisted so the same install keeps its slot across
+    # restarts. Sent to /api/validate (hashed server-side) to enforce the
+    # one-active-device-per-platform policy; see docs/DESKTOP_WEB_UI_PLAN.md.
+    device_id: str | None = None
+    # Whether *this* device currently holds the platform's activation slot
+    # for this key. Defaults True so installs that predate this field (or a
+    # manager constructed without a platform) are never held back by it.
+    device_allowed: bool = True
 
     @property
     def is_pro(self) -> bool:
-        return self.valid
+        return self.valid and self.device_allowed
 
 
 class LicenseManager:
-    def __init__(self, state_file: Path, api_base: str) -> None:
+    def __init__(self, state_file: Path, api_base: str, *, platform: str = "", app_version: str = "") -> None:
+        # Empty platform (the default, used by Termux/desktop-CLI callers that
+        # never wire this up) means the device-limit check below is skipped
+        # entirely - only shipped Android/desktop builds should pass this.
         self._state_file = state_file
         self._api_base = api_base.rstrip("/")
+        self._platform = platform
+        self._app_version = app_version
         self._state = self._load()
+        if self._platform and not self._state.device_id:
+            self._state.device_id = secrets.token_hex(16)
+            self._save()
 
     def _load(self) -> LicenseState:
         try:
@@ -74,7 +103,7 @@ class LicenseManager:
         return self._state.is_pro
 
     def set_key(self, key: str) -> LicenseState:
-        self._state = LicenseState(key=key)
+        self._state = LicenseState(key=key, device_id=self._state.device_id)
         self.refresh(force=True)
         return self._state
 
@@ -83,10 +112,14 @@ class LicenseManager:
             return self._state
         if not force and time.time() - self._state.checked_at < CACHE_TTL_SECONDS:
             return self._state
+        params = {"key": self._state.key}
+        if self._platform and self._state.device_id:
+            params["platform"] = self._platform
+            params["device_id"] = self._state.device_id
+            if self._app_version:
+                params["app_version"] = self._app_version
         try:
-            response = requests.get(
-                f"{self._api_base}/api/validate", params={"key": self._state.key}, timeout=10
-            )
+            response = requests.get(f"{self._api_base}/api/validate", params=params, timeout=10)
             response.raise_for_status()
             data = response.json()
         except requests.RequestException:
@@ -94,7 +127,12 @@ class LicenseManager:
             # recent "valid" result rather than instantly cutting the user
             # off, but don't extend that trust indefinitely.
             if time.time() - self._state.checked_at > OFFLINE_GRACE_SECONDS:
-                self._state = LicenseState(key=self._state.key, valid=False, checked_at=self._state.checked_at)
+                self._state = LicenseState(
+                    key=self._state.key,
+                    valid=False,
+                    device_id=self._state.device_id,
+                    checked_at=self._state.checked_at,
+                )
                 self._save()
             return self._state
 
@@ -103,6 +141,8 @@ class LicenseManager:
             valid=bool(data.get("valid")),
             tier=data.get("tier"),
             checked_at=time.time(),
+            device_id=self._state.device_id,
+            device_allowed=bool(data.get("device_allowed", True)),
         )
         self._save()
         return self._state

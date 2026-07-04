@@ -15,6 +15,7 @@
       "buy_btn": "ਪ੍ਰੋ ਲਵੋ",
       "status_active": "ਪ੍ਰੋ ਸਰਗਰਮ ({tier})। ਤੁਹਾਡੇ ਸਹਿਯੋਗ ਲਈ ਧੰਨਵਾਦ!",
       "status_invalid": "ਮੁਫ਼ਤ — ਸੇਵ ਕੀਤੀ ਕੁੰਜੀ ਅਵੈਧ ਹੈ ਜਾਂ ਮਿਆਦ ਪੁੱਗ ਚੁੱਕੀ ਹੈ।",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "ਮੁਫ਼ਤ — ਪ੍ਰਤੀ ਦਿਨ 3 ਡਾਊਨਲੋਡ। ਪ੍ਰੋ: ਅਸੀਮਤ।",
       "need_key_toast": "ਪਹਿਲਾਂ ਇੱਕ ਲਾਇਸੈਂਸ ਕੁੰਜੀ ਦਰਜ ਕਰੋ।",
       "activated_toast": "ਲਾਇਸੈਂਸ ਸਰਗਰਮ ਹੋ ਗਿਆ।",

@@ -15,6 +15,7 @@
       "buy_btn": "Kup Pro",
       "status_active": "Pro aktywne ({tier}). Dziękujemy za wsparcie!",
       "status_invalid": "Darmowa wersja — zapisany klucz jest nieprawidłowy lub wygasł.",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "Darmowa wersja — 3 pobierania dziennie. Pro: bez limitu.",
       "need_key_toast": "Najpierw wpisz klucz licencyjny.",
       "activated_toast": "Licencja aktywowana.",

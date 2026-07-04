@@ -15,6 +15,7 @@
       "buy_btn": "Pro பெறுங்கள்",
       "status_active": "Pro செயலில் உள்ளது ({tier}). உங்கள் ஆதரவிற்கு நன்றி!",
       "status_invalid": "இலவசம் — சேமிக்கப்பட்ட விசை தவறானது அல்லது காலாவதியானது.",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "இலவசம் — ஒரு நாளைக்கு 3 பதிவிறக்கங்கள். Pro: வரம்பற்றது.",
       "need_key_toast": "முதலில் ஒரு உரிம விசையை உள்ளிடவும்.",
       "activated_toast": "உரிமம் செயல்படுத்தப்பட்டது.",

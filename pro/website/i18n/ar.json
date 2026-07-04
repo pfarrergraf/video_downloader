@@ -15,6 +15,7 @@
       "buy_btn": "الحصول على Pro",
       "status_active": "نسخة Pro مفعّلة ({tier}). شكرًا لدعمك!",
       "status_invalid": "مجانية — المفتاح المحفوظ غير صالح أو منتهي الصلاحية.",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "مجانية — 3 تنزيلات يوميًا. مع Pro: بلا حدود.",
       "need_key_toast": "أدخل مفتاح الترخيص أولاً.",
       "activated_toast": "تم تفعيل الترخيص.",

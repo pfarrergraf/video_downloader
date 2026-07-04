@@ -144,23 +144,42 @@ Do not leave the shipped desktop app unrestricted. Developer/debug paths may
 still bypass licensing when explicitly configured, but customer builds should
 construct `LicenseManager` and pass it into `create_server`/`run_server`.
 
-#### Device-limit policy, still to implement backend-side
+#### Device-limit policy — implemented
 
-The current client can validate one cross-platform license key, but the server
-backend still needs an activation/device policy. Recommended product rule:
+One active device slot per platform per license key:
 
 - 1 active Android phone/tablet slot
 - 1 active Windows desktop/laptop slot
-- 1 active macOS slot, later
-- 1 active Linux slot, later
-- 1 active iOS/iPadOS slot, later
+- 1 active macOS slot, once that build exists
+- 1 active Linux slot, once that build exists
+- 1 active iOS/iPadOS slot, once that build exists
 
-This is easy for honest customers and prevents one key from being shared
-widely. Implement with activation records in the Cloudflare D1/Stripe backend:
-`license_key_hash`, `platform`, `device_id_hash`, `first_seen`, `last_seen`,
-`app_version`, and `revoked_at`. The `/api/validate` endpoint should accept
-`platform` and `device_id` later, then return whether that device slot is
-allowed. Do not store raw device IDs if a hash is enough.
+Implemented via a `license_activations` table in the Cloudflare D1 backend
+(`license_key_hash`, `platform`, `device_id_hash`, `first_seen`, `last_seen`,
+`app_version`, `revoked_at` — see `pro/website/schema.sql`, applied to the live
+database). `pro/website/functions/api/validate.js` accepts optional `platform`,
+`device_id`, `app_version` query params and returns `device_allowed` alongside
+`valid`/`tier`/`status`; omitting them (older clients, or a `LicenseManager`
+built without `platform=`) skips the check entirely, so nothing changes for
+Termux/desktop-CLI. A device slot that hasn't checked in for 90 days is
+silently reclaimed by the next different device that asks, so a lost/replaced
+phone or a reinstalled OS doesn't need a support ticket — the trade-off is
+that a device idle for over 90 days can be quietly bumped by another one. Two
+devices actively using the same key on the same platform at the same time are
+blocked (their own use keeps last_seen inside the 90-day window). Device IDs
+and license keys are both stored as SHA-256 hashes, never raw.
+
+Client side: `video_downloader/licensing.py`'s `LicenseManager` now takes
+`platform=`/`app_version=` kwargs, generates and persists a random per-install
+`device_id` on first use (never a hardware identifier), and sends it with the
+key on every `/api/validate` call once a platform is set.
+`android_entry.py` passes `platform="android"`; `classydl_web_entry.py`
+auto-detects `windows`/`macos`/`linux` via `platform.system()`. A device that
+loses its slot shows up as `device_allowed: False` and is treated as free
+tier (`LicenseState.is_pro` factors this in) — the web UI shows a dedicated
+"already active on another device" status line
+(`app.license.status_device_limit` in the i18n files) instead of the generic
+"invalid key" one.
 
 ### 6. Tests
 

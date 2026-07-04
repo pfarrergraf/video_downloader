@@ -15,6 +15,7 @@
       "buy_btn": "获取专业版",
       "status_active": "专业版已激活（{tier}）。感谢您的支持！",
       "status_invalid": "免费版 — 已保存的密钥无效或已过期。",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "免费版 — 每天可下载 3 次。专业版：无限制。",
       "need_key_toast": "请先输入许可证密钥。",
       "activated_toast": "许可证已激活。",

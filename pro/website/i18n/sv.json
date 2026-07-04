@@ -15,6 +15,7 @@
       "buy_btn": "Skaffa Pro",
       "status_active": "Pro aktivt ({tier}). Tack för ditt stöd!",
       "status_invalid": "Gratis — den sparade nyckeln är ogiltig eller har gått ut.",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "Gratis — 3 nedladdningar per dag. Pro: obegränsat.",
       "need_key_toast": "Ange en licensnyckel först.",
       "activated_toast": "Licens aktiverad.",

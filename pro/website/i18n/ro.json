@@ -15,6 +15,7 @@
       "buy_btn": "Obține Pro",
       "status_active": "Pro activ ({tier}). Mulțumim pentru sprijin!",
       "status_invalid": "Gratuit — cheia salvată este nevalidă sau a expirat.",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "Gratuit — 3 descărcări pe zi. Pro: nelimitat.",
       "need_key_toast": "Introdu mai întâi o cheie de licență.",
       "activated_toast": "Licență activată.",

@@ -15,6 +15,7 @@
       "buy_btn": "Pro megszerzése",
       "status_active": "Pro aktív ({tier}). Köszönjük a támogatást!",
       "status_invalid": "Ingyenes — a mentett kulcs érvénytelen vagy lejárt.",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "Ingyenes — napi 3 letöltés. Pro: korlátlan.",
       "need_key_toast": "Először add meg a licenckulcsot.",
       "activated_toast": "Licenc aktiválva.",

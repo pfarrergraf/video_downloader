@@ -322,7 +322,13 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             state = manager.status()
             self._send_json(
                 200,
-                {"configured": True, "valid": state.valid, "tier": state.tier, "has_key": bool(state.key)},
+                {
+                    "configured": True,
+                    "valid": state.is_pro,
+                    "tier": state.tier,
+                    "has_key": bool(state.key),
+                    "device_allowed": state.device_allowed,
+                },
             )
             return
         if path == "/api/queue":
@@ -399,6 +405,9 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             state = manager.set_key(key)
             if not state.valid:
                 self._send_json(400, {"detail": "This license key is not valid or has expired."})
+                return
+            if not state.device_allowed:
+                self._send_json(400, {"detail": "This license is already active on another device of this type."})
                 return
             self._send_json(200, {"valid": True, "tier": state.tier})
             return

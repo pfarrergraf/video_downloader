@@ -55,6 +55,11 @@ export async function verifyStripeSignature(payload, header, secret) {
   return diff === 0;
 }
 
+export async function sha256Hex(text) {
+  const buffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(buffer)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
 export function generateLicenseKey() {
   const bytes = crypto.getRandomValues(new Uint8Array(12));
   const hex = [...bytes].map((b) => b.toString(16).padStart(2, "0")).join("").toUpperCase();

@@ -33,7 +33,11 @@ def _show_crash_dialog() -> None:
         pass
 
 
+_PLATFORM_NAMES = {"windows": "windows", "darwin": "macos", "linux": "linux"}
+
+
 def main() -> None:
+    import platform as platform_module
     import secrets
     import webbrowser
     from pathlib import Path
@@ -69,7 +73,10 @@ def main() -> None:
     output_dir = ensure_output_dir(Path(config.default_output_dir).expanduser().resolve())
     workers = max(1, min(int(config.default_workers), int(config.max_workers), 8))
     autologin_url = f"http://{host}:{port}/desktop_autologin.html?t={quote(password)}"
-    license_manager = LicenseManager(paths.config_file.parent / "license.json", LICENSE_API_BASE)
+    platform_name = _PLATFORM_NAMES.get(platform_module.system().lower(), platform_module.system().lower())
+    license_manager = LicenseManager(
+        paths.config_file.parent / "license.json", LICENSE_API_BASE, platform=platform_name
+    )
 
     try:
         server = create_server(

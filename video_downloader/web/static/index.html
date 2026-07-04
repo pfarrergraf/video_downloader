@@ -691,6 +691,8 @@ async function refreshLicense() {
     $('license-card').classList.remove('hidden');
     if (status.valid) {
       $('license-status').textContent = t('app.license.status_active', { tier: status.tier || '?' });
+    } else if (status.has_key && status.device_allowed === false) {
+      $('license-status').textContent = t('app.license.status_device_limit');
     } else if (status.has_key) {
       $('license-status').textContent = t('app.license.status_invalid');
     } else {
@@ -715,7 +717,7 @@ async function activateLicenseFromInput(inputId) {
     refreshLicense();
     $('limit-overlay').classList.add('hidden');
   } catch (e) {
-    toast(t('app.license.invalid_toast'));
+    toast(e.message || t('app.license.invalid_toast'));
   }
 }
 

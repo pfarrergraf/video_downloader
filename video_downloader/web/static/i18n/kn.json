@@ -15,6 +15,7 @@
       "buy_btn": "ಪ್ರೊ ಪಡೆಯಿರಿ",
       "status_active": "ಪ್ರೊ ಸಕ್ರಿಯವಾಗಿದೆ ({tier}). ನಿಮ್ಮ ಬೆಂಬಲಕ್ಕೆ ಧನ್ಯವಾದಗಳು!",
       "status_invalid": "ಉಚಿತ — ಉಳಿಸಿದ ಕೀ ಅಮಾನ್ಯವಾಗಿದೆ ಅಥವಾ ಅವಧಿ ಮುಗಿದಿದೆ.",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "ಉಚಿತ — ದಿನಕ್ಕೆ 3 ಡೌನ್‌ಲೋಡ್‌ಗಳು. ಪ್ರೊ: ಅಪರಿಮಿತ.",
       "need_key_toast": "ಮೊದಲು ಲೈಸೆನ್ಸ್ ಕೀ ನಮೂದಿಸಿ.",
       "activated_toast": "ಲೈಸೆನ್ಸ್ ಸಕ್ರಿಯಗೊಂಡಿದೆ.",

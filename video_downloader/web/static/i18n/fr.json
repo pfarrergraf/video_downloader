@@ -15,6 +15,7 @@
       "buy_btn": "Passer à Pro",
       "status_active": "Pro actif ({tier}). Merci pour votre soutien !",
       "status_invalid": "Gratuit — la clé enregistrée est invalide ou expirée.",
+      "status_device_limit": "Free — this license is already active on another device of this type.",
       "status_free": "Gratuit — 3 téléchargements par jour. Pro : illimité.",
       "need_key_toast": "Entrez d'abord une clé de licence.",
       "activated_toast": "Licence activée.",
