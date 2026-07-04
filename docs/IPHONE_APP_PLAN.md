@@ -11,7 +11,12 @@ The iPhone app must not be treated as a Chaquopy clone. Android can embed the Py
 - Native Swift/SwiftUI shell.
 - WKWebView for the shared Gothic-style UI where practical.
 - Native Swift bridge for license state, device identity, file import/export, and platform-specific storage.
-- No bundled Python runtime as the first milestone.
+- No bundled Python runtime, full stop — not just "not yet." Chaquopy exists because
+  Android/Gradle has mature, institutional tooling for embedding CPython; the closest
+  iOS equivalent (BeeWare's `Python-Apple-support`) is built for apps that *are* Python
+  via Briefcase, not for bolting a scripting runtime onto a hand-maintained Swift app.
+  The download engine itself (see "Download capability" below) is native Swift, not a
+  vendored copy of `yt-dlp`.
 - No hidden downloaded executable code.
 - No App Store submission until the review/compliance risk is explicitly decided.
 
@@ -39,9 +44,11 @@ Use StoreKit 2 for iOS Pro purchase/restore. The server links the Apple transact
 
 This route is safer for broad distribution but may force Apple IAP and App Review limitations.
 
-### Route B — EU alternative distribution / direct distribution candidate
+### Route B — EU alternative distribution / direct distribution candidate (chosen route)
 
-Use the existing web/Stripe license key flow, device activation, and cross-platform key. This route is strategically interesting for EU distribution but requires separate Apple entitlement/notarization planning and may not be available globally.
+Use the existing web/Stripe license key flow, device activation, and cross-platform key. This is the chosen distribution route: list via an existing alternative marketplace (e.g. AltStore PAL) rather than operating an independent marketplace (which requires a €1M standby letter of credit under Apple's Alternative App Marketplace terms). Still requires Apple Developer Program enrollment and app notarization — those are OS-level/DMA-compliance requirements, not App Review policy, so they apply regardless of distribution route. EU DMA fee terms have changed more than once in the past year (a flat per-install Core Technology Fee was replaced by a 5% Core Technology Commission on 2026-01-01) and remain contested — re-verify current terms before committing, since they affect Pro-license margins on this channel specifically.
+
+This route is why the App Store's media-download restriction (see "Apple policy constraints" above) doesn't block the real download engine here: that restriction is an App Review policy, not an OS/sandbox rule, so it doesn't apply outside the App Store.
 
 ### Route C — TestFlight/internal prototype
 
@@ -125,14 +132,36 @@ Do not use IDFA. Do not use device serials. Do not send raw device identifiers.
 
 ### 6. Download capability
 
-Milestone 1 does not port yt-dlp to iOS. It implements a native Swift stub and separates legal/compliance decisions from UI wiring.
+No `yt-dlp` on iOS, ever — not a deferred milestone, an architectural decision. The
+download engine is native Swift throughout:
 
-Possible later implementations:
-
-- direct-file URL download via URLSession;
-- backend-assisted metadata resolver;
-- user-owned/cloud-file workflows;
-- EU/direct-distribution build with broader behavior if legally approved.
+- **YouTube**: [`YouTubeKit`](https://github.com/alexeichhorn/YouTubeKit) (Swift
+  Package, MIT, actively maintained) resolves stream URLs. It reimplements YouTube's
+  simple signature cipher natively in Swift, and for the harder n-parameter throttling
+  challenge it extracts YouTube's own transform function from the current player JS and
+  evaluates it in `JSContext` (Apple's built-in JavaScriptCore) — the direct Swift
+  analog of yt-dlp's own `jsinterp.py` (evaluate just the one small function, not a full
+  browser), using Apple's real JS engine instead of a hand-rolled interpreter.
+- **Vimeo, Reddit**: native Swift JSON/manifest parsing — both expose playable URLs
+  directly with no cipher and no auth for public content.
+- **Explicitly excluded**: TikTok, Instagram, X/Twitter — auth-gated, anti-bot arms
+  races that break on the order of weeks (confirmed by yt-dlp's own issue tracker
+  through 2025-2026). Including them would recreate the multi-extractor maintenance
+  treadmill that going native was meant to avoid.
+- **Merging separate audio/video streams**: no ffmpeg. `ffmpeg-kit` (the usual iOS
+  wrapper) was retired by its maintainer in Jan 2025 with no maintained successor, and
+  iOS does not allow apps to subprocess-exec bundled binaries the way Android's Chaquopy
+  build execs a disguised ffmpeg CLI binary — that's an OS/sandbox restriction, not an
+  App Review policy, so it applies under EU sideloading too. Native `AVFoundation`
+  passthrough remux (`AVMutableComposition` + `AVAssetExportSession`, `.passthrough`)
+  covers H.264/HEVC video + AAC audio with no re-encoding; anything else (VP9/AV1/Opus,
+  common in higher-quality YouTube DASH tiers) falls back to progressive (pre-muxed)
+  formats — the same fallback any ffmpeg-less system already uses elsewhere in this
+  codebase, just expressed in Swift instead of Python.
+- Batch and playlist follow the same shape already used by the shared web UI: batch is
+  client-side fan-out (one job per line), and a playlist is enumerated (YouTube's
+  `browse` endpoint, plain JSON, no cipher needed just to list video IDs) into that same
+  per-video fan-out — no new job-queue concept needed on iOS.
 
 ## Milestones
 
@@ -158,23 +187,40 @@ Possible later implementations:
 
 ### M3 — Download prototype
 
-- Start with direct-file downloads only.
+- Direct-file downloads via URLSession (done).
 - Save via Files-compatible document picker or app sandbox.
 - Add clear legal warning before first use.
 
-### M4 — Distribution decision
+### M3.5 — Real extraction engine (YouTube/Vimeo/Reddit)
 
-Choose one:
+- Add `YouTubeKit` as a Swift Package dependency; resolve YouTube stream URLs through
+  it (JavaScriptCore-backed cipher/n-parameter solving).
+- Native Swift extraction for Vimeo and Reddit (no cipher/auth needed).
+- Playlist enumeration (YouTube `browse` endpoint) and batch (client-side fan-out),
+  feeding the same per-video extraction + existing URLSession download pipeline.
+- Local free-tier quota (3 downloads/24h) and Pro bypass, mirroring
+  `web/server.py`'s `_recent_job_count`/`FREE_DAILY_DOWNLOAD_LIMIT` semantics.
+- Fast-follow: `AVFoundation` passthrough remux for separate audio/video streams,
+  constrained to H.264/HEVC+AAC.
 
-- TestFlight-only prototype;
-- App Store-compliant restricted version;
-- EU alternative distribution candidate;
-- PWA-first iPhone path.
+### M4 — Distribution decision (decided: EU alternative distribution)
+
+Route B (EU alternative distribution via an existing marketplace like AltStore PAL) is
+the chosen route — see "Route B" above. Apple Developer Program enrollment and
+notarization are still required. TestFlight remains useful as a pre-release internal
+testing step regardless of the final distribution channel.
 
 ## Non-goals for this branch
 
-- No immediate App Store submission.
-- No Python bundling promise.
-- No attempt to bypass Apple review.
-- No torrent/downloader behavior hidden from review.
-- No automatic Stripe unlock inside an App Store build unless confirmed allowed for the chosen route.
+- No App Store submission (distribution is EU alternative/sideloading — see M4).
+- No embedded Python runtime, ever — the download engine is native Swift
+  (`YouTubeKit`/JavaScriptCore for YouTube, native parsing for Vimeo/Reddit), not a
+  vendored copy of `yt-dlp`.
+- No hidden downloaded executable code — `YouTubeKit`'s bundled JS (parser/codegen/
+  helper for extracting YouTube's own cipher functions) ships in the app bundle at
+  build time like any other resource; nothing is fetched or executed at runtime that
+  wasn't part of the notarized build.
+- No TikTok/Instagram/X-Twitter extraction — auth-gated and volatile, out of scope
+  (see "Download capability" above).
+- No automatic Stripe unlock inside an App Store build, moot for now since the chosen
+  route (Route B) isn't the App Store.

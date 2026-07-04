@@ -71,15 +71,25 @@ Then use a concrete destination, for example:
 - Downloaded files are saved in the app Documents directory with collision-safe filenames.
 - The UI shows success/failure and the saved local path.
 
-## Still intentionally limited
+## Download engine
 
-The current iOS MVP supports direct file URLs only. The Android/desktop yt-dlp platform-download engine is intentionally not ported into iOS yet.
+No embedded Python/yt-dlp — see `ios/README.md`'s "Download engine" section and
+`docs/IPHONE_APP_PLAN.md` for why. Real extraction is native Swift:
 
-Reason: the iOS distribution route must be decided first:
-
-- App Store restricted route with StoreKit/IAP and potentially narrower downloader capabilities;
-- TestFlight-only prototype;
-- EU/direct distribution route with the existing cross-platform license key;
-- PWA-first fallback.
-
-Do not enable broad platform downloading on iOS before that product/legal decision.
+- **YouTube** (single video, playlist, batch) via
+  [`YouTubeKit`](https://github.com/alexeichhorn/YouTubeKit), a Swift Package
+  dependency (added in `project.pbxproj` as an `XCRemoteSwiftPackageReference` —
+  `xcodebuild`/Xcode resolves it automatically at build time over network, same as any
+  other SPM dependency; no manual vendoring step).
+- **Vimeo, Reddit** via native Swift JSON/manifest parsing, no extra dependency.
+- **Distribution route decided**: EU alternative distribution (e.g. AltStore PAL), not
+  the App Store — see `docs/IPHONE_APP_PLAN.md` M4. That's what makes shipping a real
+  download engine viable at all: Apple's App Store review guidelines effectively
+  prohibit apps that download third-party media, but that's a review policy, not an
+  OS/sandbox restriction, so it doesn't apply outside the App Store.
+- **Not in scope**: TikTok, Instagram, X/Twitter (auth-gated, break on the order of
+  weeks — would recreate exactly the maintenance burden going native was meant to
+  avoid). ffmpeg-based merging of separate audio/video streams (ffmpeg-kit is dead;
+  iOS doesn't allow subprocess-exec of bundled binaries) — covered instead by native
+  `AVFoundation` passthrough remux for H.264/HEVC+AAC, with progressive-format
+  fallback otherwise.
