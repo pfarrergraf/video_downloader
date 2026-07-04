@@ -1,4 +1,6 @@
-﻿param(
+param(
+	[ValidateSet('tkinter', 'web', 'all')]
+	[string]$Target = 'tkinter',
 	[switch]$Windowed,
 	[switch]$BundleAll,
 	[string]$FfmpegPath,
@@ -21,7 +23,8 @@ if (Test-Path $BundledDir) { Remove-Item -Recurse -Force $BundledDir }
 New-Item -ItemType Directory -Path $BundledDir | Out-Null
 
 if ($BundleAll) {
-	# Try to pick up ffmpeg and aria2c from PATH if available
+	# Try to pick up ffmpeg and aria2c from PATH if available. For audio-only
+	# MP3 output, use an ffmpeg build with libmp3lame support.
 	try {
 		$ff = Get-Command ffmpeg -ErrorAction SilentlyContinue
 		if ($ff) { Copy-Item $ff.Path -Destination $BundledDir }
@@ -42,36 +45,47 @@ if ($Aria2Path) {
 	else { Write-Error "aria2c path not found: $Aria2Path"; exit 4 }
 }
 
-# Run PyInstaller using the spec which now includes bundled_bins if present
-Write-Host "Running PyInstaller..."
-uv run pyinstaller --clean --noconfirm classydl.spec
+function Invoke-ClassyBuild {
+	param(
+		[string]$SpecFile,
+		[string]$ExeName
+	)
 
-if ($LASTEXITCODE -ne 0) {
-	Write-Error "PyInstaller failed with exit code $LASTEXITCODE"
-	exit $LASTEXITCODE
-}
+	Write-Host "Running PyInstaller: $SpecFile"
+	uv run pyinstaller --clean --noconfirm $SpecFile
+	if ($LASTEXITCODE -ne 0) {
+		Write-Error "PyInstaller failed with exit code $LASTEXITCODE"
+		exit $LASTEXITCODE
+	}
 
-$ExePath = Join-Path (Join-Path (Get-Location) 'dist') 'classydl.exe'
-if (Test-Path $ExePath) {
-	Write-Host "Build complete: $ExePath"
-} else {
-	Write-Error "Build finished but dist\\classydl.exe not found"
-	exit 2
-}
+	$ExePath = Join-Path (Join-Path (Get-Location) 'dist') $ExeName
+	if (Test-Path $ExePath) {
+		Write-Host "Build complete: $ExePath"
+	} else {
+		Write-Error "Build finished but dist\$ExeName not found"
+		exit 2
+	}
 
-# Optional signing step (requires signtool or equivalent)
-if ($SignCert) {
-	if (-not (Test-Path $SignToolPath)) { Write-Warning "signtool not found at $SignToolPath; skipping signing" }
-	elseif (-not (Test-Path $SignCert)) { Write-Error "Sign certificate not found: $SignCert"; exit 5 }
-	else {
-		Write-Host "Signing executable with $SignCert..."
-		$args = @('sign', '/f', $SignCert, '/tr', 'http://timestamp.digicert.com', '/td', 'sha256', '/fd', 'sha256')
-		if ($SignPassword) { $args += @('/p', $SignPassword) }
-		$args += $ExePath
-		& "$SignToolPath" @args
-		if ($LASTEXITCODE -ne 0) { Write-Warning "signtool returned exit code $LASTEXITCODE" }
-		else { Write-Host "Signing completed." }
+	if ($SignCert) {
+		if (-not (Test-Path $SignToolPath)) { Write-Warning "signtool not found at $SignToolPath; skipping signing" }
+		elseif (-not (Test-Path $SignCert)) { Write-Error "Sign certificate not found: $SignCert"; exit 5 }
+		else {
+			Write-Host "Signing executable with $SignCert..."
+			$args = @('sign', '/f', $SignCert, '/tr', 'http://timestamp.digicert.com', '/td', 'sha256', '/fd', 'sha256')
+			if ($SignPassword) { $args += @('/p', $SignPassword) }
+			$args += $ExePath
+			& "$SignToolPath" @args
+			if ($LASTEXITCODE -ne 0) { Write-Warning "signtool returned exit code $LASTEXITCODE" }
+			else { Write-Host "Signing completed." }
+		}
 	}
 }
 
-Write-Host "Done. If you included ffmpeg/aria2c they are embedded under bundled_bins inside the packaged app." 
+if ($Target -eq 'tkinter' -or $Target -eq 'all') {
+	Invoke-ClassyBuild -SpecFile 'classydl.spec' -ExeName 'classydl.exe'
+}
+if ($Target -eq 'web' -or $Target -eq 'all') {
+	Invoke-ClassyBuild -SpecFile 'classydl_web.spec' -ExeName 'classydl-web.exe'
+}
+
+Write-Host "Done. If you included ffmpeg/aria2c they are embedded under bundled_bins inside the packaged app."
