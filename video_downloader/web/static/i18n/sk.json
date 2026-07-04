@@ -15,7 +15,7 @@
       "buy_btn": "Získať Pro",
       "status_active": "Pro aktívne ({tier}). Ďakujeme za podporu!",
       "status_invalid": "Free — uložený kľúč je neplatný alebo mu vypršala platnosť.",
-      "status_free": "Free — 5 stiahnutí denne. Pro: neobmedzene.",
+      "status_free": "Free — 3 stiahnutia denne. Pro: neobmedzene.",
       "need_key_toast": "Najprv zadaj licenčný kľúč.",
       "activated_toast": "Licencia aktivovaná.",
       "invalid_toast": "Neplatný licenčný kľúč."
@@ -107,7 +107,7 @@
     },
     "limit": {
       "title": "Denný limit dosiahnutý",
-      "body": "Vyčerpal(a) si dnešný bezplatný limit 5 stiahnutí. Zadaj nižšie licenčný kľúč pre neobmedzené sťahovanie, alebo to skús znova o 24 hodín."
+      "body": "Vyčerpal(a) si dnešný bezplatný limit 3 stiahnutí. Zadaj nižšie licenčný kľúč pre neobmedzené sťahovanie, alebo to skús znova o 24 hodín."
     }
   },
   "website": {

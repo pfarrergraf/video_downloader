@@ -15,7 +15,7 @@
       "buy_btn": "Få Pro",
       "status_active": "Pro aktiv ({tier}). Takk for støtten!",
       "status_invalid": "Gratis — den lagrede nøkkelen er ugyldig eller utløpt.",
-      "status_free": "Gratis — 5 nedlastinger per dag. Pro: ubegrenset.",
+      "status_free": "Gratis — 3 nedlastinger per dag. Pro: ubegrenset.",
       "need_key_toast": "Skriv inn en lisensnøkkel først.",
       "activated_toast": "Lisens aktivert.",
       "invalid_toast": "Ugyldig lisensnøkkel."
@@ -107,7 +107,7 @@
     },
     "limit": {
       "title": "Daglig grense nådd",
-      "body": "Du har nådd dagens gratis grense på 5 nedlastinger. Skriv inn en lisensnøkkel nedenfor for ubegrensede nedlastinger, eller prøv igjen om 24 timer."
+      "body": "Du har nådd dagens gratis grense på 3 nedlastinger. Skriv inn en lisensnøkkel nedenfor for ubegrensede nedlastinger, eller prøv igjen om 24 timer."
     }
   },
   "website": {

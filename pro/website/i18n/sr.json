@@ -15,7 +15,7 @@
       "buy_btn": "Nabavi Pro",
       "status_active": "Pro aktiviran ({tier}). Hvala na podršci!",
       "status_invalid": "Besplatno — sačuvani ključ je nevažeći ili je istekao.",
-      "status_free": "Besplatno — 5 preuzimanja dnevno. Pro: neograničeno.",
+      "status_free": "Besplatno — 3 preuzimanja dnevno. Pro: neograničeno.",
       "need_key_toast": "Prvo unesite licencni ključ.",
       "activated_toast": "Licenca je aktivirana.",
       "invalid_toast": "Nevažeći licencni ključ."
@@ -107,7 +107,7 @@
     },
     "limit": {
       "title": "Dnevni limit dostignut",
-      "body": "Iskoristili ste današnji besplatni limit od 5 preuzimanja. Unesite licencni ključ ispod za neograničena preuzimanja, ili pokušajte ponovo za 24 sata."
+      "body": "Iskoristili ste današnji besplatni limit od 3 preuzimanja. Unesite licencni ključ ispod za neograničena preuzimanja, ili pokušajte ponovo za 24 sata."
     }
   },
   "website": {

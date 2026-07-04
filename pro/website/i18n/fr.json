@@ -15,7 +15,7 @@
       "buy_btn": "Passer à Pro",
       "status_active": "Pro actif ({tier}). Merci pour votre soutien !",
       "status_invalid": "Gratuit — la clé enregistrée est invalide ou expirée.",
-      "status_free": "Gratuit — 5 téléchargements par jour. Pro : illimité.",
+      "status_free": "Gratuit — 3 téléchargements par jour. Pro : illimité.",
       "need_key_toast": "Entrez d'abord une clé de licence.",
       "activated_toast": "Licence activée.",
       "invalid_toast": "Clé de licence invalide."
@@ -107,7 +107,7 @@
     },
     "limit": {
       "title": "Limite quotidienne atteinte",
-      "body": "Vous avez atteint la limite gratuite de 5 téléchargements aujourd'hui. Entrez une clé de licence ci-dessous pour des téléchargements illimités, ou réessayez dans 24 heures."
+      "body": "Vous avez atteint la limite gratuite de 3 téléchargements aujourd'hui. Entrez une clé de licence ci-dessous pour des téléchargements illimités, ou réessayez dans 24 heures."
     }
   },
   "website": {

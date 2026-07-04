@@ -15,7 +15,7 @@
       "buy_btn": "Get Pro",
       "status_active": "Pro active ({tier}). Thanks for your support!",
       "status_invalid": "Free — the saved key is invalid or expired.",
-      "status_free": "Percuma — 5 muat turun sehari. Pro: tanpa had.",
+      "status_free": "Percuma — 3 muat turun sehari. Pro: tanpa had.",
       "need_key_toast": "Enter a license key first.",
       "activated_toast": "License activated.",
       "invalid_toast": "Invalid license key."
@@ -107,7 +107,7 @@
     },
     "limit": {
       "title": "Had harian dicapai",
-      "body": "Anda telah mencapai had percuma hari ini iaitu 5 muat turun. Masukkan kunci lesen di bawah untuk muat turun tanpa had, atau cuba lagi selepas 24 jam."
+      "body": "Anda telah mencapai had percuma hari ini iaitu 3 muat turun. Masukkan kunci lesen di bawah untuk muat turun tanpa had, atau cuba lagi selepas 24 jam."
     }
   },
   "website": {

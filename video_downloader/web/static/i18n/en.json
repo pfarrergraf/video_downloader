@@ -15,7 +15,7 @@
       "buy_btn": "Get Pro",
       "status_active": "Pro active ({tier}). Thanks for your support!",
       "status_invalid": "Free — the saved key is invalid or expired.",
-      "status_free": "Free — 5 downloads per day. Pro: unlimited.",
+      "status_free": "Free — 3 downloads per day. Pro: unlimited.",
       "need_key_toast": "Enter a license key first.",
       "activated_toast": "License activated.",
       "invalid_toast": "Invalid license key."
@@ -107,7 +107,7 @@
     },
     "limit": {
       "title": "Daily limit reached",
-      "body": "You've reached today's free limit of 5 downloads. Enter a license key below for unlimited downloads, or try again in 24 hours."
+      "body": "You've reached today's free limit of 3 downloads. Enter a license key below for unlimited downloads, or try again in 24 hours."
     }
   },
   "website": {

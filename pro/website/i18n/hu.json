@@ -15,7 +15,7 @@
       "buy_btn": "Pro megszerzése",
       "status_active": "Pro aktív ({tier}). Köszönjük a támogatást!",
       "status_invalid": "Ingyenes — a mentett kulcs érvénytelen vagy lejárt.",
-      "status_free": "Ingyenes — napi 5 letöltés. Pro: korlátlan.",
+      "status_free": "Ingyenes — napi 3 letöltés. Pro: korlátlan.",
       "need_key_toast": "Először add meg a licenckulcsot.",
       "activated_toast": "Licenc aktiválva.",
       "invalid_toast": "Érvénytelen licenckulcs."
@@ -107,7 +107,7 @@
     },
     "limit": {
       "title": "Napi limit elérve",
-      "body": "Elérted a mai ingyenes limitet, 5 letöltést. Adj meg alább egy licenckulcsot a korlátlan letöltésekhez, vagy próbáld újra 24 óra múlva."
+      "body": "Elérted a mai ingyenes limitet, 3 letöltést. Adj meg alább egy licenckulcsot a korlátlan letöltésekhez, vagy próbáld újra 24 óra múlva."
     }
   },
   "website": {

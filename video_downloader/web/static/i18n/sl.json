@@ -15,7 +15,7 @@
       "buy_btn": "Nadgradi na Pro",
       "status_active": "Pro je aktiven ({tier}). Hvala za podporo!",
       "status_invalid": "Brezplačno — shranjeni ključ ni veljaven ali je potekel.",
-      "status_free": "Brezplačno — 5 prenosov na dan. Pro: neomejeno.",
+      "status_free": "Brezplačno — 3 prenosi na dan. Pro: neomejeno.",
       "need_key_toast": "Najprej vnesi licenčni ključ.",
       "activated_toast": "Licenca aktivirana.",
       "invalid_toast": "Neveljaven licenčni ključ."
@@ -107,7 +107,7 @@
     },
     "limit": {
       "title": "Dnevna omejitev dosežena",
-      "body": "Dosegli ste današnjo brezplačno omejitev 5 prenosov. Spodaj vnesite licenčni ključ za neomejene prenose ali poskusite znova čez 24 ur."
+      "body": "Dosegli ste današnjo brezplačno omejitev 3 prenosov. Spodaj vnesite licenčni ključ za neomejene prenose ali poskusite znova čez 24 ur."
     }
   },
   "website": {

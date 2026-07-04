@@ -15,7 +15,7 @@
       "buy_btn": "Obter Pro",
       "status_active": "Pro ativo ({tier}). Obrigado pelo apoio!",
       "status_invalid": "Gratuito — a chave salva é inválida ou expirou.",
-      "status_free": "Gratuito — 5 downloads por dia. Pro: ilimitado.",
+      "status_free": "Gratuito — 3 downloads por dia. Pro: ilimitado.",
       "need_key_toast": "Digite uma chave de licença primeiro.",
       "activated_toast": "Licença ativada.",
       "invalid_toast": "Chave de licença inválida."
@@ -107,7 +107,7 @@
     },
     "limit": {
       "title": "Limite diário atingido",
-      "body": "Você atingiu o limite gratuito de 5 downloads de hoje. Insira uma chave de licença abaixo para downloads ilimitados, ou tente novamente em 24 horas."
+      "body": "Você atingiu o limite gratuito de 3 downloads de hoje. Insira uma chave de licença abaixo para downloads ilimitados, ou tente novamente em 24 horas."
     }
   },
   "website": {

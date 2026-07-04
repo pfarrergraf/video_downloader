@@ -15,7 +15,7 @@
       "buy_btn": "Pro holen",
       "status_active": "Pro aktiv ({tier}). Danke für deine Unterstützung!",
       "status_invalid": "Kostenlos — der gespeicherte Schlüssel ist ungültig oder abgelaufen.",
-      "status_free": "Kostenlos — 5 Downloads pro Tag. Pro: unbegrenzt.",
+      "status_free": "Kostenlos — 3 Downloads pro Tag. Pro: unbegrenzt.",
       "need_key_toast": "Gib zuerst einen Lizenzschlüssel ein.",
       "activated_toast": "Lizenz aktiviert.",
       "invalid_toast": "Ungültiger Lizenzschlüssel."
@@ -107,7 +107,7 @@
     },
     "limit": {
       "title": "Tageslimit erreicht",
-      "body": "Du hast dein heutiges Freikontingent von 5 Downloads aufgebraucht. Gib unten einen Lizenzschlüssel ein für unbegrenzte Downloads, oder versuche es in 24 Stunden erneut."
+      "body": "Du hast dein heutiges Freikontingent von 3 Downloads aufgebraucht. Gib unten einen Lizenzschlüssel ein für unbegrenzte Downloads, oder versuche es in 24 Stunden erneut."
     }
   },
   "website": {

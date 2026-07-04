@@ -15,7 +15,7 @@
       "buy_btn": "Pro'ya Geç",
       "status_active": "Pro aktif ({tier}). Desteğiniz için teşekkürler!",
       "status_invalid": "Ücretsiz — kayıtlı anahtar geçersiz veya süresi dolmuş.",
-      "status_free": "Ücretsiz — günde 5 indirme. Pro: sınırsız.",
+      "status_free": "Ücretsiz — günde 3 indirme. Pro: sınırsız.",
       "need_key_toast": "Önce bir lisans anahtarı girin.",
       "activated_toast": "Lisans etkinleştirildi.",
       "invalid_toast": "Geçersiz lisans anahtarı."
@@ -107,7 +107,7 @@
     },
     "limit": {
       "title": "Günlük limite ulaşıldı",
-      "body": "Bugünkü ücretsiz 5 indirme limitine ulaştınız. Sınırsız indirme için aşağıya bir lisans anahtarı girin veya 24 saat sonra tekrar deneyin."
+      "body": "Bugünkü ücretsiz 3 indirme limitine ulaştınız. Sınırsız indirme için aşağıya bir lisans anahtarı girin veya 24 saat sonra tekrar deneyin."
     }
   },
   "website": {
