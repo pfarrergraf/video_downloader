@@ -87,23 +87,13 @@ Android's `MainActivity.kt` auto-fills the login form via injected JS because
 it controls a WebView. A desktop build launches the *system* browser, which
 can't be scripted the same way. Instead:
 
-- Pass the password as a URL query parameter when opening the browser:
-  `http://127.0.0.1:8420/?autologin=<password>`.
-- In `video_downloader/web/static/index.html`, near where `checkAuth()` is
-  first called on page load, check for `?autologin=` in
-  `location.search`. If present, submit it to `/api/login` immediately
-  (same code path as the existing `$('login-btn')` handler) and strip it from
-  the URL afterward with `history.replaceState` (don't leave a plaintext
-  password sitting in the address bar / browser history).
-- **Reuse the existing `authGeneration` counter** (see the comment above it
-  in `static/index.html`) when wiring this in — same class of race this
-  counter already exists to prevent (a stale `checkAuth()` resolving after
-  this auto-login already succeeded). Increment it right before calling
-  `setAuthed(true)` here too, exactly like the existing login button handler
-  does.
-- This is a small, generic change (not desktop-specific in the code itself),
-  so it works identically if `classydl web` is later given the same
-  "open browser with token" treatment on Linux/Mac.
+- Open a short-lived local autologin bridge page, e.g.
+  `http://127.0.0.1:8420/desktop_autologin.html?t=<password>`.
+- That page posts the token to `/api/login`, strips the query from browser
+  history with `history.replaceState`, then redirects to `/`.
+- Keep the actual app page unchanged where possible; the bridge avoids a risky
+  full rewrite of the large `static/index.html` file while preserving the same
+  server-side auth/session behavior.
 
 ### 3. `classydl_web.spec`
 
@@ -112,20 +102,11 @@ Copy `classydl.spec`, change:
 - **Verify `video_downloader/web/static/**` (including `static/i18n/*.json`,
   `icon.svg`, `manifest.webmanifest`) actually gets bundled.** This is the
   single biggest risk in this plan — `pyproject.toml`'s
-  `[tool.setuptools.package-data]` currently declares
+  `[tool.setuptools.package-data]` previously declared
   `"video_downloader.web" = ["static/*"]`, which is a **single-level glob**
-  and will not match files inside `static/i18n/` (a subdirectory). Whether
-  PyInstaller's `collect_all('video_downloader')` picks up the i18n JSON
-  files anyway depends on whether it walks the actual on-disk package
-  directory or trusts the wheel's declared package-data metadata — don't
-  assume either way. **Build once, then actually inspect
-  `dist/classydl-web/_internal/video_downloader/web/static/` (or wherever
-  PyInstaller puts it) and confirm `static/i18n/*.json` is there.** If it's
-  missing, fix `pyproject.toml` to `"video_downloader.web" = ["static/**/*"]`
-  first (this would also be a real bug for plain `pip install`/wheel users
-  today, independent of this desktop-packaging work — worth its own small fix
-  either way), and/or add an explicit `datas` entry in the spec for
-  `video_downloader/web/static`.
+  and will not match files inside `static/i18n/` (a subdirectory). Fix it to
+  `"video_downloader.web" = ["static/**/*"]`, and keep an explicit PyInstaller
+  `datas` entry for `video_downloader.web` static assets.
 - Keep `console=False`, `upx=False` — same reasoning as the Tkinter build.
 
 ### 4. Build script
@@ -146,27 +127,40 @@ of failing silently (see `job.error` / the "details" flow through
 `queue_store.py`'s `mark_job_completed`), so it's not silent anymore, but it's
 better to just bundle a working ffmpeg from the start.
 
-### 5. License gating — needs a product decision, not an engineering one
+### 5. License gating — product decision now fixed
 
-`video_downloader/licensing.py`'s `LicenseManager` is currently only wired up
-on Android (`MainActivity.kt` passes `LICENSE_API_BASE`; the CLI/web/Termux
-paths pass `license_api_base=""`, which means "licensing off, always
-unrestricted" — see the licensing.py module docstring). Before wiring
-anything up here, get an explicit answer from the project owner on:
+Desktop must share the same Freemium/Pro model as Android:
 
-- Should the desktop build be fully unrestricted (free tool, Android is the
-  only thing being sold), matching how `classydl web` already behaves today?
-- Or should it share the same free-tier-3-downloads/Pro-unlocks-it model as
-  Android?
-- If the latter, can an Android Pro license key unlock desktop too (same
-  Stripe/D1 backend, `pro/website/functions/api/validate.js` already just
-  checks a key against the database — no reason it couldn't validate from a
-  second client), or is desktop a separate purchase?
+- Free tier: 3 downloads per rolling 24h window.
+- Pro: unlimited downloads and Pro-only features such as playlist/batch flows.
+- A Pro license key is cross-platform: the same key should unlock Android,
+  Windows desktop, future macOS/iOS, and Linux builds.
+- Desktop uses the same production validation API as Android:
+  `https://downloadthat.pages.dev/api/validate`.
+- The license state should be persisted under the resolved app data/config
+  directory as `license.json`, matching the existing `LicenseManager` model.
 
-**Default to unrestricted (matching current `classydl web` behavior) unless
-told otherwise** — don't add a paywall to a previously-free tool without
-explicit sign-off; that's a monetization/trust decision, not something to
-infer.
+Do not leave the shipped desktop app unrestricted. Developer/debug paths may
+still bypass licensing when explicitly configured, but customer builds should
+construct `LicenseManager` and pass it into `create_server`/`run_server`.
+
+#### Device-limit policy, still to implement backend-side
+
+The current client can validate one cross-platform license key, but the server
+backend still needs an activation/device policy. Recommended product rule:
+
+- 1 active Android phone/tablet slot
+- 1 active Windows desktop/laptop slot
+- 1 active macOS slot, later
+- 1 active Linux slot, later
+- 1 active iOS/iPadOS slot, later
+
+This is easy for honest customers and prevents one key from being shared
+widely. Implement with activation records in the Cloudflare D1/Stripe backend:
+`license_key_hash`, `platform`, `device_id_hash`, `first_seen`, `last_seen`,
+`app_version`, and `revoked_at`. The `/api/validate` endpoint should accept
+`platform` and `device_id` later, then return whether that device slot is
+allowed. Do not store raw device IDs if a hash is enough.
 
 ### 6. Tests
 
@@ -176,18 +170,14 @@ see `CLAUDE.md`'s testing section for why that skip exists in this sandboxed
 dev environment). Cover, with `webbrowser.open` and the actual server start
 mocked out:
 - Password is generated once and reused on a second "launch" (same data dir).
-- The URL passed to `webbrowser.open` contains `?autologin=<the password>`.
+- The URL passed to `webbrowser.open` contains the autologin token.
 - A bind failure (port already in use) doesn't crash — falls back to opening
   the browser to the existing instance.
+- Desktop constructs a `LicenseManager` and passes it into the server.
 
-For the `static/index.html` auto-login change, extend the existing
-Playwright-based manual verification approach used elsewhere in this
-project's history (see how the license-popup and settings-overflow fixes were
-verified in earlier session work: spin up the real
-`video_downloader.web.server.create_server(...)` on a background thread,
-drive it with Playwright) — specifically verify: loading
-`/?autologin=<password>` lands on the authenticated app view with no visible
-login screen flash, and the URL no longer contains the password afterward.
+For the autologin bridge, verify with a real server/browser flow: loading
+`/desktop_autologin.html?t=<password>` lands on the authenticated app view and
+the URL no longer contains the password afterward.
 
 ## Mac (later phase, not now)
 

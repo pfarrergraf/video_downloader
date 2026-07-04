@@ -4,13 +4,15 @@ Talks to the license-verification endpoint (GET /api/validate?key=... —
 see pro/website/functions/api/validate.js, a Cloudflare Pages Function on
 the same deployment as the marketing site, not a separate Worker) at most
 once every CACHE_TTL_SECONDS, and keeps trusting the last successful result
-for up to OFFLINE_GRACE_SECONDS if the phone has no connectivity, so a brief
+for up to OFFLINE_GRACE_SECONDS if the device has no connectivity, so a brief
 network outage doesn't downgrade a paying user mid-session.
 
-Deliberately opt-in: when no api_base is configured (Termux, desktop, CLI,
-tests), `LicenseManager` isn't constructed at all and callers treat that as
-"always Pro" — the free/open core stays fully unrestricted on every platform
-except the distributed Android app, which is the only thing being sold.
+Free tier and Pro are intentionally cross-platform product rules: distributed
+Android and desktop builds both enforce the same 3-download rolling 24h free
+quota; the same Pro license key should unlock Android, Windows desktop, and
+future macOS/iOS/Linux builds. Developer-only/debug paths may still opt out by
+not constructing a LicenseManager, but shipped customer builds should wire it
+up to the production license API.
 """
 
 from __future__ import annotations
