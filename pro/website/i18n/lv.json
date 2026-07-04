@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Lejupielādē saturu no jebkuras vietnes, jebkurā ierīcē",
+    "tagline": "Lejupielādē saturu no lielākās daļas vietņu, jebkurā ierīcē",
     "login": {
       "title": "Pieteikties",
       "password_label": "Parole",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Bezmaksas pamatfunkcijas · Bez reklāmām · Konts nav nepieciešams",
       "title_html": "Lejupielādē {emphasis}.<br/>Tieši savā tālrunī.",
-      "title_emphasis": "visu",
+      "title_emphasis": "gandrīz visu",
       "lead": "Video, audio un attēli gandrīz no jebkuras vietnes — lejupielādēti tieši jūsu Android tālrunī. Bez augšupielādes mākonī, dati nekad nepamet jūsu ierīci, Play veikals nav nepieciešams.",
       "cta_primary": "Lejupielādēt bezmaksas Android versiju",
       "cta_secondary": "Skatīt Pro cenas",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Viss, kas nepieciešams, nekā liekā",
       "lead": "Ātrs, privāts lejupielādētājs, kas vienkārši darbojas — ar Pro versiju tiem, kas vēlas vairāk.",
-      "f1_title": "Jebkurš video vai audio",
-      "f1_desc": "Ielīmējiet saiti, izvēlieties kvalitāti, lejupielādējiet. Darbojas ar lielāko daļu video, audio un attēlu vietņu.",
+      "f1_title": "Lielākā daļa video vai audio",
+      "f1_desc": "Ielīmējiet saiti, izvēlieties kvalitāti, lejupielādējiet. Darbojas ar lielāko daļu video, audio un attēlu vietņu — nedarbojas ar DRM aizsargātiem pakalpojumiem, piemēram, Spotify vai Netflix.",
       "f2_title": "Lejupielāde partijās",
       "f2_desc": "Skenējiet lapu, lai atrastu visus multivides failus, un lejupielādējiet tos kopā, atlasot vai noņemot atlasi.",
       "f3_title": "Privāts pēc dizaina",

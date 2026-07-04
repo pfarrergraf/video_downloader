@@ -2,8 +2,15 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from video_downloader.models import DownloadRequest
-from video_downloader.strategies import YtDlpStrategy, _audio_format_selector, _video_format_selector
+from video_downloader.strategies import (
+    StrategyError,
+    YtDlpStrategy,
+    _audio_format_selector,
+    _video_format_selector,
+)
 
 
 def _make_request(
@@ -18,7 +25,9 @@ def _make_request(
     )
 
 
-def _run_and_capture_opts(monkeypatch, tmp_path: Path, request: DownloadRequest) -> dict:
+def _run_and_capture_opts(
+    monkeypatch, tmp_path: Path, request: DownloadRequest, *, downloaded_name: str = "downloaded.file"
+) -> dict:
     captured: dict[str, dict] = {}
 
     class FakeYoutubeDL:
@@ -32,7 +41,7 @@ def _run_and_capture_opts(monkeypatch, tmp_path: Path, request: DownloadRequest)
             return False
 
         def download(self, urls):
-            (tmp_path / "downloaded.file").write_bytes(b"data")
+            (tmp_path / downloaded_name).write_bytes(b"data")
 
     monkeypatch.setattr("video_downloader.strategies.yt_dlp.YoutubeDL", FakeYoutubeDL)
     YtDlpStrategy().download(request, request.source_url)
@@ -62,13 +71,25 @@ def test_audio_only_with_ffmpeg_extracts_mp3(tmp_path: Path, monkeypatch) -> Non
     monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: "/usr/bin/ffmpeg")
     request = _make_request(tmp_path, audio_only=True)
 
-    opts = _run_and_capture_opts(monkeypatch, tmp_path, request)
+    opts = _run_and_capture_opts(monkeypatch, tmp_path, request, downloaded_name="downloaded.mp3")
 
     assert opts["postprocessors"] == [
         {"key": "FFmpegExtractAudio", "preferredcodec": "mp3", "preferredquality": "0"}
     ]
     assert opts["ffmpeg_location"] == "ffmpeg"
-    assert opts["format"] == "ba/b"
+
+
+def test_audio_only_raises_when_mp3_conversion_silently_fails(tmp_path: Path, monkeypatch) -> None:
+    # Regression test: yt-dlp downloads the raw source stream, then runs
+    # FFmpegExtractAudio as a separate postprocessing step. If that step
+    # fails on-device (e.g. the bundled ffmpeg can't encode mp3), the raw
+    # un-converted file (e.g. .opus/.webm) is still on disk - this used to
+    # be reported as a successful download instead of a failure.
+    monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: "/usr/bin/ffmpeg")
+    request = _make_request(tmp_path, audio_only=True)
+
+    with pytest.raises(StrategyError, match="MP3"):
+        _run_and_capture_opts(monkeypatch, tmp_path, request, downloaded_name="downloaded.opus")
 
 
 def test_video_format_selector_keeps_configured_value_when_ffmpeg_available() -> None:

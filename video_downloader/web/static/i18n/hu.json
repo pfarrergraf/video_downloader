@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Médiatartalmak letöltése bármely oldalról, bármilyen eszközön",
+    "tagline": "Médiatartalmak letöltése a legtöbb oldalról, bármilyen eszközön",
     "login": {
       "title": "Bejelentkezés",
       "password_label": "Jelszó",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Ingyenes alapváltozat · Nincsenek hirdetések · Nem kell fiók",
       "title_html": "Töltsd le {emphasis}.<br/>Egyenesen a telefonodra.",
-      "title_emphasis": "mindent",
+      "title_emphasis": "majdnem mindent",
       "lead": "Videók, hangfájlok és képek szinte bármely oldalról — egyenesen az Android telefonodra töltve. Nincs felhőbe töltés, az adataid soha nem hagyják el az eszközödet, és nincs szükség Play Store-ra.",
       "cta_primary": "Ingyenes Android-verzió letöltése",
       "cta_secondary": "Pro árak megtekintése",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Minden, amire szükséged van — semmi felesleges",
       "lead": "Egy gyors, privát letöltő, ami egyszerűen működik — Pro szinttel azoknak, akik többet szeretnének.",
-      "f1_title": "Bármilyen videó vagy hang",
-      "f1_desc": "Illeszd be a linket, válassz minőséget, és töltsd le. A legtöbb videó-, hang- és képmegosztó oldallal működik.",
+      "f1_title": "A legtöbb videó vagy hang",
+      "f1_desc": "Illeszd be a linket, válassz minőséget, és töltsd le. A legtöbb videó-, hang- és képmegosztó oldallal működik — DRM-védett szolgáltatásokkal, mint a Spotify vagy a Netflix, nem.",
       "f2_title": "Tömeges letöltés",
       "f2_desc": "Vizsgáld át az oldalt az összes médiafájlért, és töltsd le őket együtt, egyedi kijelöléssel.",
       "f3_title": "Alapból privát",

@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Download medier fra alle sider, på alle enheder",
+    "tagline": "Download medier fra de fleste sider, på alle enheder",
     "login": {
       "title": "Log ind",
       "password_label": "Adgangskode",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Gratis grundfunktioner · Ingen reklamer · Ingen konto nødvendig",
       "title_html": "Download {emphasis}.<br/>Direkte til din telefon.",
-      "title_emphasis": "alt",
+      "title_emphasis": "næsten alt",
       "lead": "Video, lyd og billeder fra næsten alle sider — downloadet direkte til din Android-telefon. Ingen upload til skyen, ingen data forlader nogensinde din enhed, ingen Play Store nødvendig.",
       "cta_primary": "Download den gratis Android-version",
       "cta_secondary": "Se Pro-priser",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Alt, hvad du har brug for — intet, du ikke har",
       "lead": "En hurtig, privat downloader, der bare virker — med et Pro-niveau til dem, der vil have mere.",
-      "f1_title": "Alle former for video og lyd",
-      "f1_desc": "Indsæt et link, vælg en kvalitet, download. Fungerer med de fleste video-, lyd- og billedsider.",
+      "f1_title": "De fleste videoer eller lyd",
+      "f1_desc": "Indsæt et link, vælg en kvalitet, download. Fungerer med de fleste video-, lyd- og billedsider — ikke med DRM-beskyttede tjenester som Spotify eller Netflix.",
       "f2_title": "Batch-downloads",
       "f2_desc": "Scan en side for alle mediefiler, og download dem samlet — vælg og fravælg som du vil.",
       "f3_title": "Privat fra bunden",

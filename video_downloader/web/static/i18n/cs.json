@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Stahujte média z libovolného webu, na libovolném zařízení",
+    "tagline": "Stahujte média z většiny webů, na libovolném zařízení",
     "login": {
       "title": "Přihlášení",
       "password_label": "Heslo",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Základ zdarma · Žádné reklamy · Není potřeba účet",
       "title_html": "Stáhněte si {emphasis}.<br/>Přímo do telefonu.",
-      "title_emphasis": "všechno",
+      "title_emphasis": "skoro všechno",
       "lead": "Videa, zvuk a obrázky téměř z jakéhokoli webu — stažené přímo do vašeho telefonu s Androidem. Žádné nahrávání do cloudu, žádná data neopustí vaše zařízení, Obchod Play není potřeba.",
       "cta_primary": "Stáhnout bezplatnou verzi pro Android",
       "cta_secondary": "Zobrazit ceny Pro",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Vše, co potřebujete, nic navíc",
       "lead": "Rychlý a soukromý stahovač, který prostě funguje — s verzí Pro pro každého, kdo chce víc.",
-      "f1_title": "Jakékoli video nebo zvuk",
-      "f1_desc": "Vložte odkaz, vyberte kvalitu, stáhněte. Funguje s většinou webů s videem, zvukem a obrázky.",
+      "f1_title": "Většina videí nebo zvuků",
+      "f1_desc": "Vložte odkaz, vyberte kvalitu, stáhněte. Funguje s většinou webů s videem, zvukem a obrázky — ne se službami chráněnými DRM, jako Spotify nebo Netflix.",
       "f2_title": "Hromadné stahování",
       "f2_desc": "Prohledejte stránku a najděte všechny mediální soubory, poté je stáhněte společně s možností je jednotlivě vybrat či zrušit výběr.",
       "f3_title": "Soukromí jako základ",

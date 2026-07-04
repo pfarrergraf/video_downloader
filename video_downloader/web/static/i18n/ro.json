@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Descarcă materiale media de pe orice site, pe orice dispozitiv",
+    "tagline": "Descarcă materiale media de pe majoritatea site-urilor, pe orice dispozitiv",
     "login": {
       "title": "Conectare",
       "password_label": "Parolă",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Nucleu gratuit · Fără reclame · Fără cont necesar",
       "title_html": "Descarcă {emphasis}.<br/>Direct pe telefonul tău.",
-      "title_emphasis": "tot",
+      "title_emphasis": "aproape tot",
       "lead": "Video, audio și imagini de pe aproape orice site — descărcate direct pe telefonul tău Android. Fără încărcare în cloud, datele tale nu părăsesc niciodată dispozitivul, fără nevoie de Play Store.",
       "cta_primary": "Descarcă versiunea gratuită pentru Android",
       "cta_secondary": "Vezi prețurile Pro",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Tot ce ai nevoie, nimic în plus",
       "lead": "Un descărcător rapid și privat care pur și simplu funcționează — cu un nivel Pro pentru cei care vor mai mult.",
-      "f1_title": "Orice video sau audio",
-      "f1_desc": "Lipește un link, alege o calitate, descarcă. Funcționează cu majoritatea site-urilor de video, audio și imagini.",
+      "f1_title": "Majoritatea materialelor video sau audio",
+      "f1_desc": "Lipește un link, alege o calitate, descarcă. Funcționează cu majoritatea site-urilor de video, audio și imagini — nu cu servicii protejate DRM precum Spotify sau Netflix.",
       "f2_title": "Descărcări în lot",
       "f2_desc": "Scanează o pagină pentru toate fișierele media și descarcă-le împreună, cu selectare/deselectare.",
       "f3_title": "Confidențial din concepție",

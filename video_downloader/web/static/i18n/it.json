@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Scarica contenuti multimediali da qualsiasi sito, su qualsiasi dispositivo",
+    "tagline": "Scarica contenuti multimediali dalla maggior parte dei siti, su qualsiasi dispositivo",
     "login": {
       "title": "Accedi",
       "password_label": "Password",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Gratis nelle funzioni base · Niente pubblicità · Nessun account richiesto",
       "title_html": "Scarica {emphasis}.<br/>Direttamente sul tuo telefono.",
-      "title_emphasis": "tutto",
+      "title_emphasis": "quasi tutto",
       "lead": "Video, audio e immagini da quasi qualsiasi sito — scaricati direttamente sul tuo telefono Android. Nessun caricamento sul cloud, nessun dato lascia mai il tuo dispositivo, nessun Play Store necessario.",
       "cta_primary": "Scarica la versione gratuita per Android",
       "cta_secondary": "Vedi i prezzi Pro",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Tutto quello che ti serve, niente di superfluo",
       "lead": "Un downloader veloce e privato che funziona e basta — con un livello Pro per chi vuole di più.",
-      "f1_title": "Qualsiasi video o audio",
-      "f1_desc": "Incolla un link, scegli una qualità, scarica. Funziona con la maggior parte dei siti di video, audio e immagini.",
+      "f1_title": "La maggior parte di video o audio",
+      "f1_desc": "Incolla un link, scegli una qualità, scarica. Funziona con la maggior parte dei siti di video, audio e immagini — non con servizi protetti da DRM come Spotify o Netflix.",
       "f2_title": "Download in blocco",
       "f2_desc": "Analizza una pagina per trovare tutti i file multimediali e scaricali insieme, selezionando o deselezionando quelli che vuoi.",
       "f3_title": "Privato per progettazione",

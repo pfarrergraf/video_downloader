@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Prenesi vsebine s katere koli strani, na katero koli napravo",
+    "tagline": "Prenesi vsebine z večine strani, na katero koli napravo",
     "login": {
       "title": "Prijava",
       "password_label": "Geslo",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Brezplačna osnova · Brez oglasov · Brez računa",
       "title_html": "Prenesi {emphasis}.<br/>Neposredno na telefon.",
-      "title_emphasis": "vse",
+      "title_emphasis": "skoraj vse",
       "lead": "Video, zvok in slike s skoraj katere koli strani — prenesene naravnost na tvoj telefon Android. Brez nalaganja v oblak, podatki nikoli ne zapustijo tvoje naprave, trgovina Play ni potrebna.",
       "cta_primary": "Prenesi brezplačno različico za Android",
       "cta_secondary": "Poglej cenik Pro",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Vse, kar potrebuješ, nič, česar ne bi",
       "lead": "Hiter, zaseben prenašalnik, ki preprosto deluje — z ravnjo Pro za tiste, ki želijo več.",
-      "f1_title": "Kateri koli video ali zvok",
-      "f1_desc": "Prilepi povezavo, izberi kakovost, prenesi. Deluje z večino strani za video, zvok in slike.",
+      "f1_title": "Večina videa ali zvoka",
+      "f1_desc": "Prilepi povezavo, izberi kakovost, prenesi. Deluje z večino strani za video, zvok in slike — ne s storitvami, zaščitenimi z DRM, kot sta Spotify ali Netflix.",
       "f2_title": "Množični prenosi",
       "f2_desc": "Preišči stran za vse vsebine in jih prenesi skupaj, z izbiro posameznih datotek.",
       "f3_title": "Zasebnost po zasnovi",

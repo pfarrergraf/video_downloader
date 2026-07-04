@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Tải media từ mọi trang web, trên mọi thiết bị",
+    "tagline": "Tải media từ hầu hết các trang web, trên mọi thiết bị",
     "login": {
       "title": "Đăng nhập",
       "password_label": "Mật khẩu",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Miễn phí bản cơ bản · Không quảng cáo · Không cần tài khoản",
       "title_html": "Tải {emphasis}.<br/>Trực tiếp về điện thoại của bạn.",
-      "title_emphasis": "mọi thứ",
+      "title_emphasis": "gần như mọi thứ",
       "lead": "Video, âm thanh và hình ảnh từ hầu hết mọi trang web — tải trực tiếp về điện thoại Android của bạn. Không tải lên đám mây, dữ liệu không bao giờ rời khỏi thiết bị, không cần Play Store.",
       "cta_primary": "Tải phiên bản Android miễn phí",
       "cta_secondary": "Xem giá gói Pro",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Mọi thứ bạn cần, không thứ gì thừa",
       "lead": "Một trình tải nhanh, riêng tư và hoạt động ổn định — với gói Pro cho ai muốn nhiều hơn thế.",
-      "f1_title": "Mọi video hoặc âm thanh",
-      "f1_desc": "Dán liên kết, chọn chất lượng, tải xuống. Hoạt động với hầu hết các trang video, âm thanh và hình ảnh.",
+      "f1_title": "Hầu hết video hoặc âm thanh",
+      "f1_desc": "Dán liên kết, chọn chất lượng, tải xuống. Hoạt động với hầu hết các trang video, âm thanh và hình ảnh — không hoạt động với các dịch vụ được bảo vệ DRM như Spotify hay Netflix.",
       "f2_title": "Tải hàng loạt",
       "f2_desc": "Quét một trang để tìm mọi tệp media và tải chúng cùng lúc, với tùy chọn chọn/bỏ chọn.",
       "f3_title": "Riêng tư ngay từ thiết kế",

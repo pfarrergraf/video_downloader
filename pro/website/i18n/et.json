@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Laadi meediat alla ükskõik millisest saidist, ükskõik millises seadmes",
+    "tagline": "Laadi meediat alla enamikust saitidest, ükskõik millises seadmes",
     "login": {
       "title": "Logi sisse",
       "password_label": "Parool",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Põhifunktsioonid tasuta · Reklaamideta · Konto pole vajalik",
       "title_html": "Laadi alla {emphasis}.<br/>Otse oma telefoni.",
-      "title_emphasis": "kõik",
+      "title_emphasis": "peaaegu kõik",
       "lead": "Video, heli ja pildid peaaegu igalt saidilt — laaditud otse sinu Androidi telefoni. Pilve üleslaadimist pole, andmed ei lahku kunagi sinu seadmest ja Play Store'i pole vaja.",
       "cta_primary": "Laadi alla tasuta Androidi versioon",
       "cta_secondary": "Vaata Pro hindu",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Kõik, mida vaja, mitte midagi liigset",
       "lead": "Kiire ja privaatne allalaadija, mis lihtsalt töötab — ning Pro tase neile, kes soovivad rohkem.",
-      "f1_title": "Iga video või heli",
-      "f1_desc": "Kleebi link, vali kvaliteet, laadi alla. Töötab enamiku video-, heli- ja pildisaitidega.",
+      "f1_title": "Enamik videoid või helisid",
+      "f1_desc": "Kleebi link, vali kvaliteet, laadi alla. Töötab enamiku video-, heli- ja pildisaitidega — mitte DRM-kaitstud teenustega nagu Spotify või Netflix.",
       "f2_title": "Kogumina allalaadimine",
       "f2_desc": "Skaneeri leht kõigi meediafailide leidmiseks ja laadi need korraga alla, valides või tühistades valiku.",
       "f3_title": "Privaatne juba disainilt",

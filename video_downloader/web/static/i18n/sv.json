@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Ladda ner media från vilken sajt som helst, på vilken enhet som helst",
+    "tagline": "Ladda ner media från de flesta sajter, på vilken enhet som helst",
     "login": {
       "title": "Logga in",
       "password_label": "Lösenord",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Kostnadsfri kärna · Inga annonser · Inget konto krävs",
       "title_html": "Ladda ner {emphasis}.<br/>Direkt till din telefon.",
-      "title_emphasis": "allt",
+      "title_emphasis": "nästan allt",
       "lead": "Video, ljud och bilder från nästan vilken sajt som helst — nedladdade direkt till din Android-telefon. Ingen molnuppladdning, ingen data lämnar någonsin din enhet, ingen Play Store behövs.",
       "cta_primary": "Ladda ner den kostnadsfria Android-versionen",
       "cta_secondary": "Se Pro-priser",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Allt du behöver, inget du inte behöver",
       "lead": "En snabb, privat nedladdare som bara fungerar — med en Pro-nivå för dig som vill ha mer.",
-      "f1_title": "All video eller ljud",
-      "f1_desc": "Klistra in en länk, välj kvalitet, ladda ner. Fungerar med de flesta video-, ljud- och bildsajter.",
+      "f1_title": "De flesta videor eller ljud",
+      "f1_desc": "Klistra in en länk, välj kvalitet, ladda ner. Fungerar med de flesta video-, ljud- och bildsajter — inte med DRM-skyddade tjänster som Spotify eller Netflix.",
       "f2_title": "Massnedladdningar",
       "f2_desc": "Skanna en sida efter alla mediefiler och ladda ner dem tillsammans, med möjlighet att markera/avmarkera.",
       "f3_title": "Integritet inbyggd",

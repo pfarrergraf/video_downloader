@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Download media from any site, on any device",
+    "tagline": "Pakua maudhui kutoka tovuti nyingi, kwenye kifaa chochote",
     "login": {
       "title": "Log in",
       "password_label": "Password",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Free core · No ads · No account needed",
       "title_html": "Download {emphasis}.<br/>Straight to your phone.",
-      "title_emphasis": "everything",
+      "title_emphasis": "karibu kila kitu",
       "lead": "Video, audio and images from almost any site — downloaded straight to your Android phone. No cloud upload, no data ever leaves your device, no Play Store needed.",
       "cta_primary": "Download the free Android version",
       "cta_secondary": "See Pro pricing",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Everything you need, nothing you don't",
       "lead": "A fast, private downloader that just works — with a Pro tier for anyone who wants more.",
-      "f1_title": "Any video or audio",
-      "f1_desc": "Paste a link, pick a quality, download. Works with most video, audio and image sites.",
+      "f1_title": "Video au sauti nyingi",
+      "f1_desc": "Bandika kiungo, chagua ubora, pakua. Inafanya kazi na tovuti nyingi za video, sauti na picha — si huduma zenye ulinzi wa DRM kama Spotify au Netflix.",
       "f2_title": "Batch downloads",
       "f2_desc": "Scan a page for every media file and download them together, with pick/unpick.",
       "f3_title": "Private by design",

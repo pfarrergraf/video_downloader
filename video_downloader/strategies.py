@@ -124,8 +124,22 @@ class YtDlpStrategy(Strategy):
 
         new_files = _find_new_files(request.output_dir, before_files)
         if new_files:
+            result_file = new_files[-1]
+            # yt-dlp downloads the raw source stream first, then runs
+            # FFmpegExtractAudio as a separate step - if that postprocessing
+            # step itself fails (e.g. the bundled ffmpeg binary can't encode
+            # mp3 on this device), the exception above still leaves the raw,
+            # un-converted file on disk. Without this check that raw file
+            # (e.g. .opus/.webm instead of the requested .mp3) would silently
+            # be reported as a successful download instead of a failure.
+            if request.audio_only and ffmpeg_available and result_file.suffix.lower() != ".mp3":
+                raise StrategyError(
+                    error_message
+                    or f"Audio conversion to MP3 failed; only the original "
+                    f"{result_file.suffix} file could be saved."
+                )
             return DownloadResult(
-                file_path=new_files[-1],
+                file_path=result_file,
                 method=self.name,
                 source_url=source_url,
                 details=error_message,

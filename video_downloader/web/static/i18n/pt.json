@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Baixe mídia de qualquer site, em qualquer dispositivo",
+    "tagline": "Baixe mídia da maioria dos sites, em qualquer dispositivo",
     "login": {
       "title": "Entrar",
       "password_label": "Senha",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Núcleo gratuito · Sem anúncios · Sem conta necessária",
       "title_html": "Baixe {emphasis}.<br/>Direto para o seu celular.",
-      "title_emphasis": "tudo",
+      "title_emphasis": "quase tudo",
       "lead": "Vídeos, áudios e imagens de quase qualquer site — baixados direto para o seu celular Android. Sem upload para a nuvem, nenhum dado sai do seu dispositivo, sem necessidade de Play Store.",
       "cta_primary": "Baixar a versão gratuita para Android",
       "cta_secondary": "Ver preços do Pro",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Tudo o que você precisa, nada do que não precisa",
       "lead": "Um downloader rápido e privado que simplesmente funciona — com um plano Pro para quem quiser mais.",
-      "f1_title": "Qualquer vídeo ou áudio",
-      "f1_desc": "Cole um link, escolha a qualidade, baixe. Funciona com a maioria dos sites de vídeo, áudio e imagem.",
+      "f1_title": "A maioria dos vídeos ou áudio",
+      "f1_desc": "Cole um link, escolha a qualidade, baixe. Funciona com a maioria dos sites de vídeo, áudio e imagem — não com serviços protegidos por DRM como Spotify ou Netflix.",
       "f2_title": "Downloads em lote",
       "f2_desc": "Escaneie uma página em busca de todos os arquivos de mídia e baixe-os juntos, marcando/desmarcando.",
       "f3_title": "Privado por design",

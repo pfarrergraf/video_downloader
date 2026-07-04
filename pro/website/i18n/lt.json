@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Atsisiųsk turinį iš bet kokios svetainės, bet kuriame įrenginyje",
+    "tagline": "Atsisiųsk turinį iš daugumos svetainių, bet kuriame įrenginyje",
     "login": {
       "title": "Prisijungimas",
       "password_label": "Slaptažodis",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Nemokama pagrindinė versija · Jokios reklamos · Paskyra nereikalinga",
       "title_html": "Atsisiųsk {emphasis}.<br/>Tiesiai į telefoną.",
-      "title_emphasis": "viską",
+      "title_emphasis": "beveik viską",
       "lead": "Vaizdo įrašai, garso įrašai ir nuotraukos iš beveik bet kurios svetainės — atsisiunčiami tiesiai į „Android“ telefoną. Jokio įkėlimo į debesį, jokie duomenys nepalieka jūsų įrenginio, „Play Store“ nereikalinga.",
       "cta_primary": "Atsisiųsti nemokamą Android versiją",
       "cta_secondary": "Peržiūrėti Pro kainas",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Viskas, ko reikia, ir nieko nereikalingo",
       "lead": "Greitas ir privatus atsisiuntimo įrankis, kuris tiesiog veikia — su Pro lygiu tiems, kam reikia daugiau.",
-      "f1_title": "Bet koks vaizdo ar garso įrašas",
-      "f1_desc": "Įklijuok nuorodą, pasirink kokybę, atsisiųsk. Veikia su dauguma vaizdo, garso ir nuotraukų svetainių.",
+      "f1_title": "Dauguma vaizdo ar garso įrašų",
+      "f1_desc": "Įklijuok nuorodą, pasirink kokybę, atsisiųsk. Veikia su dauguma vaizdo, garso ir nuotraukų svetainių — ne su DRM apsaugotomis paslaugomis, tokiomis kaip Spotify ar Netflix.",
       "f2_title": "Atsisiuntimai grupėmis",
       "f2_desc": "Nuskenuok puslapį ir rask visus jame esančius failus, tada atsisiųsk juos kartu, pažymėdamas arba panaikindamas žymėjimą.",
       "f3_title": "Privatumas iš esmės",

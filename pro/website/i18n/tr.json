@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Herhangi bir siteden, herhangi bir cihaza medya indirin",
+    "tagline": "Çoğu siteden, herhangi bir cihaza medya indirin",
     "login": {
       "title": "Giriş yap",
       "password_label": "Şifre",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Temel özellikler ücretsiz · Reklamsız · Hesap gerekmez",
       "title_html": "{emphasis} indirin.<br/>Doğrudan telefonunuza.",
-      "title_emphasis": "Her şeyi",
+      "title_emphasis": "neredeyse her şeyi",
       "lead": "Neredeyse her siteden video, ses ve görseller — doğrudan Android telefonunuza indirilir. Buluta yükleme yok, verileriniz cihazınızdan asla çıkmaz, Play Store gerekmez.",
       "cta_primary": "Ücretsiz Android sürümünü indir",
       "cta_secondary": "Pro fiyatlandırmasını gör",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "İhtiyacınız olan her şey, olmayan ise hiçbir şey",
       "lead": "Sorunsuz çalışan, hızlı ve gizliliğe önem veren bir indirici — daha fazlasını isteyenler için Pro seçeneğiyle.",
-      "f1_title": "Her video veya ses",
-      "f1_desc": "Bir bağlantı yapıştırın, kaliteyi seçin, indirin. Çoğu video, ses ve görsel sitesiyle çalışır.",
+      "f1_title": "Çoğu video veya ses",
+      "f1_desc": "Bir bağlantı yapıştırın, kaliteyi seçin, indirin. Çoğu video, ses ve görsel sitesiyle çalışır — Spotify veya Netflix gibi DRM korumalı hizmetlerle çalışmaz.",
       "f2_title": "Toplu indirme",
       "f2_desc": "Bir sayfadaki tüm medya dosyalarını tarayın ve seçip seçimi kaldırarak hepsini birlikte indirin.",
       "f3_title": "Tasarımdan gelen gizlilik",

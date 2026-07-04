@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Pobieraj multimedia z dowolnej strony, na dowolnym urządzeniu",
+    "tagline": "Pobieraj multimedia z większości stron, na dowolnym urządzeniu",
     "login": {
       "title": "Logowanie",
       "password_label": "Hasło",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Darmowa podstawa · Bez reklam · Bez konta",
       "title_html": "Pobierz {emphasis}.<br/>Prosto na telefon.",
-      "title_emphasis": "wszystko",
+      "title_emphasis": "prawie wszystko",
       "lead": "Wideo, audio i zdjęcia z niemal każdej strony — pobierane prosto na telefon z Androidem. Bez przesyłania do chmury, żadne dane nie opuszczają Twojego urządzenia, Sklep Play niepotrzebny.",
       "cta_primary": "Pobierz darmową wersję na Androida",
       "cta_secondary": "Zobacz cennik Pro",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Wszystko, czego potrzebujesz, nic więcej",
       "lead": "Szybki, prywatny downloader, który po prostu działa — z wersją Pro dla tych, którzy chcą więcej.",
-      "f1_title": "Dowolne wideo lub audio",
-      "f1_desc": "Wklej link, wybierz jakość, pobierz. Działa z większością stron z wideo, audio i zdjęciami.",
+      "f1_title": "Większość filmów lub audio",
+      "f1_desc": "Wklej link, wybierz jakość, pobierz. Działa z większością stron z wideo, audio i zdjęciami — nie z usługami chronionymi DRM, takimi jak Spotify czy Netflix.",
       "f2_title": "Pobieranie zbiorcze",
       "f2_desc": "Przeskanuj stronę w poszukiwaniu wszystkich plików multimedialnych i pobierz je razem, z możliwością zaznaczania/odznaczania.",
       "f3_title": "Prywatność w założeniu",

@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Lataa mediaa miltä tahansa sivustolta, millä tahansa laitteella",
+    "tagline": "Lataa mediaa useimmilta sivustoilta, millä tahansa laitteella",
     "login": {
       "title": "Kirjaudu sisään",
       "password_label": "Salasana",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Ilmainen perusversio · Ei mainoksia · Ei tiliä tarvita",
       "title_html": "Lataa {emphasis}.<br/>Suoraan puhelimeesi.",
-      "title_emphasis": "kaikki",
+      "title_emphasis": "melkein kaiken",
       "lead": "Videot, äänet ja kuvat lähes miltä tahansa sivustolta — ladattuna suoraan Android-puhelimeesi. Ei pilveen lähetystä, tietosi eivät koskaan poistu laitteeltasi, eikä Play Kauppaa tarvita.",
       "cta_primary": "Lataa ilmainen Android-versio",
       "cta_secondary": "Katso Pro-hinnoittelu",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Kaikki mitä tarvitset, ei mitään ylimääräistä",
       "lead": "Nopea ja yksityinen lataussovellus, joka vain toimii — Pro-tasolla niille, jotka haluavat enemmän.",
-      "f1_title": "Mikä tahansa video tai ääni",
-      "f1_desc": "Liitä linkki, valitse laatu, lataa. Toimii useimpien video-, ääni- ja kuvasivustojen kanssa.",
+      "f1_title": "Useimmat videot tai äänet",
+      "f1_desc": "Liitä linkki, valitse laatu, lataa. Toimii useimpien video-, ääni- ja kuvasivustojen kanssa — ei DRM-suojattujen palveluiden, kuten Spotifyn tai Netflixin, kanssa.",
       "f2_title": "Erälataukset",
       "f2_desc": "Skannaa sivu kaikkien mediatiedostojen varalta ja lataa ne yhdessä, valiten ja poistaen valintoja.",
       "f3_title": "Yksityisyys suunnittelun lähtökohtana",

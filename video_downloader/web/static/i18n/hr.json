@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Preuzmi medije s bilo koje stranice, na bilo kojem uređaju",
+    "tagline": "Preuzmi medije s većine stranica, na bilo kojem uređaju",
     "login": {
       "title": "Prijava",
       "password_label": "Lozinka",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Besplatna osnovna verzija · Bez oglasa · Bez potrebe za računom",
       "title_html": "Preuzmite {emphasis}.<br/>Izravno na telefon.",
-      "title_emphasis": "sve",
+      "title_emphasis": "gotovo sve",
       "lead": "Video, audio i slike s gotovo bilo koje stranice — preuzeti izravno na vaš Android telefon. Bez slanja u oblak, podaci nikada ne napuštaju vaš uređaj, Play Store nije potreban.",
       "cta_primary": "Preuzmi besplatnu verziju za Android",
       "cta_secondary": "Pogledaj cijene Pro verzije",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Sve što trebate, ništa što ne trebate",
       "lead": "Brz i privatan alat za preuzimanje koji jednostavno radi — s Pro razinom za sve koji žele više.",
-      "f1_title": "Bilo koji video ili audio",
-      "f1_desc": "Zalijepite poveznicu, odaberite kvalitetu, preuzmite. Radi s većinom stranica za video, audio i slike.",
+      "f1_title": "Većina videa ili audia",
+      "f1_desc": "Zalijepite poveznicu, odaberite kvalitetu, preuzmite. Radi s većinom stranica za video, audio i slike — ne s uslugama zaštićenim DRM-om poput Spotifyja ili Netflixa.",
       "f2_title": "Skupno preuzimanje",
       "f2_desc": "Skenirajte stranicu za sve medijske datoteke i preuzmite ih zajedno, uz mogućnost odabira.",
       "f3_title": "Privatnost po dizajnu",

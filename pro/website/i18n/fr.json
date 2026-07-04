@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Téléchargez des contenus multimédias depuis n'importe quel site, sur n'importe quel appareil",
+    "tagline": "Téléchargez des contenus multimédias depuis la plupart des sites, sur n'importe quel appareil",
     "login": {
       "title": "Connexion",
       "password_label": "Mot de passe",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Version de base gratuite · Sans publicité · Aucun compte requis",
       "title_html": "Téléchargez {emphasis}.<br/>Directement sur votre téléphone.",
-      "title_emphasis": "tout",
+      "title_emphasis": "presque tout",
       "lead": "Vidéos, audio et images depuis presque n'importe quel site — téléchargés directement sur votre téléphone Android. Aucun envoi vers le cloud, aucune donnée ne quitte votre appareil, pas besoin du Play Store.",
       "cta_primary": "Télécharger la version gratuite pour Android",
       "cta_secondary": "Voir les tarifs Pro",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Tout ce qu'il vous faut, rien de superflu",
       "lead": "Un téléchargeur rapide et respectueux de la vie privée qui fonctionne tout simplement — avec une offre Pro pour ceux qui en veulent plus.",
-      "f1_title": "Toutes vidéos ou audio",
-      "f1_desc": "Collez un lien, choisissez une qualité, téléchargez. Compatible avec la plupart des sites de vidéo, audio et images.",
+      "f1_title": "La plupart des vidéos ou audio",
+      "f1_desc": "Collez un lien, choisissez une qualité, téléchargez. Compatible avec la plupart des sites de vidéo, audio et images — pas avec les services protégés par DRM comme Spotify ou Netflix.",
       "f2_title": "Téléchargements groupés",
       "f2_desc": "Analysez une page pour trouver tous les fichiers multimédias et téléchargez-les ensemble, en cochant/décochant.",
       "f3_title": "Privé par conception",

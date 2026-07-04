@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Download media van elke site, op elk apparaat",
+    "tagline": "Download media van de meeste sites, op elk apparaat",
     "login": {
       "title": "Inloggen",
       "password_label": "Wachtwoord",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "Gratis kern · Geen advertenties · Geen account nodig",
       "title_html": "Download {emphasis}.<br/>Rechtstreeks naar je telefoon.",
-      "title_emphasis": "alles",
+      "title_emphasis": "bijna alles",
       "lead": "Video, audio en afbeeldingen van bijna elke site — rechtstreeks gedownload naar je Android-telefoon. Geen cloud-upload, er verlaat nooit data je apparaat, geen Play Store nodig.",
       "cta_primary": "Download de gratis Android-versie",
       "cta_secondary": "Bekijk Pro-prijzen",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "Alles wat je nodig hebt, niets wat je niet nodig hebt",
       "lead": "Een snelle, privacyvriendelijke downloader die gewoon werkt — met een Pro-versie voor wie meer wil.",
-      "f1_title": "Elke video of audio",
-      "f1_desc": "Plak een link, kies een kwaliteit, download. Werkt met de meeste video-, audio- en afbeeldingensites.",
+      "f1_title": "De meeste video's of audio",
+      "f1_desc": "Plak een link, kies een kwaliteit, download. Werkt met de meeste video-, audio- en afbeeldingensites — niet met DRM-beveiligde diensten zoals Spotify of Netflix.",
       "f2_title": "Batchdownloads",
       "f2_desc": "Scan een pagina op alle mediabestanden en download ze samen, met selecteren/deselecteren.",
       "f3_title": "Privacy vanaf het begin",

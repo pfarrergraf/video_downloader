@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "在任何设备上，从任何网站下载媒体",
+    "tagline": "在任何设备上，从大多数网站下载媒体",
     "login": {
       "title": "登录",
       "password_label": "密码",
@@ -124,7 +124,7 @@
     "hero": {
       "eyebrow": "核心功能免费 · 无广告 · 无需账号",
       "title_html": "下载{emphasis}。<br/>直接传到您的手机。",
-      "title_emphasis": "一切",
+      "title_emphasis": "几乎一切",
       "lead": "几乎任何网站的视频、音频和图片 — 直接下载到您的 Android 手机。无需上传云端，数据绝不离开您的设备，也无需 Play 商店。",
       "cta_primary": "下载免费的 Android 版本",
       "cta_secondary": "查看专业版价格",
@@ -136,8 +136,8 @@
     "features": {
       "h2": "您需要的一切，没有多余的东西",
       "lead": "快速、私密、开箱即用的下载工具 — 想要更多功能的用户还可选择专业版。",
-      "f1_title": "任意视频或音频",
-      "f1_desc": "粘贴链接，选择画质，下载即可。支持大多数视频、音频和图片网站。",
+      "f1_title": "大多数视频或音频",
+      "f1_desc": "粘贴链接，选择画质，下载即可。支持大多数视频、音频和图片网站——不支持 Spotify、Netflix 等有 DRM 保护的服务。",
       "f2_title": "批量下载",
       "f2_desc": "扫描页面中的所有媒体文件，可自由勾选后一并下载。",
       "f3_title": "隐私优先设计",
