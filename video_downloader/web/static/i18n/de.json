@@ -104,6 +104,10 @@
       "title": "Über diese App",
       "developed_by": "Entwickelt von",
       "licenses": "Verwendet yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) und AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Tageslimit erreicht",
+      "body": "Du hast dein heutiges Freikontingent von 5 Downloads aufgebraucht. Gib unten einen Lizenzschlüssel ein für unbegrenzte Downloads, oder versuche es in 24 Stunden erneut."
     }
   },
   "website": {

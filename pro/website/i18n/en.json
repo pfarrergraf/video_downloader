@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Daily limit reached",
+      "body": "You've reached today's free limit of 5 downloads. Enter a license key below for unlimited downloads, or try again in 24 hours."
     }
   },
   "website": {

@@ -15,7 +15,7 @@
       "buy_btn": "Obtener Pro",
       "status_active": "Pro activo ({tier}). ¡Gracias por tu apoyo!",
       "status_invalid": "Gratis: la clave guardada no es válida o ha caducado.",
-      "status_free": "Gratis: 1 descarga al día. Pro: ilimitadas.",
+      "status_free": "Gratis: 5 descargas al día. Pro: ilimitadas.",
       "need_key_toast": "Introduce primero una clave de licencia.",
       "activated_toast": "Licencia activada.",
       "invalid_toast": "Clave de licencia no válida."
@@ -104,6 +104,10 @@
       "title": "Acerca de",
       "developed_by": "Desarrollado por",
       "licenses": "Utiliza yt-dlp (Unlicense), FFmpeg y LAME (LGPL), Chaquopy (MIT), requests y Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) y AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Límite diario alcanzado",
+      "body": "Has alcanzado el límite gratuito de 5 descargas de hoy. Introduce una clave de licencia para descargas ilimitadas, o inténtalo de nuevo en 24 horas."
     }
   },
   "website": {

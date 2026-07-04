@@ -15,7 +15,7 @@
       "buy_btn": "Získat Pro",
       "status_active": "Pro aktivní ({tier}). Děkujeme za podporu!",
       "status_invalid": "Free — uložený klíč je neplatný nebo mu vypršela platnost.",
-      "status_free": "Free — 1 stažení denně. Pro: neomezeně.",
+      "status_free": "Free — 5 stažení denně. Pro: neomezeně.",
       "need_key_toast": "Nejprve zadejte licenční klíč.",
       "activated_toast": "Licence byla aktivována.",
       "invalid_toast": "Neplatný licenční klíč."
@@ -104,6 +104,10 @@
       "title": "O aplikaci",
       "developed_by": "Vyvinul",
       "licenses": "Používá yt-dlp (Unlicense), FFmpeg a LAME (LGPL), Chaquopy (MIT), requests a Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) a AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Denní limit vyčerpán",
+      "body": "Vyčerpal(a) jsi dnešní bezplatný limit 5 stažení. Zadej níže licenční klíč pro neomezená stažení, nebo to zkus znovu za 24 hodin."
     }
   },
   "website": {

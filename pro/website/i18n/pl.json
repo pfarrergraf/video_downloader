@@ -15,7 +15,7 @@
       "buy_btn": "Kup Pro",
       "status_active": "Pro aktywne ({tier}). Dziękujemy za wsparcie!",
       "status_invalid": "Darmowa wersja — zapisany klucz jest nieprawidłowy lub wygasł.",
-      "status_free": "Darmowa wersja — 1 pobieranie dziennie. Pro: bez limitu.",
+      "status_free": "Darmowa wersja — 5 pobierań dziennie. Pro: bez limitu.",
       "need_key_toast": "Najpierw wpisz klucz licencyjny.",
       "activated_toast": "Licencja aktywowana.",
       "invalid_toast": "Nieprawidłowy klucz licencyjny."
@@ -104,6 +104,10 @@
       "title": "O aplikacji",
       "developed_by": "Opracowane przez",
       "licenses": "Wykorzystuje yt-dlp (Unlicense), FFmpeg i LAME (LGPL), Chaquopy (MIT), requests i Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) oraz AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Osiągnięto dzienny limit",
+      "body": "Wykorzystano dzisiejszy darmowy limit 5 pobrań. Wpisz poniżej klucz licencyjny, aby uzyskać nieograniczone pobieranie, albo spróbuj ponownie za 24 godziny."
     }
   },
   "website": {

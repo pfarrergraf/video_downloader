@@ -15,7 +15,7 @@
       "buy_btn": "Obține Pro",
       "status_active": "Pro activ ({tier}). Mulțumim pentru sprijin!",
       "status_invalid": "Gratuit — cheia salvată este nevalidă sau a expirat.",
-      "status_free": "Gratuit — 1 descărcare pe zi. Pro: nelimitat.",
+      "status_free": "Gratuit — 5 descărcări pe zi. Pro: nelimitat.",
       "need_key_toast": "Introdu mai întâi o cheie de licență.",
       "activated_toast": "Licență activată.",
       "invalid_toast": "Cheie de licență nevalidă."
@@ -104,6 +104,10 @@
       "title": "Despre",
       "developed_by": "Dezvoltat de",
       "licenses": "Utilizează yt-dlp (Unlicense), FFmpeg și LAME (LGPL), Chaquopy (MIT), requests și Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) și AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Limita zilnică a fost atinsă",
+      "body": "Ai atins limita gratuită de 5 descărcări de azi. Introdu mai jos o cheie de licență pentru descărcări nelimitate, sau încearcă din nou peste 24 de ore."
     }
   },
   "website": {

@@ -15,7 +15,7 @@
       "buy_btn": "Pro 구매하기",
       "status_active": "Pro 활성화됨 ({tier}). 성원에 감사드립니다!",
       "status_invalid": "무료 — 저장된 키가 유효하지 않거나 만료되었습니다.",
-      "status_free": "무료 — 하루 1회 다운로드. Pro: 무제한.",
+      "status_free": "무료 — 하루 5회 다운로드. Pro: 무제한.",
       "need_key_toast": "먼저 라이선스 키를 입력하세요.",
       "activated_toast": "라이선스가 활성화되었습니다.",
       "invalid_toast": "유효하지 않은 라이선스 키입니다."
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "일일 한도에 도달했습니다",
+      "body": "오늘의 무료 한도인 5회 다운로드를 모두 사용했습니다. 무제한 다운로드를 위해 아래에 라이선스 키를 입력하거나 24시간 후 다시 시도하세요."
     }
   },
   "website": {

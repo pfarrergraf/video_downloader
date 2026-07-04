@@ -237,6 +237,11 @@
     display: flex; align-items: flex-end; justify-content: center; z-index: 55;
   }
   #settings-overlay .card { max-width: 480px; width: 100%; margin: 0; border-radius: 22px 22px 0 0; max-height: 85vh; overflow-y: auto; }
+  #limit-overlay {
+    position: fixed; inset: 0; background: rgba(6,5,12,0.85);
+    display: flex; align-items: center; justify-content: center; z-index: 53; padding: 1rem;
+  }
+  #limit-overlay .card { max-width: 380px; width: 100%; }
   #toast {
     position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
     background: #241820; border: 1px solid var(--danger); color: #ffd7d7;
@@ -343,6 +348,21 @@
     </div>
     <p class="muted hidden" id="settings-folder-unsupported" data-i18n="app.settings.folder_not_supported">Only available in the Android app.</p>
 
+    <!-- Was the first card on the app's home screen, right above the actual
+         download-link textarea - people kept mistaking the license key field
+         for the download-link field. Lives here in Settings instead, plus a
+         copy of the key-entry UI surfaces as a popup when the free-tier daily
+         limit is hit (see #limit-overlay) so upgrading is still one tap away. -->
+    <div class="hidden" id="license-card">
+      <label data-i18n="app.license.title">License</label>
+      <p class="muted" id="license-status">—</p>
+      <div class="row">
+        <input type="text" id="license-key-input" data-i18n-placeholder="app.license.placeholder" placeholder="DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
+        <button class="secondary" id="license-save-btn"><span aria-hidden="true">💾</span> <span data-i18n="app.license.save_btn">Save</span></button>
+      </div>
+      <a class="btn primary hidden" id="license-buy-link" href="https://downloadthat.pages.dev/#pricing" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;"><span aria-hidden="true">✨</span> <span data-i18n="app.license.buy_btn">Get Pro</span></a>
+    </div>
+
     <label data-i18n="app.about.title">About</label>
     <p class="muted">
       <span data-i18n="app.about.developed_by">Developed by</span> Benjamin Graf
@@ -364,6 +384,24 @@
   </div>
 </div>
 
+<div id="limit-overlay" class="hidden">
+  <div class="card">
+    <h2 data-i18n="app.limit.title">Daily limit reached</h2>
+    <p class="muted" data-i18n="app.limit.body">
+      You've reached today's free limit of 5 downloads. Enter a license key below for
+      unlimited downloads, or try again in 24 hours.
+    </p>
+    <div class="row">
+      <input type="text" id="limit-license-key-input" data-i18n-placeholder="app.license.placeholder" placeholder="DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
+      <button class="secondary" id="limit-license-save-btn"><span aria-hidden="true">💾</span> <span data-i18n="app.license.save_btn">Save</span></button>
+    </div>
+    <a class="btn primary" id="limit-buy-link" href="https://downloadthat.pages.dev/#pricing" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;"><span aria-hidden="true">✨</span> <span data-i18n="app.license.buy_btn">Get Pro</span></a>
+    <div class="row">
+      <button class="primary" id="limit-close-btn"><span aria-hidden="true">✔️</span> <span data-i18n="app.settings.close_btn">Close</span></button>
+    </div>
+  </div>
+</div>
+
 <div id="app" class="hidden">
   <header>
     <div class="header-titles">
@@ -373,16 +411,6 @@
     <button class="icon-btn" id="settings-open-btn" aria-label="Settings" data-i18n-aria="app.settings.gear_label">⚙️</button>
   </header>
   <main>
-    <div class="card hidden" id="license-card">
-      <h2 data-i18n="app.license.title">License</h2>
-      <p class="muted" id="license-status">—</p>
-      <div class="row">
-        <input type="text" id="license-key-input" data-i18n-placeholder="app.license.placeholder" placeholder="DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
-        <button class="secondary" id="license-save-btn"><span aria-hidden="true">💾</span> <span data-i18n="app.license.save_btn">Save</span></button>
-      </div>
-      <a class="btn primary hidden" id="license-buy-link" href="https://downloadthat.pages.dev/#pricing" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;"><span aria-hidden="true">✨</span> <span data-i18n="app.license.buy_btn">Get Pro</span></a>
-    </div>
-
     <div class="card">
       <h2 data-i18n="app.batch.title">Download</h2>
       <label for="batch-urls" data-i18n="app.batch.label">Paste a link, multiple links (one per line), or a playlist link</label>
@@ -568,7 +596,7 @@ async function api(path, opts = {}) {
   if (res.status === 401) throw { unauthorized: true };
   let data = null;
   try { data = await res.json(); } catch (e) { /* no body */ }
-  if (!res.ok) throw { message: (data && data.detail) || res.statusText };
+  if (!res.ok) throw { message: (data && data.detail) || res.statusText, status: res.status };
   return data;
 }
 
@@ -659,18 +687,26 @@ async function refreshLicense() {
   }
 }
 
-$('license-save-btn').addEventListener('click', async () => {
-  const key = $('license-key-input').value.trim();
+// Shared by the Settings panel's license field and the daily-limit popup's
+// own copy of it (see #limit-overlay) - same activation flow, two entry points.
+async function activateLicenseFromInput(inputId) {
+  const input = $(inputId);
+  const key = input.value.trim();
   if (!key) return toast(t('app.license.need_key_toast'));
   try {
     await api('/api/license', { method: 'POST', body: { key } });
-    $('license-key-input').value = '';
+    input.value = '';
     toast(t('app.license.activated_toast'));
     refreshLicense();
+    $('limit-overlay').classList.add('hidden');
   } catch (e) {
     toast(t('app.license.invalid_toast'));
   }
-});
+}
+
+$('license-save-btn').addEventListener('click', () => activateLicenseFromInput('license-key-input'));
+$('limit-license-save-btn').addEventListener('click', () => activateLicenseFromInput('limit-license-key-input'));
+$('limit-close-btn').addEventListener('click', () => $('limit-overlay').classList.add('hidden'));
 
 $('login-btn').addEventListener('click', async () => {
   const password = $('login-password').value;
@@ -799,6 +835,17 @@ function isPlaylistUrl(url) {
   return /[?&]list=/.test(url) || /\/playlist(\?|$)/.test(url) || /\/sets\//.test(url);
 }
 
+// The server answers a free-tier quota rejection with 402 - surface it as the
+// popup (with a license field right there) instead of just a toast that's
+// easy to miss and doesn't tell the user how to fix it.
+function handleQueueError(e, fallbackToastKey) {
+  if (e.status === 402) {
+    $('limit-overlay').classList.remove('hidden');
+  } else {
+    toast(e.message || t(fallbackToastKey));
+  }
+}
+
 async function queueLinks(audioOnly) {
   const lines = $('batch-urls').value.split('\n').map((s) => s.trim()).filter(Boolean);
   if (!lines.length) return toast(t('app.batch.need_links_toast'));
@@ -815,7 +862,7 @@ async function queueLinks(audioOnly) {
     toast(t('app.batch.queued_toast', { count: lines.length }));
     $('batch-urls').value = '';
   } catch (e) {
-    toast(e.message || t('app.batch.queue_failed_toast'));
+    handleQueueError(e, 'app.batch.queue_failed_toast');
   }
 }
 
@@ -846,7 +893,7 @@ $('queue-selected-btn').addEventListener('click', async () => {
     }
     toast(t('app.queue.queued_toast'));
   } catch (e) {
-    toast(e.message || t('app.scrape.queue_selection_failed_toast'));
+    handleQueueError(e, 'app.scrape.queue_selection_failed_toast');
   }
 });
 

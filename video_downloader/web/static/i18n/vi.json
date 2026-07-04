@@ -15,7 +15,7 @@
       "buy_btn": "Nâng cấp Pro",
       "status_active": "Đã kích hoạt Pro ({tier}). Cảm ơn bạn đã ủng hộ!",
       "status_invalid": "Miễn phí — mã đã lưu không hợp lệ hoặc đã hết hạn.",
-      "status_free": "Miễn phí — 1 lượt tải mỗi ngày. Pro: không giới hạn.",
+      "status_free": "Miễn phí — 5 lượt tải mỗi ngày. Pro: không giới hạn.",
       "need_key_toast": "Vui lòng nhập mã giấy phép trước.",
       "activated_toast": "Đã kích hoạt giấy phép.",
       "invalid_toast": "Mã giấy phép không hợp lệ."
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Đã đạt giới hạn hằng ngày",
+      "body": "Bạn đã dùng hết giới hạn miễn phí hôm nay là 5 lượt tải. Nhập khóa bản quyền bên dưới để tải không giới hạn, hoặc thử lại sau 24 giờ."
     }
   },
   "website": {

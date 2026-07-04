@@ -15,7 +15,7 @@
       "buy_btn": "Iegūt Pro",
       "status_active": "Pro aktīvs ({tier}). Paldies par atbalstu!",
       "status_invalid": "Bezmaksas — saglabātā atslēga nav derīga vai ir beigusies.",
-      "status_free": "Bezmaksas — 1 lejupielāde dienā. Pro: neierobežoti.",
+      "status_free": "Bezmaksas — 5 lejupielādes dienā. Pro: neierobežoti.",
       "need_key_toast": "Vispirms ievadiet licences atslēgu.",
       "activated_toast": "Licence aktivizēta.",
       "invalid_toast": "Nederīga licences atslēga."
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Sasniegts dienas limits",
+      "body": "Esat sasniedzis šodienas bezmaksas limitu — 5 lejupielādes. Ievadiet zemāk licences atslēgu neierobežotām lejupielādēm vai mēģiniet vēlreiz pēc 24 stundām."
     }
   },
   "website": {

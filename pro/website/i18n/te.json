@@ -15,7 +15,7 @@
       "buy_btn": "Pro పొందండి",
       "status_active": "Pro యాక్టివ్‌గా ఉంది ({tier}). మీ మద్దతుకు ధన్యవాదాలు!",
       "status_invalid": "ఫ్రీ — సేవ్ చేసిన కీ చెల్లదు లేదా గడువు ముగిసింది.",
-      "status_free": "ఫ్రీ — రోజుకు 1 డౌన్‌లోడ్. Pro: అపరిమితం.",
+      "status_free": "ఫ్రీ — రోజుకు 5 డౌన్‌లోడ్‌లు. Pro: అపరిమితం.",
       "need_key_toast": "ముందుగా లైసెన్స్ కీని నమోదు చేయండి.",
       "activated_toast": "లైసెన్స్ యాక్టివేట్ చేయబడింది.",
       "invalid_toast": "చెల్లని లైసెన్స్ కీ."
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "రోజువారీ పరిమితి చేరుకుంది",
+      "body": "మీరు ఈరోజు ఉచిత పరిమితి, 5 డౌన్‌లోడ్‌లు, పూర్తి చేశారు. అపరిమిత డౌన్‌లోడ్‌ల కోసం క్రింద లైసెన్స్ కీని నమోదు చేయండి, లేదా 24 గంటల తర్వాత మళ్లీ ప్రయత్నించండి."
     }
   },
   "website": {

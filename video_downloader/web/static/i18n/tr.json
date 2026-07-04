@@ -15,7 +15,7 @@
       "buy_btn": "Pro'ya Geç",
       "status_active": "Pro aktif ({tier}). Desteğiniz için teşekkürler!",
       "status_invalid": "Ücretsiz — kayıtlı anahtar geçersiz veya süresi dolmuş.",
-      "status_free": "Ücretsiz — günde 1 indirme. Pro: sınırsız.",
+      "status_free": "Ücretsiz — günde 5 indirme. Pro: sınırsız.",
       "need_key_toast": "Önce bir lisans anahtarı girin.",
       "activated_toast": "Lisans etkinleştirildi.",
       "invalid_toast": "Geçersiz lisans anahtarı."
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Günlük limite ulaşıldı",
+      "body": "Bugünkü ücretsiz 5 indirme limitine ulaştınız. Sınırsız indirme için aşağıya bir lisans anahtarı girin veya 24 saat sonra tekrar deneyin."
     }
   },
   "website": {

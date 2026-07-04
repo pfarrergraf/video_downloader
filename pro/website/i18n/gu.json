@@ -15,7 +15,7 @@
       "buy_btn": "પ્રો મેળવો",
       "status_active": "પ્રો સક્રિય ({tier}). તમારા સપોર્ટ માટે આભાર!",
       "status_invalid": "ફ્રી — સાચવેલી કી અમાન્ય છે અથવા સમાપ્ત થઈ ગઈ છે.",
-      "status_free": "ફ્રી — દરરોજ 1 ડાઉનલોડ. પ્રો: અમર્યાદિત.",
+      "status_free": "ફ્રી — દરરોજ 5 ડાઉનલોડ. પ્રો: અમર્યાદિત.",
       "need_key_toast": "પહેલા લાઇસન્સ કી દાખલ કરો.",
       "activated_toast": "લાઇસન્સ સક્રિય કરવામાં આવ્યું.",
       "invalid_toast": "અમાન્ય લાઇસન્સ કી."
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "દૈનિક મર્યાદા પૂર્ણ થઈ",
+      "body": "તમે આજની મફત મર્યાદા, 5 ડાઉનલોડ, પૂર્ણ કરી છે. અમર્યાદિત ડાઉનલોડ માટે નીચે લાઇસન્સ કી દાખલ કરો, અથવા 24 કલાક પછી ફરી પ્રયાસ કરો."
     }
   },
   "website": {

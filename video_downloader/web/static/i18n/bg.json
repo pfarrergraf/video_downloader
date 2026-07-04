@@ -15,7 +15,7 @@
       "buy_btn": "Вземи Pro",
       "status_active": "Pro активен ({tier}). Благодарим за подкрепата!",
       "status_invalid": "Безплатна версия — записаният ключ е невалиден или е изтекъл.",
-      "status_free": "Безплатна версия — 1 изтегляне на ден. Pro: неограничено.",
+      "status_free": "Безплатна версия — 5 изтегляния на ден. Pro: неограничено.",
       "need_key_toast": "Първо въведи лицензен ключ.",
       "activated_toast": "Лицензът е активиран.",
       "invalid_toast": "Невалиден лицензен ключ."
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Достигнат е дневният лимит",
+      "body": "Достигнахте днешния безплатен лимит от 5 изтегляния. Въведете лицензен ключ по-долу за неограничени изтегляния, или опитайте отново след 24 часа."
     }
   },
   "website": {

@@ -15,7 +15,7 @@
       "buy_btn": "Pro பெறுங்கள்",
       "status_active": "Pro செயலில் உள்ளது ({tier}). உங்கள் ஆதரவிற்கு நன்றி!",
       "status_invalid": "இலவசம் — சேமிக்கப்பட்ட விசை தவறானது அல்லது காலாவதியானது.",
-      "status_free": "இலவசம் — ஒரு நாளைக்கு 1 பதிவிறக்கம். Pro: வரம்பற்றது.",
+      "status_free": "இலவசம் — ஒரு நாளைக்கு 5 பதிவிறக்கங்கள். Pro: வரம்பற்றது.",
       "need_key_toast": "முதலில் ஒரு உரிம விசையை உள்ளிடவும்.",
       "activated_toast": "உரிமம் செயல்படுத்தப்பட்டது.",
       "invalid_toast": "தவறான உரிம விசை."
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "தினசரி வரம்பு எட்டப்பட்டது",
+      "body": "இன்றைய இலவச வரம்பான 5 பதிவிறக்கங்களை நீங்கள் பயன்படுத்திவிட்டீர்கள். வரம்பற்ற பதிவிறக்கங்களுக்கு கீழே உரிம விசையை உள்ளிடவும், அல்லது 24 மணி நேரம் கழித்து மீண்டும் முயற்சிக்கவும்."
     }
   },
   "website": {

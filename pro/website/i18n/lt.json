@@ -15,7 +15,7 @@
       "buy_btn": "Įsigyti Pro",
       "status_active": "Pro aktyvi ({tier}). Dėkojame už paramą!",
       "status_invalid": "Nemokama versija — išsaugotas raktas negalioja arba nebegaliojantis.",
-      "status_free": "Nemokama versija — 1 atsisiuntimas per dieną. Pro: neribotai.",
+      "status_free": "Nemokama versija — 5 atsisiuntimai per dieną. Pro: neribotai.",
       "need_key_toast": "Pirmiausia įveskite licencijos raktą.",
       "activated_toast": "Licencija aktyvuota.",
       "invalid_toast": "Neteisingas licencijos raktas."
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Pasiekta dienos riba",
+      "body": "Pasiekėte šiandienos nemokamą 5 atsisiuntimų ribą. Įveskite licencijos raktą neribotiems atsisiuntimams arba bandykite dar kartą po 24 valandų."
     }
   },
   "website": {

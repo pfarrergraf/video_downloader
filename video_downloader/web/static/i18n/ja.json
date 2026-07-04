@@ -15,7 +15,7 @@
       "buy_btn": "Proを購入",
       "status_active": "Pro有効（{tier}）。ご利用ありがとうございます！",
       "status_invalid": "無料版 — 保存されているキーは無効か、期限切れです。",
-      "status_free": "無料版 — 1日1回までダウンロード可能。Proなら無制限。",
+      "status_free": "無料版 — 1日5回までダウンロード可能。Proなら無制限。",
       "need_key_toast": "先にライセンスキーを入力してください。",
       "activated_toast": "ライセンスを有効化しました。",
       "invalid_toast": "ライセンスキーが無効です。"
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "本日の上限に達しました",
+      "body": "本日の無料ダウンロード上限（5回）に達しました。下にライセンスキーを入力すると無制限にダウンロードできます。または24時間後にもう一度お試しください。"
     }
   },
   "website": {

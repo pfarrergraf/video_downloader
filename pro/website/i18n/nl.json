@@ -15,7 +15,7 @@
       "buy_btn": "Pro aanschaffen",
       "status_active": "Pro actief ({tier}). Bedankt voor je steun!",
       "status_invalid": "Gratis — de opgeslagen sleutel is ongeldig of verlopen.",
-      "status_free": "Gratis — 1 download per dag. Pro: onbeperkt.",
+      "status_free": "Gratis — 5 downloads per dag. Pro: onbeperkt.",
       "need_key_toast": "Voer eerst een licentiesleutel in.",
       "activated_toast": "Licentie geactiveerd.",
       "invalid_toast": "Ongeldige licentiesleutel."
@@ -104,6 +104,10 @@
       "title": "Over",
       "developed_by": "Ontwikkeld door",
       "licenses": "Maakt gebruik van yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) en AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Daglimiet bereikt",
+      "body": "Je hebt de gratis limiet van 5 downloads voor vandaag bereikt. Voer hieronder een licentiesleutel in voor onbeperkte downloads, of probeer het over 24 uur opnieuw."
     }
   },
   "website": {

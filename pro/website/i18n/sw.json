@@ -15,7 +15,7 @@
       "buy_btn": "Get Pro",
       "status_active": "Pro active ({tier}). Thanks for your support!",
       "status_invalid": "Free — the saved key is invalid or expired.",
-      "status_free": "Free — 1 download per day. Pro: unlimited.",
+      "status_free": "Bure — Upakuaji 5 kwa siku. Pro: bila kikomo.",
       "need_key_toast": "Enter a license key first.",
       "activated_toast": "License activated.",
       "invalid_toast": "Invalid license key."
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Kikomo cha siku kimefikiwa",
+      "body": "Umetumia kikomo cha bure cha leo cha upakuaji 5. Weka ufunguo wa leseni hapa chini kupata upakuaji usio na kikomo, au jaribu tena baada ya saa 24."
     }
   },
   "website": {

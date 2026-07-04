@@ -15,7 +15,7 @@
       "buy_btn": "Få Pro",
       "status_active": "Pro aktiv ({tier}). Tak for din støtte!",
       "status_invalid": "Gratis — den gemte nøgle er ugyldig eller udløbet.",
-      "status_free": "Gratis — 1 download om dagen. Pro: ubegrænset.",
+      "status_free": "Gratis — 5 downloads om dagen. Pro: ubegrænset.",
       "need_key_toast": "Indtast en licensnøgle først.",
       "activated_toast": "Licens aktiveret.",
       "invalid_toast": "Ugyldig licensnøgle."
@@ -104,6 +104,10 @@
       "title": "Om appen",
       "developed_by": "Udviklet af",
       "licenses": "Bruger yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) og AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Dagligt loft nået",
+      "body": "Du har nået dagens gratis grænse på 5 downloads. Indtast en licensnøgle nedenfor for ubegrænsede downloads, eller prøv igen om 24 timer."
     }
   },
   "website": {

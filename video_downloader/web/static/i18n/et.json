@@ -15,7 +15,7 @@
       "buy_btn": "Hangi Pro",
       "status_active": "Pro on aktiivne ({tier}). Täname toetuse eest!",
       "status_invalid": "Tasuta — salvestatud võti on kehtetu või aegunud.",
-      "status_free": "Tasuta — 1 allalaadimine päevas. Pro: piiramatult.",
+      "status_free": "Tasuta — 5 allalaadimist päevas. Pro: piiramatult.",
       "need_key_toast": "Sisesta esmalt litsentsivõti.",
       "activated_toast": "Litsents aktiveeritud.",
       "invalid_toast": "Vigane litsentsivõti."
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Päevane limiit täis",
+      "body": "Oled kasutanud tänase tasuta limiidi, 5 allalaadimist. Sisesta allpool litsentsivõti piiramatute allalaadimiste jaoks või proovi uuesti 24 tunni pärast."
     }
   },
   "website": {

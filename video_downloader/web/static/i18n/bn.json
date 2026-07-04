@@ -15,7 +15,7 @@
       "buy_btn": "প্রো নিন",
       "status_active": "প্রো সক্রিয় ({tier})। আপনার সহযোগিতার জন্য ধন্যবাদ!",
       "status_invalid": "ফ্রি — সংরক্ষিত কী-টি অবৈধ বা মেয়াদোত্তীর্ণ।",
-      "status_free": "ফ্রি — দিনে ১টি ডাউনলোড। প্রো: আনলিমিটেড।",
+      "status_free": "ফ্রি — দিনে ৫টি ডাউনলোড। প্রো: আনলিমিটেড।",
       "need_key_toast": "প্রথমে একটি লাইসেন্স কী দিন।",
       "activated_toast": "লাইসেন্স সক্রিয় করা হয়েছে।",
       "invalid_toast": "অবৈধ লাইসেন্স কী।"
@@ -104,6 +104,10 @@
       "title": "About",
       "developed_by": "Developed by",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "দৈনিক সীমা শেষ",
+      "body": "আপনি আজকের ফ্রি সীমা, ৫টি ডাউনলোড, ব্যবহার করে ফেলেছেন। সীমাহীন ডাউনলোডের জন্য নিচে লাইসেন্স কী দিন, অথবা ২৪ ঘণ্টা পরে আবার চেষ্টা করুন।"
     }
   },
   "website": {
