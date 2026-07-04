@@ -30,18 +30,22 @@ xcodebuild \
   -project ios/DownloadThatIOS/DownloadThatIOS.xcodeproj \
   -scheme DownloadThatIOS \
   -configuration Debug \
-  -destination 'platform=iOS Simulator,name=iPhone 16' \
+  -destination 'generic/platform=iOS Simulator' \
   CODE_SIGNING_ALLOWED=NO \
   build
 ```
 
-If the named simulator does not exist, list available simulators:
+If you want a named simulator instead, list available simulators:
 
 ```bash
 xcrun simctl list devices available
 ```
 
-Then replace the destination name.
+Then use a concrete destination, for example:
+
+```bash
+-destination 'platform=iOS Simulator,name=iPhone 16'
+```
 
 ## What should work now
 
@@ -54,15 +58,19 @@ Then replace the destination name.
   - platform: ios
   - pseudonymous device hash
   - app version
-- Download button intentionally returns `ios_download_engine_not_enabled_yet`.
+- Direct HTTPS/HTTP file URLs download through `URLSession`.
+- Downloaded files are saved in the app Documents directory with collision-safe filenames.
+- The UI shows success/failure and the saved local path.
 
-## Known intentional limitation
+## Still intentionally limited
 
-The actual iOS download engine is disabled until the distribution route is decided:
+The current iOS MVP supports direct file URLs only. The Android/desktop yt-dlp platform-download engine is intentionally not ported into iOS yet.
 
-- App Store restricted route;
-- TestFlight prototype;
-- EU/direct distribution;
+Reason: the iOS distribution route must be decided first:
+
+- App Store restricted route with StoreKit/IAP and potentially narrower downloader capabilities;
+- TestFlight-only prototype;
+- EU/direct distribution route with the existing cross-platform license key;
 - PWA-first fallback.
 
-Do not try to port the Android/desktop Python download engine into iOS before this decision.
+Do not enable broad platform downloading on iOS before that product/legal decision.
