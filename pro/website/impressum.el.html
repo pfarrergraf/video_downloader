@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Νομική Σημείωση — DownloadThat</title>
+<style>
+  :root {
+    --bg: #0e0c14;
+    --bg-elevated: #16121f;
+    --card: #1b1626;
+    --border: #2c2438;
+    --text: #f1ede4;
+    --text-dim: #a89fb3;
+    --accent: #c9a869;
+    --accent-dim: #8a713f;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(14, 12, 20, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 720px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.02em; color: var(--text); }
+  .brand-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(160deg, var(--accent), var(--accent-dim));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: #14111c;
+  }
+
+  main { padding: 56px 24px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 8px; }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 40px; }
+  h2 { font-size: 1.15rem; color: var(--accent); margin: 36px 0 10px; }
+  p, address { color: var(--text-dim); line-height: 1.7; font-style: normal; margin: 0 0 12px; }
+  .notice {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 36px; font-size: 0.9rem; color: var(--text-dim);
+  }
+
+  footer { border-top: 1px solid var(--border); padding: 36px 24px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+  footer a { color: var(--text-dim); }
+  footer .foot-links { display: flex; gap: 18px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+  .lang-switcher {
+    background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; font-family: inherit; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="brand-icon">⬇</span> DownloadThat</a>
+    <span id="legal-lang-switcher"></span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Νομική Σημείωση (Impressum)</h1>
+    <p class="subtitle">Στοιχεία σύμφωνα με το § 5 του γερμανικού νόμου περί υπηρεσιών ηλεκτρονικών μέσων (TMG)</p>
+
+    <div class="notice">
+      Αυτή είναι μια ελληνική μετάφραση που παρέχεται για διευκόλυνση. Το γερμανικό
+      πρωτότυπο (<a href="impressum.html">Impressum</a>) αποτελεί τη νομικά δεσμευτική
+      εκδοχή· σε περίπτωση απόκλισης, υπερισχύει το γερμανικό πρωτότυπο.
+    </div>
+
+    <h2>Υπεύθυνος</h2>
+    <address>
+      Benjamin Graf<br />
+      Lahneckstraße 8<br />
+      56112 Lahnstein<br />
+      Γερμανία
+    </address>
+
+    <h2>Επικοινωνία</h2>
+    <p>
+      Email: <a href="mailto:gpt.assist.benjamin@gmail.com">gpt.assist.benjamin@gmail.com</a>
+    </p>
+
+    <h2>Αριθμός φορολογικού μητρώου ΦΠΑ</h2>
+    <p>
+      Δεν χρεώνεται ΦΠΑ σύμφωνα με το § 19 του γερμανικού νόμου περί ΦΠΑ (UStG) —
+      καθεστώς μικρών επιχειρήσεων ("Kleinunternehmerregelung").
+    </p>
+
+    <h2>Επαγγελματικός τίτλος και κανονισμοί</h2>
+    <p>
+      Πρόκειται για ιδιωτική/εμπορική προσφορά που δεν υπόκειται σε νομοθετικά ρυθμιζόμενο επάγγελμα.
+    </p>
+
+    <h2>Υπεύθυνος για το περιεχόμενο</h2>
+    <address>
+      Benjamin Graf<br />
+      Lahneckstraße 8, 56112 Lahnstein, Γερμανία
+    </address>
+
+    <h2>Επίλυση διαφορών σε επίπεδο ΕΕ</h2>
+    <p>
+      Η Ευρωπαϊκή Επιτροπή παρέχει μια πλατφόρμα για ηλεκτρονική επίλυση διαφορών (ODR):
+      <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">
+        https://ec.europa.eu/consumers/odr/
+      </a>.<br />
+      Η διεύθυνση email μας βρίσκεται παραπάνω σε αυτή τη νομική σημείωση.
+    </p>
+
+    <h2>Επίλυση καταναλωτικών διαφορών</h2>
+    <p>
+      Δεν είμαστε πρόθυμοι ούτε υποχρεωμένοι να συμμετάσχουμε σε διαδικασίες επίλυσης
+      διαφορών ενώπιον φορέα διαμεσολάβησης καταναλωτών.
+    </p>
+
+    <h2>Ευθύνη για το περιεχόμενο</h2>
+    <p>
+      Ως πάροχος υπηρεσιών, είμαστε υπεύθυνοι για το δικό μας περιεχόμενο σε αυτές τις
+      σελίδες σύμφωνα με τη γενική νομοθεσία, βάσει του § 7 παρ. 1 TMG. Ωστόσο, σύμφωνα
+      με τα §§ 8 έως 10 TMG, ως πάροχος υπηρεσιών δεν υποχρεούμαστε να παρακολουθούμε
+      μεταδιδόμενες ή αποθηκευμένες πληροφορίες τρίτων ούτε να διερευνούμε περιστάσεις
+      που υποδηλώνουν παράνομη δραστηριότητα.
+    </p>
+    <p>
+      Οι υποχρεώσεις αφαίρεσης ή αποκλεισμού της χρήσης πληροφοριών βάσει της γενικής
+      νομοθεσίας παραμένουν ανεπηρέαστες. Ωστόσο, η σχετική ευθύνη είναι δυνατή μόνο από
+      τη στιγμή που λαμβάνουμε γνώση συγκεκριμένης παράβασης. Μόλις λάβουμε γνώση
+      τέτοιων παραβάσεων, θα αφαιρέσουμε αμέσως το σχετικό περιεχόμενο.
+    </p>
+
+    <h2>Ευθύνη για συνδέσμους</h2>
+    <p>
+      Η προσφορά μας περιέχει συνδέσμους προς εξωτερικές ιστοσελίδες τρίτων, στο
+      περιεχόμενο των οποίων δεν έχουμε καμία επιρροή. Ως εκ τούτου, δεν μπορούμε να
+      αναλάβουμε καμία ευθύνη για αυτό το περιεχόμενο τρίτων. Για το περιεχόμενο των
+      συνδεδεμένων σελίδων είναι πάντα υπεύθυνος ο εκάστοτε πάροχος ή διαχειριστής των
+      σελίδων.
+    </p>
+
+    <h2>Πνευματικά δικαιώματα</h2>
+    <p>
+      Το περιεχόμενο και τα έργα που δημιουργήθηκαν από τον διαχειριστή της σελίδας σε
+      αυτές τις σελίδες υπόκεινται στο γερμανικό δίκαιο πνευματικής ιδιοκτησίας. Η
+      αναπαραγωγή, επεξεργασία, διανομή και κάθε είδους χρήση πέραν των ορίων του
+      δικαίου πνευματικής ιδιοκτησίας απαιτούν τη γραπτή συγκατάθεση του εκάστοτε
+      δημιουργού ή συντάκτη.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html">Αρχική</a>
+      <a href="impressum.el.html">Νομική Σημείωση</a>
+      <a href="datenschutz.el.html">Πολιτική Απορρήτου</a>
+      <a href="agb.el.html">Όροι Χρήσης</a>
+      <a href="mailto:support@gaistreich.com">Υποστήριξη</a>
+    </div>
+    <div>© 2026 DownloadThat. Με επιφύλαξη παντός δικαιώματος.</div>
+  </div>
+</footer>
+
+<script src="legal-lang.js" data-doc="impressum"></script>
+</body>
+</html>

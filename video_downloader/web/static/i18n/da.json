@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Download medier fra de fleste sider, på alle enheder",
+    "login": {
+      "title": "Log ind",
+      "password_label": "Adgangskode",
+      "unlock_btn": "Lås op",
+      "error": "Forkert adgangskode."
+    },
+    "license": {
+      "title": "Licens",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Gem",
+      "buy_btn": "Få Pro",
+      "status_active": "Pro aktiv ({tier}). Tak for din støtte!",
+      "status_invalid": "Gratis — den gemte nøgle er ugyldig eller udløbet.",
+      "status_free": "Gratis — 3 downloads om dagen. Pro: ubegrænset.",
+      "need_key_toast": "Indtast en licensnøgle først.",
+      "activated_toast": "Licens aktiveret.",
+      "invalid_toast": "Ugyldig licensnøgle."
+    },
+    "scrape": {
+      "title": "Søg på en side",
+      "url_label": "Side-URL",
+      "deep_label": "Dyb søgning (følg links)",
+      "video_btn": "Download video",
+      "audio_btn": "Download lyd",
+      "search_btn": "Søg på siden",
+      "select_all": "Vælg alle",
+      "deselect_all": "Fravælg alle",
+      "clear": "Ryd liste",
+      "queue_selected": "Download valgte",
+      "results_count": "{total} fundet, {picked} valgt",
+      "empty": "Ingen medier fundet på denne side.",
+      "need_url_toast": "Indtast en URL først.",
+      "search_failed_toast": "Søgning mislykkedes.",
+      "queue_failed_toast": "Kunne ikke tilføje til køen.",
+      "queue_selection_failed_toast": "Kunne ikke tilføje valget til køen.",
+      "need_selection_toast": "Vælg mindst ét element.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "Kø",
+      "subtitle": "Opdateres automatisk.",
+      "empty": "Køen er tom indtil videre.",
+      "cancel_btn": "Annuller",
+      "cancel_failed_toast": "Kunne ikke annullere.",
+      "queued_toast": "Sat i kø.",
+      "open_btn": "Åbn",
+      "open_failed_toast": "Kunne ikke åbne denne fil — prøv linket i stedet.",
+      "open_unsupported_toast": "Det er kun muligt at åbne filer i Android-appen.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Indstillinger",
+      "title": "Indstillinger",
+      "language_label": "Sprog",
+      "language_auto": "Automatisk (enhedens sprog)",
+      "folder_label": "Downloadmappe",
+      "folder_default": "App-lager (standard)",
+      "folder_pick_btn": "Vælg mappe",
+      "folder_reset_btn": "Nulstil til standard",
+      "folder_not_supported": "Kun tilgængeligt i Android-appen.",
+      "folder_picking": "Venter på valg af mappe…",
+      "saved_toast": "Indstillinger gemt.",
+      "close_btn": "Luk"
+    },
+    "footer": "DownloadThat — download kun medier, du har rettighederne til.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Før du starter",
+      "body": "Denne app er et teknisk værktøj til at downloade medier fra links, du selv angiver. Du er selv eneansvarlig for at sikre dig, at du har lov til at downloade og bruge indholdet bag ethvert link, du indtaster — udvikleren påtager sig intet ansvar for det, du downloader.",
+      "link_terms": "Vilkår for brug",
+      "link_privacy": "Privatlivspolitik",
+      "link_imprint": "Kolofon",
+      "checkbox_label": "Jeg har læst og accepterer vilkårene for brug, og jeg forstår, at jeg er eneansvarlig for det indhold, jeg downloader.",
+      "continue_btn": "Fortsæt"
+    },
+    "about": {
+      "title": "Om appen",
+      "developed_by": "Udviklet af",
+      "licenses": "Bruger yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) og AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Dagligt loft nået",
+      "body": "Du har nået dagens gratis grænse på 3 downloads. Indtast en licensnøgle nedenfor for ubegrænsede downloads, eller prøv igen om 24 timer."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Video-, lyd- og billeddownloader til Android",
+      "description": "Download videoer, lyd og billeder direkte til din Android-telefon. Ingen Play Store, ingen reklamer, ingen binding. Gratis grundfunktioner, Pro fra €1/måned."
+    },
+    "nav": {
+      "features": "Funktioner",
+      "pricing": "Priser",
+      "faq": "FAQ",
+      "download": "Download"
+    },
+    "hero": {
+      "eyebrow": "Gratis grundfunktioner · Ingen reklamer · Ingen konto nødvendig",
+      "title_html": "Download {emphasis}.<br/>Direkte til din telefon.",
+      "title_emphasis": "næsten alt",
+      "lead": "Video, lyd og billeder fra næsten alle sider — downloadet direkte til din Android-telefon. Ingen upload til skyen, ingen data forlader nogensinde din enhed, ingen Play Store nødvendig.",
+      "cta_primary": "Download den gratis Android-version",
+      "cta_secondary": "Se Pro-priser",
+      "badge1": "Ingen Google Play nødvendig",
+      "badge2": "Kører 100% på din enhed",
+      "badge3": "HD- og 4K-understøttelse",
+      "badge4": "Grundfunktionerne er gratis for altid"
+    },
+    "features": {
+      "h2": "Alt, hvad du har brug for — intet, du ikke har",
+      "lead": "En hurtig, privat downloader, der bare virker — med et Pro-niveau til dem, der vil have mere.",
+      "f1_title": "De fleste videoer eller lyd",
+      "f1_desc": "Indsæt et link, vælg en kvalitet, download. Fungerer med de fleste video-, lyd- og billedsider — ikke med DRM-beskyttede tjenester som Spotify eller Netflix.",
+      "f2_title": "Batch-downloads",
+      "f2_desc": "Scan en side for alle mediefiler, og download dem samlet — vælg og fravælg som du vil.",
+      "f3_title": "Privat fra bunden",
+      "f3_desc": "Alt kører lokalt på din telefon. Intet bliver uploadet til en server, du ikke kontrollerer.",
+      "f4_title": "Ingen reklamer, ingen sporing",
+      "f4_desc": "Ingen reklamenetværk, ingen analyse-SDK'er, ingen manipulerende betalingsmure. Bare appen.",
+      "f5_title": "Lyduddrag",
+      "f5_desc": "Træk kun lydsporet ud af en hvilken som helst video, og gem det som MP3.",
+      "f6_title": "Ingen app store nødvendig",
+      "f6_desc": "Installer Android-versionen direkte. Ingen konto, ingen godkendelsesproces i Play Store, ingen regionslåsning."
+    },
+    "pricing": {
+      "h2": "Enkle, ærlige priser",
+      "lead": "Gratis for altid: 1 download om dagen i fuld HD/4K-kvalitet. Ubegrænset med Pro.",
+      "monthly_title": "Månedlig",
+      "monthly_note": "Opsig når som helst",
+      "yearly_flag": "Bedst værdi",
+      "yearly_title": "Årlig",
+      "yearly_note": "Mindre end €0,67/måned",
+      "lifetime_title": "Livstid",
+      "lifetime_amount_suffix": "engangsbeløb",
+      "lifetime_note": "Betal én gang, brug for altid",
+      "feature_unlimited": "Ubegrænsede downloads (intet dagligt loft)",
+      "feature_batch": "Batch-downloads",
+      "feature_priority_updates": "Prioriterede opdateringer",
+      "feature_all_updates": "Alle fremtidige opdateringer inkluderet",
+      "cta_monthly": "Vælg månedlig",
+      "cta_yearly": "Vælg årlig",
+      "cta_lifetime": "Vælg livstid",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "Jeg anmoder om, at adgangen begynder med det samme, før den 14-dages lovbestemte fortrydelsesfrist udløber, og jeg forstår, at det betyder, at jeg mister min fortrydelsesret, så snart købet er gennemført (se {terms_start}Vilkår for brug{terms_end} §6.3). Du kan uanset dette stadig anmode om fuld tilbagebetaling inden for 14 dage via vores {refund_start}side til tilbagebetaling{refund_end}."
+    },
+    "faq": {
+      "h2": "Ofte stillede spørgsmål",
+      "q1_title": "Skal jeg have Pro for at bruge appen?",
+      "q1_body": "Nej. Appen er gratis og fuldt brugbar. Pro fjerner begrænsninger og støtter den videre udvikling.",
+      "q2_title": "Virker det uden Google Play?",
+      "q2_body": "Ja — det er en selvstændig Android-version, du installerer direkte. Ingen Play Store-konto eller godkendelse nødvendig.",
+      "q3_title": "Hvor indtaster jeg min licensnøgle?",
+      "q3_body": "Lige efter købet ser du din licensnøgle på bekræftelsessiden — indtast den i appens indstillinger.",
+      "q4_title": "Kan jeg få pengene refunderet?",
+      "q4_body": "Kontakt os inden for 14 dage efter købet, så refunderer vi dig uden spørgsmål.",
+      "q5_title": "Er det lovligt?",
+      "q5_body": "Du er selv ansvarlig for, hvordan du bruger downloadet indhold. Respekter venligst ophavsret og vilkårene for de sider, du downloader fra."
+    },
+    "footer": {
+      "download": "Download",
+      "pricing": "Priser",
+      "imprint": "Kolofon",
+      "privacy": "Privatliv",
+      "support": "Support",
+      "copyright": "© 2026 DownloadThat. Alle rettigheder forbeholdes.",
+      "terms": "Vilkår",
+      "home": "Forside"
+    },
+    "success": {
+      "title": "Tak — DownloadThat Pro",
+      "h1": "Tak for dit køb!",
+      "lead": "Din licensnøgle er nedenfor — indtast den i appens indstillinger.",
+      "pending": "Færdiggør dit køb…",
+      "tier_monthly": "Månedlig",
+      "tier_yearly": "Årlig",
+      "tier_lifetime": "Livstid",
+      "plan_label": "Plan",
+      "copy_btn": "Kopier nøgle",
+      "not_installed": "Har du ikke appen endnu?",
+      "download_app": "Download appen",
+      "error": "Vi kunne ikke finde din licens endnu. Genindlæs venligst siden om et øjeblik.",
+      "no_session": "Session mangler — brug venligst linket fra din købsbekræftelse.",
+      "footer_note": "Denne side tjekker automatisk i nogle sekunder efter betalingen. Hvis intet vises, så genindlæs siden eller send en e-mail til {support_email} med din betalingsbekræftelse."
+    },
+    "refund": {
+      "title": "Fortrydelse & tilbagebetaling",
+      "body": "Indtast licensnøglen og den e-mailadresse, du brugte ved købet. Hvis dit køb blev foretaget inden for de seneste 14 dage, tilbagebetaler vi det fuldt ud via Stripe og deaktiverer licensen med det samme — uden at du behøver at angive en grund.",
+      "license_label": "Licensnøgle",
+      "email_label": "E-mailadresse brugt ved købet",
+      "submit_btn": "Anmod om tilbagebetaling",
+      "success": "Tilbagebetalt. Pengene vil være tilbage hos din betalingsudbyder inden for få hverdage, og licensen er blevet deaktiveret.",
+      "error_missing_fields": "Udfyld venligst både licensnøglen og e-mailadressen.",
+      "error_no_match": "Vi kunne ikke finde et køb, der matcher denne licensnøgle og e-mailadresse.",
+      "error_already_canceled": "Denne licens er allerede blevet tilbagebetalt eller annulleret.",
+      "error_window_expired": "14-dages-fristen for tilbagebetaling af dette køb er udløbet. Kontakt support, hvis du stadig gerne vil drøfte dette.",
+      "error_generic": "Noget gik galt. Prøv venligst igen, eller kontakt support."
+    }
+  }
+}

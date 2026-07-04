@@ -1,0 +1,176 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.chaquo.python'
+}
+
+// Lets the release CI job build an arm64-only APK (`-PabiFilters=arm64-v8a`) to
+// avoid shipping the x86_64 slice — that ABI only exists so the *debug* build
+// also runs unmodified on CI/desktop emulators. Any other invocation (local
+// dev, the debug/emulator-smoke-test CI job) gets both ABIs as before.
+def abiFilterList = project.hasProperty('abiFilters')
+    ? project.abiFilters.split(',') as List<String>
+    : ["arm64-v8a", "x86_64"]
+
+android {
+    namespace 'de.classydl.app'
+    // Google requires new apps/updates to target Android 16 (API 36) from
+    // 2026-08-31, and separately rejects submissions with non-16KB-page-aligned
+    // native libraries after 2026-05-31 (already past) - see this file's AGP
+    // 8.13.0 comment in ../build.gradle and
+    // .github/scripts/build_ffmpeg_android.sh for the NDK/linker side of the
+    // second requirement.
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "de.classydl.app"
+        // Chaquopy 17 requires minSdk >= 24; 26 is used here so adaptive launcher
+        // icons (mipmap-anydpi-v26) don't need a legacy raster fallback.
+        minSdk 26
+        targetSdk 36
+        // Release CI passes the real version derived from the git tag
+        // (-PversionNameOverride=0.2.0 -PversionCodeOverride=200); every
+        // other build (local dev, debug/emulator-smoke-test CI) keeps this
+        // placeholder, since it isn't a real release.
+        versionCode project.hasProperty('versionCodeOverride') ? (project.versionCodeOverride as Integer) : 1
+        versionName project.hasProperty('versionNameOverride') ? project.versionNameOverride : "0.1.0"
+
+        // Chaquopy requires abiFilters to be set explicitly (it has no "all ABIs"
+        // default).
+        ndk {
+            abiFilters(*abiFilterList)
+        }
+    }
+
+    signingConfigs {
+        release {
+            // Populated only when the release CI job supplies these via env
+            // vars (sourced from GitHub Actions secrets — see
+            // .github/workflows/android-release.yml and
+            // docs/ANDROID_APP_PLAN.md for the one-time keystore setup). Left
+            // unset for local `gradle assembleRelease` runs without secrets,
+            // which still succeeds but produces an unsigned (uninstallable
+            // as-is) APK — same as plain AGP's default behavior, no
+            // regression from before this signingConfig existed.
+            def keystoreBase64 = System.getenv("ANDROID_KEYSTORE_BASE64")
+            if (keystoreBase64) {
+                def decodedKeystore = new File("${buildDir}/release-keystore.jks")
+                decodedKeystore.parentFile.mkdirs()
+                decodedKeystore.bytes = keystoreBase64.decodeBase64()
+                storeFile decodedKeystore
+                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (System.getenv("ANDROID_KEYSTORE_BASE64")) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+
+    buildFeatures {
+        // Generates BuildConfig.DEBUG, which MainActivity uses to pick a
+        // fixed password in debug builds (CI/local dev) vs. a random
+        // per-install one in release builds. AGP 8+ defaults this feature
+        // off, so it must be requested explicitly.
+        buildConfig true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    packagingOptions {
+        jniLibs {
+            // libffmpeg.so isn't a real JNI library - it's the ffmpeg CLI
+            // binary, given a .so name/location purely so the installer
+            // extracts it with execute permission. AGP's modern default
+            // (useLegacyPackaging=false, the default for minSdk >= 23) keeps
+            // native libs compressed inside the APK and dlopen()s them
+            // directly without ever writing a standalone file, which left
+            // MainActivity's applicationInfo.nativeLibraryDir/libffmpeg.so
+            // check finding nothing - resolveFfmpegBinary() silently fell
+            // back to a bare "ffmpeg" that doesn't exist anywhere on
+            // Android, so every video download silently ran without ffmpeg
+            // (capped to whatever pre-muxed single-stream format YouTube
+            // offered, e.g. 640x272) instead of using the real cross-compiled
+            // binary. Forcing legacy packaging makes Android actually extract
+            // it to a real, executable file at install time.
+            useLegacyPackaging = true
+        }
+    }
+}
+
+chaquopy {
+    defaultConfig {
+        version "3.11"
+        // Chaquopy needs a Python 3.11 interpreter on the BUILD machine (distinct
+        // from the Android-target runtime it bundles) to run pip during packaging.
+        // CI installs one via actions/setup-python; on a local machine this needs
+        // to resolve too — install Python 3.11 and ensure it's on PATH, or point
+        // this at an explicit path (see chaquo.com/chaquopy/doc/current/android.html#buildpython).
+        buildPython "python3.11"
+        pip {
+            // Kept to what video_downloader.web.server's import chain actually needs
+            // (queue_store -> models/utils, core -> strategies/scraper). rich/textual
+            // are CLI/TUI-only and intentionally excluded to keep the APK smaller.
+            install "beautifulsoup4>=4.12.0"
+            install "requests>=2.32.0"
+            install "yt-dlp>=2024.12.13"
+            // Explicit, not just relying on it coming in transitively via requests:
+            // Android has no OpenSSL system cert store at the paths Python's ssl
+            // module checks by default, so HTTPS fails outright unless something
+            // points it at a real CA bundle — see android_entry.py's SSL_CERT_FILE
+            // setup, which needs this package to actually be present.
+            install "certifi"
+        }
+    }
+    sourceSets {
+        main {
+            // Points at the repo root (two levels up from android/app) so the
+            // existing video_downloader/ package is bundled directly from source —
+            // no separate copy, no wheel-building step. Everything except the
+            // package itself is excluded: in particular "android/**" must be
+            // excluded because it contains this very Gradle project's own build/
+            // output directory, which otherwise creates an implicit-dependency
+            // conflict between :app:mergeDebugPythonSources and the tasks that
+            // produce Android build outputs nested inside the same source tree.
+            srcDir "${projectDir}/../.."
+            exclude "android/**"
+            exclude "tests/**"
+            exclude "scripts/**"
+            exclude "docs/**"
+            exclude ".git/**"
+            exclude ".venv/**"
+            exclude "dist/**"
+            exclude "build/**"
+            exclude "bundled_bins/**"
+            // Cloudflare Worker + marketing website for the paid tier's backend —
+            // JS/HTML for a separate deployment, not part of the Python package.
+            exclude "pro/**"
+            // Play Console listing assets (icon/screenshots/feature graphic) —
+            // marketing files, not part of the Python package.
+            exclude "store_assets/**"
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.webkit:webkit:1.12.1'
+    // DocumentFile wraps the SAF (Storage Access Framework) tree-Uri APIs used
+    // by android_bridge.export_file() to copy finished downloads into a
+    // user-chosen folder (see MainActivity's folder picker).
+    implementation 'androidx.documentfile:documentfile:1.0.1'
+}

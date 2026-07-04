@@ -2,6 +2,7 @@
 
 import argparse
 from dataclasses import replace
+import os
 import shutil
 import sys
 import time
@@ -23,7 +24,7 @@ from .scheduler_windows import install_scheduler, uninstall_scheduler
 from .subscriptions import sync_due_subscriptions
 from .utils import ensure_output_dir, safe_filename
 
-NEW_COMMANDS = {"download", "queue", "profile", "sub", "history", "tui", "ui", "scrape"}
+NEW_COMMANDS = {"download", "queue", "profile", "sub", "history", "tui", "ui", "scrape", "web"}
 
 
 def main() -> None:
@@ -97,6 +98,9 @@ def _dispatch_command(
         return
     if args.command == "scrape":
         _command_scrape(console, config, args)
+        return
+    if args.command == "web":
+        _command_web(console, store, config, args)
         return
     raise ValueError(f"Unknown command: {args.command}")
 
@@ -405,6 +409,35 @@ def _command_easy_ui(config: AppConfig, args: argparse.Namespace) -> None:
         default_output_dir=str(Path(output).expanduser().resolve()),
         initial_method=args.method,
         initial_cookies_from_browser=args.cookies_from_browser,
+    )
+
+
+def _command_web(
+    console: Console,
+    store: QueueStore,
+    config: AppConfig,
+    args: argparse.Namespace,
+) -> None:
+    from .web.server import run_server
+
+    password = args.password or os.environ.get("CLASSYDL_WEB_PASSWORD", "")
+    if not password:
+        raise ValueError(
+            "Refusing to start without a password. Pass --password or set CLASSYDL_WEB_PASSWORD."
+        )
+
+    output = args.output if args.output else config.default_output_dir
+    output_dir = ensure_output_dir(Path(output).expanduser().resolve())
+    workers = args.workers if args.workers else config.default_workers
+
+    console.print(f"[bold magenta]Starting Gothic web UI on http://{args.host}:{args.port}[/bold magenta]")
+    run_server(
+        store=store,
+        output_dir=output_dir,
+        password=password,
+        host=args.host,
+        port=args.port,
+        workers=workers,
     )
 
 
@@ -848,6 +881,20 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Extract audio only as high-quality MP3 (320 kbit/s)",
     )
+
+    # ── web command ─────────────────────────────────────────────────────
+    web_parser = subparsers.add_parser(
+        "web",
+        help="Launch the browser-based Gothic UI (reachable from phone/any device)",
+    )
+    web_parser.add_argument("--host", default="0.0.0.0", help="Bind address (default: 0.0.0.0)")
+    web_parser.add_argument("--port", type=int, default=8420, help="Bind port (default: 8420)")
+    web_parser.add_argument(
+        "--password",
+        help="Password required to access the site (or set CLASSYDL_WEB_PASSWORD)",
+    )
+    web_parser.add_argument("--workers", type=int, help="Concurrent download workers (default: config)")
+    web_parser.add_argument("-o", "--output", help="Output directory for web downloads")
 
     return parser
 

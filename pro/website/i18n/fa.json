@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "دانلود رسانه از بیشتر سایت‌ها، روی هر دستگاهی",
+    "login": {
+      "title": "ورود",
+      "password_label": "رمز عبور",
+      "unlock_btn": "باز کردن قفل",
+      "error": "رمز عبور اشتباه است."
+    },
+    "license": {
+      "title": "لایسنس",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "ذخیره",
+      "buy_btn": "دریافت نسخه پرو",
+      "status_active": "نسخه پرو فعال است ({tier}). از حمایت شما سپاسگزاریم!",
+      "status_invalid": "رایگان — کلید ذخیره‌شده نامعتبر یا منقضی‌شده است.",
+      "status_free": "رایگان — روزی ۳ دانلود. نسخه پرو: نامحدود.",
+      "need_key_toast": "ابتدا یک کلید لایسنس وارد کنید.",
+      "activated_toast": "لایسنس فعال شد.",
+      "invalid_toast": "کلید لایسنس نامعتبر است."
+    },
+    "scrape": {
+      "title": "جستجوی صفحه",
+      "url_label": "آدرس صفحه",
+      "deep_label": "جستجوی عمیق (دنبال کردن لینک‌ها)",
+      "video_btn": "دانلود ویدیو",
+      "audio_btn": "دانلود صدا",
+      "search_btn": "جستجوی صفحه",
+      "select_all": "انتخاب همه",
+      "deselect_all": "لغو انتخاب همه",
+      "clear": "پاک کردن لیست",
+      "queue_selected": "دانلود موارد انتخاب‌شده",
+      "results_count": "{total} مورد یافت شد، {picked} مورد انتخاب شد",
+      "empty": "هیچ رسانه‌ای در این صفحه یافت نشد.",
+      "need_url_toast": "ابتدا یک آدرس وارد کنید.",
+      "search_failed_toast": "جستجو ناموفق بود.",
+      "queue_failed_toast": "افزودن به صف ناموفق بود.",
+      "queue_selection_failed_toast": "افزودن موارد انتخاب‌شده به صف ناموفق بود.",
+      "need_selection_toast": "حداقل یک مورد را انتخاب کنید.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "صف",
+      "subtitle": "به‌طور خودکار به‌روزرسانی می‌شود.",
+      "empty": "هنوز چیزی در صف نیست.",
+      "cancel_btn": "لغو",
+      "cancel_failed_toast": "لغو ناموفق بود.",
+      "queued_toast": "به صف اضافه شد.",
+      "open_btn": "باز کردن",
+      "open_failed_toast": "این فایل باز نشد — به‌جای آن از لینک استفاده کنید.",
+      "open_unsupported_toast": "باز کردن فایل‌ها فقط در اپلیکیشن اندروید امکان‌پذیر است.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "تنظیمات",
+      "title": "تنظیمات",
+      "language_label": "زبان",
+      "language_auto": "خودکار (زبان دستگاه)",
+      "folder_label": "پوشه دانلود",
+      "folder_default": "حافظه اپلیکیشن (پیش‌فرض)",
+      "folder_pick_btn": "انتخاب پوشه",
+      "folder_reset_btn": "بازگشت به پیش‌فرض",
+      "folder_not_supported": "فقط در اپلیکیشن اندروید در دسترس است.",
+      "folder_picking": "در انتظار انتخاب پوشه…",
+      "saved_toast": "تنظیمات ذخیره شد.",
+      "close_btn": "بستن"
+    },
+    "footer": "DownloadThat — فقط رسانه‌ای را دانلود کنید که حق استفاده از آن را دارید.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "محدودیت روزانه پر شد",
+      "body": "شما به سقف رایگان امروز یعنی ۳ دانلود رسیده‌اید. برای دانلود نامحدود، کلید لایسنس را در زیر وارد کنید یا ۲۴ ساعت دیگر دوباره امتحان کنید."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — دانلودکننده ویدیو، صدا و تصویر برای اندروید",
+      "description": "ویدیو، صدا و تصاویر را مستقیم روی گوشی اندرویدتان دانلود کنید. بدون Play Store، بدون تبلیغات، بدون وابستگی. هسته رایگان، نسخه پرو از ۱ یورو در ماه."
+    },
+    "nav": {
+      "features": "ویژگی‌ها",
+      "pricing": "قیمت‌گذاری",
+      "faq": "سوالات متداول",
+      "download": "دانلود"
+    },
+    "hero": {
+      "eyebrow": "هسته رایگان · بدون تبلیغات · بدون نیاز به حساب کاربری",
+      "title_html": "دانلود {emphasis}.<br/>مستقیم روی گوشی شما.",
+      "title_emphasis": "تقریباً همه‌چیز",
+      "lead": "ویدیو، صدا و تصاویر از تقریباً هر سایتی — مستقیماً روی گوشی اندرویدتان دانلود می‌شود. بدون آپلود در فضای ابری، بدون خروج داده از دستگاهتان، بدون نیاز به Play Store.",
+      "cta_primary": "دانلود نسخه رایگان اندروید",
+      "cta_secondary": "مشاهده قیمت نسخه پرو",
+      "badge1": "بدون نیاز به Google Play",
+      "badge2": "۱۰۰٪ روی دستگاه شما اجرا می‌شود",
+      "badge3": "پشتیبانی از HD و 4K",
+      "badge4": "هسته برای همیشه رایگان"
+    },
+    "features": {
+      "h2": "هر چیزی که نیاز دارید، بدون اضافات",
+      "lead": "یک دانلودکننده سریع و خصوصی که به‌درستی کار می‌کند — با یک نسخه پرو برای کسانی که به امکانات بیشتری نیاز دارند.",
+      "f1_title": "بیشتر ویدیوها یا فایل‌های صوتی",
+      "f1_desc": "یک لینک را جای‌گذاری کنید، کیفیت را انتخاب کنید و دانلود کنید. با اکثر سایت‌های ویدیو، صدا و تصویر کار می‌کند — نه با سرویس‌های دارای محافظت DRM مانند Spotify یا Netflix.",
+      "f2_title": "دانلود دسته‌ای",
+      "f2_desc": "یک صفحه را برای یافتن تمام فایل‌های رسانه‌ای اسکن کنید و آن‌ها را با امکان انتخاب/لغو انتخاب، با هم دانلود کنید.",
+      "f3_title": "طراحی‌شده برای حریم خصوصی",
+      "f3_desc": "همه‌چیز به‌صورت محلی روی گوشی شما اجرا می‌شود. هیچ‌چیز به سروری که کنترلی روی آن ندارید آپلود نمی‌شود.",
+      "f4_title": "بدون تبلیغات، بدون ردیابی",
+      "f4_desc": "بدون شبکه‌های تبلیغاتی، بدون SDKهای تحلیلی، بدون پرداخت‌های اجباری پنهان. فقط خود اپلیکیشن.",
+      "f5_title": "استخراج صدا",
+      "f5_desc": "فقط ترک صوتی هر ویدیویی را استخراج کرده و به‌صورت MP3 ذخیره کنید.",
+      "f6_title": "بدون نیاز به فروشگاه اپلیکیشن",
+      "f6_desc": "نسخه اندروید را مستقیماً نصب کنید. بدون حساب کاربری، بدون فرآیند بررسی Play Store، بدون محدودیت منطقه‌ای."
+    },
+    "pricing": {
+      "h2": "قیمت‌گذاری ساده و شفاف",
+      "lead": "برای همیشه رایگان: روزی یک دانلود با کیفیت کامل HD/4K. با نسخه پرو نامحدود.",
+      "monthly_title": "ماهانه",
+      "monthly_note": "هر زمان قابل لغو",
+      "yearly_flag": "بهترین ارزش",
+      "yearly_title": "سالانه",
+      "yearly_note": "کمتر از ۰.۶۷ یورو در ماه",
+      "lifetime_title": "مادام‌العمر",
+      "lifetime_amount_suffix": "پرداخت یک‌باره",
+      "lifetime_note": "یک‌بار پرداخت کنید، برای همیشه استفاده کنید",
+      "feature_unlimited": "دانلود نامحدود (بدون سقف روزانه)",
+      "feature_batch": "دانلود دسته‌ای",
+      "feature_priority_updates": "به‌روزرسانی‌های اولویت‌دار",
+      "feature_all_updates": "شامل تمام به‌روزرسانی‌های آینده",
+      "cta_monthly": "انتخاب ماهانه",
+      "cta_yearly": "انتخاب سالانه",
+      "cta_lifetime": "انتخاب مادام‌العمر",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+    },
+    "faq": {
+      "h2": "سوالات متداول",
+      "q1_title": "آیا برای استفاده از اپلیکیشن به نسخه پرو نیاز دارم؟",
+      "q1_body": "خیر. اپلیکیشن رایگان و کاملاً قابل استفاده است. نسخه پرو محدودیت‌ها را برمی‌دارد و از توسعه اپلیکیشن حمایت می‌کند.",
+      "q2_title": "آیا این اپلیکیشن بدون Google Play کار می‌کند؟",
+      "q2_body": "بله — این یک نسخه مستقل اندروید است که مستقیماً نصب می‌کنید. نیازی به حساب کاربری یا تأیید Play Store نیست.",
+      "q3_title": "کلید لایسنس خود را کجا وارد کنم؟",
+      "q3_body": "بلافاصله پس از خرید، کلید لایسنس خود را در صفحه تأیید مشاهده خواهید کرد — آن را در تنظیمات اپلیکیشن وارد کنید.",
+      "q4_title": "آیا می‌توانم وجه پرداختی خود را پس بگیرم؟",
+      "q4_body": "ظرف ۱۴ روز پس از خرید با ما تماس بگیرید تا بدون هیچ سوالی وجه شما را بازگردانیم.",
+      "q5_title": "آیا این کار قانونی است؟",
+      "q5_body": "شما مسئول نحوه استفاده از محتوای دانلودشده هستید. لطفاً به حق کپی‌رایت و شرایط سایت‌هایی که از آن‌ها دانلود می‌کنید احترام بگذارید."
+    },
+    "footer": {
+      "download": "دانلود",
+      "pricing": "قیمت‌گذاری",
+      "imprint": "اطلاعات ناشر",
+      "privacy": "حریم خصوصی",
+      "support": "پشتیبانی",
+      "copyright": "© ۲۰۲۶ DownloadThat. تمامی حقوق محفوظ است.",
+      "terms": "Terms",
+      "home": "Home"
+    },
+    "success": {
+      "title": "متشکریم — DownloadThat پرو",
+      "h1": "از خرید شما متشکریم!",
+      "lead": "کلید لایسنس شما در زیر آمده است — آن را در تنظیمات اپلیکیشن وارد کنید.",
+      "pending": "در حال نهایی‌سازی خرید شما…",
+      "tier_monthly": "ماهانه",
+      "tier_yearly": "سالانه",
+      "tier_lifetime": "مادام‌العمر",
+      "plan_label": "طرح",
+      "copy_btn": "کپی کلید",
+      "not_installed": "هنوز اپلیکیشن را ندارید؟",
+      "download_app": "دانلود اپلیکیشن",
+      "error": "هنوز نتوانستیم لایسنس شما را پیدا کنیم. لطفاً چند لحظه دیگر این صفحه را دوباره بارگذاری کنید.",
+      "no_session": "نشست یافت نشد — لطفاً از لینک موجود در تأییدیه خرید خود استفاده کنید.",
+      "footer_note": "این صفحه به‌طور خودکار برای چند ثانیه پس از پرداخت بررسی می‌شود. اگر چیزی نمایش داده نشد، صفحه را دوباره بارگذاری کنید یا همراه با تأییدیه پرداخت خود به {support_email} ایمیل بزنید."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
+    }
+  }
+}

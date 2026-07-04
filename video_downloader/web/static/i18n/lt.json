@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Atsisiųsk turinį iš daugumos svetainių, bet kuriame įrenginyje",
+    "login": {
+      "title": "Prisijungimas",
+      "password_label": "Slaptažodis",
+      "unlock_btn": "Atrakinti",
+      "error": "Neteisingas slaptažodis."
+    },
+    "license": {
+      "title": "Licencija",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Išsaugoti",
+      "buy_btn": "Įsigyti Pro",
+      "status_active": "Pro aktyvi ({tier}). Dėkojame už paramą!",
+      "status_invalid": "Nemokama versija — išsaugotas raktas negalioja arba nebegaliojantis.",
+      "status_free": "Nemokama versija — 3 atsisiuntimai per dieną. Pro: neribotai.",
+      "need_key_toast": "Pirmiausia įveskite licencijos raktą.",
+      "activated_toast": "Licencija aktyvuota.",
+      "invalid_toast": "Neteisingas licencijos raktas."
+    },
+    "scrape": {
+      "title": "Ieškoti puslapyje",
+      "url_label": "Puslapio URL",
+      "deep_label": "Gilioji paieška (sekti nuorodas)",
+      "video_btn": "Atsisiųsti vaizdo įrašą",
+      "audio_btn": "Atsisiųsti garso įrašą",
+      "search_btn": "Ieškoti puslapyje",
+      "select_all": "Pažymėti viską",
+      "deselect_all": "Panaikinti žymėjimą",
+      "clear": "Išvalyti sąrašą",
+      "queue_selected": "Atsisiųsti pažymėtus",
+      "results_count": "Rasta: {total}, pažymėta: {picked}",
+      "empty": "Šiame puslapyje turinio nerasta.",
+      "need_url_toast": "Pirmiausia įveskite URL.",
+      "search_failed_toast": "Paieška nepavyko.",
+      "queue_failed_toast": "Nepavyko pridėti į eilę.",
+      "queue_selection_failed_toast": "Nepavyko pridėti pažymėtų į eilę.",
+      "need_selection_toast": "Pažymėkite bent vieną elementą.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "Eilė",
+      "subtitle": "Atnaujinama automatiškai.",
+      "empty": "Eilėje kol kas nieko nėra.",
+      "cancel_btn": "Atšaukti",
+      "cancel_failed_toast": "Nepavyko atšaukti.",
+      "queued_toast": "Pridėta į eilę.",
+      "open_btn": "Atidaryti",
+      "open_failed_toast": "Nepavyko atidaryti šio failo — pabandykite nuorodą.",
+      "open_unsupported_toast": "Failų atidarymas veikia tik „Android“ programėlėje.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Nustatymai",
+      "title": "Nustatymai",
+      "language_label": "Kalba",
+      "language_auto": "Automatinė (įrenginio kalba)",
+      "folder_label": "Atsisiuntimų aplankas",
+      "folder_default": "Programėlės saugykla (numatytoji)",
+      "folder_pick_btn": "Pasirinkti aplanką",
+      "folder_reset_btn": "Atkurti numatytąjį",
+      "folder_not_supported": "Prieinama tik „Android“ programėlėje.",
+      "folder_picking": "Laukiama aplanko pasirinkimo…",
+      "saved_toast": "Nustatymai išsaugoti.",
+      "close_btn": "Uždaryti"
+    },
+    "footer": "DownloadThat — atsisiųskite tik tą turinį, kurį turite teisę atsisiųsti.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Pasiekta dienos riba",
+      "body": "Pasiekėte šiandienos nemokamą 3 atsisiuntimų ribą. Įveskite licencijos raktą neribotiems atsisiuntimams arba bandykite dar kartą po 24 valandų."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — vaizdo, garso ir nuotraukų atsisiuntimo programėlė „Android“",
+      "description": "Atsisiųsk vaizdo įrašus, garso įrašus ir nuotraukas tiesiai į „Android“ telefoną. Jokios „Play Store“, jokios reklamos, jokių įsipareigojimų. Nemokama pagrindinė versija, Pro nuo 1 €/mėn."
+    },
+    "nav": {
+      "features": "Galimybės",
+      "pricing": "Kainos",
+      "faq": "DUK",
+      "download": "Atsisiųsti"
+    },
+    "hero": {
+      "eyebrow": "Nemokama pagrindinė versija · Jokios reklamos · Paskyra nereikalinga",
+      "title_html": "Atsisiųsk {emphasis}.<br/>Tiesiai į telefoną.",
+      "title_emphasis": "beveik viską",
+      "lead": "Vaizdo įrašai, garso įrašai ir nuotraukos iš beveik bet kurios svetainės — atsisiunčiami tiesiai į „Android“ telefoną. Jokio įkėlimo į debesį, jokie duomenys nepalieka jūsų įrenginio, „Play Store“ nereikalinga.",
+      "cta_primary": "Atsisiųsti nemokamą Android versiją",
+      "cta_secondary": "Peržiūrėti Pro kainas",
+      "badge1": "„Google Play“ nereikalinga",
+      "badge2": "Veikia 100 % jūsų įrenginyje",
+      "badge3": "HD ir 4K palaikymas",
+      "badge4": "Pagrindinė versija visada nemokama"
+    },
+    "features": {
+      "h2": "Viskas, ko reikia, ir nieko nereikalingo",
+      "lead": "Greitas ir privatus atsisiuntimo įrankis, kuris tiesiog veikia — su Pro lygiu tiems, kam reikia daugiau.",
+      "f1_title": "Dauguma vaizdo ar garso įrašų",
+      "f1_desc": "Įklijuok nuorodą, pasirink kokybę, atsisiųsk. Veikia su dauguma vaizdo, garso ir nuotraukų svetainių — ne su DRM apsaugotomis paslaugomis, tokiomis kaip Spotify ar Netflix.",
+      "f2_title": "Atsisiuntimai grupėmis",
+      "f2_desc": "Nuskenuok puslapį ir rask visus jame esančius failus, tada atsisiųsk juos kartu, pažymėdamas arba panaikindamas žymėjimą.",
+      "f3_title": "Privatumas iš esmės",
+      "f3_desc": "Viskas vyksta vietoje, tavo telefone. Niekas neįkeliama į tau nepriklausantį serverį.",
+      "f4_title": "Jokios reklamos, jokio sekimo",
+      "f4_desc": "Jokių reklamos tinklų, jokių analitikos SDK, jokių apgaulingų mokėjimo langų. Tik programėlė.",
+      "f5_title": "Garso ištraukimas",
+      "f5_desc": "Ištrauk vien garso takelį iš bet kurio vaizdo įrašo ir išsaugok kaip MP3.",
+      "f6_title": "Programėlių parduotuvė nereikalinga",
+      "f6_desc": "Įdiek Android versiją tiesiogiai. Jokios paskyros, jokio „Play Store“ peržiūros proceso, jokių regiono apribojimų."
+    },
+    "pricing": {
+      "h2": "Paprastos, sąžiningos kainos",
+      "lead": "Visada nemokama: 1 atsisiuntimas per dieną pilnos HD/4K kokybės. Neribotai su Pro.",
+      "monthly_title": "Mėnesinis",
+      "monthly_note": "Atšauk bet kada",
+      "yearly_flag": "Geriausia vertė",
+      "yearly_title": "Metinis",
+      "yearly_note": "Mažiau nei 0,67 €/mėn.",
+      "lifetime_title": "Visam laikui",
+      "lifetime_amount_suffix": "vienkartinis mokėjimas",
+      "lifetime_note": "Sumokėk vieną kartą, naudokis visada",
+      "feature_unlimited": "Neriboti atsisiuntimai (be dienos limito)",
+      "feature_batch": "Atsisiuntimai grupėmis",
+      "feature_priority_updates": "Prioritetiniai atnaujinimai",
+      "feature_all_updates": "Įtraukti visi būsimi atnaujinimai",
+      "cta_monthly": "Rinktis mėnesinį",
+      "cta_yearly": "Rinktis metinį",
+      "cta_lifetime": "Rinktis visam laikui",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+    },
+    "faq": {
+      "h2": "Dažniausiai užduodami klausimai",
+      "q1_title": "Ar norint naudotis programėle būtina Pro versija?",
+      "q1_body": "Ne. Programėlė nemokama ir visiškai naudotina. Pro panaikina apribojimus ir palaiko kūrimą.",
+      "q2_title": "Ar tai veikia be „Google Play“?",
+      "q2_body": "Taip — tai atskira Android versija, kurią įdiegi tiesiogiai. „Play Store“ paskyra ar patvirtinimas nereikalingi.",
+      "q3_title": "Kur įvesti savo licencijos raktą?",
+      "q3_body": "Iškart po pirkimo patvirtinimo puslapyje pamatysi savo licencijos raktą — įvesk jį programėlės nustatymuose.",
+      "q4_title": "Ar galiu susigrąžinti pinigus?",
+      "q4_body": "Susisiek su mumis per 14 dienų nuo pirkimo, ir be papildomų klausimų grąžinsime pinigus.",
+      "q5_title": "Ar tai teisėta?",
+      "q5_body": "Tu pats atsakai už tai, kaip naudoji atsisiųstą turinį. Prašome gerbti autorių teises ir svetainių, iš kurių atsisiunčiate, taisykles."
+    },
+    "footer": {
+      "download": "Atsisiųsti",
+      "pricing": "Kainos",
+      "imprint": "Įmonės rekvizitai",
+      "privacy": "Privatumas",
+      "support": "Pagalba",
+      "copyright": "© 2026 DownloadThat. Visos teisės saugomos.",
+      "terms": "Terms",
+      "home": "Home"
+    },
+    "success": {
+      "title": "Ačiū — DownloadThat Pro",
+      "h1": "Dėkojame už pirkinį!",
+      "lead": "Tavo licencijos raktas žemiau — įvesk jį programėlės nustatymuose.",
+      "pending": "Baigiama tvarkyti tavo pirkimą…",
+      "tier_monthly": "Mėnesinis",
+      "tier_yearly": "Metinis",
+      "tier_lifetime": "Visam laikui",
+      "plan_label": "Planas",
+      "copy_btn": "Kopijuoti raktą",
+      "not_installed": "Dar neturi programėlės?",
+      "download_app": "Atsisiųsti programėlę",
+      "error": "Kol kas nepavyko rasti tavo licencijos. Perkrauk šį puslapį po akimirkos.",
+      "no_session": "Trūksta sesijos — naudok nuorodą iš pirkimo patvirtinimo.",
+      "footer_note": "Šis puslapis automatiškai tikrina po apmokėjimo kelias sekundes. Jei nieko neatsiranda, perkrauk puslapį arba parašyk el. paštu {support_email} su savo mokėjimo patvirtinimu."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
+    }
+  }
+}

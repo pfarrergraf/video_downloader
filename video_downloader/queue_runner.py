@@ -23,6 +23,17 @@ from .utils import ensure_output_dir
 BACKOFF_SECONDS = (5, 20, 60)
 
 
+def _format_workflow_error(exc: DownloadWorkflowError) -> str:
+    # str(exc) alone is just the generic "All download methods failed." -
+    # exc.attempts carries each strategy's real failure message, which used
+    # to be discarded here, making every failed job equally uninformative
+    # regardless of the actual cause (extractor error, network error, etc.).
+    if not exc.attempts:
+        return str(exc)
+    details = "; ".join(f"{attempt.method}: {attempt.message}" for attempt in exc.attempts)
+    return f"{exc}: {details}"
+
+
 @dataclass(slots=True)
 class RunSummary:
     processed: int = 0
@@ -99,7 +110,7 @@ class QueueRunner:
                 self.store.mark_job_completed(job.id, files, details=result.details)
                 return True
             except DownloadWorkflowError as exc:
-                error = str(exc)
+                error = _format_workflow_error(exc)
             except Exception as exc:  # pragma: no cover - defensive catch for worker threads
                 error = str(exc)
 
@@ -127,9 +138,17 @@ class QueueRunner:
         return self.store.ensure_default_profile()
 
     def _build_request(self, job: JobRecord, profile: DownloadProfile) -> DownloadRequest:
-        output_dir = ensure_output_dir(
+        base_output_dir = (
             Path(job.output_dir).expanduser().resolve() if job.output_dir else self.default_output_dir
         )
+        # Each job gets its own subdirectory rather than sharing one flat folder.
+        # strategies.YtDlpStrategy._find_new_files falls back to "whatever file
+        # appeared in the output dir since I started" when yt-dlp's own reported
+        # filename can't be confirmed (e.g. a delayed stat() on Android's shared
+        # storage FUSE bridge) — with a shared folder that fallback can attribute
+        # a *different* job's (or an old, pre-existing) file to this job. A
+        # per-job directory makes that misattribution structurally impossible.
+        output_dir = ensure_output_dir(base_output_dir / f"job-{job.id}")
 
         external_downloader: str | None = None
         external_downloader_args: str | None = None
@@ -159,6 +178,10 @@ class QueueRunner:
             external_downloader_args=external_downloader_args,
             job_id=job.id,
             profile_name=profile.name,
+            quality_height=job.quality_height,
+            progress_callback=lambda downloaded, total, _job_id=job.id: self.store.update_job_progress(
+                _job_id, downloaded, total
+            ),
         )
 
     def _log(self, message: str) -> None:

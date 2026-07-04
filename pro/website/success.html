@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title data-i18n="website.success.title">Thank you — DownloadThat Pro</title>
+<style>
+  :root {
+    --bg: #0e0c14; --card: #1b1626; --border: #2c2438;
+    --text: #f1ede4; --text-dim: #a89fb3; --accent: #c9a869;
+  }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 480px; margin: 10vh auto; padding: 0 24px; text-align: center; }
+  h1 { font-size: 1.7rem; margin-bottom: 8px; }
+  p.lead { color: var(--text-dim); margin-bottom: 32px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; }
+  .key {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.15rem;
+    color: var(--accent); letter-spacing: 0.02em; word-break: break-all; margin: 14px 0;
+  }
+  .btn {
+    display: inline-block; margin-top: 14px; padding: 10px 20px; border-radius: 8px;
+    background: var(--accent); color: #14111c; font-weight: 600; cursor: pointer; border: none; font-size: 0.9rem;
+  }
+  .muted { color: var(--text-dim); font-size: 0.85rem; margin-top: 18px; }
+  .spinner { color: var(--text-dim); }
+  .lang-switcher {
+    background: var(--card); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; font-family: inherit; cursor: pointer;
+    margin-bottom: 18px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <select class="lang-switcher" aria-label="Language"></select>
+  <h1 data-i18n="website.success.h1">Thanks for your purchase!</h1>
+  <p class="lead" data-i18n="website.success.lead">Your license key is below — enter it in the app's settings.</p>
+  <div class="card" id="result">
+    <p class="spinner" data-i18n="website.success.pending">Finishing up your purchase…</p>
+  </div>
+  <p class="muted" id="footer-note"></p>
+</div>
+
+<script src="/i18n.js"></script>
+<script>
+  // /api/* is served by this same Pages project (see functions/api/) — no
+  // separate backend URL to configure, since site and API deploy together.
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get("session_id");
+  const resultEl = document.getElementById("result");
+  const SUPPORT_EMAIL = "support@gaistreich.com";
+
+  // The result/footer panels are built dynamically (not static data-i18n
+  // markup), so they need to be re-rendered whenever the language changes —
+  // track the last known state and replay it after dtSetLanguage() runs.
+  let lastState = { kind: "pending" };
+
+  function renderFooterNote() {
+    document.getElementById("footer-note").innerHTML = dtT("website.success.footer_note", {
+      support_email: `<a href="mailto:${SUPPORT_EMAIL}" style="color:var(--accent)">${SUPPORT_EMAIL}</a>`,
+    });
+  }
+
+  function renderKey(licenseKey, tier) {
+    const tierKey = { monthly: "website.success.tier_monthly", yearly: "website.success.tier_yearly", lifetime: "website.success.tier_lifetime" }[tier];
+    const tierLabel = tierKey ? dtT(tierKey) : tier;
+    resultEl.innerHTML = `
+      <div>${dtT("website.success.plan_label")}: <strong>${tierLabel}</strong></div>
+      <div class="key">${licenseKey}</div>
+      <button class="btn" onclick="navigator.clipboard.writeText('${licenseKey}')">${dtT("website.success.copy_btn")}</button>
+      <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);">
+        <p class="muted" style="margin:0 0 10px;">${dtT("website.success.not_installed")}</p>
+        <a class="btn" href="/download">${dtT("website.success.download_app")}</a>
+      </div>
+    `;
+  }
+
+  function renderError() {
+    resultEl.innerHTML = `<p>${dtT("website.success.error")}</p>`;
+  }
+
+  function renderNoSession() {
+    resultEl.innerHTML = `<p>${dtT("website.success.no_session")}</p>`;
+  }
+
+  function replayState() {
+    renderFooterNote();
+    if (lastState.kind === "key") renderKey(lastState.licenseKey, lastState.tier);
+    else if (lastState.kind === "error") renderError();
+    else if (lastState.kind === "no_session") renderNoSession();
+  }
+
+  const originalSetLanguage = dtSetLanguage;
+  dtSetLanguage = async (pref) => { await originalSetLanguage(pref); replayState(); };
+
+  async function poll() {
+    if (!sessionId) {
+      lastState = { kind: "no_session" };
+      renderNoSession();
+      return;
+    }
+    for (let i = 0; i < 8; i++) {
+      try {
+        const res = await fetch(`/api/license-for-session?session_id=${encodeURIComponent(sessionId)}`);
+        const data = await res.json();
+        if (data.found) {
+          lastState = { kind: "key", licenseKey: data.license_key, tier: data.tier };
+          renderKey(data.license_key, data.tier);
+          return;
+        }
+      } catch (err) {
+        // ignore and retry
+      }
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+    }
+    lastState = { kind: "error" };
+    renderError();
+  }
+
+  dtInitI18n().then(() => {
+    renderFooterNote();
+    poll();
+  });
+</script>
+</body>
+</html>

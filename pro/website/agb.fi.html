@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Käyttöehdot — DownloadThat</title>
+<style>
+  :root {
+    --bg: #0e0c14;
+    --bg-elevated: #16121f;
+    --card: #1b1626;
+    --border: #2c2438;
+    --text: #f1ede4;
+    --text-dim: #a89fb3;
+    --accent: #c9a869;
+    --accent-dim: #8a713f;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(14, 12, 20, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 720px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.02em; color: var(--text); }
+  .brand-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(160deg, var(--accent), var(--accent-dim));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: #14111c;
+  }
+
+  main { padding: 56px 24px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 8px; }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 40px; }
+  h2 { font-size: 1.15rem; color: var(--accent); margin: 36px 0 10px; }
+  h3 { font-size: 1rem; color: var(--text); margin: 24px 0 8px; }
+  p, li { color: var(--text-dim); line-height: 1.7; margin: 0 0 12px; }
+  ul { padding-left: 20px; margin: 0 0 12px; }
+  strong { color: var(--text); }
+  .notice {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 36px; font-size: 0.9rem; color: var(--text-dim);
+  }
+  .highlight {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-left: 3px solid #ff8a5c; border-radius: 8px;
+    padding: 16px 20px; margin: 16px 0; font-size: 0.95rem;
+  }
+
+  footer { border-top: 1px solid var(--border); padding: 36px 24px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+  footer a { color: var(--text-dim); }
+  footer .foot-links { display: flex; gap: 18px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+  .lang-switcher {
+    background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; font-family: inherit; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="brand-icon">⬇</span> DownloadThat</a>
+    <span id="legal-lang-switcher"></span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Käyttöehdot</h1>
+    <p class="subtitle">Viimeksi päivitetty: heinäkuu 2026</p>
+
+    <div class="notice">
+      Tämä on käännös, joka on tarjottu vain käyttömukavuuden vuoksi. Saksankielinen
+      alkuperäisversio (<a href="agb.html">Nutzungsbedingungen</a>) on oikeudellisesti
+      sitova ja Saksan lain alainen versio; mahdollisten ristiriitojen tapauksessa
+      saksankielinen alkuperäisteksti on ratkaiseva.
+    </div>
+
+    <h2>§1 Soveltamisala</h2>
+    <p>
+      Nämä käyttöehdot koskevat sovelluksen "DownloadThat" ("Sovellus"), siihen
+      liittyvän verkkosivuston sekä valinnaisen Pro-lisenssin käyttöä (yhdessä
+      "Palvelu"), jota tarjoaa Benjamin Graf (ks.
+      <a href="impressum.fi.html">Yhteystiedot</a>, "Palveluntarjoaja"). Ehtoja
+      sovelletaan käyttö- tai sopimuksentekohetkellä voimassa olevassa versiossa.
+      Käyttäjän poikkeavat, ristiriitaiset tai täydentävät ehdot eivät tule osaksi
+      sopimusta, ellei Palveluntarjoaja nimenomaisesti hyväksy niiden soveltamista
+      kirjallisessa muodossa.
+    </p>
+
+    <h2>§2 Palvelun kuvaus</h2>
+    <p>
+      Sovellus on tekninen työkalu, jonka avulla käyttäjät voivat ladata julkisesti
+      saatavilla olevaa internetin mediasisältöä (video, ääni, kuvat) itse
+      valitsemastaan internetosoitteesta (URL) omalle laitteelleen. Palveluntarjoaja
+      ei itse tarjoa mitään mediasisältöä, ei ylläpidä alustaa kolmansien osapuolten
+      sisällölle eikä vaikuta siihen, mitä URL-osoitteita käyttäjät syöttävät
+      Sovellukseen tai mitä näiden osoitteiden takana on.
+    </p>
+    <p>
+      Osa ominaisuuksista ("Pro") on maksullisia ja avaavat suuremman päivittäisen
+      latauskiintiön (ks. hinnoittelusivu). Ilmaisversio pysyy muutoin käytettävissä
+      ilman muutoksia laatuun tai ominaisuuksien laajuuteen. Palveluntarjoaja on
+      velvollinen tarjoamaan vain kulloinkin voimassa olevassa palvelukuvauksessa
+      mainitut ominaisuudet; laatua tai kestävyyttä koskevaa takuuta Saksan
+      siviililain (BGB) 443 §:n tarkoittamassa mielessä ei anneta, ellei sitä
+      nimenomaisesti nimetä "takuuksi".
+    </p>
+
+    <h2>§3 Käytön edellytykset</h2>
+    <p>
+      Sovelluksen käyttö edellyttää oikeustoimikelpoisuutta oikeudellisesti sitovien
+      ilmoitusten antamiseen. Alaikäiset tarvitsevat huoltajansa suostumuksen,
+      erityisesti maksullisen Pro-lisenssin ostamiseen. Käyttäjä vakuuttaa, ettei hän
+      käytä Sovellusta laittomiin tarkoituksiin, haittaohjelmien levittämiseen,
+      kolmansien osapuolten palvelujen automatisoituun massakyselyyn
+      (scraping/botting) eikä millään tavalla, joka vahingoittaa tai vaarantaa
+      kolmansia osapuolia tai Palveluntarjoajaa.
+    </p>
+
+    <h2>§4 Käyttäjän vastuu ladatusta sisällöstä</h2>
+    <div class="highlight">
+      <p>
+        <strong>Käyttäjä on yksin ja täysin vastuussa siitä, että hänellä on oikeus
+        ladata, tallentaa, jäljentää ja käyttää valitsemaansa sisältöä.</strong>
+        Tämä koskee erityisesti tekijänoikeuden, tavaramerkkioikeuden tai
+        henkilöllisyysoikeuksien suojaamia teoksia (esim. musiikkia, elokuvia,
+        videoita, valokuvia). Pelkkä sisällön julkinen saatavuus internetissä ei
+        <strong>anna</strong> mitään oikeutta sen jäljentämiseen tai muuhun
+        käyttöön.
+      </p>
+      <p>
+        Sovellus käsittelee vain käyttäjän itsensä, omasta aloitteestaan ja omalla
+        vastuullaan syöttämiä osoitteita (URL). Palveluntarjoajalla ei ole tietoa
+        käyttäjän käsittelemästä sisällöstä, eikä se voi teknisesti tarkistaa,
+        onko käyttäjällä tarvittavat oikeudet kyseiseen sisältöön, eikä se tee
+        mitään valintaa tai suositusta tietyistä lähteistä eikä ota mitään vastuuta,
+        takuuta tai vastuuvelvollisuutta käyttäjän aloittaman käsittelyn
+        laillisuudesta. Käyttäjät, jotka lataavat sisältöä ilman tarvittavia
+        oikeuksia, toimivat yksin ja täysin omalla oikeudellisella riskillään.
+      </p>
+    </div>
+    <p>
+      Erityisesti on kiellettyä: tekijänoikeudella suojatun sisällön lataaminen,
+      jäljentäminen tai levittäminen ilman oikeudenhaltijan lupaa; teknisten
+      suojatoimenpiteiden kiertäminen Saksan tekijänoikeuslain (UrhG) 95a §:n
+      vastaisesti; sekä mikä tahansa käyttö, joka rikkoo kyseisen lähdealustan
+      käyttöehtoja tai sovellettavaa lakia.
+    </p>
+
+    <h2>§5 Vastuuvapautus</h2>
+    <p>
+      Käyttäjä vapauttaa Palveluntarjoajan ensimmäisestä pyynnöstä kaikista
+      kolmansien osapuolten vaatimuksista — mukaan lukien rajoituksetta
+      tekijänoikeuden, tavaramerkkioikeuden tai henkilöllisyysoikeuksien
+      loukkauksia koskevat vaatimukset, sekä niihin liittyvät kohtuulliset
+      oikeudellisen puolustuksen kustannukset (mukaan lukien asianajaja- ja
+      oikeudenkäyntikulut) — jotka esitetään Palveluntarjoajaa vastaan käyttäjän
+      aloittaman sisällönkäsittelyn tai näiden käyttöehtojen muun rikkomisen
+      seurauksena, siltä osin kuin käyttäjä on vastuussa taustalla olevasta
+      rikkomuksesta. Käyttäjä tukee Palveluntarjoajaa oikeudellisessa
+      puolustuksessa parhaan kykynsä mukaan ja omalla kustannuksellaan.
+    </p>
+
+    <h2>§6 Pro-versio, maksu, peruuttaminen</h2>
+    <h3>6.1 Sopimuksen syntyminen ja maksu</h3>
+    <p>
+      Pro-lisenssi ostetaan maksupalveluntarjoaja Stripen kautta. Onnistuneen
+      maksun jälkeen käyttäjä saa lisenssiavaimen Sovelluksen avaamiseksi.
+      Tietojenkäsittelyn yksityiskohdat, ks.
+      <a href="datenschutz.fi.html">Tietosuojaseloste</a>. Palveluntarjoaja
+      pidättää oikeuden muuttaa hintoja tulevien sopimusten osalta kohtuullisella
+      etukäteisilmoituksella; jo voimassa oleviin sopimuksiin tämä ei vaikuta.
+    </p>
+    <h3>6.2 Kesto ja irtisanominen</h3>
+    <p>
+      Kuukausi- ja vuositilaukset uusiutuvat automaattisesti vastaavaksi kaudeksi,
+      ellei niitä peruuteta ennen erääntymistä. Elinikäinen lisenssi on
+      kertaostos ilman toistuvaa maksua. Peruuttaminen tapahtuu Stripen
+      asiakasportaalin kautta tai sähköpostitse osoitteeseen
+      <a href="mailto:support@gaistreich.com">support@gaistreich.com</a>.
+    </p>
+    <h3>6.3 Digitaalisen sisällön peruuttamisoikeuden ennenaikainen raukeaminen</h3>
+    <p>
+      Kuluttajilla on yleensä 14 päivän peruuttamisoikeus etäsopimuksiin (ks.
+      §7 "Peruuttamisohje" yksityiskohdat). Pro-lisenssin tilausprosessin aikana
+      käyttäjän on ennen maksun käynnistämistä nimenomaisesti ilmoitettava
+      erillistä valintaruutua napsauttamalla, että hän (a) pyytää Palveluntarjoajaa
+      aloittamaan sopimuksen täyttämisen ennen peruuttamisajan päättymistä ja
+      (b) hyväksyy, että tämä johtaa peruuttamisoikeuden menettämiseen heti, kun
+      Palveluntarjoaja on täyttänyt sopimuksen kokonaan. Tämä nimenomainen
+      ilmoitus, joka annetaan itse tilausprosessin aikana, täyttää Saksan
+      siviililain (BGB) 356 §:n 5 momentin vaatimukset. Jos valintaruutua ei
+      valita, tilausta ei voida saattaa loppuun.
+    </p>
+    <p>
+      Riippumatta edellä mainitusta, Palveluntarjoaja myöntää vapaaehtoisesti
+      jokaiselle asiakkaalle oikeuden pyytää täyttä hyvitystä 14 päivän kuluessa
+      ostosta §7:ssä mainitun itsepalvelutoiminnon kautta, vaikka lakisääteinen
+      peruuttamisoikeus olisi jo rauennut. Tämä vapaaehtoinen palautusoikeus
+      edellyttää Pro-ominaisuuksien käyttöä ilman väärinkäyttöä tai loukkauksia
+      kyseisenä aikana, ja Palveluntarjoaja voi perustellussa yksittäistapauksessa
+      evätä sen.
+    </p>
+
+    <h2>§7 Peruuttamisohje</h2>
+    <p>
+      <strong>Peruuttamisoikeus:</strong> Kuluttajilla on oikeus peruuttaa tämä
+      sopimus neljäntoista päivän kuluessa syytä ilmoittamatta. Peruuttamisaika on
+      neljätoista päivää sopimuksen tekemisestä. Peruuttamisoikeuden käyttämiseksi
+      käyttäjän on ilmoitettava Palveluntarjoajalle (yhteystiedot
+      <a href="impressum.fi.html">Yhteystiedoissa</a>) päätöksestään peruuttaa
+      tämä sopimus yksiselitteisellä ilmoituksella (esim. sähköpostitse).
+      Peruuttamisajan noudattamiseksi riittää, että peruuttamisilmoitus lähetetään
+      ennen peruuttamisajan päättymistä. Vaihtoehtoisesti voidaan käyttää
+      <a href="widerruf.html">itsepalveluhyvitystoimintoa</a>.
+    </p>
+    <p>
+      <strong>Peruuttamisen vaikutukset:</strong> Pätevän peruuttamisen
+      tapauksessa Palveluntarjoaja palauttaa kaikki käyttäjältä vastaanotetut
+      maksut peruutetusta palvelusta viipymättä ja viimeistään neljäntoista
+      päivän kuluessa siitä päivästä, jona peruuttamisilmoitus vastaanotettiin,
+      käyttäen samaa maksutapaa kuin alkuperäisessä ostossa, mikäli se on
+      teknisesti mahdollista; muutoin käyttäjän kanssa sovittavalla tavalla.
+    </p>
+    <p>
+      <strong>Ennenaikainen raukeaminen pidätetään:</strong> Peruuttamisoikeus
+      raukeaa ennenaikaisesti §6.3:ssa mainituin edellytyksin (nimenomainen pyyntö
+      sopimuksen välittömästä täyttämisestä ja vahvistus peruuttamisoikeuden
+      menettämisen tiedostamisesta), kun sopimus on täytetty kokonaan.
+    </p>
+    <p>
+      <strong>Mallilomake peruuttamista varten</strong> (valinnainen; täytä ja
+      lähetä <a href="impressum.fi.html">Yhteystiedoissa</a> mainittuihin
+      yhteystietoihin tarvittaessa):
+    </p>
+    <p>
+      "Ilmoitan/ilmoitamme täten, että peruutan/peruutamme sopimukseni seuraavan
+      DownloadThat Pro -lisenssin ostosta: [ilmoita lisenssiavain/taso] —
+      Tilattu: [päivämäärä] — Kuluttajan/kuluttajien nimi — Kuluttajan/kuluttajien
+      osoite — Kuluttajan/kuluttajien allekirjoitus (vain jos tämä lomake
+      toimitetaan paperilla) — Päiväys."
+    </p>
+
+    <h2>§8 Saatavuus</h2>
+    <p>
+      Palveluntarjoaja pyrkii mahdollisimman keskeytymättömään Palvelun
+      saatavuuteen, mutta ei anna tästä mitään takuuta eikä ole velvollinen
+      tiettyyn saatavuuden tasoon. Huoltotyöt, ylivoimainen este tai muutokset
+      Sovelluksen käyttämissä kolmansien osapuolten palveluissa (esim.
+      videoalustat) voivat milloin tahansa ja ilman ennakkoilmoitusvelvollisuutta
+      heikentää tai poistaa yksittäisten ominaisuuksien toimivuuden, ilman että
+      tästä syntyy mitään vaatimuksia Palveluntarjoajaa kohtaan.
+    </p>
+
+    <h2>§9 Vastuu</h2>
+    <p>
+      Palveluntarjoaja vastaa rajoituksetta tahallisuudesta ja törkeästä
+      huolimattomuudesta, hengen, ruumiin tai terveyden vahingoittumisesta
+      aiheutuvista vahingoista sekä Saksan tuotevastuulain mukaisesta vastuusta.
+      Lievästä huolimattomuudesta aiheutuvista velvollisuuksien rikkomisista
+      Palveluntarjoaja vastaa vain siltä osin kuin rikotaan olennaista
+      sopimusvelvoitetta (kardinaalivelvoite eli velvoite, jonka täyttäminen on
+      ylipäätään edellytys sopimuksen asianmukaiselle täyttämiselle ja jonka
+      noudattamiseen käyttäjä voi säännönmukaisesti luottaa), ja siinäkin
+      tapauksessa rajoitetusti tälle sopimustyypille tyypilliseen ennakoitavissa
+      olevaan vahinkoon. Muilta osin Palveluntarjoajan vastuu — riippumatta
+      oikeudellisesta perusteesta, mukaan lukien deliktivastuu — on poissuljettu.
+      Edellä mainitut vastuunrajoitukset koskevat myös Palveluntarjoajan
+      apulaisia ja lakisääteisiä edustajia.
+    </p>
+    <p>
+      Palveluntarjoaja ei erityisesti vastaa, anna takuuta tai ota vastuuta
+      käyttäjän ilmoittamien, Palveluntarjoajan valvonnan ulkopuolella olevien
+      URL-osoitteiden kautta saatavan sisällön saatavuudesta, täydellisyydestä,
+      oikeellisuudesta tai laillisuudesta, eikä mistään vahingoista, kolmansien
+      osapuolten vaatimuksista tai oikeudellisista seurauksista, jotka aiheutuvat
+      käyttäjälle tai kolmansille osapuolille käyttäjän aloittamasta
+      sisällönkäsittelystä (ks. §4). Sovellus tarjotaan "sellaisenaan", ilman
+      takuuta tiettyyn tarkoitukseen sopivuudesta, lain sallimissa rajoissa.
+    </p>
+    <p>
+      Käyttäjän vaatimukset Palveluntarjoajaa kohtaan vanhenevat, lain sallimissa
+      rajoissa, yhden vuoden kuluessa lakisääteisen vanhentumisajan alkamisesta;
+      tätä ei sovelleta tahallisuudesta, törkeästä huolimattomuudesta, hengen,
+      ruumiin tai terveyden vahingoittumisesta aiheutuviin vaatimuksiin tai Saksan
+      tuotevastuulain mukaisiin vaatimuksiin.
+    </p>
+
+    <h2>§10 Näiden käyttöehtojen muuttaminen</h2>
+    <p>
+      Palveluntarjoaja voi muuttaa näitä käyttöehtoja tulevaisuuden osalta
+      siltä osin kuin se on tarpeen muuttuneiden oikeudellisten tai teknisten
+      olosuhteiden huomioimiseksi tai kohtuullisen suhteen ylläpitämiseksi
+      suorituksen ja vastikkeen välillä. Käyttäjille ilmoitetaan olennaisista
+      muutoksista hyvissä ajoin ennen niiden voimaantuloa, Sovelluksessa tai
+      sähköpostitse, ja heitä pyydetään suostumaan uudelleen; jos käyttäjä ei
+      vastusta muutosta kuuden viikon kuluessa, muutokset katsotaan
+      hyväksytyiksi, mistä Palveluntarjoaja mainitsee erikseen muutosilmoituksessa.
+      Olemassa olevat sopimukset jatkuvat muuttumattomina sopimuksentekohetkellä
+      voimassa olleiden ehtojen mukaisesti, ellei toisin pätevästi sovita.
+    </p>
+
+    <h2>§11 Loppusäännökset</h2>
+    <p>
+      Sovelletaan Saksan liittotasavallan lakia pois lukien YK:n kauppalaki
+      (CISG). Jos käyttäjä on kuluttaja, jonka vakituinen asuinpaikka on toisessa
+      EU:n jäsenvaltiossa, tämän lainvalinnan estämättä sovelletaan kyseisen
+      valtion pakottavia kuluttajansuojasäännöksiä, joista ei voida sopimuksella
+      poiketa. Jos käyttäjä on elinkeinonharjoittaja, julkisoikeudellinen
+      oikeushenkilö tai julkisoikeudellinen erityisrahasto, yksinomainen
+      oikeuspaikka kaikissa tästä sopimuksesta johtuvissa tai siihen liittyvissä
+      riidoissa on Palveluntarjoajan rekisteröity kotipaikka. Näiden
+      käyttöehtojen muutokset ja täydennykset sekä liitännäissopimukset
+      edellyttävät kirjallista muotoa; tämä koskee myös tästä
+      kirjallisen muodon vaatimuksesta luopumista. Mikäli näiden käyttöehtojen
+      yksittäiset määräykset ovat tai tulevat pätemättömiksi tai
+      täytäntöönpanokelvottomiksi, muiden määräysten pätevyys ei siitä kärsi;
+      pätemätön tai täytäntöönpanokelvoton määräys korvataan pätevällä ja
+      täytäntöönpanokelpoisella määräyksellä, joka vastaa mahdollisimman
+      läheisesti pätemättömän määräyksen taloudellista tarkoitusta.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html">Etusivu</a>
+      <a href="impressum.fi.html">Yhteystiedot</a>
+      <a href="datenschutz.fi.html">Tietosuoja</a>
+      <a href="agb.fi.html">Käyttöehdot</a>
+      <a href="mailto:support@gaistreich.com">Tuki</a>
+    </div>
+    <div>© 2026 DownloadThat. Kaikki oikeudet pidätetään.</div>
+  </div>
+</footer>
+
+<script src="legal-lang.js" data-doc="agb"></script>
+</body>
+</html>

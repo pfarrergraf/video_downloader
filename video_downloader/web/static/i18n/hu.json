@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Médiatartalmak letöltése a legtöbb oldalról, bármilyen eszközön",
+    "login": {
+      "title": "Bejelentkezés",
+      "password_label": "Jelszó",
+      "unlock_btn": "Feloldás",
+      "error": "Hibás jelszó."
+    },
+    "license": {
+      "title": "Licenc",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Mentés",
+      "buy_btn": "Pro megszerzése",
+      "status_active": "Pro aktív ({tier}). Köszönjük a támogatást!",
+      "status_invalid": "Ingyenes — a mentett kulcs érvénytelen vagy lejárt.",
+      "status_free": "Ingyenes — napi 3 letöltés. Pro: korlátlan.",
+      "need_key_toast": "Először add meg a licenckulcsot.",
+      "activated_toast": "Licenc aktiválva.",
+      "invalid_toast": "Érvénytelen licenckulcs."
+    },
+    "scrape": {
+      "title": "Oldal keresése",
+      "url_label": "Oldal URL-je",
+      "deep_label": "Mély keresés (linkek követése)",
+      "video_btn": "Videó letöltése",
+      "audio_btn": "Hang letöltése",
+      "search_btn": "Oldal átvizsgálása",
+      "select_all": "Összes kijelölése",
+      "deselect_all": "Kijelölés megszüntetése",
+      "clear": "Lista törlése",
+      "queue_selected": "Kijelöltek letöltése",
+      "results_count": "{total} találat, {picked} kiválasztva",
+      "empty": "Nem található médiatartalom ezen az oldalon.",
+      "need_url_toast": "Először add meg az URL-t.",
+      "search_failed_toast": "A keresés sikertelen volt.",
+      "queue_failed_toast": "Nem sikerült sorba állítani.",
+      "queue_selection_failed_toast": "Nem sikerült sorba állítani a kijelölést.",
+      "need_selection_toast": "Válassz ki legalább egy elemet.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "Várólista",
+      "subtitle": "Automatikusan frissül.",
+      "empty": "A várólista még üres.",
+      "cancel_btn": "Mégse",
+      "cancel_failed_toast": "Nem sikerült megszakítani.",
+      "queued_toast": "Sorba állítva.",
+      "open_btn": "Megnyitás",
+      "open_failed_toast": "Nem sikerült megnyitni a fájlt — próbáld inkább a linket.",
+      "open_unsupported_toast": "Fájlok megnyitása csak az Android alkalmazásban működik.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Beállítások",
+      "title": "Beállítások",
+      "language_label": "Nyelv",
+      "language_auto": "Automatikus (eszköz nyelve)",
+      "folder_label": "Letöltési mappa",
+      "folder_default": "Alkalmazás tárhelye (alapértelmezett)",
+      "folder_pick_btn": "Mappa kiválasztása",
+      "folder_reset_btn": "Visszaállítás alapértelmezettre",
+      "folder_not_supported": "Csak az Android alkalmazásban érhető el.",
+      "folder_picking": "Várakozás a mappa kiválasztására…",
+      "saved_toast": "Beállítások mentve.",
+      "close_btn": "Bezárás"
+    },
+    "footer": "DownloadThat — csak olyan médiatartalmat tölts le, amelyhez jogosultsággal rendelkezel.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Napi limit elérve",
+      "body": "Elérted a mai ingyenes limitet, 3 letöltést. Adj meg alább egy licenckulcsot a korlátlan letöltésekhez, vagy próbáld újra 24 óra múlva."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Videó-, hang- és képletöltő Androidra",
+      "description": "Tölts le videókat, hangfájlokat és képeket közvetlenül az Android telefonodra. Nincs szükség Play Store-ra, nincsenek hirdetések, nincs elköteleződés. Az alapváltozat ingyenes, a Pro már havi 1 €-tól elérhető."
+    },
+    "nav": {
+      "features": "Funkciók",
+      "pricing": "Árak",
+      "faq": "GYIK",
+      "download": "Letöltés"
+    },
+    "hero": {
+      "eyebrow": "Ingyenes alapváltozat · Nincsenek hirdetések · Nem kell fiók",
+      "title_html": "Töltsd le {emphasis}.<br/>Egyenesen a telefonodra.",
+      "title_emphasis": "majdnem mindent",
+      "lead": "Videók, hangfájlok és képek szinte bármely oldalról — egyenesen az Android telefonodra töltve. Nincs felhőbe töltés, az adataid soha nem hagyják el az eszközödet, és nincs szükség Play Store-ra.",
+      "cta_primary": "Ingyenes Android-verzió letöltése",
+      "cta_secondary": "Pro árak megtekintése",
+      "badge1": "Nincs szükség Google Play-re",
+      "badge2": "100%-ban az eszközödön fut",
+      "badge3": "HD és 4K támogatás",
+      "badge4": "Az alapváltozat örökre ingyenes"
+    },
+    "features": {
+      "h2": "Minden, amire szükséged van — semmi felesleges",
+      "lead": "Egy gyors, privát letöltő, ami egyszerűen működik — Pro szinttel azoknak, akik többet szeretnének.",
+      "f1_title": "A legtöbb videó vagy hang",
+      "f1_desc": "Illeszd be a linket, válassz minőséget, és töltsd le. A legtöbb videó-, hang- és képmegosztó oldallal működik — DRM-védett szolgáltatásokkal, mint a Spotify vagy a Netflix, nem.",
+      "f2_title": "Tömeges letöltés",
+      "f2_desc": "Vizsgáld át az oldalt az összes médiafájlért, és töltsd le őket együtt, egyedi kijelöléssel.",
+      "f3_title": "Alapból privát",
+      "f3_desc": "Minden helyileg fut a telefonodon. Semmi nem kerül feltöltésre olyan szerverre, amelyet nem te irányítasz.",
+      "f4_title": "Nincsenek hirdetések, nincs nyomkövetés",
+      "f4_desc": "Nincsenek hirdetési hálózatok, elemző SDK-k vagy megtévesztő fizetőfalak. Csak az alkalmazás.",
+      "f5_title": "Hangkinyerés",
+      "f5_desc": "Nyerd ki bármely videó hangsávját, és mentsd el MP3 formátumban.",
+      "f6_title": "Nincs szükség áruházra",
+      "f6_desc": "Telepítsd az Android-verziót közvetlenül. Nincs szükség fiókra, Play Store-jóváhagyásra vagy régiós korlátozásra."
+    },
+    "pricing": {
+      "h2": "Egyszerű, tisztességes árazás",
+      "lead": "Örökre ingyenes: napi 1 letöltés teljes HD/4K minőségben. Pro-val korlátlan.",
+      "monthly_title": "Havi",
+      "monthly_note": "Bármikor lemondható",
+      "yearly_flag": "Legjobb ajánlat",
+      "yearly_title": "Éves",
+      "yearly_note": "Havi 0,67 € alatt",
+      "lifetime_title": "Élethosszig tartó",
+      "lifetime_amount_suffix": "egyszeri",
+      "lifetime_note": "Fizess egyszer, használd örökre",
+      "feature_unlimited": "Korlátlan letöltés (nincs napi limit)",
+      "feature_batch": "Tömeges letöltés",
+      "feature_priority_updates": "Elsőbbségi frissítések",
+      "feature_all_updates": "Minden jövőbeli frissítés benne foglaltatik",
+      "cta_monthly": "Havi csomag választása",
+      "cta_yearly": "Éves csomag választása",
+      "cta_lifetime": "Élethosszig tartó csomag választása",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+    },
+    "faq": {
+      "h2": "Gyakran ismételt kérdések",
+      "q1_title": "Szükségem van Pro-ra az alkalmazás használatához?",
+      "q1_body": "Nem. Az alkalmazás ingyenes és teljes mértékben használható. A Pro megszünteti a korlátokat, és támogatja a fejlesztést.",
+      "q2_title": "Ez Google Play nélkül is működik?",
+      "q2_body": "Igen — ez egy önálló Android-verzió, amelyet közvetlenül telepítesz. Nincs szükség Play Store-fiókra vagy jóváhagyásra.",
+      "q3_title": "Hol adhatom meg a licenckulcsomat?",
+      "q3_body": "Közvetlenül a vásárlás után megjelenik a licenckulcsod a visszaigazoló oldalon — add meg az alkalmazás beállításaiban.",
+      "q4_title": "Kaphatok visszatérítést?",
+      "q4_body": "Vedd fel velünk a kapcsolatot a vásárlástól számított 14 napon belül, és kérdés nélkül visszatérítjük a pénzed.",
+      "q5_title": "Ez legális?",
+      "q5_body": "Te vagy felelős azért, hogyan használod a letöltött tartalmat. Kérjük, tartsd tiszteletben a szerzői jogokat és azon oldalak feltételeit, amelyekről letöltesz."
+    },
+    "footer": {
+      "download": "Letöltés",
+      "pricing": "Árak",
+      "imprint": "Impresszum",
+      "privacy": "Adatvédelem",
+      "support": "Támogatás",
+      "copyright": "© 2026 DownloadThat. Minden jog fenntartva.",
+      "terms": "Terms",
+      "home": "Home"
+    },
+    "success": {
+      "title": "Köszönjük — DownloadThat Pro",
+      "h1": "Köszönjük a vásárlást!",
+      "lead": "A licenckulcsod alább található — add meg az alkalmazás beállításaiban.",
+      "pending": "A vásárlás véglegesítése folyamatban…",
+      "tier_monthly": "Havi",
+      "tier_yearly": "Éves",
+      "tier_lifetime": "Élethosszig tartó",
+      "plan_label": "Csomag",
+      "copy_btn": "Kulcs másolása",
+      "not_installed": "Még nincs meg az alkalmazás?",
+      "download_app": "Alkalmazás letöltése",
+      "error": "Egyelőre nem találtuk a licencedet. Kérjük, tölts be újra ezt az oldalt egy pillanat múlva.",
+      "no_session": "Hiányzó munkamenet — kérjük, használd a vásárlási visszaigazolásban kapott linket.",
+      "footer_note": "Ez az oldal a fizetés után néhány másodpercig automatikusan ellenőrzi az állapotot. Ha nem jelenik meg semmi, tölts be újra az oldalt, vagy írj e-mailt a {support_email} címre a fizetési visszaigazolásoddal."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
+    }
+  }
+}

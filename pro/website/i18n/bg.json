@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Изтеглай съдържание от повечето сайтове, на всяко устройство",
+    "login": {
+      "title": "Вход",
+      "password_label": "Парола",
+      "unlock_btn": "Отключи",
+      "error": "Грешна парола."
+    },
+    "license": {
+      "title": "Лиценз",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Запази",
+      "buy_btn": "Вземи Pro",
+      "status_active": "Pro активен ({tier}). Благодарим за подкрепата!",
+      "status_invalid": "Безплатна версия — записаният ключ е невалиден или е изтекъл.",
+      "status_free": "Безплатна версия — 3 изтегляния на ден. Pro: неограничено.",
+      "need_key_toast": "Първо въведи лицензен ключ.",
+      "activated_toast": "Лицензът е активиран.",
+      "invalid_toast": "Невалиден лицензен ключ."
+    },
+    "scrape": {
+      "title": "Търсене в страница",
+      "url_label": "URL адрес на страницата",
+      "deep_label": "Дълбоко търсене (следвай връзките)",
+      "video_btn": "Изтегли видео",
+      "audio_btn": "Изтегли аудио",
+      "search_btn": "Претърси страницата",
+      "select_all": "Избери всички",
+      "deselect_all": "Премахни избора",
+      "clear": "Изчисти списъка",
+      "queue_selected": "Изтегли избраните",
+      "results_count": "Намерени: {total}, избрани: {picked}",
+      "empty": "На тази страница не е намерено съдържание.",
+      "need_url_toast": "Първо въведи URL адрес.",
+      "search_failed_toast": "Търсенето не бе успешно.",
+      "queue_failed_toast": "Добавянето в опашката не бе успешно.",
+      "queue_selection_failed_toast": "Добавянето на избраното в опашката не бе успешно.",
+      "need_selection_toast": "Избери поне един елемент.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "Опашка",
+      "subtitle": "Обновява се автоматично.",
+      "empty": "Опашката все още е празна.",
+      "cancel_btn": "Отказ",
+      "cancel_failed_toast": "Отказът не бе успешен.",
+      "queued_toast": "Добавено в опашката.",
+      "open_btn": "Отвори",
+      "open_failed_toast": "Файлът не можа да се отвори — опитай връзката вместо това.",
+      "open_unsupported_toast": "Отварянето на файлове работи само в приложението за Android.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Настройки",
+      "title": "Настройки",
+      "language_label": "Език",
+      "language_auto": "Автоматично (езикът на устройството)",
+      "folder_label": "Папка за изтегляне",
+      "folder_default": "Хранилище на приложението (по подразбиране)",
+      "folder_pick_btn": "Избери папка",
+      "folder_reset_btn": "Върни по подразбиране",
+      "folder_not_supported": "Налично е само в приложението за Android.",
+      "folder_picking": "Изчакване на избор на папка…",
+      "saved_toast": "Настройките са запазени.",
+      "close_btn": "Затвори"
+    },
+    "footer": "DownloadThat — изтегляй само съдържание, за което имаш права.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Достигнат е дневният лимит",
+      "body": "Достигнахте днешния безплатен лимит от 3 изтегляния. Въведете лицензен ключ по-долу за неограничени изтегляния, или опитайте отново след 24 часа."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — изтегляне на видео, аудио и снимки за Android",
+      "description": "Изтегляй видеа, аудио и снимки директно на своя Android телефон. Без Play Store, без реклами, без обвързване. Безплатна основна версия, Pro от €1/месец."
+    },
+    "nav": {
+      "features": "Функции",
+      "pricing": "Цени",
+      "faq": "Въпроси",
+      "download": "Изтегли"
+    },
+    "hero": {
+      "eyebrow": "Безплатна основна версия · Без реклами · Без нужда от акаунт",
+      "title_html": "Изтегли {emphasis}.<br/>Направо на телефона си.",
+      "title_emphasis": "почти всичко",
+      "lead": "Видео, аудио и снимки от почти всеки сайт — изтеглени направо на твоя Android телефон. Без качване в облак, без данни, които напускат устройството ти, без нужда от Play Store.",
+      "cta_primary": "Изтегли безплатната версия за Android",
+      "cta_secondary": "Виж цените на Pro",
+      "badge1": "Не изисква Google Play",
+      "badge2": "Работи 100% на устройството ти",
+      "badge3": "Поддръжка на HD и 4K",
+      "badge4": "Основната версия е безплатна завинаги"
+    },
+    "features": {
+      "h2": "Всичко, от което имаш нужда, нищо излишно",
+      "lead": "Бърз и поверителен инструмент за изтегляне, който просто работи — с Pro ниво за тези, които искат повече.",
+      "f1_title": "Повечето видеа или аудио",
+      "f1_desc": "Постави връзка, избери качество, изтегли. Работи с повечето сайтове за видео, аудио и снимки — не с услуги, защитени с DRM, като Spotify или Netflix.",
+      "f2_title": "Групово изтегляне",
+      "f2_desc": "Сканирай страница за всички медийни файлове и ги изтегли заедно, с възможност за избор.",
+      "f3_title": "Поверителност по замисъл",
+      "f3_desc": "Всичко се изпълнява локално на телефона ти. Нищо не се качва на сървър, който не контролираш.",
+      "f4_title": "Без реклами, без проследяване",
+      "f4_desc": "Без рекламни мрежи, без SDK за анализ, без заблуждаващи стени за плащане. Само приложението.",
+      "f5_title": "Извличане на аудио",
+      "f5_desc": "Извади само аудио от всяко видео и го запази като MP3.",
+      "f6_title": "Не е нужен магазин за приложения",
+      "f6_desc": "Инсталирай версията за Android директно. Без акаунт, без процес на преглед от Play Store, без регионални ограничения."
+    },
+    "pricing": {
+      "h2": "Прости, честни цени",
+      "lead": "Безплатно завинаги: 1 изтегляне на ден в пълно HD/4K качество. Неограничено с Pro.",
+      "monthly_title": "Месечно",
+      "monthly_note": "Откажи по всяко време",
+      "yearly_flag": "Най-изгодно",
+      "yearly_title": "Годишно",
+      "yearly_note": "По-малко от €0,67/месец",
+      "lifetime_title": "Доживотно",
+      "lifetime_amount_suffix": "еднократно",
+      "lifetime_note": "Плати веднъж, ползвай завинаги",
+      "feature_unlimited": "Неограничени изтегляния (без дневен лимит)",
+      "feature_batch": "Групово изтегляне",
+      "feature_priority_updates": "Приоритетни актуализации",
+      "feature_all_updates": "Включени всички бъдещи актуализации",
+      "cta_monthly": "Избери месечен план",
+      "cta_yearly": "Избери годишен план",
+      "cta_lifetime": "Избери доживотен план",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+    },
+    "faq": {
+      "h2": "Често задавани въпроси",
+      "q1_title": "Трябва ли ми Pro, за да ползвам приложението?",
+      "q1_body": "Не. Приложението е безплатно и напълно използваемо. Pro премахва ограниченията и подкрепя разработката.",
+      "q2_title": "Работи ли това без Google Play?",
+      "q2_body": "Да — това е самостоятелна версия за Android, която инсталираш директно. Не е нужен акаунт или одобрение от Play Store.",
+      "q3_title": "Къде въвеждам своя лицензен ключ?",
+      "q3_body": "Веднага след покупката ще видиш лицензния си ключ на страницата за потвърждение — въведи го в настройките на приложението.",
+      "q4_title": "Мога ли да получа възстановяване на сумата?",
+      "q4_body": "Свържи се с нас до 14 дни от покупката и ще ти възстановим парите, без въпроси.",
+      "q5_title": "Законно ли е това?",
+      "q5_body": "Ти носиш отговорност за начина, по който използваш изтегленото съдържание. Моля, спазвай авторските права и условията на сайтовете, от които изтегляш."
+    },
+    "footer": {
+      "download": "Изтегли",
+      "pricing": "Цени",
+      "imprint": "Правна информация",
+      "privacy": "Поверителност",
+      "support": "Поддръжка",
+      "copyright": "© 2026 DownloadThat. Всички права запазени.",
+      "terms": "Terms",
+      "home": "Home"
+    },
+    "success": {
+      "title": "Благодарим ти — DownloadThat Pro",
+      "h1": "Благодарим за покупката!",
+      "lead": "Твоят лицензен ключ е по-долу — въведи го в настройките на приложението.",
+      "pending": "Довършваме покупката ти…",
+      "tier_monthly": "Месечен",
+      "tier_yearly": "Годишен",
+      "tier_lifetime": "Доживотен",
+      "plan_label": "План",
+      "copy_btn": "Копирай ключа",
+      "not_installed": "Все още нямаш приложението?",
+      "download_app": "Изтегли приложението",
+      "error": "Все още не успяхме да намерим лиценза ти. Моля, презареди страницата след малко.",
+      "no_session": "Липсва сесия — моля, използвай връзката от потвърждението на покупката ти.",
+      "footer_note": "Тази страница автоматично проверява за няколко секунди след плащането. Ако нищо не се появи, презареди страницата или пиши на {support_email} с потвърждението за плащане."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
+    }
+  }
+}

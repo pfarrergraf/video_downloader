@@ -90,8 +90,23 @@ def extract_media_candidates(base_url: str, html: str) -> list[str]:
         if key in {"og:video", "og:video:url", "twitter:player:stream"}:
             add_candidate(meta.get("content"))
 
-    for tag in soup.find_all(["video", "source", "a"]):
-        add_candidate(tag.get("src") or tag.get("href"))
+    for tag in soup.find_all(["video", "source"]):
+        add_candidate(tag.get("src"))
+
+    # Unlike <video>/<source>, an <a> tag's href is just as likely to be
+    # ordinary page navigation (nav bar, footer, legal pages) as an actual
+    # media link - only add it here if it structurally looks like media
+    # (a direct file extension or a known manifest hint), otherwise callers
+    # that blindly retry every discovered candidate through an extractor
+    # (see core.DownloadManager._build_auto_queue) end up working through a
+    # page's entire link soup before reaching the one real error.
+    for tag in soup.find_all("a"):
+        href = tag.get("href")
+        if not href:
+            continue
+        absolute = urljoin(base_url, href.strip())
+        if is_direct_media_url(absolute) or is_manifest_url(absolute):
+            add_candidate(href)
 
     for script in soup.find_all("script"):
         text = script.string or script.get_text(" ", strip=True)

@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Завантажуйте медіафайли з більшості сайтів на будь-який пристрій",
+    "login": {
+      "title": "Увійти",
+      "password_label": "Пароль",
+      "unlock_btn": "Розблокувати",
+      "error": "Неправильний пароль."
+    },
+    "license": {
+      "title": "Ліцензія",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Зберегти",
+      "buy_btn": "Отримати Pro",
+      "status_active": "Pro активовано ({tier}). Дякуємо за підтримку!",
+      "status_invalid": "Безкоштовна версія — збережений ключ недійсний або термін його дії минув.",
+      "status_free": "Безкоштовна версія — 3 завантаження на день. Pro: необмежено.",
+      "need_key_toast": "Спочатку введіть ліцензійний ключ.",
+      "activated_toast": "Ліцензію активовано.",
+      "invalid_toast": "Недійсний ліцензійний ключ."
+    },
+    "scrape": {
+      "title": "Пошук на сторінці",
+      "url_label": "URL-адреса сторінки",
+      "deep_label": "Глибокий пошук (переходити за посиланнями)",
+      "video_btn": "Завантажити відео",
+      "audio_btn": "Завантажити аудіо",
+      "search_btn": "Пошук на сторінці",
+      "select_all": "Вибрати всі",
+      "deselect_all": "Скасувати вибір",
+      "clear": "Очистити список",
+      "queue_selected": "Завантажити вибране",
+      "results_count": "Знайдено: {total}, вибрано: {picked}",
+      "empty": "На цій сторінці не знайдено медіафайлів.",
+      "need_url_toast": "Спочатку введіть URL-адресу.",
+      "search_failed_toast": "Помилка пошуку.",
+      "queue_failed_toast": "Не вдалося додати до черги.",
+      "queue_selection_failed_toast": "Не вдалося додати вибране до черги.",
+      "need_selection_toast": "Виберіть хоча б один елемент.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "Черга",
+      "subtitle": "Оновлюється автоматично.",
+      "empty": "У черзі поки що нічого немає.",
+      "cancel_btn": "Скасувати",
+      "cancel_failed_toast": "Не вдалося скасувати.",
+      "queued_toast": "Додано до черги.",
+      "open_btn": "Відкрити",
+      "open_failed_toast": "Не вдалося відкрити цей файл — спробуйте скористатися посиланням.",
+      "open_unsupported_toast": "Відкриття файлів працює лише в додатку для Android.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Налаштування",
+      "title": "Налаштування",
+      "language_label": "Мова",
+      "language_auto": "Автоматично (мова пристрою)",
+      "folder_label": "Папка завантажень",
+      "folder_default": "Сховище додатка (за замовчуванням)",
+      "folder_pick_btn": "Вибрати папку",
+      "folder_reset_btn": "Скинути до типового",
+      "folder_not_supported": "Доступно лише в додатку для Android.",
+      "folder_picking": "Очікування вибору папки…",
+      "saved_toast": "Налаштування збережено.",
+      "close_btn": "Закрити"
+    },
+    "footer": "DownloadThat — завантажуйте лише той контент, на який маєте права.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Досягнуто денний ліміт",
+      "body": "Ви досягли сьогоднішнього безкоштовного ліміту в 3 завантаження. Введіть нижче ліцензійний ключ для необмежених завантажень або спробуйте ще раз через 24 години."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — завантажувач відео, аудіо та зображень для Android",
+      "description": "Завантажуйте відео, аудіо та зображення прямо на свій Android-телефон. Без Play Store, без реклами, без прив'язки. Безкоштовні базові функції, Pro від €1/місяць."
+    },
+    "nav": {
+      "features": "Можливості",
+      "pricing": "Ціни",
+      "faq": "Питання",
+      "download": "Завантажити"
+    },
+    "hero": {
+      "eyebrow": "Безкоштовні базові функції · Без реклами · Без реєстрації",
+      "title_html": "Завантажуйте {emphasis}.<br/>Прямо на ваш телефон.",
+      "title_emphasis": "майже все",
+      "lead": "Відео, аудіо та зображення практично з будь-якого сайту — завантажуються прямо на ваш Android-телефон. Без завантаження в хмару, дані ніколи не залишають ваш пристрій, Play Store не потрібен.",
+      "cta_primary": "Завантажити безкоштовну версію для Android",
+      "cta_secondary": "Переглянути ціни Pro",
+      "badge1": "Google Play не потрібен",
+      "badge2": "Працює на 100% на вашому пристрої",
+      "badge3": "Підтримка HD і 4K",
+      "badge4": "Базові функції безкоштовні назавжди"
+    },
+    "features": {
+      "h2": "Усе, що потрібно, і нічого зайвого",
+      "lead": "Швидкий, приватний завантажувач, який просто працює — з тарифом Pro для тих, хто хоче більшого.",
+      "f1_title": "Більшість відео чи аудіо",
+      "f1_desc": "Вставте посилання, виберіть якість, завантажте. Працює з більшістю сайтів з відео, аудіо та зображеннями — не з сервісами, захищеними DRM, такими як Spotify чи Netflix.",
+      "f2_title": "Пакетні завантаження",
+      "f2_desc": "Скануйте сторінку на наявність усіх медіафайлів і завантажуйте їх разом, вибираючи потрібні.",
+      "f3_title": "Приватність за задумом",
+      "f3_desc": "Усе працює локально на вашому телефоні. Нічого не завантажується на сервер, який ви не контролюєте.",
+      "f4_title": "Без реклами, без стеження",
+      "f4_desc": "Жодних рекламних мереж, аналітичних SDK чи маніпулятивних платних обмежень. Просто додаток.",
+      "f5_title": "Видобування аудіо",
+      "f5_desc": "Витягніть аудіодоріжку з будь-якого відео та збережіть її як MP3.",
+      "f6_title": "Магазин додатків не потрібен",
+      "f6_desc": "Встановлюйте версію для Android напряму. Без реєстрації, без перевірки Play Store, без регіональних обмежень."
+    },
+    "pricing": {
+      "h2": "Прості та чесні ціни",
+      "lead": "Безкоштовно назавжди: 1 завантаження на день у якості Full HD/4K. Необмежено з Pro.",
+      "monthly_title": "Щомісячно",
+      "monthly_note": "Скасування в будь-який час",
+      "yearly_flag": "Найвигідніше",
+      "yearly_title": "Щорічно",
+      "yearly_note": "Менше ніж €0,67/місяць",
+      "lifetime_title": "Довічно",
+      "lifetime_amount_suffix": "одноразово",
+      "lifetime_note": "Заплатіть один раз — користуйтеся назавжди",
+      "feature_unlimited": "Необмежені завантаження (без денного ліміту)",
+      "feature_batch": "Пакетні завантаження",
+      "feature_priority_updates": "Пріоритетні оновлення",
+      "feature_all_updates": "Усі майбутні оновлення включено",
+      "cta_monthly": "Обрати щомісячний",
+      "cta_yearly": "Обрати щорічний",
+      "cta_lifetime": "Обрати довічний",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+    },
+    "faq": {
+      "h2": "Часті запитання",
+      "q1_title": "Чи потрібен Pro, щоб користуватися додатком?",
+      "q1_body": "Ні. Додаток безкоштовний і повністю придатний до використання. Pro знімає обмеження та підтримує розробку.",
+      "q2_title": "Чи працює це без Google Play?",
+      "q2_body": "Так — це окрема версія для Android, яку ви встановлюєте напряму. Обліковий запис чи схвалення Play Store не потрібні.",
+      "q3_title": "Де ввести ліцензійний ключ?",
+      "q3_body": "Одразу після покупки ви побачите свій ліцензійний ключ на сторінці підтвердження — введіть його в налаштуваннях додатка.",
+      "q4_title": "Чи можу я отримати повернення коштів?",
+      "q4_body": "Зв'яжіться з нами протягом 14 днів після покупки, і ми повернемо кошти без зайвих запитань.",
+      "q5_title": "Чи це законно?",
+      "q5_body": "Ви несете відповідальність за те, як використовуєте завантажений контент. Будь ласка, поважайте авторські права та умови використання сайтів, з яких завантажуєте."
+    },
+    "footer": {
+      "download": "Завантажити",
+      "pricing": "Ціни",
+      "imprint": "Вихідні дані",
+      "privacy": "Конфіденційність",
+      "support": "Підтримка",
+      "copyright": "© 2026 DownloadThat. Усі права захищені.",
+      "terms": "Terms",
+      "home": "Home"
+    },
+    "success": {
+      "title": "Дякуємо — DownloadThat Pro",
+      "h1": "Дякуємо за покупку!",
+      "lead": "Ваш ліцензійний ключ нижче — введіть його в налаштуваннях додатка.",
+      "pending": "Завершуємо оформлення покупки…",
+      "tier_monthly": "Щомісячний",
+      "tier_yearly": "Щорічний",
+      "tier_lifetime": "Довічний",
+      "plan_label": "Тариф",
+      "copy_btn": "Копіювати ключ",
+      "not_installed": "Ще не встановили додаток?",
+      "download_app": "Завантажити додаток",
+      "error": "Нам поки не вдалося знайти вашу ліцензію. Будь ласка, перезавантажте цю сторінку за мить.",
+      "no_session": "Сесію не знайдено — скористайтеся посиланням із підтвердження покупки.",
+      "footer_note": "Ця сторінка автоматично перевіряє стан протягом кількох секунд після оплати. Якщо нічого не з'явилося, перезавантажте сторінку або напишіть на {support_email}, додавши підтвердження оплати."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
+    }
+  }
+}

@@ -27,6 +27,16 @@ class AppConfig:
 
 
 def resolve_paths() -> AppPaths:
+    override = os.environ.get("CLASSYDL_DATA_DIR")
+    if override:
+        root = Path(override).expanduser()
+        return AppPaths(
+            config_file=root / "config.toml",
+            state_db=root / "state.db",
+            log_dir=root / "logs",
+            log_file=root / "logs" / "classydl.log",
+        )
+
     appdata = Path(os.environ.get("APPDATA", Path.home() / "AppData" / "Roaming"))
     localappdata = Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData" / "Local"))
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Matches MainActivity.kt's outputDir: getExternalFilesDir(null)/classydl-downloads,
+     falling back to filesDir/classydl-downloads when external storage is unavailable. -->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-files-path name="downloads" path="classydl-downloads/" />
+    <files-path name="downloads-internal" path="classydl-downloads/" />
+</paths>

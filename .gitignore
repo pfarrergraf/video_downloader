@@ -47,5 +47,19 @@ classydl-selfsign.pfx.pass.txt
 classydl-selfsign.cer
 *.pfx
 *.cer
+*.keystore
+*.jks
+
+# Android / Gradle
+android/.gradle/
+android/local.properties
+android/**/build/
+android/.idea/
+*.hprof
+
+# Cloudflare Pages/Workers local dev (wrangler pages dev / wrangler d1 execute
+# --local) - local D1 SQLite state and secrets, never real deployment config
+pro/website/.wrangler/
+pro/website/.dev.vars
 
 # uv lock kept in repo for reproducibility — do NOT ignore uv.lock

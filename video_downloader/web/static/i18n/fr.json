@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Téléchargez des contenus multimédias depuis la plupart des sites, sur n'importe quel appareil",
+    "login": {
+      "title": "Connexion",
+      "password_label": "Mot de passe",
+      "unlock_btn": "Déverrouiller",
+      "error": "Mot de passe incorrect."
+    },
+    "license": {
+      "title": "Licence",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Enregistrer",
+      "buy_btn": "Passer à Pro",
+      "status_active": "Pro actif ({tier}). Merci pour votre soutien !",
+      "status_invalid": "Gratuit — la clé enregistrée est invalide ou expirée.",
+      "status_free": "Gratuit — 3 téléchargements par jour. Pro : illimité.",
+      "need_key_toast": "Entrez d'abord une clé de licence.",
+      "activated_toast": "Licence activée.",
+      "invalid_toast": "Clé de licence invalide."
+    },
+    "scrape": {
+      "title": "Rechercher une page",
+      "url_label": "URL de la page",
+      "deep_label": "Recherche approfondie (suivre les liens)",
+      "video_btn": "Télécharger la vidéo",
+      "audio_btn": "Télécharger l'audio",
+      "search_btn": "Analyser la page",
+      "select_all": "Tout sélectionner",
+      "deselect_all": "Tout désélectionner",
+      "clear": "Vider la liste",
+      "queue_selected": "Télécharger la sélection",
+      "results_count": "{total} trouvé(s), {picked} sélectionné(s)",
+      "empty": "Aucun contenu multimédia trouvé sur cette page.",
+      "need_url_toast": "Entrez d'abord une URL.",
+      "search_failed_toast": "Échec de la recherche.",
+      "queue_failed_toast": "Échec de l'ajout à la file d'attente.",
+      "queue_selection_failed_toast": "Échec de l'ajout de la sélection à la file d'attente.",
+      "need_selection_toast": "Sélectionnez au moins un élément.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "File d'attente",
+      "subtitle": "Mise à jour automatique.",
+      "empty": "La file d'attente est vide pour l'instant.",
+      "cancel_btn": "Annuler",
+      "cancel_failed_toast": "Échec de l'annulation.",
+      "queued_toast": "Ajouté à la file d'attente.",
+      "open_btn": "Ouvrir",
+      "open_failed_toast": "Impossible d'ouvrir ce fichier — essayez plutôt le lien.",
+      "open_unsupported_toast": "L'ouverture de fichiers ne fonctionne que dans l'application Android.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Paramètres",
+      "title": "Paramètres",
+      "language_label": "Langue",
+      "language_auto": "Automatique (langue de l'appareil)",
+      "folder_label": "Dossier de téléchargement",
+      "folder_default": "Stockage de l'application (par défaut)",
+      "folder_pick_btn": "Choisir un dossier",
+      "folder_reset_btn": "Réinitialiser par défaut",
+      "folder_not_supported": "Disponible uniquement dans l'application Android.",
+      "folder_picking": "En attente de la sélection du dossier…",
+      "saved_toast": "Paramètres enregistrés.",
+      "close_btn": "Fermer"
+    },
+    "footer": "DownloadThat — ne téléchargez que des contenus dont vous détenez les droits.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Avant de commencer",
+      "body": "Cette application est un outil technique permettant de télécharger des contenus multimédias à partir de liens que vous fournissez vous-même. Vous êtes seul responsable de vérifier que vous êtes autorisé à télécharger et à utiliser le contenu se trouvant derrière tout lien que vous saisissez — le développeur n'assume aucune responsabilité quant à ce que vous téléchargez.",
+      "link_terms": "Conditions d'utilisation",
+      "link_privacy": "Politique de confidentialité",
+      "link_imprint": "Mentions légales",
+      "checkbox_label": "J'ai lu et j'accepte les conditions d'utilisation, et je comprends que je suis seul responsable du contenu que je télécharge.",
+      "continue_btn": "Continuer"
+    },
+    "about": {
+      "title": "À propos",
+      "developed_by": "Développé par",
+      "licenses": "Utilise yt-dlp (Unlicense), FFmpeg et LAME (LGPL), Chaquopy (MIT), requests et Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), et AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Limite quotidienne atteinte",
+      "body": "Vous avez atteint la limite gratuite de 3 téléchargements aujourd'hui. Entrez une clé de licence ci-dessous pour des téléchargements illimités, ou réessayez dans 24 heures."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Téléchargeur de vidéos, audio et images pour Android",
+      "description": "Téléchargez des vidéos, de l'audio et des images directement sur votre téléphone Android. Pas de Play Store, pas de publicités, aucun engagement. Version de base gratuite, Pro dès 1 €/mois."
+    },
+    "nav": {
+      "features": "Fonctionnalités",
+      "pricing": "Tarifs",
+      "faq": "FAQ",
+      "download": "Télécharger"
+    },
+    "hero": {
+      "eyebrow": "Version de base gratuite · Sans publicité · Aucun compte requis",
+      "title_html": "Téléchargez {emphasis}.<br/>Directement sur votre téléphone.",
+      "title_emphasis": "presque tout",
+      "lead": "Vidéos, audio et images depuis presque n'importe quel site — téléchargés directement sur votre téléphone Android. Aucun envoi vers le cloud, aucune donnée ne quitte votre appareil, pas besoin du Play Store.",
+      "cta_primary": "Télécharger la version gratuite pour Android",
+      "cta_secondary": "Voir les tarifs Pro",
+      "badge1": "Sans Google Play",
+      "badge2": "Fonctionne à 100 % sur votre appareil",
+      "badge3": "Prise en charge HD et 4K",
+      "badge4": "Version de base gratuite pour toujours"
+    },
+    "features": {
+      "h2": "Tout ce qu'il vous faut, rien de superflu",
+      "lead": "Un téléchargeur rapide et respectueux de la vie privée qui fonctionne tout simplement — avec une offre Pro pour ceux qui en veulent plus.",
+      "f1_title": "La plupart des vidéos ou audio",
+      "f1_desc": "Collez un lien, choisissez une qualité, téléchargez. Compatible avec la plupart des sites de vidéo, audio et images — pas avec les services protégés par DRM comme Spotify ou Netflix.",
+      "f2_title": "Téléchargements groupés",
+      "f2_desc": "Analysez une page pour trouver tous les fichiers multimédias et téléchargez-les ensemble, en cochant/décochant.",
+      "f3_title": "Privé par conception",
+      "f3_desc": "Tout fonctionne localement sur votre téléphone. Rien n'est envoyé vers un serveur que vous ne contrôlez pas.",
+      "f4_title": "Sans publicité, sans pistage",
+      "f4_desc": "Aucun réseau publicitaire, aucun SDK d'analyse, aucun paywall trompeur. Juste l'application.",
+      "f5_title": "Extraction audio",
+      "f5_desc": "Extrayez uniquement la piste audio de n'importe quelle vidéo et enregistrez-la en MP3.",
+      "f6_title": "Sans magasin d'applications",
+      "f6_desc": "Installez la version pour Android directement. Pas de compte, pas de processus de validation du Play Store, pas de restriction géographique."
+    },
+    "pricing": {
+      "h2": "Des tarifs simples et honnêtes",
+      "lead": "Gratuit pour toujours : 1 téléchargement par jour en qualité HD/4K complète. Illimité avec Pro.",
+      "monthly_title": "Mensuel",
+      "monthly_note": "Annulez à tout moment",
+      "yearly_flag": "Meilleure offre",
+      "yearly_title": "Annuel",
+      "yearly_note": "Moins de 0,67 €/mois",
+      "lifetime_title": "À vie",
+      "lifetime_amount_suffix": "paiement unique",
+      "lifetime_note": "Payez une fois, utilisez pour toujours",
+      "feature_unlimited": "Téléchargements illimités (pas de plafond quotidien)",
+      "feature_batch": "Téléchargements groupés",
+      "feature_priority_updates": "Mises à jour prioritaires",
+      "feature_all_updates": "Toutes les futures mises à jour incluses",
+      "cta_monthly": "Choisir mensuel",
+      "cta_yearly": "Choisir annuel",
+      "cta_lifetime": "Choisir à vie",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "Je demande que l'accès débute immédiatement, avant l'expiration du délai légal de rétractation de 14 jours, et je comprends que je perds ainsi mon droit de rétractation dès que l'achat est finalisé (voir les {terms_start}conditions d'utilisation{terms_end} §6.3). Vous pouvez malgré tout demander un remboursement intégral dans un délai de 14 jours via notre {refund_start}page de remboursement{refund_end}."
+    },
+    "faq": {
+      "h2": "Questions fréquentes",
+      "q1_title": "Ai-je besoin de Pro pour utiliser l'application ?",
+      "q1_body": "Non. L'application est gratuite et pleinement utilisable. Pro supprime les limites et soutient le développement.",
+      "q2_title": "Est-ce que ça fonctionne sans Google Play ?",
+      "q2_body": "Oui — c'est une version pour Android autonome que vous installez directement. Aucun compte ni validation du Play Store n'est nécessaire.",
+      "q3_title": "Où dois-je entrer ma clé de licence ?",
+      "q3_body": "Juste après l'achat, votre clé de licence s'affiche sur la page de confirmation — entrez-la dans les paramètres de l'application.",
+      "q4_title": "Puis-je obtenir un remboursement ?",
+      "q4_body": "Contactez-nous dans les 14 jours suivant l'achat et nous vous rembourserons, sans poser de questions.",
+      "q5_title": "Est-ce légal ?",
+      "q5_body": "Vous êtes responsable de l'usage que vous faites des contenus téléchargés. Merci de respecter le droit d'auteur et les conditions d'utilisation des sites depuis lesquels vous téléchargez."
+    },
+    "footer": {
+      "download": "Télécharger",
+      "pricing": "Tarifs",
+      "imprint": "Mentions légales",
+      "privacy": "Confidentialité",
+      "support": "Support",
+      "copyright": "© 2026 DownloadThat. Tous droits réservés.",
+      "terms": "Conditions",
+      "home": "Accueil"
+    },
+    "success": {
+      "title": "Merci — DownloadThat Pro",
+      "h1": "Merci pour votre achat !",
+      "lead": "Votre clé de licence se trouve ci-dessous — entrez-la dans les paramètres de l'application.",
+      "pending": "Finalisation de votre achat…",
+      "tier_monthly": "Mensuel",
+      "tier_yearly": "Annuel",
+      "tier_lifetime": "À vie",
+      "plan_label": "Formule",
+      "copy_btn": "Copier la clé",
+      "not_installed": "Vous n'avez pas encore l'application ?",
+      "download_app": "Télécharger l'application",
+      "error": "Nous n'avons pas encore trouvé votre licence. Merci de recharger cette page dans un instant.",
+      "no_session": "Session manquante — veuillez utiliser le lien de votre confirmation d'achat.",
+      "footer_note": "Cette page vérifie automatiquement pendant quelques secondes après le paiement. Si rien ne s'affiche, rechargez la page ou envoyez un e-mail à {support_email} avec votre confirmation de paiement."
+    },
+    "refund": {
+      "title": "Rétractation et remboursement",
+      "body": "Saisissez la clé de licence et l'adresse e-mail utilisées lors de votre achat. Si votre achat date de moins de 14 jours, nous vous rembourserons intégralement via Stripe et désactiverons immédiatement la licence — aucune justification n'est nécessaire.",
+      "license_label": "Clé de licence",
+      "email_label": "Adresse e-mail utilisée lors de l'achat",
+      "submit_btn": "Demander un remboursement",
+      "success": "Remboursé. L'argent sera recrédité par votre prestataire de paiement sous quelques jours ouvrés, et la licence a été désactivée.",
+      "error_missing_fields": "Veuillez renseigner à la fois la clé de licence et l'adresse e-mail.",
+      "error_no_match": "Nous n'avons trouvé aucun achat correspondant à cette clé de licence et à cette adresse e-mail.",
+      "error_already_canceled": "Cette licence a déjà été remboursée ou annulée.",
+      "error_window_expired": "Le délai de remboursement de 14 jours pour cet achat est écoulé. Contactez le support si vous souhaitez tout de même en discuter.",
+      "error_generic": "Une erreur s'est produite. Veuillez réessayer ou contacter le support."
+    }
+  }
+}

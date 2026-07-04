@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Baixe mídia da maioria dos sites, em qualquer dispositivo",
+    "login": {
+      "title": "Entrar",
+      "password_label": "Senha",
+      "unlock_btn": "Desbloquear",
+      "error": "Senha incorreta."
+    },
+    "license": {
+      "title": "Licença",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Salvar",
+      "buy_btn": "Obter Pro",
+      "status_active": "Pro ativo ({tier}). Obrigado pelo apoio!",
+      "status_invalid": "Gratuito — a chave salva é inválida ou expirou.",
+      "status_free": "Gratuito — 3 downloads por dia. Pro: ilimitado.",
+      "need_key_toast": "Digite uma chave de licença primeiro.",
+      "activated_toast": "Licença ativada.",
+      "invalid_toast": "Chave de licença inválida."
+    },
+    "scrape": {
+      "title": "Buscar em uma página",
+      "url_label": "URL da página",
+      "deep_label": "Busca profunda (seguir links)",
+      "video_btn": "Baixar vídeo",
+      "audio_btn": "Baixar áudio",
+      "search_btn": "Buscar na página",
+      "select_all": "Selecionar tudo",
+      "deselect_all": "Desmarcar tudo",
+      "clear": "Limpar lista",
+      "queue_selected": "Baixar selecionados",
+      "results_count": "{total} encontrados, {picked} selecionados",
+      "empty": "Nenhuma mídia encontrada nesta página.",
+      "need_url_toast": "Digite uma URL primeiro.",
+      "search_failed_toast": "Falha na busca.",
+      "queue_failed_toast": "Falha ao adicionar à fila.",
+      "queue_selection_failed_toast": "Falha ao adicionar a seleção à fila.",
+      "need_selection_toast": "Selecione pelo menos um item.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "Fila",
+      "subtitle": "Atualiza automaticamente.",
+      "empty": "Nada na fila ainda.",
+      "cancel_btn": "Cancelar",
+      "cancel_failed_toast": "Falha ao cancelar.",
+      "queued_toast": "Adicionado à fila.",
+      "open_btn": "Abrir",
+      "open_failed_toast": "Não foi possível abrir este arquivo — tente o link.",
+      "open_unsupported_toast": "Abrir arquivos só funciona no aplicativo Android.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Configurações",
+      "title": "Configurações",
+      "language_label": "Idioma",
+      "language_auto": "Automático (idioma do dispositivo)",
+      "folder_label": "Pasta de download",
+      "folder_default": "Armazenamento do app (padrão)",
+      "folder_pick_btn": "Escolher pasta",
+      "folder_reset_btn": "Restaurar padrão",
+      "folder_not_supported": "Disponível apenas no aplicativo Android.",
+      "folder_picking": "Aguardando seleção da pasta…",
+      "saved_toast": "Configurações salvas.",
+      "close_btn": "Fechar"
+    },
+    "footer": "DownloadThat — baixe apenas mídia sobre a qual você tem direitos.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Antes de começar",
+      "body": "Este aplicativo é uma ferramenta técnica para baixar mídia a partir de links fornecidos por você. Você é o único responsável por garantir que tem permissão para baixar e usar o conteúdo por trás de qualquer link que inserir — o desenvolvedor não assume qualquer responsabilidade pelo que você baixa.",
+      "link_terms": "Termos de uso",
+      "link_privacy": "Política de privacidade",
+      "link_imprint": "Aviso legal",
+      "checkbox_label": "Li e aceito os termos de uso, e entendo que sou o único responsável pelo conteúdo que baixo.",
+      "continue_btn": "Continuar"
+    },
+    "about": {
+      "title": "Sobre",
+      "developed_by": "Desenvolvido por",
+      "licenses": "Utiliza yt-dlp (Unlicense), FFmpeg e LAME (LGPL), Chaquopy (MIT), requests e Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) e AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Limite diário atingido",
+      "body": "Você atingiu o limite gratuito de 3 downloads de hoje. Insira uma chave de licença abaixo para downloads ilimitados, ou tente novamente em 24 horas."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Downloader de Vídeo, Áudio e Imagem para Android",
+      "description": "Baixe vídeos, áudios e imagens direto para o seu celular Android. Sem Play Store, sem anúncios, sem amarras. Núcleo gratuito, Pro a partir de €1/mês."
+    },
+    "nav": {
+      "features": "Recursos",
+      "pricing": "Preços",
+      "faq": "Perguntas frequentes",
+      "download": "Baixar"
+    },
+    "hero": {
+      "eyebrow": "Núcleo gratuito · Sem anúncios · Sem conta necessária",
+      "title_html": "Baixe {emphasis}.<br/>Direto para o seu celular.",
+      "title_emphasis": "quase tudo",
+      "lead": "Vídeos, áudios e imagens de quase qualquer site — baixados direto para o seu celular Android. Sem upload para a nuvem, nenhum dado sai do seu dispositivo, sem necessidade de Play Store.",
+      "cta_primary": "Baixar a versão gratuita para Android",
+      "cta_secondary": "Ver preços do Pro",
+      "badge1": "Não precisa do Google Play",
+      "badge2": "Roda 100% no seu dispositivo",
+      "badge3": "Suporte a HD e 4K",
+      "badge4": "O núcleo é gratuito para sempre"
+    },
+    "features": {
+      "h2": "Tudo o que você precisa, nada do que não precisa",
+      "lead": "Um downloader rápido e privado que simplesmente funciona — com um plano Pro para quem quiser mais.",
+      "f1_title": "A maioria dos vídeos ou áudio",
+      "f1_desc": "Cole um link, escolha a qualidade, baixe. Funciona com a maioria dos sites de vídeo, áudio e imagem — não com serviços protegidos por DRM como Spotify ou Netflix.",
+      "f2_title": "Downloads em lote",
+      "f2_desc": "Escaneie uma página em busca de todos os arquivos de mídia e baixe-os juntos, marcando/desmarcando.",
+      "f3_title": "Privado por design",
+      "f3_desc": "Tudo roda localmente no seu celular. Nada é enviado para um servidor que você não controla.",
+      "f4_title": "Sem anúncios, sem rastreamento",
+      "f4_desc": "Sem redes de anúncios, sem SDKs de análise, sem paywalls com práticas enganosas. Só o app.",
+      "f5_title": "Extração de áudio",
+      "f5_desc": "Extraia apenas a trilha de áudio de qualquer vídeo e salve como MP3.",
+      "f6_title": "Não precisa de loja de aplicativos",
+      "f6_desc": "Instale a versão para Android diretamente. Sem conta, sem processo de revisão da Play Store, sem bloqueio regional."
+    },
+    "pricing": {
+      "h2": "Preços simples e honestos",
+      "lead": "Gratuito para sempre: 1 download por dia em qualidade Full HD/4K. Ilimitado com o Pro.",
+      "monthly_title": "Mensal",
+      "monthly_note": "Cancele quando quiser",
+      "yearly_flag": "Melhor custo-benefício",
+      "yearly_title": "Anual",
+      "yearly_note": "Menos de €0,67/mês",
+      "lifetime_title": "Vitalício",
+      "lifetime_amount_suffix": "pagamento único",
+      "lifetime_note": "Pague uma vez, use para sempre",
+      "feature_unlimited": "Downloads ilimitados (sem limite diário)",
+      "feature_batch": "Downloads em lote",
+      "feature_priority_updates": "Atualizações prioritárias",
+      "feature_all_updates": "Todas as atualizações futuras incluídas",
+      "cta_monthly": "Escolher mensal",
+      "cta_yearly": "Escolher anual",
+      "cta_lifetime": "Escolher vitalício",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "Solicito que o acesso comece imediatamente, antes do término do prazo legal de retratação de 14 dias, e entendo que isso significa que perco meu direito de retratação assim que a compra estiver concluída (ver {terms_start}Termos de Uso{terms_end} §6.3). Ainda assim, você pode solicitar um reembolso total dentro de 14 dias por meio da nossa {refund_start}página de reembolso{refund_end}."
+    },
+    "faq": {
+      "h2": "Perguntas frequentes",
+      "q1_title": "Preciso do Pro para usar o app?",
+      "q1_body": "Não. O app é gratuito e totalmente utilizável. O Pro remove limites e apoia o desenvolvimento.",
+      "q2_title": "Funciona sem o Google Play?",
+      "q2_body": "Sim — é uma versão para Android independente que você instala diretamente. Não precisa de conta ou aprovação da Play Store.",
+      "q3_title": "Onde eu insiro minha chave de licença?",
+      "q3_body": "Logo após a compra, você verá sua chave de licença na página de confirmação — insira-a nas configurações do app.",
+      "q4_title": "Posso pedir reembolso?",
+      "q4_body": "Entre em contato conosco em até 14 dias após a compra e nós reembolsaremos você, sem perguntas.",
+      "q5_title": "Isso é legal?",
+      "q5_body": "Você é responsável pelo uso que faz do conteúdo baixado. Respeite os direitos autorais e os termos dos sites de onde você baixa."
+    },
+    "footer": {
+      "download": "Baixar",
+      "pricing": "Preços",
+      "imprint": "Aviso legal",
+      "privacy": "Privacidade",
+      "support": "Suporte",
+      "copyright": "© 2026 DownloadThat. Todos os direitos reservados.",
+      "terms": "Termos",
+      "home": "Início"
+    },
+    "success": {
+      "title": "Obrigado — DownloadThat Pro",
+      "h1": "Obrigado pela sua compra!",
+      "lead": "Sua chave de licença está abaixo — insira-a nas configurações do app.",
+      "pending": "Finalizando sua compra…",
+      "tier_monthly": "Mensal",
+      "tier_yearly": "Anual",
+      "tier_lifetime": "Vitalício",
+      "plan_label": "Plano",
+      "copy_btn": "Copiar chave",
+      "not_installed": "Ainda não tem o app?",
+      "download_app": "Baixar o app",
+      "error": "Ainda não conseguimos encontrar sua licença. Recarregue esta página em instantes.",
+      "no_session": "Sessão não encontrada — use o link da confirmação da sua compra.",
+      "footer_note": "Esta página verifica automaticamente por alguns segundos após o pagamento. Se nada aparecer, recarregue a página ou envie um e-mail para {support_email} com a confirmação do seu pagamento."
+    },
+    "refund": {
+      "title": "Retratação e reembolso",
+      "body": "Insira a chave de licença e o endereço de e-mail usados na sua compra. Se a sua compra foi feita nos últimos 14 dias, faremos o reembolso integral via Stripe e desativaremos a licença imediatamente — sem necessidade de justificativa.",
+      "license_label": "Chave de licença",
+      "email_label": "Endereço de e-mail usado na compra",
+      "submit_btn": "Solicitar reembolso",
+      "success": "Reembolsado. O valor será devolvido pela sua operadora de pagamento em poucos dias úteis, e a licença foi desativada.",
+      "error_missing_fields": "Preencha tanto a chave de licença quanto o endereço de e-mail.",
+      "error_no_match": "Não encontramos nenhuma compra correspondente a essa chave de licença e endereço de e-mail.",
+      "error_already_canceled": "Esta licença já foi reembolsada ou cancelada.",
+      "error_window_expired": "O prazo de 14 dias para reembolso desta compra já terminou. Entre em contato com o suporte se ainda quiser discutir o assunto.",
+      "error_generic": "Ocorreu um erro. Tente novamente ou entre em contato com o suporte."
+    }
+  }
+}

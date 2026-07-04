@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>DownloadThat</title>
+<meta name="theme-color" content="#11101c" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<link rel="icon" href="/icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/icon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #11101c;
+    --bg-panel: #1a1930;
+    --bg-panel-2: #201f3c;
+    --border: #322f52;
+    --accent: #ff5c7a;
+    --accent-2: #22e0c9;
+    --gradient: linear-gradient(135deg, var(--accent), #ff8a5c 55%, var(--accent-2));
+    --text: #f3f1fb;
+    --text-dim: #9b96b8;
+    --danger: #ff6b6b;
+    --ok: #22e0a0;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    /* Safety net: some Android WebView versions render flex-wrap slightly
+       differently than desktop Chromium, and translated strings (German
+       especially) run noticeably longer than English - if a row's content
+       ever fails to wrap in time, this stops it from forcing the whole page
+       to scroll sideways instead of just clipping the rare overflow. */
+    overflow-x: hidden;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    min-height: 100vh;
+    padding-bottom: 3rem;
+  }
+  h1, h2 { font-weight: 700; margin: 0; font-family: 'Poppins', 'Inter', sans-serif; }
+  h2 { font-size: 1.05rem; letter-spacing: 0.01em; }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 1.4rem 1.1rem 1.1rem;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .header-titles { text-align: left; }
+  header h1 {
+    font-size: 1.5rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.01em;
+  }
+  header p { color: var(--text-dim); margin: 0.2rem 0 0; font-size: 0.85rem; }
+  .icon-btn {
+    width: 42px; height: 42px; flex-shrink: 0;
+    border-radius: 14px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  .icon-btn:active { transform: scale(0.93); }
+  main { max-width: 640px; margin: 0 auto; padding: 0 1.1rem; }
+  .card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.2rem 1.2rem 1.35rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 12px 30px -18px rgba(0,0,0,0.6);
+    /* Overlay cards are flex items of their fixed-position overlay
+       container; a flex item's default min-width is its content's
+       min-content size, which can silently override "width: 100%" /
+       max-width and push the card wider than the screen. This forces it
+       to actually respect the constraint instead. */
+    min-width: 0;
+  }
+  .card h2 { padding-bottom: 0.65rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  label { display: block; margin: 0.8rem 0 0.35rem; color: var(--text-dim); font-size: 0.83rem; font-weight: 500; }
+  input[type=text], input[type=password], input[type=url], select {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    background: #0d0c18;
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  select { appearance: none; }
+  input:focus, select:focus { outline: none; border-color: var(--accent-2); }
+  button, a.btn {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.7rem 1.3rem;
+    min-height: 44px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.12s ease;
+  }
+  button:active, a.btn:active { transform: scale(0.96); }
+  button.primary, a.btn.primary {
+    background: var(--gradient);
+    color: #14101c;
+  }
+  button.secondary, a.btn.secondary {
+    background: var(--bg-panel-2);
+    border-color: var(--border);
+    color: var(--text);
+  }
+  button.ghost {
+    background: transparent;
+    border: none;
+    color: var(--accent-2);
+    padding: 0.4rem 0.6rem;
+    min-height: unset;
+    font-size: 0.84rem;
+  }
+  button:disabled { opacity: 0.4; cursor: default; }
+  .row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-top: 0.9rem; }
+  .checkbox-row { display: flex; align-items: center; gap: 0.45rem; margin-top: 0.7rem; color: var(--text-dim); font-size: 0.9rem; }
+  .checkbox-row input { width: 18px; height: 18px; }
+
+  .results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .results-bar .actions { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+
+  ul.media-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    max-height: 320px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  ul.media-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.6rem 0.7rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  ul.media-list li:last-child { border-bottom: none; }
+  ul.media-list li.empty { color: var(--text-dim); justify-content: center; padding: 1rem; }
+
+  ul.job-list { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+  ul.job-list li {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 0.7rem 0.85rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    background: var(--bg-panel-2);
+  }
+
+  .tag {
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #14101c;
+    background: var(--accent-2);
+    border-radius: 999px;
+    padding: 0.1rem 0.5rem;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+  .job-status { font-size: 0.72rem; padding: 0.15rem 0.6rem; border-radius: 999px; flex-shrink: 0; font-weight: 600; }
+  .status-pending, .status-in_progress { background: #4a3a10; color: #f0d78a; }
+  .status-completed { background: #123a2c; color: var(--ok); }
+  .status-failed, .status-cancelled { background: #3a1e22; color: var(--danger); }
+
+  .item-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .file-row { flex-basis: 100%; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.2rem; }
+  .progress-track {
+    flex-basis: 100%;
+    height: 9px;
+    background: #0d0c18;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 0.4rem;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gradient);
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    flex-basis: 100%;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    margin-top: 0.15rem;
+  }
+  .muted { color: var(--text-dim); font-size: 0.85rem; }
+  a.dl-link { color: var(--accent-2); text-decoration: none; font-weight: 500; font-size: 0.85rem; }
+  button.file-icon-btn {
+    width: 36px; height: 36px; min-height: unset;
+    padding: 0; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+
+  #login-overlay {
+    position: fixed; inset: 0; background: rgba(6,5,12,0.95);
+    display: flex; align-items: center; justify-content: center; z-index: 50; padding: 1rem;
+  }
+  #login-overlay .card { max-width: 320px; width: 100%; }
+  #terms-overlay {
+    position: fixed; inset: 0; background: rgba(6,5,12,0.95);
+    display: flex; align-items: center; justify-content: center; z-index: 52; padding: 1rem;
+  }
+  #terms-overlay .card { max-width: 420px; width: 100%; max-height: 90vh; overflow-y: auto; }
+  #settings-overlay {
+    position: fixed; inset: 0; background: rgba(6,5,12,0.7);
+    display: flex; align-items: flex-end; justify-content: center; z-index: 55;
+  }
+  #settings-overlay .card { max-width: 480px; width: 100%; margin: 0; border-radius: 22px 22px 0 0; max-height: 85vh; overflow-y: auto; }
+  #limit-overlay {
+    position: fixed; inset: 0; background: rgba(6,5,12,0.85);
+    display: flex; align-items: center; justify-content: center; z-index: 53; padding: 1rem;
+  }
+  #limit-overlay .card { max-width: 380px; width: 100%; }
+  #toast {
+    position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
+    background: #241820; border: 1px solid var(--danger); color: #ffd7d7;
+    padding: 0.65rem 1.1rem; border-radius: 999px; font-size: 0.88rem; max-width: 90vw;
+    display: none; z-index: 60;
+  }
+  .hidden { display: none !important; }
+  footer { text-align: center; color: var(--text-dim); font-size: 0.78rem; padding: 1.5rem 1rem; }
+
+  #splash {
+    position: fixed; inset: 0; background: var(--bg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1rem; z-index: 100;
+    transition: opacity 0.4s ease;
+  }
+  #splash.fade-out { opacity: 0; pointer-events: none; }
+  .splash-icon { animation: splash-bounce 1s ease-in-out infinite; }
+  @keyframes splash-bounce {
+    0%, 100% { transform: translateY(-6px) scale(1); }
+    50% { transform: translateY(6px) scale(1.05); }
+  }
+  .splash-title {
+    font-family: 'Poppins', sans-serif;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    animation: splash-text-in 0.6s ease forwards 0.3s;
+  }
+  @keyframes splash-text-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <svg class="splash-icon" viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
+    <defs>
+      <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ff5c7a" /><stop offset="100%" stop-color="#22e0c9" />
+      </linearGradient>
+    </defs>
+    <path d="M32 6 L32 34 M20 24 L32 38 L44 24" stroke="url(#g1)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <rect x="14" y="46" width="36" height="6" rx="3" fill="url(#g1)" />
+  </svg>
+  <div class="splash-title">DownloadThat</div>
+</div>
+
+<div id="login-overlay">
+  <div class="card">
+    <h2 data-i18n="app.login.title">Log in</h2>
+    <label for="login-password" data-i18n="app.login.password_label">Password</label>
+    <input type="password" id="login-password" autocomplete="current-password" />
+    <div class="row"><button class="primary" id="login-btn"><span aria-hidden="true">🔓</span> <span data-i18n="app.login.unlock_btn">Unlock</span></button></div>
+    <p class="muted" id="login-error"></p>
+  </div>
+</div>
+
+<div id="terms-overlay" class="hidden">
+  <div class="card">
+    <h2 data-i18n="app.terms.title">Before you start</h2>
+    <p class="muted" data-i18n="app.terms.body">
+      This app is a technical tool for downloading media from links you provide yourself.
+      You are solely responsible for making sure you're allowed to download and use the
+      content behind any link you enter — the developer takes no responsibility for what
+      you download.
+    </p>
+    <div class="row" style="margin-top:0.4rem;">
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/agb.html" target="_blank" rel="noopener" data-i18n="app.terms.link_terms">Terms of use</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/datenschutz.html" target="_blank" rel="noopener" data-i18n="app.terms.link_privacy">Privacy policy</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/impressum.html" target="_blank" rel="noopener" data-i18n="app.terms.link_imprint">Imprint</a>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="terms-checkbox" />
+      <label for="terms-checkbox" style="margin:0" data-i18n="app.terms.checkbox_label">I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.</label>
+    </div>
+    <div class="row">
+      <button class="primary" id="terms-accept-btn" disabled><span aria-hidden="true">✔️</span> <span data-i18n="app.terms.continue_btn">Continue</span></button>
+    </div>
+  </div>
+</div>
+
+<div id="settings-overlay" class="hidden">
+  <div class="card">
+    <h2 data-i18n="app.settings.title">Settings</h2>
+    <label for="settings-language" data-i18n="app.settings.language_label">Language</label>
+    <select id="settings-language"></select>
+
+    <label data-i18n="app.settings.folder_label">Download folder</label>
+    <!-- No data-i18n here on purpose: refreshSettings() sets this to either
+         the real custom folder label or t('app.settings.folder_default') -
+         a static data-i18n would let a language switch clobber a real,
+         already-picked folder name back to the "default" placeholder text. -->
+    <p class="muted" id="settings-folder-label">App storage (default)</p>
+    <div class="row">
+      <button class="secondary" id="settings-folder-pick-btn"><span aria-hidden="true">📁</span> <span data-i18n="app.settings.folder_pick_btn">Choose folder</span></button>
+      <button class="ghost" id="settings-folder-reset-btn"><span aria-hidden="true">🔄</span> <span data-i18n="app.settings.folder_reset_btn">Reset to default</span></button>
+    </div>
+    <p class="muted hidden" id="settings-folder-unsupported" data-i18n="app.settings.folder_not_supported">Only available in the Android app.</p>
+
+    <!-- Was the first card on the app's home screen, right above the actual
+         download-link textarea - people kept mistaking the license key field
+         for the download-link field. Lives here in Settings instead, plus a
+         copy of the key-entry UI surfaces as a popup when the free-tier daily
+         limit is hit (see #limit-overlay) so upgrading is still one tap away. -->
+    <div class="hidden" id="license-card">
+      <label data-i18n="app.license.title">License</label>
+      <p class="muted" id="license-status">—</p>
+      <div class="row">
+        <input type="text" id="license-key-input" data-i18n-placeholder="app.license.placeholder" placeholder="DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
+        <button class="secondary" id="license-save-btn"><span aria-hidden="true">💾</span> <span data-i18n="app.license.save_btn">Save</span></button>
+      </div>
+      <a class="btn primary hidden" id="license-buy-link" href="https://downloadthat.pages.dev/#pricing" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;"><span aria-hidden="true">✨</span> <span data-i18n="app.license.buy_btn">Get Pro</span></a>
+    </div>
+
+    <label data-i18n="app.about.title">About</label>
+    <p class="muted">
+      <span data-i18n="app.about.developed_by">Developed by</span> Benjamin Graf
+      <span id="settings-app-version"></span>
+    </p>
+    <div class="row" style="margin-top:0;">
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/agb.html" target="_blank" rel="noopener" data-i18n="app.terms.link_terms">Terms of use</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/datenschutz.html" target="_blank" rel="noopener" data-i18n="app.terms.link_privacy">Privacy policy</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/impressum.html" target="_blank" rel="noopener" data-i18n="app.terms.link_imprint">Imprint</a>
+    </div>
+    <p class="muted" style="font-size:0.75rem; margin-top:0.6rem;" data-i18n="app.about.licenses">
+      Uses yt-dlp (Unlicense), FFmpeg &amp; LAME (LGPL), Chaquopy (MIT), requests &amp;
+      Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0).
+    </p>
+
+    <div class="row">
+      <button class="primary" id="settings-close-btn"><span aria-hidden="true">✔️</span> <span data-i18n="app.settings.close_btn">Close</span></button>
+    </div>
+  </div>
+</div>
+
+<div id="limit-overlay" class="hidden">
+  <div class="card">
+    <h2 data-i18n="app.limit.title">Daily limit reached</h2>
+    <p class="muted" data-i18n="app.limit.body">
+      You've reached today's free limit of 5 downloads. Enter a license key below for
+      unlimited downloads, or try again in 24 hours.
+    </p>
+    <div class="row">
+      <input type="text" id="limit-license-key-input" data-i18n-placeholder="app.license.placeholder" placeholder="DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
+      <button class="secondary" id="limit-license-save-btn"><span aria-hidden="true">💾</span> <span data-i18n="app.license.save_btn">Save</span></button>
+    </div>
+    <a class="btn primary" id="limit-buy-link" href="https://downloadthat.pages.dev/#pricing" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;"><span aria-hidden="true">✨</span> <span data-i18n="app.license.buy_btn">Get Pro</span></a>
+    <div class="row">
+      <button class="primary" id="limit-close-btn"><span aria-hidden="true">✔️</span> <span data-i18n="app.settings.close_btn">Close</span></button>
+    </div>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+  <header>
+    <div class="header-titles">
+      <h1>DownloadThat</h1>
+      <p data-i18n="app.tagline">Download media from most sites, on any device</p>
+    </div>
+    <button class="icon-btn" id="settings-open-btn" aria-label="Settings" data-i18n-aria="app.settings.gear_label">⚙️</button>
+  </header>
+  <main>
+    <div class="card">
+      <h2 data-i18n="app.batch.title">Download</h2>
+      <label for="batch-urls" data-i18n="app.batch.label">Paste a link, multiple links (one per line), or a playlist link</label>
+      <textarea id="batch-urls" rows="4" data-i18n-placeholder="app.batch.placeholder" placeholder="Paste a link, multiple links (one per line), or a playlist link" style="width:100%; padding:0.75rem 0.9rem; background:#0d0c18; border:1px solid var(--border); color:var(--text); border-radius:14px; font-family:inherit; font-size:1rem; resize:vertical;"></textarea>
+      <label for="quality-select" data-i18n="app.scrape.quality_label">Video quality</label>
+      <select id="quality-select">
+        <option value="2160" data-i18n="app.quality.auto">Auto (up to 4K)</option>
+        <option value="240" data-i18n="app.quality.p240">240p</option>
+        <option value="480" data-i18n="app.quality.p480">480p</option>
+        <option value="720" data-i18n="app.quality.p720">HD (720p)</option>
+        <option value="1080" data-i18n="app.quality.p1080">Full HD (1080p)</option>
+        <option value="1440" data-i18n="app.quality.p1440">2K (1440p)</option>
+        <option value="2160" data-i18n="app.quality.p2160">4K (2160p)</option>
+      </select>
+      <div class="row">
+        <button class="primary" id="queue-video-btn"><span aria-hidden="true">⬇️</span> <span data-i18n="app.scrape.video_btn">Download video</span></button>
+        <button class="secondary" id="queue-audio-btn"><span aria-hidden="true">🎧</span> <span data-i18n="app.scrape.audio_btn">Download audio</span></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="app.scrape.title">Search a page</h2>
+      <label for="scrape-url" data-i18n="app.scrape.url_label">Page URL</label>
+      <input type="url" id="scrape-url" data-i18n-placeholder="app.scrape.url_placeholder" placeholder="Paste the link here" />
+      <div class="checkbox-row"><input type="checkbox" id="scrape-deep" /><label for="scrape-deep" style="margin:0" data-i18n="app.scrape.deep_label">Deep search (follow links)</label></div>
+      <div class="row">
+        <button class="secondary" id="scrape-btn"><span aria-hidden="true">🔍</span> <span data-i18n="app.scrape.search_btn">Search page</span></button>
+      </div>
+
+      <div id="scrape-results" class="hidden">
+        <div class="results-bar">
+          <span class="muted" id="results-count"></span>
+          <div class="actions">
+            <button class="ghost" id="select-all-btn" data-i18n="app.scrape.select_all">Select all</button>
+            <button class="ghost" id="deselect-all-btn" data-i18n="app.scrape.deselect_all">Deselect all</button>
+            <button class="ghost" id="clear-results-btn" data-i18n="app.scrape.clear">Clear list</button>
+          </div>
+        </div>
+        <ul class="media-list" id="media-list"></ul>
+        <div class="row">
+          <button class="primary" id="queue-selected-btn"><span aria-hidden="true">⬇️</span> <span data-i18n="app.scrape.queue_selected">Download selected</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="app.queue.title">Queue</h2>
+      <p class="muted" data-i18n="app.queue.subtitle">Updates automatically.</p>
+      <ul class="job-list" id="job-list"></ul>
+    </div>
+  </main>
+  <footer data-i18n="app.footer">DownloadThat — only download media you have the rights to.</footer>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let lastScrape = null;
+
+// -- i18n ---------------------------------------------------------------
+const LANGUAGES = [
+  ['en', 'English'], ['de', 'Deutsch'], ['es', 'Español'], ['fr', 'Français'], ['pt', 'Português'],
+  ['it', 'Italiano'], ['nl', 'Nederlands'], ['pl', 'Polski'], ['ro', 'Română'], ['el', 'Ελληνικά'],
+  ['cs', 'Čeština'], ['sv', 'Svenska'], ['da', 'Dansk'], ['fi', 'Suomi'], ['no', 'Norsk'],
+  ['hu', 'Magyar'], ['sk', 'Slovenčina'], ['bg', 'Български'], ['hr', 'Hrvatski'], ['lt', 'Lietuvių'],
+  ['sl', 'Slovenščina'], ['et', 'Eesti'], ['lv', 'Latviešu'], ['sr', 'Српски'], ['uk', 'Українська'],
+  ['ru', 'Русский'], ['tr', 'Türkçe'], ['ar', 'العربية'], ['he', 'עברית'], ['fa', 'فارسی'],
+  ['ur', 'اردو'], ['hi', 'हिन्दी'], ['bn', 'বাংলা'], ['ta', 'தமிழ்'], ['te', 'తెలుగు'],
+  ['mr', 'मराठी'], ['gu', 'ગુજરાતી'], ['kn', 'ಕನ್ನಡ'], ['ml', 'മലയാളം'], ['pa', 'ਪੰਜਾਬੀ'],
+  ['ja', '日本語'], ['ko', '한국어'], ['zh', '中文'], ['vi', 'Tiếng Việt'], ['th', 'ไทย'],
+  ['id', 'Bahasa Indonesia'], ['ms', 'Bahasa Melayu'], ['fil', 'Filipino'], ['sw', 'Kiswahili'], ['am', 'አማርኛ'],
+];
+const SUPPORTED_CODES = LANGUAGES.map((l) => l[0]);
+let STRINGS = {};
+let languagePref = 'auto';
+
+function detectDeviceLang() {
+  const raw = (navigator.language || 'en').toLowerCase();
+  const short = raw.split('-')[0];
+  return SUPPORTED_CODES.includes(short) ? short : 'en';
+}
+
+function t(key, vars) {
+  const parts = key.split('.');
+  let node = STRINGS;
+  for (const p of parts) node = node && typeof node === 'object' ? node[p] : undefined;
+  let str = typeof node === 'string' ? node : key;
+  if (vars) for (const [k, v] of Object.entries(vars)) str = str.split(`{${k}}`).join(v);
+  return str;
+}
+
+async function loadStrings(code) {
+  try {
+    const res = await fetch(`/i18n/${code}.json`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('not found');
+    return await res.json();
+  } catch (e) {
+    return null;
+  }
+}
+
+function applyStaticTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => { el.placeholder = t(el.dataset.i18nPlaceholder); });
+  document.querySelectorAll('[data-i18n-aria]').forEach((el) => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+}
+
+async function setLanguage(pref, opts = {}) {
+  languagePref = pref;
+  const effective = pref === 'auto' ? detectDeviceLang() : pref;
+  STRINGS = (await loadStrings(effective)) || (await loadStrings('en')) || {};
+  applyStaticTranslations();
+  if ($('settings-language')) $('settings-language').value = pref;
+  if (!$('app').classList.contains('hidden')) {
+    refreshQueue();
+    refreshLicense();
+  }
+  if (!opts.skipPersist) {
+    api('/api/settings', { method: 'POST', body: { language: pref } }).catch(() => {});
+  }
+}
+
+function populateLanguagePicker() {
+  const select = $('settings-language');
+  select.innerHTML = '';
+  const autoOpt = document.createElement('option');
+  autoOpt.value = 'auto';
+  autoOpt.textContent = t('app.settings.language_auto');
+  select.appendChild(autoOpt);
+  for (const [code, name] of LANGUAGES) {
+    const opt = document.createElement('option');
+    opt.value = code;
+    opt.textContent = name;
+    select.appendChild(opt);
+  }
+  select.value = languagePref;
+}
+
+function playDownloadChime() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = ctx.currentTime;
+    [523.25, 783.99].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0, now + i * 0.15);
+      gain.gain.linearRampToValueAtTime(0.2, now + i * 0.15 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.15 + 0.35);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(now + i * 0.15);
+      osc.stop(now + i * 0.15 + 0.4);
+    });
+  } catch (e) {
+    // Autoplay blocked or Web Audio unsupported — the visual splash still plays.
+  }
+}
+
+playDownloadChime();
+setTimeout(() => {
+  const splash = $('splash');
+  splash.classList.add('fade-out');
+  setTimeout(() => splash.remove(), 500);
+}, 1600);
+
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { t.style.display = 'none'; }, 4000);
+}
+
+async function api(path, opts = {}) {
+  const res = await fetch(path, {
+    method: opts.method || 'GET',
+    headers: { 'Content-Type': 'application/json' },
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+    credentials: 'same-origin',
+  });
+  if (res.status === 401) throw { unauthorized: true };
+  let data = null;
+  try { data = await res.json(); } catch (e) { /* no body */ }
+  if (!res.ok) throw { message: (data && data.detail) || res.statusText, status: res.status };
+  return data;
+}
+
+// On Android, MainActivity re-logs the user in automatically (injected JS,
+// see MainActivity.kt's onPageFinished) at the same time this page's own
+// checkAuth() runs against whatever session cookie was already stored from
+// before - normal after the app process was killed and relaunched, since
+// the server's in-memory session store resets but the WebView's cookie jar
+// persists. Both are async and hit the same local server, so they can
+// resolve in either order. Without this guard, checkAuth()'s answer for the
+// OLD (now invalid) cookie could arrive after the fresh auto-login already
+// succeeded and incorrectly flip the UI back to "logged out" - the user
+// would then be stuck looking at a login screen for a password they were
+// never shown, even though the app is actually authenticated. authGeneration
+// lets a login bump the generation so any earlier, now-stale checkAuth()
+// call discards its result instead of clobbering the newer state.
+let authGeneration = 0;
+
+async function checkAuth() {
+  const myGeneration = authGeneration;
+  try {
+    const me = await api('/api/me');
+    if (myGeneration === authGeneration) setAuthed(me.authenticated);
+  } catch (e) {
+    if (myGeneration === authGeneration) setAuthed(false);
+  }
+}
+
+async function setAuthed(authed) {
+  $('login-overlay').classList.toggle('hidden', authed);
+  if (!authed) {
+    $('terms-overlay').classList.add('hidden');
+    $('app').classList.add('hidden');
+    return;
+  }
+
+  let termsAccepted = true;
+  try {
+    const settings = await api('/api/settings');
+    termsAccepted = !!settings.terms_accepted;
+  } catch (e) {
+    // Couldn't check (transient error) - don't get the user stuck behind a
+    // gate they already passed before; show the app rather than the gate.
+  }
+
+  if (!termsAccepted) {
+    $('app').classList.add('hidden');
+    $('terms-overlay').classList.remove('hidden');
+    return;
+  }
+
+  $('terms-overlay').classList.add('hidden');
+  $('app').classList.remove('hidden');
+  refreshQueue(); refreshLicense(); refreshSettings();
+}
+
+$('terms-checkbox').addEventListener('change', (e) => {
+  $('terms-accept-btn').disabled = !e.target.checked;
+});
+$('terms-accept-btn').addEventListener('click', async () => {
+  try {
+    await api('/api/settings', { method: 'POST', body: { accept_terms: true } });
+    setAuthed(true);
+  } catch (e) {
+    toast(e.message || '');
+  }
+});
+
+async function refreshLicense() {
+  try {
+    const status = await api('/api/license');
+    if (!status.configured) {
+      // Termux/desktop: licensing isn't enforced there, so there's nothing
+      // to show — the card stays hidden (its default state).
+      return;
+    }
+    $('license-card').classList.remove('hidden');
+    if (status.valid) {
+      $('license-status').textContent = t('app.license.status_active', { tier: status.tier || '?' });
+    } else if (status.has_key) {
+      $('license-status').textContent = t('app.license.status_invalid');
+    } else {
+      $('license-status').textContent = t('app.license.status_free');
+    }
+    $('license-buy-link').classList.toggle('hidden', !!status.valid);
+  } catch (e) {
+    // Not authenticated yet, or a transient error — just leave the card hidden.
+  }
+}
+
+// Shared by the Settings panel's license field and the daily-limit popup's
+// own copy of it (see #limit-overlay) - same activation flow, two entry points.
+async function activateLicenseFromInput(inputId) {
+  const input = $(inputId);
+  const key = input.value.trim();
+  if (!key) return toast(t('app.license.need_key_toast'));
+  try {
+    await api('/api/license', { method: 'POST', body: { key } });
+    input.value = '';
+    toast(t('app.license.activated_toast'));
+    refreshLicense();
+    $('limit-overlay').classList.add('hidden');
+  } catch (e) {
+    toast(t('app.license.invalid_toast'));
+  }
+}
+
+$('license-save-btn').addEventListener('click', () => activateLicenseFromInput('license-key-input'));
+$('limit-license-save-btn').addEventListener('click', () => activateLicenseFromInput('limit-license-key-input'));
+$('limit-close-btn').addEventListener('click', () => $('limit-overlay').classList.add('hidden'));
+
+$('login-btn').addEventListener('click', async () => {
+  const password = $('login-password').value;
+  $('login-error').textContent = '';
+  try {
+    await api('/api/login', { method: 'POST', body: { password } });
+    $('login-password').value = '';
+    authGeneration++;
+    setAuthed(true);
+  } catch (e) {
+    $('login-error').textContent = t('app.login.error');
+  }
+});
+$('login-password').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('login-btn').click(); });
+
+// -- settings panel -------------------------------------------------------
+async function refreshSettings() {
+  try {
+    const settings = await api('/api/settings');
+    populateLanguagePicker();
+    languagePref = settings.language || 'auto';
+    $('settings-language').value = languagePref;
+    $('settings-folder-label').textContent = settings.export_folder_label || t('app.settings.folder_default');
+    const androidAvailable = !!(window.AndroidBridge && window.AndroidBridge.isAvailable && window.AndroidBridge.isAvailable());
+    $('settings-folder-pick-btn').classList.toggle('hidden', !androidAvailable);
+    $('settings-folder-reset-btn').classList.toggle('hidden', !androidAvailable || !settings.export_folder_label);
+    $('settings-folder-unsupported').classList.toggle('hidden', androidAvailable);
+    $('settings-app-version').textContent = settings.app_version ? `· v${settings.app_version}` : '';
+  } catch (e) {
+    // Not authenticated yet — settings will refresh once login succeeds.
+  }
+}
+window.refreshSettings = refreshSettings;
+
+$('settings-open-btn').addEventListener('click', () => {
+  $('settings-overlay').classList.remove('hidden');
+  refreshSettings();
+});
+$('settings-close-btn').addEventListener('click', () => {
+  $('settings-overlay').classList.add('hidden');
+});
+$('settings-language').addEventListener('change', (e) => {
+  setLanguage(e.target.value);
+});
+$('settings-folder-pick-btn').addEventListener('click', () => {
+  if (window.AndroidBridge && window.AndroidBridge.pickExportFolder) {
+    window.AndroidBridge.pickExportFolder();
+    toast(t('app.settings.folder_picking'));
+  }
+});
+$('settings-folder-reset-btn').addEventListener('click', async () => {
+  try {
+    await api('/api/settings', { method: 'POST', body: { reset_folder: true } });
+    toast(t('app.settings.saved_toast'));
+    refreshSettings();
+  } catch (e) {
+    toast(e.message || '');
+  }
+});
+
+function updateResultsCount() {
+  const total = document.querySelectorAll('.media-pick').length;
+  const picked = document.querySelectorAll('.media-pick:checked').length;
+  $('results-count').textContent = t('app.scrape.results_count', { total, picked });
+}
+
+function clearResults() {
+  lastScrape = null;
+  $('media-list').innerHTML = '';
+  $('scrape-results').classList.add('hidden');
+}
+
+function renderMedia(result) {
+  lastScrape = result;
+  const list = $('media-list');
+  list.innerHTML = '';
+  if (!result.items.length) {
+    list.innerHTML = `<li class="empty">${t('app.scrape.empty')}</li>`;
+    $('scrape-results').classList.remove('hidden');
+    $('results-count').textContent = '';
+    return;
+  }
+  result.items.forEach((item, idx) => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <input type="checkbox" class="media-pick" data-idx="${idx}" />
+      <span class="tag">${item.media_type}</span>
+      <span class="item-name" title="${item.filename}">${item.filename}</span>
+    `;
+    list.appendChild(li);
+  });
+  $('scrape-results').classList.remove('hidden');
+  updateResultsCount();
+}
+
+$('media-list').addEventListener('change', (e) => {
+  if (e.target.classList.contains('media-pick')) updateResultsCount();
+});
+
+$('scrape-btn').addEventListener('click', async () => {
+  const url = $('scrape-url').value.trim();
+  if (!url) return toast(t('app.scrape.need_url_toast'));
+  $('scrape-btn').disabled = true;
+  try {
+    const result = await api('/api/scrape', { method: 'POST', body: { url, deep: $('scrape-deep').checked } });
+    renderMedia(result);
+    if (result.errors && result.errors.length) toast(result.errors[0]);
+  } catch (e) {
+    toast(e.message || t('app.scrape.search_failed_toast'));
+  } finally {
+    $('scrape-btn').disabled = false;
+  }
+});
+
+async function queueSource(source, audioOnly, allowPlaylist) {
+  const qualitySelect = $('quality-select');
+  const qualityHeight = qualitySelect ? Number(qualitySelect.value) : undefined;
+  await api('/api/queue', {
+    method: 'POST',
+    body: { source, audio_only: !!audioOnly, allow_playlist: !!allowPlaylist, quality_height: qualityHeight },
+  });
+  refreshQueue();
+}
+
+function isPlaylistUrl(url) {
+  return /[?&]list=/.test(url) || /\/playlist(\?|$)/.test(url) || /\/sets\//.test(url);
+}
+
+// The server answers a free-tier quota rejection with 402 - surface it as the
+// popup (with a license field right there) instead of just a toast that's
+// easy to miss and doesn't tell the user how to fix it.
+function handleQueueError(e, fallbackToastKey) {
+  if (e.status === 402) {
+    $('limit-overlay').classList.remove('hidden');
+  } else {
+    toast(e.message || t(fallbackToastKey));
+  }
+}
+
+async function queueLinks(audioOnly) {
+  const lines = $('batch-urls').value.split('\n').map((s) => s.trim()).filter(Boolean);
+  if (!lines.length) return toast(t('app.batch.need_links_toast'));
+  try {
+    if (lines.length === 1) {
+      // A single line that looks like a playlist is downloaded as a whole
+      // playlist; a single ordinary link is just one download.
+      await queueSource(lines[0], audioOnly, isPlaylistUrl(lines[0]));
+    } else {
+      for (const line of lines) {
+        await queueSource(line, audioOnly, false);
+      }
+    }
+    toast(t('app.batch.queued_toast', { count: lines.length }));
+    $('batch-urls').value = '';
+  } catch (e) {
+    handleQueueError(e, 'app.batch.queue_failed_toast');
+  }
+}
+
+$('queue-video-btn').addEventListener('click', () => queueLinks(false));
+$('queue-audio-btn').addEventListener('click', () => queueLinks(true));
+
+$('select-all-btn').addEventListener('click', () => {
+  document.querySelectorAll('.media-pick').forEach((cb) => { cb.checked = true; });
+  updateResultsCount();
+});
+
+$('deselect-all-btn').addEventListener('click', () => {
+  document.querySelectorAll('.media-pick').forEach((cb) => { cb.checked = false; });
+  updateResultsCount();
+});
+
+$('clear-results-btn').addEventListener('click', () => {
+  clearResults();
+});
+
+$('queue-selected-btn').addEventListener('click', async () => {
+  if (!lastScrape) return;
+  const picked = Array.from(document.querySelectorAll('.media-pick:checked')).map((cb) => lastScrape.items[Number(cb.dataset.idx)]);
+  if (!picked.length) return toast(t('app.scrape.need_selection_toast'));
+  try {
+    for (const item of picked) {
+      await queueSource(item.url, false, false);
+    }
+    toast(t('app.queue.queued_toast'));
+  } catch (e) {
+    handleQueueError(e, 'app.scrape.queue_selection_failed_toast');
+  }
+});
+
+function formatBytes(bytes) {
+  if (!bytes || bytes < 0) return '0 MB';
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+async function openFile(jobId, filename, btn) {
+  try {
+    const result = await api('/api/open', { method: 'POST', body: { job_id: jobId, filename } });
+    if (!result.opened) toast(t('app.queue.open_unsupported_toast'));
+  } catch (e) {
+    toast(t('app.queue.open_failed_toast'));
+  }
+}
+
+async function openFolder(jobId, filename) {
+  try {
+    const result = await api('/api/open-folder', { method: 'POST', body: { job_id: jobId, filename } });
+    if (!result.opened) toast(t('app.queue.open_folder_unsupported_toast'));
+  } catch (e) {
+    toast(t('app.queue.open_folder_failed_toast'));
+  }
+}
+
+async function shareFile(jobId, filename) {
+  try {
+    const result = await api('/api/share', { method: 'POST', body: { job_id: jobId, filename } });
+    if (!result.shared) toast(t('app.queue.share_unsupported_toast'));
+  } catch (e) {
+    toast(t('app.queue.share_failed_toast'));
+  }
+}
+
+// Inline SVG (Material Design glyphs) instead of emoji: emoji rendering
+// varies a lot across Android skins/keyboards, and the share glyph in
+// particular didn't read as "share" to users - this is the same
+// three-node icon Android itself and most social apps use for sharing.
+const ICON_PATHS = {
+  // "Open" a finished download - for the video/audio files this is almost
+  // always about, that means playing it, so the classic play-triangle reads
+  // more clearly than an abstract "open in new window" icon did.
+  open: 'M8 5v14l11-7z',
+  folder: 'M10 4H4c-1.11 0-2 .89-2 2v12c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z',
+  share: 'M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z',
+  close: 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
+};
+
+function iconSvg(name) {
+  return `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="${ICON_PATHS[name]}"/></svg>`;
+}
+
+function jobRow(job) {
+  const li = document.createElement('li');
+  let progressHtml = '';
+  if (job.status === 'in_progress' && job.total_bytes) {
+    const pct = Math.min(100, Math.max(0, (job.downloaded_bytes / job.total_bytes) * 100));
+    progressHtml = `
+      <div class="progress-track"><div class="progress-fill" style="width:${pct.toFixed(1)}%"></div></div>
+      <div class="progress-label">${formatBytes(job.downloaded_bytes)} / ${formatBytes(job.total_bytes)} (${pct.toFixed(0)}%)</div>
+    `;
+  }
+  li.innerHTML = `
+    <span class="job-status status-${job.status}">${job.status}</span>
+    <span class="item-name">${job.source}${job.error ? `<br/><span class="muted">${job.error}</span>` : ''}</span>
+    ${progressHtml}
+  `;
+  if (job.files && job.files.length) {
+    const fileRow = document.createElement('div');
+    fileRow.className = 'file-row';
+    job.files.forEach((f) => {
+      const link = document.createElement('a');
+      link.className = 'dl-link';
+      link.href = f.download_url;
+      link.textContent = f.filename;
+      fileRow.appendChild(link);
+
+      const openBtn = document.createElement('button');
+      openBtn.className = 'secondary file-icon-btn';
+      openBtn.innerHTML = iconSvg('open');
+      openBtn.title = t('app.queue.open_btn');
+      openBtn.setAttribute('aria-label', t('app.queue.open_btn'));
+      openBtn.addEventListener('click', () => openFile(job.id, f.filename, openBtn));
+      fileRow.appendChild(openBtn);
+
+      const folderBtn = document.createElement('button');
+      folderBtn.className = 'secondary file-icon-btn';
+      folderBtn.innerHTML = iconSvg('folder');
+      folderBtn.title = t('app.queue.open_folder_btn');
+      folderBtn.setAttribute('aria-label', t('app.queue.open_folder_btn'));
+      folderBtn.addEventListener('click', () => openFolder(job.id, f.filename));
+      fileRow.appendChild(folderBtn);
+
+      const shareBtn = document.createElement('button');
+      shareBtn.className = 'secondary file-icon-btn';
+      shareBtn.innerHTML = iconSvg('share');
+      shareBtn.title = t('app.queue.share_btn');
+      shareBtn.setAttribute('aria-label', t('app.queue.share_btn'));
+      shareBtn.addEventListener('click', () => shareFile(job.id, f.filename));
+      fileRow.appendChild(shareBtn);
+    });
+    li.appendChild(fileRow);
+  }
+  if (job.status === 'pending' || job.status === 'in_progress') {
+    const btn = document.createElement('button');
+    btn.className = 'secondary file-icon-btn';
+    btn.innerHTML = iconSvg('close');
+    btn.title = t('app.queue.cancel_btn');
+    btn.setAttribute('aria-label', t('app.queue.cancel_btn'));
+    btn.addEventListener('click', async () => {
+      try { await api(`/api/queue/${job.id}/cancel`, { method: 'POST' }); refreshQueue(); }
+      catch (e) { toast(e.message || t('app.queue.cancel_failed_toast')); }
+    });
+    li.appendChild(btn);
+  }
+  return li;
+}
+
+async function refreshQueue() {
+  try {
+    const data = await api('/api/queue');
+    const list = $('job-list');
+    list.innerHTML = '';
+    if (!data.jobs.length) {
+      list.innerHTML = `<li class="muted">${t('app.queue.empty')}</li>`;
+      return;
+    }
+    data.jobs.forEach((job) => list.appendChild(jobRow(job)));
+  } catch (e) {
+    if (e.unauthorized) setAuthed(false);
+  }
+}
+
+// 1.5s rather than 4s: short downloads (e.g. small audio-only files) can
+// otherwise finish between polls, so the queue jumps straight from
+// "pending" to "completed" and the progress bar is never seen at all.
+setInterval(() => { if (!$('app').classList.contains('hidden')) refreshQueue(); }, 1500);
+// NOTE: do not gate this on disabling #login-btn until i18n is ready (an
+// earlier attempt at that did exactly this) - MainActivity.kt's WebView
+// auto-login logs in by calling btn.click() from injected JS once the page
+// loads, and a disabled button silently ignores .click(), which broke the
+// normally-invisible auto-login and surfaced the password prompt (which
+// nobody is ever meant to see) with no way to know the real password.
+setLanguage('auto', { skipPersist: true }).then(checkAuth);
+</script>
+</body>
+</html>

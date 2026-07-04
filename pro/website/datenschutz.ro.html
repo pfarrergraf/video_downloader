@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Politica de confidențialitate — DownloadThat</title>
+<style>
+  :root {
+    --bg: #0e0c14;
+    --bg-elevated: #16121f;
+    --card: #1b1626;
+    --border: #2c2438;
+    --text: #f1ede4;
+    --text-dim: #a89fb3;
+    --accent: #c9a869;
+    --accent-dim: #8a713f;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(14, 12, 20, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 720px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.02em; color: var(--text); }
+  .brand-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(160deg, var(--accent), var(--accent-dim));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: #14111c;
+  }
+
+  main { padding: 56px 24px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 8px; }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 40px; }
+  h2 { font-size: 1.15rem; color: var(--accent); margin: 36px 0 10px; }
+  h3 { font-size: 1rem; color: var(--text); margin: 24px 0 8px; }
+  p, li { color: var(--text-dim); line-height: 1.7; margin: 0 0 12px; }
+  ul { padding-left: 20px; margin: 0 0 12px; }
+  .notice {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 36px; font-size: 0.9rem; color: var(--text-dim);
+  }
+
+  footer { border-top: 1px solid var(--border); padding: 36px 24px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+  footer a { color: var(--text-dim); }
+  footer .foot-links { display: flex; gap: 18px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+  .lang-switcher {
+    background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; font-family: inherit; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="brand-icon">⬇</span> DownloadThat</a>
+    <span id="legal-lang-switcher"></span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Politica de confidențialitate</h1>
+    <p class="subtitle">Ultima actualizare: iulie 2026 · conform GDPR și legislației germane privind protecția datelor</p>
+
+    <div class="notice">
+      Aceasta este o traducere în limba română oferită pentru comoditate. Versiunea
+      originală în limba germană (<a href="datenschutz.html">Datenschutzerklärung</a>)
+      este versiunea obligatorie din punct de vedere juridic; în cazul oricărei
+      discrepanțe, prevalează originalul german.
+    </div>
+
+    <h2>1. Operatorul de date</h2>
+    <p>
+      Operatorul de date în sensul GDPR este:<br />
+      Benjamin Graf<br />
+      Lahneckstraße 8<br />
+      56112 Lahnstein<br />
+      Germania<br />
+      E-mail: <a href="mailto:gpt.assist.benjamin@gmail.com">gpt.assist.benjamin@gmail.com</a>
+    </p>
+
+    <h2>2. Informații generale privind prelucrarea datelor</h2>
+    <p>
+      Prelucrăm date cu caracter personal numai în măsura în care acest lucru este
+      necesar pentru furnizarea serviciilor noastre (aplicația DownloadThat și
+      licențierea Pro). Prelucrarea se realizează în temeiul GDPR, precum și al Legii
+      federale germane privind protecția datelor (BDSG).
+    </p>
+    <p>
+      Aplicația în sine rulează integral pe dispozitivul tău și nu transmite date de
+      utilizare sau conținut descărcat către serverele noastre. Prelucrarea datelor
+      are loc numai în legătură cu achiziționarea și validarea unei licențe Pro.
+    </p>
+
+    <h2>3. Prelucrarea datelor la achiziționarea unei licențe Pro</h2>
+
+    <h3>3.1 Procesarea plăților (Stripe)</h3>
+    <p>
+      Atunci când achiziționezi o licență Pro, plata este procesată prin serviciul
+      Stripe (Stripe Inc., 510 Townsend Street, San Francisco, CA 94103, SUA). Stripe
+      prelucrează în acest context date de plată (de ex. datele cardului), adresa ta
+      de e-mail, precum și eventuale alte date necesare pentru procesarea plății.
+    </p>
+    <p>
+      Noi înșine nu stocăm date complete de plată. Stripe ne poate transmite
+      următoarele informații după o plată reușită:
+    </p>
+    <ul>
+      <li>ID-ul sesiunii de plată Stripe (pentru asocierea achiziției)</li>
+      <li>Adresa de e-mail (dacă este furnizată de Stripe)</li>
+      <li>Nivelul licenței (lunar / anual / pe viață)</li>
+    </ul>
+    <p>
+      Temei juridic: art. 6 alin. (1) lit. (b) GDPR (executarea unui contract).<br />
+      Informații suplimentare despre prelucrarea datelor de către Stripe găsești la:
+      <a href="https://stripe.com/de/privacy" target="_blank" rel="noopener">
+        https://stripe.com/de/privacy
+      </a>.
+    </p>
+
+    <h3>3.2 Baza de date a cheilor de licență (Cloudflare D1)</h3>
+    <p>
+      După o plată reușită, se generează o cheie de licență, stocată într-o bază de
+      date operată prin Cloudflare D1 (Cloudflare Inc., 101 Townsend St, San
+      Francisco, CA 94107, SUA). Sunt stocate în acest context:
+    </p>
+    <ul>
+      <li>O cheie de licență unică (UUID)</li>
+      <li>ID-ul sesiunii de plată Stripe</li>
+      <li>Nivelul licenței și momentul activării</li>
+      <li>Adresa de e-mail (dacă este furnizată de Stripe)</li>
+    </ul>
+    <p>
+      Datele sunt stocate pe durata licenței. În cazul licențelor pe viață, până la
+      ștergerea solicitată de titularul licenței sau până la încetarea serviciului.
+      Temei juridic: art. 6 alin. (1) lit. (b) GDPR (executarea unui contract).<br />
+      Politica de confidențialitate Cloudflare:
+      <a href="https://www.cloudflare.com/de-de/privacypolicy/" target="_blank" rel="noopener">
+        https://www.cloudflare.com/de-de/privacypolicy/
+      </a>.
+    </p>
+
+    <h3>3.3 Validarea licenței în aplicație</h3>
+    <p>
+      Atunci când introduci o cheie de licență în aplicație, aceasta este transmisă o
+      singură dată, în scop de validare, către punctul nostru final de API pentru
+      licențe (găzduit tot pe Cloudflare Pages). În acest proces se verifică
+      exclusiv cheia în sine; nu se stochează permanent date despre dispozitiv,
+      adrese IP sau alte informații.
+    </p>
+    <p>
+      Temei juridic: art. 6 alin. (1) lit. (b) GDPR (executarea unui contract).
+    </p>
+
+    <h3>3.4 Dovada consimțământului pentru începerea anticipată a executării contractului</h3>
+    <p>
+      La achiziționarea unei licențe Pro, trebuie să confirmi în mod expres, înainte
+      de efectuarea plății, că executarea contractului trebuie să înceapă înainte de
+      expirarea termenului legal de retragere (vezi
+      <a href="agb.ro.html">Termenii și condițiile</a> §6.3). Pentru a dovedi această
+      declarație, momentul confirmării tale este stocat în formă scrisă, ca parte a
+      datelor comenzii transmise către Stripe (numărul de referință al sesiunii de
+      plată). Temei juridic: art. 6 alin. (1) lit. (c) GDPR (obligație legală de a
+      face dovada, conform § 356 alin. (5) din Codul civil german (BGB)), precum și
+      art. 6 alin. (1) lit. (f) GDPR (interes legitim în asigurarea probelor în caz de
+      litigiu).
+    </p>
+
+    <h3>3.5 Cereri de rambursare</h3>
+    <p>
+      Dacă soliciți o rambursare prin intermediul funcției de autoservire
+      (<a href="widerruf.html">Retragere și rambursare</a>), prelucrăm adresa de
+      e-mail și cheia de licență introduse de tine pentru a asocia achiziția ta cu
+      datele din Stripe și pentru a iniția rambursarea, precum și dezactivarea
+      licenței. Temei juridic: art. 6 alin. (1) lit. (b) și lit. (c) GDPR
+      (executarea contractului, respectiv îndeplinirea obligațiilor legale privind
+      retragerea și rambursarea).
+    </p>
+
+    <h2>4. Găzduire și infrastructură tehnică</h2>
+    <p>
+      Acest site web este găzduit prin Cloudflare Pages. Cloudflare poate stoca
+      temporar în jurnalele sale date tehnice de conexiune (de ex. adrese IP).
+      Aceasta servește securității operaționale și se bazează pe art. 6 alin. (1)
+      lit. (f) GDPR (interes legitim în furnizarea sigură și fără erori a site-ului
+      web). Informații suplimentare:
+      <a href="https://www.cloudflare.com/de-de/privacypolicy/" target="_blank" rel="noopener">Politica de confidențialitate Cloudflare</a>.
+    </p>
+
+    <h2>5. Fără cookie-uri, fără instrumente de urmărire</h2>
+    <p>
+      Acest site web nu utilizează cookie-uri proprii și nu folosește servicii de
+      urmărire sau analiză. Stripe poate seta cookie-uri pe propriile pagini în
+      cadrul procesului de plată — acestea nu se află sub controlul nostru.
+    </p>
+
+    <h2>6. Transferul datelor către țări terțe</h2>
+    <p>
+      Stripe și Cloudflare au sediul principal în SUA. Transferul datelor se
+      realizează pe baza clauzelor contractuale standard ale UE (art. 46 alin. (2)
+      lit. (c) GDPR), respectiv a cadrului UE-SUA privind confidențialitatea datelor
+      (Data Privacy Framework), în măsura în care este aplicabil. Informații
+      suplimentare găsești în politicile de confidențialitate ale furnizorilor
+      respectivi.
+    </p>
+
+    <h2>7. Drepturile tale</h2>
+    <p>Ai față de noi următoarele drepturi cu privire la datele tale cu caracter personal:</p>
+    <ul>
+      <li><strong>Dreptul de acces</strong> (art. 15 GDPR)</li>
+      <li><strong>Dreptul la rectificare</strong> (art. 16 GDPR)</li>
+      <li><strong>Dreptul la ștergere</strong> (art. 17 GDPR)</li>
+      <li><strong>Dreptul la restricționarea prelucrării</strong> (art. 18 GDPR)</li>
+      <li><strong>Dreptul la portabilitatea datelor</strong> (art. 20 GDPR)</li>
+      <li><strong>Dreptul la opoziție</strong> (art. 21 GDPR)</li>
+    </ul>
+    <p>
+      Pentru a-ți exercita drepturile, te rugăm să ne contactezi prin e-mail la:
+      <a href="mailto:gpt.assist.benjamin@gmail.com">gpt.assist.benjamin@gmail.com</a>.
+    </p>
+    <p>
+      Ai, de asemenea, dreptul de a depune o plângere la o autoritate de supraveghere
+      a protecției datelor. Autoritatea competentă depinde de locul tău de reședință
+      sau de locul presupusei încălcări.
+    </p>
+
+    <h2>8. Actualitatea și modificarea prezentei politici de confidențialitate</h2>
+    <p>
+      Prezenta politică de confidențialitate este valabilă la data menționată mai
+      sus. Ca urmare a dezvoltării ulterioare a site-ului nostru web sau a
+      modificării cerințelor legale sau administrative, poate deveni necesară
+      adaptarea prezentei politici de confidențialitate.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html">Acasă</a>
+      <a href="impressum.ro.html">Notă legală</a>
+      <a href="datenschutz.ro.html">Politica de confidențialitate</a>
+      <a href="agb.ro.html">Termeni și condiții</a>
+      <a href="mailto:support@gaistreich.com">Asistență</a>
+    </div>
+    <div>© 2026 DownloadThat. Toate drepturile rezervate.</div>
+  </div>
+</footer>
+
+<script src="legal-lang.js" data-doc="datenschutz"></script>
+</body>
+</html>

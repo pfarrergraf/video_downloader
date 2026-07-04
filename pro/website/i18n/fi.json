@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Lataa mediaa useimmilta sivustoilta, millä tahansa laitteella",
+    "login": {
+      "title": "Kirjaudu sisään",
+      "password_label": "Salasana",
+      "unlock_btn": "Avaa lukitus",
+      "error": "Väärä salasana."
+    },
+    "license": {
+      "title": "Lisenssi",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Tallenna",
+      "buy_btn": "Hanki Pro",
+      "status_active": "Pro käytössä ({tier}). Kiitos tuestasi!",
+      "status_invalid": "Ilmainen — tallennettu avain on virheellinen tai vanhentunut.",
+      "status_free": "Ilmainen — 3 latausta päivässä. Pro: rajoittamaton.",
+      "need_key_toast": "Anna lisenssiavain ensin.",
+      "activated_toast": "Lisenssi aktivoitu.",
+      "invalid_toast": "Virheellinen lisenssiavain."
+    },
+    "scrape": {
+      "title": "Hae sivulta",
+      "url_label": "Sivun URL-osoite",
+      "deep_label": "Syvähaku (seuraa linkkejä)",
+      "video_btn": "Lataa video",
+      "audio_btn": "Lataa ääni",
+      "search_btn": "Hae sivu",
+      "select_all": "Valitse kaikki",
+      "deselect_all": "Poista kaikki valinnat",
+      "clear": "Tyhjennä lista",
+      "queue_selected": "Lataa valitut",
+      "results_count": "{total} löytyi, {picked} valittu",
+      "empty": "Sivulta ei löytynyt mediaa.",
+      "need_url_toast": "Anna URL-osoite ensin.",
+      "search_failed_toast": "Haku epäonnistui.",
+      "queue_failed_toast": "Jonoon lisääminen epäonnistui.",
+      "queue_selection_failed_toast": "Valinnan lisääminen jonoon epäonnistui.",
+      "need_selection_toast": "Valitse vähintään yksi kohde.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "Jono",
+      "subtitle": "Päivittyy automaattisesti.",
+      "empty": "Jonossa ei ole vielä mitään.",
+      "cancel_btn": "Peruuta",
+      "cancel_failed_toast": "Peruutus epäonnistui.",
+      "queued_toast": "Lisätty jonoon.",
+      "open_btn": "Avaa",
+      "open_failed_toast": "Tiedostoa ei voitu avata — kokeile linkkiä sen sijaan.",
+      "open_unsupported_toast": "Tiedostojen avaaminen toimii vain Android-sovelluksessa.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Asetukset",
+      "title": "Asetukset",
+      "language_label": "Kieli",
+      "language_auto": "Automaattinen (laitteen kieli)",
+      "folder_label": "Latauskansio",
+      "folder_default": "Sovelluksen tallennustila (oletus)",
+      "folder_pick_btn": "Valitse kansio",
+      "folder_reset_btn": "Palauta oletukseksi",
+      "folder_not_supported": "Käytettävissä vain Android-sovelluksessa.",
+      "folder_picking": "Odotetaan kansion valintaa…",
+      "saved_toast": "Asetukset tallennettu.",
+      "close_btn": "Sulje"
+    },
+    "footer": "DownloadThat — lataa vain mediaa, johon sinulla on oikeudet.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Ennen kuin aloitat",
+      "body": "Tämä sovellus on tekninen työkalu median lataamiseen linkeistä, jotka syötät itse. Olet yksin vastuussa siitä, että sinulla on oikeus ladata ja käyttää sisältöä syöttämäsi linkin takana — kehittäjä ei ota vastuuta siitä, mitä lataat.",
+      "link_terms": "Käyttöehdot",
+      "link_privacy": "Tietosuojaseloste",
+      "link_imprint": "Yhteystiedot",
+      "checkbox_label": "Olen lukenut ja hyväksyn käyttöehdot ja ymmärrän olevani yksin vastuussa lataamastani sisällöstä.",
+      "continue_btn": "Jatka"
+    },
+    "about": {
+      "title": "Tietoja",
+      "developed_by": "Kehittäjä",
+      "licenses": "Käyttää kirjastoja yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) ja AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Päivittäinen raja saavutettu",
+      "body": "Olet käyttänyt tämän päivän ilmaisen rajan, 3 latausta. Anna alla lisenssiavain rajoittamattomia latauksia varten, tai yritä uudelleen 24 tunnin kuluttua."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — video-, ääni- ja kuvalatausohjelma Androidille",
+      "description": "Lataa videoita, ääntä ja kuvia suoraan Android-puhelimeesi. Ei Play Kauppaa, ei mainoksia, ei sitoutumista. Ilmainen perusversio, Pro alkaen 1 €/kk."
+    },
+    "nav": {
+      "features": "Ominaisuudet",
+      "pricing": "Hinnoittelu",
+      "faq": "UKK",
+      "download": "Lataa"
+    },
+    "hero": {
+      "eyebrow": "Ilmainen perusversio · Ei mainoksia · Ei tiliä tarvita",
+      "title_html": "Lataa {emphasis}.<br/>Suoraan puhelimeesi.",
+      "title_emphasis": "melkein kaiken",
+      "lead": "Videot, äänet ja kuvat lähes miltä tahansa sivustolta — ladattuna suoraan Android-puhelimeesi. Ei pilveen lähetystä, tietosi eivät koskaan poistu laitteeltasi, eikä Play Kauppaa tarvita.",
+      "cta_primary": "Lataa ilmainen Android-versio",
+      "cta_secondary": "Katso Pro-hinnoittelu",
+      "badge1": "Google Playta ei tarvita",
+      "badge2": "Toimii 100 % laitteellasi",
+      "badge3": "HD- ja 4K-tuki",
+      "badge4": "Perusversio on ikuisesti ilmainen"
+    },
+    "features": {
+      "h2": "Kaikki mitä tarvitset, ei mitään ylimääräistä",
+      "lead": "Nopea ja yksityinen lataussovellus, joka vain toimii — Pro-tasolla niille, jotka haluavat enemmän.",
+      "f1_title": "Useimmat videot tai äänet",
+      "f1_desc": "Liitä linkki, valitse laatu, lataa. Toimii useimpien video-, ääni- ja kuvasivustojen kanssa — ei DRM-suojattujen palveluiden, kuten Spotifyn tai Netflixin, kanssa.",
+      "f2_title": "Erälataukset",
+      "f2_desc": "Skannaa sivu kaikkien mediatiedostojen varalta ja lataa ne yhdessä, valiten ja poistaen valintoja.",
+      "f3_title": "Yksityisyys suunnittelun lähtökohtana",
+      "f3_desc": "Kaikki toimii paikallisesti puhelimessasi. Mitään ei lähetetä palvelimelle, jota et hallitse.",
+      "f4_title": "Ei mainoksia, ei seurantaa",
+      "f4_desc": "Ei mainosverkkoja, ei analytiikka-SDK:ita, ei harhaanjohtavia maksumuureja. Vain sovellus.",
+      "f5_title": "Äänen erottelu",
+      "f5_desc": "Poimi pelkkä ääniraita mistä tahansa videosta ja tallenna se MP3-muodossa.",
+      "f6_title": "Ei sovelluskauppaa tarvita",
+      "f6_desc": "Asenna Android-versio suoraan. Ei tiliä, ei Play Kaupan arviointiprosessia, ei aluelukituksia."
+    },
+    "pricing": {
+      "h2": "Yksinkertainen, rehellinen hinnoittelu",
+      "lead": "Ikuisesti ilmainen: 1 lataus päivässä täydessä HD/4K-laadussa. Rajoittamaton Prolla.",
+      "monthly_title": "Kuukausittain",
+      "monthly_note": "Peru milloin tahansa",
+      "yearly_flag": "Paras hinta-laatusuhde",
+      "yearly_title": "Vuosittain",
+      "yearly_note": "Alle 0,67 €/kk",
+      "lifetime_title": "Elinikäinen",
+      "lifetime_amount_suffix": "kertamaksu",
+      "lifetime_note": "Maksa kerran, käytä ikuisesti",
+      "feature_unlimited": "Rajoittamattomat lataukset (ei päivittäistä rajaa)",
+      "feature_batch": "Erälataukset",
+      "feature_priority_updates": "Ensisijaiset päivitykset",
+      "feature_all_updates": "Kaikki tulevat päivitykset sisältyvät hintaan",
+      "cta_monthly": "Valitse kuukausittainen",
+      "cta_yearly": "Valitse vuosittainen",
+      "cta_lifetime": "Valitse elinikäinen",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "Pyydän, että käyttöoikeus alkaa välittömästi, ennen kuin lakisääteinen 14 päivän peruuttamisaika päättyy, ja ymmärrän, että tämä tarkoittaa peruuttamisoikeuteni menettämistä heti, kun ostos on suoritettu loppuun (ks. {terms_start}Käyttöehdot{terms_end} §6.3). Voit silti pyytää täyttä hyvitystä 14 päivän kuluessa {refund_start}hyvityssivumme{refund_end} kautta."
+    },
+    "faq": {
+      "h2": "Usein kysytyt kysymykset",
+      "q1_title": "Tarvitsenko Pro-version käyttääkseni sovellusta?",
+      "q1_body": "Et. Sovellus on ilmainen ja täysin käyttökelpoinen. Pro poistaa rajoitukset ja tukee kehitystä.",
+      "q2_title": "Toimiiko tämä ilman Google Playta?",
+      "q2_body": "Kyllä — se on itsenäinen Android-versio, jonka asennat suoraan. Play Kaupan tiliä tai hyväksyntää ei tarvita.",
+      "q3_title": "Mistä syötän lisenssiavaimeni?",
+      "q3_body": "Heti ostoksen jälkeen näet lisenssiavaimesi vahvistussivulla — syötä se sovelluksen asetuksiin.",
+      "q4_title": "Voinko saada rahat takaisin?",
+      "q4_body": "Ota yhteyttä 14 päivän kuluessa ostosta, niin palautamme rahasi kyselemättä.",
+      "q5_title": "Onko tämä laillista?",
+      "q5_body": "Olet itse vastuussa siitä, miten käytät ladattua sisältöä. Kunnioita tekijänoikeuksia ja lataamiesi sivustojen käyttöehtoja."
+    },
+    "footer": {
+      "download": "Lataa",
+      "pricing": "Hinnoittelu",
+      "imprint": "Julkaisutiedot",
+      "privacy": "Tietosuoja",
+      "support": "Tuki",
+      "copyright": "© 2026 DownloadThat. Kaikki oikeudet pidätetään.",
+      "terms": "Käyttöehdot",
+      "home": "Etusivu"
+    },
+    "success": {
+      "title": "Kiitos — DownloadThat Pro",
+      "h1": "Kiitos ostoksestasi!",
+      "lead": "Lisenssiavaimesi on alla — syötä se sovelluksen asetuksiin.",
+      "pending": "Viimeistellään ostostasi…",
+      "tier_monthly": "Kuukausittainen",
+      "tier_yearly": "Vuosittainen",
+      "tier_lifetime": "Elinikäinen",
+      "plan_label": "Paketti",
+      "copy_btn": "Kopioi avain",
+      "not_installed": "Eikö sovellus ole vielä asennettuna?",
+      "download_app": "Lataa sovellus",
+      "error": "Emme vielä löytäneet lisenssiäsi. Lataa sivu uudelleen hetken kuluttua.",
+      "no_session": "Istunto puuttuu — käytä ostovahvistuksesi linkkiä.",
+      "footer_note": "Tämä sivu tarkistaa automaattisesti muutaman sekunnin ajan maksun jälkeen. Jos mitään ei näy, lataa sivu uudelleen tai lähetä sähköpostia osoitteeseen {support_email} maksuvahvistuksesi kanssa."
+    },
+    "refund": {
+      "title": "Peruuttaminen ja hyvitys",
+      "body": "Syötä lisenssiavain ja ostoksesi sähköpostiosoite. Jos ostoksesi tehtiin viimeisten 14 päivän aikana, hyvitämme sen kokonaan Stripen kautta ja deaktivoimme lisenssin välittömästi — syytä ei tarvita.",
+      "license_label": "Lisenssiavain",
+      "email_label": "Ostossa käytetty sähköpostiosoite",
+      "submit_btn": "Pyydä hyvitystä",
+      "success": "Hyvitetty. Rahat palautuvat maksupalveluntarjoajallesi muutaman arkipäivän kuluessa, ja lisenssi on deaktivoitu.",
+      "error_missing_fields": "Täytä sekä lisenssiavain että sähköpostiosoite.",
+      "error_no_match": "Emme löytäneet ostosta, joka vastaisi tätä lisenssiavainta ja sähköpostiosoitetta.",
+      "error_already_canceled": "Tämä lisenssi on jo hyvitetty tai peruutettu.",
+      "error_window_expired": "Tämän ostoksen 14 päivän hyvitysaika on päättynyt. Ota yhteyttä tukeen, jos haluat silti keskustella asiasta.",
+      "error_generic": "Jokin meni pieleen. Yritä uudelleen tai ota yhteyttä tukeen."
+    }
+  }
+}

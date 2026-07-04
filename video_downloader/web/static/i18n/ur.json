@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "زیادہ تر سائٹس سے، کسی بھی ڈیوائس پر میڈیا ڈاؤن لوڈ کریں",
+    "login": {
+      "title": "لاگ ان کریں",
+      "password_label": "پاس ورڈ",
+      "unlock_btn": "ان لاک کریں",
+      "error": "غلط پاس ورڈ۔"
+    },
+    "license": {
+      "title": "لائسنس",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "محفوظ کریں",
+      "buy_btn": "پرو حاصل کریں",
+      "status_active": "پرو فعال ({tier})۔ آپ کی حمایت کا شکریہ!",
+      "status_invalid": "فری — محفوظ شدہ کلید غلط ہے یا اس کی میعاد ختم ہو چکی ہے۔",
+      "status_free": "فری — روزانہ 3 ڈاؤن لوڈ۔ پرو: لامحدود۔",
+      "need_key_toast": "پہلے لائسنس کلید درج کریں۔",
+      "activated_toast": "لائسنس فعال ہو گیا۔",
+      "invalid_toast": "غلط لائسنس کلید۔"
+    },
+    "scrape": {
+      "title": "صفحہ تلاش کریں",
+      "url_label": "صفحہ کا URL",
+      "deep_label": "گہری تلاش (لنکس کی پیروی کریں)",
+      "video_btn": "ویڈیو ڈاؤن لوڈ کریں",
+      "audio_btn": "آڈیو ڈاؤن لوڈ کریں",
+      "search_btn": "صفحہ تلاش کریں",
+      "select_all": "سب منتخب کریں",
+      "deselect_all": "سب کا انتخاب ہٹائیں",
+      "clear": "فہرست صاف کریں",
+      "queue_selected": "منتخب کردہ ڈاؤن لوڈ کریں",
+      "results_count": "{total} ملے، {picked} منتخب",
+      "empty": "اس صفحے پر کوئی میڈیا نہیں ملا۔",
+      "need_url_toast": "پہلے ایک URL درج کریں۔",
+      "search_failed_toast": "تلاش ناکام ہو گئی۔",
+      "queue_failed_toast": "قطار میں شامل کرنے میں ناکامی۔",
+      "queue_selection_failed_toast": "انتخاب کو قطار میں شامل کرنے میں ناکامی۔",
+      "need_selection_toast": "کم از کم ایک آئٹم منتخب کریں۔",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "قطار",
+      "subtitle": "خودکار طور پر اپ ڈیٹ ہوتی ہے۔",
+      "empty": "قطار میں ابھی کچھ نہیں ہے۔",
+      "cancel_btn": "منسوخ کریں",
+      "cancel_failed_toast": "منسوخ کرنے میں ناکامی۔",
+      "queued_toast": "قطار میں شامل کر دیا گیا۔",
+      "open_btn": "کھولیں",
+      "open_failed_toast": "یہ فائل نہیں کھل سکی — اس کے بجائے لنک آزمائیں۔",
+      "open_unsupported_toast": "فائلیں کھولنا صرف اینڈرائیڈ ایپ میں کام کرتا ہے۔",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "ترتیبات",
+      "title": "ترتیبات",
+      "language_label": "زبان",
+      "language_auto": "خودکار (ڈیوائس کی زبان)",
+      "folder_label": "ڈاؤن لوڈ فولڈر",
+      "folder_default": "ایپ اسٹوریج (ڈیفالٹ)",
+      "folder_pick_btn": "فولڈر منتخب کریں",
+      "folder_reset_btn": "ڈیفالٹ پر ری سیٹ کریں",
+      "folder_not_supported": "صرف اینڈرائیڈ ایپ میں دستیاب ہے۔",
+      "folder_picking": "فولڈر منتخب کرنے کا انتظار ہے…",
+      "saved_toast": "ترتیبات محفوظ ہو گئیں۔",
+      "close_btn": "بند کریں"
+    },
+    "footer": "DownloadThat — صرف وہی میڈیا ڈاؤن لوڈ کریں جس کے حقوق آپ کے پاس ہوں۔",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "روزانہ حد مکمل ہو گئی",
+      "body": "آپ آج کی مفت حد یعنی 3 ڈاؤن لوڈز مکمل کر چکے ہیں۔ لامحدود ڈاؤن لوڈز کے لیے نیچے لائسنس کلید درج کریں، یا 24 گھنٹے بعد دوبارہ کوشش کریں۔"
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — اینڈرائیڈ کے لیے ویڈیو، آڈیو اور امیج ڈاؤن لوڈر",
+      "description": "ویڈیوز، آڈیو اور تصاویر براہ راست اپنے اینڈرائیڈ فون پر ڈاؤن لوڈ کریں۔ نہ پلے اسٹور، نہ اشتہارات، نہ کوئی پابندی۔ مفت بنیادی نسخہ، پرو صرف €1/ماہ سے۔"
+    },
+    "nav": {
+      "features": "خصوصیات",
+      "pricing": "قیمتیں",
+      "faq": "عمومی سوالات",
+      "download": "ڈاؤن لوڈ"
+    },
+    "hero": {
+      "eyebrow": "مفت بنیادی نسخہ · کوئی اشتہار نہیں · اکاؤنٹ کی ضرورت نہیں",
+      "title_html": "{emphasis} ڈاؤن لوڈ کریں۔<br/>سیدھا اپنے فون میں۔",
+      "title_emphasis": "تقریباً سب کچھ",
+      "lead": "تقریباً کسی بھی سائٹ سے ویڈیو، آڈیو اور تصاویر — سیدھا آپ کے اینڈرائیڈ فون پر ڈاؤن لوڈ۔ نہ کلاؤڈ اپ لوڈ، نہ آپ کا ڈیٹا کبھی آپ کی ڈیوائس سے باہر جاتا ہے، نہ پلے اسٹور کی ضرورت۔",
+      "cta_primary": "مفت اینڈرائیڈ ورژن ڈاؤن لوڈ کریں",
+      "cta_secondary": "پرو کی قیمتیں دیکھیں",
+      "badge1": "گوگل پلے کی ضرورت نہیں",
+      "badge2": "آپ کی ڈیوائس پر 100% چلتا ہے",
+      "badge3": "HD اور 4K سپورٹ",
+      "badge4": "بنیادی نسخہ ہمیشہ کے لیے مفت"
+    },
+    "features": {
+      "h2": "جو کچھ آپ کو چاہیے وہ سب کچھ، اضافی کچھ نہیں",
+      "lead": "ایک تیز، نجی ڈاؤن لوڈر جو بس کام کرتا ہے — اور جو مزید چاہیں ان کے لیے پرو ٹیئر بھی۔",
+      "f1_title": "زیادہ تر ویڈیو یا آڈیو",
+      "f1_desc": "لنک پیسٹ کریں، کوالٹی منتخب کریں، ڈاؤن لوڈ کریں۔ زیادہ تر ویڈیو، آڈیو اور امیج سائٹس کے ساتھ کام کرتا ہے — Spotify یا Netflix جیسی DRM سے محفوظ سروسز کے ساتھ نہیں۔",
+      "f2_title": "بیچ ڈاؤن لوڈز",
+      "f2_desc": "کسی صفحے کو ہر میڈیا فائل کے لیے اسکین کریں اور انہیں منتخب/غیر منتخب کرتے ہوئے ایک ساتھ ڈاؤن لوڈ کریں۔",
+      "f3_title": "ڈیزائن کے لحاظ سے نجی",
+      "f3_desc": "سب کچھ آپ کے فون پر مقامی طور پر چلتا ہے۔ کچھ بھی ایسے سرور پر اپ لوڈ نہیں ہوتا جس پر آپ کا کنٹرول نہ ہو۔",
+      "f4_title": "نہ اشتہارات، نہ ٹریکنگ",
+      "f4_desc": "کوئی اشتہاری نیٹ ورک نہیں، کوئی اینالیٹکس SDK نہیں، کوئی فریب دینے والے پے وال نہیں۔ بس ایپ۔",
+      "f5_title": "آڈیو ایکسٹریکشن",
+      "f5_desc": "کسی بھی ویڈیو سے صرف آڈیو ٹریک نکالیں اور اسے MP3 کے طور پر محفوظ کریں۔",
+      "f6_title": "ایپ اسٹور کی ضرورت نہیں",
+      "f6_desc": "اینڈرائیڈ ورژن براہ راست انسٹال کریں۔ نہ اکاؤنٹ، نہ پلے اسٹور کا جائزہ عمل، نہ علاقائی پابندیاں۔"
+    },
+    "pricing": {
+      "h2": "سادہ، دیانتدارانہ قیمتیں",
+      "lead": "ہمیشہ کے لیے مفت: فل HD/4K کوالٹی میں روزانہ 1 ڈاؤن لوڈ۔ پرو کے ساتھ لامحدود۔",
+      "monthly_title": "ماہانہ",
+      "monthly_note": "کبھی بھی منسوخ کریں",
+      "yearly_flag": "بہترین ویلیو",
+      "yearly_title": "سالانہ",
+      "yearly_note": "€0.67/ماہ سے کم",
+      "lifetime_title": "لائف ٹائم",
+      "lifetime_amount_suffix": "یک وقتی",
+      "lifetime_note": "ایک بار ادائیگی کریں، ہمیشہ استعمال کریں",
+      "feature_unlimited": "لامحدود ڈاؤن لوڈز (کوئی روزانہ حد نہیں)",
+      "feature_batch": "بیچ ڈاؤن لوڈز",
+      "feature_priority_updates": "ترجیحی اپ ڈیٹس",
+      "feature_all_updates": "تمام مستقبل کی اپ ڈیٹس شامل",
+      "cta_monthly": "ماہانہ منتخب کریں",
+      "cta_yearly": "سالانہ منتخب کریں",
+      "cta_lifetime": "لائف ٹائم منتخب کریں",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+    },
+    "faq": {
+      "h2": "اکثر پوچھے جانے والے سوالات",
+      "q1_title": "کیا ایپ استعمال کرنے کے لیے پرو ضروری ہے؟",
+      "q1_body": "نہیں۔ ایپ مفت اور مکمل طور پر قابلِ استعمال ہے۔ پرو حدود ختم کرتا ہے اور ڈویلپمنٹ کی حمایت کرتا ہے۔",
+      "q2_title": "کیا یہ گوگل پلے کے بغیر کام کرتا ہے؟",
+      "q2_body": "جی ہاں — یہ ایک اسٹینڈ اَلون اینڈرائیڈ ورژن ہے جسے آپ براہ راست انسٹال کرتے ہیں۔ کسی پلے اسٹور اکاؤنٹ یا منظوری کی ضرورت نہیں۔",
+      "q3_title": "میں اپنی لائسنس کلید کہاں درج کروں؟",
+      "q3_body": "خریداری کے فوراً بعد آپ کو تصدیقی صفحے پر اپنی لائسنس کلید نظر آئے گی — اسے ایپ کی ترتیبات میں درج کریں۔",
+      "q4_title": "کیا مجھے رقم واپس مل سکتی ہے؟",
+      "q4_body": "خریداری کے 14 دنوں کے اندر ہم سے رابطہ کریں اور ہم بغیر کسی سوال کے آپ کو رقم واپس کر دیں گے۔",
+      "q5_title": "کیا یہ قانونی ہے؟",
+      "q5_body": "ڈاؤن لوڈ کردہ مواد کو استعمال کرنے کی ذمہ داری آپ کی ہے۔ براہ کرم کاپی رائٹ اور ان سائٹس کی شرائط کا احترام کریں جن سے آپ ڈاؤن لوڈ کرتے ہیں۔"
+    },
+    "footer": {
+      "download": "ڈاؤن لوڈ",
+      "pricing": "قیمتیں",
+      "imprint": "امپرنٹ",
+      "privacy": "پرائیویسی",
+      "support": "سپورٹ",
+      "copyright": "© 2026 DownloadThat۔ جملہ حقوق محفوظ ہیں۔",
+      "terms": "Terms",
+      "home": "Home"
+    },
+    "success": {
+      "title": "شکریہ — DownloadThat پرو",
+      "h1": "آپ کی خریداری کا شکریہ!",
+      "lead": "آپ کی لائسنس کلید نیچے موجود ہے — اسے ایپ کی ترتیبات میں درج کریں۔",
+      "pending": "آپ کی خریداری مکمل کی جا رہی ہے…",
+      "tier_monthly": "ماہانہ",
+      "tier_yearly": "سالانہ",
+      "tier_lifetime": "لائف ٹائم",
+      "plan_label": "پلان",
+      "copy_btn": "کلید کاپی کریں",
+      "not_installed": "ابھی تک ایپ نہیں ہے؟",
+      "download_app": "ایپ ڈاؤن لوڈ کریں",
+      "error": "ہمیں ابھی تک آپ کا لائسنس نہیں ملا۔ براہ کرم تھوڑی دیر میں اس صفحے کو دوبارہ لوڈ کریں۔",
+      "no_session": "سیشن موجود نہیں — براہ کرم اپنی خریداری کی تصدیق والے لنک کا استعمال کریں۔",
+      "footer_note": "یہ صفحہ ادائیگی کے بعد چند سیکنڈ تک خودکار طور پر چیک کرتا رہتا ہے۔ اگر کچھ نظر نہ آئے تو صفحہ دوبارہ لوڈ کریں یا اپنی ادائیگی کی تصدیق کے ساتھ {support_email} پر ای میل کریں۔"
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
+    }
+  }
+}

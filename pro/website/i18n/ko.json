@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "대부분의 사이트에서든, 어떤 기기에서든 미디어를 다운로드하세요",
+    "login": {
+      "title": "로그인",
+      "password_label": "비밀번호",
+      "unlock_btn": "잠금 해제",
+      "error": "비밀번호가 틀렸습니다."
+    },
+    "license": {
+      "title": "라이선스",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "저장",
+      "buy_btn": "Pro 구매하기",
+      "status_active": "Pro 활성화됨 ({tier}). 성원에 감사드립니다!",
+      "status_invalid": "무료 — 저장된 키가 유효하지 않거나 만료되었습니다.",
+      "status_free": "무료 — 하루 3회 다운로드. Pro: 무제한.",
+      "need_key_toast": "먼저 라이선스 키를 입력하세요.",
+      "activated_toast": "라이선스가 활성화되었습니다.",
+      "invalid_toast": "유효하지 않은 라이선스 키입니다."
+    },
+    "scrape": {
+      "title": "페이지 검색",
+      "url_label": "페이지 URL",
+      "deep_label": "심층 검색 (링크 따라가기)",
+      "video_btn": "동영상 다운로드",
+      "audio_btn": "오디오 다운로드",
+      "search_btn": "페이지 검색",
+      "select_all": "전체 선택",
+      "deselect_all": "전체 선택 해제",
+      "clear": "목록 지우기",
+      "queue_selected": "선택 항목 다운로드",
+      "results_count": "{total}개 발견, {picked}개 선택됨",
+      "empty": "이 페이지에서 미디어를 찾을 수 없습니다.",
+      "need_url_toast": "먼저 URL을 입력하세요.",
+      "search_failed_toast": "검색에 실패했습니다.",
+      "queue_failed_toast": "대기열에 추가하지 못했습니다.",
+      "queue_selection_failed_toast": "선택 항목을 대기열에 추가하지 못했습니다.",
+      "need_selection_toast": "항목을 하나 이상 선택하세요.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "대기열",
+      "subtitle": "자동으로 업데이트됩니다.",
+      "empty": "대기열이 비어 있습니다.",
+      "cancel_btn": "취소",
+      "cancel_failed_toast": "취소하지 못했습니다.",
+      "queued_toast": "대기열에 추가되었습니다.",
+      "open_btn": "열기",
+      "open_failed_toast": "이 파일을 열 수 없습니다 — 대신 링크를 사용해 보세요.",
+      "open_unsupported_toast": "파일 열기는 안드로이드 앱에서만 가능합니다.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "설정",
+      "title": "설정",
+      "language_label": "언어",
+      "language_auto": "자동 (기기 언어)",
+      "folder_label": "다운로드 폴더",
+      "folder_default": "앱 저장소 (기본값)",
+      "folder_pick_btn": "폴더 선택",
+      "folder_reset_btn": "기본값으로 재설정",
+      "folder_not_supported": "안드로이드 앱에서만 사용할 수 있습니다.",
+      "folder_picking": "폴더 선택을 기다리는 중…",
+      "saved_toast": "설정이 저장되었습니다.",
+      "close_btn": "닫기"
+    },
+    "footer": "DownloadThat — 권리가 있는 미디어만 다운로드하세요.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "일일 한도에 도달했습니다",
+      "body": "오늘의 무료 한도인 3회 다운로드를 모두 사용했습니다. 무제한 다운로드를 위해 아래에 라이선스 키를 입력하거나 24시간 후 다시 시도하세요."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — 안드로이드용 동영상, 오디오 및 이미지 다운로더",
+      "description": "동영상, 오디오, 이미지를 안드로이드 폰으로 바로 다운로드하세요. 플레이스토어도, 광고도, 종속도 없습니다. 핵심 기능은 무료, Pro는 월 €1부터."
+    },
+    "nav": {
+      "features": "기능",
+      "pricing": "요금제",
+      "faq": "자주 묻는 질문",
+      "download": "다운로드"
+    },
+    "hero": {
+      "eyebrow": "핵심 기능 무료 · 광고 없음 · 계정 불필요",
+      "title_html": "{emphasis} 다운로드.<br/>바로 당신의 폰으로.",
+      "title_emphasis": "거의 모든 것을",
+      "lead": "거의 모든 사이트의 동영상, 오디오, 이미지를 안드로이드 폰으로 바로 다운로드하세요. 클라우드 업로드도 없고, 데이터가 기기 밖으로 나가지 않으며, 플레이스토어도 필요 없습니다.",
+      "cta_primary": "무료 안드로이드 버전 다운로드",
+      "cta_secondary": "Pro 요금제 보기",
+      "badge1": "구글 플레이 불필요",
+      "badge2": "100% 기기 내 실행",
+      "badge3": "HD 및 4K 지원",
+      "badge4": "핵심 기능 영구 무료"
+    },
+    "features": {
+      "h2": "필요한 건 다 있고, 필요 없는 건 없습니다",
+      "lead": "빠르고 안전하게 그냥 작동하는 다운로더 — 더 많은 기능이 필요하다면 Pro 등급도 있습니다.",
+      "f1_title": "대부분의 동영상과 오디오",
+      "f1_desc": "링크를 붙여넣고, 화질을 선택하고, 다운로드하세요. 대부분의 동영상, 오디오, 이미지 사이트에서 작동하지만 Spotify나 Netflix 같은 DRM 보호 서비스에서는 작동하지 않습니다.",
+      "f2_title": "일괄 다운로드",
+      "f2_desc": "페이지를 스캔해 모든 미디어 파일을 찾고, 선택/해제하여 한 번에 다운로드하세요.",
+      "f3_title": "설계부터 비공개",
+      "f3_desc": "모든 작업이 폰에서 로컬로 실행됩니다. 당신이 관리하지 않는 서버로는 아무것도 업로드되지 않습니다.",
+      "f4_title": "광고도, 추적도 없음",
+      "f4_desc": "광고 네트워크도, 분석 SDK도, 눈속임 결제 유도도 없습니다. 오직 앱뿐입니다.",
+      "f5_title": "오디오 추출",
+      "f5_desc": "동영상에서 오디오 트랙만 추출해 MP3로 저장하세요.",
+      "f6_title": "앱 스토어 불필요",
+      "f6_desc": "안드로이드 버전을 직접 설치하세요. 계정도, 플레이스토어 심사 과정도, 지역 제한도 없습니다."
+    },
+    "pricing": {
+      "h2": "간단하고 투명한 요금제",
+      "lead": "영구 무료: 하루 1회 풀 HD/4K 화질 다운로드. Pro는 무제한입니다.",
+      "monthly_title": "월간",
+      "monthly_note": "언제든지 해지 가능",
+      "yearly_flag": "최고의 가치",
+      "yearly_title": "연간",
+      "yearly_note": "월 €0.67 미만",
+      "lifetime_title": "평생",
+      "lifetime_amount_suffix": "일회성 결제",
+      "lifetime_note": "한 번 결제하고 평생 사용",
+      "feature_unlimited": "무제한 다운로드 (일일 제한 없음)",
+      "feature_batch": "일괄 다운로드",
+      "feature_priority_updates": "우선 업데이트",
+      "feature_all_updates": "향후 모든 업데이트 포함",
+      "cta_monthly": "월간 선택",
+      "cta_yearly": "연간 선택",
+      "cta_lifetime": "평생 이용권 선택",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+    },
+    "faq": {
+      "h2": "자주 묻는 질문",
+      "q1_title": "앱을 사용하려면 Pro가 필요한가요?",
+      "q1_body": "아니요. 앱은 무료이며 완전히 사용할 수 있습니다. Pro는 제한을 없애고 개발을 지원합니다.",
+      "q2_title": "구글 플레이 없이도 작동하나요?",
+      "q2_body": "네 — 직접 설치하는 독립형 안드로이드 버전입니다. 플레이스토어 계정이나 승인이 필요 없습니다.",
+      "q3_title": "라이선스 키는 어디에 입력하나요?",
+      "q3_body": "구매 직후 확인 페이지에서 라이선스 키를 확인할 수 있습니다 — 앱 설정에서 입력하세요.",
+      "q4_title": "환불이 가능한가요?",
+      "q4_body": "구매 후 14일 이내에 문의하시면 별도의 질문 없이 환불해 드립니다.",
+      "q5_title": "이것은 합법인가요?",
+      "q5_body": "다운로드한 콘텐츠의 사용에 대한 책임은 사용자 본인에게 있습니다. 저작권과 다운로드 대상 사이트의 이용 약관을 준수해 주세요."
+    },
+    "footer": {
+      "download": "다운로드",
+      "pricing": "요금제",
+      "imprint": "사업자 정보",
+      "privacy": "개인정보처리방침",
+      "support": "고객지원",
+      "copyright": "© 2026 DownloadThat. 모든 권리 보유.",
+      "terms": "Terms",
+      "home": "Home"
+    },
+    "success": {
+      "title": "감사합니다 — DownloadThat Pro",
+      "h1": "구매해 주셔서 감사합니다!",
+      "lead": "아래에 라이선스 키가 있습니다 — 앱 설정에서 입력하세요.",
+      "pending": "구매를 마무리하는 중…",
+      "tier_monthly": "월간",
+      "tier_yearly": "연간",
+      "tier_lifetime": "평생",
+      "plan_label": "요금제",
+      "copy_btn": "키 복사",
+      "not_installed": "아직 앱이 없으신가요?",
+      "download_app": "앱 다운로드",
+      "error": "아직 라이선스를 찾을 수 없습니다. 잠시 후 이 페이지를 새로고침해 주세요.",
+      "no_session": "세션이 없습니다 — 구매 확인 메일의 링크를 사용해 주세요.",
+      "footer_note": "이 페이지는 결제 후 몇 초간 자동으로 확인합니다. 아무것도 표시되지 않으면 페이지를 새로고침하거나 결제 확인 내역과 함께 {support_email}로 이메일을 보내주세요."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
+    }
+  }
+}

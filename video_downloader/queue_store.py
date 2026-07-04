@@ -67,6 +67,9 @@ class QueueStore:
                     max_items INTEGER,
                     timeout_seconds INTEGER NOT NULL DEFAULT 30,
                     ffmpeg_binary TEXT NOT NULL DEFAULT 'ffmpeg',
+                    downloaded_bytes INTEGER NOT NULL DEFAULT 0,
+                    total_bytes INTEGER,
+                    quality_height INTEGER,
                     created_at TEXT NOT NULL,
                     started_at TEXT,
                     finished_at TEXT,
@@ -111,10 +114,44 @@ class QueueStore:
                     created_at TEXT NOT NULL,
                     FOREIGN KEY(job_id) REFERENCES jobs(id) ON DELETE SET NULL
                 );
+
+                CREATE TABLE IF NOT EXISTS settings (
+                    key TEXT PRIMARY KEY,
+                    value TEXT NOT NULL
+                );
                 """
             )
+            self._migrate_jobs_columns(conn)
 
         self.ensure_default_profile()
+
+    def _migrate_jobs_columns(self, conn: sqlite3.Connection) -> None:
+        # CREATE TABLE IF NOT EXISTS leaves pre-existing DBs (from before these
+        # columns existed) without them - add them here so upgrades don't break.
+        existing = {row["name"] for row in conn.execute("PRAGMA table_info(jobs)")}
+        if "downloaded_bytes" not in existing:
+            conn.execute("ALTER TABLE jobs ADD COLUMN downloaded_bytes INTEGER NOT NULL DEFAULT 0")
+        if "total_bytes" not in existing:
+            conn.execute("ALTER TABLE jobs ADD COLUMN total_bytes INTEGER")
+        if "quality_height" not in existing:
+            conn.execute("ALTER TABLE jobs ADD COLUMN quality_height INTEGER")
+
+    def get_setting(self, key: str, default: str | None = None) -> str | None:
+        with self._connect() as conn:
+            row = conn.execute("SELECT value FROM settings WHERE key = ?", (key,)).fetchone()
+            return str(row["value"]) if row is not None else default
+
+    def set_setting(self, key: str, value: str) -> None:
+        with self._connect() as conn:
+            conn.execute(
+                "INSERT INTO settings (key, value) VALUES (?, ?) "
+                "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+                (key, str(value)),
+            )
+
+    def clear_setting(self, key: str) -> None:
+        with self._connect() as conn:
+            conn.execute("DELETE FROM settings WHERE key = ?", (key,))
 
     def ensure_default_profile(self) -> DownloadProfile:
         profile = self.get_profile_by_name("default")
@@ -190,6 +227,7 @@ class QueueStore:
         max_items: int | None = None,
         timeout_seconds: int = 30,
         ffmpeg_binary: str = "ffmpeg",
+        quality_height: int | None = None,
     ) -> int:
         now = _utcnow()
         with self._connect() as conn:
@@ -198,10 +236,10 @@ class QueueStore:
                 INSERT INTO jobs (
                     source, mode, profile_id, status, priority, attempt, max_attempts, error,
                     output_dir, method, user_agent, referer, headers_json, cookies_from_browser,
-                    allow_playlist, max_items, timeout_seconds, ffmpeg_binary,
+                    allow_playlist, max_items, timeout_seconds, ffmpeg_binary, quality_height,
                     created_at, updated_at
                 )
-                VALUES (?, ?, ?, ?, ?, 0, ?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, 0, ?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     source,
@@ -220,6 +258,7 @@ class QueueStore:
                     max_items,
                     int(timeout_seconds),
                     ffmpeg_binary,
+                    quality_height,
                     now,
                     now,
                 ),
@@ -266,17 +305,36 @@ class QueueStore:
                 "UPDATE jobs SET attempt = ?, updated_at = ? WHERE id = ?",
                 (int(attempt), _utcnow(), job_id),
             )
+            conn.execute(
+                "UPDATE jobs SET downloaded_bytes = 0, total_bytes = NULL WHERE id = ?",
+                (job_id,),
+            )
+
+    def update_job_progress(self, job_id: int, downloaded_bytes: int, total_bytes: int | None) -> None:
+        # Deliberately doesn't touch updated_at - this fires many times per
+        # download and updated_at is used elsewhere as a "last real activity"
+        # timestamp, not a progress heartbeat.
+        with self._connect() as conn:
+            conn.execute(
+                "UPDATE jobs SET downloaded_bytes = ?, total_bytes = ? WHERE id = ? AND status = ?",
+                (int(downloaded_bytes), total_bytes, job_id, JOB_STATUS_IN_PROGRESS),
+            )
 
     def mark_job_completed(self, job_id: int, file_paths: Iterable[Path], details: str = "") -> None:
+        # `error` isn't exclusively a failure indicator - a completed job can
+        # still carry a non-fatal note here (e.g. "saved as .opus, MP3
+        # conversion failed"), which the web UI already renders alongside the
+        # job regardless of status. Only completed-with-no-caveats jobs clear
+        # it to NULL.
         now = _utcnow()
         with self._connect() as conn:
             conn.execute(
                 """
                 UPDATE jobs
-                SET status = ?, error = NULL, finished_at = ?, updated_at = ?
+                SET status = ?, error = ?, finished_at = ?, updated_at = ?
                 WHERE id = ?
                 """,
-                (JOB_STATUS_COMPLETED, now, now, job_id),
+                (JOB_STATUS_COMPLETED, details or None, now, now, job_id),
             )
             for path in file_paths:
                 try:
@@ -292,7 +350,7 @@ class QueueStore:
                 )
         self.append_event(job_id, "info", "Job completed successfully")
         if details:
-            self.append_event(job_id, "info", details)
+            self.append_event(job_id, "warning", details)
 
     def mark_job_failed(self, job_id: int, error: str) -> None:
         now = _utcnow()
@@ -435,6 +493,7 @@ class QueueStore:
             max_items=original.max_items,
             timeout_seconds=original.timeout_seconds,
             ffmpeg_binary=original.ffmpeg_binary,
+            quality_height=original.quality_height,
         )
 
     def list_history(self, status: str | None = None, limit: int = 200) -> list[JobRecord]:
@@ -609,6 +668,9 @@ class QueueStore:
             started_at=str(row["started_at"]) if row["started_at"] is not None else None,
             finished_at=str(row["finished_at"]) if row["finished_at"] is not None else None,
             updated_at=str(row["updated_at"]),
+            downloaded_bytes=int(row["downloaded_bytes"]),
+            total_bytes=int(row["total_bytes"]) if row["total_bytes"] is not None else None,
+            quality_height=int(row["quality_height"]) if row["quality_height"] is not None else None,
         )
 
     def _row_to_subscription(self, row: sqlite3.Row) -> SubscriptionRecord:

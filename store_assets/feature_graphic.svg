@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1930" />
+      <stop offset="100%" stop-color="#11101c" />
+    </linearGradient>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff5c7a" />
+      <stop offset="55%" stop-color="#ff8a5c" />
+      <stop offset="100%" stop-color="#22e0c9" />
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff5c7a" />
+      <stop offset="55%" stop-color="#ff8a5c" />
+      <stop offset="100%" stop-color="#22e0c9" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="500" fill="url(#bg)" />
+
+  <!-- icon, left side -->
+  <g transform="translate(90, 130)">
+    <rect width="240" height="240" rx="52" fill="#0d0c18" />
+    <path d="M120 62 L120 148 M79 108 L120 156 L161 108" stroke="url(#g1)" stroke-width="17" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <rect x="68" y="178" width="104" height="19" rx="9.5" fill="url(#g1)" />
+  </g>
+
+  <!-- wordmark + tagline, right side -->
+  <text x="380" y="240" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-weight="bold" font-size="68" fill="url(#textGrad)">DownloadThat</text>
+  <text x="382" y="285" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="28" fill="#9b96b8">Video, audio &amp; images — from any site</text>
+</svg>

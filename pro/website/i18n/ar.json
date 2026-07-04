@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "نزّل الوسائط من معظم المواقع، على أي جهاز",
+    "login": {
+      "title": "تسجيل الدخول",
+      "password_label": "كلمة المرور",
+      "unlock_btn": "فتح",
+      "error": "كلمة المرور غير صحيحة."
+    },
+    "license": {
+      "title": "الترخيص",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "حفظ",
+      "buy_btn": "الحصول على Pro",
+      "status_active": "نسخة Pro مفعّلة ({tier}). شكرًا لدعمك!",
+      "status_invalid": "مجانية — المفتاح المحفوظ غير صالح أو منتهي الصلاحية.",
+      "status_free": "مجانية — 3 تنزيلات يوميًا. مع Pro: بلا حدود.",
+      "need_key_toast": "أدخل مفتاح الترخيص أولاً.",
+      "activated_toast": "تم تفعيل الترخيص.",
+      "invalid_toast": "مفتاح الترخيص غير صالح."
+    },
+    "scrape": {
+      "title": "ابحث في صفحة",
+      "url_label": "رابط الصفحة",
+      "deep_label": "بحث عميق (تتبّع الروابط)",
+      "video_btn": "تنزيل الفيديو",
+      "audio_btn": "تنزيل الصوت",
+      "search_btn": "ابحث في الصفحة",
+      "select_all": "تحديد الكل",
+      "deselect_all": "إلغاء تحديد الكل",
+      "clear": "مسح القائمة",
+      "queue_selected": "تنزيل المحدد",
+      "results_count": "تم العثور على {total}، تم تحديد {picked}",
+      "empty": "لم يتم العثور على أي وسائط في هذه الصفحة.",
+      "need_url_toast": "أدخل رابطًا أولاً.",
+      "search_failed_toast": "فشل البحث.",
+      "queue_failed_toast": "فشلت إضافة العنصر إلى قائمة الانتظار.",
+      "queue_selection_failed_toast": "فشلت إضافة التحديد إلى قائمة الانتظار.",
+      "need_selection_toast": "حدد عنصرًا واحدًا على الأقل.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "قائمة الانتظار",
+      "subtitle": "يتم التحديث تلقائيًا.",
+      "empty": "لا يوجد شيء في قائمة الانتظار بعد.",
+      "cancel_btn": "إلغاء",
+      "cancel_failed_toast": "فشل الإلغاء.",
+      "queued_toast": "أُضيف إلى قائمة الانتظار.",
+      "open_btn": "فتح",
+      "open_failed_toast": "تعذّر فتح هذا الملف — جرّب الرابط بدلاً من ذلك.",
+      "open_unsupported_toast": "فتح الملفات يعمل فقط داخل تطبيق أندرويد.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "الإعدادات",
+      "title": "الإعدادات",
+      "language_label": "اللغة",
+      "language_auto": "تلقائي (لغة الجهاز)",
+      "folder_label": "مجلد التنزيل",
+      "folder_default": "تخزين التطبيق (افتراضي)",
+      "folder_pick_btn": "اختر مجلدًا",
+      "folder_reset_btn": "إعادة الضبط الافتراضي",
+      "folder_not_supported": "متاح فقط داخل تطبيق أندرويد.",
+      "folder_picking": "في انتظار اختيار المجلد…",
+      "saved_toast": "تم حفظ الإعدادات.",
+      "close_btn": "إغلاق"
+    },
+    "footer": "DownloadThat — نزّل فقط الوسائط التي تملك الحق في تنزيلها.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "تم بلوغ الحد اليومي",
+      "body": "لقد بلغت الحد المجاني اليوم وهو 3 تنزيلات. أدخل مفتاح ترخيص أدناه للحصول على تنزيلات غير محدودة، أو حاول مرة أخرى بعد 24 ساعة."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — أداة تنزيل الفيديو والصوت والصور لأندرويد",
+      "description": "نزّل الفيديوهات والصوتيات والصور مباشرة إلى هاتفك الأندرويد. بلا متجر بلاي، بلا إعلانات، وبلا قيود. النسخة الأساسية مجانية، وPro تبدأ من €1 شهريًا."
+    },
+    "nav": {
+      "features": "المزايا",
+      "pricing": "الأسعار",
+      "faq": "الأسئلة الشائعة",
+      "download": "تنزيل"
+    },
+    "hero": {
+      "eyebrow": "نسخة أساسية مجانية · بلا إعلانات · بلا حاجة لحساب",
+      "title_html": "نزّل {emphasis}.<br/>مباشرة إلى هاتفك.",
+      "title_emphasis": "كل شيء تقريبًا",
+      "lead": "فيديو وصوت وصور من أي موقع تقريبًا — تُنزَّل مباشرة إلى هاتفك الأندرويد. بلا رفع إلى السحابة، بياناتك لا تغادر جهازك أبدًا، وبلا حاجة لمتجر بلاي.",
+      "cta_primary": "نزّل نسخة أندرويد المجانية",
+      "cta_secondary": "شاهد أسعار Pro",
+      "badge1": "لا حاجة لمتجر Google Play",
+      "badge2": "يعمل 100% على جهازك",
+      "badge3": "دعم جودة HD و4K",
+      "badge4": "النسخة الأساسية مجانية للأبد"
+    },
+    "features": {
+      "h2": "كل ما تحتاجه، ولا شيء زائد",
+      "lead": "أداة تنزيل سريعة وخاصة تعمل ببساطة — مع فئة Pro لمن يريد المزيد.",
+      "f1_title": "معظم الفيديوهات أو الصوتيات",
+      "f1_desc": "الصق رابطًا، اختر الجودة، ونزّل. يعمل مع معظم مواقع الفيديو والصوت والصور — ولا يعمل مع الخدمات المحمية بتقنية DRM مثل Spotify أو Netflix.",
+      "f2_title": "تنزيل دفعي",
+      "f2_desc": "امسح صفحة بحثًا عن كل ملفات الوسائط ونزّلها معًا، مع إمكانية التحديد وإلغائه.",
+      "f3_title": "خصوصية بالتصميم",
+      "f3_desc": "كل شيء يعمل محليًا على هاتفك. لا شيء يُرفع إلى خادم لا تتحكم فيه.",
+      "f4_title": "بلا إعلانات، بلا تتبّع",
+      "f4_desc": "بلا شبكات إعلانية، بلا أدوات تحليل، وبلا حواجز دفع خادعة. التطبيق فقط.",
+      "f5_title": "استخراج الصوت",
+      "f5_desc": "استخرج مسار الصوت فقط من أي فيديو واحفظه كملف MP3.",
+      "f6_title": "بلا حاجة لمتجر تطبيقات",
+      "f6_desc": "ثبّت نسخة أندرويد مباشرة. بلا حساب، بلا عملية مراجعة من متجر بلاي، وبلا قيود إقليمية."
+    },
+    "pricing": {
+      "h2": "أسعار بسيطة وصادقة",
+      "lead": "مجانية للأبد: تنزيل واحد يوميًا بجودة HD/4K كاملة. غير محدودة مع Pro.",
+      "monthly_title": "شهري",
+      "monthly_note": "ألغِ الاشتراك في أي وقت",
+      "yearly_flag": "الأفضل قيمة",
+      "yearly_title": "سنوي",
+      "yearly_note": "أقل من €0.67 شهريًا",
+      "lifetime_title": "مدى الحياة",
+      "lifetime_amount_suffix": "دفعة واحدة",
+      "lifetime_note": "ادفع مرة واحدة، استخدم للأبد",
+      "feature_unlimited": "تنزيلات غير محدودة (بلا حد يومي)",
+      "feature_batch": "تنزيل دفعي",
+      "feature_priority_updates": "تحديثات ذات أولوية",
+      "feature_all_updates": "شامل جميع التحديثات المستقبلية",
+      "cta_monthly": "اختر الشهري",
+      "cta_yearly": "اختر السنوي",
+      "cta_lifetime": "اختر مدى الحياة",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+    },
+    "faq": {
+      "h2": "الأسئلة الشائعة",
+      "q1_title": "هل أحتاج إلى Pro لاستخدام التطبيق؟",
+      "q1_body": "لا. التطبيق مجاني وقابل للاستخدام الكامل. نسخة Pro تزيل الحدود وتدعم تطوير التطبيق.",
+      "q2_title": "هل يعمل هذا بدون متجر Google Play؟",
+      "q2_body": "نعم — إنها نسخة أندرويد مستقلة تثبّتها مباشرة. بلا حاجة لحساب أو موافقة من متجر بلاي.",
+      "q3_title": "أين أدخل مفتاح الترخيص الخاص بي؟",
+      "q3_body": "بعد الشراء مباشرة، سترى مفتاح الترخيص في صفحة التأكيد — أدخله في إعدادات التطبيق.",
+      "q4_title": "هل يمكنني الحصول على استرداد للمبلغ؟",
+      "q4_body": "تواصل معنا خلال 14 يومًا من الشراء وسنقوم برد المبلغ دون أي أسئلة.",
+      "q5_title": "هل هذا قانوني؟",
+      "q5_body": "أنت المسؤول عن كيفية استخدام المحتوى الذي تنزّله. يُرجى احترام حقوق النشر وشروط المواقع التي تنزّل منها."
+    },
+    "footer": {
+      "download": "تنزيل",
+      "pricing": "الأسعار",
+      "imprint": "بيانات الناشر",
+      "privacy": "الخصوصية",
+      "support": "الدعم",
+      "copyright": "© 2026 DownloadThat. جميع الحقوق محفوظة.",
+      "terms": "Terms",
+      "home": "Home"
+    },
+    "success": {
+      "title": "شكرًا لك — DownloadThat Pro",
+      "h1": "شكرًا على عملية الشراء!",
+      "lead": "مفتاح الترخيص الخاص بك أدناه — أدخله في إعدادات التطبيق.",
+      "pending": "جارٍ إتمام عملية الشراء…",
+      "tier_monthly": "شهري",
+      "tier_yearly": "سنوي",
+      "tier_lifetime": "مدى الحياة",
+      "plan_label": "الخطة",
+      "copy_btn": "نسخ المفتاح",
+      "not_installed": "ليس لديك التطبيق بعد؟",
+      "download_app": "نزّل التطبيق",
+      "error": "لم نتمكن من العثور على ترخيصك بعد. يُرجى إعادة تحميل هذه الصفحة بعد قليل.",
+      "no_session": "الجلسة مفقودة — يُرجى استخدام الرابط الموجود في تأكيد الشراء الخاص بك.",
+      "footer_note": "تتحقق هذه الصفحة تلقائيًا لبضع ثوانٍ بعد الدفع. إذا لم يظهر شيء، أعد تحميل الصفحة أو راسلنا على {support_email} مع تأكيد الدفع."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
+    }
+  }
+}

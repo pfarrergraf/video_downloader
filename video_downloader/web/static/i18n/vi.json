@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Tải media từ hầu hết các trang web, trên mọi thiết bị",
+    "login": {
+      "title": "Đăng nhập",
+      "password_label": "Mật khẩu",
+      "unlock_btn": "Mở khóa",
+      "error": "Sai mật khẩu."
+    },
+    "license": {
+      "title": "Giấy phép",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Lưu",
+      "buy_btn": "Nâng cấp Pro",
+      "status_active": "Đã kích hoạt Pro ({tier}). Cảm ơn bạn đã ủng hộ!",
+      "status_invalid": "Miễn phí — mã đã lưu không hợp lệ hoặc đã hết hạn.",
+      "status_free": "Miễn phí — 3 lượt tải mỗi ngày. Pro: không giới hạn.",
+      "need_key_toast": "Vui lòng nhập mã giấy phép trước.",
+      "activated_toast": "Đã kích hoạt giấy phép.",
+      "invalid_toast": "Mã giấy phép không hợp lệ."
+    },
+    "scrape": {
+      "title": "Tìm kiếm trên trang",
+      "url_label": "URL trang",
+      "deep_label": "Tìm kiếm sâu (theo liên kết)",
+      "video_btn": "Tải video",
+      "audio_btn": "Tải âm thanh",
+      "search_btn": "Tìm trên trang",
+      "select_all": "Chọn tất cả",
+      "deselect_all": "Bỏ chọn tất cả",
+      "clear": "Xóa danh sách",
+      "queue_selected": "Tải mục đã chọn",
+      "results_count": "Tìm thấy {total}, đã chọn {picked}",
+      "empty": "Không tìm thấy media nào trên trang này.",
+      "need_url_toast": "Vui lòng nhập URL trước.",
+      "search_failed_toast": "Tìm kiếm thất bại.",
+      "queue_failed_toast": "Không thể thêm vào hàng đợi.",
+      "queue_selection_failed_toast": "Không thể thêm các mục đã chọn vào hàng đợi.",
+      "need_selection_toast": "Vui lòng chọn ít nhất một mục.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "Hàng đợi",
+      "subtitle": "Tự động cập nhật.",
+      "empty": "Hàng đợi hiện chưa có gì.",
+      "cancel_btn": "Hủy",
+      "cancel_failed_toast": "Không thể hủy.",
+      "queued_toast": "Đã thêm vào hàng đợi.",
+      "open_btn": "Mở",
+      "open_failed_toast": "Không thể mở tệp này — hãy thử dùng liên kết thay thế.",
+      "open_unsupported_toast": "Mở tệp chỉ khả dụng trên ứng dụng Android.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Cài đặt",
+      "title": "Cài đặt",
+      "language_label": "Ngôn ngữ",
+      "language_auto": "Tự động (theo ngôn ngữ thiết bị)",
+      "folder_label": "Thư mục tải xuống",
+      "folder_default": "Bộ nhớ ứng dụng (mặc định)",
+      "folder_pick_btn": "Chọn thư mục",
+      "folder_reset_btn": "Đặt lại về mặc định",
+      "folder_not_supported": "Chỉ khả dụng trên ứng dụng Android.",
+      "folder_picking": "Đang chờ chọn thư mục…",
+      "saved_toast": "Đã lưu cài đặt.",
+      "close_btn": "Đóng"
+    },
+    "footer": "DownloadThat — chỉ tải những media mà bạn có quyền sử dụng.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Đã đạt giới hạn hằng ngày",
+      "body": "Bạn đã dùng hết giới hạn miễn phí hôm nay là 3 lượt tải. Nhập khóa bản quyền bên dưới để tải không giới hạn, hoặc thử lại sau 24 giờ."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Trình tải Video, Âm thanh & Hình ảnh cho Android",
+      "description": "Tải video, âm thanh và hình ảnh trực tiếp về điện thoại Android của bạn. Không cần Play Store, không quảng cáo, không ràng buộc. Miễn phí bản cơ bản, Pro từ €1/tháng."
+    },
+    "nav": {
+      "features": "Tính năng",
+      "pricing": "Bảng giá",
+      "faq": "Câu hỏi thường gặp",
+      "download": "Tải xuống"
+    },
+    "hero": {
+      "eyebrow": "Miễn phí bản cơ bản · Không quảng cáo · Không cần tài khoản",
+      "title_html": "Tải {emphasis}.<br/>Trực tiếp về điện thoại của bạn.",
+      "title_emphasis": "gần như mọi thứ",
+      "lead": "Video, âm thanh và hình ảnh từ hầu hết mọi trang web — tải trực tiếp về điện thoại Android của bạn. Không tải lên đám mây, dữ liệu không bao giờ rời khỏi thiết bị, không cần Play Store.",
+      "cta_primary": "Tải phiên bản Android miễn phí",
+      "cta_secondary": "Xem giá gói Pro",
+      "badge1": "Không cần Google Play",
+      "badge2": "Chạy 100% trên thiết bị của bạn",
+      "badge3": "Hỗ trợ HD & 4K",
+      "badge4": "Bản cơ bản miễn phí trọn đời"
+    },
+    "features": {
+      "h2": "Mọi thứ bạn cần, không thứ gì thừa",
+      "lead": "Một trình tải nhanh, riêng tư và hoạt động ổn định — với gói Pro cho ai muốn nhiều hơn thế.",
+      "f1_title": "Hầu hết video hoặc âm thanh",
+      "f1_desc": "Dán liên kết, chọn chất lượng, tải xuống. Hoạt động với hầu hết các trang video, âm thanh và hình ảnh — không hoạt động với các dịch vụ được bảo vệ DRM như Spotify hay Netflix.",
+      "f2_title": "Tải hàng loạt",
+      "f2_desc": "Quét một trang để tìm mọi tệp media và tải chúng cùng lúc, với tùy chọn chọn/bỏ chọn.",
+      "f3_title": "Riêng tư ngay từ thiết kế",
+      "f3_desc": "Mọi thứ chạy cục bộ trên điện thoại của bạn. Không có gì được tải lên máy chủ mà bạn không kiểm soát.",
+      "f4_title": "Không quảng cáo, không theo dõi",
+      "f4_desc": "Không mạng quảng cáo, không SDK phân tích, không tường phí kiểu lừa đảo. Chỉ là ứng dụng thuần túy.",
+      "f5_title": "Trích xuất âm thanh",
+      "f5_desc": "Tách riêng track âm thanh từ bất kỳ video nào và lưu thành MP3.",
+      "f6_title": "Không cần cửa hàng ứng dụng",
+      "f6_desc": "Cài đặt phiên bản Android trực tiếp. Không cần tài khoản, không qua quy trình kiểm duyệt của Play Store, không khóa vùng."
+    },
+    "pricing": {
+      "h2": "Giá cả đơn giản, minh bạch",
+      "lead": "Miễn phí trọn đời: 1 lượt tải mỗi ngày ở chất lượng Full HD/4K. Không giới hạn với Pro.",
+      "monthly_title": "Hàng tháng",
+      "monthly_note": "Hủy bất cứ lúc nào",
+      "yearly_flag": "Giá trị tốt nhất",
+      "yearly_title": "Hàng năm",
+      "yearly_note": "Chưa đến €0,67/tháng",
+      "lifetime_title": "Trọn đời",
+      "lifetime_amount_suffix": "thanh toán một lần",
+      "lifetime_note": "Trả một lần, dùng mãi mãi",
+      "feature_unlimited": "Tải không giới hạn (không giới hạn hàng ngày)",
+      "feature_batch": "Tải hàng loạt",
+      "feature_priority_updates": "Cập nhật ưu tiên",
+      "feature_all_updates": "Bao gồm tất cả bản cập nhật trong tương lai",
+      "cta_monthly": "Chọn gói hàng tháng",
+      "cta_yearly": "Chọn gói hàng năm",
+      "cta_lifetime": "Chọn gói trọn đời",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+    },
+    "faq": {
+      "h2": "Câu hỏi thường gặp",
+      "q1_title": "Tôi có cần Pro để dùng ứng dụng không?",
+      "q1_body": "Không. Ứng dụng miễn phí và dùng được đầy đủ. Pro loại bỏ giới hạn và giúp hỗ trợ phát triển ứng dụng.",
+      "q2_title": "Ứng dụng có hoạt động mà không cần Google Play không?",
+      "q2_body": "Có — đây là phiên bản Android độc lập mà bạn cài đặt trực tiếp. Không cần tài khoản Play Store hay phê duyệt.",
+      "q3_title": "Tôi nhập mã giấy phép ở đâu?",
+      "q3_body": "Ngay sau khi mua, bạn sẽ thấy mã giấy phép trên trang xác nhận — hãy nhập mã đó trong phần cài đặt của ứng dụng.",
+      "q4_title": "Tôi có thể được hoàn tiền không?",
+      "q4_body": "Hãy liên hệ với chúng tôi trong vòng 14 ngày kể từ khi mua và chúng tôi sẽ hoàn tiền cho bạn, không cần hỏi lý do.",
+      "q5_title": "Việc này có hợp pháp không?",
+      "q5_body": "Bạn chịu trách nhiệm về cách sử dụng nội dung đã tải xuống. Vui lòng tôn trọng bản quyền và điều khoản của các trang web mà bạn tải từ đó."
+    },
+    "footer": {
+      "download": "Tải xuống",
+      "pricing": "Bảng giá",
+      "imprint": "Thông tin pháp lý",
+      "privacy": "Quyền riêng tư",
+      "support": "Hỗ trợ",
+      "copyright": "© 2026 DownloadThat. Bảo lưu mọi quyền.",
+      "terms": "Terms",
+      "home": "Home"
+    },
+    "success": {
+      "title": "Cảm ơn — DownloadThat Pro",
+      "h1": "Cảm ơn bạn đã mua hàng!",
+      "lead": "Mã giấy phép của bạn ở bên dưới — hãy nhập mã đó trong phần cài đặt của ứng dụng.",
+      "pending": "Đang hoàn tất giao dịch mua của bạn…",
+      "tier_monthly": "Hàng tháng",
+      "tier_yearly": "Hàng năm",
+      "tier_lifetime": "Trọn đời",
+      "plan_label": "Gói",
+      "copy_btn": "Sao chép mã",
+      "not_installed": "Chưa có ứng dụng?",
+      "download_app": "Tải ứng dụng",
+      "error": "Chúng tôi chưa tìm thấy giấy phép của bạn. Vui lòng tải lại trang này sau ít phút.",
+      "no_session": "Thiếu phiên làm việc — vui lòng dùng liên kết từ email xác nhận mua hàng của bạn.",
+      "footer_note": "Trang này tự động kiểm tra trong vài giây sau khi thanh toán. Nếu không có gì hiện ra, hãy tải lại trang hoặc gửi email đến {support_email} kèm xác nhận thanh toán của bạn."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
+    }
+  }
+}

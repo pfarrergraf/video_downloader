@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "A high-class but simple multi-strategy video downloader"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = { text = "Proprietary" }
 authors = [{ name = "Codex" }]
 dependencies = [
   "beautifulsoup4>=4.12.0",
@@ -31,4 +31,7 @@ dev = [
 classydl = "video_downloader.cli:main"
 
 [tool.setuptools]
-packages = ["video_downloader"]
+packages = ["video_downloader", "video_downloader.web"]
+
+[tool.setuptools.package-data]
+"video_downloader.web" = ["static/*"]

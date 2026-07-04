@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Preuzmi medije s većine stranica, na bilo kojem uređaju",
+    "login": {
+      "title": "Prijava",
+      "password_label": "Lozinka",
+      "unlock_btn": "Otključaj",
+      "error": "Pogrešna lozinka."
+    },
+    "license": {
+      "title": "Licenca",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Spremi",
+      "buy_btn": "Nabavi Pro",
+      "status_active": "Pro aktivan ({tier}). Hvala na podršci!",
+      "status_invalid": "Besplatno — spremljeni ključ je nevažeći ili je istekao.",
+      "status_free": "Besplatno — 3 preuzimanja dnevno. Pro: neograničeno.",
+      "need_key_toast": "Najprije unesite licencni ključ.",
+      "activated_toast": "Licenca aktivirana.",
+      "invalid_toast": "Nevažeći licencni ključ."
+    },
+    "scrape": {
+      "title": "Pretraži stranicu",
+      "url_label": "URL stranice",
+      "deep_label": "Duboka pretraga (prati poveznice)",
+      "video_btn": "Preuzmi video",
+      "audio_btn": "Preuzmi audio",
+      "search_btn": "Pretraži stranicu",
+      "select_all": "Odaberi sve",
+      "deselect_all": "Poništi odabir",
+      "clear": "Očisti popis",
+      "queue_selected": "Preuzmi odabrano",
+      "results_count": "Pronađeno: {total}, odabrano: {picked}",
+      "empty": "Na ovoj stranici nije pronađen nijedan medijski sadržaj.",
+      "need_url_toast": "Najprije unesite URL.",
+      "search_failed_toast": "Pretraga nije uspjela.",
+      "queue_failed_toast": "Dodavanje u red čekanja nije uspjelo.",
+      "queue_selection_failed_toast": "Dodavanje odabira u red čekanja nije uspjelo.",
+      "need_selection_toast": "Odaberite barem jednu stavku.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "Red čekanja",
+      "subtitle": "Automatski se ažurira.",
+      "empty": "Red čekanja je trenutačno prazan.",
+      "cancel_btn": "Otkaži",
+      "cancel_failed_toast": "Otkazivanje nije uspjelo.",
+      "queued_toast": "Dodano u red čekanja.",
+      "open_btn": "Otvori",
+      "open_failed_toast": "Nije moguće otvoriti ovu datoteku — pokušajte putem poveznice.",
+      "open_unsupported_toast": "Otvaranje datoteka radi samo u Android aplikaciji.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Postavke",
+      "title": "Postavke",
+      "language_label": "Jezik",
+      "language_auto": "Automatski (jezik uređaja)",
+      "folder_label": "Mapa za preuzimanje",
+      "folder_default": "Pohrana aplikacije (zadano)",
+      "folder_pick_btn": "Odaberi mapu",
+      "folder_reset_btn": "Vrati na zadano",
+      "folder_not_supported": "Dostupno samo u Android aplikaciji.",
+      "folder_picking": "Čekanje odabira mape…",
+      "saved_toast": "Postavke spremljene.",
+      "close_btn": "Zatvori"
+    },
+    "footer": "DownloadThat — preuzimajte samo medijski sadržaj na koji imate prava.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Dnevni limit dosegnut",
+      "body": "Iskoristili ste današnji besplatni limit od 3 preuzimanja. Unesite licencni ključ ispod za neograničena preuzimanja, ili pokušajte ponovno za 24 sata."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — preuzimatelj videa, audia i slika za Android",
+      "description": "Preuzimajte videozapise, audio i slike izravno na svoj Android telefon. Bez Play Storea, bez oglasa, bez vezivanja uz jednog pružatelja. Besplatna osnovna verzija, Pro od 1 €/mjesečno."
+    },
+    "nav": {
+      "features": "Značajke",
+      "pricing": "Cijene",
+      "faq": "Česta pitanja",
+      "download": "Preuzimanje"
+    },
+    "hero": {
+      "eyebrow": "Besplatna osnovna verzija · Bez oglasa · Bez potrebe za računom",
+      "title_html": "Preuzmite {emphasis}.<br/>Izravno na telefon.",
+      "title_emphasis": "gotovo sve",
+      "lead": "Video, audio i slike s gotovo bilo koje stranice — preuzeti izravno na vaš Android telefon. Bez slanja u oblak, podaci nikada ne napuštaju vaš uređaj, Play Store nije potreban.",
+      "cta_primary": "Preuzmi besplatnu verziju za Android",
+      "cta_secondary": "Pogledaj cijene Pro verzije",
+      "badge1": "Google Play nije potreban",
+      "badge2": "Radi 100% na vašem uređaju",
+      "badge3": "Podrška za HD i 4K",
+      "badge4": "Osnovna verzija zauvijek besplatna"
+    },
+    "features": {
+      "h2": "Sve što trebate, ništa što ne trebate",
+      "lead": "Brz i privatan alat za preuzimanje koji jednostavno radi — s Pro razinom za sve koji žele više.",
+      "f1_title": "Većina videa ili audia",
+      "f1_desc": "Zalijepite poveznicu, odaberite kvalitetu, preuzmite. Radi s većinom stranica za video, audio i slike — ne s uslugama zaštićenim DRM-om poput Spotifyja ili Netflixa.",
+      "f2_title": "Skupno preuzimanje",
+      "f2_desc": "Skenirajte stranicu za sve medijske datoteke i preuzmite ih zajedno, uz mogućnost odabira.",
+      "f3_title": "Privatnost po dizajnu",
+      "f3_desc": "Sve se odvija lokalno na vašem telefonu. Ništa se ne šalje na poslužitelj koji ne kontrolirate.",
+      "f4_title": "Bez oglasa, bez praćenja",
+      "f4_desc": "Bez oglasnih mreža, bez analitičkih SDK-ova, bez trikova za nagovaranje na plaćanje. Samo aplikacija.",
+      "f5_title": "Izdvajanje audia",
+      "f5_desc": "Izdvojite samo audio zapis iz bilo kojeg videa i spremite ga kao MP3.",
+      "f6_title": "Nije potrebna trgovina aplikacija",
+      "f6_desc": "Instalirajte verziju za Android izravno. Bez računa, bez postupka pregleda u Play Storeu, bez regionalnih ograničenja."
+    },
+    "pricing": {
+      "h2": "Jednostavne, poštene cijene",
+      "lead": "Zauvijek besplatno: 1 preuzimanje dnevno u punoj HD/4K kvaliteti. Neograničeno uz Pro.",
+      "monthly_title": "Mjesečno",
+      "monthly_note": "Otkažite u bilo kojem trenutku",
+      "yearly_flag": "Najbolja vrijednost",
+      "yearly_title": "Godišnje",
+      "yearly_note": "Manje od 0,67 €/mjesečno",
+      "lifetime_title": "Doživotno",
+      "lifetime_amount_suffix": "jednokratno",
+      "lifetime_note": "Platite jednom, koristite zauvijek",
+      "feature_unlimited": "Neograničena preuzimanja (bez dnevnog ograničenja)",
+      "feature_batch": "Skupno preuzimanje",
+      "feature_priority_updates": "Prioritetna ažuriranja",
+      "feature_all_updates": "Uključena sva buduća ažuriranja",
+      "cta_monthly": "Odaberi mjesečno",
+      "cta_yearly": "Odaberi godišnje",
+      "cta_lifetime": "Odaberi doživotno",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+    },
+    "faq": {
+      "h2": "Često postavljana pitanja",
+      "q1_title": "Trebam li Pro za korištenje aplikacije?",
+      "q1_body": "Ne. Aplikacija je besplatna i potpuno upotrebljiva. Pro uklanja ograničenja i podržava razvoj.",
+      "q2_title": "Radi li ovo bez Google Playa?",
+      "q2_body": "Da — riječ je o samostalnoj verziji za Android koju instalirate izravno. Nije potreban račun na Play Storeu niti odobrenje.",
+      "q3_title": "Gdje unosim svoj licencni ključ?",
+      "q3_body": "Odmah nakon kupnje vidjet ćete svoj licencni ključ na stranici s potvrdom — unesite ga u postavkama aplikacije.",
+      "q4_title": "Mogu li dobiti povrat novca?",
+      "q4_body": "Kontaktirajte nas unutar 14 dana od kupnje i vratit ćemo vam novac, bez ikakvih pitanja.",
+      "q5_title": "Je li ovo zakonito?",
+      "q5_body": "Vi ste odgovorni za način na koji koristite preuzeti sadržaj. Poštujte autorska prava i uvjete korištenja stranica s kojih preuzimate."
+    },
+    "footer": {
+      "download": "Preuzimanje",
+      "pricing": "Cijene",
+      "imprint": "Impresum",
+      "privacy": "Privatnost",
+      "support": "Podrška",
+      "copyright": "© 2026 DownloadThat. Sva prava pridržana.",
+      "terms": "Terms",
+      "home": "Home"
+    },
+    "success": {
+      "title": "Hvala vam — DownloadThat Pro",
+      "h1": "Hvala vam na kupnji!",
+      "lead": "Vaš licencni ključ nalazi se ispod — unesite ga u postavkama aplikacije.",
+      "pending": "Dovršavanje vaše kupnje…",
+      "tier_monthly": "Mjesečno",
+      "tier_yearly": "Godišnje",
+      "tier_lifetime": "Doživotno",
+      "plan_label": "Plan",
+      "copy_btn": "Kopiraj ključ",
+      "not_installed": "Još nemate aplikaciju?",
+      "download_app": "Preuzmi aplikaciju",
+      "error": "Još nismo uspjeli pronaći vašu licencu. Molimo ponovno učitajte ovu stranicu za trenutak.",
+      "no_session": "Sesija nedostaje — molimo koristite poveznicu iz potvrde kupnje.",
+      "footer_note": "Ova stranica automatski provjerava nekoliko sekundi nakon plaćanja. Ako se ništa ne pojavi, ponovno učitajte stranicu ili pošaljite e-poštu na {support_email} s potvrdom plaćanja."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
+    }
+  }
+}

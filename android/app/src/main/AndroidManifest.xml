@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Required by WebView's network stack even for 127.0.0.1-only traffic. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- allowBackup=false: Android's Auto Backup would otherwise restore this
+         app's internal storage (queue database, and MainActivity's
+         per-install random password in SharedPreferences) on a fresh
+         install, defeating both "uninstalling truly resets everything" and
+         the per-install-password design (see getOrCreatePassword()'s
+         comment) - a restored password is no longer unique to this install. -->
+    <application
+        android:allowBackup="false"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@style/Theme.ClassyDL"
+        android:networkSecurityConfig="@xml/network_security_config">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Lets android_bridge.open_file() hand a finished download to another
+             app (e.g. a video player) without exposing a raw file:// Uri, which
+             targetSdk 24+ blocks with a FileUriExposedException. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="de.classydl.app.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+</manifest>

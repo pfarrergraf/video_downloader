@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Política de Privacidade — DownloadThat</title>
+<style>
+  :root {
+    --bg: #0e0c14;
+    --bg-elevated: #16121f;
+    --card: #1b1626;
+    --border: #2c2438;
+    --text: #f1ede4;
+    --text-dim: #a89fb3;
+    --accent: #c9a869;
+    --accent-dim: #8a713f;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(14, 12, 20, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 720px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.02em; color: var(--text); }
+  .brand-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(160deg, var(--accent), var(--accent-dim));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: #14111c;
+  }
+
+  main { padding: 56px 24px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 8px; }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 40px; }
+  h2 { font-size: 1.15rem; color: var(--accent); margin: 36px 0 10px; }
+  h3 { font-size: 1rem; color: var(--text); margin: 24px 0 8px; }
+  p, li { color: var(--text-dim); line-height: 1.7; margin: 0 0 12px; }
+  ul { padding-left: 20px; margin: 0 0 12px; }
+  .notice {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 36px; font-size: 0.9rem; color: var(--text-dim);
+  }
+
+  footer { border-top: 1px solid var(--border); padding: 36px 24px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+  footer a { color: var(--text-dim); }
+  footer .foot-links { display: flex; gap: 18px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+  .lang-switcher {
+    background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; font-family: inherit; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="brand-icon">⬇</span> DownloadThat</a>
+    <span id="legal-lang-switcher"></span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Política de Privacidade</h1>
+    <p class="subtitle">Última atualização: julho de 2026 · nos termos do RGPD e da legislação alemã de proteção de dados</p>
+
+    <div class="notice">
+      Esta é uma tradução para português fornecida por conveniência. A versão original
+      em alemão (<a href="datenschutz.html">Datenschutzerklärung</a>) é a versão
+      juridicamente vinculativa; em caso de divergência, prevalece o original em alemão.
+    </div>
+
+    <h2>1. Responsável pelo tratamento</h2>
+    <p>
+      O responsável pelo tratamento, na aceção do RGPD, é:<br />
+      Benjamin Graf<br />
+      Lahneckstraße 8<br />
+      56112 Lahnstein<br />
+      Alemanha<br />
+      E-mail: <a href="mailto:gpt.assist.benjamin@gmail.com">gpt.assist.benjamin@gmail.com</a>
+    </p>
+
+    <h2>2. Informações gerais sobre o tratamento de dados</h2>
+    <p>
+      Só tratamos dados pessoais na medida do necessário para a prestação dos nossos
+      serviços (a aplicação DownloadThat e o licenciamento Pro). O tratamento é
+      realizado com base no RGPD e na Lei Federal Alemã de Proteção de Dados (BDSG).
+    </p>
+    <p>
+      A própria aplicação funciona inteiramente no seu dispositivo e não transmite
+      dados de utilização nem conteúdo descarregado aos nossos servidores. O
+      tratamento de dados só ocorre em relação à compra e à validação de uma licença
+      Pro.
+    </p>
+
+    <h2>3. Tratamento de dados na compra de uma licença Pro</h2>
+
+    <h3>3.1 Processamento de pagamentos (Stripe)</h3>
+    <p>
+      Quando compra uma licença Pro, o pagamento é processado através do serviço
+      Stripe (Stripe Inc., 510 Townsend Street, San Francisco, CA 94103, EUA). A
+      Stripe trata dados de pagamento (por exemplo, dados do cartão), o seu endereço
+      de e-mail e quaisquer outras informações necessárias ao processamento do
+      pagamento.
+    </p>
+    <p>
+      Nós próprios não armazenamos dados de pagamento completos. A Stripe pode
+      transmitir-nos as seguintes informações após um pagamento bem-sucedido:
+    </p>
+    <ul>
+      <li>ID da sessão de checkout da Stripe (para associar a compra)</li>
+      <li>Endereço de e-mail (caso fornecido pela Stripe)</li>
+      <li>Plano de licença (mensal / anual / vitalício)</li>
+    </ul>
+    <p>
+      Base jurídica: art. 6.º, n.º 1, alínea b), do RGPD (execução de um contrato).<br />
+      Mais informações sobre o tratamento de dados pela Stripe estão disponíveis em:
+      <a href="https://stripe.com/privacy" target="_blank" rel="noopener">
+        https://stripe.com/privacy
+      </a>.
+    </p>
+
+    <h3>3.2 Base de dados de chaves de licença (Cloudflare D1)</h3>
+    <p>
+      Após um pagamento bem-sucedido, é gerada uma chave de licença que é armazenada
+      numa base de dados operada através do Cloudflare D1 (Cloudflare, Inc., 101
+      Townsend St, San Francisco, CA 94107, EUA). São armazenados os seguintes dados:
+    </p>
+    <ul>
+      <li>Uma chave de licença única (UUID)</li>
+      <li>O ID da sessão de checkout da Stripe</li>
+      <li>O plano de licença e a data/hora de ativação</li>
+      <li>Endereço de e-mail (caso fornecido pela Stripe)</li>
+    </ul>
+    <p>
+      Os dados são armazenados durante a vigência da licença. No caso de licenças
+      vitalícias, até que a eliminação seja solicitada pelo titular da licença ou até
+      à descontinuação do serviço. Base jurídica: art. 6.º, n.º 1, alínea b), do RGPD
+      (execução de um contrato).<br />
+      Política de privacidade da Cloudflare:
+      <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">
+        https://www.cloudflare.com/privacypolicy/
+      </a>.
+    </p>
+
+    <h3>3.3 Validação da licença na aplicação</h3>
+    <p>
+      Quando insere uma chave de licença na aplicação, esta é transmitida uma única
+      vez ao nosso endpoint de API de licenças (também alojado no Cloudflare Pages)
+      para validação. Apenas a própria chave é verificada; não são armazenados de
+      forma permanente dados do dispositivo, endereços IP ou outras informações.
+    </p>
+    <p>
+      Base jurídica: art. 6.º, n.º 1, alínea b), do RGPD (execução de um contrato).
+    </p>
+
+    <h3>3.4 Prova do consentimento para o início antecipado da execução do contrato</h3>
+    <p>
+      Ao comprar uma licença Pro, deve confirmar expressamente, antes do pagamento,
+      que a execução do contrato deve começar antes do termo do prazo legal de
+      retratação (ver <a href="agb.pt.html">Termos de Uso</a>, §6.3). Para
+      documentar essa declaração, a data/hora da sua confirmação é armazenada por
+      escrito como parte dos dados de encomenda transmitidos à Stripe (o número de
+      referência da sessão de checkout). Base jurídica: art. 6.º, n.º 1, alínea c),
+      do RGPD (obrigação legal de fornecer prova nos termos do § 356, n.º 5, do
+      Código Civil Alemão (BGB)) e art. 6.º, n.º 1, alínea f), do RGPD (interesse
+      legítimo em assegurar provas em caso de litígio).
+    </p>
+
+    <h3>3.5 Pedidos de reembolso</h3>
+    <p>
+      Se solicitar um reembolso através da função de autoatendimento
+      (<a href="widerruf.html">Retratação e Reembolso</a>), tratamos o endereço de
+      e-mail e a chave de licença que introduzir para associar a sua compra à Stripe
+      e processar o reembolso e a desativação da licença. Base jurídica: art. 6.º,
+      n.º 1, alíneas b) e c), do RGPD (execução do contrato e cumprimento das
+      obrigações legais de retratação e reembolso).
+    </p>
+
+    <h2>4. Alojamento e infraestrutura técnica</h2>
+    <p>
+      Este website é alojado através do Cloudflare Pages. A Cloudflare pode armazenar
+      temporariamente dados técnicos de ligação (por exemplo, endereços IP) nos seus
+      registos. Isto serve a segurança operacional e baseia-se no art. 6.º, n.º 1,
+      alínea f), do RGPD (interesse legítimo na disponibilização segura e sem erros
+      do website). Mais informações:
+      <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">
+        Política de privacidade da Cloudflare
+      </a>.
+    </p>
+
+    <h2>5. Sem cookies, sem rastreadores</h2>
+    <p>
+      Este website não utiliza cookies próprios nem serviços de rastreamento ou de
+      análise. A Stripe pode definir cookies nas suas próprias páginas no âmbito do
+      processo de pagamento — estes estão fora da nossa esfera de influência.
+    </p>
+
+    <h2>6. Transferência de dados para países terceiros</h2>
+    <p>
+      A Stripe e a Cloudflare têm a sua sede nos EUA. A transferência de dados
+      baseia-se nas Cláusulas Contratuais-Tipo da UE (art. 46.º, n.º 2, alínea c), do
+      RGPD) ou no Quadro de Proteção de Dados UE-EUA (quando aplicável). Mais
+      informações podem ser encontradas nas respetivas políticas de privacidade
+      destes fornecedores.
+    </p>
+
+    <h2>7. Os seus direitos</h2>
+    <p>Tem os seguintes direitos perante nós relativamente aos seus dados pessoais:</p>
+    <ul>
+      <li><strong>Direito de acesso</strong> (art. 15.º do RGPD)</li>
+      <li><strong>Direito de retificação</strong> (art. 16.º do RGPD)</li>
+      <li><strong>Direito ao apagamento</strong> (art. 17.º do RGPD)</li>
+      <li><strong>Direito à limitação do tratamento</strong> (art. 18.º do RGPD)</li>
+      <li><strong>Direito à portabilidade dos dados</strong> (art. 20.º do RGPD)</li>
+      <li><strong>Direito de oposição</strong> (art. 21.º do RGPD)</li>
+    </ul>
+    <p>
+      Para exercer os seus direitos, contacte-nos por e-mail em:
+      <a href="mailto:gpt.assist.benjamin@gmail.com">gpt.assist.benjamin@gmail.com</a>.
+    </p>
+    <p>
+      Tem ainda o direito de apresentar reclamação junto de uma autoridade de
+      controlo de proteção de dados. A autoridade competente depende do seu local de
+      residência ou do local da alegada violação.
+    </p>
+
+    <h2>8. Validade e alterações desta política de privacidade</h2>
+    <p>
+      Esta política de privacidade está atualmente em vigor e tem a data acima
+      indicada. Devido à evolução do nosso website ou a alterações de requisitos
+      legais ou regulamentares, poderá ser necessário atualizar esta política de
+      privacidade.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html">Início</a>
+      <a href="impressum.pt.html">Aviso Legal</a>
+      <a href="datenschutz.pt.html">Política de Privacidade</a>
+      <a href="agb.pt.html">Termos de Uso</a>
+      <a href="mailto:support@gaistreich.com">Suporte</a>
+    </div>
+    <div>© 2026 DownloadThat. Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+<script src="legal-lang.js" data-doc="datenschutz"></script>
+</body>
+</html>

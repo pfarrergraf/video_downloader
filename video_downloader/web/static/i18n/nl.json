@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Download media van de meeste sites, op elk apparaat",
+    "login": {
+      "title": "Inloggen",
+      "password_label": "Wachtwoord",
+      "unlock_btn": "Ontgrendelen",
+      "error": "Onjuist wachtwoord."
+    },
+    "license": {
+      "title": "Licentie",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Opslaan",
+      "buy_btn": "Pro aanschaffen",
+      "status_active": "Pro actief ({tier}). Bedankt voor je steun!",
+      "status_invalid": "Gratis — de opgeslagen sleutel is ongeldig of verlopen.",
+      "status_free": "Gratis — 3 downloads per dag. Pro: onbeperkt.",
+      "need_key_toast": "Voer eerst een licentiesleutel in.",
+      "activated_toast": "Licentie geactiveerd.",
+      "invalid_toast": "Ongeldige licentiesleutel."
+    },
+    "scrape": {
+      "title": "Pagina doorzoeken",
+      "url_label": "Pagina-URL",
+      "deep_label": "Diepzoeken (links volgen)",
+      "video_btn": "Video downloaden",
+      "audio_btn": "Audio downloaden",
+      "search_btn": "Pagina doorzoeken",
+      "select_all": "Alles selecteren",
+      "deselect_all": "Alles deselecteren",
+      "clear": "Lijst wissen",
+      "queue_selected": "Selectie downloaden",
+      "results_count": "{total} gevonden, {picked} geselecteerd",
+      "empty": "Geen media gevonden op deze pagina.",
+      "need_url_toast": "Voer eerst een URL in.",
+      "search_failed_toast": "Zoeken mislukt.",
+      "queue_failed_toast": "In wachtrij plaatsen mislukt.",
+      "queue_selection_failed_toast": "Selectie in wachtrij plaatsen mislukt.",
+      "need_selection_toast": "Selecteer minstens één item.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "Wachtrij",
+      "subtitle": "Wordt automatisch bijgewerkt.",
+      "empty": "Nog niets in de wachtrij.",
+      "cancel_btn": "Annuleren",
+      "cancel_failed_toast": "Annuleren mislukt.",
+      "queued_toast": "In wachtrij geplaatst.",
+      "open_btn": "Openen",
+      "open_failed_toast": "Kon dit bestand niet openen — probeer in plaats daarvan de link.",
+      "open_unsupported_toast": "Bestanden openen werkt alleen in de Android-app.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Instellingen",
+      "title": "Instellingen",
+      "language_label": "Taal",
+      "language_auto": "Automatisch (apparaattaal)",
+      "folder_label": "Downloadmap",
+      "folder_default": "App-opslag (standaard)",
+      "folder_pick_btn": "Map kiezen",
+      "folder_reset_btn": "Terugzetten naar standaard",
+      "folder_not_supported": "Alleen beschikbaar in de Android-app.",
+      "folder_picking": "Wachten op mapselectie…",
+      "saved_toast": "Instellingen opgeslagen.",
+      "close_btn": "Sluiten"
+    },
+    "footer": "DownloadThat — download alleen media waarvoor je de rechten hebt.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Voordat je begint",
+      "body": "Deze app is een technisch hulpmiddel om media te downloaden van links die je zelf opgeeft. Jij bent zelf volledig verantwoordelijk voor de vraag of je toestemming hebt om de content achter een ingevoerde link te downloaden en te gebruiken — de ontwikkelaar aanvaardt geen enkele verantwoordelijkheid voor wat je downloadt.",
+      "link_terms": "Gebruiksvoorwaarden",
+      "link_privacy": "Privacybeleid",
+      "link_imprint": "Colofon",
+      "checkbox_label": "Ik heb de gebruiksvoorwaarden gelezen en geaccepteerd, en ik begrijp dat ik zelf volledig verantwoordelijk ben voor de content die ik download.",
+      "continue_btn": "Doorgaan"
+    },
+    "about": {
+      "title": "Over",
+      "developed_by": "Ontwikkeld door",
+      "licenses": "Maakt gebruik van yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) en AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Daglimiet bereikt",
+      "body": "Je hebt de gratis limiet van 3 downloads voor vandaag bereikt. Voer hieronder een licentiesleutel in voor onbeperkte downloads, of probeer het over 24 uur opnieuw."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Video-, audio- en afbeeldingsdownloader voor Android",
+      "description": "Download video's, audio en afbeeldingen rechtstreeks naar je Android-telefoon. Geen Play Store, geen advertenties, geen verplichtingen. Gratis kernfunctionaliteit, Pro vanaf €1/maand."
+    },
+    "nav": {
+      "features": "Functies",
+      "pricing": "Prijzen",
+      "faq": "Veelgestelde vragen",
+      "download": "Download"
+    },
+    "hero": {
+      "eyebrow": "Gratis kern · Geen advertenties · Geen account nodig",
+      "title_html": "Download {emphasis}.<br/>Rechtstreeks naar je telefoon.",
+      "title_emphasis": "bijna alles",
+      "lead": "Video, audio en afbeeldingen van bijna elke site — rechtstreeks gedownload naar je Android-telefoon. Geen cloud-upload, er verlaat nooit data je apparaat, geen Play Store nodig.",
+      "cta_primary": "Download de gratis Android-versie",
+      "cta_secondary": "Bekijk Pro-prijzen",
+      "badge1": "Geen Google Play nodig",
+      "badge2": "Draait 100% op je apparaat",
+      "badge3": "Ondersteuning voor HD en 4K",
+      "badge4": "Kern is voor altijd gratis"
+    },
+    "features": {
+      "h2": "Alles wat je nodig hebt, niets wat je niet nodig hebt",
+      "lead": "Een snelle, privacyvriendelijke downloader die gewoon werkt — met een Pro-versie voor wie meer wil.",
+      "f1_title": "De meeste video's of audio",
+      "f1_desc": "Plak een link, kies een kwaliteit, download. Werkt met de meeste video-, audio- en afbeeldingensites — niet met DRM-beveiligde diensten zoals Spotify of Netflix.",
+      "f2_title": "Batchdownloads",
+      "f2_desc": "Scan een pagina op alle mediabestanden en download ze samen, met selecteren/deselecteren.",
+      "f3_title": "Privacy vanaf het begin",
+      "f3_desc": "Alles draait lokaal op je telefoon. Er wordt niets geüpload naar een server waar jij geen controle over hebt.",
+      "f4_title": "Geen advertenties, geen tracking",
+      "f4_desc": "Geen advertentienetwerken, geen analytics-SDK's, geen misleidende paywalls. Gewoon de app.",
+      "f5_title": "Audio extraheren",
+      "f5_desc": "Haal alleen het audiospoor uit een video en sla het op als MP3.",
+      "f6_title": "Geen appstore nodig",
+      "f6_desc": "Installeer de Android-versie rechtstreeks. Geen account, geen goedkeuringsproces van de Play Store, geen regiobeperkingen."
+    },
+    "pricing": {
+      "h2": "Eenvoudige, eerlijke prijzen",
+      "lead": "Voor altijd gratis: 1 download per dag in volledige HD/4K-kwaliteit. Onbeperkt met Pro.",
+      "monthly_title": "Maandelijks",
+      "monthly_note": "Op elk moment opzegbaar",
+      "yearly_flag": "Beste waarde",
+      "yearly_title": "Jaarlijks",
+      "yearly_note": "Minder dan €0,67/maand",
+      "lifetime_title": "Levenslang",
+      "lifetime_amount_suffix": "eenmalig",
+      "lifetime_note": "Eén keer betalen, voor altijd gebruiken",
+      "feature_unlimited": "Onbeperkt downloaden (geen dagelijkse limiet)",
+      "feature_batch": "Batchdownloads",
+      "feature_priority_updates": "Prioritaire updates",
+      "feature_all_updates": "Alle toekomstige updates inbegrepen",
+      "cta_monthly": "Kies maandelijks",
+      "cta_yearly": "Kies jaarlijks",
+      "cta_lifetime": "Kies levenslang",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "Ik verzoek dat de toegang onmiddellijk ingaat, vóór het einde van de wettelijke bedenktijd van 14 dagen, en ik begrijp dat ik daardoor mijn herroepingsrecht verlies zodra de aankoop is voltooid (zie {terms_start}Gebruiksvoorwaarden{terms_end} §6.3). Je kunt desondanks binnen 14 dagen via onze {refund_start}terugbetalingspagina{refund_end} een volledige terugbetaling aanvragen."
+    },
+    "faq": {
+      "h2": "Veelgestelde vragen",
+      "q1_title": "Heb ik Pro nodig om de app te gebruiken?",
+      "q1_body": "Nee. De app is gratis en volledig bruikbaar. Pro verwijdert limieten en ondersteunt de ontwikkeling.",
+      "q2_title": "Werkt dit zonder Google Play?",
+      "q2_body": "Ja — het is een zelfstandige Android-versie die je rechtstreeks installeert. Geen Play Store-account of goedkeuring nodig.",
+      "q3_title": "Waar voer ik mijn licentiesleutel in?",
+      "q3_body": "Direct na aankoop zie je je licentiesleutel op de bevestigingspagina — voer deze in bij de instellingen van de app.",
+      "q4_title": "Kan ik mijn geld terugkrijgen?",
+      "q4_body": "Neem binnen 14 dagen na aankoop contact met ons op en we betalen je terug, zonder vragen.",
+      "q5_title": "Is dit legaal?",
+      "q5_body": "Je bent zelf verantwoordelijk voor hoe je gedownloade content gebruikt. Respecteer auteursrecht en de voorwaarden van de sites waar je van downloadt."
+    },
+    "footer": {
+      "download": "Download",
+      "pricing": "Prijzen",
+      "imprint": "Colofon",
+      "privacy": "Privacy",
+      "support": "Ondersteuning",
+      "copyright": "© 2026 DownloadThat. Alle rechten voorbehouden.",
+      "terms": "Voorwaarden",
+      "home": "Home"
+    },
+    "success": {
+      "title": "Bedankt — DownloadThat Pro",
+      "h1": "Bedankt voor je aankoop!",
+      "lead": "Je licentiesleutel staat hieronder — voer deze in bij de instellingen van de app.",
+      "pending": "Je aankoop wordt afgerond…",
+      "tier_monthly": "Maandelijks",
+      "tier_yearly": "Jaarlijks",
+      "tier_lifetime": "Levenslang",
+      "plan_label": "Abonnement",
+      "copy_btn": "Sleutel kopiëren",
+      "not_installed": "Heb je de app nog niet?",
+      "download_app": "Download de app",
+      "error": "We konden je licentie nog niet vinden. Vernieuw deze pagina zo dadelijk.",
+      "no_session": "Sessie ontbreekt — gebruik de link uit je aankoopbevestiging.",
+      "footer_note": "Deze pagina controleert automatisch enkele seconden na betaling. Als er niets verschijnt, vernieuw de pagina of e-mail {support_email} met je betalingsbevestiging."
+    },
+    "refund": {
+      "title": "Herroeping & terugbetaling",
+      "body": "Vul de licentiesleutel en het e-mailadres van je aankoop in. Als je aankoop binnen de afgelopen 14 dagen is gedaan, betalen we deze volledig terug via Stripe en deactiveren we de licentie direct — zonder opgave van reden.",
+      "license_label": "Licentiesleutel",
+      "email_label": "E-mailadres gebruikt bij aankoop",
+      "submit_btn": "Terugbetaling aanvragen",
+      "success": "Terugbetaald. Het geld staat binnen enkele werkdagen weer bij je betalingsprovider, en de licentie is gedeactiveerd.",
+      "error_missing_fields": "Vul zowel de licentiesleutel als het e-mailadres in.",
+      "error_no_match": "We konden geen aankoop vinden die overeenkomt met die licentiesleutel en dat e-mailadres.",
+      "error_already_canceled": "Deze licentie is al terugbetaald of geannuleerd.",
+      "error_window_expired": "De termijn van 14 dagen voor terugbetaling van deze aankoop is verstreken. Neem contact op met support als je dit alsnog wilt bespreken.",
+      "error_generic": "Er is iets misgegaan. Probeer het opnieuw of neem contact op met support."
+    }
+  }
+}

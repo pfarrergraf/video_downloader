@@ -1,0 +1,227 @@
+{
+  "app": {
+    "title": "DownloadThat",
+    "tagline": "Muat turun media dari kebanyakan laman, pada mana-mana peranti",
+    "login": {
+      "title": "Log in",
+      "password_label": "Password",
+      "unlock_btn": "Unlock",
+      "error": "Wrong password."
+    },
+    "license": {
+      "title": "License",
+      "placeholder": "DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX",
+      "save_btn": "Save",
+      "buy_btn": "Get Pro",
+      "status_active": "Pro active ({tier}). Thanks for your support!",
+      "status_invalid": "Free — the saved key is invalid or expired.",
+      "status_free": "Percuma — 3 muat turun sehari. Pro: tanpa had.",
+      "need_key_toast": "Enter a license key first.",
+      "activated_toast": "License activated.",
+      "invalid_toast": "Invalid license key."
+    },
+    "scrape": {
+      "title": "Search a page",
+      "url_label": "Page URL",
+      "deep_label": "Deep search (follow links)",
+      "video_btn": "Download video",
+      "audio_btn": "Download audio",
+      "search_btn": "Search page",
+      "select_all": "Select all",
+      "deselect_all": "Deselect all",
+      "clear": "Clear list",
+      "queue_selected": "Download selected",
+      "results_count": "{total} found, {picked} selected",
+      "empty": "No media found on this page.",
+      "need_url_toast": "Enter a URL first.",
+      "search_failed_toast": "Search failed.",
+      "queue_failed_toast": "Failed to queue.",
+      "queue_selection_failed_toast": "Failed to queue selection.",
+      "need_selection_toast": "Select at least one item.",
+      "url_placeholder": "Paste the link here",
+      "quality_label": "Video quality"
+    },
+    "queue": {
+      "title": "Queue",
+      "subtitle": "Updates automatically.",
+      "empty": "Nothing in the queue yet.",
+      "cancel_btn": "Cancel",
+      "cancel_failed_toast": "Failed to cancel.",
+      "queued_toast": "Queued.",
+      "open_btn": "Open",
+      "open_failed_toast": "Couldn't open this file — try the link instead.",
+      "open_unsupported_toast": "Opening files only works in the Android app.",
+      "open_folder_btn": "Open folder",
+      "open_folder_failed_toast": "Couldn't open the folder.",
+      "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
+      "share_btn": "Share",
+      "share_failed_toast": "Couldn't share this file.",
+      "share_unsupported_toast": "Sharing only works in the Android app."
+    },
+    "settings": {
+      "gear_label": "Settings",
+      "title": "Settings",
+      "language_label": "Language",
+      "language_auto": "Automatic (device language)",
+      "folder_label": "Download folder",
+      "folder_default": "App storage (default)",
+      "folder_pick_btn": "Choose folder",
+      "folder_reset_btn": "Reset to default",
+      "folder_not_supported": "Only available in the Android app.",
+      "folder_picking": "Waiting for folder selection…",
+      "saved_toast": "Settings saved.",
+      "close_btn": "Close"
+    },
+    "footer": "DownloadThat — only download media you have the rights to.",
+    "batch": {
+      "title": "Multiple links or a playlist",
+      "label": "One link per line, or a single playlist link",
+      "placeholder": "Paste multiple links (one per line), or a single playlist link",
+      "download_btn": "Download all",
+      "need_links_toast": "Paste at least one link first.",
+      "queued_toast": "{count} added to the queue.",
+      "queue_failed_toast": "Failed to queue one or more links."
+    },
+    "quality": {
+      "auto": "Auto (up to 4K)",
+      "p240": "240p",
+      "p480": "480p",
+      "p720": "HD (720p)",
+      "p1080": "Full HD (1080p)",
+      "p1440": "2K (1440p)",
+      "p2160": "4K (2160p)"
+    },
+    "terms": {
+      "title": "Before you start",
+      "body": "This app is a technical tool for downloading media from links you provide yourself. You are solely responsible for making sure you're allowed to download and use the content behind any link you enter — the developer takes no responsibility for what you download.",
+      "link_terms": "Terms of use",
+      "link_privacy": "Privacy policy",
+      "link_imprint": "Imprint",
+      "checkbox_label": "I've read and accept the terms of use, and I understand I'm solely responsible for the content I download.",
+      "continue_btn": "Continue"
+    },
+    "about": {
+      "title": "About",
+      "developed_by": "Developed by",
+      "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
+    },
+    "limit": {
+      "title": "Had harian dicapai",
+      "body": "Anda telah mencapai had percuma hari ini iaitu 3 muat turun. Masukkan kunci lesen di bawah untuk muat turun tanpa had, atau cuba lagi selepas 24 jam."
+    }
+  },
+  "website": {
+    "meta": {
+      "title": "DownloadThat — Video, Audio & Image Downloader for Android",
+      "description": "Download videos, audio and images straight to your Android phone. No Play Store, no ads, no lock-in. Free core, Pro from €1/month."
+    },
+    "nav": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "download": "Download"
+    },
+    "hero": {
+      "eyebrow": "Free core · No ads · No account needed",
+      "title_html": "Download {emphasis}.<br/>Straight to your phone.",
+      "title_emphasis": "hampir semuanya",
+      "lead": "Video, audio and images from almost any site — downloaded straight to your Android phone. No cloud upload, no data ever leaves your device, no Play Store needed.",
+      "cta_primary": "Download the free Android version",
+      "cta_secondary": "See Pro pricing",
+      "badge1": "No Google Play needed",
+      "badge2": "Runs 100% on your device",
+      "badge3": "HD & 4K support",
+      "badge4": "Core is free forever"
+    },
+    "features": {
+      "h2": "Everything you need, nothing you don't",
+      "lead": "A fast, private downloader that just works — with a Pro tier for anyone who wants more.",
+      "f1_title": "Kebanyakan video atau audio",
+      "f1_desc": "Tampal pautan, pilih kualiti, muat turun. Berfungsi dengan kebanyakan laman video, audio dan imej — bukan dengan perkhidmatan dilindungi DRM seperti Spotify atau Netflix.",
+      "f2_title": "Batch downloads",
+      "f2_desc": "Scan a page for every media file and download them together, with pick/unpick.",
+      "f3_title": "Private by design",
+      "f3_desc": "Everything runs locally on your phone. Nothing gets uploaded to a server you don't control.",
+      "f4_title": "No ads, no tracking",
+      "f4_desc": "No ad networks, no analytics SDKs, no dark-pattern paywalls. Just the app.",
+      "f5_title": "Audio extraction",
+      "f5_desc": "Pull just the audio track out of any video and save it as MP3.",
+      "f6_title": "No app store needed",
+      "f6_desc": "Install the Android version directly. No account, no Play Store review process, no region locks."
+    },
+    "pricing": {
+      "h2": "Simple, honest pricing",
+      "lead": "Free forever: 1 download a day in full HD/4K quality. Unlimited with Pro.",
+      "monthly_title": "Monthly",
+      "monthly_note": "Cancel anytime",
+      "yearly_flag": "Best value",
+      "yearly_title": "Yearly",
+      "yearly_note": "Less than €0.67/month",
+      "lifetime_title": "Lifetime",
+      "lifetime_amount_suffix": "one-time",
+      "lifetime_note": "Pay once, use forever",
+      "feature_unlimited": "Unlimited downloads (no daily cap)",
+      "feature_batch": "Batch downloads",
+      "feature_priority_updates": "Priority updates",
+      "feature_all_updates": "All future updates included",
+      "cta_monthly": "Choose monthly",
+      "cta_yearly": "Choose yearly",
+      "cta_lifetime": "Choose lifetime",
+      "monthly_amount_suffix": "/month",
+      "yearly_amount_suffix": "/year",
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+    },
+    "faq": {
+      "h2": "Frequently asked questions",
+      "q1_title": "Do I need Pro to use the app?",
+      "q1_body": "No. The app is free and fully usable. Pro removes limits and supports development.",
+      "q2_title": "Does this work without Google Play?",
+      "q2_body": "Yes — it's a standalone Android version you install directly. No Play Store account or approval needed.",
+      "q3_title": "Where do I enter my license key?",
+      "q3_body": "Right after purchase you'll see your license key on the confirmation page — enter it in the app's settings.",
+      "q4_title": "Can I get a refund?",
+      "q4_body": "Contact us within 14 days of purchase and we'll refund you, no questions asked.",
+      "q5_title": "Is this legal?",
+      "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from."
+    },
+    "footer": {
+      "download": "Download",
+      "pricing": "Pricing",
+      "imprint": "Imprint",
+      "privacy": "Privacy",
+      "support": "Support",
+      "copyright": "© 2026 DownloadThat. All rights reserved.",
+      "terms": "Terms",
+      "home": "Home"
+    },
+    "success": {
+      "title": "Thank you — DownloadThat Pro",
+      "h1": "Thanks for your purchase!",
+      "lead": "Your license key is below — enter it in the app's settings.",
+      "pending": "Finishing up your purchase…",
+      "tier_monthly": "Monthly",
+      "tier_yearly": "Yearly",
+      "tier_lifetime": "Lifetime",
+      "plan_label": "Plan",
+      "copy_btn": "Copy key",
+      "not_installed": "Don't have the app yet?",
+      "download_app": "Download the app",
+      "error": "We couldn't find your license yet. Please reload this page in a moment.",
+      "no_session": "Session missing — please use the link from your purchase confirmation.",
+      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation."
+    },
+    "refund": {
+      "title": "Withdrawal & refund",
+      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "license_label": "License key",
+      "email_label": "Email address used at purchase",
+      "submit_btn": "Request refund",
+      "success": "Refunded. The money will be back with your payment provider within a few business days, and the license has been deactivated.",
+      "error_missing_fields": "Please fill in both the license key and the email address.",
+      "error_no_match": "We couldn't find a purchase matching that license key and email address.",
+      "error_already_canceled": "This license has already been refunded or canceled.",
+      "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
+      "error_generic": "Something went wrong. Please try again or contact support."
+    }
+  }
+}

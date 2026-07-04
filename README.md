@@ -1,9 +1,20 @@
 ﻿# ClassyDL
 
-> Queue-driven video / audio / image downloader for Windows — CLI, TUI dashboard, and desktop GUI.
+> Queue-driven video / audio / image downloader — CLI, TUI dashboard, desktop GUI, and a
+> standalone Android app.
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License: Proprietary](https://img.shields.io/badge/license-Proprietary-lightgrey.svg)](LICENSE)
+
+## Get the app
+
+**[Download DownloadThat for Android →](https://downloadthat.pages.dev)** — sideloadable
+APK, no Play Store, no ads, no git clone or Python install needed. Free tier included;
+Pro removes the daily download limit.
+
+Everything below is developer documentation for building and running ClassyDL's engine
+from source (Windows CLI/TUI/desktop GUI, Termux, Docker) — skip it if you just want the
+app.
 
 ## Features
 
@@ -166,6 +177,75 @@ TUI keys:
 - `y` retry selected failed/cancelled job
 - `[` / `]` raise/lower priority for selected pending/paused job
 
+## Web UI (Gothic, browser-based)
+
+A dark, gothic-themed page that runs entirely in the browser — open it from a phone,
+tablet, or any device with an internet connection, no app install required. The page
+itself is a thin client; the actual scraping/downloading/ffmpeg work happens on
+whatever machine runs `classydl web`. The backend is standard-library-only (no
+FastAPI/pydantic), so it needs nothing beyond ClassyDL's normal install — this
+matters on platforms without prebuilt wheels for compiled packages, like Termux.
+
+```bash
+uv sync
+CLASSYDL_WEB_PASSWORD="pick-something-strong" uv run classydl web --port 8420
+```
+
+Then open `http://<that-machine's-address>:8420` in a browser. On a phone, use
+"Add to Home Screen" from the browser menu to get an app-like icon — this avoids the
+packaging problems of a native app while still feeling like one.
+
+Options:
+
+| Flag / env var | Purpose |
+| ------ | --------- |
+| `--password` / `CLASSYDL_WEB_PASSWORD` | Required. Single shared password gating the whole site. |
+| `--host` | Bind address (default `0.0.0.0`) |
+| `--port` | Bind port (default `8420`) |
+| `--output` | Where finished downloads are written/served from |
+| `--workers` | Concurrent download workers |
+| `CLASSYDL_DATA_DIR` | Where the queue database/config/logs live (defaults to the platform-specific path; set this on Linux/Docker) |
+
+**Reachability from "any device with internet access"** requires the server to be on
+a network reachable from the internet — running it on your own PC alone only reaches
+devices on the same LAN. Options, in increasing order of effort:
+
+- **Your own PC + Tailscale/ngrok** — no hosting cost, gives a private URL reachable from your phone anywhere, without exposing the machine publicly.
+- **A small VPS (DigitalOcean/Hetzner/etc.) or a PaaS (Render/Fly.io/Railway)** — run the bundled `Dockerfile`, get a public HTTPS URL.
+
+```bash
+docker build -t classydl .
+docker run -p 8420:8420 -e CLASSYDL_WEB_PASSWORD=pick-something-strong -v classydl-data:/data classydl
+```
+
+⚠️ This proxies downloads from arbitrary URLs — always set a real password, and don't
+expose it without one.
+
+### Run it directly on an Android phone (no external server)
+
+Termux lets the phone run its own Python + ffmpeg, so the whole stack — backend and
+the Gothic page — lives on the device itself. Nothing is exposed to the internet;
+you just open a browser on the same phone.
+
+```bash
+# Inside Termux, in this repo's directory:
+bash scripts/termux_setup.sh   # one-time: installs python/ffmpeg, pip-installs ClassyDL
+bash scripts/termux_run.sh     # starts the server, prompts for a password
+```
+
+Then open `http://127.0.0.1:8420` in Chrome/Firefox on the same phone. Downloads land
+in `~/storage/downloads/ClassyDL`, visible from the normal Android Files app (requires
+having granted storage access when `termux-setup-storage` prompted).
+
+Notes:
+
+- Keep Termux running (don't swipe it away) while a download is in progress; long-press
+  its notification and choose "Acquire wakelock" so Android doesn't suspend it.
+- Every dependency here is pure Python, so `pip install` should be quick — no Rust or
+  C compiler needed.
+- This mode binds to `127.0.0.1` only — it is not reachable from other devices, by
+  design, since nothing here is meant to leave the phone.
+
 ## Easy Desktop UI
 
 Launch a simpler click-first UI with built-in site scraping:
@@ -268,7 +348,7 @@ uv run pytest tests/ -v
 
 ## License
 
-MIT
+Proprietary — All rights reserved. See [LICENSE](LICENSE).
 
 ## Disclaimer
 

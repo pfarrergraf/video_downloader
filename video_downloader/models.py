@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Callable
 
 JOB_STATUS_PENDING = "pending"
 JOB_STATUS_PAUSED = "paused"
@@ -35,6 +36,8 @@ class DownloadRequest:
     external_downloader_args: str | None = None
     job_id: int | None = None
     profile_name: str | None = None
+    progress_callback: Callable[[int, int | None], None] | None = None
+    quality_height: int | None = None
 
 
 @dataclass(slots=True)
@@ -95,6 +98,9 @@ class JobRecord:
     started_at: str | None
     finished_at: str | None
     updated_at: str
+    downloaded_bytes: int = 0
+    total_bytes: int | None = None
+    quality_height: int | None = None
 
 
 @dataclass(slots=True)

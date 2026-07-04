@@ -2,13 +2,13 @@ from __future__ import annotations
 
 import shutil
 import subprocess
-import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlparse
 
 import requests
+import yt_dlp
 
 from .models import DownloadRequest, DownloadResult
 from .utils import (
@@ -34,12 +34,22 @@ class Strategy:
 
 
 class YtDlpStrategy(Strategy):
+    """Runs yt-dlp in-process via its Python API.
+
+    This used to shell out to `sys.executable -m yt_dlp`, which works on a
+    normal OS but not under Chaquopy (Android): Python there is embedded as a
+    library, not a standalone executable, so `sys.executable` isn't something
+    that can be subprocess-spawned — every download failed with a permission/
+    exec error. Calling yt-dlp as a library works identically everywhere.
+    """
+
     def __init__(self) -> None:
         super().__init__(name="yt-dlp")
 
     def download(self, request: DownloadRequest, source_url: str) -> DownloadResult:
         ensure_output_dir(request.output_dir)
         before_files = _snapshot_files(request.output_dir)
+        ffmpeg_available = shutil.which(request.ffmpeg_binary) is not None
 
         if request.output_template:
             template = request.output_template
@@ -52,91 +62,116 @@ class YtDlpStrategy(Strategy):
                 else "%(title)s [%(id)s].%(ext)s"
             )
 
-        cmd = [
-            sys.executable,
-            "-m",
-            "yt_dlp",
-            source_url,
-            "--newline",
-            "--no-warnings",
-            "--restrict-filenames",
-            "-P",
-            str(request.output_dir),
-            "-o",
-            template,
-            "-f",
-            "ba/b" if request.audio_only else request.format_selector,
-            "--print",
-            "after_move:filepath",
-            "--continue",
-        ]
-        if request.allow_playlist:
-            cmd.append("--yes-playlist")
-        else:
-            cmd.append("--no-playlist")
-        if request.max_items is not None:
-            cmd.extend(["--max-downloads", str(request.max_items)])
-
+        http_headers: dict[str, str] = {}
         if request.user_agent:
-            cmd.extend(["--user-agent", request.user_agent])
+            http_headers["User-Agent"] = request.user_agent
         referer = _effective_referer(request, source_url)
         if referer:
-            cmd.extend(["--referer", referer])
-        for key, value in request.headers.items():
-            cmd.extend(["--add-header", f"{key}: {value}"])
-        if request.cookies_from_browser:
-            cmd.extend(["--cookies-from-browser", request.cookies_from_browser])
-        if request.audio_only:
-            cmd.extend(["-x", "--audio-format", "mp3", "--audio-quality", "0"])
-        if request.subtitle_langs:
-            cmd.extend(["--write-subs", "--sub-langs", request.subtitle_langs])
-        if request.embed_subs:
-            cmd.append("--embed-subs")
-        if request.external_downloader:
-            cmd.extend(["--downloader", request.external_downloader])
-        if request.external_downloader_args:
-            if request.external_downloader:
-                cmd.extend(
-                    [
-                        "--downloader-args",
-                        f"{request.external_downloader}:{request.external_downloader_args}",
-                    ]
-                )
-            else:
-                cmd.extend(["--downloader-args", request.external_downloader_args])
+            http_headers["Referer"] = referer
+        http_headers.update(request.headers)
 
-        run = subprocess.run(cmd, capture_output=True, text=True)
-        printed_files: list[Path] = []
-        for line in run.stdout.splitlines():
-            candidate = Path(line.strip())
-            if candidate.exists() and candidate.is_file():
-                printed_files.append(candidate)
-
-        if printed_files:
-            details = _yt_dlp_non_zero_details(run)
-            return DownloadResult(
-                file_path=printed_files[-1],
-                method=self.name,
-                source_url=source_url,
-                details=details,
-                downloaded_files=printed_files,
+        postprocessors: list[dict[str, object]] = []
+        if request.audio_only and ffmpeg_available:
+            postprocessors.append(
+                {"key": "FFmpegExtractAudio", "preferredcodec": "mp3", "preferredquality": "0"}
             )
+        if request.embed_subs:
+            postprocessors.append({"key": "FFmpegEmbedSubtitle"})
+
+        ydl_opts: dict[str, object] = {
+            "outtmpl": {"default": str(request.output_dir / template)},
+            "format": (
+                _audio_format_selector(ffmpeg_available)
+                if request.audio_only
+                else _video_format_selector(
+                    request.format_selector, ffmpeg_available, request.quality_height
+                )
+            ),
+            "noplaylist": not request.allow_playlist,
+            "restrictfilenames": True,
+            "continuedl": True,
+            "quiet": True,
+            "no_warnings": True,
+            "noprogress": True,
+            "socket_timeout": request.timeout_seconds,
+            "http_headers": http_headers,
+        }
+        if request.max_items is not None:
+            ydl_opts["max_downloads"] = request.max_items
+        if request.cookies_from_browser:
+            ydl_opts["cookiesfrombrowser"] = (request.cookies_from_browser, None, None, None)
+        if ffmpeg_available:
+            ydl_opts["ffmpeg_location"] = request.ffmpeg_binary
+        if request.subtitle_langs:
+            ydl_opts["writesubtitles"] = True
+            ydl_opts["subtitleslangs"] = request.subtitle_langs.split(",")
+        if postprocessors:
+            ydl_opts["postprocessors"] = postprocessors
+        if request.external_downloader:
+            ydl_opts["external_downloader"] = request.external_downloader
+        if request.external_downloader_args:
+            key = request.external_downloader or "default"
+            ydl_opts["external_downloader_args"] = {key: [request.external_downloader_args]}
+        if request.progress_callback:
+            ydl_opts["progress_hooks"] = [_yt_dlp_progress_hook(request.progress_callback)]
+
+        error_message = ""
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                ydl.download([source_url])
+        except Exception as exc:  # yt_dlp raises DownloadError and friends
+            error_message = str(exc)
 
         new_files = _find_new_files(request.output_dir, before_files)
         if new_files:
-            details = _yt_dlp_non_zero_details(run)
+            result_file = new_files[-1]
+            # yt-dlp downloads the raw source stream first, then runs
+            # FFmpegExtractAudio as a separate step - if that postprocessing
+            # step itself fails (e.g. the bundled ffmpeg binary can't encode
+            # mp3 on this device), the exception above still leaves the raw,
+            # un-converted file (e.g. .opus/.webm instead of the requested
+            # .mp3) on disk. That file is still a real, playable download -
+            # just not one every device/car stereo can open - so this stays a
+            # success, but surfaces a clear note instead of pretending the
+            # requested MP3 conversion actually happened.
+            if (
+                request.audio_only
+                and ffmpeg_available
+                and result_file.suffix.lower() != ".mp3"
+                and not error_message
+            ):
+                error_message = (
+                    f"MP3 conversion failed; saved as {result_file.suffix} instead. "
+                    "This plays fine on this device but may not on others (e.g. a car stereo)."
+                )
             return DownloadResult(
-                file_path=new_files[-1],
+                file_path=result_file,
                 method=self.name,
                 source_url=source_url,
-                details=details,
+                details=error_message,
                 downloaded_files=new_files,
             )
 
-        if run.returncode != 0:
-            failure = _tail_lines(run.stderr, 15) or _tail_lines(run.stdout, 15) or "yt-dlp failed."
-            raise StrategyError(failure)
-        raise StrategyError("yt-dlp reported success but output file could not be located.")
+        raise StrategyError(error_message or "yt-dlp reported success but output file could not be located.")
+
+
+def _yt_dlp_progress_hook(callback):
+    # yt-dlp calls this many times per second; throttling avoids hammering
+    # the queue store (SQLite) with a write on every chunk.
+    last_call = [0.0]
+
+    def hook(status: dict[str, object]) -> None:
+        if status.get("status") != "downloading":
+            return
+        now = time.monotonic()
+        if now - last_call[0] < 0.5:
+            return
+        last_call[0] = now
+        downloaded = int(status.get("downloaded_bytes") or 0)
+        total = status.get("total_bytes") or status.get("total_bytes_estimate")
+        callback(downloaded, int(total) if total else None)
+
+    return hook
 
 
 class FFmpegStrategy(Strategy):
@@ -227,12 +262,22 @@ class DirectDownloadStrategy(Strategy):
                 else:
                     filename = f"video_{int(time.time())}{extension}"
 
+        content_length = response.headers.get("Content-Length")
+        total_bytes = int(content_length) if content_length and content_length.isdigit() else None
+        downloaded_bytes = 0
+        last_report = time.monotonic()
+
         output = request.output_dir / filename
         try:
             with output.open("wb") as file_obj:
                 for chunk in response.iter_content(chunk_size=1024 * 1024):
-                    if chunk:
-                        file_obj.write(chunk)
+                    if not chunk:
+                        continue
+                    file_obj.write(chunk)
+                    downloaded_bytes += len(chunk)
+                    if request.progress_callback and time.monotonic() - last_report >= 0.5:
+                        last_report = time.monotonic()
+                        request.progress_callback(downloaded_bytes, total_bytes)
         finally:
             response.close()
 
@@ -244,6 +289,42 @@ class DirectDownloadStrategy(Strategy):
             source_url=source_url,
             downloaded_files=[output],
         )
+
+
+def _audio_format_selector(ffmpeg_available: bool) -> str:
+    if ffmpeg_available:
+        return "ba/b"
+    # Without ffmpeg, yt-dlp can't extract/remux audio out of a combined
+    # stream or re-encode it — only ever pick a format that's already
+    # audio-only, so the file it saves needs no further processing.
+    return "bestaudio"
+
+
+def _video_format_selector(
+    configured_selector: str, ffmpeg_available: bool, quality_height: int | None = None
+) -> str:
+    if quality_height:
+        # height<=N picks the best quality at or below the requested cap
+        # (not "next higher available", which would silently blow past a
+        # cap the user picked specifically to save bandwidth/storage).
+        height_filter = f"[height<={int(quality_height)}]"
+        selector = f"bv*{height_filter}+ba/b{height_filter}/best"
+    else:
+        selector = configured_selector
+    if ffmpeg_available or "+" not in selector:
+        return selector
+    # The selector explicitly requests separate best-video and best-audio
+    # streams merged together, which requires ffmpeg - yt-dlp aborts outright
+    # ("merging of multiple formats but ffmpeg is not installed") rather than
+    # silently downgrading. Falling back to a single pre-muxed stream mirrors
+    # what _audio_format_selector already does for audio: every device can
+    # still download *something* (typically capped below the split-stream-only
+    # 1080p+ tiers on YouTube) instead of failing outright whenever ffmpeg
+    # isn't resolvable. When a quality cap was requested, keep it applied to
+    # the single-stream fallback too.
+    if quality_height:
+        return f"best[height<={int(quality_height)}]/best"
+    return "best"
 
 
 def _tail_lines(text: str, count: int) -> str:
@@ -294,15 +375,6 @@ def _response_looks_like_media(url: str, content_type: str | None) -> bool:
         return True
     allow_markers = ("octet-stream", "application/mp4", "mpegurl", "dash+xml")
     return any(marker in lower for marker in allow_markers)
-
-
-def _yt_dlp_non_zero_details(run: subprocess.CompletedProcess[str]) -> str:
-    if run.returncode == 0:
-        return ""
-    message = _tail_lines(run.stderr, 10) or _tail_lines(run.stdout, 10)
-    if not message:
-        message = f"yt-dlp exited with code {run.returncode} after partial success."
-    return f"Partial success with non-zero yt-dlp exit: {message}"
 
 
 def _effective_referer(request: DownloadRequest, source_url: str) -> str | None:

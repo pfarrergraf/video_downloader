@@ -1,0 +1,214 @@
+name: Android release
+
+# Deliberately a separate workflow from android-build.yml (not folded into its
+# `push.paths`-filtered trigger): a release is "build me an installable APK
+# from whatever HEAD currently is," which should happen on every tag push
+# regardless of which files that specific commit touched — combining `tags`
+# and `paths` filters on one `push` trigger ANDs them together and could skip
+# a release for a tag that (say) only bumps a version string.
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  # Fallback trigger: GitHub's mobile "New release" web form has proven
+  # unreliable (POST hangs on "Publishing..." and silently produces no tag
+  # or release, no error shown) — this lets a release be built and published
+  # from the much simpler Actions "Run workflow" form instead, without
+  # needing the release-creation UI to work at all.
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag to release, e.g. v0.2.0"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build-ffmpeg:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install NDK
+        run: |
+          SDKMANAGER="$(command -v sdkmanager || true)"
+          if [ -z "$SDKMANAGER" ]; then
+            SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -1)"
+          fi
+          "$SDKMANAGER" --install "ndk;27.0.12077973"
+
+      # Release ships arm64-v8a only (see build.gradle's abiFilterList) — no
+      # need to also cross-compile the x86_64 ffmpeg binary that only exists
+      # for the debug/emulator-smoke-test path in android-build.yml.
+      - name: Build ffmpeg for arm64-v8a
+        env:
+          ANDROID_NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/27.0.12077973
+        run: bash .github/scripts/build_ffmpeg_android.sh "arm64-v8a" "$PWD/ffmpeg-out"
+
+      - name: Upload ffmpeg binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: ffmpeg-arm64-v8a
+          path: ffmpeg-out/bin/ffmpeg
+
+  build-signed-release:
+    needs: build-ffmpeg
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android
+    env:
+      # On a tag push, github.ref_name is already the tag (e.g. v0.2.0). On a
+      # manual workflow_dispatch run, ref_name would be the branch name
+      # instead, so the tag to release has to come from the input.
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up build-time Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.13"
+
+      - name: Download ffmpeg binary
+        uses: actions/download-artifact@v4
+        with:
+          name: ffmpeg-arm64-v8a
+          path: android/ffmpeg-artifacts/ffmpeg-arm64-v8a
+
+      - name: Place ffmpeg binary into jniLibs
+        run: |
+          mkdir -p app/src/main/jniLibs/arm64-v8a
+          cp ffmpeg-artifacts/ffmpeg-arm64-v8a/ffmpeg app/src/main/jniLibs/arm64-v8a/libffmpeg.so
+          chmod +x app/src/main/jniLibs/arm64-v8a/libffmpeg.so
+
+      - name: Verify signing secrets are configured
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$ANDROID_KEYSTORE_BASE64" ]; then
+            echo "::error::ANDROID_KEYSTORE_BASE64/ANDROID_KEYSTORE_PASSWORD/ANDROID_KEY_ALIAS/ANDROID_KEY_PASSWORD must be set as repository secrets before a release build can produce a signed, installable APK. See docs/ANDROID_APP_PLAN.md Phase 4 for one-time setup instructions."
+            exit 1
+          fi
+
+      # Without this, every release build kept Chaquopy's placeholder
+      # versionCode/versionName (1 / "0.1.0") baked into the APK regardless
+      # of the git tag - v0.2.0's binary was correct, but nothing in the app
+      # itself would ever show it, so an installed update was indistinguishable
+      # from the previous one. versionCode must strictly increase release over
+      # release for Android to treat an install as an update.
+      - name: Derive version code/name from tag
+        run: |
+          VERSION_NAME="${RELEASE_TAG#v}"
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION_NAME"
+          VERSION_CODE=$((MAJOR * 10000 + MINOR * 100 + PATCH))
+          echo "VERSION_NAME=$VERSION_NAME" >> "$GITHUB_ENV"
+          echo "VERSION_CODE=$VERSION_CODE" >> "$GITHUB_ENV"
+
+      - name: Build signed release APK (arm64-v8a only)
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          gradle :app:assembleRelease -PabiFilters=arm64-v8a \
+            -PversionNameOverride="$VERSION_NAME" -PversionCodeOverride="$VERSION_CODE" --stacktrace
+
+      # Play Console requires the .aab (App Bundle) format, not a raw APK -
+      # it re-signs this with the app signing key you choose during Play App
+      # Signing enrollment (the keystore below just needs to work as an
+      # "upload key", which our existing release keystore already does fine).
+      # Not attached to the GitHub Release (that's for direct/sideload
+      # installs); this is a separate build artifact for manual upload to
+      # Play Console during testing-track setup.
+      - name: Build signed release App Bundle for Play Console (arm64-v8a only)
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          gradle :app:bundleRelease -PabiFilters=arm64-v8a \
+            -PversionNameOverride="$VERSION_NAME" -PversionCodeOverride="$VERSION_CODE" --stacktrace
+
+      - name: Upload App Bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DownloadThat-${{ env.RELEASE_TAG }}.aab
+          path: android/app/build/outputs/bundle/release/app-release.aab
+
+      # Two copies: the versioned name is what shows up on the release page;
+      # the "-latest" name is a stable filename so the website's download
+      # button (releases/latest/download/DownloadThat-latest.apk) never needs
+      # updating across releases - GitHub's "latest" alias only works for an
+      # asset name that stays identical release to release.
+      - name: Rename APK to include version tag
+        run: |
+          mkdir -p release-out
+          cp app/build/outputs/apk/release/app-release.apk "release-out/DownloadThat-${RELEASE_TAG}.apk"
+          cp app/build/outputs/apk/release/app-release.apk "release-out/DownloadThat-latest.apk"
+
+      # Lets testers (and android-beta.html) verify the APK they downloaded
+      # actually came from this CI build, not a tampered copy from elsewhere.
+      - name: Generate SHA-256 checksums
+        run: |
+          cd release-out
+          sha256sum "DownloadThat-${RELEASE_TAG}.apk" > "DownloadThat-${RELEASE_TAG}.apk.sha256"
+          sha256sum "DownloadThat-latest.apk" > "DownloadThat-latest.apk.sha256"
+
+      - name: Generate release metadata JSON
+        run: |
+          GENERATED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          SHA256="$(awk '{print $1}' release-out/DownloadThat-latest.apk.sha256)"
+          cat > release-out/DownloadThat-release.json <<JSON
+          {
+            "appName": "DownloadThat",
+            "packageName": "de.classydl.app",
+            "versionName": "${VERSION_NAME}",
+            "versionCode": ${VERSION_CODE},
+            "apkFile": "DownloadThat-latest.apk",
+            "sha256": "${SHA256}",
+            "releaseTag": "${RELEASE_TAG}",
+            "generatedAt": "${GENERATED_AT}"
+          }
+          JSON
+
+      - name: Attach APK to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          # tag_name/name are required here (not just github.ref_name): on a
+          # workflow_dispatch run there is no tag yet, so this action creates
+          # one. target_commitish must be explicit too - GitHub's API defaults
+          # a brand-new tag to the repo's default branch (master, stuck on an
+          # ancient commit here) when it's omitted, not to the commit actually
+          # built from.
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: ${{ env.RELEASE_TAG }}
+          target_commitish: ${{ github.sha }}
+          files: |
+            android/release-out/DownloadThat-${{ env.RELEASE_TAG }}.apk
+            android/release-out/DownloadThat-${{ env.RELEASE_TAG }}.apk.sha256
+            android/release-out/DownloadThat-latest.apk
+            android/release-out/DownloadThat-latest.apk.sha256
+            android/release-out/DownloadThat-release.json
+          generate_release_notes: true
