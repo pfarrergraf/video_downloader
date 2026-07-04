@@ -17,8 +17,8 @@ struct DownloadWebView: UIViewRepresentable {
 
         let webView = WKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
-        webView.loadBootstrapPage()
         bridge.attach(webView: webView)
+        webView.loadBootstrapPage()
         return webView
     }
 
@@ -34,6 +34,10 @@ struct DownloadWebView: UIViewRepresentable {
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
             guard message.name == "downloadThat" else { return }
             bridge.handle(message: message.body)
+        }
+
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            bridge.notifyReady()
         }
     }
 }

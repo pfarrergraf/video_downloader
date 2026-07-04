@@ -35,6 +35,12 @@ xcodebuild \
   build
 ```
 
+This exact command is what `.github/workflows/ios-build.yml` runs on every push to
+`iPhone`, on a `macos-latest` GitHub Actions runner — that CI run is the source of
+truth for "does this project build," since there is no macOS/Xcode toolchain in the
+Linux sandbox these changes were authored in. Check the Actions tab for the latest
+run status before trusting a local build claim in a commit message.
+
 If you want a named simulator instead, list available simulators:
 
 ```bash
@@ -53,11 +59,14 @@ Then use a concrete destination, for example:
 - `iphone_bootstrap.html` loads inside WKWebView.
 - Native bridge sends `nativeReady`.
 - Web UI asks for license status.
-- License activation calls `https://downloadthat.pages.dev/api/validate` with:
-  - key
-  - platform: ios
-  - pseudonymous device hash
-  - app version
+- License activation calls `GET https://downloadthat.pages.dev/api/validate` with
+  query parameters (matching `pro/website/functions/api/validate.js`, the same
+  endpoint Android and desktop use):
+  - `key`
+  - `platform=ios`
+  - `device_id`: a SHA256 hash of the Keychain-backed install UUID, never the raw
+    identifier (the server hashes whatever it receives again before storing it)
+  - `app_version`
 - Direct HTTPS/HTTP file URLs download through `URLSession`.
 - Downloaded files are saved in the app Documents directory with collision-safe filenames.
 - The UI shows success/failure and the saved local path.

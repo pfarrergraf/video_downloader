@@ -17,6 +17,13 @@ final class DownloadBridge: ObservableObject {
 
     func attach(webView: WKWebView) {
         self.webView = webView
+    }
+
+    // Called once the WKWebView finishes loading iphone_bootstrap.html - sending
+    // this any earlier (e.g. right after starting the load) races the page's own
+    // script setup and the event can be dropped before window.DownloadThatNative
+    // exists to receive it.
+    func notifyReady() {
         sendToWeb(event: "nativeReady", payload: [
             "platform": AppConfig.platform,
             "freeDailyDownloadLimit": AppConfig.freeDailyDownloadLimit
@@ -60,12 +67,13 @@ final class DownloadBridge: ObservableObject {
                     licenseKey: trimmed,
                     pseudonymousInstallHash: deviceIdentity.hashedInstallId()
                 )
-                isPro = result.valid
-                tier = result.tier ?? (result.valid ? "pro" : "free")
+                isPro = result.valid && result.deviceAllowed
+                tier = result.tier ?? (isPro ? "pro" : "free")
+                let reason = !result.valid ? (result.status ?? "invalid") : (!result.deviceAllowed ? "device_limit" : "")
                 sendToWeb(event: "licenseResult", payload: [
-                    "valid": result.valid,
+                    "valid": isPro,
                     "tier": tier,
-                    "reason": result.reason ?? ""
+                    "reason": reason
                 ])
             } catch {
                 sendToWeb(event: "licenseResult", payload: ["valid": false, "reason": "network_error"])

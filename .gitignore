@@ -57,6 +57,12 @@ android/**/build/
 android/.idea/
 *.hprof
 
+# Xcode
+ios/**/xcuserdata/
+ios/**/*.xcuserstate
+ios/**/DerivedData/
+ios/**/*.xcworkspace/xcuserdata/
+
 # Cloudflare Pages/Workers local dev (wrangler pages dev / wrangler d1 execute
 # --local) - local D1 SQLite state and secrets, never real deployment config
 pro/website/.wrangler/
