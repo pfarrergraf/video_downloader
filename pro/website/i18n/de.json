@@ -170,7 +170,7 @@
       "cta_lifetime": "Lebenslang wählen",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Ich verlange, dass die Ausführung sofort beginnt, bevor die gesetzliche 14-tägige Widerrufsfrist abläuft, und mir ist bewusst, dass ich dadurch mein Widerrufsrecht verliere, sobald der Kauf abgeschlossen ist (siehe {terms_start}Nutzungsbedingungen{terms_end} §6.3). Innerhalb von 14 Tagen kann ich trotzdem jederzeit eine vollständige Rückerstattung über unsere {refund_start}Rückerstattungsseite{refund_end} anfordern."
+      "consent_label": "Ich verlange, dass die Ausführung sofort beginnt, bevor die gesetzliche 14-tägige Widerrufsfrist abläuft. Mir ist bewusst, dass ich dadurch mein Widerrufsrecht verliere, sobald der Kauf abgeschlossen ist (siehe {terms_start}Nutzungsbedingungen{terms_end} §6.3 und {refund_start}Widerrufsbelehrung{refund_end}). Eine automatische Rückerstattung nach Freischaltung gibt es nicht."
     },
     "faq": {
       "h2": "Häufig gestellte Fragen",
