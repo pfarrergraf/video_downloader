@@ -81,33 +81,92 @@ final class DownloadBridge: ObservableObject {
         }
     }
 
+    // Handles one line of input from the web UI. Plain multi-line batch fan-out (one
+    // job per line) happens client-side in iphone_bootstrap.html, matching how
+    // web/static/index.html's queueLinks() already does it - so this only ever sees
+    // one URL per call. That URL can still expand to many items on its own, though
+    // (a YouTube playlist URL resolves to every video it contains via
+    // VideoExtractor.expand), which is why this can emit more than one
+    // downloadStarted/downloadFinished pair per call.
     private func startDirectURLDownload(_ rawURL: String) {
         let trimmed = rawURL.trimmingCharacters(in: .whitespacesAndNewlines)
         guard let sourceURL = URL(string: trimmed), ["https", "http"].contains(sourceURL.scheme?.lowercased()) else {
-            sendToWeb(event: "downloadFinished", payload: ["ok": false, "reason": "invalid_url"])
+            sendToWeb(event: "downloadFinished", payload: ["ok": false, "url": rawURL, "reason": "invalid_url"])
             return
         }
 
-        sendToWeb(event: "downloadStarted", payload: ["url": sourceURL.absoluteString])
-
         Task {
+            if VideoExtractor.isKnownHost(sourceURL) {
+                await runExtractedDownload(for: sourceURL)
+            } else {
+                await runPlainDownload(for: sourceURL)
+            }
+        }
+    }
+
+    private func runPlainDownload(for sourceURL: URL) async {
+        sendToWeb(event: "downloadStarted", payload: ["url": sourceURL.absoluteString])
+        do {
+            let savedURL = try await downloadDirectFile(from: sourceURL, suggestedName: nil)
+            sendToWeb(event: "downloadFinished", payload: [
+                "ok": true,
+                "url": sourceURL.absoluteString,
+                "fileName": savedURL.lastPathComponent,
+                "path": savedURL.path
+            ])
+        } catch {
+            sendToWeb(event: "downloadFinished", payload: [
+                "ok": false,
+                "url": sourceURL.absoluteString,
+                "reason": String(describing: error)
+            ])
+        }
+    }
+
+    // A single input URL can expand into many items (a YouTube playlist) - each
+    // expanded item gets its own downloadStarted/downloadFinished pair so the UI can
+    // track them independently, the same way a batch of separate lines would.
+    private func runExtractedDownload(for sourceURL: URL) async {
+        let itemURLs: [URL]
+        do {
+            itemURLs = try await VideoExtractor.expand(sourceURL)
+        } catch {
+            sendToWeb(event: "downloadFinished", payload: [
+                "ok": false, "url": sourceURL.absoluteString, "reason": "playlist_expand_failed"
+            ])
+            return
+        }
+
+        for itemURL in itemURLs {
+            sendToWeb(event: "downloadStarted", payload: ["url": itemURL.absoluteString])
             do {
-                let savedURL = try await downloadDirectFile(from: sourceURL)
-                sendToWeb(event: "downloadFinished", payload: [
+                let extracted = try await VideoExtractor.resolve(itemURL)
+                let (mediaURL, suggestedName, warning): (URL, String?, String?)
+                switch extracted {
+                case .complete(let url, let name):
+                    (mediaURL, suggestedName, warning) = (url, name, nil)
+                case .videoOnlyNoAudioYet(let url, let name):
+                    (mediaURL, suggestedName, warning) = (url, name, "video_only_no_audio")
+                }
+
+                let savedURL = try await downloadDirectFile(from: mediaURL, suggestedName: suggestedName)
+                var payload: [String: Any] = [
                     "ok": true,
+                    "url": itemURL.absoluteString,
                     "fileName": savedURL.lastPathComponent,
                     "path": savedURL.path
-                ])
+                ]
+                if let warning { payload["warning"] = warning }
+                sendToWeb(event: "downloadFinished", payload: payload)
             } catch {
                 sendToWeb(event: "downloadFinished", payload: [
-                    "ok": false,
-                    "reason": String(describing: error)
+                    "ok": false, "url": itemURL.absoluteString, "reason": String(describing: error)
                 ])
             }
         }
     }
 
-    private func downloadDirectFile(from sourceURL: URL) async throws -> URL {
+    private func downloadDirectFile(from sourceURL: URL, suggestedName: String?) async throws -> URL {
         let (temporaryURL, response) = try await URLSession.shared.download(from: sourceURL)
         guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
             throw DownloadError.badHTTPStatus
@@ -120,8 +179,11 @@ final class DownloadBridge: ObservableObject {
             create: true
         )
 
-        let suggestedName = response.suggestedFilename?.nonEmpty ?? sourceURL.lastPathComponent.nonEmpty ?? "download.bin"
-        let safeName = suggestedName.replacingOccurrences(of: "/", with: "-")
+        let candidateName = suggestedName?.nonEmpty
+            ?? response.suggestedFilename?.nonEmpty
+            ?? sourceURL.lastPathComponent.nonEmpty
+            ?? "download.bin"
+        let safeName = candidateName.replacingOccurrences(of: "/", with: "-")
         let destination = uniqueDestinationURL(in: documents, preferredName: safeName)
 
         if FileManager.default.fileExists(atPath: destination.path) {

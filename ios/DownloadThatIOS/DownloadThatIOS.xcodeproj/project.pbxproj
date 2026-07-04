@@ -15,6 +15,8 @@
 		A00000000000000000000106 /* LicenseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000206 /* LicenseClient.swift */; };
 		A00000000000000000000107 /* DownloadBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000207 /* DownloadBridge.swift */; };
 		A00000000000000000000108 /* iphone_bootstrap.html in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000208 /* iphone_bootstrap.html */; };
+		A00000000000000000000109 /* VideoExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000210 /* VideoExtractor.swift */; };
+		A00000000000000000000303 /* YouTubeKit in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000302 /* YouTubeKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,10 +30,11 @@
 		A00000000000000000000207 /* DownloadBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadBridge.swift; sourceTree = "<group>"; };
 		A00000000000000000000208 /* iphone_bootstrap.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = iphone_bootstrap.html; sourceTree = "<group>"; };
 		A00000000000000000000209 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A00000000000000000000210 /* VideoExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoExtractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A00000000000000000000013 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = ( ); runOnlyForDeploymentPostprocessing = 0; };
+		A00000000000000000000013 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = ( A00000000000000000000303 /* YouTubeKit in Frameworks */, ); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -39,16 +42,16 @@
 		A00000000000000000000004 /* DownloadThatIOS */ = {isa = PBXGroup; children = ( A00000000000000000000006 /* App */, A00000000000000000000007 /* Bridge */, A00000000000000000000008 /* Resources */, ); path = .; sourceTree = "<group>"; };
 		A00000000000000000000005 /* Products */ = {isa = PBXGroup; children = ( A00000000000000000000002 /* DownloadThatIOS.app */, ); name = Products; sourceTree = "<group>"; };
 		A00000000000000000000006 /* App */ = {isa = PBXGroup; children = ( A00000000000000000000201 /* DownloadThatIOSApp.swift */, A00000000000000000000202 /* ContentView.swift */, A00000000000000000000203 /* DownloadWebView.swift */, A00000000000000000000209 /* Info.plist */, ); path = App; sourceTree = "<group>"; };
-		A00000000000000000000007 /* Bridge */ = {isa = PBXGroup; children = ( A00000000000000000000204 /* AppConfig.swift */, A00000000000000000000205 /* DeviceIdentity.swift */, A00000000000000000000206 /* LicenseClient.swift */, A00000000000000000000207 /* DownloadBridge.swift */, ); path = Bridge; sourceTree = "<group>"; };
+		A00000000000000000000007 /* Bridge */ = {isa = PBXGroup; children = ( A00000000000000000000204 /* AppConfig.swift */, A00000000000000000000205 /* DeviceIdentity.swift */, A00000000000000000000206 /* LicenseClient.swift */, A00000000000000000000207 /* DownloadBridge.swift */, A00000000000000000000210 /* VideoExtractor.swift */, ); path = Bridge; sourceTree = "<group>"; };
 		A00000000000000000000008 /* Resources */ = {isa = PBXGroup; children = ( A00000000000000000000208 /* iphone_bootstrap.html */, ); path = Resources; sourceTree = "<group>"; };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A00000000000000000000001 /* DownloadThatIOS */ = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000031 /* Build configuration list for PBXNativeTarget DownloadThatIOS */; buildPhases = ( A00000000000000000000011 /* Sources */, A00000000000000000000013 /* Frameworks */, A00000000000000000000012 /* Resources */, ); buildRules = ( ); dependencies = ( ); name = DownloadThatIOS; productName = DownloadThatIOS; productReference = A00000000000000000000002 /* DownloadThatIOS.app */; productType = "com.apple.product-type.application"; };
+		A00000000000000000000001 /* DownloadThatIOS */ = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000031 /* Build configuration list for PBXNativeTarget DownloadThatIOS */; buildPhases = ( A00000000000000000000011 /* Sources */, A00000000000000000000013 /* Frameworks */, A00000000000000000000012 /* Resources */, ); buildRules = ( ); dependencies = ( ); name = DownloadThatIOS; packageProductDependencies = ( A00000000000000000000302 /* YouTubeKit */, ); productName = DownloadThatIOS; productReference = A00000000000000000000002 /* DownloadThatIOS.app */; productType = "com.apple.product-type.application"; };
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A00000000000000000000000 /* Project object */ = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 1600; LastUpgradeCheck = 1600; TargetAttributes = {A00000000000000000000001 = {CreatedOnToolsVersion = 16.0; }; }; }; buildConfigurationList = A00000000000000000000030 /* Build configuration list for PBXProject DownloadThatIOS */; compatibilityVersion = "Xcode 15.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = ( en, Base, ); mainGroup = A00000000000000000000003; productRefGroup = A00000000000000000000005 /* Products */; projectDirPath = ""; projectRoot = ""; targets = ( A00000000000000000000001 /* DownloadThatIOS */, ); };
+		A00000000000000000000000 /* Project object */ = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 1600; LastUpgradeCheck = 1600; TargetAttributes = {A00000000000000000000001 = {CreatedOnToolsVersion = 16.0; }; }; }; buildConfigurationList = A00000000000000000000030 /* Build configuration list for PBXProject DownloadThatIOS */; compatibilityVersion = "Xcode 15.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = ( en, Base, ); mainGroup = A00000000000000000000003; packageReferences = ( A00000000000000000000301 /* XCRemoteSwiftPackageReference "YouTubeKit" */, ); productRefGroup = A00000000000000000000005 /* Products */; projectDirPath = ""; projectRoot = ""; targets = ( A00000000000000000000001 /* DownloadThatIOS */, ); };
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -56,7 +59,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A00000000000000000000011 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = ( A00000000000000000000101 /* DownloadThatIOSApp.swift in Sources */, A00000000000000000000102 /* ContentView.swift in Sources */, A00000000000000000000103 /* DownloadWebView.swift in Sources */, A00000000000000000000104 /* AppConfig.swift in Sources */, A00000000000000000000105 /* DeviceIdentity.swift in Sources */, A00000000000000000000106 /* LicenseClient.swift in Sources */, A00000000000000000000107 /* DownloadBridge.swift in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
+		A00000000000000000000011 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = ( A00000000000000000000101 /* DownloadThatIOSApp.swift in Sources */, A00000000000000000000102 /* ContentView.swift in Sources */, A00000000000000000000103 /* DownloadWebView.swift in Sources */, A00000000000000000000104 /* AppConfig.swift in Sources */, A00000000000000000000105 /* DeviceIdentity.swift in Sources */, A00000000000000000000106 /* LicenseClient.swift in Sources */, A00000000000000000000107 /* DownloadBridge.swift in Sources */, A00000000000000000000109 /* VideoExtractor.swift in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -70,6 +73,14 @@
 		A00000000000000000000030 /* Build configuration list for PBXProject DownloadThatIOS */ = {isa = XCConfigurationList; buildConfigurations = ( A00000000000000000000040 /* Debug */, A00000000000000000000041 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
 		A00000000000000000000031 /* Build configuration list for PBXNativeTarget DownloadThatIOS */ = {isa = XCConfigurationList; buildConfigurations = ( A00000000000000000000042 /* Debug */, A00000000000000000000043 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A00000000000000000000301 /* XCRemoteSwiftPackageReference "YouTubeKit" */ = {isa = XCRemoteSwiftPackageReference; repositoryURL = "https://github.com/alexeichhorn/YouTubeKit"; requirement = {kind = upToNextMajorVersion; minimumVersion = 0.4.0; }; };
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A00000000000000000000302 /* YouTubeKit */ = {isa = XCSwiftPackageProductDependency; package = A00000000000000000000301 /* XCRemoteSwiftPackageReference "YouTubeKit" */; productName = YouTubeKit; };
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A00000000000000000000000 /* Project object */;
 }
