@@ -136,6 +136,20 @@ async function handleCheckoutCompleted(session, env) {
   return { created: true, license_key: licenseKey };
 }
 
+// SEPA Direct Debit (and other delayed-notification payment methods) fire
+// checkout.session.completed as soon as the customer authorizes the mandate,
+// not when the debit actually clears — that can fail days later (e.g.
+// insufficient funds). Without this, a bounced SEPA debit would leave a
+// license permanently active since nothing else ever revokes it.
+async function handleCheckoutAsyncPaymentFailed(session, env) {
+  const now = Math.floor(Date.now() / 1000);
+  await env.DB.prepare(
+    `UPDATE licenses SET status = 'canceled', updated_at = ? WHERE stripe_checkout_session_id = ?`,
+  )
+    .bind(now, session.id)
+    .run();
+}
+
 async function handleSubscriptionUpdated(subscription, env) {
   const now = Math.floor(Date.now() / 1000);
   const status = subscription.status === "active" || subscription.status === "trialing" ? "active" : "expired";
@@ -160,6 +174,9 @@ export async function handleStripeEvent(event, env) {
   switch (event.type) {
     case "checkout.session.completed":
       return (await handleCheckoutCompleted(event.data.object, env)) ?? { handled: true };
+    case "checkout.session.async_payment_failed":
+      await handleCheckoutAsyncPaymentFailed(event.data.object, env);
+      return { handled: true };
     case "customer.subscription.updated":
       await handleSubscriptionUpdated(event.data.object, env);
       return { handled: true };
