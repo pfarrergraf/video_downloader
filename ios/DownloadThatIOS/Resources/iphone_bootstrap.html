@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DownloadThat iPhone</title>
 <style>
-  :root { color-scheme: dark; --bg:#0e0c14; --card:#1b1626; --border:#2c2438; --text:#f1ede4; --dim:#a89fb3; --accent:#c9a869; }
+  :root { color-scheme: dark; --bg:#0e0c14; --card:#1b1626; --border:#2c2438; --text:#f1ede4; --dim:#a89fb3; --accent:#c9a869; --ok:#7ac9a0; --bad:#e07a7a; }
   body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
   main { padding:28px 20px 40px; max-width:560px; margin:0 auto; }
   h1 { font-size:2rem; line-height:1.1; margin:20px 0 10px; }
@@ -16,12 +16,14 @@
   button { width:100%; margin-top:12px; border:0; border-radius:999px; padding:13px 16px; background:var(--accent); color:#14111c; font-weight:700; font:inherit; }
   .secondary { background:transparent; color:var(--accent); border:1px solid var(--accent); }
   .status { font-size:.9rem; color:var(--dim); white-space:pre-wrap; }
+  .ok { color:var(--ok); }
+  .bad { color:var(--bad); }
 </style>
 </head>
 <body>
 <main>
   <h1>DownloadThat für iPhone</h1>
-  <p>iOS-Prototyp: native Swift-App mit Weboberfläche und sicherer Bridge. Der eigentliche Download-Motor ist in diesem Milestone bewusst noch deaktiviert.</p>
+  <p>iOS-Prototyp: native Swift-App mit Weboberfläche, sicherer Bridge, Lizenzaktivierung und direktem Datei-Download für einfache HTTPS/HTTP-Datei-URLs.</p>
 
   <section class="card">
     <strong>Lizenz</strong>
@@ -32,37 +34,52 @@
   </section>
 
   <section class="card">
-    <strong>Download-Test</strong>
-    <p>Dieser Button testet nur die Bridge. Der iOS-Download-Engine-Entscheid folgt nach Compliance-Prüfung.</p>
-    <label for="download-url">URL</label>
+    <strong>Direkter Datei-Download</strong>
+    <p>Erster iOS-MVP: lädt direkte Datei-URLs in den App-Dokumentenordner. Plattform-Downloads mit yt-dlp sind auf iOS absichtlich noch nicht aktiviert.</p>
+    <label for="download-url">Datei-URL</label>
     <input id="download-url" placeholder="https://example.com/file.mp4" />
-    <button class="secondary" onclick="startDownload()">Download-Bridge testen</button>
+    <button class="secondary" onclick="startDownload()">Datei herunterladen</button>
+    <p id="download-status" class="status">Noch kein Download gestartet.</p>
   </section>
 
   <section class="card">
-    <strong>Roadmap</strong>
-    <p>1. Xcode-Projekt anlegen<br>2. Bridge testen<br>3. Lizenzserver für iOS-Slot erweitern<br>4. App-Store/EU/TestFlight-Route entscheiden</p>
+    <strong>Nächste Entscheidung</strong>
+    <p>Für App Store: StoreKit/IAP und eingeschränkte Download-Funktionen. Für EU/direct: bestehender Lizenzkey und breiterer Funktionsumfang nach Rechts-/Policy-Entscheidung.</p>
   </section>
 </main>
 
 <script>
 window.DownloadThatNative = {
   receive(event, payload) {
-    const status = document.getElementById('license-status');
+    const licenseStatus = document.getElementById('license-status');
+    const downloadStatus = document.getElementById('download-status');
     if (event === 'nativeReady') {
       post('licenseStatus');
       return;
     }
     if (event === 'licenseStatus') {
-      status.textContent = payload.isPro ? `Pro aktiv (${payload.tier})` : 'Free: 3 Downloads pro 24 Stunden';
+      licenseStatus.textContent = payload.isPro ? `Pro aktiv (${payload.tier})` : 'Free: 3 Downloads pro 24 Stunden';
+      licenseStatus.className = payload.isPro ? 'status ok' : 'status';
       return;
     }
     if (event === 'licenseResult') {
-      status.textContent = payload.valid ? `Pro aktiv (${payload.tier})` : `Lizenz nicht aktiv: ${payload.reason || 'unbekannt'}`;
+      licenseStatus.textContent = payload.valid ? `Pro aktiv (${payload.tier})` : `Lizenz nicht aktiv: ${payload.reason || 'unbekannt'}`;
+      licenseStatus.className = payload.valid ? 'status ok' : 'status bad';
       return;
     }
-    if (event === 'downloadRejected') {
-      alert(`iOS-Download-Motor noch deaktiviert: ${payload.reason}`);
+    if (event === 'downloadStarted') {
+      downloadStatus.textContent = `Download läuft:\n${payload.url}`;
+      downloadStatus.className = 'status';
+      return;
+    }
+    if (event === 'downloadFinished') {
+      if (payload.ok) {
+        downloadStatus.textContent = `Gespeichert als:\n${payload.fileName}\n\nPfad:\n${payload.path}`;
+        downloadStatus.className = 'status ok';
+      } else {
+        downloadStatus.textContent = `Download fehlgeschlagen: ${payload.reason || 'unbekannter Fehler'}`;
+        downloadStatus.className = 'status bad';
+      }
       return;
     }
     if (event === 'error') {
