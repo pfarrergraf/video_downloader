@@ -212,3 +212,27 @@ jobs:
             android/release-out/DownloadThat-latest.apk.sha256
             android/release-out/DownloadThat-release.json
           generate_release_notes: true
+
+      # Upload the "latest" artifacts to Cloudflare R2 so the website's /download
+      # Function can serve them independently of GitHub. This means the repo can be
+      # set to private without breaking the download page.
+      # Requires CLOUDFLARE_API_TOKEN (with "Workers R2 Storage:Edit" permission)
+      # and CLOUDFLARE_ACCOUNT_ID to be set as repository secrets.
+      - name: Upload release artifacts to Cloudflare R2
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        working-directory: android/release-out
+        run: |
+          npx --yes wrangler@latest r2 object put \
+            downloadthat-releases/DownloadThat-latest.apk \
+            --file DownloadThat-latest.apk \
+            --content-type "application/vnd.android.package-archive"
+          npx --yes wrangler@latest r2 object put \
+            downloadthat-releases/DownloadThat-latest.apk.sha256 \
+            --file DownloadThat-latest.apk.sha256 \
+            --content-type "text/plain"
+          npx --yes wrangler@latest r2 object put \
+            downloadthat-releases/DownloadThat-release.json \
+            --file DownloadThat-release.json \
+            --content-type "application/json"

@@ -9,3 +9,13 @@ pages_build_output_dir = "."
 binding = "DB"
 database_name = "downloadthat-licenses"
 database_id = "cee415b0-dad7-4ae5-a080-48872a37d057"
+
+# R2 bucket that holds release artifacts (APK, EXE, checksums, release JSON).
+# The bucket must be created once in the Cloudflare dashboard under
+# R2 Object Storage → Create bucket with the name "downloadthat-releases".
+# The CLOUDFLARE_API_TOKEN used for Pages deployment also needs the
+# "Workers R2 Storage:Edit" permission to allow the release workflows to
+# upload artifacts via `wrangler r2 object put`.
+[[r2_buckets]]
+binding = "RELEASES"
+bucket_name = "downloadthat-releases"

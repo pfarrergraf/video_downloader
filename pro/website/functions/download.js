@@ -1,13 +1,11 @@
-// Serves the APK from our own origin instead of linking straight to GitHub —
-// the download button/link should never show "github.com" in its href or in
-// the browser's download UI. This streams the release asset through rather
-// than issuing a redirect, so the GitHub origin never reaches the client.
-const APK_URL =
-  "https://github.com/pfarrergraf/video_downloader/releases/latest/download/DownloadThat-latest.apk";
+// Serves the APK from Cloudflare R2 — GitHub is never contacted by the client.
+// The R2 bucket "downloadthat-releases" is bound as RELEASES in wrangler.toml.
+// Upload the artifact to R2 via the android-release.yml workflow step before
+// this Function will return a real file; until then it returns 502.
 
-export async function onRequestGet() {
-  const upstream = await fetch(APK_URL, { redirect: "follow" });
-  if (!upstream.ok) {
+export async function onRequestGet({ env }) {
+  const obj = await env.RELEASES.get("DownloadThat-latest.apk");
+  if (!obj) {
     return new Response("Download temporarily unavailable", { status: 502 });
   }
 
@@ -16,23 +14,21 @@ export async function onRequestGet() {
   headers.set("Content-Disposition", 'attachment; filename="DownloadThat.apk"');
   headers.set("X-Content-Type-Options", "nosniff");
   headers.set("Cache-Control", "no-store");
-  const contentLength = upstream.headers.get("Content-Length");
-  if (contentLength) {
-    headers.set("Content-Length", contentLength);
+  if (obj.size) {
+    headers.set("Content-Length", String(obj.size));
   }
 
-  return new Response(upstream.body, { status: 200, headers });
+  return new Response(obj.body, { status: 200, headers });
 }
 
-export async function onRequestHead() {
-  const upstream = await fetch(APK_URL, { method: "HEAD", redirect: "follow" });
+export async function onRequestHead({ env }) {
+  const obj = await env.RELEASES.head("DownloadThat-latest.apk");
   const headers = new Headers();
   headers.set("Content-Type", "application/vnd.android.package-archive");
   headers.set("X-Content-Type-Options", "nosniff");
   headers.set("Cache-Control", "no-store");
-  const contentLength = upstream.headers.get("Content-Length");
-  if (contentLength) {
-    headers.set("Content-Length", contentLength);
+  if (obj && obj.size) {
+    headers.set("Content-Length", String(obj.size));
   }
-  return new Response(null, { status: upstream.ok ? 200 : 502, headers });
+  return new Response(null, { status: obj ? 200 : 502, headers });
 }
