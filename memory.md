@@ -490,3 +490,43 @@ deployable via Docker/VPS/Cloudflare) — that version still exists as an option
 (`Dockerfile`, `--host 0.0.0.0` binding) for whoever wants a shared/remote deployment
 later. The user then pivoted to wanting zero external hosting, landing on the
 Termux/on-device approach above as the immediate priority.
+
+## 2026-07-05 — Refund policy: no automatic refunds, at all — earlier "removal" only half-happened
+
+Owner clarified the business decision explicitly, in reaction to still seeing "contact
+us within 14 days and we'll refund you, no questions asked" on the live pricing page:
+**there is no refund path, automated or manual/support-mediated.** Rationale stated
+directly: the free tier (rationed, not time-limited or feature-crippled) is the escape
+hatch for anyone unsure — nobody has to pay to use the app. Whoever buys Pro is buying
+unlimited/no-limit access as a final transaction. Reasoning given: a self-service
+"refund whoever asks" policy is an existential financial risk at any real scale (paraphrased
+example: 500k paying customers, 400k requesting refunds bankrupts the business) in a way
+"a free tier exists, nobody needs a refund" structurally can't be.
+
+Earlier work (see commits "Remove automatic refunds and set withdrawal consent terms",
+"Replace automatic refund page with withdrawal notice", "Remove refund self-service from
+privacy notice", all 2026-07-04) already implemented the *legal* mechanism for this —
+the pricing page's mandatory consent checkbox, which makes the buyer explicitly waive
+the statutory 14-day Widerrufsrecht under §356 Abs. 5 BGB before the purchase completes
+— and updated `widerruf.html`/`agb.html`/`datenschutz.html` to match. **But that pass
+never touched three other places that still fully implement/promise the opposite:**
+
+1. The pricing-page FAQ answer (`i18n` key `faq.q4_body`, "Kontaktiere uns innerhalb von
+   14 Tagen... ohne Rückfragen") — present, unchanged, in **all 50** `pro/website/i18n/*.json`
+   language files. Not "missed in a few locales" — literally never edited in any of them.
+2. The same FAQ text (plus a whole separate `"refund"` i18n section: form copy, success/
+   error messages) duplicated in **all ~90** `video_downloader/web/static/i18n/*.json`
+   files — the app's own bundled copy of similar marketing content, a second source of
+   truth nobody remembered to update when the first one changed.
+3. `pro/website/functions/api/refund.js` itself — a fully working, live, self-service
+   Stripe-refund endpoint (license_key + email -> refund + revoke, no human involved).
+   Still deployed and reachable; today's session even added rate-limiting to it before
+   this policy was surfaced, which hardened a feature that's now slated for removal
+   rather than fixing the actual problem.
+
+**Standing lesson:** when a policy/copy change spans "the legal pages" and "everywhere
+else the same claim appears" (FAQ, i18n bundles duplicated between the website and the
+app, and the actual backend code implementing the old behavior), fix all of them in the
+same pass or explicitly enumerate what's left — updating only the pages a human reads
+first (the legal ones) leaves the FAQ and the live API contradicting them indefinitely,
+and it silently recurs because nothing about the leftover copy looks broken on its own.
