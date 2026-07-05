@@ -108,6 +108,6 @@ jobs:
             --content-type "application/octet-stream"
           npx --yes wrangler@latest r2 object put \
             downloadthat-releases/DownloadThat-latest.exe.sha256 \
-            --file "DownloadThat-${{ env.RELEASE_TAG }}.exe.sha256" \
+            --file DownloadThat-latest.exe.sha256 \
             --content-type "text/plain"
 

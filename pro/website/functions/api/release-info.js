@@ -14,6 +14,6 @@ export async function onRequestGet({ env }) {
 
   const headers = new Headers();
   headers.set("Content-Type", "application/json");
-  headers.set("Cache-Control", "no-cache");
+  headers.set("Cache-Control", "max-age=300");
   return new Response(obj.body, { status: 200, headers });
 }
