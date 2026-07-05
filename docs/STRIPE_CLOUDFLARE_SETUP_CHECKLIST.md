@@ -125,6 +125,11 @@ Required events:
   other delayed-notification payment methods - without it, a bounced SEPA
   debit never revokes the license `_lib.js`'s `handleCheckoutAsyncPaymentFailed`
   already grants on mandate authorization)
+- `checkout.session.async_payment_succeeded` (fires 2-14 business days later
+  when a SEPA debit actually clears; `handleCheckoutAsyncPaymentSucceeded`
+  uses it as a safety net to backfill a license/period-end that the initial
+  `checkout.session.completed` handling couldn't complete, not as the trigger
+  that grants access - access is already granted at mandate time)
 - `customer.subscription.updated`
 - `customer.subscription.deleted`
 

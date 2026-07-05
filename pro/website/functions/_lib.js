@@ -205,6 +205,52 @@ async function handleCheckoutAsyncPaymentFailed(session, env) {
     .run();
 }
 
+// The confirmation that the SEPA debit (or other delayed-notification method)
+// actually cleared - fires 2-14 business days after checkout.session.completed
+// per Stripe's own SEPA timeline. The license is already active by then (see
+// handleCheckoutCompleted's comment on the grant-immediately/revoke-on-failure
+// design), so this isn't what makes the license valid; it's the safety net
+// for the two ways that earlier grant can be left incomplete:
+//   1. checkout.session.completed's webhook delivery was somehow missed
+//      entirely (Stripe retries, but not forever) - re-running the same
+//      idempotent creation logic here backfills the license from a payment
+//      that's now provably real money, not just an authorized mandate.
+//   2. The license was created, but fetchStripeSubscription failed at the
+//      time (network blip) and left current_period_end null - fill it in now
+//      that we're making another Stripe API round-trip anyway.
+async function handleCheckoutAsyncPaymentSucceeded(session, env) {
+  const result = await handleCheckoutCompleted(session, env);
+  if (result.created || !session.subscription) {
+    return result;
+  }
+
+  const row = await env.DB.prepare(
+    `SELECT current_period_end FROM licenses WHERE stripe_checkout_session_id = ?`,
+  )
+    .bind(session.id)
+    .first();
+  if (!row || row.current_period_end != null) {
+    return result;
+  }
+
+  try {
+    const subscription = await fetchStripeSubscription(session.subscription, env);
+    const currentPeriodEnd =
+      subscription.current_period_end ?? subscription.items?.data?.[0]?.current_period_end ?? null;
+    if (currentPeriodEnd != null) {
+      await env.DB.prepare(
+        `UPDATE licenses SET current_period_end = ?, updated_at = ? WHERE stripe_checkout_session_id = ?`,
+      )
+        .bind(currentPeriodEnd, Math.floor(Date.now() / 1000), session.id)
+        .run();
+    }
+  } catch (err) {
+    console.error("current_period_end backfill failed on async_payment_succeeded", session.id, err);
+  }
+
+  return result;
+}
+
 async function handleSubscriptionUpdated(subscription, env) {
   const now = Math.floor(Date.now() / 1000);
   // Mirrors handleSubscriptionDeleted's and refund.js's use of 'canceled' for
@@ -243,6 +289,8 @@ export async function handleStripeEvent(event, env) {
     case "checkout.session.async_payment_failed":
       await handleCheckoutAsyncPaymentFailed(event.data.object, env);
       return { handled: true };
+    case "checkout.session.async_payment_succeeded":
+      return (await handleCheckoutAsyncPaymentSucceeded(event.data.object, env)) ?? { handled: true };
     case "customer.subscription.updated":
       await handleSubscriptionUpdated(event.data.object, env);
       return { handled: true };
