@@ -90,11 +90,13 @@ class QueueRunner:
     def _process_job(self, manager: DownloadManager, job: JobRecord) -> bool:
         profile = self._resolve_profile(job.profile_id)
         max_attempts = max(1, int(job.max_attempts))
+        output_dir = self._job_output_dir(job)
 
         for attempt in range(job.attempt + 1, max_attempts + 1):
             current = self.store.get_job(job.id)
             if current is None or current.status == JOB_STATUS_CANCELLED:
                 self.store.append_event(job.id, "warning", "Job aborted because it was cancelled")
+                self._cleanup_orphaned_files(output_dir)
                 return False
 
             self.store.set_job_attempt(job.id, attempt)
@@ -106,6 +108,7 @@ class QueueRunner:
                 latest = self.store.get_job(job.id)
                 if latest is not None and latest.status == JOB_STATUS_CANCELLED:
                     self.store.append_event(job.id, "warning", "Download finished after cancellation; result ignored")
+                    self._cleanup_orphaned_files(output_dir)
                     return False
                 self.store.mark_job_completed(job.id, files, details=result.details)
                 return True
@@ -113,6 +116,17 @@ class QueueRunner:
                 error = _format_workflow_error(exc)
             except Exception as exc:  # pragma: no cover - defensive catch for worker threads
                 error = str(exc)
+
+            # Re-check regardless of which exception landed above: a real
+            # cancel_check-triggered abort (see strategies.DownloadCancelled)
+            # normally arrives as its own exception, but yt-dlp can wrap it,
+            # and ffmpeg/direct-download strategies don't support cancel_check
+            # at all yet - so the only reliable signal is asking the DB again.
+            latest = self.store.get_job(job.id)
+            if latest is not None and latest.status == JOB_STATUS_CANCELLED:
+                self.store.append_event(job.id, "warning", "Job aborted because it was cancelled")
+                self._cleanup_orphaned_files(output_dir)
+                return False
 
             if attempt < max_attempts:
                 delay = BACKOFF_SECONDS[min(attempt - 1, len(BACKOFF_SECONDS) - 1)]
@@ -125,10 +139,33 @@ class QueueRunner:
                 continue
 
             self.store.mark_job_failed(job.id, error)
+            self._cleanup_orphaned_files(output_dir)
             return False
 
         self.store.mark_job_failed(job.id, "Job failed without a terminal error")
+        self._cleanup_orphaned_files(output_dir)
         return False
+
+    def _is_cancelled(self, job_id: int) -> bool:
+        current = self.store.get_job(job_id)
+        return current is not None and current.status == JOB_STATUS_CANCELLED
+
+    def _job_output_dir(self, job: JobRecord) -> Path:
+        base_output_dir = (
+            Path(job.output_dir).expanduser().resolve() if job.output_dir else self.default_output_dir
+        )
+        return base_output_dir / f"job-{job.id}"
+
+    def _cleanup_orphaned_files(self, output_dir: Path) -> None:
+        # Cancelled/failed jobs never get a job_files DB entry (only
+        # mark_job_completed writes those), so whatever bytes yt-dlp already
+        # wrote for them are permanently unreachable through the app - left
+        # alone, they'd accumulate on disk forever. Best-effort: a concurrent
+        # writer still holding the directory open shouldn't crash the worker.
+        try:
+            shutil.rmtree(output_dir, ignore_errors=True)
+        except OSError:
+            pass
 
     def _resolve_profile(self, profile_id: int | None) -> DownloadProfile:
         if profile_id is not None:
@@ -138,9 +175,6 @@ class QueueRunner:
         return self.store.ensure_default_profile()
 
     def _build_request(self, job: JobRecord, profile: DownloadProfile) -> DownloadRequest:
-        base_output_dir = (
-            Path(job.output_dir).expanduser().resolve() if job.output_dir else self.default_output_dir
-        )
         # Each job gets its own subdirectory rather than sharing one flat folder.
         # strategies.YtDlpStrategy._find_new_files falls back to "whatever file
         # appeared in the output dir since I started" when yt-dlp's own reported
@@ -148,7 +182,7 @@ class QueueRunner:
         # storage FUSE bridge) — with a shared folder that fallback can attribute
         # a *different* job's (or an old, pre-existing) file to this job. A
         # per-job directory makes that misattribution structurally impossible.
-        output_dir = ensure_output_dir(base_output_dir / f"job-{job.id}")
+        output_dir = ensure_output_dir(self._job_output_dir(job))
 
         external_downloader: str | None = None
         external_downloader_args: str | None = None
@@ -182,6 +216,7 @@ class QueueRunner:
             progress_callback=lambda downloaded, total, _job_id=job.id: self.store.update_job_progress(
                 _job_id, downloaded, total
             ),
+            cancel_check=lambda _job_id=job.id: self._is_cancelled(_job_id),
         )
 
     def _log(self, message: str) -> None:

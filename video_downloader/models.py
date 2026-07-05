@@ -38,6 +38,11 @@ class DownloadRequest:
     profile_name: str | None = None
     progress_callback: Callable[[int, int | None], None] | None = None
     quality_height: int | None = None
+    # Polled from within the yt-dlp progress hook (checked at most twice/sec,
+    # same throttle as progress_callback) so a cancel request actually stops
+    # the transfer instead of only being noticed after it finishes - see
+    # strategies.DownloadCancelled and queue_runner._process_job.
+    cancel_check: Callable[[], bool] | None = None
 
 
 @dataclass(slots=True)

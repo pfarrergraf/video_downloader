@@ -11,7 +11,7 @@ import pytest
 
 from video_downloader.licensing import FREE_DAILY_DOWNLOAD_LIMIT, LicenseState
 from video_downloader.queue_store import QueueStore
-from video_downloader.web.server import ClassyDLServer, create_server
+from video_downloader.web.server import LOGIN_MAX_ATTEMPTS, ClassyDLServer, create_server
 
 
 @pytest.fixture
@@ -72,6 +72,17 @@ def test_login_wrong_password_rejected(server: ClassyDLServer) -> None:
 
     _, body, _ = _request(server, "GET", "/api/me")
     assert body == {"authenticated": False}
+
+
+def test_login_locks_out_after_repeated_failures(server: ClassyDLServer) -> None:
+    for _ in range(LOGIN_MAX_ATTEMPTS):
+        status, _, _ = _request(server, "POST", "/api/login", {"password": "wrong"})
+        assert status == 401
+
+    # Locked out now, even with the correct password.
+    status, body, _ = _request(server, "POST", "/api/login", {"password": "crypt-keeper"})
+    assert status == 429
+    assert "Too many failed attempts" in body["detail"]
 
 
 def test_login_then_queue_and_list(server: ClassyDLServer) -> None:

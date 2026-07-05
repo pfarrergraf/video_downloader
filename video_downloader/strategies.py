@@ -25,6 +25,16 @@ class StrategyError(RuntimeError):
     pass
 
 
+class DownloadCancelled(RuntimeError):
+    """Raised from within a download to unwind it immediately on user cancel.
+
+    Deliberately NOT a StrategyError subclass: DownloadManager.download()'s
+    auto-queue only catches StrategyError to fall through to the next
+    strategy/URL candidate, and a cancellation must abort the whole job
+    instead of triggering a pointless attempt with ffmpeg/direct-download.
+    """
+
+
 @dataclass(slots=True)
 class Strategy:
     name: str
@@ -112,14 +122,24 @@ class YtDlpStrategy(Strategy):
         if request.external_downloader_args:
             key = request.external_downloader or "default"
             ydl_opts["external_downloader_args"] = {key: [request.external_downloader_args]}
-        if request.progress_callback:
-            ydl_opts["progress_hooks"] = [_yt_dlp_progress_hook(request.progress_callback)]
+        if request.progress_callback or request.cancel_check:
+            ydl_opts["progress_hooks"] = [
+                _yt_dlp_progress_hook(request.progress_callback, request.cancel_check)
+            ]
 
         error_message = ""
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([source_url])
         except Exception as exc:  # yt_dlp raises DownloadError and friends
+            # Re-check cancel_check directly rather than trusting the caught
+            # exception's type/identity: yt-dlp may wrap whatever the progress
+            # hook raised into its own DownloadError before it reaches here.
+            # Asking the DB-backed cancel_check again is what actually tells
+            # us this was a cancellation and not an unrelated network/
+            # extractor failure that happened to land at the same time.
+            if request.cancel_check and request.cancel_check():
+                raise DownloadCancelled("Download cancelled") from exc
             error_message = str(exc)
 
         new_files = _find_new_files(request.output_dir, before_files)
@@ -155,7 +175,7 @@ class YtDlpStrategy(Strategy):
         raise StrategyError(error_message or "yt-dlp reported success but output file could not be located.")
 
 
-def _yt_dlp_progress_hook(callback):
+def _yt_dlp_progress_hook(callback, cancel_check=None):
     # yt-dlp calls this many times per second; throttling avoids hammering
     # the queue store (SQLite) with a write on every chunk.
     last_call = [0.0]
@@ -167,9 +187,15 @@ def _yt_dlp_progress_hook(callback):
         if now - last_call[0] < 0.5:
             return
         last_call[0] = now
-        downloaded = int(status.get("downloaded_bytes") or 0)
-        total = status.get("total_bytes") or status.get("total_bytes_estimate")
-        callback(downloaded, int(total) if total else None)
+        # Checked on the same throttle as progress reporting - frequent
+        # enough that a cancel request stops the transfer within ~0.5s
+        # instead of only being noticed once the whole download finishes.
+        if cancel_check and cancel_check():
+            raise DownloadCancelled("Download cancelled")
+        if callback:
+            downloaded = int(status.get("downloaded_bytes") or 0)
+            total = status.get("total_bytes") or status.get("total_bytes_estimate")
+            callback(downloaded, int(total) if total else None)
 
     return hook
 

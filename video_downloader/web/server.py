@@ -90,6 +90,45 @@ class SessionStore:
             self._tokens.pop(token, None)
 
 
+# This server proxies arbitrary downloads behind a single shared password
+# (see module docstring / CLAUDE.md) - without a lockout, anyone who can
+# reach the port can try passwords indefinitely with no penalty.
+LOGIN_MAX_ATTEMPTS = 5
+LOGIN_LOCKOUT_SECONDS = 60
+
+
+class LoginThrottle:
+    """Per-source-IP failed-login lockout - in-memory, matches SessionStore's
+    "fine for a single-process personal deployment" scope (a restart or a
+    second process behind a load balancer would reset it, but that's not
+    this project's deployment model)."""
+
+    def __init__(self) -> None:
+        self._failures: dict[str, tuple[int, float]] = {}  # ip -> (count, locked_until)
+        self._lock = threading.Lock()
+
+    def is_locked(self, ip: str) -> float:
+        """Returns seconds remaining locked out, or 0 if not locked."""
+        with self._lock:
+            entry = self._failures.get(ip)
+            if entry is None:
+                return 0.0
+            _, locked_until = entry
+            remaining = locked_until - time.time()
+            return remaining if remaining > 0 else 0.0
+
+    def record_failure(self, ip: str) -> None:
+        with self._lock:
+            count, _ = self._failures.get(ip, (0, 0.0))
+            count += 1
+            locked_until = time.time() + LOGIN_LOCKOUT_SECONDS if count >= LOGIN_MAX_ATTEMPTS else 0.0
+            self._failures[ip] = (count, locked_until)
+
+    def record_success(self, ip: str) -> None:
+        with self._lock:
+            self._failures.pop(ip, None)
+
+
 class BackgroundQueueWorker:
     """Continuously drains the download queue in a background thread."""
 
@@ -200,6 +239,7 @@ class ClassyDLServer(ThreadingHTTPServer):
         self.license_manager = license_manager
         self.app_version = app_version
         self.sessions = SessionStore()
+        self.login_throttle = LoginThrottle()
         self.worker = BackgroundQueueWorker(store=store, output_dir=output_dir, workers=workers)
         # Guards the free-tier quota check-then-act sequence in do_POST's
         # /api/queue handler - without it, concurrent requests on this
@@ -376,11 +416,21 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
         path = urlsplit(self.path).path
 
         if path == "/api/login":
+            ip = self.client_address[0]
+            remaining = self.server.login_throttle.is_locked(ip)
+            if remaining > 0:
+                self._send_json(
+                    429,
+                    {"detail": f"Too many failed attempts. Try again in {int(remaining) + 1}s."},
+                )
+                return
             body = self._read_json()
             supplied = str(body.get("password", ""))
             if not hmac.compare_digest(supplied, self.server.password):
+                self.server.login_throttle.record_failure(ip)
                 self._send_json(401, {"detail": "Wrong password"})
                 return
+            self.server.login_throttle.record_success(ip)
             token = self.server.sessions.issue()
             self._send_json(200, {"authenticated": True}, set_cookie=token)
             return

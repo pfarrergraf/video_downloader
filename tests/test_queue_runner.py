@@ -88,3 +88,84 @@ def test_queue_runner_stores_the_real_per_strategy_error(tmp_path: Path, monkeyp
     assert job.status == "failed"
     assert "Sign in to confirm you're not a bot" in job.error
     assert "403 Forbidden" in job.error
+
+
+def test_cancelled_job_is_not_completed_and_orphaned_file_is_cleaned_up(tmp_path: Path, monkeypatch) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    default_profile = store.ensure_default_profile()
+
+    job_id = store.add_job(
+        source="https://example.com/video",
+        profile_id=default_profile.id,
+        output_dir=str(tmp_path / "out"),
+    )
+
+    class CancelledDuringDownloadManager:
+        """Mimics a download that keeps running to completion after the job
+        was cancelled mid-transfer (the pre-fix behavior for strategies that
+        don't check cancel_check, and the fallback path even for yt-dlp if
+        the cancel lands between the last progress-hook check and the final
+        write) - the file gets fully written, but the job must still end up
+        cancelled, not completed, and the file must not be left on disk."""
+
+        def __init__(self, logger=None) -> None:
+            self.logger = logger
+
+        def download(self, request):
+            request.output_dir.mkdir(parents=True, exist_ok=True)
+            output = request.output_dir / "fake.mp4"
+            output.write_bytes(b"ok")
+            # Simulate the cancel request arriving while "download" was in flight.
+            store.mark_job_cancelled(request.job_id)
+            return DownloadResult(
+                file_path=output,
+                method="yt-dlp",
+                source_url=request.source_url,
+                downloaded_files=[output],
+            )
+
+    monkeypatch.setattr("video_downloader.queue_runner.DownloadManager", CancelledDuringDownloadManager)
+    runner = QueueRunner(store=store, default_output_dir=tmp_path / "out")
+    runner.run(workers=1)
+
+    job = store.get_job(job_id)
+    assert job is not None
+    assert job.status == "cancelled"
+    assert store.list_job_files(job_id) == []
+    assert not (tmp_path / "out" / f"job-{job_id}").exists()
+
+
+class FailingDownloadWritesPartialFile:
+    """A failure (not a cancellation) that still leaves a partial file behind
+    - e.g. a network drop mid-transfer - must not leak that file either."""
+
+    def __init__(self, logger=None) -> None:
+        self.logger = logger
+
+    def download(self, request):
+        request.output_dir.mkdir(parents=True, exist_ok=True)
+        (request.output_dir / "fake.mp4.part").write_bytes(b"partial")
+        raise DownloadWorkflowError("All download methods failed.", attempts=[])
+
+
+def test_failed_job_cleans_up_partial_files(tmp_path: Path, monkeypatch) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    default_profile = store.ensure_default_profile()
+
+    job_id = store.add_job(
+        source="https://example.com/video",
+        profile_id=default_profile.id,
+        output_dir=str(tmp_path / "out"),
+        max_attempts=1,
+    )
+
+    monkeypatch.setattr("video_downloader.queue_runner.DownloadManager", FailingDownloadWritesPartialFile)
+    runner = QueueRunner(store=store, default_output_dir=tmp_path / "out")
+    runner.run(workers=1)
+
+    job = store.get_job(job_id)
+    assert job is not None
+    assert job.status == "failed"
+    assert not (tmp_path / "out" / f"job-{job_id}").exists()
