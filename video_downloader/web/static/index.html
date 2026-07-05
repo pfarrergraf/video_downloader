@@ -648,7 +648,8 @@ async function setAuthed(authed) {
     return;
   }
 
-  let termsAccepted = true;
+  // Terms overlay disabled — uncomment the block below to re-enable.
+  /* let termsAccepted = true;
   try {
     const settings = await api('/api/settings');
     termsAccepted = !!settings.terms_accepted;
@@ -663,11 +664,12 @@ async function setAuthed(authed) {
     return;
   }
 
-  $('terms-overlay').classList.add('hidden');
+  $('terms-overlay').classList.add('hidden'); */
   $('app').classList.remove('hidden');
   refreshQueue(); refreshLicense(); refreshSettings();
 }
 
+/* Terms overlay disabled — uncomment to re-enable.
 $('terms-checkbox').addEventListener('change', (e) => {
   $('terms-accept-btn').disabled = !e.target.checked;
 });
@@ -679,6 +681,7 @@ $('terms-accept-btn').addEventListener('click', async () => {
     toast(e.message || '');
   }
 });
+*/
 
 async function refreshLicense() {
   try {
