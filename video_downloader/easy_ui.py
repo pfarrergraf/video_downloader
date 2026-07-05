@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import argparse
 import threading
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
-from tkinter import END, StringVar, Tk, messagebox
+from tkinter import END, StringVar, Tk, Toplevel, messagebox
 from tkinter import filedialog
 from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
@@ -12,6 +13,7 @@ from urllib.parse import urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
+import yt_dlp
 
 if __package__ in {None, ""}:
     import sys
@@ -99,6 +101,7 @@ class EasyUiApp:
         self.auto_convert_var = StringVar(value="0")
         self.type_filter_var = StringVar(value="all")
         self.deep_scrape_var = StringVar(value="0")
+        self.workers_var = StringVar(value="3")
 
         self.link_entries: list[LinkEntry] = []
         self.scraped_items: list[ScrapedMedia] = []
@@ -169,6 +172,15 @@ class EasyUiApp:
             row=1, column=4, padx=5, pady=5, sticky="w"
         )
 
+        ttk.Label(quick_frame, text="Workers").grid(row=1, column=5, padx=(15, 2), pady=5, sticky="e")
+        ttk.Spinbox(
+            quick_frame,
+            textvariable=self.workers_var,
+            from_=1,
+            to=8,
+            width=4,
+        ).grid(row=1, column=6, padx=(0, 5), pady=5, sticky="w")
+
         ttk.Label(quick_frame, text="Cookies browser").grid(row=2, column=0, padx=5, pady=5, sticky="w")
         ttk.Entry(quick_frame, textvariable=self.cookies_var).grid(
             row=2, column=1, columnspan=2, padx=5, pady=5, sticky="ew"
@@ -187,6 +199,22 @@ class EasyUiApp:
         )
         download_link_btn.grid(row=3, column=4, padx=5, pady=6, sticky="ew")
         self.download_button_refs.append(download_link_btn)
+
+        help_btn = ttk.Button(
+            quick_frame,
+            text="ℹ Anleitung",
+            command=self._show_help,
+            width=12,
+        )
+        help_btn.grid(row=3, column=5, padx=5, pady=6, sticky="ew")
+
+        # Progress bar row — shows "X / Y Lieder" while a playlist downloads
+        self._progress_bar = ttk.Progressbar(
+            quick_frame, orient="horizontal", mode="determinate", maximum=100, value=0
+        )
+        self._progress_bar.grid(row=4, column=0, columnspan=5, padx=5, pady=(2, 6), sticky="ew")
+        self._track_label = ttk.Label(quick_frame, text="", foreground="#555555")
+        self._track_label.grid(row=4, column=5, columnspan=2, padx=5, pady=(2, 6), sticky="w")
 
         site_frame = ttk.LabelFrame(root, text="Site Scraper – Find Videos, Audio & Images")
         site_frame.grid(row=1, column=0, sticky="nsew", padx=10, pady=5)
@@ -476,7 +504,46 @@ class EasyUiApp:
         if not _looks_like_http_url(url):
             messagebox.showwarning("Invalid URL", "Link must start with http:// or https://")
             return
-        self._start_download_batch([LinkEntry(url=url, referer=None)])
+        allow_playlist = self.playlist_var.get() == "1"
+        if allow_playlist:
+            # Extract all playlist entries first so we can download them in
+            # parallel and show accurate "X / Y Lieder" progress.
+            self.busy = True
+            self._set_download_buttons_enabled(False)
+            self.status_label.configure(text="Extracting playlist…")
+            self._log("Extracting playlist items…")
+            self._reset_progress()
+            cookies = self.cookies_var.get().strip() or None
+            thread = threading.Thread(
+                target=self._extract_and_start_playlist,
+                args=(url, cookies),
+                daemon=True,
+            )
+            thread.start()
+        else:
+            self._start_download_batch([LinkEntry(url=url, referer=None)])
+
+    def _extract_and_start_playlist(self, url: str, cookies_from_browser: str | None) -> None:
+        """Run in background thread: extract playlist URLs then start batch."""
+        try:
+            entries = _extract_playlist_entries(url, cookies_from_browser)
+        except Exception as exc:
+            self.root.after(0, lambda: self._finish_extract_error(str(exc)))
+            return
+        self.root.after(0, lambda: self._finish_extract_success(entries))
+
+    def _finish_extract_error(self, message: str) -> None:
+        self.busy = False
+        self._set_download_buttons_enabled(True)
+        self.status_label.configure(text="Extraction failed")
+        self._log(f"Playlist extraction failed: {message}")
+        messagebox.showerror("Playlist extraction failed", message)
+
+    def _finish_extract_success(self, entries: list[LinkEntry]) -> None:
+        count = len(entries)
+        self.busy = False
+        self._log(f"Playlist contains {count} item(s). Starting parallel download…")
+        self._start_download_batch(entries)
 
     def _download_selected_links(self) -> None:
         selected_ids = self.link_list.selection()
@@ -517,6 +584,7 @@ class EasyUiApp:
             messagebox.showwarning("Invalid max-items", "Max items must be an integer greater than 0.")
             return
 
+        workers = max(1, min(8, int(self.workers_var.get().strip() or "3")))
         cookies = self.cookies_var.get().strip() or None
         method = self.method_var.get().strip() or "auto"
         allow_playlist = self.playlist_var.get() == "1"
@@ -525,12 +593,13 @@ class EasyUiApp:
 
         self.busy = True
         self._set_download_buttons_enabled(False)
-        self.status_label.configure(text=f"Downloading {len(entries)} item(s)...")
-        self._log(f"Starting batch download for {len(entries)} link(s).")
+        self.status_label.configure(text=f"Downloading {len(entries)} item(s)…")
+        self._log(f"Starting batch download for {len(entries)} link(s) with {workers} worker(s).")
+        self._reset_progress()
 
         thread = threading.Thread(
             target=self._download_batch_worker,
-            args=(entries, output_dir, method, allow_playlist, max_items, cookies, audio_only, auto_convert),
+            args=(entries, output_dir, method, allow_playlist, max_items, cookies, audio_only, auto_convert, workers),
             daemon=True,
         )
         thread.start()
@@ -545,15 +614,23 @@ class EasyUiApp:
         cookies_from_browser: str | None,
         audio_only: bool = False,
         auto_convert: bool = False,
+        workers: int = 3,
     ) -> None:
+        total = len(entries)
         ok_count = 0
         failed: list[str] = []
         converted_count = 0
         conversion_failures: list[str] = []
+        completed = 0
+        lock = threading.Lock()
 
-        for i, entry in enumerate(entries, start=1):
+        def download_one(idx_entry: tuple[int, LinkEntry]) -> None:
+            nonlocal ok_count, converted_count, completed
+            i, entry = idx_entry
             label = "audio" if audio_only else "media"
-            self._log_threadsafe(f"[{i}/{len(entries)}] Downloading {label}: {entry.url}")
+            self._log_threadsafe(f"[{i}/{total}] Downloading {label}: {entry.url}")
+            # Each worker gets its own DownloadManager to avoid shared state.
+            manager = DownloadManager(logger=self._log_threadsafe)
             request = DownloadRequest(
                 source_url=entry.url,
                 output_dir=output_dir,
@@ -564,29 +641,48 @@ class EasyUiApp:
                 cookies_from_browser=cookies_from_browser,
                 referer=entry.referer,
                 audio_only=audio_only,
+                # item_progress_callback fires for yt-dlp-internal playlist items
+                # (e.g. when allow_playlist=True on a single-URL batch call).
+                item_progress_callback=self._update_progress_threadsafe,
             )
             try:
-                result = self.manager.download(request)
+                result = manager.download(request)
                 files = result.downloaded_files or [result.file_path]
                 if auto_convert and not audio_only:
-                    converted, conversion_errors = self._convert_files_to_mp4(files)
-                    converted_count += converted
-                    conversion_failures.extend(conversion_errors)
+                    cvt, cvt_errs = self._convert_files_to_mp4(files)
+                    with lock:
+                        converted_count += cvt
+                        conversion_failures.extend(cvt_errs)
                 self._log_threadsafe(f"Success: {entry.url} ({len(files)} file(s))")
-                ok_count += 1
+                with lock:
+                    ok_count += 1
+                    completed += 1
+                    self._update_progress_threadsafe(completed, total)
             except DownloadWorkflowError as exc:
                 self._log_threadsafe(f"Failed: {entry.url} :: {exc}")
-                failed.append(entry.url)
+                with lock:
+                    failed.append(entry.url)
+                    completed += 1
+                    self._update_progress_threadsafe(completed, total)
             except Exception as exc:
                 self._log_threadsafe(f"Failed: {entry.url} :: {exc}")
-                failed.append(entry.url)
+                with lock:
+                    failed.append(entry.url)
+                    completed += 1
+                    self._update_progress_threadsafe(completed, total)
+
+        safe_workers = max(1, min(8, workers))
+        with ThreadPoolExecutor(max_workers=safe_workers, thread_name_prefix="easydl") as pool:
+            futures = [pool.submit(download_one, (i, e)) for i, e in enumerate(entries, start=1)]
+            for fut in futures:
+                fut.result()  # propagate any unexpected exceptions
 
         self.root.after(
             0,
             lambda: self._finish_download_batch(
                 ok_count,
                 failed,
-                len(entries),
+                total,
                 converted_count,
                 conversion_failures,
             ),
@@ -678,6 +774,35 @@ class EasyUiApp:
         for button in self.download_button_refs:
             button.configure(state=state)
 
+    # ------------------------------------------------------------------
+    # Progress bar helpers
+    # ------------------------------------------------------------------
+
+    def _reset_progress(self) -> None:
+        """Reset progress bar and track label to initial state (main thread)."""
+        self._progress_bar.configure(maximum=100, value=0)
+        self._track_label.configure(text="")
+
+    def _update_progress(self, current: int, total: int) -> None:
+        """Update progress bar and label (must be called from main thread)."""
+        if total > 0:
+            self._progress_bar.configure(maximum=total, value=current)
+            self._track_label.configure(text=f"{current} / {total} Lieder")
+        else:
+            self._progress_bar.configure(value=0)
+            self._track_label.configure(text="")
+
+    def _update_progress_threadsafe(self, current: int, total: int) -> None:
+        """Thread-safe wrapper — schedules progress update on the main thread."""
+        self.root.after(0, lambda: self._update_progress(current, total))
+
+    # ------------------------------------------------------------------
+    # Help window
+    # ------------------------------------------------------------------
+
+    def _show_help(self) -> None:
+        HelpWindow(self.root)
+
     def _log(self, message: str) -> None:
         self.log_text.configure(state="normal")
         self.log_text.insert(END, message + "\n")
@@ -688,7 +813,214 @@ class EasyUiApp:
         self.root.after(0, lambda: self._log(message))
 
 
-def _discover_links(site_url: str, same_domain_only: bool, likely_video_only: bool) -> list[LinkEntry]:
+# ---------------------------------------------------------------------------
+# Help window
+# ---------------------------------------------------------------------------
+
+_HELP_TEXT = """\
+╔══════════════════════════════════════════════════════════════════╗
+║         ClassyDL – Schritt-für-Schritt-Anleitung                ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Diese Anleitung erklärt, wie Sie ein Lied, ein Video oder eine
+ganze Playlist herunterladen können – auch wenn Sie das noch nie
+gemacht haben.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎵  EIN EINZELNES LIED ODER VIDEO HERUNTERLADEN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Schritt 1 – YouTube öffnen und Lied suchen
+  ▶  Öffnen Sie YouTube in Ihrem Browser (z. B. Chrome oder Firefox)
+     oder in der YouTube-App auf Ihrem Smartphone oder Tablet.
+  🔍 Geben Sie den Lied- oder Videotitel in die Suchleiste ein,
+     z. B. „Beethoven Mondscheinsonate", und drücken Sie Enter.
+  ▶  Klicken Sie auf das gewünschte Video in der Ergebnisliste.
+
+Schritt 2 – Den Link kopieren
+  ┌─────────────────────────────────────────────────────────────┐
+  │  💻 AM PC (Browser):                                        │
+  │     • Klicken Sie einmal oben in die Adressleiste.          │
+  │       Der Link wird blau markiert.                          │
+  │     • Drücken Sie gleichzeitig  Strg  +  C                  │
+  │       (oder rechte Maustaste → „Kopieren").                  │
+  ├─────────────────────────────────────────────────────────────┤
+  │  📱 AUF DEM SMARTPHONE / TABLET:                            │
+  │     • Tippen Sie unter dem Video auf das Symbol  📤 Teilen  │
+  │     • Wählen Sie dann „Link kopieren"                       │
+  │     • Der Link ist jetzt unsichtbar gespeichert             │
+  │       (in der sog. Zwischenablage).                         │
+  └─────────────────────────────────────────────────────────────┘
+
+Schritt 3 – Zurück zu ClassyDL wechseln
+  📲 Wechseln Sie zurück zu dieser App (ClassyDL).
+     Falls die App minimiert war, klicken Sie unten in der Taskleiste
+     auf das ClassyDL-Symbol.
+
+Schritt 4 – Den Link einfügen
+  ┌─────────────────────────────────────────────────────────────┐
+  │  Möglichkeit A – Schaltfläche nutzen (empfohlen):           │
+  │     Klicken Sie auf die Schaltfläche  [ Paste Clipboard ]   │
+  │     → Der Link wird automatisch in das Feld eingefügt. ✅   │
+  ├─────────────────────────────────────────────────────────────┤
+  │  Möglichkeit B – Manuell einfügen:                          │
+  │     • Klicken Sie einmal in das Feld neben dem Wort „Link". │
+  │     💻 AM PC: Drücken Sie  Strg  +  V                       │
+  │     📱 AUF DEM SMARTPHONE:                                  │
+  │        Halten Sie das Feld etwas länger gedrückt            │
+  │        → Ein kleines Menü erscheint                         │
+  │        → Tippen Sie auf  „Einfügen"  📋                     │
+  └─────────────────────────────────────────────────────────────┘
+
+Schritt 5 – Optionen wählen (falls gewünscht)
+  ⚙️  Nur die Musik ohne Video herunterladen?
+       → Setzen Sie ein Häkchen bei  [✓ Audio only (MP3 320k)]
+
+Schritt 6 – Download starten
+  ▶️  Klicken Sie auf die Schaltfläche  [ Download Link ]
+      • Der Fortschrittsbalken füllt sich und zeigt an,
+        wie weit der Download ist.
+      • Wenn alles fertig ist, erscheint ein kleines Fenster:
+        „Finished – Downloaded 1/1 link(s) successfully."
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎶  EINE GANZE PLAYLIST HERUNTERLADEN (z. B. 61 Lieder auf einmal)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Schritt 1 – Playlist auf YouTube öffnen
+  ▶  Suchen Sie auf YouTube nach einer Playlist oder öffnen Sie eine,
+     die Sie bereits kennen (z. B. eine eigene gespeicherte Playlist).
+  ▶  Klicken Sie auf den Playlist-Titel (NICHT auf ein einzelnes Video),
+     sodass Sie die Übersichtsseite der Playlist sehen.
+
+Schritt 2 – Playlist-Link kopieren (wie oben in Schritt 2 beschrieben)
+  💡 Tipp: Der Link einer Playlist enthält meist den Text „playlist"
+     oder „list=PL…", z. B.:
+     https://www.youtube.com/watch?v=…&list=PLxxx…
+
+Schritt 3 – Link in ClassyDL einfügen (wie Schritt 4 oben)
+
+Schritt 4 – Playlist-Modus aktivieren
+  ☑  Setzen Sie ein Häkchen bei  [✓ Playlist mode]
+     Dadurch werden ALLE Lieder der Playlist heruntergeladen.
+
+Schritt 5 – Workers (parallele Downloads) einstellen
+  🔢 Im Feld „Workers" steht standardmäßig „3".
+     Das bedeutet: 3 Lieder werden gleichzeitig heruntergeladen.
+     → Mehr Workers = schneller, aber mehr Internetbelastung.
+     → Belassen Sie es bei 3, wenn Sie unsicher sind.
+
+Schritt 6 – Download starten
+  ▶️  Klicken Sie auf  [ Download Link ]
+      • Die App liest zunächst die Playlist aus (kurze Wartezeit).
+      • Dann startet der Download.
+      • Der Fortschrittsbalken und die Anzeige  „X / Y Lieder"
+        zeigen Ihnen, wie viele Lieder bereits fertig sind.
+        Beispiel: „18 / 61 Lieder" = 18 von 61 Liedern heruntergeladen.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+❓  HÄUFIGE FRAGEN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+F: Wo finde ich meine heruntergeladenen Dateien?
+A: Das Feld „Output folder" zeigt den Speicherort.
+   Mit der Schaltfläche [ Browse ] können Sie einen anderen
+   Ordner auswählen. Standard ist Ihr Musik- bzw. Videoordner.
+
+F: Was ist der Unterschied zwischen „Audio only" und normalem Download?
+A: „Audio only" speichert nur den Ton als MP3-Datei (ideal für Musik).
+   Ohne dieses Häkchen wird das komplette Video heruntergeladen.
+
+F: Was tun, wenn der Download fehlschlägt?
+A: • Überprüfen Sie Ihre Internetverbindung.
+   • Vergewissern Sie sich, dass der Link vollständig kopiert wurde.
+   • Manche Videos sind durch Altersbeschränkungen gesperrt –
+     versuchen Sie es mit dem Feld „Cookies browser"
+     (z. B. „chrome" eingeben, falls Sie in Chrome eingeloggt sind).
+
+F: Kann ich mehrere einzelne Links gleichzeitig herunterladen?
+A: Ja! Nutzen Sie den Bereich „Site Scraper" weiter unten,
+   um von einer Webseite mehrere Links auf einmal zu finden
+   und dann mit „Download Selected" oder „Download All Found"
+   herunterzuladen. Auch hier laufen bis zu X Worker parallel.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+"""
+
+
+class HelpWindow:
+    """Separate Tkinter-Fenster mit einer scrollbaren Schritt-für-Schritt-Anleitung."""
+
+    def __init__(self, parent: Tk) -> None:
+        win = Toplevel(parent)
+        win.title("ClassyDL – Anleitung")
+        win.geometry("740x600")
+        win.resizable(True, True)
+        win.columnconfigure(0, weight=1)
+        win.rowconfigure(0, weight=1)
+
+        text = ScrolledText(win, wrap="word", font=("Consolas", 10), state="normal")
+        text.grid(row=0, column=0, sticky="nsew", padx=10, pady=(10, 5))
+        text.insert("1.0", _HELP_TEXT)
+        text.configure(state="disabled")
+
+        close_btn = ttk.Button(win, text="Schließen", command=win.destroy)
+        close_btn.grid(row=1, column=0, pady=(0, 10))
+
+        win.grab_set()
+        win.focus_set()
+
+
+def _extract_playlist_entries(url: str, cookies_from_browser: str | None = None) -> list[LinkEntry]:
+    """Use yt-dlp's flat-playlist extraction to get individual item URLs.
+
+    Returns a list of LinkEntry objects (one per playlist item).  Falls back to
+    a single-entry list containing the original URL if the URL is not a playlist
+    or if extraction fails, so callers can always treat the result as a batch.
+    """
+    ydl_opts: dict[str, object] = {
+        "quiet": True,
+        "no_warnings": True,
+        "extract_flat": True,  # don't download, just list entries
+        "skip_download": True,
+    }
+    if cookies_from_browser:
+        ydl_opts["cookiesfrombrowser"] = (cookies_from_browser, None, None, None)
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+
+    if not info:
+        return [LinkEntry(url=url)]
+
+    entries_raw = info.get("entries")
+    if not entries_raw:
+        # Single video, not a playlist
+        return [LinkEntry(url=url)]
+
+    result: list[LinkEntry] = []
+    for entry in entries_raw:
+        if not entry:
+            continue
+        item_url: str | None = (
+            entry.get("url")
+            or entry.get("webpage_url")
+        )
+        if not item_url:
+            # Reconstruct URL from id if possible
+            eid = entry.get("id")
+            ie_key = str(entry.get("ie_key") or "").lower()
+            if eid and ("youtube" in ie_key or "youtube" in url.lower()):
+                item_url = f"https://www.youtube.com/watch?v={eid}"
+        if item_url:
+            result.append(LinkEntry(url=item_url))
+
+    return result if result else [LinkEntry(url=url)]
+
+
+
     headers = {"User-Agent": DEFAULT_USER_AGENT}
     with requests.get(site_url, headers=headers, timeout=30, allow_redirects=True) as response:
         response.raise_for_status()

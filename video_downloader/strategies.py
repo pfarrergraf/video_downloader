@@ -122,9 +122,13 @@ class YtDlpStrategy(Strategy):
         if request.external_downloader_args:
             key = request.external_downloader or "default"
             ydl_opts["external_downloader_args"] = {key: [request.external_downloader_args]}
-        if request.progress_callback or request.cancel_check:
+        if request.progress_callback or request.cancel_check or request.item_progress_callback:
             ydl_opts["progress_hooks"] = [
-                _yt_dlp_progress_hook(request.progress_callback, request.cancel_check)
+                _yt_dlp_progress_hook(
+                    request.progress_callback,
+                    request.cancel_check,
+                    request.item_progress_callback,
+                )
             ]
 
         error_message = ""
@@ -175,12 +179,28 @@ class YtDlpStrategy(Strategy):
         raise StrategyError(error_message or "yt-dlp reported success but output file could not be located.")
 
 
-def _yt_dlp_progress_hook(callback, cancel_check=None):
+def _yt_dlp_progress_hook(callback, cancel_check=None, item_callback=None):
     # yt-dlp calls this many times per second; throttling avoids hammering
     # the queue store (SQLite) with a write on every chunk.
     last_call = [0.0]
+    # Track last reported playlist position to avoid firing item_callback
+    # redundantly on every chunk of the same file.
+    last_item_key: list[tuple[int, int] | None] = [None]
 
     def hook(status: dict[str, object]) -> None:
+        # Report playlist item progress (e.g. "song 3 of 61") whenever yt-dlp
+        # moves to a new item.  The info_dict is available on every status
+        # including "finished", so we check it before the early-return below.
+        if item_callback:
+            info: dict[str, object] = status.get("info_dict") or {}  # type: ignore[assignment]
+            playlist_index = info.get("playlist_index")
+            n_entries = info.get("n_entries")
+            if playlist_index and n_entries:
+                item_key: tuple[int, int] = (int(playlist_index), int(n_entries))
+                if item_key != last_item_key[0]:
+                    last_item_key[0] = item_key
+                    item_callback(item_key[0], item_key[1])
+
         if status.get("status") != "downloading":
             return
         now = time.monotonic()

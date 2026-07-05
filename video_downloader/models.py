@@ -37,6 +37,9 @@ class DownloadRequest:
     job_id: int | None = None
     profile_name: str | None = None
     progress_callback: Callable[[int, int | None], None] | None = None
+    # Called whenever yt-dlp moves to a new playlist item: (current_index, total_items).
+    # Enables the UI to show "3 / 61 Lieder" while a playlist is downloading.
+    item_progress_callback: Callable[[int, int], None] | None = None
     quality_height: int | None = None
     # Polled from within the yt-dlp progress hook (checked at most twice/sec,
     # same throttle as progress_callback) so a cancel request actually stops
