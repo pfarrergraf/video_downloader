@@ -107,8 +107,31 @@ export async function stripeDelete(path, env) {
   return res.json();
 }
 
+// Payment Links normally stamp metadata.tier onto the resulting session (set
+// once on the Payment Link itself in the Stripe dashboard) - this is a
+// fallback for when that's missing/wrong so a misconfigured or newly-cloned
+// Payment Link doesn't silently drop the customer's license entirely. Infers
+// tier from what was actually purchased instead of giving up.
+async function inferTierFromLineItems(session, env) {
+  try {
+    const lineItems = await stripeGet(`/checkout/sessions/${session.id}/line_items?expand[]=data.price`, env);
+    const price = lineItems.data?.[0]?.price;
+    if (!price) return null;
+    if (!price.recurring) return "lifetime";
+    if (price.recurring.interval === "year") return "yearly";
+    if (price.recurring.interval === "month") return "monthly";
+    return null;
+  } catch (err) {
+    console.error("Falling back to line-item tier inference failed", session.id, err);
+    return null;
+  }
+}
+
 async function handleCheckoutCompleted(session, env) {
-  const tier = session.metadata?.tier;
+  let tier = session.metadata?.tier;
+  if (!tier || !["monthly", "yearly", "lifetime"].includes(tier)) {
+    tier = await inferTierFromLineItems(session, env);
+  }
   if (!tier || !["monthly", "yearly", "lifetime"].includes(tier)) {
     console.error("checkout.session.completed missing/unknown tier metadata", session.id);
     return { created: false, reason: "missing/unknown tier metadata", session_metadata: session.metadata ?? null };
@@ -130,9 +153,18 @@ async function handleCheckoutCompleted(session, env) {
   const now = Math.floor(Date.now() / 1000);
   let currentPeriodEnd = null;
 
+  // Best-effort only: a subscription-details hiccup (Stripe API blip, a
+  // transiently unreachable fetch) must not cost the customer their license
+  // after they've already paid - worst case current_period_end stays null
+  // until the next customer.subscription.updated event fixes it up.
   if (session.subscription) {
-    const subscription = await fetchStripeSubscription(session.subscription, env);
-    currentPeriodEnd = subscription.current_period_end ?? null;
+    try {
+      const subscription = await fetchStripeSubscription(session.subscription, env);
+      currentPeriodEnd =
+        subscription.current_period_end ?? subscription.items?.data?.[0]?.current_period_end ?? null;
+    } catch (err) {
+      console.error("fetchStripeSubscription failed, creating license without current_period_end", session.id, err);
+    }
   }
 
   const licenseKey = generateLicenseKey();

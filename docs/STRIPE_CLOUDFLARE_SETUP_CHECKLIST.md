@@ -88,6 +88,29 @@ The current website may still contain test Payment Links. Before public launch:
 - verify all visible payment links,
 - remove or clearly mark test links,
 - replace with live links only after Stripe live mode and business verification are complete.
+- confirm each live Payment Link has `metadata.tier` set to exactly `monthly`,
+  `yearly`, or `lifetime` (Dashboard -> Payment Links -> the link -> Advanced
+  options -> Metadata). `_lib.js`'s `handleCheckoutCompleted` reads this to
+  decide what license to grant; a Payment Link cloned from another one without
+  re-checking this field silently produces a paid checkout with no license
+  (falls back to inferring the tier from the purchased price's billing
+  interval, but that's a safety net, not a substitute for setting it).
+
+### 2b. Enabling SEPA Direct Debit
+
+SEPA Debit is not on by default and needs each of the following in the Stripe
+**live** dashboard - all four are dashboard/account state this repo's code
+cannot verify or configure:
+
+- Settings -> Payment methods: "SEPA Direct Debit" toggled on (requires the
+  account's business address to be in a SEPA-supported country).
+- The Payment Link's own payment method settings need to either use
+  "automatic" methods (so the account-level toggle above takes effect) or
+  explicitly list `sepa_debit`.
+- SEPA Direct Debit only supports EUR - a Payment Link priced in another
+  currency will never offer it regardless of the toggle above.
+- Business/legal: a valid creditor identifier and mandate text, which Stripe
+  provisions once SEPA Direct Debit is activated on the account.
 
 ### 3. Webhook endpoint
 
@@ -98,6 +121,10 @@ After the first Cloudflare Pages deployment, create a Stripe webhook endpoint:
 Required events:
 
 - `checkout.session.completed`
+- `checkout.session.async_payment_failed` (required for SEPA Direct Debit and
+  other delayed-notification payment methods - without it, a bounced SEPA
+  debit never revokes the license `_lib.js`'s `handleCheckoutAsyncPaymentFailed`
+  already grants on mandate authorization)
 - `customer.subscription.updated`
 - `customer.subscription.deleted`
 
