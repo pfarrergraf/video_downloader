@@ -182,12 +182,14 @@ class YtDlpStrategy(Strategy):
 def _yt_dlp_progress_hook(callback, cancel_check=None, item_callback=None):
     # yt-dlp calls this many times per second; throttling avoids hammering
     # the queue store (SQLite) with a write on every chunk.
-    last_call = [0.0]
+    last_call = 0.0
     # Track last reported playlist position to avoid firing item_callback
     # redundantly on every chunk of the same file.
-    last_item_key: list[tuple[int, int] | None] = [None]
+    last_item_key: tuple[int, int] | None = None
 
     def hook(status: dict[str, object]) -> None:
+        nonlocal last_call, last_item_key
+
         # Report playlist item progress (e.g. "song 3 of 61") whenever yt-dlp
         # moves to a new item.  The info_dict is available on every status
         # including "finished", so we check it before the early-return below.
@@ -197,16 +199,16 @@ def _yt_dlp_progress_hook(callback, cancel_check=None, item_callback=None):
             n_entries = info.get("n_entries")
             if playlist_index and n_entries:
                 item_key: tuple[int, int] = (int(playlist_index), int(n_entries))
-                if item_key != last_item_key[0]:
-                    last_item_key[0] = item_key
+                if item_key != last_item_key:
+                    last_item_key = item_key
                     item_callback(item_key[0], item_key[1])
 
         if status.get("status") != "downloading":
             return
         now = time.monotonic()
-        if now - last_call[0] < 0.5:
+        if now - last_call < 0.5:
             return
-        last_call[0] = now
+        last_call = now
         # Checked on the same throttle as progress reporting - frequent
         # enough that a cancel request stops the transfer within ~0.5s
         # instead of only being noticed once the whole download finishes.

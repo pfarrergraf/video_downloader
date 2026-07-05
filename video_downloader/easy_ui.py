@@ -213,7 +213,7 @@ class EasyUiApp:
             quick_frame, orient="horizontal", mode="determinate", maximum=100, value=0
         )
         self._progress_bar.grid(row=4, column=0, columnspan=5, padx=5, pady=(2, 6), sticky="ew")
-        self._track_label = ttk.Label(quick_frame, text="", foreground="#555555")
+        self._track_label = ttk.Label(quick_frame, text="")
         self._track_label.grid(row=4, column=5, columnspan=2, padx=5, pady=(2, 6), sticky="w")
 
         site_frame = ttk.LabelFrame(root, text="Site Scraper – Find Videos, Audio & Images")
@@ -671,11 +671,15 @@ class EasyUiApp:
                     completed += 1
                     self._update_progress_threadsafe(completed, total)
 
+        # workers is already clamped in _start_download_batch, but clamp again
+        # defensively in case this method is called directly in tests.
         safe_workers = max(1, min(8, workers))
         with ThreadPoolExecutor(max_workers=safe_workers, thread_name_prefix="easydl") as pool:
-            futures = [pool.submit(download_one, (i, e)) for i, e in enumerate(entries, start=1)]
-            for fut in futures:
-                fut.result()  # propagate any unexpected exceptions
+            # Submit all tasks; the executor's __exit__ waits for all of them.
+            # download_one catches all exceptions internally so no future ever
+            # raises – we don't need fut.result() for propagation.
+            for i, e in enumerate(entries, start=1):
+                pool.submit(download_one, (i, e))
 
         self.root.after(
             0,
@@ -980,6 +984,9 @@ def _extract_playlist_entries(url: str, cookies_from_browser: str | None = None)
     a single-entry list containing the original URL if the URL is not a playlist
     or if extraction fails, so callers can always treat the result as a batch.
     """
+    if not _looks_like_http_url(url):
+        return [LinkEntry(url=url)]
+
     ydl_opts: dict[str, object] = {
         "quiet": True,
         "no_warnings": True,
