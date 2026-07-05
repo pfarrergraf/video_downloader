@@ -45,3 +45,17 @@ CREATE TABLE license_activations (
 CREATE UNIQUE INDEX idx_activations_key_platform_device
   ON license_activations(license_key_hash, platform, device_id_hash);
 CREATE INDEX idx_activations_key_platform ON license_activations(license_key_hash, platform);
+
+-- Rate-limits api/refund.js: without this, anyone who obtains a leaked
+-- license_key can try email guesses against it (or just spam Stripe/D1)
+-- with no penalty. Rows are opportunistically pruned by refund.js itself on
+-- every request rather than needing a separate cron/cleanup job - traffic to
+-- this endpoint is low enough that an unbounded table was never a real risk,
+-- but there's no reason to keep expired rows around either.
+CREATE TABLE refund_attempts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ip TEXT NOT NULL,
+  attempted_at INTEGER NOT NULL
+);
+
+CREATE INDEX idx_refund_attempts_ip_time ON refund_attempts(ip, attempted_at);

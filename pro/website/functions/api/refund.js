@@ -6,11 +6,35 @@ import { jsonResponse, stripeGet, stripePost, stripeDelete } from "../_lib.js";
 // for the data-processing disclosure this implements.
 const REFUND_WINDOW_SECONDS = 14 * 24 * 3600;
 
+// license_key is unguessable (96 bits of randomness), but a leaked key still
+// only needs a matching email to self-serve-cancel someone else's
+// subscription - this bounds how many email guesses/requests one IP can make
+// against this endpoint regardless of which license_key they're trying.
+const RATE_LIMIT_WINDOW_SECONDS = 15 * 60;
+const RATE_LIMIT_MAX_ATTEMPTS = 5;
+
 export async function onRequestPost({ request, env }) {
   try {
     if (!env.STRIPE_SECRET_KEY || !env.DB) {
       return jsonResponse({ error: "not_configured" }, 500);
     }
+
+    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+    const now = Math.floor(Date.now() / 1000);
+    const windowStart = now - RATE_LIMIT_WINDOW_SECONDS;
+
+    // Opportunistic cleanup instead of a separate cron job - traffic here is
+    // low enough that this table was never going to grow unbounded anyway.
+    await env.DB.prepare(`DELETE FROM refund_attempts WHERE attempted_at < ?`).bind(windowStart).run();
+    const attempts = await env.DB.prepare(
+      `SELECT COUNT(*) as count FROM refund_attempts WHERE ip = ? AND attempted_at >= ?`,
+    )
+      .bind(ip, windowStart)
+      .first();
+    if ((attempts?.count ?? 0) >= RATE_LIMIT_MAX_ATTEMPTS) {
+      return jsonResponse({ error: "rate_limited" }, 429);
+    }
+    await env.DB.prepare(`INSERT INTO refund_attempts (ip, attempted_at) VALUES (?, ?)`).bind(ip, now).run();
 
     const body = await request.json().catch(() => ({}));
     const licenseKey = String(body.license_key || "").trim();
@@ -33,7 +57,6 @@ export async function onRequestPost({ request, env }) {
       return jsonResponse({ error: "already_canceled" }, 400);
     }
 
-    const now = Math.floor(Date.now() / 1000);
     if (now - row.created_at > REFUND_WINDOW_SECONDS) {
       return jsonResponse({ error: "window_expired" }, 400);
     }
