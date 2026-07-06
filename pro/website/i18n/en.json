@@ -137,18 +137,18 @@
     "features": {
       "h2": "Everything you need, nothing you don't",
       "lead": "A fast, private downloader that just works — with a Pro tier for anyone who wants more.",
-      "f1_title": "Most video or audio",
-      "f1_desc": "Paste a link, pick a quality, download. Works with most video, audio and image sites — not DRM-protected services like Spotify or Netflix.",
-      "f2_title": "Batch downloads",
-      "f2_desc": "Scan a page for every media file and download them together, with pick/unpick.",
-      "f3_title": "Private by design",
-      "f3_desc": "Everything runs locally on your phone. Nothing gets uploaded to a server you don't control.",
+      "f1_title": "Videos, music & images",
+      "f1_desc": "Paste a link, choose a quality, tap Download. Works with YouTube, Instagram, TikTok and thousands of other sites. Doesn't work with subscription services like Spotify or Netflix.",
+      "f2_title": "Download a whole page at once",
+      "f2_desc": "Open any page and the app finds all the videos and images on it. Pick the ones you want and download them all in one go.",
+      "f3_title": "Completely private",
+      "f3_desc": "Everything happens on your phone. Your files and links never go through a server — nothing is stored or seen by anyone but you.",
       "f4_title": "No ads, no tracking",
-      "f4_desc": "No ad networks, no analytics SDKs, no dark-pattern paywalls. Just the app.",
-      "f5_title": "Audio extraction",
-      "f5_desc": "Pull just the audio track out of any video and save it as MP3.",
+      "f4_desc": "No ads, no hidden trackers, no surprise charges. You pay once or use it free — that's it.",
+      "f5_title": "Save audio as MP3",
+      "f5_desc": "Want just the music? The app pulls the audio out of any video and saves it as an MP3 file.",
       "f6_title": "No app store needed",
-      "f6_desc": "Install the Android version directly. No account, no Play Store review process, no region locks."
+      "f6_desc": "Install it directly on your Android phone — no Google account needed, works anywhere in the world."
     },
     "pricing": {
       "h2": "Simple, honest pricing",
