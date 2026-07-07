@@ -24,16 +24,20 @@ try:
 except ImportError:
     pass
 
+import errno
+import json
 import mimetypes
 import threading
 import traceback
+import urllib.request
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 from . import android_bridge
 from .licensing import LicenseManager
-from .models import JOB_STATUS_COMPLETED
+from .models import JOB_STATUS_COMPLETED, JOB_STATUS_IN_PROGRESS, JOB_STATUS_PENDING
 from .queue_store import QueueStore
-from .web.server import run_server
+from .web.server import create_server
 
 # Set by start() and read by set_export_folder() — MainActivity's SAF folder
 # picker calls back into this same running store instance (via Chaquopy)
@@ -144,7 +148,41 @@ def _publish_file_to_downloads(path: Path) -> None:
         traceback.print_exc()
 
 
-def _run_downloads_publisher(store: QueueStore) -> None:
+# Completions older than this never generate a notification - prevents a
+# process restart from re-announcing every historical download.
+_NOTIFY_COMPLETED_WINDOW_SECONDS = 120
+
+
+def _jobs_snapshot(store: QueueStore) -> str:
+    """Compact JSON the Kotlin DownloadService renders into notifications."""
+    active = []
+    for status in (JOB_STATUS_IN_PROGRESS, JOB_STATUS_PENDING):
+        for job in store.list_jobs(status=status, limit=50):
+            active.append(
+                {
+                    "id": job.id,
+                    "status": job.status,
+                    "downloaded_bytes": job.downloaded_bytes,
+                    "total_bytes": job.total_bytes,
+                }
+            )
+    completed = []
+    cutoff = datetime.now(UTC) - timedelta(seconds=_NOTIFY_COMPLETED_WINDOW_SECONDS)
+    for job in store.list_jobs(status=JOB_STATUS_COMPLETED, limit=20):
+        try:
+            finished = datetime.fromisoformat(job.finished_at) if job.finished_at else None
+        except ValueError:
+            finished = None
+        if finished is None or finished < cutoff:
+            continue
+        files = store.list_job_files(job.id)
+        if not files:
+            continue
+        completed.append({"id": job.id, "filename": Path(files[0]).name, "path": files[0]})
+    return json.dumps({"active": active, "completed": completed})
+
+
+def _run_downloads_publisher(store: QueueStore, notifier=None) -> None:
     while True:
         try:
             export_uri = store.get_setting("export_folder_uri")
@@ -160,9 +198,23 @@ def _run_downloads_publisher(store: QueueStore) -> None:
                         # every poll rather than silently give up on this file.
                         if android_bridge.export_file(path, export_uri):
                             _mark_exported(path)
+            if notifier is not None:
+                # DownloadService's NotifierBridge - drives the foreground
+                # progress notification and per-file completion notifications.
+                # Same 1s cadence as the publisher itself; any Java-side
+                # exception is contained here like everything else.
+                notifier.onJobsChanged(_jobs_snapshot(store))
         except Exception:
             traceback.print_exc()
         threading.Event().wait(_PUBLISH_POLL_SECONDS)
+
+
+def _server_already_healthy(port: int) -> bool:
+    try:
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/health", timeout=3) as response:
+            return response.status == 200
+    except Exception:
+        return False
 
 
 def start(
@@ -173,18 +225,12 @@ def start(
     ffmpeg_binary: str = "ffmpeg",
     license_api_base: str = "",
     app_version: str = "",
+    notifier=None,
 ) -> None:
     global _current_store
     store = QueueStore(Path(data_dir) / "state.db")
     store.init()
     _current_store = store
-
-    threading.Thread(
-        target=_run_downloads_publisher,
-        args=(store,),
-        daemon=True,
-        name="classydl-downloads-publisher",
-    ).start()
 
     # Empty string (not None — Chaquopy's Kotlin->Python call is simpler with
     # plain str args, see the module docstring) means licensing is off:
@@ -199,16 +245,44 @@ def start(
         else None
     )
 
-    run_server(
-        store=store,
-        output_dir=Path(output_dir),
-        password=password,
-        host="127.0.0.1",
-        port=port,
-        # 3 concurrent downloads: the sweet spot for mid-range phones - the
-        # ffmpeg merge step is the CPU bound there, not the network.
-        workers=3,
-        ffmpeg_binary=ffmpeg_binary,
-        license_manager=license_manager,
-        app_version=app_version,
-    )
+    # Bind the port FIRST, before spawning any helper threads. A duplicate
+    # start() (Activity/Service recreation racing an alive process — see
+    # memory.md's intermittent "Errno 98" incident) used to crash this thread
+    # AND leave a second publisher thread double-polling SQLite forever.
+    # Now: if the port is taken and the holder answers /api/health, it's our
+    # own healthy server — log and return cleanly, starting nothing else.
+    try:
+        server = create_server(
+            store=store,
+            output_dir=Path(output_dir),
+            password=password,
+            host="127.0.0.1",
+            port=port,
+            # 3 concurrent downloads: the sweet spot for mid-range phones -
+            # the ffmpeg merge step is the CPU bound there, not the network.
+            workers=3,
+            ffmpeg_binary=ffmpeg_binary,
+            license_manager=license_manager,
+            app_version=app_version,
+        )
+    except OSError as exc:
+        if exc.errno == errno.EADDRINUSE and _server_already_healthy(port):
+            print(f"classydl: server already running on port {port}; second start ignored")
+            return
+        raise
+
+    threading.Thread(
+        target=_run_downloads_publisher,
+        args=(store, notifier),
+        daemon=True,
+        name="classydl-downloads-publisher",
+    ).start()
+
+    server.start_background_worker()
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        server.stop_background_worker()
+        server.server_close()

@@ -1,0 +1,9 @@
+<resources>
+    <string name="notif_channel_downloads">Downloads</string>
+    <string name="notif_downloads_running">Downloads laufen</string>
+    <string name="notif_download_done">Download fertig</string>
+    <plurals name="notif_active_downloads">
+        <item quantity="one">Lade %d Datei herunter…</item>
+        <item quantity="other">Lade %d Dateien herunter…</item>
+    </plurals>
+</resources>

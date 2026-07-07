@@ -1004,6 +1004,11 @@ async function startDownload() {
     toast(t('app.batch.queued_toast', { count: lines.length }));
     $('url-input').value = '';
     $('batch-urls').value = '';
+    // Android: (re)start the foreground service so this download survives
+    // backgrounding, and trigger the one-time notification-permission ask.
+    if (window.AndroidBridge && window.AndroidBridge.onDownloadQueued) {
+      try { window.AndroidBridge.onDownloadQueued(); } catch (err) { /* bridge absent */ }
+    }
   } catch (e) {
     handleQueueError(e, 'app.batch.queue_failed_toast');
   } finally {

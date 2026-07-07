@@ -4,6 +4,18 @@
     <!-- Required by WebView's network stack even for 127.0.0.1-only traffic. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- The three permissions below were explicitly approved by the repo
+         owner on 2026-07-07 (CLAUDE.md permission guardrail; rationale in
+         docs/ANDROID_PERMISSIONS_2026-07-07.md). Purpose: downloads must
+         survive the user switching apps / turning the screen off, with a
+         progress notification and a tappable "download finished"
+         notification — the DownloadService foreground service. All three
+         are standard for download managers (Seal/YTDLnis use the same set);
+         none grant access to any user data. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <!-- allowBackup=false: Android's Auto Backup would otherwise restore this
          app's internal storage (queue database, and MainActivity's
          per-install random password in SharedPreferences) on a fresh
@@ -42,6 +54,14 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
+        <!-- Hosts the Python server + downloads outside the Activity
+             lifecycle; dataSync is the canonical type for user-initiated
+             transfers. Not exported: nothing outside this app may start it. -->
+        <service
+            android:name=".DownloadService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
 
         <!-- Lets android_bridge.open_file() hand a finished download to another
              app (e.g. a video player) without exposing a raw file:// Uri, which

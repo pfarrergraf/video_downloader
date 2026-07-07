@@ -16,9 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import com.chaquo.python.Python
-import com.chaquo.python.android.AndroidPlatform
 import org.json.JSONObject
-import java.security.SecureRandom
 
 /**
  * Hosts the Gothic UI in a WebView, backed by the same Python web server used on
@@ -28,54 +26,23 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "ClassyDL"
-        private const val PORT = 8420
-        private const val SERVER_URL = "http://127.0.0.1:$PORT"
+        private const val SERVER_URL = ServerRuntime.SERVER_URL
         private const val MAX_LOAD_RETRIES = 20
         private const val PREFS_NAME = "classydl_prefs"
-        private const val PREFS_PASSWORD_KEY = "server_password"
-        // Fixed in debug builds so CI's download_pipeline_test.sh (and anyone
-        // testing locally) can log in without needing to read it back out of
-        // the app's SharedPreferences. Release builds (the ones actually
-        // sideloaded onto other people's phones) always get a random
-        // per-install password instead — see getOrCreatePassword().
-        private const val DEBUG_PASSWORD = "classydl"
-
-        // The license-check endpoint (pro/website/functions/api/validate.js)
-        // is a Cloudflare Pages Function on the same deployment as the
-        // marketing site/webhook, not a separate Worker - this used to point
-        // at an unreplaced placeholder Worker subdomain, so
-        // LicenseManager.refresh() always failed to resolve it and every
-        // license key silently fell back to "invalid" (fails closed by
-        // design - see licensing.py - which is why this went unnoticed
-        // rather than erroring loudly).
-        // Only wired up for release builds (see resolveLicenseApiBase()) so
-        // CI's debug-build download_pipeline_test.sh — which never sets a
-        // license key — keeps exercising the always-unrestricted path it
-        // was written against, unaffected by free-tier limits.
-        private const val LICENSE_API_BASE = "https://downloadthat.pages.dev"
-
-        // Idempotency guard: Android may recreate the Activity (e.g. on a
-        // config change) without restarting the process, causing onCreate →
-        // startPythonServer() to run a second time. The second run_server()
-        // call would fail to bind the already-occupied port 8420 (OSError:
-        // [Errno 98] Address already in use) and crash that thread —
-        // harmlessly for the app itself, but it also redundantly starts a
-        // second _run_downloads_publisher thread, doubling SQLite polling.
-        // @Volatile ensures the write is immediately visible to any thread
-        // that reads it after onCreate returns.
-        @Volatile private var serverStarted = false
 
         // First http(s) URL in a shared text - YouTube and most apps share
         // "Some title https://youtu.be/..." rather than a bare URL.
         private val SHARED_URL_REGEX = Regex("""https?://\S+""")
 
         private const val PREFS_LAST_CLIPBOARD_KEY = "last_clipboard_suggestion"
+        private const val PREFS_NOTIF_ASKED_KEY = "notification_permission_asked"
     }
 
     private var loadRetries = 0
     private lateinit var password: String
     private lateinit var webView: WebView
     private lateinit var folderPickerLauncher: ActivityResultLauncher<Uri?>
+    private lateinit var notificationPermissionLauncher: ActivityResultLauncher<String>
 
     // A URL shared into the app, waiting for the web UI to be ready.
     // @Volatile: written on the UI thread, read by the WebView's JS-bridge
@@ -87,14 +54,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        password = getOrCreatePassword()
-        startPythonServer()
+        password = ServerRuntime.getOrCreatePassword(this)
+        // The Python server lives in DownloadService (a dataSync foreground
+        // service) so downloads keep running when this Activity is
+        // backgrounded or destroyed — see docs/ANDROID_PERMISSIONS_2026-07-07.md.
+        startDownloadService()
 
         // Must be registered before STARTED (i.e. here in onCreate, not lazily
         // inside the bridge call) — ActivityResultRegistry throws otherwise.
         folderPickerLauncher = registerForActivityResult(
             ActivityResultContracts.OpenDocumentTree(),
         ) { uri -> onFolderPicked(uri) }
+        notificationPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+        ) { /* granted or not, the service degrades gracefully either way */ }
 
         handleShareIntent(intent)
 
@@ -286,75 +259,42 @@ class MainActivity : AppCompatActivity() {
             pendingSharedUrl = null
             return url
         }
-    }
 
-    /**
-     * Debug builds (what CI builds and what `gradle installDebug` gives a
-     * developer) use a fixed password for reproducibility. Release builds —
-     * the APKs actually meant for sideloading onto other people's phones —
-     * generate a random one on first launch and persist it, so no two
-     * installs of the distributed app share a credential.
-     */
-    private fun getOrCreatePassword(): String {
-        if (BuildConfig.DEBUG) {
-            return DEBUG_PASSWORD
-        }
-        val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-        prefs.getString(PREFS_PASSWORD_KEY, null)?.let { return it }
-        val bytes = ByteArray(18)
-        SecureRandom().nextBytes(bytes)
-        val generated = bytes.joinToString("") { "%02x".format(it) }
-        prefs.edit().putString(PREFS_PASSWORD_KEY, generated).apply()
-        return generated
-    }
-
-    /** Empty string means "licensing off" to android_entry.start() — see its docstring. */
-    private fun resolveLicenseApiBase(): String = if (BuildConfig.DEBUG) "" else LICENSE_API_BASE
-
-    private fun startPythonServer() {
-        if (serverStarted) return
-        serverStarted = true
-        if (!Python.isStarted()) {
-            Python.start(AndroidPlatform(this))
-        }
-        Thread {
-            try {
-                val dataDir = filesDir.resolve("classydl-data").absolutePath
-                // App-specific external storage, not internal filesDir: needs no
-                // permission on any supported API level (scoped storage exempts an
-                // app's own directory under Android/data/<package>/), and — unlike
-                // internal storage — is reachable by a file manager and by `adb
-                // shell` without root. Falls back to internal storage in the rare
-                // case external storage isn't currently available (e.g. removed
-                // SD card on a device that redirected it there).
-                val outputDir = (getExternalFilesDir(null) ?: filesDir)
-                    .resolve("classydl-downloads").absolutePath
-                Python.getInstance()
-                    .getModule("video_downloader.android_entry")
-                    .callAttr(
-                        "start", dataDir, outputDir, password, PORT, resolveFfmpegBinary(),
-                        resolveLicenseApiBase(), BuildConfig.VERSION_NAME,
-                    )
-            } catch (e: Throwable) {
-                Log.e(TAG, "Server thread crashed", e)
+        // Called by the page whenever a download is queued: restarts the
+        // foreground service if it idled out (so this download's progress
+        // survives backgrounding) and triggers the one-time contextual
+        // notification-permission request.
+        @JavascriptInterface
+        fun onDownloadQueued() {
+            runOnUiThread {
+                startDownloadService()
+                maybeRequestNotificationPermission()
             }
-        }.apply {
-            isDaemon = true
-            start()
         }
     }
 
+    /** Starts (or re-starts, e.g. after it idled out) the foreground service. */
+    private fun startDownloadService() {
+        val intent = Intent(this, DownloadService::class.java)
+        androidx.core.content.ContextCompat.startForegroundService(this, intent)
+    }
+
     /**
-     * The bundled ffmpeg CLI (cross-compiled for Android, see
-     * .github/scripts/build_ffmpeg_android.sh) ships under jniLibs — Android's
-     * package installer extracts those into nativeLibraryDir with execute
-     * permission already set, which is one of the few app-private locations
-     * still allowed to run arbitrary native executables post-scoped-storage.
-     * Falls back to the plain "ffmpeg" command name if the bundled binary
-     * isn't present (e.g. an older APK built before Phase 2b).
+     * Contextual POST_NOTIFICATIONS request: asked once, right after the
+     * user's first download starts (when a progress notification is about to
+     * exist and the request makes sense to them) — never at app launch. A
+     * denial is final from our side: the service simply runs without visible
+     * notifications on API 33+.
      */
-    private fun resolveFfmpegBinary(): String {
-        val bundled = java.io.File(applicationInfo.nativeLibraryDir, "libffmpeg.so")
-        return if (bundled.exists()) bundled.absolutePath else "ffmpeg"
+    private fun maybeRequestNotificationPermission() {
+        if (android.os.Build.VERSION.SDK_INT < 33) return
+        val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        if (prefs.getBoolean(PREFS_NOTIF_ASKED_KEY, false)) return
+        prefs.edit().putBoolean(PREFS_NOTIF_ASKED_KEY, true).apply()
+        if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) !=
+            android.content.pm.PackageManager.PERMISSION_GRANTED
+        ) {
+            notificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
     }
 }

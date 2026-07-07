@@ -105,6 +105,11 @@ next error" for anything touching `scripts/termux_*.sh` or `video_downloader/web
 
 Currently approved permissions:
 - `android.permission.INTERNET` — required for downloads
+- `android.permission.FOREGROUND_SERVICE` — approved 2026-07-07; downloads must survive backgrounding (DownloadService)
+- `android.permission.FOREGROUND_SERVICE_DATA_SYNC` — approved 2026-07-07; required for the dataSync service type on API 34+
+- `android.permission.POST_NOTIFICATIONS` — approved 2026-07-07; progress/completion notifications, requested contextually on first download
+
+See `docs/ANDROID_PERMISSIONS_2026-07-07.md` for the approval record and rationale.
 
 Specifically prohibited without documented owner approval and a written reason:
 - Any `READ_*` / `WRITE_*` permissions for contacts, SMS, call log, storage beyond what Chaquopy needs

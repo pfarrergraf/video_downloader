@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">DownloadThat</string>
+    <string name="notif_channel_downloads">Downloads</string>
+    <string name="notif_downloads_running">Downloads running</string>
+    <string name="notif_download_done">Download finished</string>
+    <plurals name="notif_active_downloads">
+        <item quantity="one">Downloading %d file…</item>
+        <item quantity="other">Downloading %d files…</item>
+    </plurals>
 </resources>
