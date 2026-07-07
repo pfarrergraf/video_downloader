@@ -16,31 +16,10 @@
       "status_active": "Pro активен ({tier}). Благодарим за подкрепата!",
       "status_invalid": "Безплатна версия — записаният ключ е невалиден или е изтекъл.",
       "status_device_limit": "Безплатна версия — този лиценз вече е активен на друго устройство от този тип.",
-      "status_free": "Безплатна версия — 3 изтегляния на ден. Pro: неограничено.",
+      "status_free": "Безплатна версия — {limit} изтегляния на ден. Pro: неограничено.",
       "need_key_toast": "Първо въведи лицензен ключ.",
       "activated_toast": "Лицензът е активиран.",
       "invalid_toast": "Невалиден лицензен ключ."
-    },
-    "scrape": {
-      "title": "Търсене в страница",
-      "url_label": "URL адрес на страницата",
-      "deep_label": "Дълбоко търсене (следвай връзките)",
-      "video_btn": "Изтегли видео",
-      "audio_btn": "Изтегли аудио",
-      "search_btn": "Претърси страницата",
-      "select_all": "Избери всички",
-      "deselect_all": "Премахни избора",
-      "clear": "Изчисти списъка",
-      "queue_selected": "Изтегли избраните",
-      "results_count": "Намерени: {total}, избрани: {picked}",
-      "empty": "На тази страница не е намерено съдържание.",
-      "need_url_toast": "Първо въведи URL адрес.",
-      "search_failed_toast": "Търсенето не бе успешно.",
-      "queue_failed_toast": "Добавянето в опашката не бе успешно.",
-      "queue_selection_failed_toast": "Добавянето на избраното в опашката не бе успешно.",
-      "need_selection_toast": "Избери поне един елемент.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "Опашка",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "Настройки",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — изтегляй само съдържание, за което имаш права.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "Достигнат е дневният лимит",
-      "body": "Достигнахте днешния безплатен лимит от 3 изтегляния. Въведете лицензен ключ по-долу за неограничени изтегляния, или опитайте отново след 24 часа."
+      "body": "Достигнахте днешния безплатен лимит от {limit} изтегляния. Въведете лицензен ключ по-долу за неограничени изтегляния, или опитайте отново след {hours} часа."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

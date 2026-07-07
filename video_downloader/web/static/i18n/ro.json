@@ -16,31 +16,10 @@
       "status_active": "Pro activ ({tier}). Mulțumim pentru sprijin!",
       "status_invalid": "Gratuit — cheia salvată este nevalidă sau a expirat.",
       "status_device_limit": "Gratuit — această licență este deja activă pe alt dispozitiv de acest tip.",
-      "status_free": "Gratuit — 3 descărcări pe zi. Pro: nelimitat.",
+      "status_free": "Gratuit — {limit} descărcări pe zi. Pro: nelimitat.",
       "need_key_toast": "Introdu mai întâi o cheie de licență.",
       "activated_toast": "Licență activată.",
       "invalid_toast": "Cheie de licență nevalidă."
-    },
-    "scrape": {
-      "title": "Caută pe o pagină",
-      "url_label": "URL pagină",
-      "deep_label": "Căutare aprofundată (urmărește linkurile)",
-      "video_btn": "Descarcă video",
-      "audio_btn": "Descarcă audio",
-      "search_btn": "Caută pagina",
-      "select_all": "Selectează tot",
-      "deselect_all": "Deselectează tot",
-      "clear": "Golește lista",
-      "queue_selected": "Descarcă selecția",
-      "results_count": "{total} găsite, {picked} selectate",
-      "empty": "Nu s-a găsit niciun fișier media pe această pagină.",
-      "need_url_toast": "Introdu mai întâi un URL.",
-      "search_failed_toast": "Căutarea a eșuat.",
-      "queue_failed_toast": "Adăugarea în coadă a eșuat.",
-      "queue_selection_failed_toast": "Adăugarea selecției în coadă a eșuat.",
-      "need_selection_toast": "Selectează cel puțin un element.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "Coadă",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "Setări",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — descarcă doar materiale media pentru care ai drepturi.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "Limita zilnică a fost atinsă",
-      "body": "Ai atins limita gratuită de 3 descărcări de azi. Introdu mai jos o cheie de licență pentru descărcări nelimitate, sau încearcă din nou peste 24 de ore."
+      "body": "Ai atins limita gratuită de {limit} descărcări de azi. Introdu mai jos o cheie de licență pentru descărcări nelimitate, sau încearcă din nou peste {hours} de ore."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

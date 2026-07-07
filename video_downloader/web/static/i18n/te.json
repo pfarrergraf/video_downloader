@@ -16,31 +16,10 @@
       "status_active": "Pro యాక్టివ్‌గా ఉంది ({tier}). మీ మద్దతుకు ధన్యవాదాలు!",
       "status_invalid": "ఫ్రీ — సేవ్ చేసిన కీ చెల్లదు లేదా గడువు ముగిసింది.",
       "status_device_limit": "ఫ్రీ — ఈ లైసెన్స్ ఇప్పటికే ఇదే రకమైన మరో పరికరంలో యాక్టివ్‌గా ఉంది.",
-      "status_free": "ఫ్రీ — రోజుకు 3 డౌన్‌లోడ్‌లు. Pro: అపరిమితం.",
+      "status_free": "ఫ్రీ — రోజుకు {limit} డౌన్‌లోడ్‌లు. Pro: అపరిమితం.",
       "need_key_toast": "ముందుగా లైసెన్స్ కీని నమోదు చేయండి.",
       "activated_toast": "లైసెన్స్ యాక్టివేట్ చేయబడింది.",
       "invalid_toast": "చెల్లని లైసెన్స్ కీ."
-    },
-    "scrape": {
-      "title": "పేజీని శోధించండి",
-      "url_label": "పేజీ URL",
-      "deep_label": "లోతైన శోధన (లింక్‌లను అనుసరించండి)",
-      "video_btn": "వీడియో డౌన్‌లోడ్ చేయండి",
-      "audio_btn": "ఆడియో డౌన్‌లోడ్ చేయండి",
-      "search_btn": "పేజీని శోధించండి",
-      "select_all": "అన్నీ ఎంచుకోండి",
-      "deselect_all": "అన్నీ ఎంపిక తీసివేయండి",
-      "clear": "జాబితాను క్లియర్ చేయండి",
-      "queue_selected": "ఎంచుకున్నవి డౌన్‌లోడ్ చేయండి",
-      "results_count": "{total} కనుగొనబడ్డాయి, {picked} ఎంచుకోబడ్డాయి",
-      "empty": "ఈ పేజీలో మీడియా కనుగొనబడలేదు.",
-      "need_url_toast": "ముందుగా URLని నమోదు చేయండి.",
-      "search_failed_toast": "శోధన విఫలమైంది.",
-      "queue_failed_toast": "క్యూలో పెట్టడం విఫలమైంది.",
-      "queue_selection_failed_toast": "ఎంపికను క్యూలో పెట్టడం విఫలమైంది.",
-      "need_selection_toast": "కనీసం ఒక అంశాన్ని ఎంచుకోండి.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "క్యూ",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "సెట్టింగ్‌లు",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — మీకు హక్కులు ఉన్న మీడియాను మాత్రమే డౌన్‌లోడ్ చేయండి.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "రోజువారీ పరిమితి చేరుకుంది",
-      "body": "మీరు ఈరోజు ఉచిత పరిమితి, 3 డౌన్‌లోడ్‌లు, పూర్తి చేశారు. అపరిమిత డౌన్‌లోడ్‌ల కోసం క్రింద లైసెన్స్ కీని నమోదు చేయండి, లేదా 24 గంటల తర్వాత మళ్లీ ప్రయత్నించండి."
+      "body": "మీరు ఈరోజు ఉచిత పరిమితి, {limit} డౌన్‌లోడ్‌లు, పూర్తి చేశారు. అపరిమిత డౌన్‌లోడ్‌ల కోసం క్రింద లైసెన్స్ కీని నమోదు చేయండి, లేదా {hours} గంటల తర్వాత మళ్లీ ప్రయత్నించండి."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

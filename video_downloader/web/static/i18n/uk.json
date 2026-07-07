@@ -16,34 +16,13 @@
       "status_active": "Pro активовано ({tier}). Дякуємо за підтримку!",
       "status_invalid": "Безкоштовна версія — збережений ключ недійсний або термін його дії минув.",
       "status_device_limit": "Безкоштовна версія — ця ліцензія вже активна на іншому пристрої такого ж типу.",
-      "status_free": "Безкоштовна версія — 3 завантаження на день. Pro: необмежено.",
+      "status_free": "Безкоштовна версія — {limit} завантаження на день. Pro: необмежено.",
       "need_key_toast": "Спочатку введіть ліцензійний ключ.",
       "activated_toast": "Ліцензію активовано.",
       "invalid_toast": "Недійсний ліцензійний ключ."
     },
-    "scrape": {
-      "title": "Пошук на сторінці",
-      "url_label": "URL-адреса сторінки",
-      "deep_label": "Глибокий пошук (переходити за посиланнями)",
-      "video_btn": "Завантажити відео",
-      "audio_btn": "Завантажити аудіо",
-      "search_btn": "Пошук на сторінці",
-      "select_all": "Вибрати всі",
-      "deselect_all": "Скасувати вибір",
-      "clear": "Очистити список",
-      "queue_selected": "Завантажити вибране",
-      "results_count": "Знайдено: {total}, вибрано: {picked}",
-      "empty": "На цій сторінці не знайдено медіафайлів.",
-      "need_url_toast": "Спочатку введіть URL-адресу.",
-      "search_failed_toast": "Помилка пошуку.",
-      "queue_failed_toast": "Не вдалося додати до черги.",
-      "queue_selection_failed_toast": "Не вдалося додати вибране до черги.",
-      "need_selection_toast": "Виберіть хоча б один елемент.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
-    },
     "queue": {
-      "title": "Черга",
+      "title": "Мої завантаження",
       "subtitle": "Оновлюється автоматично.",
       "empty": "У черзі поки що нічого немає.",
       "cancel_btn": "Скасувати",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Показати деталі"
     },
     "settings": {
       "gear_label": "Налаштування",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — завантажуйте лише той контент, на який маєте права.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "Досягнуто денний ліміт",
-      "body": "Ви досягли сьогоднішнього безкоштовного ліміту в 3 завантаження. Введіть нижче ліцензійний ключ для необмежених завантажень або спробуйте ще раз через 24 години."
+      "body": "Ви досягли сьогоднішнього безкоштовного ліміту в {limit} завантаження. Введіть нижче ліцензійний ключ для необмежених завантажень або спробуйте ще раз через {hours} години."
+    },
+    "home": {
+      "url_label": "Вставте посилання сюди",
+      "url_placeholder": "https://…",
+      "video_toggle": "Відео",
+      "audio_toggle": "Лише звук",
+      "download_btn": "Завантажити",
+      "advanced_summary": "Додатково",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Очікує…",
+      "in_progress": "Завантаження…",
+      "completed": "Готово",
+      "failed": "Помилка",
+      "cancelled": "Скасовано",
+      "paused": "Призупинено"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Вставити посилання"
+    },
+    "theme": {
+      "label": "Оформлення",
+      "auto": "Як у системі",
+      "light": "Світле",
+      "dark": "Темне"
     }
   },
   "website": {

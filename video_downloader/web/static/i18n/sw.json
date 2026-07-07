@@ -16,31 +16,10 @@
       "status_active": "Pro active ({tier}). Thanks for your support!",
       "status_invalid": "Bure — ufunguo uliohifadhiwa si sahihi au umeisha muda wake.",
       "status_device_limit": "Bure — leseni hii tayari inatumika kwenye kifaa kingine cha aina hii.",
-      "status_free": "Bure — Upakuaji 3 kwa siku. Pro: bila kikomo.",
+      "status_free": "Bure — Upakuaji {limit} kwa siku. Pro: bila kikomo.",
       "need_key_toast": "Enter a license key first.",
       "activated_toast": "License activated.",
       "invalid_toast": "Invalid license key."
-    },
-    "scrape": {
-      "title": "Search a page",
-      "url_label": "Page URL",
-      "deep_label": "Deep search (follow links)",
-      "video_btn": "Download video",
-      "audio_btn": "Download audio",
-      "search_btn": "Search page",
-      "select_all": "Select all",
-      "deselect_all": "Deselect all",
-      "clear": "Clear list",
-      "queue_selected": "Download selected",
-      "results_count": "{total} found, {picked} selected",
-      "empty": "No media found on this page.",
-      "need_url_toast": "Enter a URL first.",
-      "search_failed_toast": "Search failed.",
-      "queue_failed_toast": "Failed to queue.",
-      "queue_selection_failed_toast": "Failed to queue selection.",
-      "need_selection_toast": "Select at least one item.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "Queue",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "Settings",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — only download media you have the rights to.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "Kikomo cha siku kimefikiwa",
-      "body": "Umetumia kikomo cha bure cha leo cha upakuaji 3. Weka ufunguo wa leseni hapa chini kupata upakuaji usio na kikomo, au jaribu tena baada ya saa 24."
+      "body": "Umetumia kikomo cha bure cha leo cha upakuaji {limit}. Weka ufunguo wa leseni hapa chini kupata upakuaji usio na kikomo, au jaribu tena baada ya saa {hours}."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

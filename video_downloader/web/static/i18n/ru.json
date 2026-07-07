@@ -16,34 +16,13 @@
       "status_active": "Pro активирован ({tier}). Спасибо за поддержку!",
       "status_invalid": "Бесплатная версия — сохранённый ключ недействителен или истёк.",
       "status_device_limit": "Бесплатная версия — эта лицензия уже активна на другом устройстве этого же типа.",
-      "status_free": "Бесплатная версия — 3 загрузки в день. Pro: без ограничений.",
+      "status_free": "Бесплатная версия — {limit} загрузки в день. Pro: без ограничений.",
       "need_key_toast": "Сначала введите лицензионный ключ.",
       "activated_toast": "Лицензия активирована.",
       "invalid_toast": "Недействительный лицензионный ключ."
     },
-    "scrape": {
-      "title": "Поиск на странице",
-      "url_label": "URL страницы",
-      "deep_label": "Глубокий поиск (переход по ссылкам)",
-      "video_btn": "Скачать видео",
-      "audio_btn": "Скачать аудио",
-      "search_btn": "Найти на странице",
-      "select_all": "Выбрать всё",
-      "deselect_all": "Снять выделение",
-      "clear": "Очистить список",
-      "queue_selected": "Скачать выбранное",
-      "results_count": "Найдено: {total}, выбрано: {picked}",
-      "empty": "На этой странице медиафайлы не найдены.",
-      "need_url_toast": "Сначала введите URL.",
-      "search_failed_toast": "Не удалось выполнить поиск.",
-      "queue_failed_toast": "Не удалось добавить в очередь.",
-      "queue_selection_failed_toast": "Не удалось добавить выбранное в очередь.",
-      "need_selection_toast": "Выберите хотя бы один элемент.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
-    },
     "queue": {
-      "title": "Очередь",
+      "title": "Мои загрузки",
       "subtitle": "Обновляется автоматически.",
       "empty": "В очереди пока ничего нет.",
       "cancel_btn": "Отменить",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Показать подробности"
     },
     "settings": {
       "gear_label": "Настройки",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — скачивайте только тот медиаконтент, на который у вас есть права.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "Достигнут дневной лимит",
-      "body": "Вы достигли сегодняшнего бесплатного лимита в 3 загрузки. Введите ниже лицензионный ключ для неограниченных загрузок или попробуйте снова через 24 часа."
+      "body": "Вы достигли сегодняшнего бесплатного лимита в {limit} загрузки. Введите ниже лицензионный ключ для неограниченных загрузок или попробуйте снова через {hours} часа."
+    },
+    "home": {
+      "url_label": "Вставьте ссылку сюда",
+      "url_placeholder": "https://…",
+      "video_toggle": "Видео",
+      "audio_toggle": "Только звук",
+      "download_btn": "Скачать",
+      "advanced_summary": "Дополнительно",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Ожидание…",
+      "in_progress": "Загрузка…",
+      "completed": "Готово",
+      "failed": "Ошибка",
+      "cancelled": "Отменено",
+      "paused": "Пауза"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Вставить ссылку"
+    },
+    "theme": {
+      "label": "Оформление",
+      "auto": "Как в системе",
+      "light": "Светлое",
+      "dark": "Тёмное"
     }
   },
   "website": {

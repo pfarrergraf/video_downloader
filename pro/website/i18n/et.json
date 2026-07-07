@@ -16,31 +16,10 @@
       "status_active": "Pro on aktiivne ({tier}). Täname toetuse eest!",
       "status_invalid": "Tasuta — salvestatud võti on kehtetu või aegunud.",
       "status_device_limit": "Tasuta — see litsents on juba aktiivne teises samat tüüpi seadmes.",
-      "status_free": "Tasuta — 3 allalaadimist päevas. Pro: piiramatult.",
+      "status_free": "Tasuta — {limit} allalaadimist päevas. Pro: piiramatult.",
       "need_key_toast": "Sisesta esmalt litsentsivõti.",
       "activated_toast": "Litsents aktiveeritud.",
       "invalid_toast": "Vigane litsentsivõti."
-    },
-    "scrape": {
-      "title": "Otsi lehelt",
-      "url_label": "Lehe URL",
-      "deep_label": "Süvaotsing (järgi linke)",
-      "video_btn": "Laadi video alla",
-      "audio_btn": "Laadi heli alla",
-      "search_btn": "Otsi lehte",
-      "select_all": "Vali kõik",
-      "deselect_all": "Tühista kõigi valik",
-      "clear": "Tühjenda loend",
-      "queue_selected": "Laadi valitud alla",
-      "results_count": "Leitud {total}, valitud {picked}",
-      "empty": "Sellelt lehelt meediat ei leitud.",
-      "need_url_toast": "Sisesta esmalt URL.",
-      "search_failed_toast": "Otsing ebaõnnestus.",
-      "queue_failed_toast": "Järjekorda lisamine ebaõnnestus.",
-      "queue_selection_failed_toast": "Valiku järjekorda lisamine ebaõnnestus.",
-      "need_selection_toast": "Vali vähemalt üks üksus.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "Järjekord",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "Seaded",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — laadi alla ainult meediat, mille kasutamiseks on sul õigus.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "Päevane limiit täis",
-      "body": "Oled kasutanud tänase tasuta limiidi, 3 allalaadimist. Sisesta allpool litsentsivõti piiramatute allalaadimiste jaoks või proovi uuesti 24 tunni pärast."
+      "body": "Oled kasutanud tänase tasuta limiidi, {limit} allalaadimist. Sisesta allpool litsentsivõti piiramatute allalaadimiste jaoks või proovi uuesti {hours} tunni pärast."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

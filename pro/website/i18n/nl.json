@@ -16,40 +16,19 @@
       "status_active": "Pro actief ({tier}). Bedankt voor je steun!",
       "status_invalid": "Gratis — de opgeslagen sleutel is ongeldig of verlopen.",
       "status_device_limit": "Gratis — deze licentie is al actief op een ander apparaat van hetzelfde type.",
-      "status_free": "Gratis — 3 downloads per dag. Pro: onbeperkt.",
+      "status_free": "Gratis — {limit} downloads per dag. Pro: onbeperkt.",
       "need_key_toast": "Voer eerst een licentiesleutel in.",
       "activated_toast": "Licentie geactiveerd.",
       "invalid_toast": "Ongeldige licentiesleutel."
     },
-    "scrape": {
-      "title": "Pagina doorzoeken",
-      "url_label": "Pagina-URL",
-      "deep_label": "Diepzoeken (links volgen)",
-      "video_btn": "Video downloaden",
-      "audio_btn": "Audio downloaden",
-      "search_btn": "Pagina doorzoeken",
-      "select_all": "Alles selecteren",
-      "deselect_all": "Alles deselecteren",
-      "clear": "Lijst wissen",
-      "queue_selected": "Selectie downloaden",
-      "results_count": "{total} gevonden, {picked} geselecteerd",
-      "empty": "Geen media gevonden op deze pagina.",
-      "need_url_toast": "Voer eerst een URL in.",
-      "search_failed_toast": "Zoeken mislukt.",
-      "queue_failed_toast": "In wachtrij plaatsen mislukt.",
-      "queue_selection_failed_toast": "Selectie in wachtrij plaatsen mislukt.",
-      "need_selection_toast": "Selecteer minstens één item.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
-    },
     "queue": {
-      "title": "Wachtrij",
+      "title": "Mijn downloads",
       "subtitle": "Wordt automatisch bijgewerkt.",
       "empty": "Nog niets in de wachtrij.",
       "cancel_btn": "Annuleren",
       "cancel_failed_toast": "Annuleren mislukt.",
       "queued_toast": "In wachtrij geplaatst.",
-      "open_btn": "Openen",
+      "open_btn": "Bekijken",
       "open_failed_toast": "Kon dit bestand niet openen — probeer in plaats daarvan de link.",
       "open_unsupported_toast": "Bestanden openen werkt alleen in de Android-app.",
       "open_folder_btn": "Open folder",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Details tonen"
     },
     "settings": {
       "gear_label": "Instellingen",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — download alleen media waarvoor je de rechten hebt.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "Daglimiet bereikt",
-      "body": "Je hebt de gratis limiet van 3 downloads voor vandaag bereikt. Voer hieronder een licentiesleutel in voor onbeperkte downloads, of probeer het over 24 uur opnieuw."
+      "body": "Je hebt de gratis limiet van {limit} downloads voor vandaag bereikt. Voer hieronder een licentiesleutel in voor onbeperkte downloads, of probeer het over {hours} uur opnieuw."
+    },
+    "home": {
+      "url_label": "Plak je link hier",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Alleen audio",
+      "download_btn": "Downloaden",
+      "advanced_summary": "Geavanceerd",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Wacht…",
+      "in_progress": "Downloaden…",
+      "completed": "Klaar",
+      "failed": "Mislukt",
+      "cancelled": "Geannuleerd",
+      "paused": "Gepauzeerd"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Link invoegen"
+    },
+    "theme": {
+      "label": "Weergave",
+      "auto": "Zoals systeem",
+      "light": "Licht",
+      "dark": "Donker"
     }
   },
   "website": {

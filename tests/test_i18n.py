@@ -69,3 +69,68 @@ def test_placeholders_are_preserved_across_languages() -> None:
                     f"{path}:{key} lost or changed placeholders: "
                     f"expected {expected_placeholders}, got {actual_placeholders}"
                 )
+
+
+INDEX_HTML = Path(__file__).resolve().parent.parent / "video_downloader" / "web" / "static" / "index.html"
+
+
+def test_limit_copy_never_hardcodes_numbers() -> None:
+    # The free-tier count drifted between 1, 3 and 5 across surfaces before
+    # it was moved behind {limit}/{hours} placeholders filled from
+    # /api/settings. A digit creeping back into these strings means the
+    # drift is back - keep them placeholder-only in every language.
+    import re
+
+    digit_re = re.compile(r"\d")
+    for i18n_dir in (APP_I18N_DIR, WEBSITE_I18N_DIR):
+        for path in list(_language_files(i18n_dir)) + [i18n_dir / "en.json"]:
+            flat = _flatten(json.loads(path.read_text(encoding="utf-8")))
+            for key in ("app.limit.body", "app.license.status_free"):
+                value = str(flat.get(key, ""))
+                assert value, f"{path}:{key} is missing"
+                assert "{limit}" in value, f"{path}:{key} lost the {{limit}} placeholder"
+                assert not digit_re.search(value), f"{path}:{key} hardcodes a number again: {value!r}"
+
+
+def test_new_ux_keys_exist_in_source() -> None:
+    keys = _english_keys(APP_I18N_DIR)
+    for expected in (
+        "app.home.url_label",
+        "app.home.download_btn",
+        "app.home.video_toggle",
+        "app.home.audio_toggle",
+        "app.home.advanced_summary",
+        "app.home.quality_label",
+        "app.status.pending",
+        "app.status.in_progress",
+        "app.status.completed",
+        "app.status.failed",
+        "app.status.cancelled",
+        "app.errors.unknown",
+        "app.errors.engine_outdated",
+        "app.errors.video_unavailable",
+        "app.clipboard.insert_btn",
+        "app.theme.label",
+        "app.queue.details_toggle",
+    ):
+        assert expected in keys
+    # The page-scraper UI is gone; its keys must not linger.
+    assert not any(k.startswith("app.scrape.") for k in keys)
+
+
+def test_index_html_has_no_external_resource_dependencies() -> None:
+    # The app must render fully offline-from-the-APK: no Google Fonts, no
+    # CDN scripts/styles. (Outbound <a href> links to the project website
+    # are fine - they're navigation, not render dependencies.)
+    html = INDEX_HTML.read_text(encoding="utf-8")
+    assert "fonts.googleapis.com" not in html
+    assert "fonts.gstatic.com" not in html
+    assert "preconnect" not in html
+    import re
+
+    for tag, attr in (("link", "href"), ("script", "src"), ("img", "src")):
+        for match in re.finditer(rf"<{tag}[^>]*\s{attr}=\"([^\"]+)\"", html):
+            url = match.group(1)
+            assert not url.startswith(("http://", "https://", "//")), (
+                f"index.html loads an external resource: <{tag} {attr}={url!r}>"
+            )

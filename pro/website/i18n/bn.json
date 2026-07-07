@@ -16,31 +16,10 @@
       "status_active": "প্রো সক্রিয় ({tier})। আপনার সহযোগিতার জন্য ধন্যবাদ!",
       "status_invalid": "ফ্রি — সংরক্ষিত কী-টি অবৈধ বা মেয়াদোত্তীর্ণ।",
       "status_device_limit": "ফ্রি — এই লাইসেন্সটি ইতিমধ্যে এই ধরনের অন্য একটি ডিভাইসে সক্রিয় আছে।",
-      "status_free": "ফ্রি — দিনে ৩টি ডাউনলোড। প্রো: আনলিমিটেড।",
+      "status_free": "Free — {limit} downloads per day. Pro: unlimited.",
       "need_key_toast": "প্রথমে একটি লাইসেন্স কী দিন।",
       "activated_toast": "লাইসেন্স সক্রিয় করা হয়েছে।",
       "invalid_toast": "অবৈধ লাইসেন্স কী।"
-    },
-    "scrape": {
-      "title": "পেজ খুঁজুন",
-      "url_label": "পেজ URL",
-      "deep_label": "গভীর অনুসন্ধান (লিংক অনুসরণ করুন)",
-      "video_btn": "ভিডিও ডাউনলোড করুন",
-      "audio_btn": "অডিও ডাউনলোড করুন",
-      "search_btn": "পেজ খুঁজুন",
-      "select_all": "সব নির্বাচন করুন",
-      "deselect_all": "নির্বাচন বাতিল করুন",
-      "clear": "তালিকা মুছুন",
-      "queue_selected": "নির্বাচিতগুলো ডাউনলোড করুন",
-      "results_count": "{total}টি পাওয়া গেছে, {picked}টি নির্বাচিত",
-      "empty": "এই পেজে কোনো মিডিয়া পাওয়া যায়নি।",
-      "need_url_toast": "প্রথমে একটি URL দিন।",
-      "search_failed_toast": "অনুসন্ধান ব্যর্থ হয়েছে।",
-      "queue_failed_toast": "কিউতে যোগ করা যায়নি।",
-      "queue_selection_failed_toast": "নির্বাচিতগুলো কিউতে যোগ করা যায়নি।",
-      "need_selection_toast": "অন্তত একটি আইটেম নির্বাচন করুন।",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "কিউ",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "সেটিংস",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — শুধুমাত্র সেই মিডিয়া ডাউনলোড করুন যার অধিকার আপনার আছে।",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "দৈনিক সীমা শেষ",
-      "body": "আপনি আজকের ফ্রি সীমা, ৩টি ডাউনলোড, ব্যবহার করে ফেলেছেন। সীমাহীন ডাউনলোডের জন্য নিচে লাইসেন্স কী দিন, অথবা ২৪ ঘণ্টা পরে আবার চেষ্টা করুন।"
+      "body": "You've reached today's free limit of {limit} downloads. Enter a license key below for unlimited downloads, or try again in {hours} hours."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

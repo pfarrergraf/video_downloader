@@ -16,31 +16,10 @@
       "status_active": "Pro செயலில் உள்ளது ({tier}). உங்கள் ஆதரவிற்கு நன்றி!",
       "status_invalid": "இலவசம் — சேமிக்கப்பட்ட விசை தவறானது அல்லது காலாவதியானது.",
       "status_device_limit": "இலவசம் — இந்த உரிமம் ஏற்கனவே இதே வகையான வேறொரு சாதனத்தில் செயலில் உள்ளது.",
-      "status_free": "இலவசம் — ஒரு நாளைக்கு 3 பதிவிறக்கங்கள். Pro: வரம்பற்றது.",
+      "status_free": "இலவசம் — ஒரு நாளைக்கு {limit} பதிவிறக்கங்கள். Pro: வரம்பற்றது.",
       "need_key_toast": "முதலில் ஒரு உரிம விசையை உள்ளிடவும்.",
       "activated_toast": "உரிமம் செயல்படுத்தப்பட்டது.",
       "invalid_toast": "தவறான உரிம விசை."
-    },
-    "scrape": {
-      "title": "ஒரு பக்கத்தைத் தேடுங்கள்",
-      "url_label": "பக்க URL",
-      "deep_label": "ஆழ்ந்த தேடல் (இணைப்புகளைப் பின்பற்றவும்)",
-      "video_btn": "வீடியோவைப் பதிவிறக்கவும்",
-      "audio_btn": "ஆடியோவைப் பதிவிறக்கவும்",
-      "search_btn": "பக்கத்தைத் தேடுங்கள்",
-      "select_all": "அனைத்தையும் தேர்ந்தெடு",
-      "deselect_all": "அனைத்தையும் தேர்வுநீக்கு",
-      "clear": "பட்டியலை அழிக்கவும்",
-      "queue_selected": "தேர்ந்தெடுத்தவற்றைப் பதிவிறக்கவும்",
-      "results_count": "{total} கிடைத்தது, {picked} தேர்ந்தெடுக்கப்பட்டது",
-      "empty": "இந்தப் பக்கத்தில் எந்த மீடியாவும் கிடைக்கவில்லை.",
-      "need_url_toast": "முதலில் ஒரு URL-ஐ உள்ளிடவும்.",
-      "search_failed_toast": "தேடல் தோல்வியடைந்தது.",
-      "queue_failed_toast": "வரிசைப்படுத்த முடியவில்லை.",
-      "queue_selection_failed_toast": "தேர்வை வரிசைப்படுத்த முடியவில்லை.",
-      "need_selection_toast": "குறைந்தது ஒரு உருப்படியையாவது தேர்ந்தெடுக்கவும்.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "வரிசை",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "அமைப்புகள்",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — உங்களுக்கு உரிமை உள்ள மீடியாவை மட்டுமே பதிவிறக்கவும்.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "தினசரி வரம்பு எட்டப்பட்டது",
-      "body": "இன்றைய இலவச வரம்பான 3 பதிவிறக்கங்களை நீங்கள் பயன்படுத்திவிட்டீர்கள். வரம்பற்ற பதிவிறக்கங்களுக்கு கீழே உரிம விசையை உள்ளிடவும், அல்லது 24 மணி நேரம் கழித்து மீண்டும் முயற்சிக்கவும்."
+      "body": "இன்றைய இலவச வரம்பான {limit} பதிவிறக்கங்களை நீங்கள் பயன்படுத்திவிட்டீர்கள். வரம்பற்ற பதிவிறக்கங்களுக்கு கீழே உரிம விசையை உள்ளிடவும், அல்லது {hours} மணி நேரம் கழித்து மீண்டும் முயற்சிக்கவும்."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

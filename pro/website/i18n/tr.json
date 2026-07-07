@@ -16,40 +16,19 @@
       "status_active": "Pro aktif ({tier}). Desteğiniz için teşekkürler!",
       "status_invalid": "Ücretsiz — kayıtlı anahtar geçersiz veya süresi dolmuş.",
       "status_device_limit": "Ücretsiz — bu lisans zaten aynı türden başka bir cihazda etkin.",
-      "status_free": "Ücretsiz — günde 3 indirme. Pro: sınırsız.",
+      "status_free": "Ücretsiz — günde {limit} indirme. Pro: sınırsız.",
       "need_key_toast": "Önce bir lisans anahtarı girin.",
       "activated_toast": "Lisans etkinleştirildi.",
       "invalid_toast": "Geçersiz lisans anahtarı."
     },
-    "scrape": {
-      "title": "Bir sayfada ara",
-      "url_label": "Sayfa URL'si",
-      "deep_label": "Derin arama (bağlantıları takip et)",
-      "video_btn": "Videoyu indir",
-      "audio_btn": "Sesi indir",
-      "search_btn": "Sayfada ara",
-      "select_all": "Tümünü seç",
-      "deselect_all": "Seçimi kaldır",
-      "clear": "Listeyi temizle",
-      "queue_selected": "Seçilenleri indir",
-      "results_count": "{total} bulundu, {picked} seçildi",
-      "empty": "Bu sayfada medya bulunamadı.",
-      "need_url_toast": "Önce bir URL girin.",
-      "search_failed_toast": "Arama başarısız oldu.",
-      "queue_failed_toast": "Kuyruğa eklenemedi.",
-      "queue_selection_failed_toast": "Seçim kuyruğa eklenemedi.",
-      "need_selection_toast": "En az bir öğe seçin.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
-    },
     "queue": {
-      "title": "Kuyruk",
+      "title": "İndirdiklerim",
       "subtitle": "Otomatik olarak güncellenir.",
       "empty": "Kuyrukta henüz bir şey yok.",
       "cancel_btn": "İptal et",
       "cancel_failed_toast": "İptal edilemedi.",
       "queued_toast": "Kuyruğa eklendi.",
-      "open_btn": "Aç",
+      "open_btn": "Görüntüle",
       "open_failed_toast": "Bu dosya açılamadı — bunun yerine bağlantıyı deneyin.",
       "open_unsupported_toast": "Dosya açma yalnızca Android uygulamasında çalışır.",
       "open_folder_btn": "Open folder",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Ayrıntıları göster"
     },
     "settings": {
       "gear_label": "Ayarlar",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — yalnızca haklarına sahip olduğunuz medyayı indirin.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "Günlük limite ulaşıldı",
-      "body": "Bugünkü ücretsiz 3 indirme limitine ulaştınız. Sınırsız indirme için aşağıya bir lisans anahtarı girin veya 24 saat sonra tekrar deneyin."
+      "body": "Bugünkü ücretsiz {limit} indirme limitine ulaştınız. Sınırsız indirme için aşağıya bir lisans anahtarı girin veya {hours} saat sonra tekrar deneyin."
+    },
+    "home": {
+      "url_label": "Bağlantını buraya yapıştır",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Yalnızca ses",
+      "download_btn": "İndir",
+      "advanced_summary": "Gelişmiş",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Bekliyor…",
+      "in_progress": "İndiriliyor…",
+      "completed": "Bitti",
+      "failed": "Başarısız",
+      "cancelled": "İptal edildi",
+      "paused": "Duraklatıldı"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Bağlantıyı ekle"
+    },
+    "theme": {
+      "label": "Görünüm",
+      "auto": "Sistemle aynı",
+      "light": "Açık",
+      "dark": "Koyu"
     }
   },
   "website": {

@@ -16,31 +16,10 @@
       "status_active": "Pro aktív ({tier}). Köszönjük a támogatást!",
       "status_invalid": "Ingyenes — a mentett kulcs érvénytelen vagy lejárt.",
       "status_device_limit": "Ingyenes — ez a licenc már aktív egy másik, ugyanilyen típusú eszközön.",
-      "status_free": "Ingyenes — napi 3 letöltés. Pro: korlátlan.",
+      "status_free": "Ingyenes — napi {limit} letöltés. Pro: korlátlan.",
       "need_key_toast": "Először add meg a licenckulcsot.",
       "activated_toast": "Licenc aktiválva.",
       "invalid_toast": "Érvénytelen licenckulcs."
-    },
-    "scrape": {
-      "title": "Oldal keresése",
-      "url_label": "Oldal URL-je",
-      "deep_label": "Mély keresés (linkek követése)",
-      "video_btn": "Videó letöltése",
-      "audio_btn": "Hang letöltése",
-      "search_btn": "Oldal átvizsgálása",
-      "select_all": "Összes kijelölése",
-      "deselect_all": "Kijelölés megszüntetése",
-      "clear": "Lista törlése",
-      "queue_selected": "Kijelöltek letöltése",
-      "results_count": "{total} találat, {picked} kiválasztva",
-      "empty": "Nem található médiatartalom ezen az oldalon.",
-      "need_url_toast": "Először add meg az URL-t.",
-      "search_failed_toast": "A keresés sikertelen volt.",
-      "queue_failed_toast": "Nem sikerült sorba állítani.",
-      "queue_selection_failed_toast": "Nem sikerült sorba állítani a kijelölést.",
-      "need_selection_toast": "Válassz ki legalább egy elemet.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "Várólista",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "Beállítások",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — csak olyan médiatartalmat tölts le, amelyhez jogosultsággal rendelkezel.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "Napi limit elérve",
-      "body": "Elérted a mai ingyenes limitet, 3 letöltést. Adj meg alább egy licenckulcsot a korlátlan letöltésekhez, vagy próbáld újra 24 óra múlva."
+      "body": "Elérted a mai ingyenes limitet, {limit} letöltést. Adj meg alább egy licenckulcsot a korlátlan letöltésekhez, vagy próbáld újra {hours} óra múlva."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

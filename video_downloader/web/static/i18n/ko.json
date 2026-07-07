@@ -16,31 +16,10 @@
       "status_active": "Pro 활성화됨 ({tier}). 성원에 감사드립니다!",
       "status_invalid": "무료 — 저장된 키가 유효하지 않거나 만료되었습니다.",
       "status_device_limit": "무료 — 이 라이선스는 이미 동일한 유형의 다른 기기에서 사용 중입니다.",
-      "status_free": "무료 — 하루 3회 다운로드. Pro: 무제한.",
+      "status_free": "무료 — 하루 {limit}회 다운로드. Pro: 무제한.",
       "need_key_toast": "먼저 라이선스 키를 입력하세요.",
       "activated_toast": "라이선스가 활성화되었습니다.",
       "invalid_toast": "유효하지 않은 라이선스 키입니다."
-    },
-    "scrape": {
-      "title": "페이지 검색",
-      "url_label": "페이지 URL",
-      "deep_label": "심층 검색 (링크 따라가기)",
-      "video_btn": "동영상 다운로드",
-      "audio_btn": "오디오 다운로드",
-      "search_btn": "페이지 검색",
-      "select_all": "전체 선택",
-      "deselect_all": "전체 선택 해제",
-      "clear": "목록 지우기",
-      "queue_selected": "선택 항목 다운로드",
-      "results_count": "{total}개 발견, {picked}개 선택됨",
-      "empty": "이 페이지에서 미디어를 찾을 수 없습니다.",
-      "need_url_toast": "먼저 URL을 입력하세요.",
-      "search_failed_toast": "검색에 실패했습니다.",
-      "queue_failed_toast": "대기열에 추가하지 못했습니다.",
-      "queue_selection_failed_toast": "선택 항목을 대기열에 추가하지 못했습니다.",
-      "need_selection_toast": "항목을 하나 이상 선택하세요.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "대기열",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "설정",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — 권리가 있는 미디어만 다운로드하세요.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "일일 한도에 도달했습니다",
-      "body": "오늘의 무료 한도인 3회 다운로드를 모두 사용했습니다. 무제한 다운로드를 위해 아래에 라이선스 키를 입력하거나 24시간 후 다시 시도하세요."
+      "body": "오늘의 무료 한도인 {limit}회 다운로드를 모두 사용했습니다. 무제한 다운로드를 위해 아래에 라이선스 키를 입력하거나 {hours}시간 후 다시 시도하세요."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

@@ -512,6 +512,11 @@ def test_settings_defaults_to_auto_language_and_no_folder(server: ClassyDLServer
         "export_folder_label": None,
         "terms_accepted": False,
         "app_version": "",
+        "media_kind": "video",
+        "quality_height": "2160",
+        "theme": "auto",
+        "free_limit": FREE_DAILY_DOWNLOAD_LIMIT,
+        "free_window_hours": 24,
     }
 
 
@@ -664,3 +669,69 @@ def test_share_endpoint_404_for_unknown_file(server: ClassyDLServer) -> None:
         server, "POST", "/api/share", {"job_id": 999999, "filename": "nope.mp4"}, cookie=cookie
     )
     assert status == 404
+
+
+# -- Phase-1 UX additions: Smart Mode settings, error codes, free-limit copy --
+
+
+def test_settings_include_smart_mode_defaults_and_free_limit(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    _, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    assert body["media_kind"] == "video"
+    assert body["quality_height"] == "2160"
+    assert body["theme"] == "auto"
+    assert body["free_limit"] == FREE_DAILY_DOWNLOAD_LIMIT
+    assert body["free_window_hours"] == 24
+
+
+def test_settings_smart_mode_roundtrip(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, _, _ = _request(
+        server,
+        "POST",
+        "/api/settings",
+        {"media_kind": "audio", "quality_height": 720, "theme": "dark"},
+        cookie=cookie,
+    )
+    assert status == 200
+    _, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    assert body["media_kind"] == "audio"
+    assert body["quality_height"] == "720"
+    assert body["theme"] == "dark"
+
+
+def test_settings_reject_invalid_smart_mode_values(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    _request(
+        server,
+        "POST",
+        "/api/settings",
+        {"media_kind": "hologram", "quality_height": 999, "theme": "neon"},
+        cookie=cookie,
+    )
+    _, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    # Invalid values are ignored, defaults stay.
+    assert body["media_kind"] == "video"
+    assert body["quality_height"] == "2160"
+    assert body["theme"] == "auto"
+
+
+def test_failed_job_carries_error_code(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/video"}, cookie=cookie
+    )
+    job_id = body["job_id"]
+    server.store.mark_job_failed(job_id, "ERROR: [youtube] abc: Video unavailable")
+
+    _, body, _ = _request(server, "GET", "/api/queue", cookie=cookie)
+    job = next(j for j in body["jobs"] if j["id"] == job_id)
+    assert job["error_code"] == "video_unavailable"
+
+    # Jobs without an error report no code.
+    _, body2, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/other"}, cookie=cookie
+    )
+    _, body, _ = _request(server, "GET", "/api/queue", cookie=cookie)
+    fresh = next(j for j in body["jobs"] if j["id"] == body2["job_id"])
+    assert fresh["error_code"] is None

@@ -25,6 +25,7 @@ from typing import Any
 from urllib.parse import parse_qs, unquote, urlsplit
 
 from .. import android_bridge
+from ..errors import classify_error
 from ..licensing import FREE_DAILY_DOWNLOAD_LIMIT, FREE_WINDOW_HOURS, LicenseManager
 from ..models import JOB_STATUS_COMPLETED, JOB_STATUS_IN_PROGRESS, JOB_STATUS_PENDING, DownloadProfile, JobRecord
 from ..queue_runner import QueueRunner
@@ -207,6 +208,7 @@ def _serialize_job(store: QueueStore, job: JobRecord) -> dict[str, Any]:
         "attempt": job.attempt,
         "max_attempts": job.max_attempts,
         "error": job.error,
+        "error_code": classify_error(job.error),
         "created_at": job.created_at,
         "updated_at": job.updated_at,
         "files": files,
@@ -389,6 +391,16 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                     "export_folder_label": store.get_setting("export_folder_label"),
                     "terms_accepted": store.get_setting("terms_accepted_version") == CURRENT_TERMS_VERSION,
                     "app_version": self.server.app_version,
+                    # Smart Mode: the UI persists the last choice so a repeat
+                    # download is a single tap (no format/quality dialog).
+                    "media_kind": store.get_setting("media_kind", "video"),
+                    "quality_height": store.get_setting("quality_height", str(DEFAULT_QUALITY_HEIGHT)),
+                    "theme": store.get_setting("theme", "auto"),
+                    # Sent so the UI never hardcodes the free-tier number —
+                    # the 3/5/1 copy drift this replaces came from exactly
+                    # that (see i18n app.limit.body's {limit} placeholder).
+                    "free_limit": FREE_DAILY_DOWNLOAD_LIMIT,
+                    "free_window_hours": FREE_WINDOW_HOURS,
                 },
             )
             return
@@ -469,6 +481,13 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             store = self.server.store
             if isinstance(body.get("language"), str) and body["language"]:
                 store.set_setting("language", body["language"])
+            if body.get("media_kind") in ("video", "audio"):
+                store.set_setting("media_kind", body["media_kind"])
+            if body.get("theme") in ("auto", "light", "dark"):
+                store.set_setting("theme", body["theme"])
+            quality = body.get("quality_height")
+            if isinstance(quality, (int, str)) and str(quality).isdigit() and int(quality) in ALLOWED_QUALITY_HEIGHTS:
+                store.set_setting("quality_height", str(int(quality)))
             if body.get("reset_folder") is True:
                 store.clear_setting("export_folder_uri")
                 store.clear_setting("export_folder_label")
@@ -615,7 +634,7 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                         self._send_json(
                             402,
                             {
-                                "detail": f"Free tier allows {FREE_DAILY_DOWNLOAD_LIMIT} download per "
+                                "detail": f"Free tier allows {FREE_DAILY_DOWNLOAD_LIMIT} downloads per "
                                 f"{FREE_WINDOW_HOURS}h. Upgrade to Pro for unlimited downloads."
                             },
                         )

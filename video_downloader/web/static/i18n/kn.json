@@ -16,31 +16,10 @@
       "status_active": "ಪ್ರೊ ಸಕ್ರಿಯವಾಗಿದೆ ({tier}). ನಿಮ್ಮ ಬೆಂಬಲಕ್ಕೆ ಧನ್ಯವಾದಗಳು!",
       "status_invalid": "ಉಚಿತ — ಉಳಿಸಿದ ಕೀ ಅಮಾನ್ಯವಾಗಿದೆ ಅಥವಾ ಅವಧಿ ಮುಗಿದಿದೆ.",
       "status_device_limit": "ಉಚಿತ — ಈ ಪರವಾನಗಿ ಈಗಾಗಲೇ ಇದೇ ರೀತಿಯ ಇನ್ನೊಂದು ಸಾಧನದಲ್ಲಿ ಸಕ್ರಿಯವಾಗಿದೆ.",
-      "status_free": "ಉಚಿತ — ದಿನಕ್ಕೆ 3 ಡೌನ್‌ಲೋಡ್‌ಗಳು. ಪ್ರೊ: ಅಪರಿಮಿತ.",
+      "status_free": "ಉಚಿತ — ದಿನಕ್ಕೆ {limit} ಡೌನ್‌ಲೋಡ್‌ಗಳು. ಪ್ರೊ: ಅಪರಿಮಿತ.",
       "need_key_toast": "ಮೊದಲು ಲೈಸೆನ್ಸ್ ಕೀ ನಮೂದಿಸಿ.",
       "activated_toast": "ಲೈಸೆನ್ಸ್ ಸಕ್ರಿಯಗೊಂಡಿದೆ.",
       "invalid_toast": "ಅಮಾನ್ಯ ಲೈಸೆನ್ಸ್ ಕೀ."
-    },
-    "scrape": {
-      "title": "ಪುಟವನ್ನು ಹುಡುಕಿ",
-      "url_label": "ಪುಟದ URL",
-      "deep_label": "ಆಳವಾದ ಹುಡುಕಾಟ (ಲಿಂಕ್‌ಗಳನ್ನು ಅನುಸರಿಸಿ)",
-      "video_btn": "ವೀಡಿಯೊ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
-      "audio_btn": "ಆಡಿಯೊ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
-      "search_btn": "ಪುಟ ಹುಡುಕಿ",
-      "select_all": "ಎಲ್ಲವನ್ನೂ ಆಯ್ಕೆಮಾಡಿ",
-      "deselect_all": "ಎಲ್ಲಾ ಆಯ್ಕೆ ರದ್ದುಮಾಡಿ",
-      "clear": "ಪಟ್ಟಿ ತೆರವುಗೊಳಿಸಿ",
-      "queue_selected": "ಆಯ್ಕೆ ಮಾಡಿದ್ದನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
-      "results_count": "{total} ಕಂಡುಬಂದಿವೆ, {picked} ಆಯ್ಕೆಯಾಗಿವೆ",
-      "empty": "ಈ ಪುಟದಲ್ಲಿ ಯಾವುದೇ ಮೀಡಿಯಾ ಕಂಡುಬಂದಿಲ್ಲ.",
-      "need_url_toast": "ಮೊದಲು URL ನಮೂದಿಸಿ.",
-      "search_failed_toast": "ಹುಡುಕಾಟ ವಿಫಲವಾಗಿದೆ.",
-      "queue_failed_toast": "ಕ್ಯೂಗೆ ಸೇರಿಸಲು ವಿಫಲವಾಗಿದೆ.",
-      "queue_selection_failed_toast": "ಆಯ್ಕೆಯನ್ನು ಕ್ಯೂಗೆ ಸೇರಿಸಲು ವಿಫಲವಾಗಿದೆ.",
-      "need_selection_toast": "ಕನಿಷ್ಠ ಒಂದು ಐಟಂ ಆಯ್ಕೆಮಾಡಿ.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "ಕ್ಯೂ",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — ನಿಮಗೆ ಹಕ್ಕುಗಳಿರುವ ಮೀಡಿಯಾವನ್ನು ಮಾತ್ರ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "ದೈನಂದಿನ ಮಿತಿ ತಲುಪಿದೆ",
-      "body": "ನೀವು ಇಂದಿನ ಉಚಿತ ಮಿತಿಯಾದ 3 ಡೌನ್‌ಲೋಡ್‌ಗಳನ್ನು ಬಳಸಿದ್ದೀರಿ. ಅಪರಿಮಿತ ಡೌನ್‌ಲೋಡ್‌ಗಳಿಗಾಗಿ ಕೆಳಗೆ ಲೈಸೆನ್ಸ್ ಕೀ ನಮೂದಿಸಿ, ಅಥವಾ 24 ಗಂಟೆಗಳ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+      "body": "ನೀವು ಇಂದಿನ ಉಚಿತ ಮಿತಿಯಾದ {limit} ಡೌನ್‌ಲೋಡ್‌ಗಳನ್ನು ಬಳಸಿದ್ದೀರಿ. ಅಪರಿಮಿತ ಡೌನ್‌ಲೋಡ್‌ಗಳಿಗಾಗಿ ಕೆಳಗೆ ಲೈಸೆನ್ಸ್ ಕೀ ನಮೂದಿಸಿ, ಅಥವಾ {hours} ಗಂಟೆಗಳ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

@@ -16,31 +16,10 @@
       "status_active": "പ്രോ സജീവമാണ് ({tier}). നിങ്ങളുടെ പിന്തുണയ്ക്ക് നന്ദി!",
       "status_invalid": "ഫ്രീ — സേവ് ചെയ്ത കീ അസാധുവാണ് അല്ലെങ്കിൽ കാലഹരണപ്പെട്ടിരിക്കുന്നു.",
       "status_device_limit": "ഫ്രീ — ഈ ലൈസൻസ് ഇതേ തരത്തിലുള്ള മറ്റൊരു ഉപകരണത്തിൽ ഇതിനകം സജീവമാണ്.",
-      "status_free": "ഫ്രീ — ദിവസത്തിൽ 3 ഡൗൺലോഡ്. പ്രോ: പരിധിയില്ലാതെ.",
+      "status_free": "ഫ്രീ — ദിവസത്തിൽ {limit} ഡൗൺലോഡ്. പ്രോ: പരിധിയില്ലാതെ.",
       "need_key_toast": "ആദ്യം ഒരു ലൈസൻസ് കീ നൽകുക.",
       "activated_toast": "ലൈസൻസ് സജീവമാക്കി.",
       "invalid_toast": "അസാധുവായ ലൈസൻസ് കീ."
-    },
-    "scrape": {
-      "title": "ഒരു പേജ് തിരയുക",
-      "url_label": "പേജ് URL",
-      "deep_label": "ആഴത്തിലുള്ള തിരയൽ (ലിങ്കുകൾ പിന്തുടരുക)",
-      "video_btn": "വീഡിയോ ഡൗൺലോഡ് ചെയ്യുക",
-      "audio_btn": "ഓഡിയോ ഡൗൺലോഡ് ചെയ്യുക",
-      "search_btn": "പേജ് തിരയുക",
-      "select_all": "എല്ലാം തിരഞ്ഞെടുക്കുക",
-      "deselect_all": "എല്ലാം ഒഴിവാക്കുക",
-      "clear": "ലിസ്റ്റ് മായ്ക്കുക",
-      "queue_selected": "തിരഞ്ഞെടുത്തവ ഡൗൺലോഡ് ചെയ്യുക",
-      "results_count": "{total} കണ്ടെത്തി, {picked} തിരഞ്ഞെടുത്തു",
-      "empty": "ഈ പേജിൽ മീഡിയയൊന്നും കണ്ടെത്തിയില്ല.",
-      "need_url_toast": "ആദ്യം ഒരു URL നൽകുക.",
-      "search_failed_toast": "തിരയൽ പരാജയപ്പെട്ടു.",
-      "queue_failed_toast": "ക്യൂവിൽ ചേർക്കാൻ കഴിഞ്ഞില്ല.",
-      "queue_selection_failed_toast": "തിരഞ്ഞെടുത്തവ ക്യൂവിൽ ചേർക്കാൻ കഴിഞ്ഞില്ല.",
-      "need_selection_toast": "കുറഞ്ഞത് ഒരു ഇനമെങ്കിലും തിരഞ്ഞെടുക്കുക.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "ക്യൂ",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "ക്രമീകരണങ്ങൾ",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — അവകാശമുള്ള മീഡിയ മാത്രം ഡൗൺലോഡ് ചെയ്യുക.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "ദൈനംദിന പരിധി എത്തി",
-      "body": "ഇന്നത്തെ സൗജന്യ പരിധിയായ 3 ഡൗൺലോഡുകൾ നിങ്ങൾ ഉപയോഗിച്ചു കഴിഞ്ഞു. പരിധിയില്ലാത്ത ഡൗൺലോഡിന് താഴെ ലൈസൻസ് കീ നൽകുക, അല്ലെങ്കിൽ 24 മണിക്കൂർ കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക."
+      "body": "ഇന്നത്തെ സൗജന്യ പരിധിയായ {limit} ഡൗൺലോഡുകൾ നിങ്ങൾ ഉപയോഗിച്ചു കഴിഞ്ഞു. പരിധിയില്ലാത്ത ഡൗൺലോഡിന് താഴെ ലൈസൻസ് കീ നൽകുക, അല്ലെങ്കിൽ {hours} മണിക്കൂർ കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

@@ -16,31 +16,10 @@
       "status_active": "מנוי Pro פעיל ({tier}). תודה על התמיכה!",
       "status_invalid": "חינמי — מפתח הרישיון השמור לא תקין או שפג תוקפו.",
       "status_device_limit": "חינמי — הרישיון הזה כבר פעיל במכשיר אחר מאותו סוג.",
-      "status_free": "חינמי — 3 הורדות ביום. עם Pro: ללא הגבלה.",
+      "status_free": "חינמי — {limit} הורדות ביום. עם Pro: ללא הגבלה.",
       "need_key_toast": "יש להזין קודם מפתח רישיון.",
       "activated_toast": "הרישיון הופעל.",
       "invalid_toast": "מפתח רישיון לא תקין."
-    },
-    "scrape": {
-      "title": "חיפוש בעמוד",
-      "url_label": "כתובת העמוד",
-      "deep_label": "חיפוש מעמיק (מעקב אחר קישורים)",
-      "video_btn": "הורדת וידאו",
-      "audio_btn": "הורדת אודיו",
-      "search_btn": "חיפוש בעמוד",
-      "select_all": "בחירת הכול",
-      "deselect_all": "ביטול בחירת הכול",
-      "clear": "ניקוי הרשימה",
-      "queue_selected": "הורדת הנבחרים",
-      "results_count": "נמצאו {total}, {picked} נבחרו",
-      "empty": "לא נמצאה מדיה בעמוד זה.",
-      "need_url_toast": "יש להזין קודם כתובת URL.",
-      "search_failed_toast": "החיפוש נכשל.",
-      "queue_failed_toast": "הוספה לתור נכשלה.",
-      "queue_selection_failed_toast": "הוספת הבחירה לתור נכשלה.",
-      "need_selection_toast": "יש לבחור לפחות פריט אחד.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "תור",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "הגדרות",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — הורידו רק מדיה שיש לכם את הזכויות להוריד.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "המכסה היומית הגיעה לסיומה",
-      "body": "הגעת למכסה החינמית של היום — 3 הורדות. הזן מפתח רישיון למטה כדי לקבל הורדות ללא הגבלה, או נסה שוב בעוד 24 שעות."
+      "body": "הגעת למכסה החינמית של היום — {limit} הורדות. הזן מפתח רישיון למטה כדי לקבל הורדות ללא הגבלה, או נסה שוב בעוד {hours} שעות."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {

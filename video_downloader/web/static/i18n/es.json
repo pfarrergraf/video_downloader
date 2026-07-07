@@ -16,40 +16,19 @@
       "status_active": "Pro activo ({tier}). ¡Gracias por tu apoyo!",
       "status_invalid": "Gratis: la clave guardada no es válida o ha caducado.",
       "status_device_limit": "Gratis: esta licencia ya está activa en otro dispositivo de este tipo.",
-      "status_free": "Gratis: 3 descargas al día. Pro: ilimitadas.",
+      "status_free": "Gratis: {limit} descargas al día. Pro: ilimitadas.",
       "need_key_toast": "Introduce primero una clave de licencia.",
       "activated_toast": "Licencia activada.",
       "invalid_toast": "Clave de licencia no válida."
     },
-    "scrape": {
-      "title": "Buscar en una página",
-      "url_label": "URL de la página",
-      "deep_label": "Búsqueda profunda (seguir enlaces)",
-      "video_btn": "Descargar vídeo",
-      "audio_btn": "Descargar audio",
-      "search_btn": "Buscar en la página",
-      "select_all": "Seleccionar todo",
-      "deselect_all": "Deseleccionar todo",
-      "clear": "Vaciar lista",
-      "queue_selected": "Descargar selección",
-      "results_count": "{total} encontrados, {picked} seleccionados",
-      "empty": "No se encontró contenido multimedia en esta página.",
-      "need_url_toast": "Introduce primero una URL.",
-      "search_failed_toast": "Error al buscar.",
-      "queue_failed_toast": "Error al añadir a la cola.",
-      "queue_selection_failed_toast": "Error al añadir la selección a la cola.",
-      "need_selection_toast": "Selecciona al menos un elemento.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
-    },
     "queue": {
-      "title": "Cola",
+      "title": "Mis descargas",
       "subtitle": "Se actualiza automáticamente.",
       "empty": "Todavía no hay nada en la cola.",
       "cancel_btn": "Cancelar",
       "cancel_failed_toast": "Error al cancelar.",
       "queued_toast": "Añadido a la cola.",
-      "open_btn": "Abrir",
+      "open_btn": "Ver",
       "open_failed_toast": "No se pudo abrir este archivo; prueba con el enlace.",
       "open_unsupported_toast": "Abrir archivos solo funciona en la aplicación de Android.",
       "open_folder_btn": "Open folder",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Mostrar detalles"
     },
     "settings": {
       "gear_label": "Ajustes",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat: descarga solo contenido multimedia sobre el que tengas derechos.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "Límite diario alcanzado",
-      "body": "Has alcanzado el límite gratuito de 3 descargas de hoy. Introduce una clave de licencia para descargas ilimitadas, o inténtalo de nuevo en 24 horas."
+      "body": "Has alcanzado el límite gratuito de {limit} descargas de hoy. Introduce una clave de licencia para descargas ilimitadas, o inténtalo de nuevo en {hours} horas."
+    },
+    "home": {
+      "url_label": "Pega tu enlace aquí",
+      "url_placeholder": "https://…",
+      "video_toggle": "Vídeo",
+      "audio_toggle": "Solo audio",
+      "download_btn": "Descargar",
+      "advanced_summary": "Avanzado",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "En espera…",
+      "in_progress": "Descargando…",
+      "completed": "Listo",
+      "failed": "Falló",
+      "cancelled": "Cancelado",
+      "paused": "En pausa"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insertar enlace"
+    },
+    "theme": {
+      "label": "Apariencia",
+      "auto": "Como el sistema",
+      "light": "Claro",
+      "dark": "Oscuro"
     }
   },
   "website": {

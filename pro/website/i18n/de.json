@@ -16,49 +16,26 @@
       "status_active": "Pro aktiv ({tier}). Danke für deine Unterstützung!",
       "status_invalid": "Kostenlos — der gespeicherte Schlüssel ist ungültig oder abgelaufen.",
       "status_device_limit": "Kostenlos — diese Lizenz ist bereits auf einem anderen Gerät dieses Typs aktiv.",
-      "status_free": "Kostenlos — 3 Downloads pro Tag. Pro: unbegrenzt.",
+      "status_free": "Kostenlos — {limit} Downloads pro Tag. Pro: unbegrenzt.",
       "need_key_toast": "Gib zuerst einen Lizenzschlüssel ein.",
       "activated_toast": "Lizenz aktiviert.",
       "invalid_toast": "Ungültiger Lizenzschlüssel."
     },
-    "scrape": {
-      "title": "Seite durchsuchen",
-      "url_label": "Seiten-URL",
-      "url_placeholder": "Füge hier den Link ein",
-      "deep_label": "Tiefensuche (Links folgen)",
-      "video_btn": "Video herunterladen",
-      "audio_btn": "Audio herunterladen",
-      "search_btn": "Seite durchsuchen",
-      "select_all": "Alle auswählen",
-      "deselect_all": "Auswahl aufheben",
-      "clear": "Liste leeren",
-      "queue_selected": "Auswahl herunterladen",
-      "results_count": "{total} gefunden, {picked} ausgewählt",
-      "empty": "Keine Medien auf dieser Seite gefunden.",
-      "need_url_toast": "Gib zuerst eine URL ein.",
-      "search_failed_toast": "Suche fehlgeschlagen.",
-      "queue_failed_toast": "Konnte nicht zur Warteschlange hinzugefügt werden.",
-      "queue_selection_failed_toast": "Auswahl konnte nicht zur Warteschlange hinzugefügt werden.",
-      "need_selection_toast": "Wähle mindestens ein Element aus.",
-      "quality_label": "Videoqualität"
-    },
     "batch": {
-      "title": "Herunterladen",
       "label": "Füge einen Link, mehrere Links (einer pro Zeile) oder einen Playlist-Link ein",
       "placeholder": "Link, mehrere Links (einer pro Zeile) oder einen Playlist-Link einfügen",
-      "download_btn": "Alle herunterladen",
       "need_links_toast": "Füge zuerst mindestens einen Link ein.",
       "queued_toast": "{count} zur Warteschlange hinzugefügt.",
       "queue_failed_toast": "Ein oder mehrere Links konnten nicht hinzugefügt werden."
     },
     "queue": {
-      "title": "Warteschlange",
+      "title": "Meine Downloads",
       "subtitle": "Aktualisiert sich automatisch.",
       "empty": "Noch nichts in der Warteschlange.",
       "cancel_btn": "Abbrechen",
       "cancel_failed_toast": "Abbrechen fehlgeschlagen.",
       "queued_toast": "Zur Warteschlange hinzugefügt.",
-      "open_btn": "Öffnen",
+      "open_btn": "Ansehen",
       "open_failed_toast": "Diese Datei konnte nicht geöffnet werden — versuche stattdessen den Link.",
       "open_unsupported_toast": "Das Öffnen von Dateien funktioniert nur in der Android-App.",
       "open_folder_btn": "Ordner öffnen",
@@ -66,7 +43,8 @@
       "open_folder_unsupported_toast": "Ordner öffnen funktioniert nur in der Android-App.",
       "share_btn": "Teilen",
       "share_failed_toast": "Die Datei konnte nicht geteilt werden.",
-      "share_unsupported_toast": "Teilen funktioniert nur in der Android-App."
+      "share_unsupported_toast": "Teilen funktioniert nur in der Android-App.",
+      "details_toggle": "Details anzeigen"
     },
     "settings": {
       "gear_label": "Einstellungen",
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "Tageslimit erreicht",
-      "body": "Du hast dein heutiges Freikontingent von 3 Downloads aufgebraucht. Gib unten einen Lizenzschlüssel ein für unbegrenzte Downloads, oder versuche es in 24 Stunden erneut."
+      "body": "Du hast dein heutiges Freikontingent von {limit} Downloads aufgebraucht. Gib unten einen Lizenzschlüssel ein für unbegrenzte Downloads, oder versuche es in {hours} Stunden erneut."
+    },
+    "home": {
+      "url_label": "Füge deinen Link hier ein",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Nur Ton",
+      "download_btn": "Herunterladen",
+      "advanced_summary": "Erweitert",
+      "quality_label": "Videoqualität"
+    },
+    "status": {
+      "pending": "Wartet…",
+      "in_progress": "Lädt herunter…",
+      "completed": "Fertig",
+      "failed": "Fehlgeschlagen",
+      "cancelled": "Abgebrochen",
+      "paused": "Pausiert"
+    },
+    "errors": {
+      "network_offline": "Keine Internetverbindung. Prüfe deine Verbindung und versuche es erneut.",
+      "geo_blocked": "Dieses Video ist in deinem Land leider nicht verfügbar.",
+      "login_required": "Für dieses Video ist eine Anmeldung nötig (privat oder mit Altersbeschränkung).",
+      "rate_limited": "Die Seite bittet um eine Pause. Versuche es in ein paar Minuten erneut.",
+      "video_unavailable": "Dieses Video ist nicht mehr verfügbar.",
+      "engine_outdated": "Der Download-Motor braucht für diese Seite ein Update.",
+      "disk_full": "Der Speicher deines Handys ist voll. Schaffe Platz und versuche es erneut.",
+      "stalled": "Der Download kam nicht mehr voran und wurde abgebrochen.",
+      "unsupported_url": "Dieser Link wird leider nicht unterstützt.",
+      "unknown": "Bei diesem Download ist leider etwas schiefgelaufen."
+    },
+    "clipboard": {
+      "insert_btn": "Link einfügen"
+    },
+    "theme": {
+      "label": "Erscheinungsbild",
+      "auto": "Wie System",
+      "light": "Hell",
+      "dark": "Dunkel"
     }
   },
   "website": {

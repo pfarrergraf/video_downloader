@@ -16,31 +16,10 @@
       "status_active": "Pro सक्रिय आहे ({tier}). तुमच्या पाठिंब्याबद्दल धन्यवाद!",
       "status_invalid": "फ्री — जतन केलेली की अवैध आहे किंवा तिची मुदत संपली आहे.",
       "status_device_limit": "फ्री — हा परवाना याच प्रकारच्या दुसऱ्या डिव्हाइसवर आधीच सक्रिय आहे.",
-      "status_free": "फ्री — दररोज 3 डाउनलोड. Pro: अमर्यादित.",
+      "status_free": "फ्री — दररोज {limit} डाउनलोड. Pro: अमर्यादित.",
       "need_key_toast": "आधी लायसन्स की टाका.",
       "activated_toast": "लायसन्स सक्रिय झाले.",
       "invalid_toast": "अवैध लायसन्स की."
-    },
-    "scrape": {
-      "title": "पेज शोधा",
-      "url_label": "पेज URL",
-      "deep_label": "सखोल शोध (लिंक्स फॉलो करा)",
-      "video_btn": "व्हिडिओ डाउनलोड करा",
-      "audio_btn": "ऑडिओ डाउनलोड करा",
-      "search_btn": "पेज शोधा",
-      "select_all": "सर्व निवडा",
-      "deselect_all": "सर्व निवड रद्द करा",
-      "clear": "यादी साफ करा",
-      "queue_selected": "निवडलेले डाउनलोड करा",
-      "results_count": "{total} सापडले, {picked} निवडले",
-      "empty": "या पेजवर कोणतीही मीडिया सापडली नाही.",
-      "need_url_toast": "आधी URL टाका.",
-      "search_failed_toast": "शोध अयशस्वी झाला.",
-      "queue_failed_toast": "रांगेत टाकण्यात अयशस्वी.",
-      "queue_selection_failed_toast": "निवड रांगेत टाकण्यात अयशस्वी.",
-      "need_selection_toast": "किमान एक आयटम निवडा.",
-      "url_placeholder": "Paste the link here",
-      "quality_label": "Video quality"
     },
     "queue": {
       "title": "रांग",
@@ -57,7 +36,8 @@
       "open_folder_unsupported_toast": "Opening folders only works in the Android app.",
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
-      "share_unsupported_toast": "Sharing only works in the Android app."
+      "share_unsupported_toast": "Sharing only works in the Android app.",
+      "details_toggle": "Show details"
     },
     "settings": {
       "gear_label": "सेटिंग्ज",
@@ -75,10 +55,8 @@
     },
     "footer": "DownloadThat — फक्त तुमचे हक्क असलेली मीडियाच डाउनलोड करा.",
     "batch": {
-      "title": "Multiple links or a playlist",
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
-      "download_btn": "Download all",
       "need_links_toast": "Paste at least one link first.",
       "queued_toast": "{count} added to the queue.",
       "queue_failed_toast": "Failed to queue one or more links."
@@ -108,7 +86,45 @@
     },
     "limit": {
       "title": "दैनंदिन मर्यादा गाठली",
-      "body": "तुम्ही आजची मोफत मर्यादा, 3 डाउनलोड, पूर्ण केली आहे. अमर्यादित डाउनलोडसाठी खाली परवाना की टाका, किंवा 24 तासांनी पुन्हा प्रयत्न करा."
+      "body": "तुम्ही आजची मोफत मर्यादा, {limit} डाउनलोड, पूर्ण केली आहे. अमर्यादित डाउनलोडसाठी खाली परवाना की टाका, किंवा {hours} तासांनी पुन्हा प्रयत्न करा."
+    },
+    "home": {
+      "url_label": "Paste your link here",
+      "url_placeholder": "https://…",
+      "video_toggle": "Video",
+      "audio_toggle": "Audio only",
+      "download_btn": "Download",
+      "advanced_summary": "Advanced",
+      "quality_label": "Video quality"
+    },
+    "status": {
+      "pending": "Waiting…",
+      "in_progress": "Downloading…",
+      "completed": "Done",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "paused": "Paused"
+    },
+    "errors": {
+      "network_offline": "No internet connection. Check your connection and try again.",
+      "geo_blocked": "This video isn't available in your country.",
+      "login_required": "This video needs a login (it's private or age-restricted).",
+      "rate_limited": "The site asked us to slow down. Please try again in a few minutes.",
+      "video_unavailable": "This video is no longer available.",
+      "engine_outdated": "The download engine needs an update for this site.",
+      "disk_full": "Your phone's storage is full. Free up some space and try again.",
+      "stalled": "The download stopped making progress and was aborted.",
+      "unsupported_url": "This link isn't supported.",
+      "unknown": "Something went wrong with this download."
+    },
+    "clipboard": {
+      "insert_btn": "Insert link"
+    },
+    "theme": {
+      "label": "Appearance",
+      "auto": "Same as system",
+      "light": "Light",
+      "dark": "Dark"
     }
   },
   "website": {
