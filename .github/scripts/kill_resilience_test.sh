@@ -86,14 +86,26 @@ JOB_ID="$(curl -sf -b "$COOKIE_JAR" -X POST "$BASE/api/queue" \
 echo "Queued slow job $JOB_ID"
 
 # Wait until it's genuinely mid-transfer (in_progress with bytes on the wire).
+#
+# curl/python failures inside this loop are deliberately non-fatal (`|| true`,
+# try/except): under `set -e`, one transient hiccup in the command
+# substitution would otherwise kill the whole script instead of just retrying
+# (see share_intent_test.sh's fix for the CI run this regresses).
 STARTED=""
 for i in $(seq 1 30); do
-  INFO="$(curl -sf -b "$COOKIE_JAR" "$BASE/api/queue" | python3 -c "
+  RESPONSE="$(curl -sf --max-time 5 -b "$COOKIE_JAR" "$BASE/api/queue" || true)"
+  INFO="missing 0"
+  if [ -n "$RESPONSE" ]; then
+    INFO="$(printf '%s' "$RESPONSE" | python3 -c "
 import json, sys
-jobs = json.load(sys.stdin)['jobs']
+try:
+    jobs = json.load(sys.stdin)['jobs']
+except Exception:
+    jobs = []
 job = next((j for j in jobs if j['id'] == $JOB_ID), None)
 print(f\"{job['status']} {job['downloaded_bytes']}\" if job else 'missing 0')
-")"
+" || echo 'missing 0')"
+  fi
   STATUS="${INFO% *}"
   BYTES="${INFO#* }"
   echo "Job $JOB_ID: $STATUS ($BYTES bytes)"
@@ -130,12 +142,19 @@ curl -sf -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
 
 STATUS=""
 for i in $(seq 1 60); do
-  STATUS="$(curl -sf -b "$COOKIE_JAR" "$BASE/api/queue" | python3 -c "
+  RESPONSE="$(curl -sf --max-time 5 -b "$COOKIE_JAR" "$BASE/api/queue" || true)"
+  STATUS="missing"
+  if [ -n "$RESPONSE" ]; then
+    STATUS="$(printf '%s' "$RESPONSE" | python3 -c "
 import json, sys
-jobs = json.load(sys.stdin)['jobs']
+try:
+    jobs = json.load(sys.stdin)['jobs']
+except Exception:
+    jobs = []
 job = next((j for j in jobs if j['id'] == $JOB_ID), None)
 print(job['status'] if job else 'missing')
-")"
+" || echo 'missing')"
+  fi
   echo "Job $JOB_ID after restart: $STATUS"
   if [ "$STATUS" = "completed" ] || [ "$STATUS" = "failed" ]; then
     break

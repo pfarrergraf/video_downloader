@@ -67,14 +67,27 @@ adb shell am start -n de.classydl.app/.MainActivity \
 echo "Sent ACTION_SEND intent with $TEST_URL"
 
 # The page's JS must now auto-queue it - find the job by source.
+#
+# Both the curl and the JSON parse are deliberately tolerant of failure here
+# (`|| true`, try/except): under `set -e`, a single transient hiccup inside
+# this loop's command substitution would otherwise abort the WHOLE script
+# instead of just that one iteration, defeating the retry loop's entire
+# purpose (caught in CI: a mid-loop curl/parse failure killed this script
+# with an unhandled JSONDecodeError instead of retrying).
 JOB_ID=""
 for i in $(seq 1 30); do
-  JOB_ID="$(curl -sf -b "$COOKIE_JAR" "$BASE/api/queue" | python3 -c "
+  RESPONSE="$(curl -sf --max-time 5 -b "$COOKIE_JAR" "$BASE/api/queue" || true)"
+  if [ -n "$RESPONSE" ]; then
+    JOB_ID="$(printf '%s' "$RESPONSE" | python3 -c "
 import json, sys
-jobs = json.load(sys.stdin)['jobs']
+try:
+    jobs = json.load(sys.stdin)['jobs']
+except Exception:
+    jobs = []
 job = next((j for j in jobs if j['source'] == '$TEST_URL'), None)
 print(job['id'] if job else '')
-")"
+" || true)"
+  fi
   if [ -n "$JOB_ID" ]; then
     break
   fi
@@ -90,12 +103,19 @@ echo "Shared URL was auto-queued as job $JOB_ID"
 
 STATUS=""
 for i in $(seq 1 30); do
-  STATUS="$(curl -sf -b "$COOKIE_JAR" "$BASE/api/queue" | python3 -c "
+  RESPONSE="$(curl -sf --max-time 5 -b "$COOKIE_JAR" "$BASE/api/queue" || true)"
+  STATUS="missing"
+  if [ -n "$RESPONSE" ]; then
+    STATUS="$(printf '%s' "$RESPONSE" | python3 -c "
 import json, sys
-jobs = json.load(sys.stdin)['jobs']
+try:
+    jobs = json.load(sys.stdin)['jobs']
+except Exception:
+    jobs = []
 job = next((j for j in jobs if j['id'] == $JOB_ID), None)
 print(job['status'] if job else 'missing')
-")"
+" || echo 'missing')"
+  fi
   echo "Job $JOB_ID status: $STATUS"
   if [ "$STATUS" = "completed" ] || [ "$STATUS" = "failed" ]; then
     break

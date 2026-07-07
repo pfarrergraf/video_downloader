@@ -66,20 +66,36 @@ JOB_ID="$(curl -sf -b "$COOKIE_JAR" -X POST "$BASE/api/queue" \
 echo "Queued job $JOB_ID for $TEST_URL"
 
 STATUS=""
+ERROR=""
 for i in $(seq 1 30); do
-  RESPONSE="$(curl -sf -b "$COOKIE_JAR" "$BASE/api/queue")"
-  STATUS="$(echo "$RESPONSE" | python3 -c "
+  # curl/python failures are deliberately non-fatal here (`|| true`,
+  # try/except): under `set -e`, one transient hiccup in the command
+  # substitution would otherwise kill the whole script instead of letting
+  # this loop retry, as it's designed to (regression caught in CI on the
+  # newer share_intent_test.sh, which had the identical pattern).
+  RESPONSE="$(curl -sf --max-time 5 -b "$COOKIE_JAR" "$BASE/api/queue" || true)"
+  STATUS="missing"
+  ERROR=""
+  if [ -n "$RESPONSE" ]; then
+    STATUS="$(printf '%s' "$RESPONSE" | python3 -c "
 import json, sys
-jobs = json.load(sys.stdin)['jobs']
+try:
+    jobs = json.load(sys.stdin)['jobs']
+except Exception:
+    jobs = []
 job = next((j for j in jobs if j['id'] == $JOB_ID), None)
 print(job['status'] if job else 'missing')
-")"
-  ERROR="$(echo "$RESPONSE" | python3 -c "
+" || echo 'missing')"
+    ERROR="$(printf '%s' "$RESPONSE" | python3 -c "
 import json, sys
-jobs = json.load(sys.stdin)['jobs']
+try:
+    jobs = json.load(sys.stdin)['jobs']
+except Exception:
+    jobs = []
 job = next((j for j in jobs if j['id'] == $JOB_ID), None)
 print((job or {}).get('error') or '')
-")"
+" || true)"
+  fi
   if [ -n "$ERROR" ]; then
     echo "Job $JOB_ID status: $STATUS (last error: $ERROR)"
   else
