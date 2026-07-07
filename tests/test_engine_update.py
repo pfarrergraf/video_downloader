@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import re
 import threading
 import zipfile
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -112,6 +113,30 @@ def _install_direct(tmp_path: Path, wheel: bytes, version: str = FAKE_VERSION) -
 
 def test_activate_without_installed_engine_is_a_noop(tmp_path: Path) -> None:
     assert engine_update.activate(tmp_path) is None
+    assert engine_update.active_version() == engine_update.bundled_version()
+
+
+def test_activate_learns_bundled_version_via_import_on_a_fresh_install(
+    tmp_path: Path, monkeypatch
+) -> None:
+    # Regression test for a real bug caught by CI's download_pipeline_test.sh
+    # on-device: activate() only tried the import-fallback (needed for
+    # Chaquopy's zip-packaged installs, where version.py isn't a plain file
+    # anywhere on sys.path) INSIDE the "an engine was already self-updated"
+    # branch. A fresh install (no current.json yet - the common case) skipped
+    # it entirely, so bundled_version()/active_version() stayed None forever
+    # even though yt-dlp itself worked fine.
+    #
+    # Neutering the version-line regex breaks ONLY bundled_version()'s own
+    # plain-file scan (and _read_version_from_package_dir, unused on this
+    # no-current.json path) - it does NOT affect _cache_bundled_version_by_
+    # import(), which reads yt_dlp.version.__version__ directly via a real
+    # import, not regex. This mirrors Chaquopy: file-scanning version.py
+    # fails (it's inside a zip Python's import system handles specially),
+    # but `import yt_dlp` itself works fine.
+    monkeypatch.setattr(engine_update, "_VERSION_RE", re.compile(r"NEVER_MATCHES_ANYTHING_XYZ"))
+    assert engine_update.activate(tmp_path) is None  # no current.json -> no swap
+    assert engine_update.bundled_version() is not None
     assert engine_update.active_version() == engine_update.bundled_version()
 
 

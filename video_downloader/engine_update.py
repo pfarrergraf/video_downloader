@@ -170,13 +170,19 @@ def activate(data_dir: Path | str) -> str | None:
     base = Path(data_dir) / "engine"
     with _cond:
         _engine_base = base
+        # Engine dir isn't on sys.path yet - the perfect (only) moment to
+        # learn the bundled version on zip-packaged installs (Chaquopy).
+        # MUST run unconditionally, before the current.json check below: on
+        # a fresh install (no self-update ever downloaded) current.json
+        # doesn't exist yet, and that used to short-circuit this entirely -
+        # active_version()/bundled_version() stayed None for the process's
+        # whole lifetime even though yt-dlp itself worked fine (caught by
+        # download_pipeline_test.sh's /api/engine check on a real device).
+        if bundled_version() is None:
+            _cache_bundled_version_by_import()
         current = _read_json(base / "current.json")
         if not current:
             return None
-        # Engine dir isn't on sys.path yet - the perfect (only) moment to
-        # learn the bundled version on zip-packaged installs (Chaquopy).
-        if bundled_version() is None:
-            _cache_bundled_version_by_import()
         version = str(current.get("version") or "")
         rel_path = str(current.get("path") or "")
         engine_dir = base / rel_path
