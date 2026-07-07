@@ -129,6 +129,7 @@
       "lead": "దాదాపు ఏ సైట్ నుండైనా వీడియో, ఆడియో మరియు ఇమేజ్‌లు — నేరుగా మీ Android ఫోన్‌కు డౌన్‌లోడ్ అవుతాయి. క్లౌడ్ అప్‌లోడ్ లేదు, మీ డేటా మీ పరికరాన్ని వదిలి వెళ్లదు, Play Store అవసరం లేదు.",
       "cta_primary": "ఉచిత ఆండ్రాయిడ్ వెర్షన్‌ని డౌన్‌లోడ్ చేయండి",
       "cta_secondary": "Pro ధరలను చూడండి",
+      "windows_link": "Windows కోసం కూడా అందుబాటులో ఉంది →",
       "badge1": "Google Play అవసరం లేదు",
       "badge2": "మీ పరికరంలో 100% నడుస్తుంది",
       "badge3": "HD & 4K మద్దతు",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "సరళమైన, నిజాయితీ ధరలు",
-      "lead": "ఎప్పటికీ ఉచితం: రోజుకు ఫుల్ HD/4K క్వాలిటీలో 1 డౌన్‌లోడ్. Proతో అపరిమితం.",
+      "lead": "ఎప్పటికీ ఉచితం: రోజుకు ఫుల్ HD/4K క్వాలిటీలో 3 డౌన్‌లోడ్. Proతో అపరిమితం.",
       "monthly_title": "నెలవారీ",
       "monthly_note": "ఎప్పుడైనా రద్దు చేసుకోవచ్చు",
       "yearly_flag": "ఉత్తమ విలువ",
@@ -170,7 +171,7 @@
       "cta_lifetime": "జీవితకాలాన్ని ఎంచుకోండి",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "కొనుగోలు పూర్తయిన వెంటనే నా ఉపసంహరణ హక్కును కోల్పోతానని అర్థం చేసుకుని, చట్టబద్ధమైన 14 రోజుల ఉపసంహరణ గడువు ముగియకముందే యాక్సెస్ వెంటనే ప్రారంభం కావాలని అభ్యర్థిస్తున్నాను ({terms_start}వినియోగ నిబంధనలు{terms_end} §6.3 మరియు {refund_start}ఉపసంహరణ నోటీసు{refund_end} చూడండి). యాక్టివేషన్ తర్వాత స్వయంచాలక రీఫండ్ ఉండదు."
     },
     "faq": {
       "h2": "తరచుగా అడిగే ప్రశ్నలు",

@@ -129,6 +129,7 @@
       "lead": "تقریباً کسی بھی سائٹ سے ویڈیو، آڈیو اور تصاویر — سیدھا آپ کے اینڈرائیڈ فون پر ڈاؤن لوڈ۔ نہ کلاؤڈ اپ لوڈ، نہ آپ کا ڈیٹا کبھی آپ کی ڈیوائس سے باہر جاتا ہے، نہ پلے اسٹور کی ضرورت۔",
       "cta_primary": "مفت اینڈرائیڈ ورژن ڈاؤن لوڈ کریں",
       "cta_secondary": "پرو کی قیمتیں دیکھیں",
+      "windows_link": "ونڈوز کے لیے بھی دستیاب ہے →",
       "badge1": "گوگل پلے کی ضرورت نہیں",
       "badge2": "آپ کی ڈیوائس پر 100% چلتا ہے",
       "badge3": "HD اور 4K سپورٹ",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "سادہ، دیانتدارانہ قیمتیں",
-      "lead": "ہمیشہ کے لیے مفت: فل HD/4K کوالٹی میں روزانہ 1 ڈاؤن لوڈ۔ پرو کے ساتھ لامحدود۔",
+      "lead": "ہمیشہ کے لیے مفت: فل HD/4K کوالٹی میں روزانہ 3 ڈاؤن لوڈ۔ پرو کے ساتھ لامحدود۔",
       "monthly_title": "ماہانہ",
       "monthly_note": "کبھی بھی منسوخ کریں",
       "yearly_flag": "بہترین ویلیو",
@@ -170,7 +171,7 @@
       "cta_lifetime": "لائف ٹائم منتخب کریں",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "میں درخواست کرتا/کرتی ہوں کہ رسائی فوری طور پر شروع ہو جائے، قانونی 14 دن کی واپسی مدت ختم ہونے سے پہلے۔ میں سمجھتا/سمجھتی ہوں کہ اس کا مطلب یہ ہے کہ خریداری مکمل ہوتے ہی میں اپنا حقِ واپسی کھو دوں گا/گی ({terms_start}استعمال کی شرائط{terms_end} شق 6.3 اور {refund_start}واپسی نوٹس{refund_end} دیکھیں)۔ فعال ہونے کے بعد خودکار رقم کی واپسی نہیں ہوتی۔"
     },
     "faq": {
       "h2": "اکثر پوچھے جانے والے سوالات",

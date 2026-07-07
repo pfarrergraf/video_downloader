@@ -129,6 +129,7 @@
       "lead": "Video, lyd og bilder fra nesten hvilken som helst side — lastet ned direkte til Android-telefonen din. Ingen skyopplasting, ingen data forlater noensinne enheten din, ingen Play Store nødvendig.",
       "cta_primary": "Last ned den gratis Android-versjonen",
       "cta_secondary": "Se Pro-priser",
+      "windows_link": "Finnes også for Windows →",
       "badge1": "Ingen Google Play nødvendig",
       "badge2": "Kjører 100 % på enheten din",
       "badge3": "Støtte for HD og 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Enkel, ærlig prising",
-      "lead": "Gratis for alltid: 1 nedlasting om dagen i full HD/4K-kvalitet. Ubegrenset med Pro.",
+      "lead": "Gratis for alltid: 3 nedlasting om dagen i full HD/4K-kvalitet. Ubegrenset med Pro.",
       "monthly_title": "Månedlig",
       "monthly_note": "Avbryt når som helst",
       "yearly_flag": "Best verdi",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Velg livstid",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Jeg ber om at tilgangen starter umiddelbart, før den lovpålagte 14-dagers angrefristen utløper, og jeg forstår at dette betyr at jeg mister angreretten min så snart kjøpet er fullført (se {terms_start}Bruksvilkår{terms_end} §6.3). Du kan likevel be om full refusjon innen 14 dager via {refund_start}refusjonssiden vår{refund_end}."
+      "consent_label": "Jeg krever at tilgangen starter umiddelbart, før den lovpålagte 14-dagers angrefristen utløper. Jeg forstår at jeg dermed mister angreretten min så snart kjøpet er fullført (se {terms_start}Bruksvilkårene{terms_end} §6.3 og {refund_start}Angreveiledningen{refund_end}). Det gis ingen automatisk refusjon etter aktivering."
     },
     "faq": {
       "h2": "Ofte stilte spørsmål",

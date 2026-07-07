@@ -129,6 +129,7 @@
       "lead": "Видео, аудио и снимки от почти всеки сайт — изтеглени направо на твоя Android телефон. Без качване в облак, без данни, които напускат устройството ти, без нужда от Play Store.",
       "cta_primary": "Изтегли безплатната версия за Android",
       "cta_secondary": "Виж цените на Pro",
+      "windows_link": "Налично и за Windows →",
       "badge1": "Не изисква Google Play",
       "badge2": "Работи 100% на устройството ти",
       "badge3": "Поддръжка на HD и 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Прости, честни цени",
-      "lead": "Безплатно завинаги: 1 изтегляне на ден в пълно HD/4K качество. Неограничено с Pro.",
+      "lead": "Безплатно завинаги: 3 изтегляне на ден в пълно HD/4K качество. Неограничено с Pro.",
       "monthly_title": "Месечно",
       "monthly_note": "Откажи по всяко време",
       "yearly_flag": "Най-изгодно",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Избери доживотен план",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Изисквам достъпът да започне незабавно, преди изтичането на законния 14-дневен срок за отказ. Разбирам, че по този начин губя правото си на отказ веднага след завършване на покупката (вижте {terms_start}Общите условия{terms_end} §6.3 и {refund_start}Указанията за отказ{refund_end}). След активиране няма автоматично възстановяване на сума."
     },
     "faq": {
       "h2": "Често задавани въпроси",

@@ -446,6 +446,11 @@
       </div>
     </div>
 
+    <!-- "Search a page" (page scraping) card disabled 2026-07-07 at the
+         owner's request - too niche for now, may come back later. The
+         quality-select/queue-video-btn/queue-audio-btn above reuse some
+         app.scrape.* i18n keys but belong to the "Download" card, not this
+         one - don't remove those keys if this is ever deleted for good.
     <div class="card">
       <h2 data-i18n="app.scrape.title">Search a page</h2>
       <label for="scrape-url" data-i18n="app.scrape.url_label">Page URL</label>
@@ -470,6 +475,7 @@
         </div>
       </div>
     </div>
+    -->
 
     <div class="card">
       <h2 data-i18n="app.queue.title">Queue</h2>
@@ -484,7 +490,7 @@
 
 <script>
 const $ = (id) => document.getElementById(id);
-let lastScrape = null;
+// let lastScrape = null; -- only used by the disabled "Search a page" card below
 
 // -- i18n ---------------------------------------------------------------
 const LANGUAGES = [
@@ -784,6 +790,10 @@ $('settings-folder-reset-btn').addEventListener('click', async () => {
   }
 });
 
+// Everything below through the queue-selected-btn listener belongs to the
+// disabled "Search a page" card (see the HTML comment above) and is
+// commented out along with it - nothing else in this file calls these.
+/*
 function updateResultsCount() {
   const total = document.querySelectorAll('.media-pick').length;
   const picked = document.querySelectorAll('.media-pick:checked').length;
@@ -837,6 +847,7 @@ $('scrape-btn').addEventListener('click', async () => {
     $('scrape-btn').disabled = false;
   }
 });
+*/
 
 async function queueSource(source, audioOnly, allowPlaylist) {
   const qualitySelect = $('quality-select');
@@ -886,6 +897,9 @@ async function queueLinks(audioOnly) {
 $('queue-video-btn').addEventListener('click', () => queueLinks(false));
 $('queue-audio-btn').addEventListener('click', () => queueLinks(true));
 
+// select-all/deselect-all/clear-results/queue-selected belong to the
+// disabled "Search a page" card - see the HTML comment further up.
+/*
 $('select-all-btn').addEventListener('click', () => {
   document.querySelectorAll('.media-pick').forEach((cb) => { cb.checked = true; });
   updateResultsCount();
@@ -913,6 +927,7 @@ $('queue-selected-btn').addEventListener('click', async () => {
     handleQueueError(e, 'app.scrape.queue_selection_failed_toast');
   }
 });
+*/
 
 function formatBytes(bytes) {
   if (!bytes || bytes < 0) return '0 MB';

@@ -129,6 +129,7 @@
       "lead": "Vaizdo įrašai, garso įrašai ir nuotraukos iš beveik bet kurios svetainės — atsisiunčiami tiesiai į „Android“ telefoną. Jokio įkėlimo į debesį, jokie duomenys nepalieka jūsų įrenginio, „Play Store“ nereikalinga.",
       "cta_primary": "Atsisiųsti nemokamą Android versiją",
       "cta_secondary": "Peržiūrėti Pro kainas",
+      "windows_link": "Taip pat prieinama „Windows“ →",
       "badge1": "„Google Play“ nereikalinga",
       "badge2": "Veikia 100 % jūsų įrenginyje",
       "badge3": "HD ir 4K palaikymas",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Paprastos, sąžiningos kainos",
-      "lead": "Visada nemokama: 1 atsisiuntimas per dieną pilnos HD/4K kokybės. Neribotai su Pro.",
+      "lead": "Visada nemokama: 3 atsisiuntimas per dieną pilnos HD/4K kokybės. Neribotai su Pro.",
       "monthly_title": "Mėnesinis",
       "monthly_note": "Atšauk bet kada",
       "yearly_flag": "Geriausia vertė",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Rinktis visam laikui",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Reikalauju, kad prieiga prasidėtų nedelsiant, dar nepasibaigus 14 dienų teisės aktais nustatytam atsisakymo terminui. Suprantu, kad taip prarandu teisę atsisakyti sutarties, kai tik pirkimas užbaigiamas (žr. {terms_start}Naudojimo sąlygas{terms_end} 6.3 punktą ir {refund_start}Pranešimą apie atsisakymą{refund_end}). Po aktyvinimo automatinis pinigų grąžinimas netaikomas."
     },
     "faq": {
       "h2": "Dažniausiai užduodami klausimai",

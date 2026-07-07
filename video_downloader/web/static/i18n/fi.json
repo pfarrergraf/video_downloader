@@ -129,6 +129,7 @@
       "lead": "Videot, äänet ja kuvat lähes miltä tahansa sivustolta — ladattuna suoraan Android-puhelimeesi. Ei pilveen lähetystä, tietosi eivät koskaan poistu laitteeltasi, eikä Play Kauppaa tarvita.",
       "cta_primary": "Lataa ilmainen Android-versio",
       "cta_secondary": "Katso Pro-hinnoittelu",
+      "windows_link": "Saatavilla myös Windowsille →",
       "badge1": "Google Playta ei tarvita",
       "badge2": "Toimii 100 % laitteellasi",
       "badge3": "HD- ja 4K-tuki",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Yksinkertainen, rehellinen hinnoittelu",
-      "lead": "Ikuisesti ilmainen: 1 lataus päivässä täydessä HD/4K-laadussa. Rajoittamaton Prolla.",
+      "lead": "Ikuisesti ilmainen: 3 lataus päivässä täydessä HD/4K-laadussa. Rajoittamaton Prolla.",
       "monthly_title": "Kuukausittain",
       "monthly_note": "Peru milloin tahansa",
       "yearly_flag": "Paras hinta-laatusuhde",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Valitse elinikäinen",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Pyydän, että käyttöoikeus alkaa välittömästi, ennen kuin lakisääteinen 14 päivän peruuttamisaika päättyy, ja ymmärrän, että tämä tarkoittaa peruuttamisoikeuteni menettämistä heti, kun ostos on suoritettu loppuun (ks. {terms_start}Käyttöehdot{terms_end} §6.3). Voit silti pyytää täyttä hyvitystä 14 päivän kuluessa {refund_start}hyvityssivumme{refund_end} kautta."
+      "consent_label": "Pyydän, että käyttöoikeus alkaa välittömästi, ennen kuin lakisääteinen 14 päivän peruutusaika päättyy. Ymmärrän, että menetän tämän vuoksi peruutusoikeuteni heti, kun ostos on suoritettu (katso {terms_start}Käyttöehdot{terms_end} §6.3 ja {refund_start}Peruutusohje{refund_end}). Aktivoinnin jälkeen ei makseta automaattista hyvitystä."
     },
     "faq": {
       "h2": "Usein kysytyt kysymykset",

@@ -129,6 +129,7 @@
       "lead": "וידאו, אודיו ותמונות מכמעט כל אתר — מורדים ישירות לטלפון האנדרואיד שלכם. בלי העלאה לענן, שום מידע לא יוצא מהמכשיר שלכם, ולא נדרשת חנות Play.",
       "cta_primary": "הורידו את הגרסה החינמית לאנדרואיד",
       "cta_secondary": "צפייה בתמחור Pro",
+      "windows_link": "זמין גם עבור Windows →",
       "badge1": "לא נדרש Google Play",
       "badge2": "פועל 100% על המכשיר שלכם",
       "badge3": "תמיכה ב-HD ו-4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "תמחור פשוט וישר",
-      "lead": "חינמי לתמיד: הורדה אחת ביום באיכות HD/4K מלאה. ללא הגבלה עם Pro.",
+      "lead": "חינמי לתמיד: 3 הורדות ביום באיכות HD/4K מלאה. ללא הגבלה עם Pro.",
       "monthly_title": "חודשי",
       "monthly_note": "ביטול בכל עת",
       "yearly_flag": "הכי משתלם",
@@ -170,7 +171,7 @@
       "cta_lifetime": "בחרו במסלול לכל החיים",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "אני מבקש/ת שהגישה תתחיל באופן מיידי, לפני תום תקופת הביטול החוקית בת 14 הימים. אני מבין/ה שמשמעות הדבר היא איבוד זכות הביטול שלי מיד עם השלמת הרכישה (ראו {terms_start}תנאי השימוש{terms_end} סעיף 6.3 ואת {refund_start}הודעת הביטול{refund_end}). לא קיים החזר כספי אוטומטי לאחר ההפעלה."
     },
     "faq": {
       "h2": "שאלות נפוצות",

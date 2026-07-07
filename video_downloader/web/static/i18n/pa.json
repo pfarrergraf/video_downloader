@@ -129,6 +129,7 @@
       "lead": "ਲਗਭਗ ਕਿਸੇ ਵੀ ਸਾਈਟ ਤੋਂ ਵੀਡੀਓ, ਆਡੀਓ ਅਤੇ ਤਸਵੀਰਾਂ — ਸਿੱਧੇ ਤੁਹਾਡੇ Android ਫੋਨ 'ਤੇ ਡਾਊਨਲੋਡ ਹੋਈਆਂ। ਕੋਈ ਕਲਾਊਡ ਅੱਪਲੋਡ ਨਹੀਂ, ਕੋਈ ਡਾਟਾ ਕਦੇ ਵੀ ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਤੋਂ ਬਾਹਰ ਨਹੀਂ ਜਾਂਦਾ, ਕਿਸੇ Play Store ਦੀ ਲੋੜ ਨਹੀਂ।",
       "cta_primary": "ਮੁਫ਼ਤ ਐਂਡਰਾਇਡ ਵਰਜਨ ਡਾਊਨਲੋਡ ਕਰੋ",
       "cta_secondary": "ਪ੍ਰੋ ਕੀਮਤ ਵੇਖੋ",
+      "windows_link": "Windows ਲਈ ਵੀ ਉਪਲਬਧ →",
       "badge1": "Google Play ਦੀ ਲੋੜ ਨਹੀਂ",
       "badge2": "ਤੁਹਾਡੀ ਡਿਵਾਈਸ 'ਤੇ 100% ਚੱਲਦਾ ਹੈ",
       "badge3": "HD ਅਤੇ 4K ਸਹਿਯੋਗ",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "ਸਧਾਰਨ, ਇਮਾਨਦਾਰ ਕੀਮਤ",
-      "lead": "ਹਮੇਸ਼ਾ ਲਈ ਮੁਫ਼ਤ: ਪੂਰੀ HD/4K ਗੁਣਵੱਤਾ ਵਿੱਚ ਪ੍ਰਤੀ ਦਿਨ 1 ਡਾਊਨਲੋਡ। ਪ੍ਰੋ ਨਾਲ ਅਸੀਮਤ।",
+      "lead": "ਹਮੇਸ਼ਾ ਲਈ ਮੁਫ਼ਤ: ਪੂਰੀ HD/4K ਗੁਣਵੱਤਾ ਵਿੱਚ ਪ੍ਰਤੀ ਦਿਨ 3 ਡਾਊਨਲੋਡ। ਪ੍ਰੋ ਨਾਲ ਅਸੀਮਤ।",
       "monthly_title": "ਮਹੀਨਾਵਾਰ",
       "monthly_note": "ਕਿਸੇ ਵੀ ਸਮੇਂ ਰੱਦ ਕਰੋ",
       "yearly_flag": "ਸਭ ਤੋਂ ਵਧੀਆ ਮੁੱਲ",
@@ -170,7 +171,7 @@
       "cta_lifetime": "ਜੀਵਨ ਭਰ ਚੁਣੋ",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "ਮੈਂ ਬੇਨਤੀ ਕਰਦਾ/ਕਰਦੀ ਹਾਂ ਕਿ ਪਹੁੰਚ ਤੁਰੰਤ ਸ਼ੁਰੂ ਹੋ ਜਾਵੇ, ਕਾਨੂੰਨੀ 14-ਦਿਨਾਂ ਦੀ ਵਾਪਸੀ ਮਿਆਦ ਖਤਮ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ। ਮੈਂ ਸਮਝਦਾ/ਸਮਝਦੀ ਹਾਂ ਕਿ ਇਸਦਾ ਮਤਲਬ ਹੈ ਕਿ ਖਰੀਦ ਪੂਰੀ ਹੁੰਦੇ ਹੀ ਮੈਂ ਆਪਣਾ ਵਾਪਸੀ ਦਾ ਅਧਿਕਾਰ ਗੁਆ ਦੇਵਾਂਗਾ/ਦੇਵਾਂਗੀ ({terms_start}ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ{terms_end} §6.3 ਅਤੇ {refund_start}ਵਾਪਸੀ ਸੂਚਨਾ{refund_end} ਵੇਖੋ)। ਸਰਗਰਮ ਹੋਣ ਤੋਂ ਬਾਅਦ ਕੋਈ ਆਟੋਮੈਟਿਕ ਰਿਫੰਡ ਨਹੀਂ ਹੈ।"
     },
     "faq": {
       "h2": "ਅਕਸਰ ਪੁੱਛੇ ਜਾਂਦੇ ਸਵਾਲ",

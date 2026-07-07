@@ -129,6 +129,7 @@
       "lead": "Videók, hangfájlok és képek szinte bármely oldalról — egyenesen az Android telefonodra töltve. Nincs felhőbe töltés, az adataid soha nem hagyják el az eszközödet, és nincs szükség Play Store-ra.",
       "cta_primary": "Ingyenes Android-verzió letöltése",
       "cta_secondary": "Pro árak megtekintése",
+      "windows_link": "Windowsra is elérhető →",
       "badge1": "Nincs szükség Google Play-re",
       "badge2": "100%-ban az eszközödön fut",
       "badge3": "HD és 4K támogatás",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Egyszerű, tisztességes árazás",
-      "lead": "Örökre ingyenes: napi 1 letöltés teljes HD/4K minőségben. Pro-val korlátlan.",
+      "lead": "Örökre ingyenes: napi 3 letöltés teljes HD/4K minőségben. Pro-val korlátlan.",
       "monthly_title": "Havi",
       "monthly_note": "Bármikor lemondható",
       "yearly_flag": "Legjobb ajánlat",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Élethosszig tartó csomag választása",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Kérem, hogy a hozzáférés azonnal induljon, még a törvényben előírt 14 napos elállási határidő lejárta előtt. Tudomásul veszem, hogy ezáltal elveszítem elállási jogomat, amint a vásárlás befejeződik (lásd: {terms_start}Felhasználási feltételek{terms_end} 6.3. pont és a {refund_start}Elállási tájékoztató{refund_end}). Aktiválás után nincs automatikus visszatérítés."
     },
     "faq": {
       "h2": "Gyakran ismételt kérdések",

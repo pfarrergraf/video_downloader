@@ -129,6 +129,7 @@
       "lead": "ಬಹುತೇಕ ಯಾವುದೇ ಸೈಟ್‌ನಿಂದ ವೀಡಿಯೊ, ಆಡಿಯೊ ಮತ್ತು ಚಿತ್ರಗಳು — ನೇರವಾಗಿ ನಿಮ್ಮ Android ಫೋನ್‌ಗೆ ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತವೆ. ಯಾವುದೇ ಕ್ಲೌಡ್ ಅಪ್‌ಲೋಡ್ ಇಲ್ಲ, ಯಾವುದೇ ಡೇಟಾ ನಿಮ್ಮ ಸಾಧನವನ್ನು ಬಿಟ್ಟು ಹೋಗುವುದಿಲ್ಲ, Play Store ಅಗತ್ಯವಿಲ್ಲ.",
       "cta_primary": "ಉಚಿತ ಆಂಡ್ರಾಯ್ಡ್ ಆವೃತ್ತಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
       "cta_secondary": "ಪ್ರೊ ಬೆಲೆ ನೋಡಿ",
+      "windows_link": "Windows ಗಾಗಿಯೂ ಲಭ್ಯವಿದೆ →",
       "badge1": "Google Play ಅಗತ್ಯವಿಲ್ಲ",
       "badge2": "ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ 100% ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ",
       "badge3": "HD ಮತ್ತು 4K ಬೆಂಬಲ",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "ಸರಳ, ಪ್ರಾಮಾಣಿಕ ಬೆಲೆ",
-      "lead": "ಶಾಶ್ವತವಾಗಿ ಉಚಿತ: ಪೂರ್ಣ HD/4K ಗುಣಮಟ್ಟದಲ್ಲಿ ದಿನಕ್ಕೆ 1 ಡೌನ್‌ಲೋಡ್. ಪ್ರೊ ಜೊತೆಗೆ ಅಪರಿಮಿತ.",
+      "lead": "ಶಾಶ್ವತವಾಗಿ ಉಚಿತ: ಪೂರ್ಣ HD/4K ಗುಣಮಟ್ಟದಲ್ಲಿ ದಿನಕ್ಕೆ 3 ಡೌನ್‌ಲೋಡ್. ಪ್ರೊ ಜೊತೆಗೆ ಅಪರಿಮಿತ.",
       "monthly_title": "ಮಾಸಿಕ",
       "monthly_note": "ಯಾವಾಗ ಬೇಕಾದರೂ ರದ್ದುಮಾಡಿ",
       "yearly_flag": "ಅತ್ಯುತ್ತಮ ಮೌಲ್ಯ",
@@ -170,7 +171,7 @@
       "cta_lifetime": "ಜೀವಮಾನ ಆಯ್ಕೆಮಾಡಿ",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "ಖರೀದಿ ಪೂರ್ಣಗೊಂಡ ತಕ್ಷಣ ನನ್ನ ಹಿಂಪಡೆಯುವ ಹಕ್ಕನ್ನು ಕಳೆದುಕೊಳ್ಳುತ್ತೇನೆ ಎಂದು ಅರ್ಥಮಾಡಿಕೊಂಡು, ಕಾನೂನುಬದ್ಧ 14 ದಿನಗಳ ಹಿಂಪಡೆಯುವ ಅವಧಿ ಮುಗಿಯುವ ಮೊದಲೇ ಪ್ರವೇಶ ತಕ್ಷಣ ಪ್ರಾರಂಭವಾಗಬೇಕೆಂದು ನಾನು ಕೋರುತ್ತೇನೆ ({terms_start}ಬಳಕೆ ನಿಯಮಗಳು{terms_end} §6.3 ಮತ್ತು {refund_start}ಹಿಂಪಡೆಯುವ ಸೂಚನೆ{refund_end} ನೋಡಿ). ಸಕ್ರಿಯಗೊಳಿಸಿದ ನಂತರ ಸ್ವಯಂಚಾಲಿತ ಮರುಪಾವತಿ ಇಲ್ಲ."
     },
     "faq": {
       "h2": "ಪದೇ ಪದೇ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು",

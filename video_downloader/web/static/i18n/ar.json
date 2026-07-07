@@ -129,6 +129,7 @@
       "lead": "فيديو وصوت وصور من أي موقع تقريبًا — تُنزَّل مباشرة إلى هاتفك الأندرويد. بلا رفع إلى السحابة، بياناتك لا تغادر جهازك أبدًا، وبلا حاجة لمتجر بلاي.",
       "cta_primary": "نزّل نسخة أندرويد المجانية",
       "cta_secondary": "شاهد أسعار Pro",
+      "windows_link": "متوفر أيضًا لنظام Windows →",
       "badge1": "لا حاجة لمتجر Google Play",
       "badge2": "يعمل 100% على جهازك",
       "badge3": "دعم جودة HD و4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "أسعار بسيطة وصادقة",
-      "lead": "مجانية للأبد: تنزيل واحد يوميًا بجودة HD/4K كاملة. غير محدودة مع Pro.",
+      "lead": "مجانية للأبد: 3 عمليات تنزيل يوميًا بجودة HD/4K كاملة. غير محدودة مع Pro.",
       "monthly_title": "شهري",
       "monthly_note": "ألغِ الاشتراك في أي وقت",
       "yearly_flag": "الأفضل قيمة",
@@ -170,7 +171,7 @@
       "cta_lifetime": "اختر مدى الحياة",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "أطلب أن تبدأ الخدمة فورًا، قبل انتهاء مهلة الانسحاب القانونية البالغة 14 يومًا. وأدرك أن هذا يعني فقداني لحق الانسحاب بمجرد إتمام عملية الشراء (راجع {terms_start}شروط الاستخدام{terms_end} البند 6.3 و{refund_start}إشعار الانسحاب{refund_end}). لا يوجد استرداد تلقائي للأموال بعد التفعيل."
     },
     "faq": {
       "h2": "الأسئلة الشائعة",

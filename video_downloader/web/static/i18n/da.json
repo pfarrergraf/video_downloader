@@ -129,6 +129,7 @@
       "lead": "Video, lyd og billeder fra næsten alle sider — downloadet direkte til din Android-telefon. Ingen upload til skyen, ingen data forlader nogensinde din enhed, ingen Play Store nødvendig.",
       "cta_primary": "Download den gratis Android-version",
       "cta_secondary": "Se Pro-priser",
+      "windows_link": "Findes også til Windows →",
       "badge1": "Ingen Google Play nødvendig",
       "badge2": "Kører 100% på din enhed",
       "badge3": "HD- og 4K-understøttelse",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Enkle, ærlige priser",
-      "lead": "Gratis for altid: 1 download om dagen i fuld HD/4K-kvalitet. Ubegrænset med Pro.",
+      "lead": "Gratis for altid: 3 download om dagen i fuld HD/4K-kvalitet. Ubegrænset med Pro.",
       "monthly_title": "Månedlig",
       "monthly_note": "Opsig når som helst",
       "yearly_flag": "Bedst værdi",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Vælg livstid",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Jeg anmoder om, at adgangen begynder med det samme, før den 14-dages lovbestemte fortrydelsesfrist udløber, og jeg forstår, at det betyder, at jeg mister min fortrydelsesret, så snart købet er gennemført (se {terms_start}Vilkår for brug{terms_end} §6.3). Du kan uanset dette stadig anmode om fuld tilbagebetaling inden for 14 dage via vores {refund_start}side til tilbagebetaling{refund_end}."
+      "consent_label": "Jeg anmoder om, at adgangen begynder med det samme, før den lovpligtige 14-dages fortrydelsesfrist udløber. Jeg er klar over, at jeg dermed mister min fortrydelsesret, så snart købet er gennemført (se {terms_start}Brugsbetingelserne{terms_end} §6.3 og {refund_start}Fortrydelsesvejledningen{refund_end}). Der er ingen automatisk refundering efter aktivering."
     },
     "faq": {
       "h2": "Ofte stillede spørgsmål",

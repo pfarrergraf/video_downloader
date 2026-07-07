@@ -129,6 +129,7 @@
       "lead": "Video, audio e immagini da quasi qualsiasi sito — scaricati direttamente sul tuo telefono Android. Nessun caricamento sul cloud, nessun dato lascia mai il tuo dispositivo, nessun Play Store necessario.",
       "cta_primary": "Scarica la versione gratuita per Android",
       "cta_secondary": "Vedi i prezzi Pro",
+      "windows_link": "Disponibile anche per Windows →",
       "badge1": "Google Play non necessario",
       "badge2": "Funziona al 100% sul tuo dispositivo",
       "badge3": "Supporto HD e 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Prezzi semplici e trasparenti",
-      "lead": "Gratis per sempre: 1 download al giorno in qualità Full HD/4K. Illimitati con Pro.",
+      "lead": "Gratis per sempre: 3 download al giorno in qualità Full HD/4K. Illimitati con Pro.",
       "monthly_title": "Mensile",
       "monthly_note": "Annulla quando vuoi",
       "yearly_flag": "Il più conveniente",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Scegli a vita",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Richiedo che l'accesso abbia inizio immediatamente, prima della scadenza del periodo legale di recesso di 14 giorni, e comprendo che ciò comporta la perdita del mio diritto di recesso una volta completato l'acquisto (vedi {terms_start}Termini di utilizzo{terms_end} §6.3). Potrai comunque richiedere un rimborso completo entro 14 giorni tramite la nostra {refund_start}pagina di rimborso{refund_end}."
+      "consent_label": "Richiedo che l'accesso inizi immediatamente, prima della scadenza del periodo legale di recesso di 14 giorni. Comprendo che ciò significa perdere il mio diritto di recesso non appena l'acquisto è completato (vedi {terms_start}Termini di utilizzo{terms_end} §6.3 e l'{refund_start}Avviso di recesso{refund_end}). Non è previsto alcun rimborso automatico dopo l'attivazione."
     },
     "faq": {
       "h2": "Domande frequenti",

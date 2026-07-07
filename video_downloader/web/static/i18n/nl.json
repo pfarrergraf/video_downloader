@@ -129,6 +129,7 @@
       "lead": "Video, audio en afbeeldingen van bijna elke site — rechtstreeks gedownload naar je Android-telefoon. Geen cloud-upload, er verlaat nooit data je apparaat, geen Play Store nodig.",
       "cta_primary": "Download de gratis Android-versie",
       "cta_secondary": "Bekijk Pro-prijzen",
+      "windows_link": "Ook beschikbaar voor Windows →",
       "badge1": "Geen Google Play nodig",
       "badge2": "Draait 100% op je apparaat",
       "badge3": "Ondersteuning voor HD en 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Eenvoudige, eerlijke prijzen",
-      "lead": "Voor altijd gratis: 1 download per dag in volledige HD/4K-kwaliteit. Onbeperkt met Pro.",
+      "lead": "Voor altijd gratis: 3 download per dag in volledige HD/4K-kwaliteit. Onbeperkt met Pro.",
       "monthly_title": "Maandelijks",
       "monthly_note": "Op elk moment opzegbaar",
       "yearly_flag": "Beste waarde",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Kies levenslang",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Ik verzoek dat de toegang onmiddellijk ingaat, vóór het einde van de wettelijke bedenktijd van 14 dagen, en ik begrijp dat ik daardoor mijn herroepingsrecht verlies zodra de aankoop is voltooid (zie {terms_start}Gebruiksvoorwaarden{terms_end} §6.3). Je kunt desondanks binnen 14 dagen via onze {refund_start}terugbetalingspagina{refund_end} een volledige terugbetaling aanvragen."
+      "consent_label": "Ik verzoek dat de toegang onmiddellijk begint, voordat de wettelijke herroepingstermijn van 14 dagen verstrijkt. Ik begrijp dat ik daardoor mijn herroepingsrecht verlies zodra de aankoop is voltooid (zie {terms_start}Gebruiksvoorwaarden{terms_end} §6.3 en de {refund_start}Herroepingsmelding{refund_end}). Er is geen automatische terugbetaling na activering."
     },
     "faq": {
       "h2": "Veelgestelde vragen",

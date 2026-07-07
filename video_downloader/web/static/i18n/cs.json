@@ -129,6 +129,7 @@
       "lead": "Videa, zvuk a obrázky téměř z jakéhokoli webu — stažené přímo do vašeho telefonu s Androidem. Žádné nahrávání do cloudu, žádná data neopustí vaše zařízení, Obchod Play není potřeba.",
       "cta_primary": "Stáhnout bezplatnou verzi pro Android",
       "cta_secondary": "Zobrazit ceny Pro",
+      "windows_link": "Dostupné i pro Windows →",
       "badge1": "Google Play není potřeba",
       "badge2": "Běží 100 % na vašem zařízení",
       "badge3": "Podpora HD a 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Jednoduchý, poctivý ceník",
-      "lead": "Navždy zdarma: 1 stažení denně v plné kvalitě HD/4K. S Pro neomezeně.",
+      "lead": "Navždy zdarma: 3 stažení denně v plné kvalitě HD/4K. S Pro neomezeně.",
       "monthly_title": "Měsíčně",
       "monthly_note": "Kdykoli lze zrušit",
       "yearly_flag": "Nejvýhodnější",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Vybrat doživotní",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Žádám, aby přístup začal okamžitě, ještě před uplynutím 14denní zákonné lhůty pro odstoupení od smlouvy, a beru na vědomí, že tím po dokončení nákupu ztrácím právo na odstoupení od smlouvy (viz {terms_start}Podmínky užívání{terms_end} §6.3). I přesto můžete do 14 dnů požádat o plné vrácení peněz prostřednictvím naší {refund_start}stránky pro vrácení peněz{refund_end}."
+      "consent_label": "Žádám, aby přístup začal okamžitě, ještě před uplynutím zákonné 14denní lhůty pro odstoupení od smlouvy. Beru na vědomí, že tím ztrácím právo na odstoupení od smlouvy, jakmile je nákup dokončen (viz {terms_start}Podmínky užívání{terms_end} §6.3 a {refund_start}Poučení o odstoupení{refund_end}). Po aktivaci nevzniká nárok na automatické vrácení peněz."
     },
     "faq": {
       "h2": "Časté dotazy",

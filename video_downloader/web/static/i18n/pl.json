@@ -129,6 +129,7 @@
       "lead": "Wideo, audio i zdjęcia z niemal każdej strony — pobierane prosto na telefon z Androidem. Bez przesyłania do chmury, żadne dane nie opuszczają Twojego urządzenia, Sklep Play niepotrzebny.",
       "cta_primary": "Pobierz darmową wersję na Androida",
       "cta_secondary": "Zobacz cennik Pro",
+      "windows_link": "Dostępne również dla Windows →",
       "badge1": "Sklep Google Play niepotrzebny",
       "badge2": "Działa w 100% na Twoim urządzeniu",
       "badge3": "Obsługa HD i 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Prosty, uczciwy cennik",
-      "lead": "Zawsze za darmo: 1 pobieranie dziennie w pełnej jakości HD/4K. Bez limitu z Pro.",
+      "lead": "Zawsze za darmo: 3 pobieranie dziennie w pełnej jakości HD/4K. Bez limitu z Pro.",
       "monthly_title": "Miesięcznie",
       "monthly_note": "Anuluj w dowolnym momencie",
       "yearly_flag": "Najlepsza oferta",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Wybierz plan dożywotni",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Żądam natychmiastowego udzielenia dostępu, jeszcze przed upływem ustawowego 14-dniowego terminu odstąpienia od umowy, i rozumiem, że oznacza to utratę prawa odstąpienia od umowy z chwilą zakończenia zakupu (patrz {terms_start}Warunki korzystania{terms_end} §6.3). Mimo to nadal mogę zażądać pełnego zwrotu środków w ciągu 14 dni za pośrednictwem naszej {refund_start}strony zwrotów{refund_end}."
+      "consent_label": "Żądam, aby dostęp rozpoczął się natychmiast, przed upływem ustawowego 14-dniowego terminu odstąpienia od umowy. Rozumiem, że oznacza to utratę prawa odstąpienia od umowy z chwilą zakończenia zakupu (zob. {terms_start}Warunki użytkowania{terms_end} §6.3 oraz {refund_start}Pouczenie o odstąpieniu{refund_end}). Po aktywacji nie przysługuje automatyczny zwrot środków."
     },
     "faq": {
       "h2": "Najczęściej zadawane pytania",

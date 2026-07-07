@@ -129,6 +129,7 @@
       "lead": "Відео, аудіо та зображення практично з будь-якого сайту — завантажуються прямо на ваш Android-телефон. Без завантаження в хмару, дані ніколи не залишають ваш пристрій, Play Store не потрібен.",
       "cta_primary": "Завантажити безкоштовну версію для Android",
       "cta_secondary": "Переглянути ціни Pro",
+      "windows_link": "Також доступно для Windows →",
       "badge1": "Google Play не потрібен",
       "badge2": "Працює на 100% на вашому пристрої",
       "badge3": "Підтримка HD і 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Прості та чесні ціни",
-      "lead": "Безкоштовно назавжди: 1 завантаження на день у якості Full HD/4K. Необмежено з Pro.",
+      "lead": "Безкоштовно назавжди: 3 завантаження на день у якості Full HD/4K. Необмежено з Pro.",
       "monthly_title": "Щомісячно",
       "monthly_note": "Скасування в будь-який час",
       "yearly_flag": "Найвигідніше",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Обрати довічний",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Я вимагаю, щоб доступ розпочався негайно, ще до закінчення встановленого законом 14-денного строку для відмови. Я розумію, що таким чином втрачаю право на відмову одразу після завершення покупки (див. {terms_start}Умови використання{terms_end} §6.3 та {refund_start}Повідомлення про відмову{refund_end}). Після активації автоматичне повернення коштів не передбачене."
     },
     "faq": {
       "h2": "Часті запитання",

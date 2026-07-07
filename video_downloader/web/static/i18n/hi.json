@@ -129,6 +129,7 @@
       "lead": "लगभग किसी भी साइट से वीडियो, ऑडियो और इमेज — सीधे आपके Android फ़ोन पर डाउनलोड। कोई क्लाउड अपलोड नहीं, आपका डेटा कभी आपके डिवाइस से बाहर नहीं जाता, Play Store की ज़रूरत नहीं।",
       "cta_primary": "फ्री एंड्रॉइड वर्शन डाउनलोड करें",
       "cta_secondary": "Pro मूल्य देखें",
+      "windows_link": "Windows के लिए भी उपलब्ध →",
       "badge1": "Google Play की ज़रूरत नहीं",
       "badge2": "आपके डिवाइस पर 100% चलता है",
       "badge3": "HD और 4K सपोर्ट",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "सरल, ईमानदार मूल्य निर्धारण",
-      "lead": "हमेशा के लिए फ्री: पूरी HD/4K क्वालिटी में प्रतिदिन 1 डाउनलोड। Pro के साथ असीमित।",
+      "lead": "हमेशा के लिए फ्री: पूरी HD/4K क्वालिटी में प्रतिदिन 3 डाउनलोड। Pro के साथ असीमित।",
       "monthly_title": "मासिक",
       "monthly_note": "कभी भी रद्द करें",
       "yearly_flag": "सबसे बेहतर सौदा",
@@ -170,7 +171,7 @@
       "cta_lifetime": "लाइफटाइम चुनें",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "मैं अनुरोध करता/करती हूँ कि पहुंच तुरंत शुरू हो जाए, कानूनी 14-दिन की वापसी अवधि समाप्त होने से पहले। मैं समझता/समझती हूँ कि इसका मतलब है कि खरीद पूरी होते ही मैं अपना वापसी का अधिकार खो दूँगा/दूँगी (देखें {terms_start}उपयोग की शर्तें{terms_end} §6.3 और {refund_start}वापसी सूचना{refund_end})। सक्रियण के बाद कोई स्वचालित धनवापसी नहीं है।"
     },
     "faq": {
       "h2": "अक्सर पूछे जाने वाले सवाल",

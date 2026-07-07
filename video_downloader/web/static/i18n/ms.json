@@ -129,6 +129,7 @@
       "lead": "Video, audio and images from almost any site — downloaded straight to your Android phone. No cloud upload, no data ever leaves your device, no Play Store needed.",
       "cta_primary": "Download the free Android version",
       "cta_secondary": "See Pro pricing",
+      "windows_link": "Turut tersedia untuk Windows →",
       "badge1": "No Google Play needed",
       "badge2": "Runs 100% on your device",
       "badge3": "HD & 4K support",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Simple, honest pricing",
-      "lead": "Free forever: 1 download a day in full HD/4K quality. Unlimited with Pro.",
+      "lead": "Free forever: 3 download a day in full HD/4K quality. Unlimited with Pro.",
       "monthly_title": "Monthly",
       "monthly_note": "Cancel anytime",
       "yearly_flag": "Best value",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Choose lifetime",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Saya meminta agar akses bermula dengan segera, sebelum tempoh penarikan balik berkanun 14 hari tamat. Saya faham bahawa ini bermakna saya kehilangan hak penarikan balik sebaik sahaja pembelian selesai (lihat {terms_start}Terma Penggunaan{terms_end} §6.3 dan {refund_start}Notis Penarikan Balik{refund_end}). Tiada bayaran balik automatik selepas pengaktifan."
     },
     "faq": {
       "h2": "Frequently asked questions",

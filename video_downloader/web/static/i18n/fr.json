@@ -129,6 +129,7 @@
       "lead": "Vidéos, audio et images depuis presque n'importe quel site — téléchargés directement sur votre téléphone Android. Aucun envoi vers le cloud, aucune donnée ne quitte votre appareil, pas besoin du Play Store.",
       "cta_primary": "Télécharger la version gratuite pour Android",
       "cta_secondary": "Voir les tarifs Pro",
+      "windows_link": "Également disponible pour Windows →",
       "badge1": "Sans Google Play",
       "badge2": "Fonctionne à 100 % sur votre appareil",
       "badge3": "Prise en charge HD et 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Des tarifs simples et honnêtes",
-      "lead": "Gratuit pour toujours : 1 téléchargement par jour en qualité HD/4K complète. Illimité avec Pro.",
+      "lead": "Gratuit pour toujours : 3 téléchargement par jour en qualité HD/4K complète. Illimité avec Pro.",
       "monthly_title": "Mensuel",
       "monthly_note": "Annulez à tout moment",
       "yearly_flag": "Meilleure offre",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Choisir à vie",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Je demande que l'accès débute immédiatement, avant l'expiration du délai légal de rétractation de 14 jours, et je comprends que je perds ainsi mon droit de rétractation dès que l'achat est finalisé (voir les {terms_start}conditions d'utilisation{terms_end} §6.3). Vous pouvez malgré tout demander un remboursement intégral dans un délai de 14 jours via notre {refund_start}page de remboursement{refund_end}."
+      "consent_label": "Je demande que l'accès commence immédiatement, avant la fin du délai légal de rétractation de 14 jours. Je comprends que cela signifie que je perds mon droit de rétractation dès que l'achat est finalisé (voir les {terms_start}Conditions d'utilisation{terms_end} §6.3 et l'{refund_start}Avis de rétractation{refund_end}). Il n'y a pas de remboursement automatique après activation."
     },
     "faq": {
       "h2": "Questions fréquentes",

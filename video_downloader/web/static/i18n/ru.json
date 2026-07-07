@@ -129,6 +129,7 @@
       "lead": "Видео, аудио и изображения практически с любого сайта — прямо на ваш Android-телефон. Никакой загрузки в облако, ваши данные никогда не покидают устройство, Play Store не нужен.",
       "cta_primary": "Скачать бесплатную версию для Android",
       "cta_secondary": "Посмотреть цены Pro",
+      "windows_link": "Также доступно для Windows →",
       "badge1": "Google Play не требуется",
       "badge2": "Работает на 100% на вашем устройстве",
       "badge3": "Поддержка HD и 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Простые и честные цены",
-      "lead": "Бесплатно навсегда: 1 загрузка в день в полном HD/4K качестве. Безлимит с Pro.",
+      "lead": "Бесплатно навсегда: 3 загрузка в день в полном HD/4K качестве. Безлимит с Pro.",
       "monthly_title": "Ежемесячно",
       "monthly_note": "Отмена в любой момент",
       "yearly_flag": "Выгоднее всего",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Выбрать навсегда",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Я требую, чтобы доступ начался немедленно, до истечения установленного законом 14-дневного срока для отказа от договора. Я понимаю, что тем самым теряю право на отказ от договора сразу после завершения покупки (см. {terms_start}Условия использования{terms_end} §6.3 и {refund_start}Уведомление об отказе{refund_end}). После активации автоматический возврат средств не предусмотрен."
     },
     "faq": {
       "h2": "Часто задаваемые вопросы",

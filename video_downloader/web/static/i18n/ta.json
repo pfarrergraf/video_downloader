@@ -129,6 +129,7 @@
       "lead": "கிட்டத்தட்ட எந்த சைட்டிலிருந்தும் வீடியோ, ஆடியோ மற்றும் படங்கள் — நேரடியாக உங்கள் Android மொபைலுக்குப் பதிவிறக்கப்படும். கிளவுட் பதிவேற்றம் இல்லை, தரவு உங்கள் சாதனத்தை விட்டு வெளியேறாது, Play Store தேவையில்லை.",
       "cta_primary": "இலவச ஆண்ட்ராய்டு பதிப்பைப் பதிவிறக்கவும்",
       "cta_secondary": "Pro விலையைப் பார்க்கவும்",
+      "windows_link": "Windows-க்கும் கிடைக்கிறது →",
       "badge1": "Google Play தேவையில்லை",
       "badge2": "உங்கள் சாதனத்தில் 100% இயங்குகிறது",
       "badge3": "HD & 4K ஆதரவு",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "எளிமையான, நேர்மையான விலை நிர்ணயம்",
-      "lead": "எப்போதும் இலவசம்: முழு HD/4K தரத்தில் ஒரு நாளைக்கு 1 பதிவிறக்கம். Pro உடன் வரம்பற்றது.",
+      "lead": "எப்போதும் இலவசம்: முழு HD/4K தரத்தில் ஒரு நாளைக்கு 3 பதிவிறக்கம். Pro உடன் வரம்பற்றது.",
       "monthly_title": "மாதாந்திரம்",
       "monthly_note": "எப்போது வேண்டுமானாலும் ரத்துசெய்யலாம்",
       "yearly_flag": "சிறந்த மதிப்பு",
@@ -170,7 +171,7 @@
       "cta_lifetime": "வாழ்நாள் முழுவதையும் தேர்ந்தெடு",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "வாங்குதல் முடிந்தவுடன் எனது திரும்பப்பெறும் உரிமையை இழக்கிறேன் என்பதை புரிந்துகொண்டு, சட்டப்பூர்வ 14 நாள் திரும்பப்பெறும் காலம் முடிவதற்கு முன்பே அணுகல் உடனடியாக தொடங்க வேண்டும் என்று கோருகிறேன் ({terms_start}பயன்பாட்டு விதிமுறைகளை{terms_end} §6.3 மற்றும் {refund_start}திரும்பப்பெறும் அறிவிப்பை{refund_end} பார்க்கவும்). செயல்படுத்தப்பட்ட பிறகு தானியங்கு பணத்திரும்பப்பெறல் இல்லை."
     },
     "faq": {
       "h2": "அடிக்கடி கேட்கப்படும் கேள்விகள்",

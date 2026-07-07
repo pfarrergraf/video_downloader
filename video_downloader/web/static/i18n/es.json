@@ -129,6 +129,7 @@
       "lead": "Vídeo, audio e imágenes de casi cualquier sitio, descargados directamente a tu teléfono Android. Sin subidas a la nube, tus datos nunca salen de tu dispositivo, sin necesidad de Play Store.",
       "cta_primary": "Descargar la versión gratuita para Android",
       "cta_secondary": "Ver precios de Pro",
+      "windows_link": "También disponible para Windows →",
       "badge1": "No necesitas Google Play",
       "badge2": "Funciona 100% en tu dispositivo",
       "badge3": "Compatible con HD y 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Precios simples y honestos",
-      "lead": "Gratis para siempre: 1 descarga al día en calidad Full HD/4K. Ilimitadas con Pro.",
+      "lead": "Gratis para siempre: 3 descarga al día en calidad Full HD/4K. Ilimitadas con Pro.",
       "monthly_title": "Mensual",
       "monthly_note": "Cancela cuando quieras",
       "yearly_flag": "Mejor relación calidad-precio",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Elegir de por vida",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Solicito que el acceso comience de inmediato, antes de que finalice el plazo legal de desistimiento de 14 días, y entiendo que esto significa que pierdo mi derecho de desistimiento en cuanto se complete la compra (véanse los {terms_start}Términos de uso{terms_end}, §6.3). Aun así, puedes solicitar un reembolso completo dentro de los 14 días a través de nuestra {refund_start}página de reembolsos{refund_end}."
+      "consent_label": "Solicito que el acceso comience de inmediato, antes de que finalice el plazo legal de desistimiento de 14 días. Entiendo que esto significa que pierdo mi derecho de desistimiento en cuanto se complete la compra (ver {terms_start}Términos de uso{terms_end} §6.3 y el {refund_start}Aviso de desistimiento{refund_end}). No hay reembolso automático después de la activación."
     },
     "faq": {
       "h2": "Preguntas frecuentes",

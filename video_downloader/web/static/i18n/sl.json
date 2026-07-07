@@ -129,6 +129,7 @@
       "lead": "Video, zvok in slike s skoraj katere koli strani — prenesene naravnost na tvoj telefon Android. Brez nalaganja v oblak, podatki nikoli ne zapustijo tvoje naprave, trgovina Play ni potrebna.",
       "cta_primary": "Prenesi brezplačno različico za Android",
       "cta_secondary": "Poglej cenik Pro",
+      "windows_link": "Na voljo tudi za Windows →",
       "badge1": "Google Play ni potreben",
       "badge2": "Deluje 100 % na tvoji napravi",
       "badge3": "Podpora za HD in 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Preprost, pošten cenik",
-      "lead": "Za vedno brezplačno: 1 prenos na dan v polni kakovosti HD/4K. Neomejeno s Pro.",
+      "lead": "Za vedno brezplačno: 3 prenos na dan v polni kakovosti HD/4K. Neomejeno s Pro.",
       "monthly_title": "Mesečno",
       "monthly_note": "Kadar koli prekliči",
       "yearly_flag": "Najboljša vrednost",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Izberi doživljenjsko",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Zahtevam, da se dostop začne takoj, še pred iztekom zakonsko določenega 14-dnevnega roka za odstop od pogodbe. Razumem, da s tem izgubim pravico do odstopa od pogodbe takoj, ko je nakup zaključen (glejte {terms_start}Pogoje uporabe{terms_end} §6.3 in {refund_start}Obvestilo o odstopu{refund_end}). Po aktivaciji ni samodejnega povračila."
     },
     "faq": {
       "h2": "Pogosta vprašanja",

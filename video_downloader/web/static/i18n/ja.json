@@ -129,6 +129,7 @@
       "lead": "ほぼどんなサイトからでも動画・音声・画像をAndroidスマホに直接ダウンロード。クラウドへのアップロードなし、データが端末から出ることもなく、Playストアも不要です。",
       "cta_primary": "無料のAndroid版をダウンロード",
       "cta_secondary": "Proの料金を見る",
+      "windows_link": "Windows版もあります →",
       "badge1": "Google Playは不要",
       "badge2": "端末上で100%動作",
       "badge3": "HD・4K対応",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "シンプルで分かりやすい料金",
-      "lead": "無料でずっと使えます：フルHD／4K画質で1日1回ダウンロード可能。Proなら無制限。",
+      "lead": "無料でずっと使えます：フルHD／4K画質で3日1回ダウンロード可能。Proなら無制限。",
       "monthly_title": "月額プラン",
       "monthly_note": "いつでも解約可能",
       "yearly_flag": "お得なプラン",
@@ -170,7 +171,7 @@
       "cta_lifetime": "買い切りプランを選ぶ",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "法定の14日間のクーリングオフ期間が終了する前に、直ちにアクセスを開始することを求めます。これにより、購入完了と同時にクーリングオフ権を失うことを理解しています({terms_start}利用規約{terms_end}第6.3条および{refund_start}クーリングオフに関する通知{refund_end}を参照)。有効化後の自動返金はありません。"
     },
     "faq": {
       "h2": "よくある質問",

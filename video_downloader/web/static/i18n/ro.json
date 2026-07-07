@@ -129,6 +129,7 @@
       "lead": "Video, audio și imagini de pe aproape orice site — descărcate direct pe telefonul tău Android. Fără încărcare în cloud, datele tale nu părăsesc niciodată dispozitivul, fără nevoie de Play Store.",
       "cta_primary": "Descarcă versiunea gratuită pentru Android",
       "cta_secondary": "Vezi prețurile Pro",
+      "windows_link": "Disponibil și pentru Windows →",
       "badge1": "Fără nevoie de Google Play",
       "badge2": "Funcționează 100% pe dispozitivul tău",
       "badge3": "Suport HD și 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Prețuri simple și corecte",
-      "lead": "Gratuit pentru totdeauna: 1 descărcare pe zi în calitate Full HD/4K. Nelimitat cu Pro.",
+      "lead": "Gratuit pentru totdeauna: 3 descărcare pe zi în calitate Full HD/4K. Nelimitat cu Pro.",
       "monthly_title": "Lunar",
       "monthly_note": "Anulează oricând",
       "yearly_flag": "Cea mai bună ofertă",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Alege planul pe viață",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Solicit ca accesul să înceapă imediat, înainte de expirarea termenului legal de retragere de 14 zile, și înțeleg că astfel îmi pierd dreptul de retragere de îndată ce achiziția este finalizată (vezi {terms_start}Termenii și condițiile{terms_end} §6.3). Poți totuși solicita o rambursare integrală în termen de 14 zile prin intermediul {refund_start}paginii de rambursare{refund_end}."
+      "consent_label": "Solicit ca accesul să înceapă imediat, înainte de expirarea perioadei legale de retragere de 14 zile. Înțeleg că astfel îmi pierd dreptul de retragere de îndată ce achiziția este finalizată (a se vedea {terms_start}Termenii de utilizare{terms_end} §6.3 și {refund_start}Informarea privind retragerea{refund_end}). Nu există rambursare automată după activare."
     },
     "faq": {
       "h2": "Întrebări frecvente",

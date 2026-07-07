@@ -129,6 +129,7 @@
       "lead": "മിക്കവാറും ഏത് സൈറ്റിൽ നിന്നുമുള്ള വീഡിയോ, ഓഡിയോ, ഇമേജുകൾ — നേരിട്ട് നിങ്ങളുടെ Android ഫോണിലേക്ക് ഡൗൺലോഡ് ചെയ്യുന്നു. ക്ലൗഡ് അപ്‌ലോഡ് ഇല്ല, ഡാറ്റ ഒരിക്കലും നിങ്ങളുടെ ഡിവൈസ് വിട്ട് പോകില്ല, Play Store ആവശ്യമില്ല.",
       "cta_primary": "സൗജന്യ ആൻഡ്രോയിഡ് വേർഷൻ ഡൗൺലോഡ് ചെയ്യുക",
       "cta_secondary": "പ്രോ വില കാണുക",
+      "windows_link": "Windows-നും ലഭ്യമാണ് →",
       "badge1": "Google Play ആവശ്യമില്ല",
       "badge2": "നിങ്ങളുടെ ഡിവൈസിൽ 100% പ്രവർത്തിക്കുന്നു",
       "badge3": "HD & 4K പിന്തുണ",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "ലളിതവും സത്യസന്ധവുമായ വില",
-      "lead": "എന്നും സൗജന്യം: ദിവസത്തിൽ ഒരു ഡൗൺലോഡ് പൂർണ്ണ HD/4K ഗുണനിലവാരത്തിൽ. പ്രോയിൽ പരിധിയില്ലാതെ.",
+      "lead": "എന്നും സൗജന്യം: ദിവസത്തിൽ 3 ഡൗൺലോഡ് പൂർണ്ണ HD/4K ഗുണനിലവാരത്തിൽ. പ്രോയിൽ പരിധിയില്ലാതെ.",
       "monthly_title": "മാസത്തിൽ",
       "monthly_note": "എപ്പോൾ വേണമെങ്കിലും റദ്ദാക്കാം",
       "yearly_flag": "മികച്ച മൂല്യം",
@@ -170,7 +171,7 @@
       "cta_lifetime": "ലൈഫ്‌ടൈം പ്ലാൻ തിരഞ്ഞെടുക്കുക",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "വാങ്ങൽ പൂർത്തിയാകുന്നതോടെ എന്റെ പിൻവലിക്കൽ അവകാശം നഷ്ടപ്പെടുമെന്ന് മനസ്സിലാക്കി, നിയമപരമായ 14 ദിവസത്തെ പിൻവലിക്കൽ കാലാവധി അവസാനിക്കുന്നതിന് മുമ്പ് തന്നെ ആക്‌സസ് ഉടൻ ആരംഭിക്കണമെന്ന് ഞാൻ അഭ്യർത്ഥിക്കുന്നു ({terms_start}ഉപയോഗ നിബന്ധനകൾ{terms_end} §6.3, {refund_start}പിൻവലിക്കൽ അറിയിപ്പ്{refund_end} എന്നിവ കാണുക). സജീവമാക്കിയ ശേഷം ഓട്ടോമാറ്റിക് റീഫണ്ട് ഇല്ല."
     },
     "faq": {
       "h2": "പതിവ് ചോദ്യങ്ങൾ",

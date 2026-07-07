@@ -129,6 +129,7 @@
       "lead": "Video, âm thanh và hình ảnh từ hầu hết mọi trang web — tải trực tiếp về điện thoại Android của bạn. Không tải lên đám mây, dữ liệu không bao giờ rời khỏi thiết bị, không cần Play Store.",
       "cta_primary": "Tải phiên bản Android miễn phí",
       "cta_secondary": "Xem giá gói Pro",
+      "windows_link": "Cũng có sẵn cho Windows →",
       "badge1": "Không cần Google Play",
       "badge2": "Chạy 100% trên thiết bị của bạn",
       "badge3": "Hỗ trợ HD & 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "Giá cả đơn giản, minh bạch",
-      "lead": "Miễn phí trọn đời: 1 lượt tải mỗi ngày ở chất lượng Full HD/4K. Không giới hạn với Pro.",
+      "lead": "Miễn phí trọn đời: 3 lượt tải mỗi ngày ở chất lượng Full HD/4K. Không giới hạn với Pro.",
       "monthly_title": "Hàng tháng",
       "monthly_note": "Hủy bất cứ lúc nào",
       "yearly_flag": "Giá trị tốt nhất",
@@ -170,7 +171,7 @@
       "cta_lifetime": "Chọn gói trọn đời",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "Tôi yêu cầu quyền truy cập bắt đầu ngay lập tức, trước khi thời hạn rút lui hợp pháp 14 ngày kết thúc. Tôi hiểu rằng điều này có nghĩa là tôi sẽ mất quyền rút lui ngay khi hoàn tất giao dịch mua (xem {terms_start}Điều khoản sử dụng{terms_end} mục 6.3 và {refund_start}Thông báo rút lui{refund_end}). Không có hoàn tiền tự động sau khi kích hoạt."
     },
     "faq": {
       "h2": "Câu hỏi thường gặp",

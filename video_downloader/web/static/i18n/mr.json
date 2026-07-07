@@ -129,6 +129,7 @@
       "lead": "जवळपास कोणत्याही साइटवरील व्हिडिओ, ऑडिओ आणि इमेज — थेट तुमच्या Android फोनवर डाउनलोड होतात. क्लाउडवर अपलोड नाही, तुमचा डेटा कधीही डिव्हाइसच्या बाहेर जात नाही, Play Store ची गरज नाही.",
       "cta_primary": "मोफत अँड्रॉइड व्हर्जन डाउनलोड करा",
       "cta_secondary": "Pro किंमत पहा",
+      "windows_link": "Windows साठी देखील उपलब्ध →",
       "badge1": "Google Play ची गरज नाही",
       "badge2": "100% तुमच्या डिव्हाइसवर चालते",
       "badge3": "HD आणि 4K सपोर्ट",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "सोपी, प्रामाणिक किंमत रचना",
-      "lead": "कायम मोफत: दररोज 1 डाउनलोड, संपूर्ण HD/4K क्वालिटीमध्ये. Pro सोबत अमर्यादित.",
+      "lead": "कायम मोफत: दररोज 3 डाउनलोड, संपूर्ण HD/4K क्वालिटीमध्ये. Pro सोबत अमर्यादित.",
       "monthly_title": "मासिक",
       "monthly_note": "कधीही रद्द करा",
       "yearly_flag": "सर्वोत्तम किंमत",
@@ -170,7 +171,7 @@
       "cta_lifetime": "आजीवन निवडा",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "खरेदी पूर्ण होताच माझा माघार घेण्याचा हक्क गमावेन हे समजून, कायदेशीर 14 दिवसांची माघार मुदत संपण्यापूर्वीच प्रवेश त्वरित सुरू व्हावा अशी मी विनंती करतो/करते ({terms_start}वापर अटी{terms_end} §6.3 आणि {refund_start}माघार सूचना{refund_end} पहा). सक्रियकरणानंतर स्वयंचलित परतावा नाही."
     },
     "faq": {
       "h2": "वारंवार विचारले जाणारे प्रश्न",

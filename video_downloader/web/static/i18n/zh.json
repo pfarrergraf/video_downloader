@@ -129,6 +129,7 @@
       "lead": "几乎任何网站的视频、音频和图片 — 直接下载到您的 Android 手机。无需上传云端，数据绝不离开您的设备，也无需 Play 商店。",
       "cta_primary": "下载免费的 Android 版本",
       "cta_secondary": "查看专业版价格",
+      "windows_link": "同样支持 Windows →",
       "badge1": "无需 Google Play",
       "badge2": "100% 在您的设备上运行",
       "badge3": "支持高清与 4K",
@@ -152,7 +153,7 @@
     },
     "pricing": {
       "h2": "简单透明的定价",
-      "lead": "永久免费：每天可下载 1 次全高清/4K 画质内容。升级专业版即可无限下载。",
+      "lead": "永久免费：每天可下载 3 次全高清/4K 画质内容。升级专业版即可无限下载。",
       "monthly_title": "月付",
       "monthly_note": "随时可取消",
       "yearly_flag": "最超值",
@@ -170,7 +171,7 @@
       "cta_lifetime": "选择终身版",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends, and I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3). You can still request a full refund within 14 days via our {refund_start}refund page{refund_end} regardless."
+      "consent_label": "我要求在法定14天撤回期结束之前立即开通访问权限。我理解这意味着一旦购买完成，我将失去撤回权（参见{terms_start}使用条款{terms_end}第6.3条和{refund_start}撤回须知{refund_end}）。激活后不提供自动退款。"
     },
     "faq": {
       "h2": "常见问题",
