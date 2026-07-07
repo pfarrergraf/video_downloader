@@ -184,10 +184,24 @@ class MainActivity : AppCompatActivity() {
         val url = pendingSharedUrl ?: return
         if (!::webView.isInitialized) return
         val quoted = JSONObject.quote(url)
+        // Diagnostic detail (not just true/false): distinguishes "the page's
+        // script never even defined onSharedUrl" from "onSharedUrl ran but the
+        // login overlay was still up" from "it ran fully visible" - logged so a
+        // CI failure (share_intent_test.sh) shows which of the three happened
+        // instead of just "the job never appeared".
         webView.evaluateJavascript(
-            "(function(){ if (window.onSharedUrl) { window.onSharedUrl($quoted); return true; } return false; })();",
+            """
+            (function(){
+                if (!window.onSharedUrl) return 'no-handler';
+                var appEl = document.getElementById('app');
+                var wasHidden = appEl && appEl.classList.contains('hidden');
+                window.onSharedUrl($quoted);
+                return wasHidden ? 'handler-app-hidden' : 'handler-app-visible';
+            })();
+            """.trimIndent(),
         ) { result ->
-            if (result == "true" && pendingSharedUrl == url) {
+            Log.i(TAG, "Shared URL delivery result: $result")
+            if (result != null && result.contains("handler") && pendingSharedUrl == url) {
                 pendingSharedUrl = null
             }
         }
