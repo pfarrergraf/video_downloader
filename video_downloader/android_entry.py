@@ -189,7 +189,12 @@ def _run_downloads_publisher(store: QueueStore, notifier=None) -> None:
             for job in store.list_jobs(status=JOB_STATUS_COMPLETED, limit=200):
                 for file_path in store.list_job_files(job.id):
                     path = Path(file_path)
-                    if not _already_published(path):
+                    # A user-chosen export folder REPLACES the MediaStore
+                    # Downloads publish rather than adding to it - each
+                    # publish is a full extra copy of the file (real I/O on
+                    # multi-GB videos), and the file is user-visible either
+                    # way: in their chosen folder, or in Downloads.
+                    if not export_uri and not _already_published(path):
                         _publish_file_to_downloads(path)
                         _mark_published(path)
                     if export_uri and not _already_exported(path):

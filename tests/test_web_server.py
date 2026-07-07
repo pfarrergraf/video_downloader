@@ -781,3 +781,90 @@ def test_engine_endpoints_report_versions(server: ClassyDLServer, monkeypatch) -
 
         time.sleep(0.1)
     assert calls == [True]
+
+
+def test_download_endpoint_serves_ranges(server: ClassyDLServer, tmp_path: Path) -> None:
+    cookie = _login(server)
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/video"}, cookie=cookie
+    )
+    job_id = body["job_id"]
+    payload = bytes(range(256)) * 4
+    output_file = tmp_path / "downloads" / "clip.mp4"
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    output_file.write_bytes(payload)
+    server.store.mark_job_completed(job_id, [output_file])
+
+    conn = HTTPConnection(*server.server_address, timeout=5)
+    conn.request("GET", f"/api/download/{job_id}/clip.mp4", headers={"Cookie": cookie})
+    response = conn.getresponse()
+    assert response.status == 200
+    assert response.getheader("Accept-Ranges") == "bytes"
+    assert response.read() == payload
+    conn.close()
+
+    conn = HTTPConnection(*server.server_address, timeout=5)
+    conn.request(
+        "GET",
+        f"/api/download/{job_id}/clip.mp4",
+        headers={"Cookie": cookie, "Range": "bytes=100-199"},
+    )
+    response = conn.getresponse()
+    assert response.status == 206
+    assert response.getheader("Content-Range") == f"bytes 100-199/{len(payload)}"
+    assert response.read() == payload[100:200]
+    conn.close()
+
+    # Out-of-range start -> 416, not a crash or a silent 200.
+    conn = HTTPConnection(*server.server_address, timeout=5)
+    conn.request(
+        "GET",
+        f"/api/download/{job_id}/clip.mp4",
+        headers={"Cookie": cookie, "Range": f"bytes={len(payload) + 10}-"},
+    )
+    response = conn.getresponse()
+    assert response.status == 416
+    response.read()
+    conn.close()
+
+
+def test_events_stream_pushes_job_changes(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+
+    conn = HTTPConnection(*server.server_address, timeout=10)
+    conn.request("GET", "/api/events", headers={"Cookie": cookie})
+    response = conn.getresponse()
+    assert response.status == 200
+    assert response.getheader("Content-Type") == "text/event-stream"
+
+    def read_event() -> str:
+        # Read until a blank line terminates one SSE event.
+        lines = []
+        while True:
+            line = response.fp.readline().decode("utf-8")
+            if line in ("\n", "\r\n", ""):
+                break
+            lines.append(line.rstrip("\r\n"))
+        return "\n".join(lines)
+
+    # Initial snapshot arrives without any change happening first.
+    first = read_event()
+    assert first.startswith("data: ")
+    assert json.loads(first[len("data: "):])["jobs"] == []
+
+    # A queue write must push a fresh snapshot through the open stream.
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/video"}, cookie=cookie
+    )
+    job_id = body["job_id"]
+    event = read_event()
+    while not event.startswith("data: "):  # skip keep-alive pings
+        event = read_event()
+    jobs = json.loads(event[len("data: "):])["jobs"]
+    assert any(job["id"] == job_id for job in jobs)
+    conn.close()
+
+
+def test_events_stream_requires_auth(server: ClassyDLServer) -> None:
+    status, _, _ = _request(server, "GET", "/api/events")
+    assert status == 401

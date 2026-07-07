@@ -131,6 +131,27 @@ class LoginThrottle:
             self._failures.pop(ip, None)
 
 
+class ChangeBus:
+    """Monotonic change counter + condition — the bridge between QueueStore's
+    on_change hook (writer side) and /api/events' SSE loops (reader side)."""
+
+    def __init__(self) -> None:
+        self._cond = threading.Condition()
+        self._seq = 0
+
+    def notify(self) -> None:
+        with self._cond:
+            self._seq += 1
+            self._cond.notify_all()
+
+    def wait_for_change(self, last_seen: int, timeout: float) -> int:
+        """Blocks until the sequence advances past last_seen (or timeout);
+        returns the current sequence either way."""
+        with self._cond:
+            self._cond.wait_for(lambda: self._seq != last_seen, timeout=timeout)
+            return self._seq
+
+
 class BackgroundQueueWorker:
     """Continuously drains the download queue in a background thread."""
 
@@ -283,6 +304,13 @@ class ClassyDLServer(ThreadingHTTPServer):
         self.sessions = SessionStore()
         self.login_throttle = LoginThrottle()
         self.worker = BackgroundQueueWorker(store=store, output_dir=output_dir, workers=workers)
+        # SSE push plumbing: every job-state/progress write in the store
+        # bumps the bus; each /api/events client thread waits on it. Bounded
+        # because every SSE client holds one ThreadingHTTPServer thread.
+        self.change_bus = ChangeBus()
+        store.on_change = self.change_bus.notify
+        self.sse_clients = 0
+        self.sse_lock = threading.Lock()
         # Guards the free-tier quota check-then-act sequence in do_POST's
         # /api/queue handler - without it, concurrent requests on this
         # ThreadingHTTPServer can all read the same "used" count before any
@@ -346,15 +374,48 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def _send_file(self, path: Path, *, download_name: str | None = None) -> None:
+        # Streamed in chunks, never read whole into memory: downloads can be
+        # multi-GB videos and this used to buffer the entire file per request.
+        # Single-range requests get a proper 206 so the WebView's <video>
+        # player (and browser download resume) can seek.
         try:
-            data = path.read_bytes()
+            file_size = path.stat().st_size
+            file_obj = path.open("rb")
         except OSError:
             self._send_json(404, {"detail": "File no longer available"})
             return
+
+        start = 0
+        end = file_size - 1
+        status = 200
+        range_header = self.headers.get("Range", "")
+        range_match = re.match(r"bytes=(\d*)-(\d*)$", range_header.strip()) if range_header else None
+        if range_match and file_size > 0:
+            raw_start, raw_end = range_match.groups()
+            if raw_start:
+                start = int(raw_start)
+                if raw_end:
+                    end = min(int(raw_end), file_size - 1)
+            elif raw_end:
+                # suffix form: last N bytes
+                start = max(0, file_size - int(raw_end))
+            if start >= file_size:
+                file_obj.close()
+                self.send_response(416)
+                self.send_header("Content-Range", f"bytes */{file_size}")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return
+            status = 206
+
         content_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
-        self.send_response(200)
+        length = end - start + 1
+        self.send_response(status)
         self.send_header("Content-Type", content_type)
-        self.send_header("Content-Length", str(len(data)))
+        self.send_header("Content-Length", str(length))
+        self.send_header("Accept-Ranges", "bytes")
+        if status == 206:
+            self.send_header("Content-Range", f"bytes {start}-{end}/{file_size}")
         # The Android WebView's HTTP cache survives app updates (only wiped on
         # uninstall) and this server never sent a validator (ETag/Last-Modified)
         # for it to revalidate against, so without this a "successfully
@@ -364,13 +425,76 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
         if download_name:
             self.send_header("Content-Disposition", f'attachment; filename="{download_name}"')
         self.end_headers()
-        self.wfile.write(data)
+        try:
+            with file_obj:
+                file_obj.seek(start)
+                remaining = length
+                while remaining > 0:
+                    chunk = file_obj.read(min(1024 * 256, remaining))
+                    if not chunk:
+                        break
+                    self.wfile.write(chunk)
+                    remaining -= len(chunk)
+        except (BrokenPipeError, ConnectionResetError):
+            pass  # client went away mid-transfer - routine, not an error
 
     def _require_auth(self) -> bool:
         if not self._authed():
             self._send_json(401, {"detail": "Not authenticated"})
             return False
         return True
+
+    # Max concurrent SSE clients: each holds one ThreadingHTTPServer thread
+    # open for its whole lifetime. One local WebView needs exactly 1; a small
+    # headroom covers a desktop browser tab or two alongside it.
+    SSE_MAX_CLIENTS = 4
+    SSE_PING_SECONDS = 15.0
+    # Progress writes land ~2x/sec per job; batching pushes to at most one
+    # every 250ms keeps the wire (and re-render) cost flat with many jobs.
+    SSE_MIN_INTERVAL = 0.25
+
+    def _serve_events(self) -> None:
+        """Server-Sent Events stream: pushes the full /api/queue payload on
+        every job change (close-delimited, so no chunked-encoding hand-rolling
+        on BaseHTTPRequestHandler). The page falls back to polling if this
+        errors — see index.html."""
+        with self.server.sse_lock:
+            if self.server.sse_clients >= self.SSE_MAX_CLIENTS:
+                self._send_json(503, {"detail": "Too many event streams open"})
+                return
+            self.server.sse_clients += 1
+        try:
+            self.send_response(200)
+            self.send_header("Content-Type", "text/event-stream")
+            self.send_header("Cache-Control", "no-store")
+            # Explicit close: tells this handler (and the client) the stream
+            # has no length and ends when the connection does.
+            self.send_header("Connection", "close")
+            self.end_headers()
+
+            bus = self.server.change_bus
+            seq = -1  # deliberately behind: send one snapshot immediately
+            while True:
+                new_seq = bus.wait_for_change(seq, timeout=self.SSE_PING_SECONDS)
+                if new_seq == seq:
+                    # No change - comment line as keep-alive so dead
+                    # connections surface as write errors.
+                    self.wfile.write(b": ping\n\n")
+                    self.wfile.flush()
+                    continue
+                seq = new_seq
+                jobs = self.server.store.list_jobs(limit=200)
+                payload = json.dumps(
+                    {"jobs": [_serialize_job(self.server.store, job) for job in jobs]}
+                )
+                self.wfile.write(b"data: " + payload.encode("utf-8") + b"\n\n")
+                self.wfile.flush()
+                time.sleep(self.SSE_MIN_INTERVAL)
+        except (BrokenPipeError, ConnectionResetError, OSError):
+            pass  # client disconnected - the normal way these streams end
+        finally:
+            with self.server.sse_lock:
+                self.server.sse_clients -= 1
 
     def _static_path(self, url_path: str) -> Path | None:
         rel = unquote(url_path.lstrip("/")) or "index.html"
@@ -419,6 +543,11 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             status = (query.get("status") or [None])[0]
             jobs = self.server.store.list_jobs(status=status, limit=200)
             self._send_json(200, {"jobs": [_serialize_job(self.server.store, job) for job in jobs]})
+            return
+        if path == "/api/events":
+            if not self._require_auth():
+                return
+            self._serve_events()
             return
         if path == "/api/engine":
             if not self._require_auth():

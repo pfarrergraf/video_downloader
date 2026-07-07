@@ -24,6 +24,20 @@ class QueueStore:
     def __init__(self, db_path: Path) -> None:
         self.db_path = db_path
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        # Optional fire-and-forget hook invoked after any job-state or
+        # progress write - the web server points this at its SSE change bus
+        # so the UI gets sub-second push updates instead of polling. Must
+        # never raise into the writer, hence _notify_change's broad guard.
+        self.on_change = None
+
+    def _notify_change(self) -> None:
+        hook = self.on_change
+        if hook is None:
+            return
+        try:
+            hook()
+        except Exception:  # noqa: BLE001 - a UI-push failure must never break a DB write
+            pass
 
     def init(self) -> None:
         with self._connect() as conn:
@@ -268,6 +282,7 @@ class QueueStore:
             job_id = int(cursor.lastrowid)
 
         self.append_event(job_id, "info", f"Queued source: {source}")
+        self._notify_change()
         return job_id
 
     def claim_next_job(self) -> JobRecord | None:
@@ -299,7 +314,8 @@ class QueueStore:
             if updated.rowcount <= 0:
                 return None
             claimed = conn.execute("SELECT * FROM jobs WHERE id = ?", (row["id"],)).fetchone()
-            return self._row_to_job(claimed) if claimed else None
+        self._notify_change()
+        return self._row_to_job(claimed) if claimed else None
 
     def set_job_attempt(self, job_id: int, attempt: int) -> None:
         # Deliberately does NOT reset downloaded_bytes/total_bytes: partial
@@ -312,6 +328,7 @@ class QueueStore:
                 "UPDATE jobs SET attempt = ?, updated_at = ? WHERE id = ?",
                 (int(attempt), _utcnow(), job_id),
             )
+        self._notify_change()
 
     def update_job_progress(self, job_id: int, downloaded_bytes: int, total_bytes: int | None) -> None:
         # Deliberately doesn't touch updated_at - this fires many times per
@@ -322,6 +339,7 @@ class QueueStore:
                 "UPDATE jobs SET downloaded_bytes = ?, total_bytes = ? WHERE id = ? AND status = ?",
                 (int(downloaded_bytes), total_bytes, job_id, JOB_STATUS_IN_PROGRESS),
             )
+        self._notify_change()
 
     def mark_job_completed(self, job_id: int, file_paths: Iterable[Path], details: str = "") -> None:
         # `error` isn't exclusively a failure indicator - a completed job can
@@ -354,6 +372,7 @@ class QueueStore:
         self.append_event(job_id, "info", "Job completed successfully")
         if details:
             self.append_event(job_id, "warning", details)
+        self._notify_change()
 
     def mark_job_failed(self, job_id: int, error: str, error_code: str | None = None) -> None:
         now = _utcnow()
@@ -367,6 +386,7 @@ class QueueStore:
                 (JOB_STATUS_FAILED, error, error_code, now, now, job_id),
             )
         self.append_event(job_id, "error", error)
+        self._notify_change()
 
     def recover_stale_in_progress(self) -> int:
         """Requeue jobs stranded as in_progress by a process kill.
@@ -396,6 +416,8 @@ class QueueStore:
             self.append_event(
                 job_id, "warning", "Recovered after an app restart; download will resume"
             )
+        if job_ids:
+            self._notify_change()
         return len(job_ids)
 
     def requeue_job(self, job_id: int) -> bool:
@@ -418,6 +440,7 @@ class QueueStore:
             )
         if cursor.rowcount > 0:
             self.append_event(job_id, "info", "Job requeued by user; will resume from partial data")
+            self._notify_change()
             return True
         return False
 
@@ -434,6 +457,7 @@ class QueueStore:
             )
         if cursor.rowcount > 0:
             self.append_event(job_id, "warning", "Job cancelled by operator")
+            self._notify_change()
             return True
         return False
 

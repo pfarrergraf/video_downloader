@@ -768,6 +768,7 @@ async function setAuthed(authed) {
   $('terms-overlay').classList.add('hidden');
   $('app').classList.remove('hidden');
   refreshQueue(); refreshLicense(); refreshSettings();
+  startEventStream();
   hideSplash();
   deliverPendingSharedUrl();
 }
@@ -1249,25 +1250,56 @@ function jobRow(job) {
   return li;
 }
 
+function renderJobs(jobs) {
+  const list = $('job-list');
+  list.innerHTML = '';
+  if (!jobs.length) {
+    list.innerHTML = `<li class="muted">${t('app.queue.empty')}</li>`;
+    return;
+  }
+  jobs.forEach((job) => list.appendChild(jobRow(job)));
+}
+
 async function refreshQueue() {
   try {
     const data = await api('/api/queue');
-    const list = $('job-list');
-    list.innerHTML = '';
-    if (!data.jobs.length) {
-      list.innerHTML = `<li class="muted">${t('app.queue.empty')}</li>`;
-      return;
-    }
-    data.jobs.forEach((job) => list.appendChild(jobRow(job)));
+    renderJobs(data.jobs);
   } catch (e) {
     if (e.unauthorized) setAuthed(false);
   }
 }
 
-// 1.5s rather than 4s: short downloads (e.g. small audio-only files) can
-// otherwise finish between polls, so the queue jumps straight from
-// "pending" to "completed" and the progress bar is never seen at all.
-setInterval(() => { if (!$('app').classList.contains('hidden')) refreshQueue(); }, 1500);
+// -- live progress: SSE push with automatic polling fallback ---------------
+// /api/events pushes the queue on every change (sub-second progress, near
+// zero idle cost). If the stream can't be established (old WebView, proxy),
+// the 1.5s poll below takes over permanently after a few reconnect tries.
+let sseActive = false;
+let sseFailures = 0;
+let sseSource = null;
+function startEventStream() {
+  if (!window.EventSource || sseSource) return;
+  try {
+    sseSource = new EventSource('/api/events');
+  } catch (e) {
+    return;
+  }
+  sseSource.onopen = () => { sseActive = true; sseFailures = 0; };
+  sseSource.onmessage = (event) => {
+    try { renderJobs(JSON.parse(event.data).jobs); } catch (e) { /* keep stream */ }
+  };
+  sseSource.onerror = () => {
+    if (sseSource) { sseSource.close(); sseSource = null; }
+    sseActive = false;
+    sseFailures++;
+    if (sseFailures <= 3) setTimeout(startEventStream, 2000);
+  };
+}
+
+// 1.5s poll: the safety net under SSE, and still needed so short downloads
+// don't jump straight from "pending" to "completed" unseen when SSE is out.
+setInterval(() => {
+  if (!$('app').classList.contains('hidden') && !sseActive) refreshQueue();
+}, 1500);
 // NOTE: do not gate this on disabling #login-btn until i18n is ready (an
 // earlier attempt at that did exactly this) - MainActivity.kt's WebView
 // auto-login logs in by calling btn.click() from injected JS once the page
