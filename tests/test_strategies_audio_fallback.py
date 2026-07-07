@@ -36,7 +36,12 @@ def _run_and_capture_opts(
         def download(self, urls):
             (tmp_path / downloaded_name).write_bytes(b"data")
 
-    monkeypatch.setattr("video_downloader.strategies.yt_dlp.YoutubeDL", FakeYoutubeDL)
+    # strategies resolves yt_dlp through engine_update.get_yt_dlp (lazy, so
+    # the engine self-update can swap it at runtime) - fake it at that seam.
+    import types
+
+    fake_module = types.SimpleNamespace(YoutubeDL=FakeYoutubeDL)
+    monkeypatch.setattr("video_downloader.strategies.engine_update.get_yt_dlp", lambda: fake_module)
     YtDlpStrategy().download(request, request.source_url)
     return captured["opts"]
 
@@ -96,7 +101,10 @@ def test_audio_only_flags_when_mp3_conversion_silently_fails(tmp_path: Path, mon
         def download(self, urls):
             (tmp_path / "downloaded.opus").write_bytes(b"data")
 
-    monkeypatch.setattr("video_downloader.strategies.yt_dlp.YoutubeDL", FakeYoutubeDL)
+    import types
+
+    fake_module = types.SimpleNamespace(YoutubeDL=FakeYoutubeDL)
+    monkeypatch.setattr("video_downloader.strategies.engine_update.get_yt_dlp", lambda: fake_module)
     result = YtDlpStrategy().download(request, request.source_url)
 
     assert result.file_path.suffix == ".opus"

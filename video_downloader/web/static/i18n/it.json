@@ -126,6 +126,14 @@
       "auto": "Come il sistema",
       "light": "Chiaro",
       "dark": "Scuro"
+    },
+    "engine": {
+      "title": "Motore di download",
+      "status": "Version {version} — updates itself automatically.",
+      "update_available": "Update to {version} available",
+      "updating": "Updating…",
+      "update_btn": "Cerca aggiornamento del motore",
+      "started_toast": "Checking for an engine update…"
     }
   },
   "website": {

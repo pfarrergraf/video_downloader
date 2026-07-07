@@ -126,6 +126,14 @@
       "auto": "Zoals systeem",
       "light": "Licht",
       "dark": "Donker"
+    },
+    "engine": {
+      "title": "Downloadmotor",
+      "status": "Version {version} — updates itself automatically.",
+      "update_available": "Update to {version} available",
+      "updating": "Updating…",
+      "update_btn": "Zoeken naar motorupdate",
+      "started_toast": "Checking for an engine update…"
     }
   },
   "website": {

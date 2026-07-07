@@ -9,8 +9,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 import requests
-import yt_dlp
 
+from . import engine_update
 from .models import DownloadRequest, DownloadResult
 from .utils import (
     ensure_output_dir,
@@ -154,8 +154,13 @@ class YtDlpStrategy(Strategy):
 
         error_message = ""
         try:
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                ydl.download([source_url])
+            # Resolved through engine_update (never a module-top import) so a
+            # runtime engine self-update is observed by the very next
+            # download; engine_in_use() blocks a hot-swap mid-transfer.
+            with engine_update.engine_in_use():
+                yt_dlp = engine_update.get_yt_dlp()
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    ydl.download([source_url])
         except Exception as exc:  # yt_dlp raises DownloadError and friends
             # Re-check cancel_check directly rather than trusting the caught
             # exception's type/identity: yt-dlp may wrap whatever the progress

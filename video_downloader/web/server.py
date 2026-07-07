@@ -24,7 +24,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, unquote, urlsplit
 
-from .. import android_bridge
+from .. import android_bridge, engine_update
 from ..errors import classify_error
 from ..licensing import FREE_DAILY_DOWNLOAD_LIMIT, FREE_WINDOW_HOURS, LicenseManager
 from ..models import JOB_STATUS_COMPLETED, JOB_STATUS_IN_PROGRESS, JOB_STATUS_PENDING, DownloadProfile, JobRecord
@@ -136,6 +136,10 @@ class BackgroundQueueWorker:
 
     # How often to reap week-old partial data of failed jobs.
     JANITOR_INTERVAL_SECONDS = 3600.0
+    # Proactive daily engine check, so the app is usually already fixed
+    # BEFORE the user hits a broken site (ensure_latest also runs reactively
+    # on engine-outdated failures - see queue_runner).
+    ENGINE_CHECK_INTERVAL_SECONDS = 24 * 3600.0
 
     def __init__(self, store: QueueStore, output_dir: Path, workers: int) -> None:
         self._store = store
@@ -144,6 +148,7 @@ class BackgroundQueueWorker:
         self._stop = threading.Event()
         self._thread = threading.Thread(target=self._loop, name="classydl-web-worker", daemon=True)
         self._last_janitor_run = 0.0
+        self._last_engine_check = 0.0
 
     def start(self) -> None:
         # Jobs stranded as in_progress by a process kill (Android reclaims
@@ -173,6 +178,13 @@ class BackgroundQueueWorker:
                     self._runner.cleanup_stale_partials()
                 except Exception:  # noqa: BLE001 - hygiene must never kill the drain loop
                     pass
+            if now - self._last_engine_check >= self.ENGINE_CHECK_INTERVAL_SECONDS:
+                self._last_engine_check = now
+                if self._store.get_setting("engine_auto_update", "1") != "0":
+                    try:
+                        engine_update.ensure_latest()
+                    except Exception:  # noqa: BLE001 - update failures never kill the drain loop
+                        pass
             if summary.processed == 0:
                 self._stop.wait(2.0)
 
@@ -408,6 +420,26 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             jobs = self.server.store.list_jobs(status=status, limit=200)
             self._send_json(200, {"jobs": [_serialize_job(self.server.store, job) for job in jobs]})
             return
+        if path == "/api/engine":
+            if not self._require_auth():
+                return
+            state = engine_update.read_state()
+            active = engine_update.active_version()
+            latest = state.get("latest_known")
+            self._send_json(
+                200,
+                {
+                    "bundled_version": engine_update.bundled_version(),
+                    "active_version": active,
+                    "latest_known": latest,
+                    "update_available": bool(
+                        latest and active and str(latest) != str(active)
+                    ),
+                    "last_check_at": state.get("last_check_at"),
+                    "updating": engine_update.is_updating(),
+                },
+            )
+            return
         if path == "/api/settings":
             if not self._require_auth():
                 return
@@ -500,6 +532,19 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 self._send_json(400, {"detail": "This license is already active on another device of this type."})
                 return
             self._send_json(200, {"valid": True, "tier": state.tier})
+            return
+
+        if path == "/api/engine/update":
+            if not self._require_auth():
+                return
+            # Fire-and-forget: the check+download+swap runs in a background
+            # thread; the UI polls GET /api/engine for the outcome.
+            threading.Thread(
+                target=lambda: engine_update.ensure_latest(force=True),
+                name="classydl-engine-update",
+                daemon=True,
+            ).start()
+            self._send_json(200, {"started": True})
             return
 
         if path == "/api/settings":
@@ -735,6 +780,10 @@ def create_server(
         raise ValueError(
             "A password is required to run the web UI. Set --password or CLASSYDL_WEB_PASSWORD."
         )
+    # Put any previously self-updated yt-dlp on sys.path before the first
+    # download imports it. The engine files live next to the state DB, so
+    # every deployment (Android/Termux/desktop) shares this one call site.
+    engine_update.activate(store.db_path.parent)
     output_dir = ensure_output_dir(output_dir)
     return ClassyDLServer(
         (host, port),

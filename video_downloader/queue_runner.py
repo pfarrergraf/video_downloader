@@ -8,8 +8,9 @@ import threading
 import time
 from typing import Callable
 
+from . import engine_update
 from .core import DownloadManager
-from .errors import classify_error, retry_policy
+from .errors import ERR_ENGINE_OUTDATED, classify_error, retry_policy
 from .models import (
     DownloadProfile,
     DownloadRequest,
@@ -96,8 +97,11 @@ class QueueRunner:
         profile = self._resolve_profile(job.profile_id)
         max_attempts = max(1, int(job.max_attempts))
         output_dir = self._job_output_dir(job)
+        engine_update_tried = False
 
-        for attempt in range(job.attempt + 1, max_attempts + 1):
+        attempt = job.attempt
+        while attempt < max_attempts:
+            attempt += 1
             current = self.store.get_job(job.id)
             if current is None or current.status == JOB_STATUS_CANCELLED:
                 self.store.append_event(job.id, "warning", "Job aborted because it was cancelled")
@@ -135,6 +139,23 @@ class QueueRunner:
 
             error_code = classify_error(error)
             retryable, backoff = retry_policy(error_code)
+
+            if error_code == ERR_ENGINE_OUTDATED and not engine_update_tried:
+                # The site changed and the extractor can't cope - the fix is
+                # a newer yt-dlp, not a retry. Try a self-update (throttled
+                # internally to once/hour across all threads); if it actually
+                # installed something newer, this attempt didn't count.
+                engine_update_tried = True
+                self.store.append_event(
+                    job.id, "info", "Extractor failure looks engine-related; checking for a yt-dlp update"
+                )
+                updated, latest_version = engine_update.ensure_latest()
+                if updated:
+                    self.store.append_event(
+                        job.id, "info", f"Engine updated to {latest_version}; retrying immediately"
+                    )
+                    attempt -= 1  # free retry - the failure wasn't the job's fault
+                    continue
 
             if not retryable:
                 # A retry can never fix this class of failure (private video,

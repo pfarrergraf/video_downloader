@@ -754,3 +754,30 @@ def test_retry_endpoint_requeues_failed_job(server: ClassyDLServer) -> None:
     # Retrying a non-failed job is a 404, not a silent success.
     status, _, _ = _request(server, "POST", f"/api/queue/{job_id}/retry", cookie=cookie)
     assert status == 404
+
+
+def test_engine_endpoints_report_versions(server: ClassyDLServer, monkeypatch) -> None:
+    cookie = _login(server)
+    status, body, _ = _request(server, "GET", "/api/engine", cookie=cookie)
+    assert status == 200
+    # The test env installs yt-dlp normally, so both versions resolve.
+    assert body["bundled_version"]
+    assert body["active_version"]
+    assert body["updating"] is False
+
+    # The POST spawns a background ensure_latest - stub it so the test never
+    # talks to the real PyPI.
+    calls = []
+    from video_downloader import engine_update
+
+    monkeypatch.setattr(engine_update, "ensure_latest", lambda force=False: calls.append(force) or (False, None))
+    status, body, _ = _request(server, "POST", "/api/engine/update", cookie=cookie)
+    assert status == 200
+    assert body == {"started": True}
+    for _ in range(50):
+        if calls:
+            break
+        import time
+
+        time.sleep(0.1)
+    assert calls == [True]

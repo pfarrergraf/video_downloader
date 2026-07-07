@@ -126,6 +126,14 @@
       "auto": "Como el sistema",
       "light": "Claro",
       "dark": "Oscuro"
+    },
+    "engine": {
+      "title": "Motor de descarga",
+      "status": "Version {version} — updates itself automatically.",
+      "update_available": "Update to {version} available",
+      "updating": "Updating…",
+      "update_btn": "Buscar actualización del motor",
+      "started_toast": "Checking for an engine update…"
     }
   },
   "website": {

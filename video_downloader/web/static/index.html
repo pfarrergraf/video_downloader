@@ -451,6 +451,16 @@
       <option value="dark" data-i18n="app.theme.dark">Dark</option>
     </select>
 
+    <label data-i18n="app.engine.title">Download engine</label>
+    <!-- Filled by refreshEngine(): current yt-dlp version + whether a newer
+         one is known. The engine self-updates automatically (daily check +
+         on extractor failures); this row exists for transparency and as a
+         manual escape hatch. -->
+    <p class="muted" id="engine-status">—</p>
+    <div class="row" style="margin-top:0.2rem;">
+      <button class="secondary" id="engine-update-btn"><span aria-hidden="true">🔄</span> <span data-i18n="app.engine.update_btn">Check for engine update</span></button>
+    </div>
+
     <label data-i18n="app.settings.folder_label">Download folder</label>
     <!-- No data-i18n here on purpose: refreshSettings() sets this to either
          the real custom folder label or t('app.settings.folder_default') -
@@ -886,9 +896,38 @@ async function refreshSettings() {
 }
 window.refreshSettings = refreshSettings;
 
+async function refreshEngine() {
+  try {
+    const engine = await api('/api/engine');
+    let text = t('app.engine.status', { version: engine.active_version || '?' });
+    if (engine.updating) {
+      text = t('app.engine.updating');
+    } else if (engine.update_available) {
+      text += ' · ' + t('app.engine.update_available', { version: engine.latest_known });
+    }
+    $('engine-status').textContent = text;
+  } catch (e) {
+    // Not authenticated yet - refreshed again when settings open.
+  }
+}
+
+$('engine-update-btn').addEventListener('click', async () => {
+  try {
+    await api('/api/engine/update', { method: 'POST' });
+    toast(t('app.engine.started_toast'));
+    $('engine-status').textContent = t('app.engine.updating');
+    // The check+download runs server-side; refresh the row a few times.
+    setTimeout(refreshEngine, 4000);
+    setTimeout(refreshEngine, 12000);
+  } catch (e) {
+    toast(e.message || '');
+  }
+});
+
 $('settings-open-btn').addEventListener('click', () => {
   $('settings-overlay').classList.remove('hidden');
   refreshSettings();
+  refreshEngine();
 });
 $('settings-close-btn').addEventListener('click', () => {
   $('settings-overlay').classList.add('hidden');

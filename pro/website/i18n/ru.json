@@ -126,6 +126,14 @@
       "auto": "Как в системе",
       "light": "Светлое",
       "dark": "Тёмное"
+    },
+    "engine": {
+      "title": "Движок загрузки",
+      "status": "Version {version} — updates itself automatically.",
+      "update_available": "Update to {version} available",
+      "updating": "Updating…",
+      "update_btn": "Проверить обновление движка",
+      "started_toast": "Checking for an engine update…"
     }
   },
   "website": {

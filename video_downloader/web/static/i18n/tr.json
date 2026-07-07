@@ -126,6 +126,14 @@
       "auto": "Sistemle aynı",
       "light": "Açık",
       "dark": "Koyu"
+    },
+    "engine": {
+      "title": "İndirme motoru",
+      "status": "Version {version} — updates itself automatically.",
+      "update_available": "Update to {version} available",
+      "updating": "Updating…",
+      "update_btn": "Motor güncellemesini denetle",
+      "started_toast": "Checking for an engine update…"
     }
   },
   "website": {

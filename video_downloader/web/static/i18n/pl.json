@@ -126,6 +126,14 @@
       "auto": "Jak system",
       "light": "Jasny",
       "dark": "Ciemny"
+    },
+    "engine": {
+      "title": "Silnik pobierania",
+      "status": "Version {version} — updates itself automatically.",
+      "update_available": "Update to {version} available",
+      "updating": "Updating…",
+      "update_btn": "Sprawdź aktualizację silnika",
+      "started_toast": "Checking for an engine update…"
     }
   },
   "website": {

@@ -136,4 +136,15 @@ else
   adb logcat -d -s python.stdout python.stderr ClassyDL 2>/dev/null | tail -n 100 || true
 fi
 
+echo "Checking /api/engine (engine self-update wiring)..."
+ENGINE_JSON="$(curl -sf -b "$COOKIE_JAR" "$BASE/api/engine")"
+echo "Engine status: $ENGINE_JSON"
+echo "$ENGINE_JSON" | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+assert data.get('active_version'), f'active_version missing: {data}'
+assert data.get('updating') is False, f'unexpected updating state: {data}'
+"
+echo "Engine endpoint OK."
+
 echo "Download pipeline smoke test passed."

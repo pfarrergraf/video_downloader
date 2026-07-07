@@ -126,6 +126,14 @@
       "auto": "Same as system",
       "light": "Light",
       "dark": "Dark"
+    },
+    "engine": {
+      "title": "Download engine",
+      "status": "Version {version} — updates itself automatically.",
+      "update_available": "Update to {version} available",
+      "updating": "Updating…",
+      "update_btn": "Check for engine update",
+      "started_toast": "Checking for an engine update…"
     }
   },
   "website": {
