@@ -64,12 +64,23 @@ class MainActivity : AppCompatActivity() {
         // @Volatile ensures the write is immediately visible to any thread
         // that reads it after onCreate returns.
         @Volatile private var serverStarted = false
+
+        // First http(s) URL in a shared text - YouTube and most apps share
+        // "Some title https://youtu.be/..." rather than a bare URL.
+        private val SHARED_URL_REGEX = Regex("""https?://\S+""")
+
+        private const val PREFS_LAST_CLIPBOARD_KEY = "last_clipboard_suggestion"
     }
 
     private var loadRetries = 0
     private lateinit var password: String
     private lateinit var webView: WebView
     private lateinit var folderPickerLauncher: ActivityResultLauncher<Uri?>
+
+    // A URL shared into the app, waiting for the web UI to be ready.
+    // @Volatile: written on the UI thread, read by the WebView's JS-bridge
+    // thread (consumePendingSharedUrl).
+    @Volatile private var pendingSharedUrl: String? = null
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,15 +96,13 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.OpenDocumentTree(),
         ) { uri -> onFolderPicked(uri) }
 
+        handleShareIntent(intent)
+
         webView = findViewById(R.id.webview)
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
         webView.addJavascriptInterface(WebAppBridge(), "AndroidBridge")
-        // Lets the splash screen's chime (Web Audio API, see static/index.html)
-        // play immediately on load instead of being blocked by the browser-style
-        // autoplay-requires-a-gesture policy — safe here since it's our own
-        // contained WebView, not an arbitrary page.
-        webView.settings.mediaPlaybackRequiresUserGesture = false
+        applySystemFontScale()
         webView.webViewClient = object : WebViewClient() {
             // WebAppBridge is exposed to whatever page this WebView has loaded —
             // without this, following any link to a non-local page (e.g. one
@@ -166,6 +175,86 @@ class MainActivity : AppCompatActivity() {
         webView.evaluateJavascript("window.refreshSettings && window.refreshSettings();", null)
     }
 
+    // "Share -> DownloadThat" while the app is already running: singleTask
+    // routes the new intent here instead of stacking a second Activity.
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleShareIntent(intent)
+        deliverSharedUrlToPage()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        // Android 10+ only lets the focused foreground app read the clipboard,
+        // and onResume() fires *before* focus is granted - this is the
+        // earliest callback where the read actually works.
+        if (hasFocus) suggestClipboardUrl()
+    }
+
+    private fun handleShareIntent(intent: Intent?) {
+        if (intent?.action != Intent.ACTION_SEND || intent.type != "text/plain") return
+        val text = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return
+        val url = SHARED_URL_REGEX.find(text)?.value ?: return
+        pendingSharedUrl = url
+        Log.i(TAG, "Received shared URL")
+    }
+
+    /**
+     * Warm-path delivery of a shared URL into the already-loaded page. The JS
+     * side reports whether window.onSharedUrl existed; only then is the
+     * pending URL cleared — if the page wasn't ready yet, it stays pending
+     * and the page pulls it itself via consumePendingSharedUrl() once its
+     * auth flow completes (the cold-start path).
+     */
+    private fun deliverSharedUrlToPage() {
+        val url = pendingSharedUrl ?: return
+        if (!::webView.isInitialized) return
+        val quoted = JSONObject.quote(url)
+        webView.evaluateJavascript(
+            "(function(){ if (window.onSharedUrl) { window.onSharedUrl($quoted); return true; } return false; })();",
+        ) { result ->
+            if (result == "true" && pendingSharedUrl == url) {
+                pendingSharedUrl = null
+            }
+        }
+    }
+
+    /**
+     * If the clipboard holds a link the user copied elsewhere, offer it as a
+     * one-tap suggestion chip in the page (window.onClipboardUrl). Suggest
+     * each distinct URL only once, ever — a suggestion that keeps coming
+     * back after being dismissed is nagging, not helping.
+     */
+    private fun suggestClipboardUrl() {
+        if (!::webView.isInitialized) return
+        val clipboard = getSystemService(android.content.ClipboardManager::class.java) ?: return
+        val clip = clipboard.primaryClip ?: return
+        if (clip.itemCount == 0) return
+        val text = clip.getItemAt(0).coerceToText(this)?.toString() ?: return
+        val url = SHARED_URL_REGEX.find(text)?.value ?: return
+        val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        if (prefs.getString(PREFS_LAST_CLIPBOARD_KEY, null) == url) return
+        prefs.edit().putString(PREFS_LAST_CLIPBOARD_KEY, url).apply()
+        val quoted = JSONObject.quote(url)
+        webView.evaluateJavascript("window.onClipboardUrl && window.onClipboardUrl($quoted);", null)
+    }
+
+    /**
+     * Make the WebView follow the system font-size setting (a core
+     * accessibility need for the older half of the audience). Some WebView
+     * builds already fold fontScale into the default textZoom — only apply
+     * it when the default is still a plain 100, so it's never applied twice.
+     * Capped at 200%: the page layout is verified to reflow without sideways
+     * overflow up to there (see index.html's button wrapping rules).
+     */
+    private fun applySystemFontScale() {
+        val scale = resources.configuration.fontScale
+        if (webView.settings.textZoom == 100 && scale != 1.0f) {
+            webView.settings.textZoom = (scale * 100).toInt().coerceIn(50, 200)
+        }
+    }
+
     private fun onFolderPicked(uri: Uri?) {
         if (uri == null) return
         contentResolver.takePersistableUriPermission(
@@ -187,6 +276,16 @@ class MainActivity : AppCompatActivity() {
 
         @JavascriptInterface
         fun isAvailable(): Boolean = true
+
+        // Cold-start path for "Share -> DownloadThat": the page pulls the
+        // shared URL once its auth flow completes (deliverPendingSharedUrl()
+        // in index.html). Clears on read so a poll can't queue it twice.
+        @JavascriptInterface
+        fun consumePendingSharedUrl(): String? {
+            val url = pendingSharedUrl
+            pendingSharedUrl = null
+            return url
+        }
     }
 
     /**

@@ -16,13 +16,30 @@
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.ClassyDL"
         android:networkSecurityConfig="@xml/network_security_config">
+        <!-- singleTask: a "Share -> DownloadThat" while the app is already
+             running must route into the existing instance via onNewIntent()
+             (which owns the one Python server process) instead of stacking a
+             second Activity that would race the port-8420 bind. -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:launchMode="singleTask"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- Share target: lets YouTube/TikTok/Instagram/etc. share a link
+                 straight into the app (the 2-tap download flow). Deliberately
+                 NO ACTION_VIEW filter - that would make Android offer
+                 "Open with DownloadThat" for every web link, which is exactly
+                 the kind of chooser noise non-technical users find confusing.
+                 Note: an intent-filter is not a permission; the app's
+                 permission footprint is unchanged (INTERNET only). -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
 
