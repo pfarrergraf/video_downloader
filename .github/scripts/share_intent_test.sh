@@ -9,6 +9,18 @@
 # started, logged in (debug auto-login), and the local file server pattern
 # is established. Like that test, the file is served from the runner via
 # `adb reverse` to avoid flaky external hosts.
+#
+# A fresh install has never accepted the terms overlay, so the WebView's
+# own setAuthed(true) (fired once by MainActivity's injected auto-login,
+# long before this script runs) shows the terms gate instead of the app -
+# window.onSharedUrl exists but $('app') stays hidden forever, so it just
+# stashes the URL client-side and nothing ever flushes it (regression
+# caught via MainActivity's "Shared URL delivery result" diagnostic log:
+# it reported "handler-app-hidden"). accept_terms is a plain server-side
+# setting (QueueStore, not session-scoped), so setting it via curl and then
+# force-stopping/relaunching - same recovery the app must survive anyway,
+# see kill_resilience_test.sh - makes the WebView's next cold setAuthed(true)
+# see terms already accepted and show the app immediately.
 set -euo pipefail
 
 BASE="http://127.0.0.1:8420"
@@ -53,6 +65,32 @@ adb reverse "tcp:$FILE_PORT" "tcp:$FILE_PORT"
 
 TEST_URL="http://127.0.0.1:$FILE_PORT/shared.wav"
 
+curl -sf -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
+  -H "Content-Type: application/json" \
+  -d "{\"password\": \"$PASSWORD\"}" >/dev/null
+
+curl -sf -b "$COOKIE_JAR" -X POST "$BASE/api/settings" \
+  -H "Content-Type: application/json" \
+  -d '{"accept_terms": true}' >/dev/null
+
+echo "Force-stopping and relaunching so the WebView's next auto-login sees terms already accepted..."
+adb shell am force-stop de.classydl.app
+sleep 2
+adb shell am start -n de.classydl.app/.MainActivity
+
+for i in $(seq 1 40); do
+  if curl -sf --max-time 2 "$BASE/api/health" >/dev/null 2>&1; then
+    break
+  fi
+  sleep 1
+done
+# Give the WebView a moment past the server-health point to finish loading
+# and run its own auto-login + setAuthed(true) before the share intent
+# arrives - it needs its own login, not just a server that's up.
+sleep 5
+
+# Fresh login: the in-memory session store died with the process (same
+# reason kill_resilience_test.sh re-logs in after its own force-stop).
 curl -sf -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
   -H "Content-Type: application/json" \
   -d "{\"password\": \"$PASSWORD\"}" >/dev/null
