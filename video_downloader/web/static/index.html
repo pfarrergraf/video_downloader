@@ -1125,6 +1125,16 @@ function jobRow(job) {
     details.appendChild(raw);
     err.appendChild(details);
     li.appendChild(err);
+
+    // One-tap retry: requeues in place, resuming from partial data.
+    const retryBtn = document.createElement('button');
+    retryBtn.className = 'secondary';
+    retryBtn.textContent = t('app.queue.retry_btn');
+    retryBtn.addEventListener('click', async () => {
+      try { await api(`/api/queue/${job.id}/retry`, { method: 'POST' }); refreshQueue(); }
+      catch (e) { toast(e.message || ''); }
+    });
+    li.appendChild(retryBtn);
   }
 
   if (job.status === 'in_progress' && job.total_bytes) {

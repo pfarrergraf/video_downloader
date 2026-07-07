@@ -133,6 +133,33 @@ _PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
 )
 
 
+# Retry policy per error code: (retryable, backoff schedule in seconds).
+# Non-retryable codes describe conditions a retry can never fix (a private
+# video stays private; a full disk stays full until the user acts) — burning
+# battery and free-tier goodwill on them just delays the honest answer.
+# engine_outdated is non-retryable HERE because a bare retry hits the same
+# broken extractor; the queue runner pairs it with an engine self-update
+# (see engine_update.ensure_latest) which grants one fresh attempt.
+DEFAULT_BACKOFF = (5, 20, 60)
+RETRY_POLICY: dict[str, tuple[bool, tuple[int, ...]]] = {
+    ERR_NETWORK_OFFLINE: (True, (10, 30, 120)),
+    ERR_RATE_LIMITED: (True, (60, 300)),
+    ERR_STALLED: (True, DEFAULT_BACKOFF),
+    ERR_UNKNOWN: (True, DEFAULT_BACKOFF),
+    ERR_GEO_BLOCKED: (False, ()),
+    ERR_LOGIN_REQUIRED: (False, ()),
+    ERR_VIDEO_UNAVAILABLE: (False, ()),
+    ERR_ENGINE_OUTDATED: (False, ()),
+    ERR_DISK_FULL: (False, ()),
+    ERR_UNSUPPORTED_URL: (False, ()),
+}
+
+
+def retry_policy(code: str | None) -> tuple[bool, tuple[int, ...]]:
+    """(retryable, backoff schedule) for an error code; unknown codes retry."""
+    return RETRY_POLICY.get(code or ERR_UNKNOWN, (True, DEFAULT_BACKOFF))
+
+
 def classify_error(error: BaseException | str | None) -> str | None:
     """Return the error code for a failure message, or ``None`` for no error.
 

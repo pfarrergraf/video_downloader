@@ -9,6 +9,7 @@ import time
 from typing import Callable
 
 from .core import DownloadManager
+from .errors import classify_error, retry_policy
 from .models import (
     DownloadProfile,
     DownloadRequest,
@@ -21,6 +22,10 @@ from .utils import ensure_output_dir
 
 
 BACKOFF_SECONDS = (5, 20, 60)
+
+# Partial downloads of failed jobs stay on disk so a retry can resume them —
+# but not forever. See QueueRunner.cleanup_stale_partials.
+STALE_PARTIAL_MAX_AGE_DAYS = 7
 
 
 def _format_workflow_error(exc: DownloadWorkflowError) -> str:
@@ -120,16 +125,30 @@ class QueueRunner:
             # Re-check regardless of which exception landed above: a real
             # cancel_check-triggered abort (see strategies.DownloadCancelled)
             # normally arrives as its own exception, but yt-dlp can wrap it,
-            # and ffmpeg/direct-download strategies don't support cancel_check
-            # at all yet - so the only reliable signal is asking the DB again.
+            # and ffmpeg/direct strategies signal it the same way - so the
+            # only reliable signal is asking the DB again.
             latest = self.store.get_job(job.id)
             if latest is not None and latest.status == JOB_STATUS_CANCELLED:
                 self.store.append_event(job.id, "warning", "Job aborted because it was cancelled")
                 self._cleanup_orphaned_files(output_dir)
                 return False
 
+            error_code = classify_error(error)
+            retryable, backoff = retry_policy(error_code)
+
+            if not retryable:
+                # A retry can never fix this class of failure (private video,
+                # geo block, full disk, ...) - fail fast with the honest
+                # answer instead of burning battery on doomed attempts.
+                self.store.append_event(
+                    job.id, "warning", f"Not retrying ({error_code}): a retry cannot fix this."
+                )
+                self.store.mark_job_failed(job.id, error, error_code=error_code)
+                return False
+
             if attempt < max_attempts:
-                delay = BACKOFF_SECONDS[min(attempt - 1, len(BACKOFF_SECONDS) - 1)]
+                schedule = backoff or BACKOFF_SECONDS
+                delay = schedule[min(attempt - 1, len(schedule) - 1)]
                 self.store.append_event(
                     job.id,
                     "warning",
@@ -138,12 +157,14 @@ class QueueRunner:
                 time.sleep(delay)
                 continue
 
-            self.store.mark_job_failed(job.id, error)
-            self._cleanup_orphaned_files(output_dir)
+            # Final failure: partial files are deliberately KEPT (unlike
+            # cancel) so the UI's "retry" (requeue_job, same job dir) can
+            # resume from them. cleanup_stale_partials reaps them after
+            # STALE_PARTIAL_MAX_AGE_DAYS.
+            self.store.mark_job_failed(job.id, error, error_code=error_code)
             return False
 
         self.store.mark_job_failed(job.id, "Job failed without a terminal error")
-        self._cleanup_orphaned_files(output_dir)
         return False
 
     def _is_cancelled(self, job_id: int) -> bool:
@@ -157,15 +178,41 @@ class QueueRunner:
         return base_output_dir / f"job-{job.id}"
 
     def _cleanup_orphaned_files(self, output_dir: Path) -> None:
-        # Cancelled/failed jobs never get a job_files DB entry (only
+        # Cancelled jobs never get a job_files DB entry (only
         # mark_job_completed writes those), so whatever bytes yt-dlp already
         # wrote for them are permanently unreachable through the app - left
-        # alone, they'd accumulate on disk forever. Best-effort: a concurrent
+        # alone, they'd accumulate on disk forever. FAILED jobs deliberately
+        # do NOT go through here anymore: their partials are the resume data
+        # for the UI's retry button (requeue_job). Best-effort: a concurrent
         # writer still holding the directory open shouldn't crash the worker.
         try:
             shutil.rmtree(output_dir, ignore_errors=True)
         except OSError:
             pass
+
+    def cleanup_stale_partials(self, max_age_days: int = STALE_PARTIAL_MAX_AGE_DAYS) -> int:
+        """Reap partial data of long-dead failed jobs (disk hygiene).
+
+        Failed jobs keep their job-<id> directory so a retry can resume - but
+        a failure nobody retried for a week is abandoned; on a phone that
+        disk space matters. Returns the number of directories removed.
+        """
+        from datetime import UTC, datetime, timedelta
+
+        cutoff = datetime.now(UTC) - timedelta(days=max_age_days)
+        removed = 0
+        for job in self.store.list_jobs(status="failed", limit=500):
+            try:
+                finished = datetime.fromisoformat(job.finished_at) if job.finished_at else None
+            except ValueError:
+                finished = None
+            if finished is None or finished >= cutoff:
+                continue
+            job_dir = self._job_output_dir(job)
+            if job_dir.exists():
+                self._cleanup_orphaned_files(job_dir)
+                removed += 1
+        return removed
 
     def _resolve_profile(self, profile_id: int | None) -> DownloadProfile:
         if profile_id is not None:
@@ -190,6 +237,14 @@ class QueueRunner:
             external_downloader = "aria2c"
             external_downloader_args = "-x 16 -k 1M -s 16"
 
+        # Parallel HLS/DASH fragment fetches (yt-dlp native downloader).
+        # Tunable via the settings table without an app update; clamped so a
+        # typo can't spawn 100 connections on a phone.
+        concurrent_fragments = 4
+        raw_fragments = self.store.get_setting("engine_fragments")
+        if raw_fragments and raw_fragments.isdigit():
+            concurrent_fragments = max(1, min(8, int(raw_fragments)))
+
         return DownloadRequest(
             source_url=job.source,
             output_dir=output_dir,
@@ -213,6 +268,7 @@ class QueueRunner:
             job_id=job.id,
             profile_name=profile.name,
             quality_height=job.quality_height,
+            concurrent_fragments=concurrent_fragments,
             progress_callback=lambda downloaded, total, _job_id=job.id: self.store.update_job_progress(
                 _job_id, downloaded, total
             ),

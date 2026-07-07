@@ -205,7 +205,9 @@ def start(
         password=password,
         host="127.0.0.1",
         port=port,
-        workers=2,
+        # 3 concurrent downloads: the sweet spot for mid-range phones - the
+        # ffmpeg merge step is the CPU bound there, not the network.
+        workers=3,
         ffmpeg_binary=ffmpeg_binary,
         license_manager=license_manager,
         app_version=app_version,

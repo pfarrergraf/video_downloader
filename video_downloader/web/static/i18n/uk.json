@@ -37,7 +37,8 @@
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
-      "details_toggle": "Показати деталі"
+      "details_toggle": "Показати деталі",
+      "retry_btn": "Повторити"
     },
     "settings": {
       "gear_label": "Налаштування",

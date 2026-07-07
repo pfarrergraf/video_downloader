@@ -53,6 +53,7 @@ CURRENT_TERMS_VERSION = "2026-07"
 FREE_TIER_COUNTED_STATUSES = (JOB_STATUS_PENDING, JOB_STATUS_IN_PROGRESS, JOB_STATUS_COMPLETED)
 
 QUEUE_CANCEL_RE = re.compile(r"^/api/queue/(\d+)/cancel$")
+QUEUE_RETRY_RE = re.compile(r"^/api/queue/(\d+)/retry$")
 DOWNLOAD_RE = re.compile(r"^/api/download/(\d+)/([^/]+)$")
 
 mimetypes.add_type("application/manifest+json", ".webmanifest")
@@ -133,13 +134,30 @@ class LoginThrottle:
 class BackgroundQueueWorker:
     """Continuously drains the download queue in a background thread."""
 
+    # How often to reap week-old partial data of failed jobs.
+    JANITOR_INTERVAL_SECONDS = 3600.0
+
     def __init__(self, store: QueueStore, output_dir: Path, workers: int) -> None:
+        self._store = store
         self._runner = QueueRunner(store=store, default_output_dir=output_dir)
         self._workers = workers
         self._stop = threading.Event()
         self._thread = threading.Thread(target=self._loop, name="classydl-web-worker", daemon=True)
+        self._last_janitor_run = 0.0
 
     def start(self) -> None:
+        # Jobs stranded as in_progress by a process kill (Android reclaims
+        # the app without warning) go back to pending here - the one moment
+        # it's provably safe, since this process hasn't started any worker
+        # yet. Their partial files are still on disk, so they resume rather
+        # than restart. Deliberately NOT in QueueStore.init(): CLI/tests open
+        # stores without owning the queue, and a second process recovering
+        # jobs a first process is actively working would corrupt state.
+        recovered = self._store.recover_stale_in_progress()
+        if recovered:
+            self._store.append_event(
+                None, "info", f"Recovered {recovered} interrupted download(s) after restart"
+            )
         self._thread.start()
 
     def stop(self) -> None:
@@ -148,6 +166,13 @@ class BackgroundQueueWorker:
     def _loop(self) -> None:
         while not self._stop.is_set():
             summary = self._runner.run(workers=self._workers)
+            now = time.time()
+            if now - self._last_janitor_run >= self.JANITOR_INTERVAL_SECONDS:
+                self._last_janitor_run = now
+                try:
+                    self._runner.cleanup_stale_partials()
+                except Exception:  # noqa: BLE001 - hygiene must never kill the drain loop
+                    pass
             if summary.processed == 0:
                 self._stop.wait(2.0)
 
@@ -208,7 +233,10 @@ def _serialize_job(store: QueueStore, job: JobRecord) -> dict[str, Any]:
         "attempt": job.attempt,
         "max_attempts": job.max_attempts,
         "error": job.error,
-        "error_code": classify_error(job.error),
+        # Prefer the code stored at failure time (queue_runner classified the
+        # live exception); fall back to re-classifying the message for rows
+        # written before the error_code column existed.
+        "error_code": job.error_code or classify_error(job.error),
         "created_at": job.created_at,
         "updated_at": job.updated_at,
         "files": files,
@@ -673,6 +701,19 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 self._send_json(404, {"detail": "Job not found or already finished"})
                 return
             self._send_json(200, {"cancelled": True})
+            return
+
+        match = QUEUE_RETRY_RE.match(path)
+        if match:
+            if not self._require_auth():
+                return
+            # Requeues IN PLACE (same job id/dir) so partial data resumes -
+            # see QueueStore.requeue_job. Only failed jobs qualify.
+            ok = self.server.store.requeue_job(int(match.group(1)))
+            if not ok:
+                self._send_json(404, {"detail": "Job not found or not in a failed state"})
+                return
+            self._send_json(200, {"requeued": True})
             return
 
         self._send_json(404, {"detail": "Not found"})

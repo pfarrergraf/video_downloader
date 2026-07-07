@@ -44,7 +44,8 @@
       "share_btn": "Teilen",
       "share_failed_toast": "Die Datei konnte nicht geteilt werden.",
       "share_unsupported_toast": "Teilen funktioniert nur in der Android-App.",
-      "details_toggle": "Details anzeigen"
+      "details_toggle": "Details anzeigen",
+      "retry_btn": "Erneut versuchen"
     },
     "settings": {
       "gear_label": "Einstellungen",

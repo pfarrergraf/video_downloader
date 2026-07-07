@@ -135,6 +135,8 @@ class QueueStore:
             conn.execute("ALTER TABLE jobs ADD COLUMN total_bytes INTEGER")
         if "quality_height" not in existing:
             conn.execute("ALTER TABLE jobs ADD COLUMN quality_height INTEGER")
+        if "error_code" not in existing:
+            conn.execute("ALTER TABLE jobs ADD COLUMN error_code TEXT")
 
     def get_setting(self, key: str, default: str | None = None) -> str | None:
         with self._connect() as conn:
@@ -300,14 +302,15 @@ class QueueStore:
             return self._row_to_job(claimed) if claimed else None
 
     def set_job_attempt(self, job_id: int, attempt: int) -> None:
+        # Deliberately does NOT reset downloaded_bytes/total_bytes: partial
+        # files survive between attempts (yt-dlp's continuedl picks the .part
+        # back up), so the previous attempt's byte count is still the true
+        # on-disk progress. Resetting it made every retry look like a restart
+        # from zero in the UI even when it actually resumed.
         with self._connect() as conn:
             conn.execute(
                 "UPDATE jobs SET attempt = ?, updated_at = ? WHERE id = ?",
                 (int(attempt), _utcnow(), job_id),
-            )
-            conn.execute(
-                "UPDATE jobs SET downloaded_bytes = 0, total_bytes = NULL WHERE id = ?",
-                (job_id,),
             )
 
     def update_job_progress(self, job_id: int, downloaded_bytes: int, total_bytes: int | None) -> None:
@@ -331,7 +334,7 @@ class QueueStore:
             conn.execute(
                 """
                 UPDATE jobs
-                SET status = ?, error = ?, finished_at = ?, updated_at = ?
+                SET status = ?, error = ?, error_code = NULL, finished_at = ?, updated_at = ?
                 WHERE id = ?
                 """,
                 (JOB_STATUS_COMPLETED, details or None, now, now, job_id),
@@ -352,18 +355,71 @@ class QueueStore:
         if details:
             self.append_event(job_id, "warning", details)
 
-    def mark_job_failed(self, job_id: int, error: str) -> None:
+    def mark_job_failed(self, job_id: int, error: str, error_code: str | None = None) -> None:
         now = _utcnow()
         with self._connect() as conn:
             conn.execute(
                 """
                 UPDATE jobs
-                SET status = ?, error = ?, finished_at = ?, updated_at = ?
+                SET status = ?, error = ?, error_code = ?, finished_at = ?, updated_at = ?
                 WHERE id = ?
                 """,
-                (JOB_STATUS_FAILED, error, now, now, job_id),
+                (JOB_STATUS_FAILED, error, error_code, now, now, job_id),
             )
         self.append_event(job_id, "error", error)
+
+    def recover_stale_in_progress(self) -> int:
+        """Requeue jobs stranded as in_progress by a process kill.
+
+        Android reclaims the app process without warning; whatever job a
+        worker thread was running stays 'in_progress' in the DB forever,
+        because claim_next_job only ever picks up 'pending' rows. Called once
+        when a queue-draining owner starts (BackgroundQueueWorker.start) —
+        at that moment no worker of this process can be mid-job yet, so any
+        in_progress row is by definition stale. Preserves attempt and
+        downloaded_bytes: the partial file is still on disk and yt-dlp
+        resumes it.
+        """
+        now = _utcnow()
+        with self._connect() as conn:
+            rows = conn.execute(
+                "SELECT id FROM jobs WHERE status = ?", (JOB_STATUS_IN_PROGRESS,)
+            ).fetchall()
+            job_ids = [int(row["id"]) for row in rows]
+            if job_ids:
+                conn.execute(
+                    f"UPDATE jobs SET status = ?, updated_at = ? "
+                    f"WHERE id IN ({','.join('?' * len(job_ids))})",
+                    (JOB_STATUS_PENDING, now, *job_ids),
+                )
+        for job_id in job_ids:
+            self.append_event(
+                job_id, "warning", "Recovered after an app restart; download will resume"
+            )
+        return len(job_ids)
+
+    def requeue_job(self, job_id: int) -> bool:
+        """Send a failed job back to pending IN PLACE (same id, same job dir).
+
+        Unlike retry_job() (which clones into a new job id for CLI history
+        semantics), keeping the id means the same job-<id> output directory
+        is reused, so yt-dlp finds the previous attempt's .part file and
+        resumes instead of starting over. Attempt resets so the full retry
+        budget is available again.
+        """
+        with self._connect() as conn:
+            cursor = conn.execute(
+                """
+                UPDATE jobs
+                SET status = ?, attempt = 0, finished_at = NULL, updated_at = ?
+                WHERE id = ? AND status = ?
+                """,
+                (JOB_STATUS_PENDING, _utcnow(), job_id, JOB_STATUS_FAILED),
+            )
+        if cursor.rowcount > 0:
+            self.append_event(job_id, "info", "Job requeued by user; will resume from partial data")
+            return True
+        return False
 
     def mark_job_cancelled(self, job_id: int) -> bool:
         now = _utcnow()
@@ -668,6 +724,7 @@ class QueueStore:
             started_at=str(row["started_at"]) if row["started_at"] is not None else None,
             finished_at=str(row["finished_at"]) if row["finished_at"] is not None else None,
             updated_at=str(row["updated_at"]),
+            error_code=str(row["error_code"]) if row["error_code"] is not None else None,
             downloaded_bytes=int(row["downloaded_bytes"]),
             total_bytes=int(row["total_bytes"]) if row["total_bytes"] is not None else None,
             quality_height=int(row["quality_height"]) if row["quality_height"] is not None else None,

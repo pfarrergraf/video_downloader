@@ -37,7 +37,8 @@
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
-      "details_toggle": "Details tonen"
+      "details_toggle": "Details tonen",
+      "retry_btn": "Opnieuw proberen"
     },
     "settings": {
       "gear_label": "Instellingen",

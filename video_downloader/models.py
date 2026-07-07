@@ -43,6 +43,10 @@ class DownloadRequest:
     # the transfer instead of only being noticed after it finishes - see
     # strategies.DownloadCancelled and queue_runner._process_job.
     cancel_check: Callable[[], bool] | None = None
+    # How many HLS/DASH fragments yt-dlp downloads in parallel. 1 = serial
+    # (yt-dlp's own default, slow); 4 saturates a typical mobile connection
+    # without ballooning memory (each in-flight fragment buffers in RAM).
+    concurrent_fragments: int = 4
 
 
 @dataclass(slots=True)
@@ -106,6 +110,9 @@ class JobRecord:
     downloaded_bytes: int = 0
     total_bytes: int | None = None
     quality_height: int | None = None
+    # Stable taxonomy code for the failure (see errors.classify_error) — what
+    # the UI translates into a human message and the retry policy keys on.
+    error_code: str | None = None
 
 
 @dataclass(slots=True)

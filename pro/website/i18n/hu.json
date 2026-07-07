@@ -37,7 +37,8 @@
       "share_btn": "Share",
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
-      "details_toggle": "Show details"
+      "details_toggle": "Show details",
+      "retry_btn": "Try again"
     },
     "settings": {
       "gear_label": "Beállítások",

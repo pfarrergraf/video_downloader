@@ -735,3 +735,22 @@ def test_failed_job_carries_error_code(server: ClassyDLServer) -> None:
     _, body, _ = _request(server, "GET", "/api/queue", cookie=cookie)
     fresh = next(j for j in body["jobs"] if j["id"] == body2["job_id"])
     assert fresh["error_code"] is None
+
+
+def test_retry_endpoint_requeues_failed_job(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/video"}, cookie=cookie
+    )
+    job_id = body["job_id"]
+    server.store.mark_job_failed(job_id, "network dropped", error_code="network_offline")
+
+    status, body, _ = _request(server, "POST", f"/api/queue/{job_id}/retry", cookie=cookie)
+    assert status == 200
+    assert body == {"requeued": True}
+    job = server.store.get_job(job_id)
+    assert job is not None and job.status == "pending"
+
+    # Retrying a non-failed job is a 404, not a silent success.
+    status, _, _ = _request(server, "POST", f"/api/queue/{job_id}/retry", cookie=cookie)
+    assert status == 404
