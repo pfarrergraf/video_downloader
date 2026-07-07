@@ -235,6 +235,18 @@ def test_ensure_latest_full_flow_and_throttle(tmp_path: Path, fake_index, monkey
     assert version == FAKE_VERSION
 
 
+def test_is_newer_ignores_zero_padding_format_differences() -> None:
+    # Regression test: PyPI's JSON reports "2026.7.4" while yt-dlp's own
+    # version.py (and thus active_version()) reports "2026.07.04" for the
+    # SAME release. /api/engine used to compare these with a plain string
+    # inequality, so it permanently claimed "update available" on an
+    # already-current install (caught on-device via the Settings screen).
+    assert engine_update.is_newer("2026.7.4", "2026.07.04") is False
+    assert engine_update.is_newer("2026.07.04", "2026.7.4") is False
+    assert engine_update.is_newer("2026.7.5", "2026.07.04") is True
+    assert engine_update.is_newer("2026.07.04", "2026.7.5") is False
+
+
 def test_check_latest_against_real_pypi() -> None:
     # Integration check that PyPI's JSON shape still matches what we parse.
     # Skips cleanly when the sandbox/CI has no route to pypi.org.

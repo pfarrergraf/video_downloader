@@ -129,6 +129,20 @@ def active_version() -> str | None:
     return _active_version or bundled_version()
 
 
+def is_newer(candidate: str, baseline: str) -> bool:
+    """True if `candidate` is a strictly newer version than `baseline`.
+
+    Numeric-tuple comparison, not string equality: PyPI's JSON reports
+    versions like "2026.7.4" while yt-dlp's own version.py (and thus
+    active_version()/bundled_version()) reports the zero-padded "2026.07.04"
+    for the same release. A plain string compare treated those as different,
+    so /api/engine always claimed "update available" even when already
+    current (caught on-device: the settings screen showed an update offer
+    that never went away after applying it).
+    """
+    return _version_tuple(candidate) > _version_tuple(baseline)
+
+
 def is_updating() -> bool:
     return _updating
 

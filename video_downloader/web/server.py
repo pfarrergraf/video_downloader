@@ -562,7 +562,7 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                     "active_version": active,
                     "latest_known": latest,
                     "update_available": bool(
-                        latest and active and str(latest) != str(active)
+                        latest and active and engine_update.is_newer(latest, active)
                     ),
                     "last_check_at": state.get("last_check_at"),
                     "updating": engine_update.is_updating(),
