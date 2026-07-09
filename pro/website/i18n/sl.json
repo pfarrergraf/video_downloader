@@ -196,7 +196,9 @@
       "cta_lifetime": "Izberi doživljenjsko",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Zahtevam, da se dostop začne takoj, še pred iztekom zakonsko določenega 14-dnevnega roka za odstop od pogodbe. Razumem, da s tem izgubim pravico do odstopa od pogodbe takoj, ko je nakup zaključen (glejte {terms_start}Pogoje uporabe{terms_end} §6.3 in {refund_start}Obvestilo o odstopu{refund_end}). Po aktivaciji ni samodejnega povračila."
+      "consent_label": "Zahtevam, da se dostop začne takoj, še pred iztekom zakonsko določenega 14-dnevnega roka za odstop od pogodbe. Razumem, da s tem izgubim pravico do odstopa od pogodbe takoj, ko je nakup zaključen (glejte {terms_start}Pogoje uporabe{terms_end} §6.3 in {refund_start}Obvestilo o odstopu{refund_end}). Po aktivaciji ni samodejnega povračila.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Pogosta vprašanja",

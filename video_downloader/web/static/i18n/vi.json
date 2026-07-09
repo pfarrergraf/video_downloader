@@ -196,7 +196,9 @@
       "cta_lifetime": "Chọn gói trọn đời",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Tôi yêu cầu quyền truy cập bắt đầu ngay lập tức, trước khi thời hạn rút lui hợp pháp 14 ngày kết thúc. Tôi hiểu rằng điều này có nghĩa là tôi sẽ mất quyền rút lui ngay khi hoàn tất giao dịch mua (xem {terms_start}Điều khoản sử dụng{terms_end} mục 6.3 và {refund_start}Thông báo rút lui{refund_end}). Không có hoàn tiền tự động sau khi kích hoạt."
+      "consent_label": "Tôi yêu cầu quyền truy cập bắt đầu ngay lập tức, trước khi thời hạn rút lui hợp pháp 14 ngày kết thúc. Tôi hiểu rằng điều này có nghĩa là tôi sẽ mất quyền rút lui ngay khi hoàn tất giao dịch mua (xem {terms_start}Điều khoản sử dụng{terms_end} mục 6.3 và {refund_start}Thông báo rút lui{refund_end}). Không có hoàn tiền tự động sau khi kích hoạt.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Câu hỏi thường gặp",

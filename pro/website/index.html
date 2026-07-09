@@ -93,6 +93,20 @@
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.015); }
   }
+  .email-row {
+    max-width: 360px; margin: 0 auto 20px; text-align: left;
+    border-radius: 10px; padding: 8px; transition: box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .email-row label { display: block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 6px; }
+  .email-row input {
+    width: 100%; box-sizing: border-box; padding: 10px 12px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 0.95rem;
+  }
+  .email-row.consent-highlight {
+    box-shadow: 0 0 0 2px var(--accent);
+    background: rgba(201, 168, 105, 0.12);
+    animation: consent-pulse 0.5s ease 2;
+  }
 
   .hero { padding: 60px 24px 48px; overflow: hidden; }
   .hero-grid { display: flex; align-items: center; gap: 56px; }
@@ -284,6 +298,10 @@
   <div class="wrap">
     <h2 data-i18n="website.pricing.h2">Simple, honest pricing</h2>
     <p class="section-lead" data-i18n="website.pricing.lead">Free forever: 3 downloads a day in full HD/4K quality. Unlimited with Pro.</p>
+    <div class="email-row">
+      <label for="purchase-email" data-i18n="website.pricing.email_label">Email address (for your license)</label>
+      <input type="email" id="purchase-email" required autocomplete="email" placeholder="you@example.com" />
+    </div>
     <div class="consent-row">
       <input type="checkbox" id="withdrawal-consent" />
       <label for="withdrawal-consent" data-i18n-html="website.pricing.consent_label">
@@ -374,16 +392,58 @@
   // just do nothing (no feedback at all, since .cta-disabled was pointer-events:
   // none) - easy to miss why "Buy" didn't seem to work. Now it always points
   // the customer at the checkbox instead of silently failing.
+  function nudge(selector, focusEl) {
+    const row = document.querySelector(selector);
+    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    row.classList.add('consent-highlight');
+    focusEl.focus({ preventScroll: true });
+    setTimeout(() => row.classList.remove('consent-highlight'), 1600);
+  }
+
+  // Payment Links have no account system - nothing stops the same email from
+  // buying twice, whether that's an accidental double-click or someone
+  // deliberately paying again weeks later. `busy` blocks the double-click
+  // case outright (the second click re-enters this handler before the first
+  // has finished its email check, so it's ignored); check-email.js +
+  // confirm() below is a warn-and-confirm gate for everything else, per
+  // explicit instruction: never a silent/automatic refund, and no blocking
+  // of a purchase the customer actually wants to make twice.
+  let busy = false;
   document.querySelectorAll('a[data-stripe-link]').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      if (!a.classList.contains('cta-disabled')) return;
+    a.addEventListener('click', async (e) => {
       e.preventDefault();
-      const row = document.querySelector('.consent-row');
-      const box = document.getElementById('withdrawal-consent');
-      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      row.classList.add('consent-highlight');
-      box.focus({ preventScroll: true });
-      setTimeout(() => row.classList.remove('consent-highlight'), 1600);
+      if (busy) return;
+      if (a.classList.contains('cta-disabled')) {
+        nudge('.consent-row', document.getElementById('withdrawal-consent'));
+        return;
+      }
+      const emailInput = document.getElementById('purchase-email');
+      const email = emailInput.value.trim();
+      if (!email || !emailInput.checkValidity()) {
+        nudge('.email-row', emailInput);
+        return;
+      }
+
+      busy = true;
+      try {
+        const res = await fetch(`/api/check-email?email=${encodeURIComponent(email)}`);
+        const data = await res.json().catch(() => ({}));
+        if (data.has_active_license) {
+          const tierKey = { monthly: 'website.success.tier_monthly', yearly: 'website.success.tier_yearly', lifetime: 'website.success.tier_lifetime' }[data.tier];
+          const tierLabel = tierKey ? dtT(tierKey) : (data.tier || '');
+          const proceed = window.confirm(dtT('website.pricing.duplicate_confirm', { tier: tierLabel }));
+          if (!proceed) return;
+        }
+      } catch (err) {
+        // Can't reach our own check - don't block a legitimate purchase over
+        // it, this is a courtesy warning, not a security boundary.
+      } finally {
+        busy = false;
+      }
+
+      const target = new URL(a.href);
+      target.searchParams.set('prefilled_email', email);
+      window.location.href = target.toString();
     });
   });
 </script>

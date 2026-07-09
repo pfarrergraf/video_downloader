@@ -196,7 +196,9 @@
       "cta_lifetime": "Lebenslang wählen",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Ich verlange, dass die Ausführung sofort beginnt, bevor die gesetzliche 14-tägige Widerrufsfrist abläuft. Mir ist bewusst, dass ich dadurch mein Widerrufsrecht verliere, sobald der Kauf abgeschlossen ist (siehe {terms_start}Nutzungsbedingungen{terms_end} §6.3 und {refund_start}Widerrufsbelehrung{refund_end}). Eine automatische Rückerstattung nach Freischaltung gibt es nicht."
+      "consent_label": "Ich verlange, dass die Ausführung sofort beginnt, bevor die gesetzliche 14-tägige Widerrufsfrist abläuft. Mir ist bewusst, dass ich dadurch mein Widerrufsrecht verliere, sobald der Kauf abgeschlossen ist (siehe {terms_start}Nutzungsbedingungen{terms_end} §6.3 und {refund_start}Widerrufsbelehrung{refund_end}). Eine automatische Rückerstattung nach Freischaltung gibt es nicht.",
+      "email_label": "E-Mail-Adresse (für deine Lizenz)",
+      "duplicate_confirm": "Du hast bereits eine aktive {tier}-Lizenz unter dieser E-Mail-Adresse. Möchtest du wirklich eine weitere kaufen?"
     },
     "faq": {
       "h2": "Häufig gestellte Fragen",

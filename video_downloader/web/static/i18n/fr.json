@@ -196,7 +196,9 @@
       "cta_lifetime": "Choisir à vie",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Je demande que l'accès commence immédiatement, avant la fin du délai légal de rétractation de 14 jours. Je comprends que cela signifie que je perds mon droit de rétractation dès que l'achat est finalisé (voir les {terms_start}Conditions d'utilisation{terms_end} §6.3 et l'{refund_start}Avis de rétractation{refund_end}). Il n'y a pas de remboursement automatique après activation."
+      "consent_label": "Je demande que l'accès commence immédiatement, avant la fin du délai légal de rétractation de 14 jours. Je comprends que cela signifie que je perds mon droit de rétractation dès que l'achat est finalisé (voir les {terms_start}Conditions d'utilisation{terms_end} §6.3 et l'{refund_start}Avis de rétractation{refund_end}). Il n'y a pas de remboursement automatique après activation.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Questions fréquentes",

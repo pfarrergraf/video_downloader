@@ -196,7 +196,9 @@
       "cta_lifetime": "Velg livstid",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Jeg krever at tilgangen starter umiddelbart, før den lovpålagte 14-dagers angrefristen utløper. Jeg forstår at jeg dermed mister angreretten min så snart kjøpet er fullført (se {terms_start}Bruksvilkårene{terms_end} §6.3 og {refund_start}Angreveiledningen{refund_end}). Det gis ingen automatisk refusjon etter aktivering."
+      "consent_label": "Jeg krever at tilgangen starter umiddelbart, før den lovpålagte 14-dagers angrefristen utløper. Jeg forstår at jeg dermed mister angreretten min så snart kjøpet er fullført (se {terms_start}Bruksvilkårene{terms_end} §6.3 og {refund_start}Angreveiledningen{refund_end}). Det gis ingen automatisk refusjon etter aktivering.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Ofte stilte spørsmål",

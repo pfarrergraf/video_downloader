@@ -196,7 +196,9 @@
       "cta_lifetime": "ಜೀವಮಾನ ಆಯ್ಕೆಮಾಡಿ",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "ಖರೀದಿ ಪೂರ್ಣಗೊಂಡ ತಕ್ಷಣ ನನ್ನ ಹಿಂಪಡೆಯುವ ಹಕ್ಕನ್ನು ಕಳೆದುಕೊಳ್ಳುತ್ತೇನೆ ಎಂದು ಅರ್ಥಮಾಡಿಕೊಂಡು, ಕಾನೂನುಬದ್ಧ 14 ದಿನಗಳ ಹಿಂಪಡೆಯುವ ಅವಧಿ ಮುಗಿಯುವ ಮೊದಲೇ ಪ್ರವೇಶ ತಕ್ಷಣ ಪ್ರಾರಂಭವಾಗಬೇಕೆಂದು ನಾನು ಕೋರುತ್ತೇನೆ ({terms_start}ಬಳಕೆ ನಿಯಮಗಳು{terms_end} §6.3 ಮತ್ತು {refund_start}ಹಿಂಪಡೆಯುವ ಸೂಚನೆ{refund_end} ನೋಡಿ). ಸಕ್ರಿಯಗೊಳಿಸಿದ ನಂತರ ಸ್ವಯಂಚಾಲಿತ ಮರುಪಾವತಿ ಇಲ್ಲ."
+      "consent_label": "ಖರೀದಿ ಪೂರ್ಣಗೊಂಡ ತಕ್ಷಣ ನನ್ನ ಹಿಂಪಡೆಯುವ ಹಕ್ಕನ್ನು ಕಳೆದುಕೊಳ್ಳುತ್ತೇನೆ ಎಂದು ಅರ್ಥಮಾಡಿಕೊಂಡು, ಕಾನೂನುಬದ್ಧ 14 ದಿನಗಳ ಹಿಂಪಡೆಯುವ ಅವಧಿ ಮುಗಿಯುವ ಮೊದಲೇ ಪ್ರವೇಶ ತಕ್ಷಣ ಪ್ರಾರಂಭವಾಗಬೇಕೆಂದು ನಾನು ಕೋರುತ್ತೇನೆ ({terms_start}ಬಳಕೆ ನಿಯಮಗಳು{terms_end} §6.3 ಮತ್ತು {refund_start}ಹಿಂಪಡೆಯುವ ಸೂಚನೆ{refund_end} ನೋಡಿ). ಸಕ್ರಿಯಗೊಳಿಸಿದ ನಂತರ ಸ್ವಯಂಚಾಲಿತ ಮರುಪಾವತಿ ಇಲ್ಲ.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "ಪದೇ ಪದೇ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು",

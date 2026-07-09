@@ -196,7 +196,9 @@
       "cta_lifetime": "Élethosszig tartó csomag választása",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Kérem, hogy a hozzáférés azonnal induljon, még a törvényben előírt 14 napos elállási határidő lejárta előtt. Tudomásul veszem, hogy ezáltal elveszítem elállási jogomat, amint a vásárlás befejeződik (lásd: {terms_start}Felhasználási feltételek{terms_end} 6.3. pont és a {refund_start}Elállási tájékoztató{refund_end}). Aktiválás után nincs automatikus visszatérítés."
+      "consent_label": "Kérem, hogy a hozzáférés azonnal induljon, még a törvényben előírt 14 napos elállási határidő lejárta előtt. Tudomásul veszem, hogy ezáltal elveszítem elállási jogomat, amint a vásárlás befejeződik (lásd: {terms_start}Felhasználási feltételek{terms_end} 6.3. pont és a {refund_start}Elállási tájékoztató{refund_end}). Aktiválás után nincs automatikus visszatérítés.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Gyakran ismételt kérdések",

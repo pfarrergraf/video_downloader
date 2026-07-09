@@ -196,7 +196,9 @@
       "cta_lifetime": "Επιλογή εφ' όρου ζωής",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Ζητώ να ξεκινήσει η πρόσβαση αμέσως, πριν λήξει η νόμιμη 14ήμερη προθεσμία υπαναχώρησης. Κατανοώ ότι αυτό σημαίνει πως χάνω το δικαίωμα υπαναχώρησης μόλις ολοκληρωθεί η αγορά (βλ. {terms_start}Όρους Χρήσης{terms_end} §6.3 και την {refund_start}Ενημέρωση Υπαναχώρησης{refund_end}). Δεν υπάρχει αυτόματη επιστροφή χρημάτων μετά την ενεργοποίηση."
+      "consent_label": "Ζητώ να ξεκινήσει η πρόσβαση αμέσως, πριν λήξει η νόμιμη 14ήμερη προθεσμία υπαναχώρησης. Κατανοώ ότι αυτό σημαίνει πως χάνω το δικαίωμα υπαναχώρησης μόλις ολοκληρωθεί η αγορά (βλ. {terms_start}Όρους Χρήσης{terms_end} §6.3 και την {refund_start}Ενημέρωση Υπαναχώρησης{refund_end}). Δεν υπάρχει αυτόματη επιστροφή χρημάτων μετά την ενεργοποίηση.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Συχνές ερωτήσεις",

@@ -196,7 +196,9 @@
       "cta_lifetime": "Scegli a vita",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Richiedo che l'accesso inizi immediatamente, prima della scadenza del periodo legale di recesso di 14 giorni. Comprendo che ciò significa perdere il mio diritto di recesso non appena l'acquisto è completato (vedi {terms_start}Termini di utilizzo{terms_end} §6.3 e l'{refund_start}Avviso di recesso{refund_end}). Non è previsto alcun rimborso automatico dopo l'attivazione."
+      "consent_label": "Richiedo che l'accesso inizi immediatamente, prima della scadenza del periodo legale di recesso di 14 giorni. Comprendo che ciò significa perdere il mio diritto di recesso non appena l'acquisto è completato (vedi {terms_start}Termini di utilizzo{terms_end} §6.3 e l'{refund_start}Avviso di recesso{refund_end}). Non è previsto alcun rimborso automatico dopo l'attivazione.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Domande frequenti",

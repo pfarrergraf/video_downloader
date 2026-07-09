@@ -196,7 +196,9 @@
       "cta_lifetime": "لائف ٹائم منتخب کریں",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "میں درخواست کرتا/کرتی ہوں کہ رسائی فوری طور پر شروع ہو جائے، قانونی 14 دن کی واپسی مدت ختم ہونے سے پہلے۔ میں سمجھتا/سمجھتی ہوں کہ اس کا مطلب یہ ہے کہ خریداری مکمل ہوتے ہی میں اپنا حقِ واپسی کھو دوں گا/گی ({terms_start}استعمال کی شرائط{terms_end} شق 6.3 اور {refund_start}واپسی نوٹس{refund_end} دیکھیں)۔ فعال ہونے کے بعد خودکار رقم کی واپسی نہیں ہوتی۔"
+      "consent_label": "میں درخواست کرتا/کرتی ہوں کہ رسائی فوری طور پر شروع ہو جائے، قانونی 14 دن کی واپسی مدت ختم ہونے سے پہلے۔ میں سمجھتا/سمجھتی ہوں کہ اس کا مطلب یہ ہے کہ خریداری مکمل ہوتے ہی میں اپنا حقِ واپسی کھو دوں گا/گی ({terms_start}استعمال کی شرائط{terms_end} شق 6.3 اور {refund_start}واپسی نوٹس{refund_end} دیکھیں)۔ فعال ہونے کے بعد خودکار رقم کی واپسی نہیں ہوتی۔",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "اکثر پوچھے جانے والے سوالات",

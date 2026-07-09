@@ -196,7 +196,9 @@
       "cta_lifetime": "Vali eluaegne",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Nõuan, et juurdepääs algaks kohe, enne seadusjärgse 14-päevase taganemistähtaja lõppu. Saan aru, et sellega kaotan oma taganemisõiguse kohe, kui ost on lõpule viidud (vt {terms_start}Kasutustingimusi{terms_end} §6.3 ja {refund_start}Taganemisjuhendit{refund_end}). Pärast aktiveerimist automaatset tagasimakset ei tehta."
+      "consent_label": "Nõuan, et juurdepääs algaks kohe, enne seadusjärgse 14-päevase taganemistähtaja lõppu. Saan aru, et sellega kaotan oma taganemisõiguse kohe, kui ost on lõpule viidud (vt {terms_start}Kasutustingimusi{terms_end} §6.3 ja {refund_start}Taganemisjuhendit{refund_end}). Pärast aktiveerimist automaatset tagasimakset ei tehta.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Korduma kippuvad küsimused",

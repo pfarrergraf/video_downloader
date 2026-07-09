@@ -196,7 +196,9 @@
       "cta_lifetime": "选择终身版",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "我要求在法定14天撤回期结束之前立即开通访问权限。我理解这意味着一旦购买完成，我将失去撤回权（参见{terms_start}使用条款{terms_end}第6.3条和{refund_start}撤回须知{refund_end}）。激活后不提供自动退款。"
+      "consent_label": "我要求在法定14天撤回期结束之前立即开通访问权限。我理解这意味着一旦购买完成，我将失去撤回权（参见{terms_start}使用条款{terms_end}第6.3条和{refund_start}撤回须知{refund_end}）。激活后不提供自动退款。",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "常见问题",

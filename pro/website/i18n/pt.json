@@ -196,7 +196,9 @@
       "cta_lifetime": "Escolher vitalício",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Solicito que o acesso comece imediatamente, antes do fim do prazo legal de 14 dias para desistência. Entendo que isso significa que perco meu direito de desistência assim que a compra for concluída (ver {terms_start}Termos de Uso{terms_end} §6.3 e o {refund_start}Aviso de Desistência{refund_end}). Não há reembolso automático após a ativação."
+      "consent_label": "Solicito que o acesso comece imediatamente, antes do fim do prazo legal de 14 dias para desistência. Entendo que isso significa que perco meu direito de desistência assim que a compra for concluída (ver {terms_start}Termos de Uso{terms_end} §6.3 e o {refund_start}Aviso de Desistência{refund_end}). Não há reembolso automático após a ativação.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Perguntas frequentes",

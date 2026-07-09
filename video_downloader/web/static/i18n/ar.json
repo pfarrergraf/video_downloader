@@ -196,7 +196,9 @@
       "cta_lifetime": "اختر مدى الحياة",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "أطلب أن تبدأ الخدمة فورًا، قبل انتهاء مهلة الانسحاب القانونية البالغة 14 يومًا. وأدرك أن هذا يعني فقداني لحق الانسحاب بمجرد إتمام عملية الشراء (راجع {terms_start}شروط الاستخدام{terms_end} البند 6.3 و{refund_start}إشعار الانسحاب{refund_end}). لا يوجد استرداد تلقائي للأموال بعد التفعيل."
+      "consent_label": "أطلب أن تبدأ الخدمة فورًا، قبل انتهاء مهلة الانسحاب القانونية البالغة 14 يومًا. وأدرك أن هذا يعني فقداني لحق الانسحاب بمجرد إتمام عملية الشراء (راجع {terms_start}شروط الاستخدام{terms_end} البند 6.3 و{refund_start}إشعار الانسحاب{refund_end}). لا يوجد استرداد تلقائي للأموال بعد التفعيل.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "الأسئلة الشائعة",

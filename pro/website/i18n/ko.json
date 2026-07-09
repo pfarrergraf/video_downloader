@@ -196,7 +196,9 @@
       "cta_lifetime": "평생 이용권 선택",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "법정 14일 철회 기간이 끝나기 전에 즉시 접근이 시작되기를 요청합니다. 이로 인해 구매가 완료되는 즉시 철회권을 잃는다는 것을 이해합니다({terms_start}이용약관{terms_end} §6.3 및 {refund_start}철회 안내{refund_end} 참조). 활성화 후 자동 환불은 없습니다."
+      "consent_label": "법정 14일 철회 기간이 끝나기 전에 즉시 접근이 시작되기를 요청합니다. 이로 인해 구매가 완료되는 즉시 철회권을 잃는다는 것을 이해합니다({terms_start}이용약관{terms_end} §6.3 및 {refund_start}철회 안내{refund_end} 참조). 활성화 후 자동 환불은 없습니다.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "자주 묻는 질문",

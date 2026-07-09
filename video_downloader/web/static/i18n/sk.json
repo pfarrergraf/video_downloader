@@ -196,7 +196,9 @@
       "cta_lifetime": "Vybrať doživotne",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Žiadam, aby prístup začal okamžite, ešte pred uplynutím zákonnej 14-dňovej lehoty na odstúpenie od zmluvy. Beriem na vedomie, že tým strácam právo na odstúpenie od zmluvy hneď po dokončení nákupu (pozri {terms_start}Podmienky používania{terms_end} §6.3 a {refund_start}Poučenie o odstúpení{refund_end}). Po aktivácii nevzniká nárok na automatické vrátenie peňazí."
+      "consent_label": "Žiadam, aby prístup začal okamžite, ešte pred uplynutím zákonnej 14-dňovej lehoty na odstúpenie od zmluvy. Beriem na vedomie, že tým strácam právo na odstúpenie od zmluvy hneď po dokončení nákupu (pozri {terms_start}Podmienky používania{terms_end} §6.3 a {refund_start}Poučenie o odstúpení{refund_end}). Po aktivácii nevzniká nárok na automatické vrátenie peňazí.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Časté otázky",

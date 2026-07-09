@@ -196,7 +196,9 @@
       "cta_lifetime": "Избери доживотен план",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Изисквам достъпът да започне незабавно, преди изтичането на законния 14-дневен срок за отказ. Разбирам, че по този начин губя правото си на отказ веднага след завършване на покупката (вижте {terms_start}Общите условия{terms_end} §6.3 и {refund_start}Указанията за отказ{refund_end}). След активиране няма автоматично възстановяване на сума."
+      "consent_label": "Изисквам достъпът да започне незабавно, преди изтичането на законния 14-дневен срок за отказ. Разбирам, че по този начин губя правото си на отказ веднага след завършване на покупката (вижте {terms_start}Общите условия{terms_end} §6.3 и {refund_start}Указанията за отказ{refund_end}). След активиране няма автоматично възстановяване на сума.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Често задавани въпроси",

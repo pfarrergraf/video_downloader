@@ -196,7 +196,9 @@
       "cta_lifetime": "בחרו במסלול לכל החיים",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "אני מבקש/ת שהגישה תתחיל באופן מיידי, לפני תום תקופת הביטול החוקית בת 14 הימים. אני מבין/ה שמשמעות הדבר היא איבוד זכות הביטול שלי מיד עם השלמת הרכישה (ראו {terms_start}תנאי השימוש{terms_end} סעיף 6.3 ואת {refund_start}הודעת הביטול{refund_end}). לא קיים החזר כספי אוטומטי לאחר ההפעלה."
+      "consent_label": "אני מבקש/ת שהגישה תתחיל באופן מיידי, לפני תום תקופת הביטול החוקית בת 14 הימים. אני מבין/ה שמשמעות הדבר היא איבוד זכות הביטול שלי מיד עם השלמת הרכישה (ראו {terms_start}תנאי השימוש{terms_end} סעיף 6.3 ואת {refund_start}הודעת הביטול{refund_end}). לא קיים החזר כספי אוטומטי לאחר ההפעלה.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "שאלות נפוצות",

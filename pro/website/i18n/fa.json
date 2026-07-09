@@ -196,7 +196,9 @@
       "cta_lifetime": "انتخاب مادام‌العمر",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "درخواست می‌کنم دسترسی بلافاصله آغاز شود، پیش از پایان مهلت قانونی ۱۴ روزه انصراف. می‌دانم که این به معنای از دست دادن حق انصراف من بلافاصله پس از تکمیل خرید است (به {terms_start}شرایط استفاده{terms_end} بند ۶.۳ و {refund_start}اطلاعیه انصراف{refund_end} مراجعه کنید). پس از فعال‌سازی، بازپرداخت خودکاری وجود ندارد."
+      "consent_label": "درخواست می‌کنم دسترسی بلافاصله آغاز شود، پیش از پایان مهلت قانونی ۱۴ روزه انصراف. می‌دانم که این به معنای از دست دادن حق انصراف من بلافاصله پس از تکمیل خرید است (به {terms_start}شرایط استفاده{terms_end} بند ۶.۳ و {refund_start}اطلاعیه انصراف{refund_end} مراجعه کنید). پس از فعال‌سازی، بازپرداخت خودکاری وجود ندارد.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "سوالات متداول",

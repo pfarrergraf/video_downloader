@@ -196,7 +196,9 @@
       "cta_lifetime": "Izaberi doživotno",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Zahtevam da pristup počne odmah, pre isteka zakonskog roka od 14 dana za odustanak. Razumem da time gubim pravo na odustanak čim je kupovina završena (vidi {terms_start}Uslove korišćenja{terms_end} §6.3 i {refund_start}Obaveštenje o odustanku{refund_end}). Nakon aktivacije nema automatskog povraćaja novca."
+      "consent_label": "Zahtevam da pristup počne odmah, pre isteka zakonskog roka od 14 dana za odustanak. Razumem da time gubim pravo na odustanak čim je kupovina završena (vidi {terms_start}Uslove korišćenja{terms_end} §6.3 i {refund_start}Obaveštenje o odustanku{refund_end}). Nakon aktivacije nema automatskog povraćaja novca.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Često postavljana pitanja",

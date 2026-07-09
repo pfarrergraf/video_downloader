@@ -196,7 +196,9 @@
       "cta_lifetime": "Izvēlēties mūža plānu",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Es pieprasu, lai piekļuve sākas nekavējoties, pirms beidzas likumā noteiktais 14 dienu atteikuma termiņš. Es saprotu, ka tādējādi zaudēju atteikuma tiesības, tiklīdz pirkums ir pabeigts (skatīt {terms_start}Lietošanas noteikumus{terms_end} 6.3. punktu un {refund_start}Atteikuma norādījumus{refund_end}). Pēc aktivizēšanas automātiska naudas atmaksa netiek veikta."
+      "consent_label": "Es pieprasu, lai piekļuve sākas nekavējoties, pirms beidzas likumā noteiktais 14 dienu atteikuma termiņš. Es saprotu, ka tādējādi zaudēju atteikuma tiesības, tiklīdz pirkums ir pabeigts (skatīt {terms_start}Lietošanas noteikumus{terms_end} 6.3. punktu un {refund_start}Atteikuma norādījumus{refund_end}). Pēc aktivizēšanas automātiska naudas atmaksa netiek veikta.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Biežāk uzdotie jautājumi",

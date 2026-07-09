@@ -196,7 +196,9 @@
       "cta_lifetime": "Choose lifetime",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Hinihiling ko na magsimula agad ang access, bago matapos ang legal na 14 araw na palugit ng pag-withdraw. Nauunawaan ko na ibig sabihin nito, mawawala ang aking karapatang mag-withdraw sa sandaling matapos ang pagbili (tingnan ang {terms_start}Mga Tuntunin ng Paggamit{terms_end} §6.3 at ang {refund_start}Paunawa sa Pag-withdraw{refund_end}). Walang awtomatikong refund pagkatapos ng activation."
+      "consent_label": "Hinihiling ko na magsimula agad ang access, bago matapos ang legal na 14 araw na palugit ng pag-withdraw. Nauunawaan ko na ibig sabihin nito, mawawala ang aking karapatang mag-withdraw sa sandaling matapos ang pagbili (tingnan ang {terms_start}Mga Tuntunin ng Paggamit{terms_end} §6.3 at ang {refund_start}Paunawa sa Pag-withdraw{refund_end}). Walang awtomatikong refund pagkatapos ng activation.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Frequently asked questions",

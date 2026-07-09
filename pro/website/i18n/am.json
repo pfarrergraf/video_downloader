@@ -196,7 +196,9 @@
       "cta_lifetime": "Choose lifetime",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "ግዢው እንደተጠናቀቀ ወዲያውኑ የመሰረዝ መብቴን እንደማጣ በመረዳት፣ በህግ የተደነገገው የ14 ቀናት የመሰረዝ ጊዜ ከማብቃቱ በፊት መዳረሻው ወዲያውኑ እንዲጀምር እጠይቃለሁ ({terms_start}የአጠቃቀም ውሎችን{terms_end} §6.3 እና {refund_start}የመሰረዝ ማስታወቂያን{refund_end} ይመልከቱ)። ከተነቃቃ በኋላ ራስ-ሰር ተመላሽ ገንዘብ የለም።"
+      "consent_label": "ግዢው እንደተጠናቀቀ ወዲያውኑ የመሰረዝ መብቴን እንደማጣ በመረዳት፣ በህግ የተደነገገው የ14 ቀናት የመሰረዝ ጊዜ ከማብቃቱ በፊት መዳረሻው ወዲያውኑ እንዲጀምር እጠይቃለሁ ({terms_start}የአጠቃቀም ውሎችን{terms_end} §6.3 እና {refund_start}የመሰረዝ ማስታወቂያን{refund_end} ይመልከቱ)። ከተነቃቃ በኋላ ራስ-ሰር ተመላሽ ገንዘብ የለም።",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Frequently asked questions",

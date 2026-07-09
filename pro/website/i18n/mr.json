@@ -196,7 +196,9 @@
       "cta_lifetime": "आजीवन निवडा",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "खरेदी पूर्ण होताच माझा माघार घेण्याचा हक्क गमावेन हे समजून, कायदेशीर 14 दिवसांची माघार मुदत संपण्यापूर्वीच प्रवेश त्वरित सुरू व्हावा अशी मी विनंती करतो/करते ({terms_start}वापर अटी{terms_end} §6.3 आणि {refund_start}माघार सूचना{refund_end} पहा). सक्रियकरणानंतर स्वयंचलित परतावा नाही."
+      "consent_label": "खरेदी पूर्ण होताच माझा माघार घेण्याचा हक्क गमावेन हे समजून, कायदेशीर 14 दिवसांची माघार मुदत संपण्यापूर्वीच प्रवेश त्वरित सुरू व्हावा अशी मी विनंती करतो/करते ({terms_start}वापर अटी{terms_end} §6.3 आणि {refund_start}माघार सूचना{refund_end} पहा). सक्रियकरणानंतर स्वयंचलित परतावा नाही.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "वारंवार विचारले जाणारे प्रश्न",

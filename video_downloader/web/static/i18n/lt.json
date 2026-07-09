@@ -196,7 +196,9 @@
       "cta_lifetime": "Rinktis visam laikui",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Reikalauju, kad prieiga prasidėtų nedelsiant, dar nepasibaigus 14 dienų teisės aktais nustatytam atsisakymo terminui. Suprantu, kad taip prarandu teisę atsisakyti sutarties, kai tik pirkimas užbaigiamas (žr. {terms_start}Naudojimo sąlygas{terms_end} 6.3 punktą ir {refund_start}Pranešimą apie atsisakymą{refund_end}). Po aktyvinimo automatinis pinigų grąžinimas netaikomas."
+      "consent_label": "Reikalauju, kad prieiga prasidėtų nedelsiant, dar nepasibaigus 14 dienų teisės aktais nustatytam atsisakymo terminui. Suprantu, kad taip prarandu teisę atsisakyti sutarties, kai tik pirkimas užbaigiamas (žr. {terms_start}Naudojimo sąlygas{terms_end} 6.3 punktą ir {refund_start}Pranešimą apie atsisakymą{refund_end}). Po aktyvinimo automatinis pinigų grąžinimas netaikomas.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Dažniausiai užduodami klausimai",

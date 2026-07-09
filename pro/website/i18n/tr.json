@@ -196,7 +196,9 @@
       "cta_lifetime": "Ömür boyu seç",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Erişimin, yasal 14 günlük cayma süresi dolmadan hemen başlamasını talep ediyorum. Bunun, satın alma tamamlanır tamamlanmaz cayma hakkımı kaybetmem anlamına geldiğini anlıyorum ({terms_start}Kullanım Koşulları{terms_end} §6.3 ve {refund_start}Cayma Bildirimi{refund_end}'ne bakın). Etkinleştirmeden sonra otomatik geri ödeme yapılmaz."
+      "consent_label": "Erişimin, yasal 14 günlük cayma süresi dolmadan hemen başlamasını talep ediyorum. Bunun, satın alma tamamlanır tamamlanmaz cayma hakkımı kaybetmem anlamına geldiğini anlıyorum ({terms_start}Kullanım Koşulları{terms_end} §6.3 ve {refund_start}Cayma Bildirimi{refund_end}'ne bakın). Etkinleştirmeden sonra otomatik geri ödeme yapılmaz.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Sıkça sorulan sorular",

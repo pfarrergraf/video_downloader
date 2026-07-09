@@ -196,7 +196,9 @@
       "cta_lifetime": "Обрати довічний",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Я вимагаю, щоб доступ розпочався негайно, ще до закінчення встановленого законом 14-денного строку для відмови. Я розумію, що таким чином втрачаю право на відмову одразу після завершення покупки (див. {terms_start}Умови використання{terms_end} §6.3 та {refund_start}Повідомлення про відмову{refund_end}). Після активації автоматичне повернення коштів не передбачене."
+      "consent_label": "Я вимагаю, щоб доступ розпочався негайно, ще до закінчення встановленого законом 14-денного строку для відмови. Я розумію, що таким чином втрачаю право на відмову одразу після завершення покупки (див. {terms_start}Умови використання{terms_end} §6.3 та {refund_start}Повідомлення про відмову{refund_end}). Після активації автоматичне повернення коштів не передбачене.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Часті запитання",

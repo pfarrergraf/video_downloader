@@ -196,7 +196,9 @@
       "cta_lifetime": "Choose lifetime",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Naomba ufikiaji uanze mara moja, kabla ya kipindi cha kisheria cha siku 14 cha kujiondoa kumalizika. Naelewa kuwa hii inamaanisha ninapoteza haki yangu ya kujiondoa mara ununuzi unapokamilika (angalia {terms_start}Masharti ya Matumizi{terms_end} §6.3 na {refund_start}Ilani ya Kujiondoa{refund_end}). Hakuna urejeshaji fedha wa moja kwa moja baada ya uanzishaji."
+      "consent_label": "Naomba ufikiaji uanze mara moja, kabla ya kipindi cha kisheria cha siku 14 cha kujiondoa kumalizika. Naelewa kuwa hii inamaanisha ninapoteza haki yangu ya kujiondoa mara ununuzi unapokamilika (angalia {terms_start}Masharti ya Matumizi{terms_end} §6.3 na {refund_start}Ilani ya Kujiondoa{refund_end}). Hakuna urejeshaji fedha wa moja kwa moja baada ya uanzishaji.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Frequently asked questions",

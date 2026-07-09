@@ -196,7 +196,9 @@
       "cta_lifetime": "Wybierz plan dożywotni",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Żądam, aby dostęp rozpoczął się natychmiast, przed upływem ustawowego 14-dniowego terminu odstąpienia od umowy. Rozumiem, że oznacza to utratę prawa odstąpienia od umowy z chwilą zakończenia zakupu (zob. {terms_start}Warunki użytkowania{terms_end} §6.3 oraz {refund_start}Pouczenie o odstąpieniu{refund_end}). Po aktywacji nie przysługuje automatyczny zwrot środków."
+      "consent_label": "Żądam, aby dostęp rozpoczął się natychmiast, przed upływem ustawowego 14-dniowego terminu odstąpienia od umowy. Rozumiem, że oznacza to utratę prawa odstąpienia od umowy z chwilą zakończenia zakupu (zob. {terms_start}Warunki użytkowania{terms_end} §6.3 oraz {refund_start}Pouczenie o odstąpieniu{refund_end}). Po aktywacji nie przysługuje automatyczny zwrot środków.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Najczęściej zadawane pytania",

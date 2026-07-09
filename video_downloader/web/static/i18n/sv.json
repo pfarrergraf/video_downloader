@@ -196,7 +196,9 @@
       "cta_lifetime": "Välj livstid",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Jag begär att åtkomsten börjar omedelbart, innan den lagstadgade 14-dagars ångerfristen löper ut. Jag förstår att jag därmed förlorar min ångerrätt så snart köpet är slutfört (se {terms_start}Användarvillkoren{terms_end} §6.3 och {refund_start}Ångerinformationen{refund_end}). Det finns ingen automatisk återbetalning efter aktivering."
+      "consent_label": "Jag begär att åtkomsten börjar omedelbart, innan den lagstadgade 14-dagars ångerfristen löper ut. Jag förstår att jag därmed förlorar min ångerrätt så snart köpet är slutfört (se {terms_start}Användarvillkoren{terms_end} §6.3 och {refund_start}Ångerinformationen{refund_end}). Det finns ingen automatisk återbetalning efter aktivering.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Vanliga frågor",

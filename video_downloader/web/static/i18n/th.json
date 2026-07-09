@@ -196,7 +196,9 @@
       "cta_lifetime": "Choose lifetime",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "ฉันขอให้เริ่มการเข้าถึงทันที ก่อนที่ระยะเวลาการเพิกถอนตามกฎหมาย 14 วันจะสิ้นสุดลง ฉันเข้าใจว่าสิ่งนี้หมายความว่าฉันจะสูญเสียสิทธิ์ในการเพิกถอนทันทีที่การซื้อเสร็จสมบูรณ์ (ดู {terms_start}ข้อกำหนดการใช้งาน{terms_end} §6.3 และ {refund_start}ประกาศการเพิกถอน{refund_end}) ไม่มีการคืนเงินอัตโนมัติหลังจากเปิดใช้งาน"
+      "consent_label": "ฉันขอให้เริ่มการเข้าถึงทันที ก่อนที่ระยะเวลาการเพิกถอนตามกฎหมาย 14 วันจะสิ้นสุดลง ฉันเข้าใจว่าสิ่งนี้หมายความว่าฉันจะสูญเสียสิทธิ์ในการเพิกถอนทันทีที่การซื้อเสร็จสมบูรณ์ (ดู {terms_start}ข้อกำหนดการใช้งาน{terms_end} §6.3 และ {refund_start}ประกาศการเพิกถอน{refund_end}) ไม่มีการคืนเงินอัตโนมัติหลังจากเปิดใช้งาน",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Frequently asked questions",

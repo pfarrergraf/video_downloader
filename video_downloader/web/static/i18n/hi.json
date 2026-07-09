@@ -196,7 +196,9 @@
       "cta_lifetime": "लाइफटाइम चुनें",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "मैं अनुरोध करता/करती हूँ कि पहुंच तुरंत शुरू हो जाए, कानूनी 14-दिन की वापसी अवधि समाप्त होने से पहले। मैं समझता/समझती हूँ कि इसका मतलब है कि खरीद पूरी होते ही मैं अपना वापसी का अधिकार खो दूँगा/दूँगी (देखें {terms_start}उपयोग की शर्तें{terms_end} §6.3 और {refund_start}वापसी सूचना{refund_end})। सक्रियण के बाद कोई स्वचालित धनवापसी नहीं है।"
+      "consent_label": "मैं अनुरोध करता/करती हूँ कि पहुंच तुरंत शुरू हो जाए, कानूनी 14-दिन की वापसी अवधि समाप्त होने से पहले। मैं समझता/समझती हूँ कि इसका मतलब है कि खरीद पूरी होते ही मैं अपना वापसी का अधिकार खो दूँगा/दूँगी (देखें {terms_start}उपयोग की शर्तें{terms_end} §6.3 और {refund_start}वापसी सूचना{refund_end})। सक्रियण के बाद कोई स्वचालित धनवापसी नहीं है।",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "अक्सर पूछे जाने वाले सवाल",

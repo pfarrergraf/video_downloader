@@ -196,7 +196,9 @@
       "cta_lifetime": "జీవితకాలాన్ని ఎంచుకోండి",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "కొనుగోలు పూర్తయిన వెంటనే నా ఉపసంహరణ హక్కును కోల్పోతానని అర్థం చేసుకుని, చట్టబద్ధమైన 14 రోజుల ఉపసంహరణ గడువు ముగియకముందే యాక్సెస్ వెంటనే ప్రారంభం కావాలని అభ్యర్థిస్తున్నాను ({terms_start}వినియోగ నిబంధనలు{terms_end} §6.3 మరియు {refund_start}ఉపసంహరణ నోటీసు{refund_end} చూడండి). యాక్టివేషన్ తర్వాత స్వయంచాలక రీఫండ్ ఉండదు."
+      "consent_label": "కొనుగోలు పూర్తయిన వెంటనే నా ఉపసంహరణ హక్కును కోల్పోతానని అర్థం చేసుకుని, చట్టబద్ధమైన 14 రోజుల ఉపసంహరణ గడువు ముగియకముందే యాక్సెస్ వెంటనే ప్రారంభం కావాలని అభ్యర్థిస్తున్నాను ({terms_start}వినియోగ నిబంధనలు{terms_end} §6.3 మరియు {refund_start}ఉపసంహరణ నోటీసు{refund_end} చూడండి). యాక్టివేషన్ తర్వాత స్వయంచాలక రీఫండ్ ఉండదు.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "తరచుగా అడిగే ప్రశ్నలు",

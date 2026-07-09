@@ -196,7 +196,9 @@
       "cta_lifetime": "Kies levenslang",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Ik verzoek dat de toegang onmiddellijk begint, voordat de wettelijke herroepingstermijn van 14 dagen verstrijkt. Ik begrijp dat ik daardoor mijn herroepingsrecht verlies zodra de aankoop is voltooid (zie {terms_start}Gebruiksvoorwaarden{terms_end} §6.3 en de {refund_start}Herroepingsmelding{refund_end}). Er is geen automatische terugbetaling na activering."
+      "consent_label": "Ik verzoek dat de toegang onmiddellijk begint, voordat de wettelijke herroepingstermijn van 14 dagen verstrijkt. Ik begrijp dat ik daardoor mijn herroepingsrecht verlies zodra de aankoop is voltooid (zie {terms_start}Gebruiksvoorwaarden{terms_end} §6.3 en de {refund_start}Herroepingsmelding{refund_end}). Er is geen automatische terugbetaling na activering.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Veelgestelde vragen",

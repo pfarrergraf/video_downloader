@@ -196,7 +196,9 @@
       "cta_monthly": "Choose monthly",
       "cta_yearly": "Choose yearly",
       "cta_lifetime": "Choose lifetime",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends. I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3 and the {refund_start}Withdrawal Notice{refund_end}). There is no automatic refund after activation."
+      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends. I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3 and the {refund_start}Withdrawal Notice{refund_end}). There is no automatic refund after activation.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Frequently asked questions",

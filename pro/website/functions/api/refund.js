@@ -1,5 +1,14 @@
 import { jsonResponse, stripeGet, stripePost, stripeDelete } from "../_lib.js";
 
+// Self-service refunds are paused (2026-07-09): a customer-facing refund
+// endpoint that only needs a license_key + matching email is something a bot
+// could call directly regardless of whether any page links to it, and a
+// buy-then-refund loop against it would generate real Stripe fees with no
+// product ever kept. Turned off at the door, before any D1/Stripe call, so
+// the logic below stays intact and this is a one-line flip to re-enable
+// later rather than a rewrite.
+const REFUNDS_ENABLED = false;
+
 // Voluntary self-service refund, honored for 14 days after purchase
 // regardless of whether the statutory withdrawal right already lapsed via the
 // pricing page's consent checkbox (see AGB §6.3) - see datenschutz.html §3.5
@@ -14,6 +23,9 @@ const RATE_LIMIT_WINDOW_SECONDS = 15 * 60;
 const RATE_LIMIT_MAX_ATTEMPTS = 5;
 
 export async function onRequestPost({ request, env }) {
+  if (!REFUNDS_ENABLED) {
+    return jsonResponse({ error: "refunds_disabled" }, 503);
+  }
   try {
     if (!env.STRIPE_SECRET_KEY || !env.DB) {
       return jsonResponse({ error: "not_configured" }, 500);

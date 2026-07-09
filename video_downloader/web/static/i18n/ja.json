@@ -196,7 +196,9 @@
       "cta_lifetime": "買い切りプランを選ぶ",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "法定の14日間のクーリングオフ期間が終了する前に、直ちにアクセスを開始することを求めます。これにより、購入完了と同時にクーリングオフ権を失うことを理解しています({terms_start}利用規約{terms_end}第6.3条および{refund_start}クーリングオフに関する通知{refund_end}を参照)。有効化後の自動返金はありません。"
+      "consent_label": "法定の14日間のクーリングオフ期間が終了する前に、直ちにアクセスを開始することを求めます。これにより、購入完了と同時にクーリングオフ権を失うことを理解しています({terms_start}利用規約{terms_end}第6.3条および{refund_start}クーリングオフに関する通知{refund_end}を参照)。有効化後の自動返金はありません。",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "よくある質問",

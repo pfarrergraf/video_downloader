@@ -196,7 +196,9 @@
       "cta_lifetime": "Elegir de por vida",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Solicito que el acceso comience de inmediato, antes de que finalice el plazo legal de desistimiento de 14 días. Entiendo que esto significa que pierdo mi derecho de desistimiento en cuanto se complete la compra (ver {terms_start}Términos de uso{terms_end} §6.3 y el {refund_start}Aviso de desistimiento{refund_end}). No hay reembolso automático después de la activación."
+      "consent_label": "Solicito que el acceso comience de inmediato, antes de que finalice el plazo legal de desistimiento de 14 días. Entiendo que esto significa que pierdo mi derecho de desistimiento en cuanto se complete la compra (ver {terms_start}Términos de uso{terms_end} §6.3 y el {refund_start}Aviso de desistimiento{refund_end}). No hay reembolso automático después de la activación.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Preguntas frecuentes",

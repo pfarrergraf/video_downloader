@@ -196,7 +196,9 @@
       "cta_lifetime": "Choose lifetime",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Saya meminta agar akses dimulai segera, sebelum masa penarikan hukum selama 14 hari berakhir. Saya memahami bahwa ini berarti saya kehilangan hak penarikan begitu pembelian selesai (lihat {terms_start}Ketentuan Penggunaan{terms_end} §6.3 dan {refund_start}Pemberitahuan Penarikan{refund_end}). Tidak ada pengembalian dana otomatis setelah aktivasi."
+      "consent_label": "Saya meminta agar akses dimulai segera, sebelum masa penarikan hukum selama 14 hari berakhir. Saya memahami bahwa ini berarti saya kehilangan hak penarikan begitu pembelian selesai (lihat {terms_start}Ketentuan Penggunaan{terms_end} §6.3 dan {refund_start}Pemberitahuan Penarikan{refund_end}). Tidak ada pengembalian dana otomatis setelah aktivasi.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Frequently asked questions",

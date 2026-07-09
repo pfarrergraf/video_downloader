@@ -196,7 +196,9 @@
       "cta_lifetime": "Alege planul pe viață",
       "monthly_amount_suffix": "/month",
       "yearly_amount_suffix": "/year",
-      "consent_label": "Solicit ca accesul să înceapă imediat, înainte de expirarea perioadei legale de retragere de 14 zile. Înțeleg că astfel îmi pierd dreptul de retragere de îndată ce achiziția este finalizată (a se vedea {terms_start}Termenii de utilizare{terms_end} §6.3 și {refund_start}Informarea privind retragerea{refund_end}). Nu există rambursare automată după activare."
+      "consent_label": "Solicit ca accesul să înceapă imediat, înainte de expirarea perioadei legale de retragere de 14 zile. Înțeleg că astfel îmi pierd dreptul de retragere de îndată ce achiziția este finalizată (a se vedea {terms_start}Termenii de utilizare{terms_end} §6.3 și {refund_start}Informarea privind retragerea{refund_end}). Nu există rambursare automată după activare.",
+      "email_label": "Email address (for your license)",
+      "duplicate_confirm": "You already have an active {tier} license under this email address. Do you really want to purchase another one?"
     },
     "faq": {
       "h2": "Întrebări frecvente",
