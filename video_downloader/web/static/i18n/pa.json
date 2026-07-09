@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "ਮਿਟਾਓ",
+      "clear_btn": "ਇਤਿਹਾਸ ਸਾਫ਼ ਕਰੋ",
+      "delete_failed_toast": "ਮਿਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ।"
     },
     "settings": {
       "gear_label": "ਸੈਟਿੰਗਾਂ",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "ਇਹ ਡਾਊਨਲੋਡ ਮਿਟਾਉਣਾ ਹੈ?",
+      "title_all": "ਪੂਰਾ ਇਤਿਹਾਸ ਸਾਫ਼ ਕਰਨਾ ਹੈ?",
+      "body": "ਤੁਸੀਂ ਡਾਊਨਲੋਡ ਕੀਤੀ ਫ਼ਾਈਲ ਡਿਵਾਈਸ 'ਤੇ ਰੱਖ ਸਕਦੇ ਹੋ, ਜਾਂ ਐਂਟਰੀ ਨਾਲ ਮਿਟਾ ਸਕਦੇ ਹੋ।",
+      "entry_only_btn": "ਸਿਰਫ਼ ਸੂਚੀ ਵਿੱਚੋਂ ਹਟਾਓ",
+      "with_files_btn": "ਫ਼ਾਈਲ(ਾਂ) ਵੀ ਮਿਟਾਓ"
     }
   },
   "website": {

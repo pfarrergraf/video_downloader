@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Ta bort",
+      "clear_btn": "Rensa historik",
+      "delete_failed_toast": "Kunde inte ta bort."
     },
     "settings": {
       "gear_label": "Inställningar",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Ta bort den här nedladdningen?",
+      "title_all": "Rensa hela historiken?",
+      "body": "Du kan behålla den nedladdade filen på enheten eller ta bort den tillsammans med posten.",
+      "entry_only_btn": "Ta bara bort från listan",
+      "with_files_btn": "Ta även bort fil(er)"
     }
   },
   "website": {

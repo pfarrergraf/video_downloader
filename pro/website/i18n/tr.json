@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Ayrıntıları göster",
-      "retry_btn": "Tekrar dene"
+      "retry_btn": "Tekrar dene",
+      "delete_btn": "Sil",
+      "clear_btn": "Geçmişi temizle",
+      "delete_failed_toast": "Silinemedi."
     },
     "settings": {
       "gear_label": "Ayarlar",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Motor güncellemesini denetle",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Bu indirme silinsin mi?",
+      "title_all": "Tüm geçmiş temizlensin mi?",
+      "body": "İndirilen dosyayı cihazda tutabilir veya girişle birlikte silebilirsin.",
+      "entry_only_btn": "Yalnızca listeden kaldır",
+      "with_files_btn": "Dosyayı da sil"
     }
   },
   "website": {

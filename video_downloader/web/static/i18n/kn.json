@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "ಅಳಿಸಿ",
+      "clear_btn": "ಇತಿಹಾಸ ತೆರವುಗೊಳಿಸಿ",
+      "delete_failed_toast": "ಅಳಿಸಲು ಆಗಲಿಲ್ಲ."
     },
     "settings": {
       "gear_label": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "ಈ ಡೌನ್‌ಲೋಡ್ ಅಳಿಸಬೇಕೇ?",
+      "title_all": "ಇಡೀ ಇತಿಹಾಸ ತೆರವುಗೊಳಿಸಬೇಕೇ?",
+      "body": "ಡೌನ್‌ಲೋಡ್ ಮಾಡಿದ ಫೈಲ್ ಅನ್ನು ಸಾಧನದಲ್ಲಿ ಇಟ್ಟುಕೊಳ್ಳಬಹುದು ಅಥವಾ ನಮೂದಿನ ಜೊತೆ ಅಳಿಸಬಹುದು.",
+      "entry_only_btn": "ಪಟ್ಟಿಯಿಂದ ಮಾತ್ರ ತೆಗೆದುಹಾಕಿ",
+      "with_files_btn": "ಫೈಲ್(ಗಳನ್ನೂ) ಅಳಿಸಿ"
     }
   },
   "website": {

@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Διαγραφή",
+      "clear_btn": "Καθαρισμός ιστορικού",
+      "delete_failed_toast": "Η διαγραφή απέτυχε."
     },
     "settings": {
       "gear_label": "Ρυθμίσεις",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Διαγραφή αυτής της λήψης;",
+      "title_all": "Καθαρισμός όλου του ιστορικού;",
+      "body": "Μπορείς να κρατήσεις το αρχείο στη συσκευή ή να το διαγράψεις μαζί με την καταχώριση.",
+      "entry_only_btn": "Αφαίρεση μόνο από τη λίστα",
+      "with_files_btn": "Διαγραφή και του αρχείου/των αρχείων"
     }
   },
   "website": {

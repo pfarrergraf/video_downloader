@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "삭제",
+      "clear_btn": "기록 지우기",
+      "delete_failed_toast": "삭제하지 못했습니다."
     },
     "settings": {
       "gear_label": "설정",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "이 다운로드를 삭제할까요?",
+      "title_all": "전체 기록을 지울까요?",
+      "body": "다운로드한 파일을 기기에 남겨 두거나 항목과 함께 삭제할 수 있습니다.",
+      "entry_only_btn": "목록에서만 제거",
+      "with_files_btn": "파일도 삭제"
     }
   },
   "website": {

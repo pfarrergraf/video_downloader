@@ -14,6 +14,7 @@ import json
 import mimetypes
 import re
 import secrets
+import shutil
 import threading
 import time
 from datetime import UTC, datetime, timedelta
@@ -27,7 +28,15 @@ from urllib.parse import parse_qs, unquote, urlsplit
 from .. import android_bridge, engine_update
 from ..errors import classify_error
 from ..licensing import FREE_DAILY_DOWNLOAD_LIMIT, FREE_WINDOW_HOURS, LicenseManager
-from ..models import JOB_STATUS_COMPLETED, JOB_STATUS_IN_PROGRESS, JOB_STATUS_PENDING, DownloadProfile, JobRecord
+from ..models import (
+    JOB_STATUS_CANCELLED,
+    JOB_STATUS_COMPLETED,
+    JOB_STATUS_FAILED,
+    JOB_STATUS_IN_PROGRESS,
+    JOB_STATUS_PENDING,
+    DownloadProfile,
+    JobRecord,
+)
 from ..queue_runner import QueueRunner
 from ..queue_store import QueueStore
 from ..scraper import SiteScraper
@@ -54,6 +63,7 @@ FREE_TIER_COUNTED_STATUSES = (JOB_STATUS_PENDING, JOB_STATUS_IN_PROGRESS, JOB_ST
 
 QUEUE_CANCEL_RE = re.compile(r"^/api/queue/(\d+)/cancel$")
 QUEUE_RETRY_RE = re.compile(r"^/api/queue/(\d+)/retry$")
+QUEUE_DELETE_RE = re.compile(r"^/api/queue/(\d+)/delete$")
 DOWNLOAD_RE = re.compile(r"^/api/download/(\d+)/([^/]+)$")
 
 mimetypes.add_type("application/manifest+json", ".webmanifest")
@@ -293,6 +303,7 @@ class ClassyDLServer(ThreadingHTTPServer):
         ffmpeg_binary: str = "ffmpeg",
         license_manager: LicenseManager | None = None,
         app_version: str = "",
+        published_file_remover=None,
     ) -> None:
         super().__init__(address, ClassyDLRequestHandler)
         self.store = store
@@ -301,6 +312,12 @@ class ClassyDLServer(ThreadingHTTPServer):
         self.ffmpeg_binary = ffmpeg_binary
         self.license_manager = license_manager
         self.app_version = app_version
+        # Optional best-effort hook (filename: str) -> None used by "delete
+        # entry + file": on Android this removes the copy the downloads
+        # publisher put into the system's shared Downloads collection
+        # (MediaStore), which the server itself can't reach. None everywhere
+        # else - desktop/Termux never make that extra copy.
+        self.published_file_remover = published_file_remover
         self.sessions = SessionStore()
         self.login_throttle = LoginThrottle()
         self.worker = BackgroundQueueWorker(store=store, output_dir=output_dir, workers=workers)
@@ -890,7 +907,74 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             self._send_json(200, {"requeued": True})
             return
 
+        match = QUEUE_DELETE_RE.match(path)
+        if match:
+            if not self._require_auth():
+                return
+            body = self._read_json()
+            delete_files = bool(body.get("delete_files", False))
+            if not self._delete_history_entry(int(match.group(1)), delete_files):
+                self._send_json(404, {"detail": "Job not found or still running (cancel it first)"})
+                return
+            self._send_json(200, {"deleted": True})
+            return
+
+        if path == "/api/queue/clear":
+            if not self._require_auth():
+                return
+            body = self._read_json()
+            delete_files = bool(body.get("delete_files", False))
+            deleted = 0
+            # list_history caps at its limit per call; loop until a pass
+            # deletes nothing so "clear" really means clear, not "clear the
+            # newest 200".
+            while True:
+                jobs = self.server.store.list_history()
+                progress = sum(
+                    1 for job in jobs if self._delete_history_entry(job.id, delete_files)
+                )
+                deleted += progress
+                if progress == 0:
+                    break
+            self._send_json(200, {"deleted": deleted})
+            return
+
         self._send_json(404, {"detail": "Not found"})
+
+    def _delete_history_entry(self, job_id: int, delete_files: bool) -> bool:
+        """Remove a finished job from history; optionally its files too.
+
+        "Entry only" leaves every copy on disk untouched - the user just
+        doesn't want it in the list. "Delete files" also removes the app's
+        own job-<id> directory AND (via the Android hook) the copy the
+        publisher put into the system Downloads collection, because "I don't
+        want anyone to see I downloaded this" is only true once the visible
+        copy is gone as well. A copy exported to a user-picked SAF folder is
+        deliberately left alone - that folder is the user's own space, and
+        we hold no delete permission stronger than their file manager's.
+        """
+        store = self.server.store
+        job = store.get_job(job_id)
+        if job is None or job.status not in (
+            JOB_STATUS_COMPLETED,
+            JOB_STATUS_FAILED,
+            JOB_STATUS_CANCELLED,
+        ):
+            return False
+        filenames = [Path(p).name for p in store.list_job_files(job_id)]
+        if not store.delete_job(job_id):
+            return False
+        if delete_files:
+            base = Path(job.output_dir).expanduser() if job.output_dir else self.server.output_dir
+            shutil.rmtree(base / f"job-{job_id}", ignore_errors=True)
+            remover = self.server.published_file_remover
+            if remover is not None:
+                for name in filenames:
+                    try:
+                        remover(name)
+                    except Exception:  # noqa: BLE001 - best-effort, never blocks the delete
+                        pass
+        return True
 
 
 def create_server(
@@ -904,6 +988,7 @@ def create_server(
     ffmpeg_binary: str = "ffmpeg",
     license_manager: LicenseManager | None = None,
     app_version: str = "",
+    published_file_remover=None,
 ) -> ClassyDLServer:
     if not password:
         raise ValueError(
@@ -923,6 +1008,7 @@ def create_server(
         ffmpeg_binary=ffmpeg_binary,
         license_manager=license_manager,
         app_version=app_version,
+        published_file_remover=published_file_remover,
     )
 
 

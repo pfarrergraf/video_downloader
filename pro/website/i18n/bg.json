@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Изтриване",
+      "clear_btn": "Изчисти историята",
+      "delete_failed_toast": "Изтриването не успя."
     },
     "settings": {
       "gear_label": "Настройки",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Да се изтрие ли това изтегляне?",
+      "title_all": "Да се изчисти ли цялата история?",
+      "body": "Можеш да запазиш изтегления файл на устройството или да го изтриеш заедно със записа.",
+      "entry_only_btn": "Премахни само от списъка",
+      "with_files_btn": "Изтрий и файла/файловете"
     }
   },
   "website": {

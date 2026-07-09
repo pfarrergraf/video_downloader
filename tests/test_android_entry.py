@@ -29,7 +29,17 @@ class FakeServer:
 
 def _capture_create_server(captured: dict, fake: FakeServer):
     def fake_create_server(
-        *, store, output_dir, password, host, port, workers, ffmpeg_binary, license_manager, app_version
+        *,
+        store,
+        output_dir,
+        password,
+        host,
+        port,
+        workers,
+        ffmpeg_binary,
+        license_manager,
+        app_version,
+        published_file_remover,
     ):
         captured.update(
             store=store,
@@ -41,6 +51,7 @@ def _capture_create_server(captured: dict, fake: FakeServer):
             ffmpeg_binary=ffmpeg_binary,
             license_manager=license_manager,
             app_version=app_version,
+            published_file_remover=published_file_remover,
         )
         return fake
 
@@ -64,6 +75,8 @@ def test_start_wires_store_and_output_dir(tmp_path: Path, monkeypatch) -> None:
     assert captured["ffmpeg_binary"] == "/opt/bin/ffmpeg"
     assert captured["license_manager"] is None  # no license_api_base passed -> licensing off
     assert captured["app_version"] == ""
+    # "Delete entry + file" must reach the MediaStore copy on Android.
+    assert captured["published_file_remover"] is android_entry._delete_published_download
     # The serve loop actually ran and shut down cleanly.
     assert fake.worker_started and fake.served and fake.closed
 

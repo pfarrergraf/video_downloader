@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Ištrinti",
+      "clear_btn": "Išvalyti istoriją",
+      "delete_failed_toast": "Nepavyko ištrinti."
     },
     "settings": {
       "gear_label": "Nustatymai",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Ištrinti šį atsisiuntimą?",
+      "title_all": "Išvalyti visą istoriją?",
+      "body": "Atsisiųstą failą gali palikti įrenginyje arba ištrinti kartu su įrašu.",
+      "entry_only_btn": "Pašalinti tik iš sąrašo",
+      "with_files_btn": "Ištrinti ir failą (-us)"
     }
   },
   "website": {

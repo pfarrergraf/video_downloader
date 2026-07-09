@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "মুছুন",
+      "clear_btn": "ইতিহাস মুছুন",
+      "delete_failed_toast": "মুছে ফেলা যায়নি।"
     },
     "settings": {
       "gear_label": "সেটিংস",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "এই ডাউনলোডটি মুছবেন?",
+      "title_all": "পুরো ইতিহাস মুছবেন?",
+      "body": "ডাউনলোড করা ফাইলটি ডিভাইসে রাখতে পারেন, অথবা এন্ট্রির সাথে মুছে ফেলতে পারেন।",
+      "entry_only_btn": "শুধু তালিকা থেকে সরান",
+      "with_files_btn": "ফাইলও মুছুন"
     }
   },
   "website": {

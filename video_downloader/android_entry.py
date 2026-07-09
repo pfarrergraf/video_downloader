@@ -148,6 +148,39 @@ def _publish_file_to_downloads(path: Path) -> None:
         traceback.print_exc()
 
 
+def _delete_published_download(filename: str) -> None:
+    """Best-effort removal of a file's copy from the system Downloads
+    collection - the counterpart of _publish_file_to_downloads, used by the
+    web UI's "delete entry + file" action so deleting a download really
+    leaves no visible trace on the device.
+
+    Only rows this app itself inserted match AND are deletable without any
+    extra permission (MediaStore owner semantics on API 29+), so a name
+    collision with someone else's file can't delete their data.
+    """
+    try:
+        from java import jclass  # type: ignore[import-not-found]
+    except ImportError:
+        return  # not running under Chaquopy - no published copy exists
+
+    try:
+        build = jclass("android.os.Build")
+        if build.VERSION.SDK_INT < 29:
+            return  # publish never ran on these devices either
+
+        python_class = jclass("com.chaquo.python.Python")
+        context = python_class.getPlatform().getApplication()
+        resolver = context.getContentResolver()
+        media_store_downloads = jclass("android.provider.MediaStore$Downloads")
+        resolver.delete(
+            media_store_downloads.EXTERNAL_CONTENT_URI,
+            "_display_name = ?",
+            [filename],
+        )
+    except Exception:
+        traceback.print_exc()
+
+
 # Completions older than this never generate a notification - prevents a
 # process restart from re-announcing every historical download.
 _NOTIFY_COMPLETED_WINDOW_SECONDS = 120
@@ -269,6 +302,7 @@ def start(
             ffmpeg_binary=ffmpeg_binary,
             license_manager=license_manager,
             app_version=app_version,
+            published_file_remover=_delete_published_download,
         )
     except OSError as exc:
         if exc.errno == errno.EADDRINUSE and _server_already_healthy(port):

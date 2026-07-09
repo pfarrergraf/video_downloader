@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "ลบ",
+      "clear_btn": "ล้างประวัติ",
+      "delete_failed_toast": "ลบไม่สำเร็จ"
     },
     "settings": {
       "gear_label": "Settings",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "ลบการดาวน์โหลดนี้ไหม",
+      "title_all": "ล้างประวัติทั้งหมดไหม",
+      "body": "คุณสามารถเก็บไฟล์ที่ดาวน์โหลดไว้ในเครื่อง หรือลบพร้อมกับรายการก็ได้",
+      "entry_only_btn": "นำออกจากรายการเท่านั้น",
+      "with_files_btn": "ลบไฟล์ด้วย"
     }
   },
   "website": {

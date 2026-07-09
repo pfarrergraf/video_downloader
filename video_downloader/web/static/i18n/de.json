@@ -45,7 +45,10 @@
       "share_failed_toast": "Die Datei konnte nicht geteilt werden.",
       "share_unsupported_toast": "Teilen funktioniert nur in der Android-App.",
       "details_toggle": "Details anzeigen",
-      "retry_btn": "Erneut versuchen"
+      "retry_btn": "Erneut versuchen",
+      "delete_btn": "Löschen",
+      "clear_btn": "Verlauf löschen",
+      "delete_failed_toast": "Löschen fehlgeschlagen."
     },
     "settings": {
       "gear_label": "Einstellungen",
@@ -134,6 +137,13 @@
       "updating": "Wird aktualisiert…",
       "update_btn": "Nach Engine-Update suchen",
       "started_toast": "Suche nach Engine-Update…"
+    },
+    "delete": {
+      "title_one": "Diesen Download löschen?",
+      "title_all": "Ganzen Verlauf löschen?",
+      "body": "Du kannst die heruntergeladene Datei auf dem Gerät behalten oder sie zusammen mit dem Eintrag löschen.",
+      "entry_only_btn": "Nur aus der Liste entfernen",
+      "with_files_btn": "Auch Datei(en) löschen"
     }
   },
   "website": {

@@ -576,6 +576,29 @@ class QueueStore:
             quality_height=original.quality_height,
         )
 
+    def delete_job(self, job_id: int) -> bool:
+        """Erase a FINISHED job from the store: the row, its recorded files,
+        and its event-log lines.
+
+        Events are purged deliberately, not incidentally - "delete this from
+        my history" is a privacy action, and leaving "Job queued: <url>"
+        lines in the events table would keep exactly the trace the user asked
+        to remove. Running/pending jobs are refused (cancel first); returns
+        whether anything was deleted. File removal on disk is the caller's
+        job (the store doesn't know which copies the user wants to keep).
+        """
+        with self._connect() as conn:
+            cursor = conn.execute(
+                "DELETE FROM jobs WHERE id = ? AND status IN (?, ?, ?)",
+                (job_id, JOB_STATUS_COMPLETED, JOB_STATUS_FAILED, JOB_STATUS_CANCELLED),
+            )
+            if cursor.rowcount == 0:
+                return False
+            conn.execute("DELETE FROM job_files WHERE job_id = ?", (job_id,))
+            conn.execute("DELETE FROM events WHERE job_id = ?", (job_id,))
+        self._notify_change()
+        return True
+
     def list_history(self, status: str | None = None, limit: int = 200) -> list[JobRecord]:
         final_statuses = (JOB_STATUS_COMPLETED, JOB_STATUS_FAILED, JOB_STATUS_CANCELLED)
         params: list[object] = []

@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "ഇല്ലാതാക്കുക",
+      "clear_btn": "ചരിത്രം മായ്ക്കുക",
+      "delete_failed_toast": "ഇല്ലാതാക്കാനായില്ല."
     },
     "settings": {
       "gear_label": "ക്രമീകരണങ്ങൾ",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "ഈ ഡൗൺലോഡ് ഇല്ലാതാക്കണോ?",
+      "title_all": "മുഴുവൻ ചരിത്രവും മായ്ക്കണോ?",
+      "body": "ഡൗൺലോഡ് ചെയ്ത ഫയൽ ഉപകരണത്തിൽ സൂക്ഷിക്കുകയോ എൻട്രിയോടൊപ്പം ഇല്ലാതാക്കുകയോ ചെയ്യാം.",
+      "entry_only_btn": "പട്ടികയിൽ നിന്ന് മാത്രം നീക്കം ചെയ്യുക",
+      "with_files_btn": "ഫയലും ഇല്ലാതാക്കുക"
     }
   },
   "website": {

@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Șterge",
+      "clear_btn": "Golește istoricul",
+      "delete_failed_toast": "Ștergerea a eșuat."
     },
     "settings": {
       "gear_label": "Setări",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Ștergi această descărcare?",
+      "title_all": "Golești tot istoricul?",
+      "body": "Poți păstra fișierul descărcat pe dispozitiv sau îl poți șterge împreună cu intrarea.",
+      "entry_only_btn": "Elimină doar din listă",
+      "with_files_btn": "Șterge și fișierul/fișierele"
     }
   },
   "website": {

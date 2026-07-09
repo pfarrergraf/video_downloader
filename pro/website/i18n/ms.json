@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Padam",
+      "clear_btn": "Kosongkan sejarah",
+      "delete_failed_toast": "Tidak dapat memadam."
     },
     "settings": {
       "gear_label": "Settings",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Padam muat turun ini?",
+      "title_all": "Kosongkan seluruh sejarah?",
+      "body": "Anda boleh simpan fail yang dimuat turun pada peranti ini, atau padamkannya bersama entri.",
+      "entry_only_btn": "Alih keluar daripada senarai sahaja",
+      "with_files_btn": "Padam fail juga"
     }
   },
   "website": {

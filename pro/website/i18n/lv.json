@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Dzēst",
+      "clear_btn": "Notīrīt vēsturi",
+      "delete_failed_toast": "Neizdevās izdzēst."
     },
     "settings": {
       "gear_label": "Iestatījumi",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Dzēst šo lejupielādi?",
+      "title_all": "Notīrīt visu vēsturi?",
+      "body": "Lejupielādēto failu vari paturēt ierīcē vai izdzēst kopā ar ierakstu.",
+      "entry_only_btn": "Noņemt tikai no saraksta",
+      "with_files_btn": "Dzēst arī failu(-s)"
     }
   },
   "website": {

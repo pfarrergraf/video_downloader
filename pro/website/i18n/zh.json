@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "删除",
+      "clear_btn": "清除历史记录",
+      "delete_failed_toast": "无法删除。"
     },
     "settings": {
       "gear_label": "设置",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "删除此下载？",
+      "title_all": "清除全部历史记录？",
+      "body": "你可以将已下载的文件保留在设备上，也可以连同记录一起删除。",
+      "entry_only_btn": "仅从列表中移除",
+      "with_files_btn": "同时删除文件"
     }
   },
   "website": {

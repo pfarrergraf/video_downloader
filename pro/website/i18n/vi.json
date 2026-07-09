@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Xóa",
+      "clear_btn": "Xóa lịch sử",
+      "delete_failed_toast": "Không xóa được."
     },
     "settings": {
       "gear_label": "Cài đặt",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Xóa lượt tải này?",
+      "title_all": "Xóa toàn bộ lịch sử?",
+      "body": "Bạn có thể giữ tệp đã tải trên thiết bị, hoặc xóa nó cùng với mục này.",
+      "entry_only_btn": "Chỉ xóa khỏi danh sách",
+      "with_files_btn": "Xóa cả tệp"
     }
   },
   "website": {

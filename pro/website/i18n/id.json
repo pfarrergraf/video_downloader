@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Hapus",
+      "clear_btn": "Bersihkan riwayat",
+      "delete_failed_toast": "Gagal menghapus."
     },
     "settings": {
       "gear_label": "Settings",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Hapus unduhan ini?",
+      "title_all": "Bersihkan seluruh riwayat?",
+      "body": "Kamu bisa menyimpan file yang diunduh di perangkat ini, atau menghapusnya bersama entri.",
+      "entry_only_btn": "Hapus dari daftar saja",
+      "with_files_btn": "Hapus juga file-nya"
     }
   },
   "website": {

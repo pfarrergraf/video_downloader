@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "حذف کریں",
+      "clear_btn": "ہسٹری صاف کریں",
+      "delete_failed_toast": "حذف نہیں ہو سکا۔"
     },
     "settings": {
       "gear_label": "ترتیبات",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "یہ ڈاؤن لوڈ حذف کریں؟",
+      "title_all": "پوری ہسٹری صاف کریں؟",
+      "body": "آپ ڈاؤن لوڈ کی گئی فائل ڈیوائس پر رکھ سکتے ہیں، یا اسے اندراج کے ساتھ حذف کر سکتے ہیں۔",
+      "entry_only_btn": "صرف فہرست سے ہٹائیں",
+      "with_files_btn": "فائل(یں) بھی حذف کریں"
     }
   },
   "website": {

@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Pokaż szczegóły",
-      "retry_btn": "Spróbuj ponownie"
+      "retry_btn": "Spróbuj ponownie",
+      "delete_btn": "Usuń",
+      "clear_btn": "Wyczyść historię",
+      "delete_failed_toast": "Nie udało się usunąć."
     },
     "settings": {
       "gear_label": "Ustawienia",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Sprawdź aktualizację silnika",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Usunąć to pobranie?",
+      "title_all": "Wyczyścić całą historię?",
+      "body": "Możesz zachować pobrany plik na urządzeniu albo usunąć go razem z wpisem.",
+      "entry_only_btn": "Usuń tylko z listy",
+      "with_files_btn": "Usuń też plik(i)"
     }
   },
   "website": {

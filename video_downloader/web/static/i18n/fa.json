@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "حذف",
+      "clear_btn": "پاک کردن تاریخچه",
+      "delete_failed_toast": "حذف انجام نشد."
     },
     "settings": {
       "gear_label": "تنظیمات",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "این دانلود حذف شود؟",
+      "title_all": "کل تاریخچه پاک شود؟",
+      "body": "می‌توانید فایل دانلودشده را روی دستگاه نگه دارید یا همراه با ورودی حذف کنید.",
+      "entry_only_btn": "فقط از فهرست حذف شود",
+      "with_files_btn": "فایل(ها) هم حذف شود"
     }
   },
   "website": {

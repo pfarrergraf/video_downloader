@@ -45,7 +45,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Delete",
+      "clear_btn": "Clear history",
+      "delete_failed_toast": "Couldn't delete."
     },
     "settings": {
       "gear_label": "Settings",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Delete this download?",
+      "title_all": "Clear the whole history?",
+      "body": "You can keep the downloaded file on this device, or delete it together with the entry.",
+      "entry_only_btn": "Remove from list only",
+      "with_files_btn": "Also delete file(s)"
     }
   },
   "website": {

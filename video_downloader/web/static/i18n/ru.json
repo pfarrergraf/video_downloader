@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Показать подробности",
-      "retry_btn": "Повторить"
+      "retry_btn": "Повторить",
+      "delete_btn": "Удалить",
+      "clear_btn": "Очистить историю",
+      "delete_failed_toast": "Не удалось удалить."
     },
     "settings": {
       "gear_label": "Настройки",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Проверить обновление движка",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Удалить эту загрузку?",
+      "title_all": "Очистить всю историю?",
+      "body": "Можно оставить скачанный файл на устройстве или удалить его вместе с записью.",
+      "entry_only_btn": "Убрать только из списка",
+      "with_files_btn": "Удалить и файл(ы)"
     }
   },
   "website": {

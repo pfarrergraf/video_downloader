@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "நீக்கு",
+      "clear_btn": "வரலாற்றை அழி",
+      "delete_failed_toast": "நீக்க முடியவில்லை."
     },
     "settings": {
       "gear_label": "அமைப்புகள்",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "இந்தப் பதிவிறக்கத்தை நீக்கவா?",
+      "title_all": "முழு வரலாற்றையும் அழிக்கவா?",
+      "body": "பதிவிறக்கிய கோப்பை சாதனத்தில் வைத்திருக்கலாம் அல்லது பதிவுடன் சேர்த்து நீக்கலாம்.",
+      "entry_only_btn": "பட்டியலிலிருந்து மட்டும் அகற்று",
+      "with_files_btn": "கோப்பையும் நீக்கு"
     }
   },
   "website": {

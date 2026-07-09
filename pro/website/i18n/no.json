@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Slett",
+      "clear_btn": "Tøm historikk",
+      "delete_failed_toast": "Kunne ikke slette."
     },
     "settings": {
       "gear_label": "Innstillinger",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Slette denne nedlastingen?",
+      "title_all": "Tømme hele historikken?",
+      "body": "Du kan beholde den nedlastede filen på enheten eller slette den sammen med oppføringen.",
+      "entry_only_btn": "Fjern bare fra listen",
+      "with_files_btn": "Slett også fil(er)"
     }
   },
   "website": {

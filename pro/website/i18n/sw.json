@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Futa",
+      "clear_btn": "Futa historia",
+      "delete_failed_toast": "Imeshindwa kufuta."
     },
     "settings": {
       "gear_label": "Settings",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Ufute upakuaji huu?",
+      "title_all": "Ufute historia yote?",
+      "body": "Unaweza kuhifadhi faili iliyopakuliwa kwenye kifaa, au kuifuta pamoja na ingizo.",
+      "entry_only_btn": "Ondoa kwenye orodha tu",
+      "with_files_btn": "Futa pia faili"
     }
   },
   "website": {

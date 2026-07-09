@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Afficher les détails",
-      "retry_btn": "Réessayer"
+      "retry_btn": "Réessayer",
+      "delete_btn": "Supprimer",
+      "clear_btn": "Effacer l'historique",
+      "delete_failed_toast": "Impossible de supprimer."
     },
     "settings": {
       "gear_label": "Paramètres",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Rechercher une mise à jour du moteur",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Supprimer ce téléchargement ?",
+      "title_all": "Effacer tout l'historique ?",
+      "body": "Tu peux garder le fichier téléchargé sur cet appareil, ou le supprimer avec l'entrée.",
+      "entry_only_btn": "Retirer de la liste uniquement",
+      "with_files_btn": "Supprimer aussi le(s) fichier(s)"
     }
   },
   "website": {

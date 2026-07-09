@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Törlés",
+      "clear_btn": "Előzmények törlése",
+      "delete_failed_toast": "A törlés nem sikerült."
     },
     "settings": {
       "gear_label": "Beállítások",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Törlöd ezt a letöltést?",
+      "title_all": "Törlöd a teljes előzményt?",
+      "body": "A letöltött fájlt megtarthatod az eszközön, vagy törölheted a bejegyzéssel együtt.",
+      "entry_only_btn": "Csak a listáról távolítsd el",
+      "with_files_btn": "A fájl(ok) törlése is"
     }
   },
   "website": {

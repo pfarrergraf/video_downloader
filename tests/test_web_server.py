@@ -756,6 +756,99 @@ def test_retry_endpoint_requeues_failed_job(server: ClassyDLServer) -> None:
     assert status == 404
 
 
+def _make_completed_job_with_file(server: ClassyDLServer, cookie: str, name: str = "clip.mp4") -> tuple[int, Path]:
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": f"https://example.com/{name}"}, cookie=cookie
+    )
+    job_id = body["job_id"]
+    job_dir = server.output_dir / f"job-{job_id}"
+    job_dir.mkdir(parents=True, exist_ok=True)
+    file_path = job_dir / name
+    file_path.write_bytes(b"fake video bytes")
+    server.store.mark_job_completed(job_id, [file_path])
+    return job_id, file_path
+
+
+def test_delete_endpoint_entry_only_keeps_files_but_purges_history(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    job_id, file_path = _make_completed_job_with_file(server, cookie)
+    assert any(e.job_id == job_id for e in server.store.list_events())
+
+    status, body, _ = _request(
+        server, "POST", f"/api/queue/{job_id}/delete", {"delete_files": False}, cookie=cookie
+    )
+    assert status == 200
+    assert body == {"deleted": True}
+    assert server.store.get_job(job_id) is None
+    # Privacy: the event log must not keep what the list no longer shows.
+    assert not any(e.job_id == job_id for e in server.store.list_events())
+    # "Entry only" means every copy on disk stays.
+    assert file_path.exists()
+
+    # Deleting again is a 404, not a silent success.
+    status, _, _ = _request(
+        server, "POST", f"/api/queue/{job_id}/delete", {"delete_files": False}, cookie=cookie
+    )
+    assert status == 404
+
+
+def test_delete_endpoint_with_files_removes_job_dir_and_published_copy(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    removed: list[str] = []
+    server.published_file_remover = removed.append
+    job_id, file_path = _make_completed_job_with_file(server, cookie, name="secret.mp4")
+
+    status, _, _ = _request(
+        server, "POST", f"/api/queue/{job_id}/delete", {"delete_files": True}, cookie=cookie
+    )
+    assert status == 200
+    assert not file_path.exists()
+    assert not file_path.parent.exists()
+    # The Android hook gets the filename so the MediaStore copy goes too.
+    assert removed == ["secret.mp4"]
+
+
+def test_delete_endpoint_refuses_running_jobs_and_requires_auth(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/busy"}, cookie=cookie
+    )
+    job_id = body["job_id"]  # still pending - never claimed (no worker running)
+
+    status, _, _ = _request(
+        server, "POST", f"/api/queue/{job_id}/delete", {"delete_files": True}, cookie=cookie
+    )
+    assert status == 404
+    assert server.store.get_job(job_id) is not None
+
+    status, _, _ = _request(server, "POST", f"/api/queue/{job_id}/delete", {"delete_files": True})
+    assert status == 401
+
+
+def test_clear_endpoint_deletes_every_finished_job_but_not_active_ones(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    done_id, done_file = _make_completed_job_with_file(server, cookie)
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/broken"}, cookie=cookie
+    )
+    failed_id = body["job_id"]
+    server.store.mark_job_failed(failed_id, "boom", error_code="unknown")
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/waiting"}, cookie=cookie
+    )
+    pending_id = body["job_id"]
+
+    status, body, _ = _request(
+        server, "POST", "/api/queue/clear", {"delete_files": False}, cookie=cookie
+    )
+    assert status == 200
+    assert body == {"deleted": 2}
+    assert server.store.get_job(done_id) is None
+    assert server.store.get_job(failed_id) is None
+    assert server.store.get_job(pending_id) is not None
+    assert done_file.exists()  # delete_files=False keeps everything on disk
+
+
 def test_engine_endpoints_report_versions(server: ClassyDLServer, monkeypatch) -> None:
     cookie = _login(server)
     status, body, _ = _request(server, "GET", "/api/engine", cookie=cookie)

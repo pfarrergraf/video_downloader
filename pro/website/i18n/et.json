@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Kustuta",
+      "clear_btn": "Tühjenda ajalugu",
+      "delete_failed_toast": "Kustutamine ebaõnnestus."
     },
     "settings": {
       "gear_label": "Seaded",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Kas kustutada see allalaadimine?",
+      "title_all": "Kas tühjendada kogu ajalugu?",
+      "body": "Võid allalaaditud faili seadmesse alles jätta või koos kirjega kustutada.",
+      "entry_only_btn": "Eemalda ainult loendist",
+      "with_files_btn": "Kustuta ka fail(id)"
     }
   },
   "website": {

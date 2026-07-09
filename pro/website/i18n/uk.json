@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Показати деталі",
-      "retry_btn": "Повторити"
+      "retry_btn": "Повторити",
+      "delete_btn": "Видалити",
+      "clear_btn": "Очистити історію",
+      "delete_failed_toast": "Не вдалося видалити."
     },
     "settings": {
       "gear_label": "Налаштування",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Перевірити оновлення рушія",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Видалити це завантаження?",
+      "title_all": "Очистити всю історію?",
+      "body": "Можеш залишити завантажений файл на пристрої або видалити його разом із записом.",
+      "entry_only_btn": "Прибрати лише зі списку",
+      "with_files_btn": "Видалити й файл(и)"
     }
   },
   "website": {

@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "حذف",
+      "clear_btn": "مسح السجل",
+      "delete_failed_toast": "تعذّر الحذف."
     },
     "settings": {
       "gear_label": "الإعدادات",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "حذف هذا التنزيل؟",
+      "title_all": "مسح السجل بالكامل؟",
+      "body": "يمكنك الاحتفاظ بالملف الذي نزّلته على هذا الجهاز، أو حذفه مع الإدخال.",
+      "entry_only_btn": "إزالة من القائمة فقط",
+      "with_files_btn": "حذف الملف (الملفات) أيضًا"
     }
   },
   "website": {

@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "తొలగించు",
+      "clear_btn": "చరిత్రను క్లియర్ చేయి",
+      "delete_failed_toast": "తొలగించలేకపోయాం."
     },
     "settings": {
       "gear_label": "సెట్టింగ్‌లు",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "ఈ డౌన్‌లోడ్‌ను తొలగించాలా?",
+      "title_all": "మొత్తం చరిత్రను క్లియర్ చేయాలా?",
+      "body": "డౌన్‌లోడ్ చేసిన ఫైల్‌ను పరికరంలో ఉంచుకోవచ్చు లేదా ఎంట్రీతో పాటు తొలగించవచ్చు.",
+      "entry_only_btn": "జాబితా నుండి మాత్రమే తీసివేయి",
+      "with_files_btn": "ఫైల్(లు) కూడా తొలగించు"
     }
   },
   "website": {

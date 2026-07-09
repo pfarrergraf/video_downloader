@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "કાઢી નાખો",
+      "clear_btn": "ઇતિહાસ સાફ કરો",
+      "delete_failed_toast": "કાઢી શકાયું નહીં."
     },
     "settings": {
       "gear_label": "સેટિંગ્સ",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "આ ડાઉનલોડ કાઢી નાખવું છે?",
+      "title_all": "આખો ઇતિહાસ સાફ કરવો છે?",
+      "body": "તમે ડાઉનલોડ કરેલી ફાઇલ ડિવાઇસ પર રાખી શકો છો, અથવા એન્ટ્રી સાથે કાઢી શકો છો.",
+      "entry_only_btn": "ફક્ત યાદીમાંથી દૂર કરો",
+      "with_files_btn": "ફાઇલ(ો) પણ કાઢી નાખો"
     }
   },
   "website": {

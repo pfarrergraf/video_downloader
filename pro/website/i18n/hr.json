@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "Izbriši",
+      "clear_btn": "Očisti povijest",
+      "delete_failed_toast": "Brisanje nije uspjelo."
     },
     "settings": {
       "gear_label": "Postavke",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Izbrisati ovo preuzimanje?",
+      "title_all": "Očistiti cijelu povijest?",
+      "body": "Preuzetu datoteku možeš zadržati na uređaju ili je izbrisati zajedno sa zapisom.",
+      "entry_only_btn": "Ukloni samo s popisa",
+      "with_files_btn": "Izbriši i datoteku/datoteke"
     }
   },
   "website": {

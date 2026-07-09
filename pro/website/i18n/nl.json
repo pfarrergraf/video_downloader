@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Details tonen",
-      "retry_btn": "Opnieuw proberen"
+      "retry_btn": "Opnieuw proberen",
+      "delete_btn": "Verwijderen",
+      "clear_btn": "Geschiedenis wissen",
+      "delete_failed_toast": "Verwijderen mislukt."
     },
     "settings": {
       "gear_label": "Instellingen",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Zoeken naar motorupdate",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "Deze download verwijderen?",
+      "title_all": "De hele geschiedenis wissen?",
+      "body": "Je kunt het gedownloade bestand op dit apparaat bewaren of het samen met het item verwijderen.",
+      "entry_only_btn": "Alleen uit de lijst halen",
+      "with_files_btn": "Ook bestand(en) verwijderen"
     }
   },
   "website": {

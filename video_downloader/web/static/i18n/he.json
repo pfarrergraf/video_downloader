@@ -38,7 +38,10 @@
       "share_failed_toast": "Couldn't share this file.",
       "share_unsupported_toast": "Sharing only works in the Android app.",
       "details_toggle": "Show details",
-      "retry_btn": "Try again"
+      "retry_btn": "Try again",
+      "delete_btn": "מחיקה",
+      "clear_btn": "ניקוי היסטוריה",
+      "delete_failed_toast": "המחיקה נכשלה."
     },
     "settings": {
       "gear_label": "הגדרות",
@@ -134,6 +137,13 @@
       "updating": "Updating…",
       "update_btn": "Check for engine update",
       "started_toast": "Checking for an engine update…"
+    },
+    "delete": {
+      "title_one": "למחוק את ההורדה הזו?",
+      "title_all": "לנקות את כל ההיסטוריה?",
+      "body": "אפשר להשאיר את הקובץ שהורד במכשיר, או למחוק אותו יחד עם הרשומה.",
+      "entry_only_btn": "הסרה מהרשימה בלבד",
+      "with_files_btn": "למחוק גם את הקבצים"
     }
   },
   "website": {
