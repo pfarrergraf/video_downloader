@@ -219,8 +219,7 @@
       "support": "Tuki",
       "copyright": "© 2026 DownloadThat. Kaikki oikeudet pidätetään.",
       "terms": "Käyttöehdot",
-      "home": "Etusivu",
-      "refund": "Refund"
+      "home": "Etusivu"
     },
     "success": {
       "title": "Kiitos — DownloadThat Pro",
@@ -236,10 +235,7 @@
       "download_app": "Lataa sovellus",
       "error": "Emme vielä löytäneet lisenssiäsi. Lataa sivu uudelleen hetken kuluttua.",
       "no_session": "Istunto puuttuu — käytä ostovahvistuksesi linkkiä.",
-      "footer_note": "Tämä sivu tarkistaa automaattisesti muutaman sekunnin ajan maksun jälkeen. Jos mitään ei näy, lataa sivu uudelleen tai lähetä sähköpostia osoitteeseen {support_email} maksuvahvistuksesi kanssa.",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "Tämä sivu tarkistaa automaattisesti muutaman sekunnin ajan maksun jälkeen. Jos mitään ei näy, lataa sivu uudelleen tai lähetä sähköpostia osoitteeseen {support_email} maksuvahvistuksesi kanssa."
     },
     "refund": {
       "title": "Peruuttaminen ja hyvitys",
@@ -252,8 +248,7 @@
       "error_no_match": "Emme löytäneet ostosta, joka vastaisi tätä lisenssiavainta ja sähköpostiosoitetta.",
       "error_already_canceled": "Tämä lisenssi on jo hyvitetty tai peruutettu.",
       "error_window_expired": "Tämän ostoksen 14 päivän hyvitysaika on päättynyt. Ota yhteyttä tukeen, jos haluat silti keskustella asiasta.",
-      "error_generic": "Jokin meni pieleen. Yritä uudelleen tai ota yhteyttä tukeen.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "Jokin meni pieleen. Yritä uudelleen tai ota yhteyttä tukeen."
     }
   }
 }

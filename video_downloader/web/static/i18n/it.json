@@ -219,8 +219,7 @@
       "support": "Supporto",
       "copyright": "© 2026 DownloadThat. Tutti i diritti riservati.",
       "terms": "Termini",
-      "home": "Home",
-      "refund": "Refund"
+      "home": "Home"
     },
     "success": {
       "title": "Grazie — DownloadThat Pro",
@@ -236,10 +235,7 @@
       "download_app": "Scarica l'app",
       "error": "Non siamo ancora riusciti a trovare la tua licenza. Ricarica questa pagina tra poco.",
       "no_session": "Sessione mancante — utilizza il link ricevuto nella conferma d'acquisto.",
-      "footer_note": "Questa pagina effettua un controllo automatico per alcuni secondi dopo il pagamento. Se non appare nulla, ricarica la pagina o scrivi a {support_email} allegando la conferma del pagamento.",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "Questa pagina effettua un controllo automatico per alcuni secondi dopo il pagamento. Se non appare nulla, ricarica la pagina o scrivi a {support_email} allegando la conferma del pagamento."
     },
     "refund": {
       "title": "Recesso e rimborso",
@@ -252,8 +248,7 @@
       "error_no_match": "Non abbiamo trovato alcun acquisto corrispondente a questa chiave di licenza e indirizzo e-mail.",
       "error_already_canceled": "Questa licenza è già stata rimborsata o annullata.",
       "error_window_expired": "Il periodo di 14 giorni per il rimborso di questo acquisto è terminato. Contatta l'assistenza se desideri comunque discuterne.",
-      "error_generic": "Si è verificato un errore. Riprova oppure contatta l'assistenza.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "Si è verificato un errore. Riprova oppure contatta l'assistenza."
     }
   }
 }

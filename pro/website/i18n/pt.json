@@ -219,8 +219,7 @@
       "support": "Suporte",
       "copyright": "© 2026 DownloadThat. Todos os direitos reservados.",
       "terms": "Termos",
-      "home": "Início",
-      "refund": "Refund"
+      "home": "Início"
     },
     "success": {
       "title": "Obrigado — DownloadThat Pro",
@@ -236,10 +235,7 @@
       "download_app": "Baixar o app",
       "error": "Ainda não conseguimos encontrar sua licença. Recarregue esta página em instantes.",
       "no_session": "Sessão não encontrada — use o link da confirmação da sua compra.",
-      "footer_note": "Esta página verifica automaticamente por alguns segundos após o pagamento. Se nada aparecer, recarregue a página ou envie um e-mail para {support_email} com a confirmação do seu pagamento.",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "Esta página verifica automaticamente por alguns segundos após o pagamento. Se nada aparecer, recarregue a página ou envie um e-mail para {support_email} com a confirmação do seu pagamento."
     },
     "refund": {
       "title": "Retratação e reembolso",
@@ -252,8 +248,7 @@
       "error_no_match": "Não encontramos nenhuma compra correspondente a essa chave de licença e endereço de e-mail.",
       "error_already_canceled": "Esta licença já foi reembolsada ou cancelada.",
       "error_window_expired": "O prazo de 14 dias para reembolso desta compra já terminou. Entre em contato com o suporte se ainda quiser discutir o assunto.",
-      "error_generic": "Ocorreu um erro. Tente novamente ou entre em contato com o suporte.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "Ocorreu um erro. Tente novamente ou entre em contato com o suporte."
     }
   }
 }

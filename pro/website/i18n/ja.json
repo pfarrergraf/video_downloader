@@ -219,8 +219,7 @@
       "support": "サポート",
       "copyright": "© 2026 DownloadThat. All rights reserved.",
       "terms": "Terms",
-      "home": "Home",
-      "refund": "Refund"
+      "home": "Home"
     },
     "success": {
       "title": "ご購入ありがとうございます — DownloadThat Pro",
@@ -236,10 +235,7 @@
       "download_app": "アプリをダウンロード",
       "error": "ライセンスがまだ見つかりません。しばらくしてからこのページを再読み込みしてください。",
       "no_session": "セッションが見つかりません。購入確認メールに記載のリンクからアクセスしてください。",
-      "footer_note": "このページは支払い後、数秒間自動的に確認を行います。何も表示されない場合は、ページを再読み込みするか、お支払いの確認情報を添えて{support_email}までメールしてください。",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "このページは支払い後、数秒間自動的に確認を行います。何も表示されない場合は、ページを再読み込みするか、お支払いの確認情報を添えて{support_email}までメールしてください。"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -252,8 +248,7 @@
       "error_no_match": "We couldn't find a purchase matching that license key and email address.",
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "Something went wrong. Please try again or contact support."
     }
   }
 }

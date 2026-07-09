@@ -219,8 +219,7 @@
       "support": "Support",
       "copyright": "© 2026 DownloadThat. Alle rettigheter forbeholdt.",
       "terms": "Vilkår",
-      "home": "Hjem",
-      "refund": "Refund"
+      "home": "Hjem"
     },
     "success": {
       "title": "Takk — DownloadThat Pro",
@@ -236,10 +235,7 @@
       "download_app": "Last ned appen",
       "error": "Vi fant ikke lisensen din ennå. Vennligst last siden på nytt om et øyeblikk.",
       "no_session": "Økten mangler — bruk lenken fra kjøpsbekreftelsen din.",
-      "footer_note": "Denne siden sjekker automatisk i noen sekunder etter betalingen. Hvis ingenting dukker opp, last siden på nytt eller send en e-post til {support_email} med betalingsbekreftelsen din.",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "Denne siden sjekker automatisk i noen sekunder etter betalingen. Hvis ingenting dukker opp, last siden på nytt eller send en e-post til {support_email} med betalingsbekreftelsen din."
     },
     "refund": {
       "title": "Angrerett og refusjon",
@@ -252,8 +248,7 @@
       "error_no_match": "Vi fant ikke noe kjøp som samsvarer med denne lisensnøkkelen og e-postadressen.",
       "error_already_canceled": "Denne lisensen er allerede refundert eller kansellert.",
       "error_window_expired": "14-dagers refusjonsvinduet for dette kjøpet er utløpt. Kontakt support hvis du fortsatt ønsker å diskutere dette.",
-      "error_generic": "Noe gikk galt. Prøv igjen eller kontakt support.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "Noe gikk galt. Prøv igjen eller kontakt support."
     }
   }
 }

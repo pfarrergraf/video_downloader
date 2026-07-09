@@ -219,8 +219,7 @@
       "support": "Ondersteuning",
       "copyright": "© 2026 DownloadThat. Alle rechten voorbehouden.",
       "terms": "Voorwaarden",
-      "home": "Home",
-      "refund": "Refund"
+      "home": "Home"
     },
     "success": {
       "title": "Bedankt — DownloadThat Pro",
@@ -236,10 +235,7 @@
       "download_app": "Download de app",
       "error": "We konden je licentie nog niet vinden. Vernieuw deze pagina zo dadelijk.",
       "no_session": "Sessie ontbreekt — gebruik de link uit je aankoopbevestiging.",
-      "footer_note": "Deze pagina controleert automatisch enkele seconden na betaling. Als er niets verschijnt, vernieuw de pagina of e-mail {support_email} met je betalingsbevestiging.",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "Deze pagina controleert automatisch enkele seconden na betaling. Als er niets verschijnt, vernieuw de pagina of e-mail {support_email} met je betalingsbevestiging."
     },
     "refund": {
       "title": "Herroeping & terugbetaling",
@@ -252,8 +248,7 @@
       "error_no_match": "We konden geen aankoop vinden die overeenkomt met die licentiesleutel en dat e-mailadres.",
       "error_already_canceled": "Deze licentie is al terugbetaald of geannuleerd.",
       "error_window_expired": "De termijn van 14 dagen voor terugbetaling van deze aankoop is verstreken. Neem contact op met support als je dit alsnog wilt bespreken.",
-      "error_generic": "Er is iets misgegaan. Probeer het opnieuw of neem contact op met support.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "Er is iets misgegaan. Probeer het opnieuw of neem contact op met support."
     }
   }
 }

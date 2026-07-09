@@ -219,8 +219,7 @@
       "support": "پشتیبانی",
       "copyright": "© ۲۰۲۶ DownloadThat. تمامی حقوق محفوظ است.",
       "terms": "Terms",
-      "home": "Home",
-      "refund": "Refund"
+      "home": "Home"
     },
     "success": {
       "title": "متشکریم — DownloadThat پرو",
@@ -236,10 +235,7 @@
       "download_app": "دانلود اپلیکیشن",
       "error": "هنوز نتوانستیم لایسنس شما را پیدا کنیم. لطفاً چند لحظه دیگر این صفحه را دوباره بارگذاری کنید.",
       "no_session": "نشست یافت نشد — لطفاً از لینک موجود در تأییدیه خرید خود استفاده کنید.",
-      "footer_note": "این صفحه به‌طور خودکار برای چند ثانیه پس از پرداخت بررسی می‌شود. اگر چیزی نمایش داده نشد، صفحه را دوباره بارگذاری کنید یا همراه با تأییدیه پرداخت خود به {support_email} ایمیل بزنید.",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "این صفحه به‌طور خودکار برای چند ثانیه پس از پرداخت بررسی می‌شود. اگر چیزی نمایش داده نشد، صفحه را دوباره بارگذاری کنید یا همراه با تأییدیه پرداخت خود به {support_email} ایمیل بزنید."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -252,8 +248,7 @@
       "error_no_match": "We couldn't find a purchase matching that license key and email address.",
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "Something went wrong. Please try again or contact support."
     }
   }
 }

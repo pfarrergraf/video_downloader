@@ -219,8 +219,7 @@
       "support": "Support",
       "copyright": "© 2026 DownloadThat. Tous droits réservés.",
       "terms": "Conditions",
-      "home": "Accueil",
-      "refund": "Refund"
+      "home": "Accueil"
     },
     "success": {
       "title": "Merci — DownloadThat Pro",
@@ -236,10 +235,7 @@
       "download_app": "Télécharger l'application",
       "error": "Nous n'avons pas encore trouvé votre licence. Merci de recharger cette page dans un instant.",
       "no_session": "Session manquante — veuillez utiliser le lien de votre confirmation d'achat.",
-      "footer_note": "Cette page vérifie automatiquement pendant quelques secondes après le paiement. Si rien ne s'affiche, rechargez la page ou envoyez un e-mail à {support_email} avec votre confirmation de paiement.",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "Cette page vérifie automatiquement pendant quelques secondes après le paiement. Si rien ne s'affiche, rechargez la page ou envoyez un e-mail à {support_email} avec votre confirmation de paiement."
     },
     "refund": {
       "title": "Rétractation et remboursement",
@@ -252,8 +248,7 @@
       "error_no_match": "Nous n'avons trouvé aucun achat correspondant à cette clé de licence et à cette adresse e-mail.",
       "error_already_canceled": "Cette licence a déjà été remboursée ou annulée.",
       "error_window_expired": "Le délai de remboursement de 14 jours pour cet achat est écoulé. Contactez le support si vous souhaitez tout de même en discuter.",
-      "error_generic": "Une erreur s'est produite. Veuillez réessayer ou contacter le support.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "Une erreur s'est produite. Veuillez réessayer ou contacter le support."
     }
   }
 }

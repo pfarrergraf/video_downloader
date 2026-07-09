@@ -219,8 +219,7 @@
       "support": "সহায়তা",
       "copyright": "© ২০২৬ DownloadThat। সর্বস্বত্ব সংরক্ষিত।",
       "terms": "Terms",
-      "home": "Home",
-      "refund": "Refund"
+      "home": "Home"
     },
     "success": {
       "title": "ধন্যবাদ — DownloadThat প্রো",
@@ -236,10 +235,7 @@
       "download_app": "অ্যাপ ডাউনলোড করুন",
       "error": "আমরা এখনও আপনার লাইসেন্স খুঁজে পাইনি। কিছুক্ষণ পর অনুগ্রহ করে এই পেজটি রিলোড করুন।",
       "no_session": "সেশন পাওয়া যায়নি — অনুগ্রহ করে আপনার কেনাকাটার নিশ্চিতকরণ থেকে পাওয়া লিংকটি ব্যবহার করুন।",
-      "footer_note": "পেমেন্টের পর এই পেজটি স্বয়ংক্রিয়ভাবে কয়েক সেকেন্ড ধরে যাচাই করে। যদি কিছু না দেখা যায়, পেজটি রিলোড করুন অথবা আপনার পেমেন্ট নিশ্চিতকরণসহ {support_email}-এ ইমেইল করুন।",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "পেমেন্টের পর এই পেজটি স্বয়ংক্রিয়ভাবে কয়েক সেকেন্ড ধরে যাচাই করে। যদি কিছু না দেখা যায়, পেজটি রিলোড করুন অথবা আপনার পেমেন্ট নিশ্চিতকরণসহ {support_email}-এ ইমেইল করুন।"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -252,8 +248,7 @@
       "error_no_match": "We couldn't find a purchase matching that license key and email address.",
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "Something went wrong. Please try again or contact support."
     }
   }
 }

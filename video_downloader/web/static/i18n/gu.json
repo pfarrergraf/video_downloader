@@ -219,8 +219,7 @@
       "support": "સપોર્ટ",
       "copyright": "© 2026 DownloadThat. બધા હકો સુરક્ષિત.",
       "terms": "Terms",
-      "home": "Home",
-      "refund": "Refund"
+      "home": "Home"
     },
     "success": {
       "title": "આભાર — DownloadThat પ્રો",
@@ -236,10 +235,7 @@
       "download_app": "એપ ડાઉનલોડ કરો",
       "error": "અમને હજુ સુધી તમારું લાઇસન્સ મળ્યું નથી. કૃપા કરીને થોડી વારમાં આ પેજ ફરીથી લોડ કરો.",
       "no_session": "સેશન ખૂટે છે — કૃપા કરીને તમારા ખરીદી પુષ્ટિકરણમાંથી લિંકનો ઉપયોગ કરો.",
-      "footer_note": "આ પેજ ચુકવણી પછી થોડી સેકંડ માટે આપમેળે તપાસ કરે છે. જો કંઈ ન દેખાય, તો પેજ ફરીથી લોડ કરો અથવા તમારી ચુકવણી પુષ્ટિ સાથે {support_email} પર ઇમેઇલ કરો.",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "આ પેજ ચુકવણી પછી થોડી સેકંડ માટે આપમેળે તપાસ કરે છે. જો કંઈ ન દેખાય, તો પેજ ફરીથી લોડ કરો અથવા તમારી ચુકવણી પુષ્ટિ સાથે {support_email} પર ઇમેઇલ કરો."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -252,8 +248,7 @@
       "error_no_match": "We couldn't find a purchase matching that license key and email address.",
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "Something went wrong. Please try again or contact support."
     }
   }
 }

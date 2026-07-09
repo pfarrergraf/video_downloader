@@ -219,8 +219,7 @@
       "support": "Asistență",
       "copyright": "© 2026 DownloadThat. Toate drepturile rezervate.",
       "terms": "Termeni",
-      "home": "Acasă",
-      "refund": "Refund"
+      "home": "Acasă"
     },
     "success": {
       "title": "Mulțumim — DownloadThat Pro",
@@ -236,10 +235,7 @@
       "download_app": "Descarcă aplicația",
       "error": "Nu am putut găsi încă licența ta. Te rugăm să reîncarci această pagină peste puțin timp.",
       "no_session": "Sesiune lipsă — te rugăm să folosești linkul din confirmarea achiziției.",
-      "footer_note": "Această pagină verifică automat timp de câteva secunde după plată. Dacă nu apare nimic, reîncarcă pagina sau trimite un e-mail la {support_email} cu confirmarea plății.",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "Această pagină verifică automat timp de câteva secunde după plată. Dacă nu apare nimic, reîncarcă pagina sau trimite un e-mail la {support_email} cu confirmarea plății."
     },
     "refund": {
       "title": "Retragere și rambursare",
@@ -252,8 +248,7 @@
       "error_no_match": "Nu am găsit nicio achiziție care să corespundă acestei chei de licență și adrese de e-mail.",
       "error_already_canceled": "Această licență a fost deja rambursată sau anulată.",
       "error_window_expired": "Perioada de 14 zile pentru rambursarea acestei achiziții a expirat. Contactează asistența dacă dorești totuși să discuți acest lucru.",
-      "error_generic": "A apărut o eroare. Te rugăm să încerci din nou sau să contactezi asistența.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "A apărut o eroare. Te rugăm să încerci din nou sau să contactezi asistența."
     }
   }
 }

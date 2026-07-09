@@ -219,8 +219,7 @@
       "support": "Podpora",
       "copyright": "© 2026 DownloadThat. Všechna práva vyhrazena.",
       "terms": "Podmínky",
-      "home": "Domů",
-      "refund": "Refund"
+      "home": "Domů"
     },
     "success": {
       "title": "Děkujeme — DownloadThat Pro",
@@ -236,10 +235,7 @@
       "download_app": "Stáhnout aplikaci",
       "error": "Vaši licenci se zatím nepodařilo najít. Za chvíli prosím tuto stránku znovu načtěte.",
       "no_session": "Chybí relace — použijte prosím odkaz z potvrzení o nákupu.",
-      "footer_note": "Tato stránka po platbě automaticky kontroluje stav po dobu několika sekund. Pokud se nic nezobrazí, načtěte stránku znovu nebo napište e-mail na {support_email} s potvrzením platby.",
-      "duplicate_warning_title": "Heads up — you already have an active subscription",
-      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
-      "duplicate_warning_link": "Refund this purchase"
+      "footer_note": "Tato stránka po platbě automaticky kontroluje stav po dobu několika sekund. Pokud se nic nezobrazí, načtěte stránku znovu nebo napište e-mail na {support_email} s potvrzením platby."
     },
     "refund": {
       "title": "Odstoupení od smlouvy a vrácení peněz",
@@ -252,8 +248,7 @@
       "error_no_match": "Nepodařilo se nám najít nákup odpovídající tomuto licenčnímu klíči a e-mailové adrese.",
       "error_already_canceled": "Tato licence již byla vrácena nebo zrušena.",
       "error_window_expired": "14denní lhůta pro vrácení peněz u tohoto nákupu již uplynula. Pokud to chcete přesto řešit, kontaktujte podporu.",
-      "error_generic": "Něco se pokazilo. Zkuste to prosím znovu nebo kontaktujte podporu.",
-      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
+      "error_generic": "Něco se pokazilo. Zkuste to prosím znovu nebo kontaktujte podporu."
     }
   }
 }

@@ -62,17 +62,9 @@
     });
   }
 
-  function renderKey(licenseKey, tier, otherActiveLicenses) {
+  function renderKey(licenseKey, tier) {
     const tierKey = { monthly: "website.success.tier_monthly", yearly: "website.success.tier_yearly", lifetime: "website.success.tier_lifetime" }[tier];
     const tierLabel = tierKey ? dtT(tierKey) : tier;
-    const refundHref = `/refund.html?session_id=${encodeURIComponent(sessionId)}`;
-    const warningHtml = otherActiveLicenses > 0 ? `
-      <div style="margin-top:18px;padding:14px 16px;border-radius:10px;background:rgba(201,168,105,0.12);border:1px solid var(--accent);text-align:left;">
-        <p style="margin:0 0 8px;color:var(--text);">${dtT("website.success.duplicate_warning_title")}</p>
-        <p class="muted" style="margin:0 0 10px;">${dtT("website.success.duplicate_warning_body", { count: otherActiveLicenses })}</p>
-        <a class="btn" href="${refundHref}">${dtT("website.success.duplicate_warning_link")}</a>
-      </div>
-    ` : "";
     resultEl.innerHTML = `
       <div>${dtT("website.success.plan_label")}: <strong>${tierLabel}</strong></div>
       <div class="key">${licenseKey}</div>
@@ -81,7 +73,6 @@
         <p class="muted" style="margin:0 0 10px;">${dtT("website.success.not_installed")}</p>
         <a class="btn" href="/download">${dtT("website.success.download_app")}</a>
       </div>
-      ${warningHtml}
     `;
   }
 
@@ -95,7 +86,7 @@
 
   function replayState() {
     renderFooterNote();
-    if (lastState.kind === "key") renderKey(lastState.licenseKey, lastState.tier, lastState.otherActiveLicenses);
+    if (lastState.kind === "key") renderKey(lastState.licenseKey, lastState.tier);
     else if (lastState.kind === "error") renderError();
     else if (lastState.kind === "no_session") renderNoSession();
   }
@@ -114,8 +105,8 @@
         const res = await fetch(`/api/license-for-session?session_id=${encodeURIComponent(sessionId)}`);
         const data = await res.json();
         if (data.found) {
-          lastState = { kind: "key", licenseKey: data.license_key, tier: data.tier, otherActiveLicenses: data.other_active_licenses || 0 };
-          renderKey(data.license_key, data.tier, data.other_active_licenses || 0);
+          lastState = { kind: "key", licenseKey: data.license_key, tier: data.tier };
+          renderKey(data.license_key, data.tier);
           return;
         }
       } catch (err) {
