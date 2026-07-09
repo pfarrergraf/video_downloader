@@ -219,7 +219,8 @@
       "support": "Support",
       "copyright": "© 2026 DownloadThat. Alle rettigheder forbeholdes.",
       "terms": "Vilkår",
-      "home": "Forside"
+      "home": "Forside",
+      "refund": "Refund"
     },
     "success": {
       "title": "Tak — DownloadThat Pro",
@@ -235,7 +236,10 @@
       "download_app": "Download appen",
       "error": "Vi kunne ikke finde din licens endnu. Genindlæs venligst siden om et øjeblik.",
       "no_session": "Session mangler — brug venligst linket fra din købsbekræftelse.",
-      "footer_note": "Denne side tjekker automatisk i nogle sekunder efter betalingen. Hvis intet vises, så genindlæs siden eller send en e-mail til {support_email} med din betalingsbekræftelse."
+      "footer_note": "Denne side tjekker automatisk i nogle sekunder efter betalingen. Hvis intet vises, så genindlæs siden eller send en e-mail til {support_email} med din betalingsbekræftelse.",
+      "duplicate_warning_title": "Heads up — you already have an active subscription",
+      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
+      "duplicate_warning_link": "Refund this purchase"
     },
     "refund": {
       "title": "Fortrydelse & tilbagebetaling",
@@ -248,7 +252,8 @@
       "error_no_match": "Vi kunne ikke finde et køb, der matcher denne licensnøgle og e-mailadresse.",
       "error_already_canceled": "Denne licens er allerede blevet tilbagebetalt eller annulleret.",
       "error_window_expired": "14-dages-fristen for tilbagebetaling af dette køb er udløbet. Kontakt support, hvis du stadig gerne vil drøfte dette.",
-      "error_generic": "Noget gik galt. Prøv venligst igen, eller kontakt support."
+      "error_generic": "Noget gik galt. Prøv venligst igen, eller kontakt support.",
+      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
     }
   }
 }

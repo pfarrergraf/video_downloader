@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title data-i18n="website.refund.title">Withdrawal & refund</title>
+<style>
+  :root {
+    --bg: #0e0c14; --card: #1b1626; --border: #2c2438;
+    --text: #f1ede4; --text-dim: #a89fb3; --accent: #c9a869;
+  }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 480px; margin: 8vh auto; padding: 0 24px; text-align: center; }
+  h1 { font-size: 1.7rem; margin-bottom: 8px; }
+  p.lead { color: var(--text-dim); margin-bottom: 32px; line-height: 1.5; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; text-align: left; }
+  label { display: block; font-size: 0.85rem; color: var(--text-dim); margin: 16px 0 6px; text-align: left; }
+  label:first-child { margin-top: 0; }
+  input {
+    width: 100%; box-sizing: border-box; padding: 10px 12px; border-radius: 8px;
+    border: 1px solid var(--border); background: #14111c; color: var(--text); font-size: 0.95rem;
+  }
+  .btn {
+    display: inline-block; margin-top: 20px; padding: 10px 20px; border-radius: 8px;
+    background: var(--accent); color: #14111c; font-weight: 600; cursor: pointer; border: none;
+    font-size: 0.9rem; width: 100%;
+  }
+  .btn:disabled { opacity: 0.6; cursor: default; }
+  .msg { margin-top: 16px; text-align: left; }
+  .msg.success { color: #8fd19e; }
+  .msg.error { color: #e0918f; }
+  .muted { color: var(--text-dim); font-size: 0.85rem; margin-top: 18px; }
+  .lang-switcher {
+    background: var(--card); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; font-size: 0.85rem; font-family: inherit; cursor: pointer;
+    margin-bottom: 18px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <select class="lang-switcher" aria-label="Language"></select>
+  <h1 data-i18n="website.refund.title">Withdrawal & refund</h1>
+  <p class="lead" data-i18n="website.refund.body">Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.</p>
+  <div class="card">
+    <form id="refund-form">
+      <label for="license_key" data-i18n="website.refund.license_label">License key</label>
+      <input type="text" id="license_key" placeholder="DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX" autocomplete="off" />
+      <label for="email" data-i18n="website.refund.email_label">Email address used at purchase</label>
+      <input type="email" id="email" required autocomplete="email" />
+      <button class="btn" type="submit" data-i18n="website.refund.submit_btn">Request refund</button>
+    </form>
+    <div class="msg" id="msg"></div>
+  </div>
+  <p class="muted" id="footer-note"></p>
+</div>
+
+<script src="/i18n.js"></script>
+<script>
+  // session_id arrives from success.html's "you already have an active
+  // license" link (see license-for-session.js) - it lets /api/refund find a
+  // purchase that a webhook failure or a duplicate/abandoned checkout left
+  // without ever creating a license row, so there's no license_key to enter.
+  // It's carried silently; the visible form only ever asks for what a
+  // returning customer actually has in hand.
+  const sessionId = new URLSearchParams(window.location.search).get("session_id");
+  const form = document.getElementById("refund-form");
+  const msgEl = document.getElementById("msg");
+  const submitBtn = form.querySelector("button[type=submit]");
+  const SUPPORT_EMAIL = "gpt.assist.benjamin@gmail.com";
+
+  const ERROR_KEYS = {
+    missing_fields: "website.refund.error_missing_fields",
+    no_match: "website.refund.error_no_match",
+    already_canceled: "website.refund.error_already_canceled",
+    window_expired: "website.refund.error_window_expired",
+    payment_processing: "website.refund.error_payment_processing",
+  };
+
+  function renderFooterNote() {
+    document.getElementById("footer-note").innerHTML = dtT("website.success.footer_note", {
+      support_email: `<a href="mailto:${SUPPORT_EMAIL}" style="color:var(--accent)">${SUPPORT_EMAIL}</a>`,
+    });
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    submitBtn.disabled = true;
+    msgEl.className = "msg";
+    msgEl.textContent = "";
+
+    const body = {
+      email: document.getElementById("email").value.trim(),
+      license_key: document.getElementById("license_key").value.trim(),
+    };
+    if (sessionId) body.session_id = sessionId;
+
+    try {
+      const res = await fetch("/api/refund", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.refunded) {
+        msgEl.className = "msg success";
+        msgEl.textContent = dtT("website.refund.success");
+        form.querySelectorAll("input, button").forEach((el) => (el.disabled = true));
+      } else {
+        msgEl.className = "msg error";
+        msgEl.textContent = dtT(ERROR_KEYS[data.error] || "website.refund.error_generic");
+        submitBtn.disabled = false;
+      }
+    } catch (err) {
+      msgEl.className = "msg error";
+      msgEl.textContent = dtT("website.refund.error_generic");
+      submitBtn.disabled = false;
+    }
+  });
+
+  dtInitI18n().then(renderFooterNote);
+  const originalSetLanguage = dtSetLanguage;
+  dtSetLanguage = async (pref) => { await originalSetLanguage(pref); renderFooterNote(); };
+</script>
+</body>
+</html>

@@ -219,7 +219,8 @@
       "support": "പിന്തുണ",
       "copyright": "© 2026 DownloadThat. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.",
       "terms": "Terms",
-      "home": "Home"
+      "home": "Home",
+      "refund": "Refund"
     },
     "success": {
       "title": "നന്ദി — DownloadThat Pro",
@@ -235,7 +236,10 @@
       "download_app": "ആപ്പ് ഡൗൺലോഡ് ചെയ്യുക",
       "error": "ഞങ്ങൾക്ക് ഇതുവരെ നിങ്ങളുടെ ലൈസൻസ് കണ്ടെത്താൻ കഴിഞ്ഞില്ല. ദയവായി അൽപ്പസമയത്തിനുള്ളിൽ ഈ പേജ് വീണ്ടും ലോഡ് ചെയ്യുക.",
       "no_session": "സെഷൻ ലഭ്യമല്ല — ദയവായി നിങ്ങളുടെ വാങ്ങൽ സ്ഥിരീകരണത്തിലെ ലിങ്ക് ഉപയോഗിക്കുക.",
-      "footer_note": "പേയ്‌മെന്റിന് ശേഷം ഈ പേജ് കുറച്ച് സെക്കൻഡുകൾ സ്വയമേവ പരിശോധിക്കും. ഒന്നും കാണിക്കുന്നില്ലെങ്കിൽ, പേജ് വീണ്ടും ലോഡ് ചെയ്യുക അല്ലെങ്കിൽ നിങ്ങളുടെ പേയ്‌മെന്റ് സ്ഥിരീകരണത്തോടൊപ്പം {support_email} എന്ന വിലാസത്തിലേക്ക് ഇമെയിൽ ചെയ്യുക."
+      "footer_note": "പേയ്‌മെന്റിന് ശേഷം ഈ പേജ് കുറച്ച് സെക്കൻഡുകൾ സ്വയമേവ പരിശോധിക്കും. ഒന്നും കാണിക്കുന്നില്ലെങ്കിൽ, പേജ് വീണ്ടും ലോഡ് ചെയ്യുക അല്ലെങ്കിൽ നിങ്ങളുടെ പേയ്‌മെന്റ് സ്ഥിരീകരണത്തോടൊപ്പം {support_email} എന്ന വിലാസത്തിലേക്ക് ഇമെയിൽ ചെയ്യുക.",
+      "duplicate_warning_title": "Heads up — you already have an active subscription",
+      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
+      "duplicate_warning_link": "Refund this purchase"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -248,7 +252,8 @@
       "error_no_match": "We couldn't find a purchase matching that license key and email address.",
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support."
+      "error_generic": "Something went wrong. Please try again or contact support.",
+      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
     }
   }
 }

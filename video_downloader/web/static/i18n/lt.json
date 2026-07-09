@@ -219,7 +219,8 @@
       "support": "Pagalba",
       "copyright": "© 2026 DownloadThat. Visos teisės saugomos.",
       "terms": "Terms",
-      "home": "Home"
+      "home": "Home",
+      "refund": "Refund"
     },
     "success": {
       "title": "Ačiū — DownloadThat Pro",
@@ -235,7 +236,10 @@
       "download_app": "Atsisiųsti programėlę",
       "error": "Kol kas nepavyko rasti tavo licencijos. Perkrauk šį puslapį po akimirkos.",
       "no_session": "Trūksta sesijos — naudok nuorodą iš pirkimo patvirtinimo.",
-      "footer_note": "Šis puslapis automatiškai tikrina po apmokėjimo kelias sekundes. Jei nieko neatsiranda, perkrauk puslapį arba parašyk el. paštu {support_email} su savo mokėjimo patvirtinimu."
+      "footer_note": "Šis puslapis automatiškai tikrina po apmokėjimo kelias sekundes. Jei nieko neatsiranda, perkrauk puslapį arba parašyk el. paštu {support_email} su savo mokėjimo patvirtinimu.",
+      "duplicate_warning_title": "Heads up — you already have an active subscription",
+      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
+      "duplicate_warning_link": "Refund this purchase"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -248,7 +252,8 @@
       "error_no_match": "We couldn't find a purchase matching that license key and email address.",
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support."
+      "error_generic": "Something went wrong. Please try again or contact support.",
+      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
     }
   }
 }

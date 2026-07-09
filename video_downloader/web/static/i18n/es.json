@@ -219,7 +219,8 @@
       "support": "Soporte",
       "copyright": "© 2026 DownloadThat. Todos los derechos reservados.",
       "terms": "Términos",
-      "home": "Inicio"
+      "home": "Inicio",
+      "refund": "Refund"
     },
     "success": {
       "title": "Gracias: DownloadThat Pro",
@@ -235,7 +236,10 @@
       "download_app": "Descargar la aplicación",
       "error": "Todavía no hemos encontrado tu licencia. Por favor, recarga esta página en unos instantes.",
       "no_session": "Falta la sesión: usa el enlace de tu confirmación de compra.",
-      "footer_note": "Esta página se actualiza automáticamente durante unos segundos después del pago. Si no aparece nada, recarga la página o envía un correo a {support_email} con tu confirmación de pago."
+      "footer_note": "Esta página se actualiza automáticamente durante unos segundos después del pago. Si no aparece nada, recarga la página o envía un correo a {support_email} con tu confirmación de pago.",
+      "duplicate_warning_title": "Heads up — you already have an active subscription",
+      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
+      "duplicate_warning_link": "Refund this purchase"
     },
     "refund": {
       "title": "Desistimiento y reembolso",
@@ -248,7 +252,8 @@
       "error_no_match": "No hemos encontrado ninguna compra que coincida con esa clave de licencia y esa dirección de correo electrónico.",
       "error_already_canceled": "Esta licencia ya ha sido reembolsada o cancelada.",
       "error_window_expired": "El plazo de 14 días para el reembolso de esta compra ha finalizado. Ponte en contacto con soporte si aún deseas hablar sobre ello.",
-      "error_generic": "Algo salió mal. Inténtalo de nuevo o ponte en contacto con soporte."
+      "error_generic": "Algo salió mal. Inténtalo de nuevo o ponte en contacto con soporte.",
+      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
     }
   }
 }

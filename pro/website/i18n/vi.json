@@ -219,7 +219,8 @@
       "support": "Hỗ trợ",
       "copyright": "© 2026 DownloadThat. Bảo lưu mọi quyền.",
       "terms": "Terms",
-      "home": "Home"
+      "home": "Home",
+      "refund": "Refund"
     },
     "success": {
       "title": "Cảm ơn — DownloadThat Pro",
@@ -235,7 +236,10 @@
       "download_app": "Tải ứng dụng",
       "error": "Chúng tôi chưa tìm thấy giấy phép của bạn. Vui lòng tải lại trang này sau ít phút.",
       "no_session": "Thiếu phiên làm việc — vui lòng dùng liên kết từ email xác nhận mua hàng của bạn.",
-      "footer_note": "Trang này tự động kiểm tra trong vài giây sau khi thanh toán. Nếu không có gì hiện ra, hãy tải lại trang hoặc gửi email đến {support_email} kèm xác nhận thanh toán của bạn."
+      "footer_note": "Trang này tự động kiểm tra trong vài giây sau khi thanh toán. Nếu không có gì hiện ra, hãy tải lại trang hoặc gửi email đến {support_email} kèm xác nhận thanh toán của bạn.",
+      "duplicate_warning_title": "Heads up — you already have an active subscription",
+      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
+      "duplicate_warning_link": "Refund this purchase"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -248,7 +252,8 @@
       "error_no_match": "We couldn't find a purchase matching that license key and email address.",
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support."
+      "error_generic": "Something went wrong. Please try again or contact support.",
+      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
     }
   }
 }

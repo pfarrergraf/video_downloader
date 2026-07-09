@@ -43,13 +43,21 @@ doesn't route because it starts with `_`.)
   required for that early termination to be legally effective. A timestamp gets
   stamped into the Stripe Payment Link's `client_reference_id` as evidence of when
   consent was given.
-- **`widerruf.html` + `functions/api/refund.js`**: a self-service refund page. Anyone
-  can request a full refund within 14 days of purchase (license key + the email used
-  at checkout) regardless of the consent above — this is a voluntary goodwill
-  guarantee, not just the bare legal minimum. Calls Stripe's refund API directly
-  (one-time payment_intent for lifetime, or the subscription's first invoice +
-  immediate cancellation for monthly/yearly) and marks the license `canceled` in D1
-  either way.
+- **`refund.html` + `functions/api/refund.js`**: a self-service refund page (linked from
+  the footer and from `widerruf.html`, the legal withdrawal-rights page). Anyone can
+  request a full refund within 14 days of purchase (license key + the email used at
+  checkout) regardless of the consent above — this is a voluntary goodwill guarantee,
+  not just the bare legal minimum. Calls Stripe's refund API directly (one-time
+  payment_intent for lifetime, or the subscription's first invoice + immediate
+  cancellation for monthly/yearly) and marks the license `canceled` in D1 either way.
+  Also accepts a Stripe checkout `session_id` instead of a license key (passed
+  automatically from `success.html`'s duplicate-purchase warning) for the case where a
+  purchase's `checkout.session.completed` webhook never produced a license row at all —
+  the session ID is as unguessable as a license key, so it's an equally valid proof of
+  purchase. A payment still `processing` (SEPA Direct Debit can take up to 14 business
+  days to clear) can't be refunded yet by Stripe regardless of who approves it — the
+  endpoint says so plainly instead of erroring, and cancels the subscription immediately
+  either way so it doesn't renew while the customer waits and retries.
 
 ## What you need to do — all from the Cloudflare dashboard, phone-friendly
 

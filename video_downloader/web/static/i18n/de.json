@@ -219,7 +219,8 @@
       "support": "Support",
       "copyright": "© 2026 DownloadThat. Alle Rechte vorbehalten.",
       "terms": "Nutzungsbedingungen (AGB)",
-      "home": "Startseite"
+      "home": "Startseite",
+      "refund": "Rückerstattung"
     },
     "success": {
       "title": "Danke — DownloadThat Pro",
@@ -235,7 +236,10 @@
       "download_app": "App herunterladen",
       "error": "Wir konnten deine Lizenz noch nicht finden. Bitte lade diese Seite gleich noch einmal.",
       "no_session": "Sitzung fehlt — bitte verwende den Link aus deiner Kaufbestätigung.",
-      "footer_note": "Diese Seite prüft nach der Zahlung automatisch für ein paar Sekunden. Falls nichts erscheint, lade die Seite neu oder schreibe eine E-Mail an {support_email} mit deiner Zahlungsbestätigung."
+      "footer_note": "Diese Seite prüft nach der Zahlung automatisch für ein paar Sekunden. Falls nichts erscheint, lade die Seite neu oder schreibe eine E-Mail an {support_email} mit deiner Zahlungsbestätigung.",
+      "duplicate_warning_title": "Hinweis — du hast bereits eine aktive Lizenz",
+      "duplicate_warning_body": "Wir haben {count} weitere aktive Lizenz(en) unter dieser E-Mail-Adresse gefunden. Falls dieser Kauf versehentlich war (z. B. Doppelklick), kannst du ihn unten zurückerstatten lassen.",
+      "duplicate_warning_link": "Diesen Kauf zurückerstatten"
     },
     "refund": {
       "title": "Widerruf & Rückerstattung",
@@ -248,7 +252,8 @@
       "error_no_match": "Wir konnten keinen Kauf finden, der zu diesem Lizenzschlüssel und dieser E-Mail-Adresse passt.",
       "error_already_canceled": "Diese Lizenz wurde bereits erstattet oder storniert.",
       "error_window_expired": "Die 14-tägige Rückerstattungsfrist für diesen Kauf ist abgelaufen. Kontaktiere den Support, falls du das trotzdem besprechen möchtest.",
-      "error_generic": "Etwas ist schiefgelaufen. Bitte versuche es erneut oder kontaktiere den Support."
+      "error_generic": "Etwas ist schiefgelaufen. Bitte versuche es erneut oder kontaktiere den Support.",
+      "error_payment_processing": "Diese Zahlung ist noch nicht abgeschlossen (SEPA-Lastschrift kann bis zu 14 Werktage dauern). Das Abo wurde bereits gekündigt, damit es sich nicht verlängert — bitte versuche es hier erneut, sobald die Zahlung durch ist."
     }
   }
 }

@@ -27,6 +27,7 @@ const STRIPE_LOCALE_MAP = {
 };
 
 let STRINGS = {};
+let ENGLISH_STRINGS = {};
 
 function dtDetectLang() {
   const raw = (navigator.language || 'en').toLowerCase();
@@ -34,11 +35,19 @@ function dtDetectLang() {
   return SUPPORTED_CODES.includes(short) ? short : 'en';
 }
 
-function dtT(key, vars) {
+function dtLookup(dict, key) {
   const parts = key.split('.');
-  let node = STRINGS;
+  let node = dict;
   for (const p of parts) node = node && typeof node === 'object' ? node[p] : undefined;
-  let str = typeof node === 'string' ? node : key;
+  return typeof node === 'string' ? node : undefined;
+}
+
+// Falls back to the English string (then the raw key) when the active
+// language's file is missing a key entirely - covers newly-added strings
+// before every one of the ~50 locale files has been translated, without
+// showing a raw "website.foo.bar" dotted key to the user in the meantime.
+function dtT(key, vars) {
+  let str = dtLookup(STRINGS, key) ?? dtLookup(ENGLISH_STRINGS, key) ?? key;
   if (vars) for (const [k, v] of Object.entries(vars)) str = str.split(`{${k}}`).join(v);
   return str;
 }
@@ -109,7 +118,8 @@ function dtUpdateStripeLinks() {
 async function dtSetLanguage(pref) {
   localStorage.setItem('dt_lang', pref);
   const effective = pref === 'auto' ? dtDetectLang() : pref;
-  STRINGS = (await dtLoadStrings(effective)) || (await dtLoadStrings('en')) || {};
+  if (!Object.keys(ENGLISH_STRINGS).length) ENGLISH_STRINGS = (await dtLoadStrings('en')) || {};
+  STRINGS = effective === 'en' ? ENGLISH_STRINGS : (await dtLoadStrings(effective)) || ENGLISH_STRINGS;
   dtApplyTranslations();
   document.querySelectorAll('.lang-switcher').forEach((sel) => { sel.value = pref; });
 }

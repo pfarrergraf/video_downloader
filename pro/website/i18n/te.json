@@ -219,7 +219,8 @@
       "support": "మద్దతు",
       "copyright": "© 2026 DownloadThat. సర్వహక్కులు రిజర్వు చేయబడ్డాయి.",
       "terms": "Terms",
-      "home": "Home"
+      "home": "Home",
+      "refund": "Refund"
     },
     "success": {
       "title": "ధన్యవాదాలు — DownloadThat Pro",
@@ -235,7 +236,10 @@
       "download_app": "యాప్‌ను డౌన్‌లోడ్ చేయండి",
       "error": "మేము ఇంకా మీ లైసెన్స్‌ను కనుగొనలేకపోయాము. దయచేసి కొద్ది సేపటిలో ఈ పేజీని రీలోడ్ చేయండి.",
       "no_session": "సెషన్ లేదు — దయచేసి మీ కొనుగోలు నిర్ధారణ నుండి లింక్‌ను ఉపయోగించండి.",
-      "footer_note": "చెల్లింపు తర్వాత ఈ పేజీ కొన్ని సెకన్ల పాటు స్వయంచాలకంగా తనిఖీ చేస్తుంది. ఏమీ కనిపించకపోతే, పేజీని రీలోడ్ చేయండి లేదా మీ చెల్లింపు నిర్ధారణతో {support_email}కు ఇమెయిల్ చేయండి."
+      "footer_note": "చెల్లింపు తర్వాత ఈ పేజీ కొన్ని సెకన్ల పాటు స్వయంచాలకంగా తనిఖీ చేస్తుంది. ఏమీ కనిపించకపోతే, పేజీని రీలోడ్ చేయండి లేదా మీ చెల్లింపు నిర్ధారణతో {support_email}కు ఇమెయిల్ చేయండి.",
+      "duplicate_warning_title": "Heads up — you already have an active subscription",
+      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
+      "duplicate_warning_link": "Refund this purchase"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -248,7 +252,8 @@
       "error_no_match": "We couldn't find a purchase matching that license key and email address.",
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support."
+      "error_generic": "Something went wrong. Please try again or contact support.",
+      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
     }
   }
 }

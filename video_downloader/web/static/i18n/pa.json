@@ -219,7 +219,8 @@
       "support": "ਸਹਾਇਤਾ",
       "copyright": "© 2026 DownloadThat। ਸਾਰੇ ਅਧਿਕਾਰ ਰਾਖਵੇਂ ਹਨ।",
       "terms": "Terms",
-      "home": "Home"
+      "home": "Home",
+      "refund": "Refund"
     },
     "success": {
       "title": "ਧੰਨਵਾਦ — DownloadThat ਪ੍ਰੋ",
@@ -235,7 +236,10 @@
       "download_app": "ਐਪ ਡਾਊਨਲੋਡ ਕਰੋ",
       "error": "ਸਾਨੂੰ ਹਾਲੇ ਤੁਹਾਡਾ ਲਾਇਸੈਂਸ ਨਹੀਂ ਮਿਲਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਥੋੜ੍ਹੀ ਦੇਰ ਵਿੱਚ ਇਸ ਪੰਨੇ ਨੂੰ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ।",
       "no_session": "ਸੈਸ਼ਨ ਗੁੰਮ ਹੈ — ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਖਰੀਦ ਪੁਸ਼ਟੀ ਵਾਲੇ ਲਿੰਕ ਦੀ ਵਰਤੋਂ ਕਰੋ।",
-      "footer_note": "ਇਹ ਪੰਨਾ ਭੁਗਤਾਨ ਤੋਂ ਬਾਅਦ ਕੁਝ ਸਕਿੰਟਾਂ ਲਈ ਆਪਣੇ ਆਪ ਜਾਂਚ ਕਰਦਾ ਹੈ। ਜੇ ਕੁਝ ਨਹੀਂ ਦਿਖਾਈ ਦਿੰਦਾ, ਤਾਂ ਪੰਨੇ ਨੂੰ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ ਜਾਂ ਆਪਣੀ ਭੁਗਤਾਨ ਪੁਸ਼ਟੀ ਦੇ ਨਾਲ {support_email} 'ਤੇ ਈਮੇਲ ਕਰੋ।"
+      "footer_note": "ਇਹ ਪੰਨਾ ਭੁਗਤਾਨ ਤੋਂ ਬਾਅਦ ਕੁਝ ਸਕਿੰਟਾਂ ਲਈ ਆਪਣੇ ਆਪ ਜਾਂਚ ਕਰਦਾ ਹੈ। ਜੇ ਕੁਝ ਨਹੀਂ ਦਿਖਾਈ ਦਿੰਦਾ, ਤਾਂ ਪੰਨੇ ਨੂੰ ਦੁਬਾਰਾ ਲੋਡ ਕਰੋ ਜਾਂ ਆਪਣੀ ਭੁਗਤਾਨ ਪੁਸ਼ਟੀ ਦੇ ਨਾਲ {support_email} 'ਤੇ ਈਮੇਲ ਕਰੋ।",
+      "duplicate_warning_title": "Heads up — you already have an active subscription",
+      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
+      "duplicate_warning_link": "Refund this purchase"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -248,7 +252,8 @@
       "error_no_match": "We couldn't find a purchase matching that license key and email address.",
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support."
+      "error_generic": "Something went wrong. Please try again or contact support.",
+      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
     }
   }
 }

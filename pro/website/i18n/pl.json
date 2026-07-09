@@ -219,7 +219,8 @@
       "support": "Wsparcie",
       "copyright": "© 2026 DownloadThat. Wszelkie prawa zastrzeżone.",
       "terms": "Regulamin",
-      "home": "Strona główna"
+      "home": "Strona główna",
+      "refund": "Refund"
     },
     "success": {
       "title": "Dziękujemy — DownloadThat Pro",
@@ -235,7 +236,10 @@
       "download_app": "Pobierz aplikację",
       "error": "Nie udało się jeszcze znaleźć Twojej licencji. Odśwież tę stronę za chwilę.",
       "no_session": "Brak sesji — skorzystaj z linku z potwierdzenia zakupu.",
-      "footer_note": "Ta strona automatycznie sprawdza status przez kilka sekund po płatności. Jeśli nic się nie pojawi, odśwież stronę lub napisz na {support_email}, podając potwierdzenie płatności."
+      "footer_note": "Ta strona automatycznie sprawdza status przez kilka sekund po płatności. Jeśli nic się nie pojawi, odśwież stronę lub napisz na {support_email}, podając potwierdzenie płatności.",
+      "duplicate_warning_title": "Heads up — you already have an active subscription",
+      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
+      "duplicate_warning_link": "Refund this purchase"
     },
     "refund": {
       "title": "Odstąpienie od umowy i zwrot środków",
@@ -248,7 +252,8 @@
       "error_no_match": "Nie znaleźliśmy zakupu pasującego do podanego klucza licencyjnego i adresu e-mail.",
       "error_already_canceled": "Ta licencja została już zwrócona lub anulowana.",
       "error_window_expired": "14-dniowy okres na zwrot środków dla tego zakupu już minął. Skontaktuj się z pomocą techniczną, jeśli mimo to chcesz to omówić.",
-      "error_generic": "Coś poszło nie tak. Spróbuj ponownie lub skontaktuj się z pomocą techniczną."
+      "error_generic": "Coś poszło nie tak. Spróbuj ponownie lub skontaktuj się z pomocą techniczną.",
+      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
     }
   }
 }

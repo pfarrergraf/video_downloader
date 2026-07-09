@@ -219,7 +219,8 @@
       "support": "Support",
       "copyright": "© 2026 DownloadThat. Alla rättigheter förbehållna.",
       "terms": "Villkor",
-      "home": "Hem"
+      "home": "Hem",
+      "refund": "Refund"
     },
     "success": {
       "title": "Tack — DownloadThat Pro",
@@ -235,7 +236,10 @@
       "download_app": "Ladda ner appen",
       "error": "Vi kunde inte hitta din licens än. Ladda om sidan om en stund.",
       "no_session": "Sessionen saknas — använd länken från din köpbekräftelse.",
-      "footer_note": "Den här sidan kontrollerar automatiskt i några sekunder efter betalningen. Om inget visas kan du ladda om sidan eller mejla {support_email} med din betalningsbekräftelse."
+      "footer_note": "Den här sidan kontrollerar automatiskt i några sekunder efter betalningen. Om inget visas kan du ladda om sidan eller mejla {support_email} med din betalningsbekräftelse.",
+      "duplicate_warning_title": "Heads up — you already have an active subscription",
+      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
+      "duplicate_warning_link": "Refund this purchase"
     },
     "refund": {
       "title": "Ångerrätt och återbetalning",
@@ -248,7 +252,8 @@
       "error_no_match": "Vi kunde inte hitta något köp som matchar den licensnyckeln och e-postadressen.",
       "error_already_canceled": "Den här licensen har redan återbetalats eller avbrutits.",
       "error_window_expired": "14-dagarsperioden för återbetalning av detta köp har löpt ut. Kontakta supporten om du ändå vill diskutera detta.",
-      "error_generic": "Något gick fel. Försök igen eller kontakta supporten."
+      "error_generic": "Något gick fel. Försök igen eller kontakta supporten.",
+      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
     }
   }
 }

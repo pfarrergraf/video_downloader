@@ -219,7 +219,8 @@
       "support": "支持",
       "copyright": "© 2026 DownloadThat。保留所有权利。",
       "terms": "Terms",
-      "home": "Home"
+      "home": "Home",
+      "refund": "Refund"
     },
     "success": {
       "title": "感谢您 — DownloadThat 专业版",
@@ -235,7 +236,10 @@
       "download_app": "下载应用",
       "error": "我们暂时未能找到您的许可证。请稍后重新加载此页面。",
       "no_session": "会话信息缺失 — 请使用购买确认邮件中的链接。",
-      "footer_note": "付款完成后，本页面会自动检查几秒钟。如果没有显示任何内容，请重新加载页面，或将您的付款确认信息发送至 {support_email}。"
+      "footer_note": "付款完成后，本页面会自动检查几秒钟。如果没有显示任何内容，请重新加载页面，或将您的付款确认信息发送至 {support_email}。",
+      "duplicate_warning_title": "Heads up — you already have an active subscription",
+      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
+      "duplicate_warning_link": "Refund this purchase"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -248,7 +252,8 @@
       "error_no_match": "We couldn't find a purchase matching that license key and email address.",
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
-      "error_generic": "Something went wrong. Please try again or contact support."
+      "error_generic": "Something went wrong. Please try again or contact support.",
+      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
     }
   }
 }

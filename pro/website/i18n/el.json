@@ -219,7 +219,8 @@
       "support": "Υποστήριξη",
       "copyright": "© 2026 DownloadThat. Με επιφύλαξη παντός δικαιώματος.",
       "terms": "Όροι",
-      "home": "Αρχική"
+      "home": "Αρχική",
+      "refund": "Refund"
     },
     "success": {
       "title": "Ευχαριστούμε — DownloadThat Pro",
@@ -235,7 +236,10 @@
       "download_app": "Λήψη της εφαρμογής",
       "error": "Δεν μπορέσαμε ακόμα να βρούμε την άδεια χρήσης σας. Παρακαλούμε επαναφορτώστε αυτή τη σελίδα σε λίγο.",
       "no_session": "Λείπει η συνεδρία — παρακαλούμε χρησιμοποιήστε τον σύνδεσμο από την επιβεβαίωση της αγοράς σας.",
-      "footer_note": "Αυτή η σελίδα ελέγχει αυτόματα για λίγα δευτερόλεπτα μετά την πληρωμή. Αν δεν εμφανιστεί τίποτα, επαναφορτώστε τη σελίδα ή στείλτε email στο {support_email} με την επιβεβαίωση πληρωμής σας."
+      "footer_note": "Αυτή η σελίδα ελέγχει αυτόματα για λίγα δευτερόλεπτα μετά την πληρωμή. Αν δεν εμφανιστεί τίποτα, επαναφορτώστε τη σελίδα ή στείλτε email στο {support_email} με την επιβεβαίωση πληρωμής σας.",
+      "duplicate_warning_title": "Heads up — you already have an active subscription",
+      "duplicate_warning_body": "We found {count} other active license(s) under this email address. If this purchase was accidental (e.g. a double-click), you can refund this one below.",
+      "duplicate_warning_link": "Refund this purchase"
     },
     "refund": {
       "title": "Υπαναχώρηση & επιστροφή χρημάτων",
@@ -248,7 +252,8 @@
       "error_no_match": "Δεν βρέθηκε αγορά που να αντιστοιχεί σε αυτό το κλειδί άδειας χρήσης και τη διεύθυνση email.",
       "error_already_canceled": "Αυτή η άδεια έχει ήδη επιστραφεί ή ακυρωθεί.",
       "error_window_expired": "Η 14ήμερη προθεσμία επιστροφής χρημάτων για αυτή την αγορά έχει λήξει. Επικοινωνήστε με την υποστήριξη αν θέλετε ακόμα να το συζητήσουμε.",
-      "error_generic": "Κάτι πήγε στραβά. Παρακαλούμε δοκιμάστε ξανά ή επικοινωνήστε με την υποστήριξη."
+      "error_generic": "Κάτι πήγε στραβά. Παρακαλούμε δοκιμάστε ξανά ή επικοινωνήστε με την υποστήριξη.",
+      "error_payment_processing": "This payment hasn't cleared yet (SEPA Direct Debit can take up to 14 business days). We've already canceled the subscription so it won't renew — please try this form again once the payment has gone through."
     }
   }
 }
