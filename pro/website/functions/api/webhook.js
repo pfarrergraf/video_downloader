@@ -7,6 +7,7 @@ import {
   handleAffiliatePaymentFailure,
   postProcessAffiliateCheckout,
 } from "../_affiliate_events.js";
+import { syncAffiliateRefundRevenue } from "../_affiliate_refund_sync.js";
 
 async function handleAffiliateEvent(event, baseResult, env) {
   if (!affiliateProgramEnabled(env)) return { handled: false, reason: "affiliate program disabled" };
@@ -16,8 +17,11 @@ async function handleAffiliateEvent(event, baseResult, env) {
       return postProcessAffiliateCheckout(event.data.object, baseResult?.license_key, env);
     case "checkout.session.async_payment_failed":
       return handleAffiliatePaymentFailure(event.data.object, env);
-    case "charge.refunded":
-      return handleAffiliateChargeRefunded(event.data.object, env);
+    case "charge.refunded": {
+      const revenue = await syncAffiliateRefundRevenue(event.data.object, env);
+      const commission = await handleAffiliateChargeRefunded(event.data.object, env);
+      return { revenue, commission };
+    }
     case "charge.dispute.created":
       return handleAffiliateDisputeCreated(event.data.object, env);
     case "charge.dispute.closed":
