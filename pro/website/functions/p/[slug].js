@@ -18,8 +18,12 @@ export async function onRequestGet({ request, env, params }) {
   const destination = new URL("/", url.origin);
   if (url.searchParams.get("buy") === "1") destination.searchParams.set("buy", "1");
   destination.hash = "pricing";
-  return Response.redirect(destination.toString(), 302, {
-    "Set-Cookie": secureCookie("dt_affiliate_click", clickId, ATTRIBUTION_SECONDS),
-    "Cache-Control": "no-store",
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: destination.toString(),
+      "Set-Cookie": secureCookie("dt_affiliate_click", clickId, ATTRIBUTION_SECONDS),
+      "Cache-Control": "no-store",
+    },
   });
 }
