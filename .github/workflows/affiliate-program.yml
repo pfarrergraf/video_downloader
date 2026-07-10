@@ -53,4 +53,16 @@ jobs:
           python-version: "3.11"
       - name: Compile Android referral integration
         working-directory: android
-        run: ./gradlew :app:compileDebugKotlin --stacktrace
+        shell: bash
+        run: |
+          set +e
+          ./gradlew :app:compileDebugKotlin --console=plain > affiliate-android-build.log 2>&1
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            echo "--- relevant Android build failure ---"
+            grep -nE "(^e: |error:|FAILURE:|What went wrong|Caused by:|Execution failed)" affiliate-android-build.log | tail -n 160 || true
+            echo "--- final build context ---"
+            tail -n 120 affiliate-android-build.log
+            exit "$status"
+          fi
+          tail -n 40 affiliate-android-build.log
