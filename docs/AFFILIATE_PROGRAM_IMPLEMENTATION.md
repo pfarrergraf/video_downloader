@@ -37,8 +37,9 @@ Wichtige Dateien:
 
 - `pro/website/functions/_affiliate.js` – Partner-, Provisions- und Auszahlungslogik
 - `pro/website/functions/_affiliate_integrity.js` – unabhängiger Finanz- und Hash-Ketten-Abgleich
+- `pro/website/functions/_affiliate_integrity_lock.js` – serialisierte Integrity Gates per D1-Lease
 - `pro/website/functions/_affiliate_events.js` – Stripe-Refund-/Dispute-Lebenszyklus
-- `pro/website/migrations/0002_...0007_...sql` – additive D1-Migrationen
+- `pro/website/migrations/0002_...0008_...sql` – additive D1-Migrationen
 - `pro/website/partner.html` – Registrierung und Login
 - `pro/website/partner-dashboard.html` – Partner-Dashboard
 - `pro/website/partner-admin.html` – Finanzkontrolle
@@ -85,14 +86,16 @@ Vier unabhängige, unveränderliche Hash-Ketten werden geprüft:
 
 Update und Delete sind per SQLite-Trigger verboten. Korrekturen erfolgen ausschließlich über kompensierende Buchungen.
 
+Reconciliation und Integrity Gate besitzen getrennte Datenbank-Leases. Damit kann immer nur eine Instanz die jeweilige Hash-Kette fortschreiben; parallele Adminaufrufe verzweigen die Kette nicht. Ein belegter oder abgelaufener Prüflauf führt nicht zu einer Auszahlung, sondern zu einem kontrollierten `409`-Fehler beziehungsweise einer fortbestehenden Sperre.
+
 ### 4. Auszahlungsschritte
 
 1. **Prepare:** System erzeugt einen Auszahlungsvorschlag aus einzelnen offenen Provisionen.
 2. **Approve:** Admin bestätigt den Vorschlag; derselbe Akteur kann den Systemschritt nicht ersetzen.
 3. **Paid:** Erst nach realer SEPA-Überweisung wird mit externer Bankreferenz gebucht.
-4. Vor und nach jedem Schritt laufen Stripe-Reconciliation und Integrity Gate.
+4. Vor und nach jedem Schritt laufen Stripe-Reconciliation und ein serialisiertes Integrity Gate.
 
-Der Code überweist kein Geld selbst. Dadurch kann ein kompromittiertes Webkonto keine Banküberweisung auslösen.
+Der Code überweist kein Geld selbst. Dadurch kann ein kompromittiertes Webkonto keine Banküberweisung auslösen. Die technische Trennung ist ein System-/Mensch-Maker-Checker-Verfahren; sie ersetzt bei wachsendem Zahlungsvolumen keine zweite menschliche Freigabeperson oder Bankfreigabe.
 
 ## Benötigte Cloudflare-Variablen
 
@@ -140,6 +143,7 @@ Die SQL-Dateien in lexikographischer Reihenfolge einmalig anwenden:
 0005_affiliate_admin_auth.sql
 0006_reconciliation_dimensions.sql
 0007_affiliate_integrity_checks.sql
+0008_affiliate_integrity_lock.sql
 ```
 
 Die Migration startet absichtlich mit globaler Auszahlungssperre. Erst ein erfolgreicher Stripe-Abgleich plus Integrity Gate darf sie lösen.
@@ -153,10 +157,10 @@ Die Migration startet absichtlich mit globaler Auszahlungssperre. Erst ein erfol
 5. Test-Webhook-Ereignisse aktivieren.
 6. Testpartner registrieren und E-Mail bestätigen.
 7. Stripe-Testkauf durchführen.
-8. Refund und Dispute testen.
+8. vollständigen Refund, Teil-Refund sowie gewonnenen und verlorenen Dispute testen.
 9. 30-Tage-Prüfung in Staging mit kontrollierten Testzeitpunkten validieren.
 10. Adminseite öffnen und Reconciliation starten.
-11. Nur bei Status `ok` Feature Flag aktivieren.
+11. Nur bei Reconciliation- und Integrity-Status `ok` Feature Flag aktivieren.
 12. Erst danach Live-Webhook-Ereignisse und echte Partner zulassen.
 
 ## Rollback
@@ -173,7 +177,7 @@ Die Migration startet absichtlich mit globaler Auszahlungssperre. Erst ein erfol
 Pull Requests führen aus:
 
 - SQLite-Migrationen und Constraint-Tests;
-- Python-Security-Tests;
-- Node-Syntaxprüfung sämtlicher kritischer Functions;
+- Python-Security- und Secret-Leak-Tests;
+- Node-Syntaxprüfung sämtlicher Cloudflare Functions;
 - Unit-Tests der Centstaffel und absoluten 4-EUR-Obergrenze;
 - Kotlin-Kompilierung der Android-App-Link-Integration.
