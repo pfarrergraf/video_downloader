@@ -4,6 +4,8 @@ import re
 import sqlite3
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 WEBSITE = ROOT / "pro" / "website"
@@ -68,8 +70,8 @@ def test_finance_tables_enforce_money_and_append_only_rules() -> None:
         """INSERT INTO affiliate_commissions
            (id,affiliate_id,license_key,stripe_checkout_session_id,status,
             qualified_sale_number,commission_cents,eligible_at,approved_at,created_at,updated_at)
-           VALUES ('c1','a1','DLT-TEST-TEST-TEST','cs_test_1','approved',1,200,?,?,?,?,?)""",
-        (now, now, now, now, now),
+           VALUES ('c1','a1','DLT-TEST-TEST-TEST','cs_test_1','approved',1,200,?,?,?,?)""",
+        (now, now, now, now),
     )
     db.execute(
         """INSERT INTO affiliate_ledger
@@ -79,11 +81,11 @@ def test_finance_tables_enforce_money_and_append_only_rules() -> None:
                    'test','hash-1',?)""",
         (now,),
     )
-    with __import__("pytest").raises(sqlite3.IntegrityError, match="append-only"):
+    with pytest.raises(sqlite3.IntegrityError, match="append-only"):
         db.execute("UPDATE affiliate_ledger SET amount_cents = 400 WHERE id = 'l1'")
-    with __import__("pytest").raises(sqlite3.IntegrityError, match="append-only"):
+    with pytest.raises(sqlite3.IntegrityError, match="append-only"):
         db.execute("DELETE FROM affiliate_ledger WHERE id = 'l1'")
-    with __import__("pytest").raises(sqlite3.IntegrityError):
+    with pytest.raises(sqlite3.IntegrityError):
         db.execute(
             """INSERT INTO affiliate_commissions
                (id,affiliate_id,license_key,stripe_checkout_session_id,status,
