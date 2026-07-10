@@ -1,11 +1,11 @@
 import {
   WITHDRAWAL_TEXT_VERSION,
-  affiliateProgramEnabled,
   jsonResponse,
   nowSeconds,
   publicBaseUrl,
   resolveAffiliateAttribution,
 } from "../_affiliate.js";
+import { affiliateCheckoutEnabled } from "../_affiliate_flags.js";
 
 async function createStripeSession(env, body) {
   const response = await fetch("https://api.stripe.com/v1/checkout/sessions", {
@@ -17,18 +17,18 @@ async function createStripeSession(env, body) {
     body: new URLSearchParams(body),
   });
   if (!response.ok) {
-    throw new Error(`Stripe checkout creation failed: ${response.status} ${await response.text()}`);
+    throw new Error(`Stripe checkout creation failed: ${response.status}`);
   }
   return response.json();
 }
 
 export async function onRequestPost({ request, env }) {
   try {
-    if (!env.DB || !env.STRIPE_SECRET_KEY || !env.STRIPE_PRICE_ID) {
-      return jsonResponse({ error: "not_configured" }, 500);
+    if (!affiliateCheckoutEnabled(env)) {
+      return jsonResponse({ error: "checkout_not_enabled" }, 404);
     }
-    if (!affiliateProgramEnabled(env)) {
-      return jsonResponse({ error: "affiliate_program_disabled" }, 404);
+    if (!env.DB || !env.STRIPE_SECRET_KEY || !env.STRIPE_PRICE_ID) {
+      return jsonResponse({ error: "not_configured" }, 503);
     }
 
     const body = await request.json().catch(() => ({}));
@@ -84,6 +84,6 @@ export async function onRequestPost({ request, env }) {
     return jsonResponse({ url: session.url, session_id: session.id });
   } catch (error) {
     console.error("create-checkout failed", error);
-    return jsonResponse({ error: "checkout_failed", message: String(error?.message || error) }, 500);
+    return jsonResponse({ error: "checkout_failed" }, 500);
   }
 }
