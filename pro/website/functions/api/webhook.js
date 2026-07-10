@@ -53,7 +53,11 @@ export async function onRequestPost({ request, env }) {
     const affiliate = await handleAffiliateEvent(event, result, env);
     return jsonResponse({ received: true, result, affiliate });
   } catch (err) {
+    // Full detail (including stack) goes to server-side logs only -- the
+    // signature check above already ensures only Stripe (or a holder of
+    // STRIPE_WEBHOOK_SECRET) reaches this branch, but the response body still
+    // shouldn't hand back internal stack traces to any caller.
     console.error("Webhook handling failed", err);
-    return jsonResponse({ error: "handler error", message: String(err?.message ?? err), stack: err?.stack }, 500);
+    return jsonResponse({ error: "handler error", message: String(err?.message ?? err) }, 500);
   }
 }

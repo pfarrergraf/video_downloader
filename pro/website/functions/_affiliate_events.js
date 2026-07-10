@@ -216,30 +216,43 @@ export async function handleAffiliateDisputeClosed(dispute, env) {
     return { restored: false, reason: "no reversible disputed commission" };
   }
 
+  // As in reverseCommission, a concurrent/duplicate "dispute closed: won"
+  // delivery for the same event must not apply its balance/ledger side
+  // effects twice. Both restoration branches now check the row-change count
+  // of the status-flipping UPDATE (the only statement whose WHERE clause
+  // pins to the pre-restoration 'reversed' state) before doing anything else,
+  // so a raced duplicate observes 0 changes and stops -- otherwise the
+  // negative-balance credit below (`MAX(x - settled, 0)`) is read against the
+  // live column value on each call and would double-credit the partner if
+  // both duplicates ran their UPDATEs back to back.
   if (!commission.qualified_sale_number || !commission.commission_cents) {
-    await env.DB.prepare(
+    const pendingRestore = await env.DB.prepare(
       `UPDATE affiliate_commissions
           SET status = 'pending', eligible_at = ?, reversed_at = NULL,
               reversal_reason = NULL, updated_at = ?
         WHERE id = ? AND status = 'reversed'`,
     ).bind(now + COMMISSION_REVIEW_SECONDS, now, commission.id).run();
+    if ((pendingRestore.meta?.changes || 0) !== 1) {
+      return { restored: false, reason: "already restored" };
+    }
   } else {
     const restoredStatus = Number(commission.settled_cents || 0) >= Number(commission.commission_cents)
       ? "paid"
       : "approved";
-    await env.DB.batch([
-      env.DB.prepare(
-        `UPDATE affiliate_commissions
-            SET status = ?, reversed_at = NULL, reversal_reason = NULL, updated_at = ?
-          WHERE id = ? AND status = 'reversed'`,
-      ).bind(restoredStatus, now, commission.id),
-      env.DB.prepare(
-        `UPDATE affiliates
-            SET negative_balance_cents = MAX(negative_balance_cents - ?, 0),
-                updated_at = ?, version = version + 1
-          WHERE id = ?`,
-      ).bind(Number(commission.settled_cents || 0), now, commission.affiliate_id),
-    ]);
+    const statusRestore = await env.DB.prepare(
+      `UPDATE affiliate_commissions
+          SET status = ?, reversed_at = NULL, reversal_reason = NULL, updated_at = ?
+        WHERE id = ? AND status = 'reversed'`,
+    ).bind(restoredStatus, now, commission.id).run();
+    if ((statusRestore.meta?.changes || 0) !== 1) {
+      return { restored: false, reason: "already restored" };
+    }
+    await env.DB.prepare(
+      `UPDATE affiliates
+          SET negative_balance_cents = MAX(negative_balance_cents - ?, 0),
+              updated_at = ?, version = version + 1
+        WHERE id = ?`,
+    ).bind(Number(commission.settled_cents || 0), now, commission.affiliate_id).run();
     try {
       await appendLedger(
         env,

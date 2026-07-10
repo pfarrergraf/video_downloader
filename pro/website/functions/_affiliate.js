@@ -155,14 +155,6 @@ async function stripeRequest(path, env, options = {}) {
   return response.json();
 }
 
-async function stripePost(path, env, body) {
-  return stripeRequest(path, env, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams(body),
-  });
-}
-
 export async function verifyTurnstile(token, request, env) {
   if (!env.TURNSTILE_SECRET_KEY) {
     if (String(env.ENVIRONMENT || "production") === "production") return false;
@@ -181,6 +173,31 @@ export async function verifyTurnstile(token, request, env) {
   if (!response.ok) return false;
   const result = await response.json();
   return result.success === true;
+}
+
+// Generic D1-backed throttle for affiliate auth/registration endpoints, which
+// previously relied on Cloudflare Turnstile alone with no request-count
+// limit -- mirrors api/refund.js's refund_attempts pattern. key is salted and
+// hashed before storage so no raw IP/email sits in the rate-limit table.
+export async function checkAffiliateRateLimit(env, bucket, key, windowSeconds, maxAttempts) {
+  const now = nowSeconds();
+  const windowStart = now - windowSeconds;
+  const keyHash = await sha256Hex(`${env.REFERRAL_HASH_SALT || ""}:${bucket}:${key}`);
+  await env.DB.prepare(`DELETE FROM affiliate_rate_limit_attempts WHERE bucket = ? AND attempted_at < ?`)
+    .bind(bucket, windowStart)
+    .run();
+  const attempts = await env.DB.prepare(
+    `SELECT COUNT(*) AS count FROM affiliate_rate_limit_attempts WHERE bucket = ? AND key_hash = ? AND attempted_at >= ?`,
+  )
+    .bind(bucket, keyHash, windowStart)
+    .first();
+  if ((attempts?.count ?? 0) >= maxAttempts) return false;
+  await env.DB.prepare(
+    `INSERT INTO affiliate_rate_limit_attempts (bucket, key_hash, attempted_at) VALUES (?, ?, ?)`,
+  )
+    .bind(bucket, keyHash, now)
+    .run();
+  return true;
 }
 
 export async function sendTransactionalEmail(env, { to, subject, html, text }) {
@@ -448,63 +465,6 @@ export async function resolveAffiliateAttribution(request, env, explicitCode = "
   };
 }
 
-export async function createDynamicCheckout(request, env, body) {
-  if (!env.STRIPE_PRICE_ID) throw new Error("STRIPE_PRICE_ID is not configured");
-  const withdrawalChoice = body.withdrawal_choice === "wait14" ? "wait14" : "waived";
-  const attribution = await resolveAffiliateAttribution(request, env, body.partner_code || "");
-  if (attribution.error) return { error: attribution.error, status: 400 };
-
-  const now = nowSeconds();
-  const intentId = crypto.randomUUID();
-  const base = publicBaseUrl(request, env);
-  const locale = /^[a-z]{2}(?:-[A-Z]{2})?$/.test(String(body.locale || "")) ? String(body.locale) : "auto";
-
-  await env.DB.prepare(
-    `INSERT INTO affiliate_checkout_intents
-      (id, affiliate_id, click_id, withdrawal_choice, withdrawal_consented_at,
-       withdrawal_text_version, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?)`,
-  )
-    .bind(
-      intentId,
-      attribution.affiliate?.id || null,
-      attribution.click?.id || null,
-      withdrawalChoice,
-      withdrawalChoice === "waived" ? now : null,
-      WITHDRAWAL_TEXT_VERSION,
-      now,
-    )
-    .run();
-
-  const stripeBody = {
-    mode: "payment",
-    success_url: `${base}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${base}/#pricing`,
-    locale,
-    client_reference_id: intentId,
-    "line_items[0][price]": env.STRIPE_PRICE_ID,
-    "line_items[0][quantity]": "1",
-    "metadata[tier]": "lifetime",
-    "metadata[checkout_intent_id]": intentId,
-    "metadata[affiliate_id]": attribution.affiliate?.id || "",
-    "metadata[withdrawal_choice]": withdrawalChoice,
-    "metadata[withdrawal_text_version]": WITHDRAWAL_TEXT_VERSION,
-    "payment_intent_data[metadata][checkout_intent_id]": intentId,
-    "payment_intent_data[metadata][affiliate_id]": attribution.affiliate?.id || "",
-  };
-
-  const session = await stripePost("/checkout/sessions", env, stripeBody);
-  await env.DB.prepare(
-    `UPDATE affiliate_checkout_intents
-        SET stripe_checkout_session_id = ?
-      WHERE id = ? AND stripe_checkout_session_id IS NULL`,
-  )
-    .bind(session.id, intentId)
-    .run();
-
-  return { url: session.url, session_id: session.id };
-}
-
 export async function handleAffiliateCheckoutPaid(session, licenseKey, env) {
   const intentId = session.metadata?.checkout_intent_id || session.client_reference_id;
   if (!intentId) return { attributed: false, reason: "no checkout intent" };
@@ -592,13 +552,24 @@ export async function reverseCommission(env, { sessionId = null, paymentIntentId
 
   const now = nowSeconds();
   const wasSettled = Number(commission.settled_cents || 0);
-  await env.DB.prepare(
+  // Concurrent/duplicate webhook deliveries for the same event (Stripe uses
+  // at-least-once delivery) can both reach this function with the
+  // pre-reversal status still visible. Only the caller whose UPDATE actually
+  // flips the row proceeds to apply the ledger entry and clawback below --
+  // otherwise a raced duplicate would double-count the settled-amount
+  // clawback against the partner even though the ledger insert itself is
+  // deduplicated by the UNIQUE(entry_type, reference_type, reference_id)
+  // constraint.
+  const statusUpdate = await env.DB.prepare(
     `UPDATE affiliate_commissions
         SET status = 'reversed', reversed_at = ?, reversal_reason = ?, updated_at = ?
       WHERE id = ? AND status NOT IN ('reversed', 'rejected')`,
   )
     .bind(now, reason, now, commission.id)
     .run();
+  if ((statusUpdate.meta?.changes || 0) !== 1) {
+    return { reversed: false, reason: "already reversed" };
+  }
 
   if (commission.qualified_sale_number && commission.commission_cents) {
     try {
@@ -756,7 +727,7 @@ export async function approveEligibleCommissions(env, actor = "reconciliation") 
   return results;
 }
 
-function deviationBps(left, right) {
+export function deviationBps(left, right) {
   const a = Number(left || 0);
   const b = Number(right || 0);
   if (a === 0 && b === 0) return 0;
