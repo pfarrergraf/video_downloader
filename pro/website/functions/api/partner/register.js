@@ -1,6 +1,5 @@
 import {
   PARTNER_TERMS_VERSION,
-  affiliateProgramEnabled,
   checkAffiliateRateLimit,
   issuePartnerToken,
   isReservedPartnerCode,
@@ -13,6 +12,7 @@ import {
   verifyTurnstile,
   nowSeconds,
 } from "../../_affiliate.js";
+import { affiliateRegistrationReady } from "../../_affiliate_flags.js";
 
 function validEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 254;
@@ -24,8 +24,9 @@ const RATE_LIMIT_WINDOW_SECONDS = 60 * 60;
 const RATE_LIMIT_MAX_ATTEMPTS = 10;
 
 export async function onRequestPost({ request, env }) {
+  let affiliateId = null;
   try {
-    if (!affiliateProgramEnabled(env) || !env.DB) return jsonResponse({ error: "not_found" }, 404);
+    if (!affiliateRegistrationReady(env)) return jsonResponse({ error: "registration_not_ready" }, 503);
     const body = await request.json().catch(() => ({}));
     if (!(await verifyTurnstile(body.turnstile_token, request, env))) {
       return jsonResponse({ error: "human_verification_failed" }, 400);
@@ -69,7 +70,7 @@ export async function onRequestPost({ request, env }) {
     if (existing) return jsonResponse({ error: "partner_already_exists" }, 409);
 
     const now = nowSeconds();
-    const affiliateId = crypto.randomUUID();
+    affiliateId = crypto.randomUUID();
     await env.DB.prepare(
       `INSERT INTO affiliates
         (id, slug, code, display_name, legal_name, email, country, website,
@@ -92,18 +93,26 @@ export async function onRequestPost({ request, env }) {
 
     const token = await issuePartnerToken(env, affiliateId, "verify_email");
     const verifyUrl = `${publicBaseUrl(request, env)}/api/partner/verify?token=${encodeURIComponent(token)}`;
-    const mailResult = await sendTransactionalEmail(env, {
+    await sendTransactionalEmail(env, {
       to: email,
       subject: "DownloadThat Partnerprogramm: E-Mail bestätigen",
       text: `Bestätige deine E-Mail-Adresse für das DownloadThat Partnerprogramm: ${verifyUrl}`,
       html: `<p>Bestätige deine E-Mail-Adresse für das DownloadThat Partnerprogramm:</p><p><a href="${verifyUrl}">E-Mail bestätigen</a></p><p>Der Link ist 20 Minuten gültig.</p>`,
     });
 
-    const response = { created: true, verification_sent: true };
-    if (mailResult.development) response.development_verify_url = verifyUrl;
-    return jsonResponse(response, 201);
+    return jsonResponse({ created: true, verification_sent: true }, 201);
   } catch (error) {
     console.error("partner registration failed", error);
-    return jsonResponse({ error: "registration_failed", message: String(error?.message || error) }, 500);
+    if (affiliateId && env.DB) {
+      try {
+        await env.DB.batch([
+          env.DB.prepare(`DELETE FROM affiliate_auth_tokens WHERE affiliate_id = ?`).bind(affiliateId),
+          env.DB.prepare(`DELETE FROM affiliates WHERE id = ? AND status = 'pending_email'`).bind(affiliateId),
+        ]);
+      } catch (cleanupError) {
+        console.error("partner registration cleanup failed", cleanupError);
+      }
+    }
+    return jsonResponse({ error: "registration_failed" }, 500);
   }
 }
