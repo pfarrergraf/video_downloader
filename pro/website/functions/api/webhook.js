@@ -1,10 +1,38 @@
 import { jsonResponse, verifyStripeSignature, handleStripeEvent } from "../_lib.js";
+import { affiliateProgramEnabled } from "../_affiliate.js";
+import {
+  handleAffiliateChargeRefunded,
+  handleAffiliateDisputeClosed,
+  handleAffiliateDisputeCreated,
+  handleAffiliatePaymentFailure,
+  postProcessAffiliateCheckout,
+} from "../_affiliate_events.js";
+import { syncAffiliateRefundRevenue } from "../_affiliate_refund_sync.js";
 
-// Everything in here used to only be try/caught around handleStripeEvent -
-// an exception anywhere else (signature check, JSON.parse, a missing DB/
-// secret binding) escaped uncaught and surfaced to Stripe as Cloudflare's
-// own generic "error code: 1101" page instead of a diagnosable response.
-// Wrapping the whole handler fixes that and lets us see the real cause.
+async function handleAffiliateEvent(event, baseResult, env) {
+  if (!affiliateProgramEnabled(env)) return { handled: false, reason: "affiliate program disabled" };
+  switch (event.type) {
+    case "checkout.session.completed":
+    case "checkout.session.async_payment_succeeded":
+      return postProcessAffiliateCheckout(event.data.object, baseResult?.license_key, env);
+    case "checkout.session.async_payment_failed":
+      return handleAffiliatePaymentFailure(event.data.object, env);
+    case "charge.refunded": {
+      const revenue = await syncAffiliateRefundRevenue(event.data.object, env);
+      const commission = await handleAffiliateChargeRefunded(event.data.object, env);
+      return { revenue, commission };
+    }
+    case "charge.dispute.created":
+      return handleAffiliateDisputeCreated(event.data.object, env);
+    case "charge.dispute.closed":
+      return handleAffiliateDisputeClosed(event.data.object, env);
+    default:
+      return { handled: false, type: event.type };
+  }
+}
+
+// Signature verification happens before either the license or affiliate handler.
+// Stripe retries non-2xx deliveries, while every write path is idempotent.
 export async function onRequestPost({ request, env }) {
   try {
     if (!env.STRIPE_WEBHOOK_SECRET) {
@@ -16,17 +44,20 @@ export async function onRequestPost({ request, env }) {
 
     const signatureHeader = request.headers.get("Stripe-Signature");
     const payload = await request.text();
-
     if (!signatureHeader || !(await verifyStripeSignature(payload, signatureHeader, env.STRIPE_WEBHOOK_SECRET))) {
       return jsonResponse({ error: "invalid signature" }, 400);
     }
 
     const event = JSON.parse(payload);
     const result = await handleStripeEvent(event, env);
-
-    return jsonResponse({ received: true, result });
+    const affiliate = await handleAffiliateEvent(event, result, env);
+    return jsonResponse({ received: true, result, affiliate });
   } catch (err) {
+    // Full detail (including stack) goes to server-side logs only -- the
+    // signature check above already ensures only Stripe (or a holder of
+    // STRIPE_WEBHOOK_SECRET) reaches this branch, but the response body still
+    // shouldn't hand back internal stack traces to any caller.
     console.error("Webhook handling failed", err);
-    return jsonResponse({ error: "handler error", message: String(err?.message ?? err), stack: err?.stack }, 500);
+    return jsonResponse({ error: "handler error", message: String(err?.message ?? err) }, 500);
   }
 }

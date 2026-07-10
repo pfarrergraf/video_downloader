@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>DownloadThat Partner-Dashboard</title>
+<style>
+:root{--bg:#0e0c14;--panel:#1b1626;--border:#2c2438;--text:#f1ede4;--dim:#aaa1b4;--accent:#c9a869;--ok:#7cbf7c;--bad:#e37c7c}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{max-width:1100px;margin:auto;padding:24px}.nav{display:flex;justify-content:space-between;gap:12px;align-items:center}.nav a,.link{color:var(--accent)}button{font:inherit;cursor:pointer}.ghost{background:transparent;color:var(--accent);border:1px solid var(--border);border-radius:9px;padding:9px 14px}.hero{padding:40px 0 24px}.hero h1{margin:0}.muted{color:var(--dim)}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}.card{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:20px}.value{font-size:1.8rem;color:var(--accent);font-weight:800}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-top:18px}.copyrow{display:flex;gap:8px;margin:10px 0}.copyrow input{flex:1;min-width:0;background:#110e18;color:var(--text);border:1px solid var(--border);border-radius:9px;padding:10px}.copyrow button{border:0;border-radius:9px;padding:10px;background:var(--accent);font-weight:700}.bar{height:10px;background:#100d17;border-radius:99px;overflow:hidden}.bar div{height:100%;background:var(--accent)}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--border)}.bad{color:var(--bad)}.ok{color:var(--ok)}
+</style>
+</head>
+<body><div class="wrap">
+<div class="nav"><a href="/">← DownloadThat</a><button class="ghost" id="logout">Abmelden</button></div>
+<section class="hero"><h1 id="title">Partner-Dashboard</h1><p class="muted">Provisionen werden 30 Tage geprüft. Auszahlbar sind bestätigte Beträge ab 50 €.</p></section>
+<div id="error" class="bad"></div>
+<div id="content" hidden>
+  <div class="cards">
+    <div class="card"><div class="muted">Aktuelle Provision</div><div class="value" id="current-rate">—</div></div>
+    <div class="card"><div class="muted">Bestätigte Verkäufe</div><div class="value" id="approved-sales">—</div></div>
+    <div class="card"><div class="muted">In Prüfung</div><div class="value" id="pending-cents">—</div></div>
+    <div class="card"><div class="muted">Auszahlbar</div><div class="value" id="payable-cents">—</div></div>
+    <div class="card"><div class="muted">Ausgezahlt</div><div class="value" id="paid-cents">—</div></div>
+  </div>
+  <div class="grid">
+    <section class="card"><h2>Deine Partnerlinks</h2>
+      <label>Empfehlungslink</label><div class="copyrow"><input id="partner-link" readonly /><button data-copy="partner-link">Kopieren</button></div>
+      <label>Direktkauf-Link</label><div class="copyrow"><input id="buy-link" readonly /><button data-copy="buy-link">Kopieren</button></div>
+      <label>App-Zuordnung</label><div class="copyrow"><input id="claim-link" readonly /><button data-copy="claim-link">Kopieren</button></div>
+      <label>Partnercode</label><div class="copyrow"><input id="partner-code" readonly /><button data-copy="partner-code">Kopieren</button></div>
+      <p class="muted"><strong>Pflichttext:</strong> Werbung / Affiliate-Link: Wenn du über diesen Link eine DownloadThat-Lizenz kaufst, erhalte ich eine Provision. Für dich entstehen keine Mehrkosten.</p>
+    </section>
+    <section class="card"><h2>Fortschritt</h2><p id="progress-text" class="muted"></p><div class="bar"><div id="progress-bar"></div></div>
+      <table><tbody>
+        <tr><td>Link-Klicks</td><td id="clicks"></td></tr><tr><td>Checkout gestartet</td><td id="checkouts"></td></tr><tr><td>Bestätigt</td><td id="approved"></td></tr><tr><td>In Prüfung</td><td id="pending"></td></tr><tr><td>Storniert / zurückgebucht</td><td id="reversed"></td></tr>
+      </tbody></table>
+    </section>
+  </div>
+  <section class="card" style="margin-top:18px"><h2>Auszahlungen</h2><div style="overflow:auto"><table><thead><tr><th>Datum</th><th>Betrag</th><th>Status</th><th>Referenz</th></tr></thead><tbody id="payouts"></tbody></table></div></section>
+</div>
+</div>
+<script>
+const eur=c=>(Number(c||0)/100).toLocaleString('de-DE',{style:'currency',currency:'EUR'});const date=s=>s?new Date(s*1000).toLocaleDateString('de-DE'):'—';const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function nextBoundary(n){if(n<10)return 10;if(n<50)return 50;if(n<100)return 100;if(n<500)return 500;return n+100;}
+async function load(){const r=await fetch('/api/partner/me',{cache:'no-store'});if(r.status===401){location.href='/partner.html#login';return;}const d=await r.json();if(!r.ok){document.getElementById('error').textContent=d.error||'Daten konnten nicht geladen werden.';return;}document.getElementById('content').hidden=false;document.getElementById('title').textContent='Partner-Dashboard · '+d.affiliate.display_name;document.getElementById('current-rate').textContent=eur(d.stats.current_commission_cents);document.getElementById('approved-sales').textContent=d.affiliate.approved_sale_count;document.getElementById('pending-cents').textContent=d.stats.pending_sales+' Verkäufe';document.getElementById('payable-cents').textContent=eur(d.stats.payable_cents);document.getElementById('paid-cents').textContent=eur(d.affiliate.lifetime_paid_cents);document.getElementById('partner-link').value=d.links.partner;document.getElementById('buy-link').value=d.links.buy;document.getElementById('claim-link').value=d.links.claim;document.getElementById('partner-code').value=d.links.code;document.getElementById('clicks').textContent=d.stats.clicks;document.getElementById('checkouts').textContent=d.stats.checkouts;document.getElementById('approved').textContent=d.stats.approved_sales;document.getElementById('pending').textContent=d.stats.pending_sales;document.getElementById('reversed').textContent=d.stats.reversed_sales;const n=Number(d.affiliate.approved_sale_count||0),b=nextBoundary(n),start=n<10?0:n<50?10:n<100?50:n<500?100:500,pct=Math.min(100,Math.max(0,(n-start)/(b-start)*100));document.getElementById('progress-bar').style.width=pct+'%';document.getElementById('progress-text').textContent=`${n} bestätigte Verkäufe · nächste Stufe bei ${b+1}`;document.getElementById('payouts').innerHTML=d.payouts.length?d.payouts.map(p=>`<tr><td>${date(p.paid_at||p.prepared_at)}</td><td>${eur(p.amount_cents)}</td><td>${esc(p.status)}</td><td>${esc(p.external_reference)||'—'}</td></tr>`).join(''):'<tr><td colspan="4" class="muted">Noch keine Auszahlungen.</td></tr>';}
+document.addEventListener('click',e=>{const id=e.target.dataset.copy;if(id){navigator.clipboard.writeText(document.getElementById(id).value);e.target.textContent='Kopiert';setTimeout(()=>e.target.textContent='Kopieren',1200);}});document.getElementById('logout').onclick=async()=>{await fetch('/api/partner/logout',{method:'POST'});location.href='/partner.html';};load().catch(e=>document.getElementById('error').textContent=String(e));
+</script></body></html>

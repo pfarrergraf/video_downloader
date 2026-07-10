@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.RequestPermission(),
         ) { /* granted or not, the service degrades gracefully either way */ }
 
+        AffiliateReferral.capture(this, intent)
         handleShareIntent(intent)
 
         webView = findViewById(R.id.webview)
@@ -89,10 +90,11 @@ class MainActivity : AppCompatActivity() {
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 val url = request?.url ?: return true
                 if (url.host == "127.0.0.1") return false
+                val outboundUrl = AffiliateReferral.rewritePricingUrl(this@MainActivity, url)
                 try {
-                    startActivity(Intent(Intent.ACTION_VIEW, url).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    startActivity(Intent(Intent.ACTION_VIEW, outboundUrl).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 } catch (e: Exception) {
-                    Log.e(TAG, "No app to handle $url", e)
+                    Log.e(TAG, "No app to handle $outboundUrl", e)
                 }
                 return true
             }
@@ -153,6 +155,7 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        AffiliateReferral.capture(this, intent)
         handleShareIntent(intent)
         deliverSharedUrlToPage()
     }

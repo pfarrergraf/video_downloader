@@ -1,0 +1,81 @@
+name: Affiliate program validation
+
+on:
+  pull_request:
+    paths:
+      - "pro/website/**"
+      - "android/app/src/main/**"
+      - "tests/test_affiliate_*.py"
+      - ".github/workflows/affiliate-program.yml"
+      - ".github/workflows/deploy-pro-website.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  finance-and-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Create development environment with uv
+        run: uv sync --extra dev
+      - name: Execute affiliate schema, security, secret, and rollout tests
+        run: uv run pytest tests/test_affiliate_*.py -v
+
+  cloudflare-functions:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pro/website
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Parse every Cloudflare Function and browser module
+        run: npm run check
+      - name: Test fixed commission schedule and rollout flags
+        run: npm test
+
+  android-referral-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.13"
+      - name: Compile Android referral integration
+        working-directory: android
+        shell: bash
+        run: |
+          set +e
+          gradle :app:compileDebugKotlin --console=plain > affiliate-android-build.log 2>&1
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            echo "--- relevant Android build failure ---"
+            grep -nE "(^e: |error:|FAILURE:|What went wrong|Caused by:|Execution failed)" affiliate-android-build.log | tail -n 160 || true
+            echo "--- final build context ---"
+            tail -n 120 affiliate-android-build.log
+            exit "$status"
+          fi
+          tail -n 40 affiliate-android-build.log
+      - name: Upload Android compile log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: affiliate-android-build-log
+          path: android/affiliate-android-build.log
+          if-no-files-found: error
+          retention-days: 7
