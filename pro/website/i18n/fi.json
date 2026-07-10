@@ -187,26 +187,17 @@
       "f6_desc": "Asenna Android-versio suoraan. Ei tiliä, ei Play Kaupan arviointiprosessia, ei aluelukituksia."
     },
     "pricing": {
-      "h2": "Yksinkertainen, rehellinen hinnoittelu",
+      "h2": "Yksi lisenssi, yksi hinta",
       "lead": "Ikuisesti ilmainen: 3 lataus päivässä täydessä HD/4K-laadussa. Rajoittamaton Prolla.",
-      "monthly_title": "Kuukausittain",
-      "monthly_note": "Peru milloin tahansa",
-      "yearly_flag": "Paras hinta-laatusuhde",
-      "yearly_title": "Vuosittain",
-      "yearly_note": "Alle 0,67 €/kk",
-      "lifetime_title": "Elinikäinen",
+      "lifetime_title": "Lisenssi",
       "lifetime_amount_suffix": "kertamaksu",
       "lifetime_note": "Maksa kerran, käytä ikuisesti",
       "feature_unlimited": "Rajoittamattomat lataukset (ei päivittäistä rajaa)",
       "feature_batch": "Erälataukset",
       "feature_priority_updates": "Ensisijaiset päivitykset",
       "feature_all_updates": "Kaikki tulevat päivitykset sisältyvät hintaan",
-      "cta_monthly": "Valitse kuukausittainen",
-      "cta_yearly": "Valitse vuosittainen",
-      "cta_lifetime": "Valitse elinikäinen",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Pyydän, että käyttöoikeus alkaa välittömästi, ennen kuin lakisääteinen 14 päivän peruutusaika päättyy. Ymmärrän, että menetän tämän vuoksi peruutusoikeuteni heti, kun ostos on suoritettu (katso {terms_start}Käyttöehdot{terms_end} §6.3 ja {refund_start}Peruutusohje{refund_end}). Aktivoinnin jälkeen ei makseta automaattista hyvitystä."
+      "cta_lifetime": "Osta lisenssi",
+      "license_flag": "Ei tilausta"
     },
     "faq": {
       "h2": "Usein kysytyt kysymykset",
@@ -217,7 +208,7 @@
       "q3_title": "Mistä syötän lisenssiavaimeni?",
       "q3_body": "Heti ostoksen jälkeen näet lisenssiavaimesi vahvistussivulla — syötä se sovelluksen asetuksiin.",
       "q4_title": "Voinko saada rahat takaisin?",
-      "q4_body": "Lisenssin aktivoinnin jälkeen ei ole automaattista hyvitystä. Jos olet epävarma, käytä sen sijaan ilmaista versiota - ostoa ei tarvita.",
+      "q4_body": "Jos säilytät 14 päivän peruuttamisoikeutesi ostohetkellä, voit perua milloin tahansa ennen lisenssin toimitusta ja saat rahasi takaisin. Jos valitset välittömän toimituksen, luovut tästä oikeudesta — myöhemmät hyvitykset ovat vapaaehtoisia. Jos epäröit, käytä ensin ilmaisversiota.",
       "q5_title": "Onko tämä laillista?",
       "q5_body": "Olet itse vastuussa siitä, miten käytät ladattua sisältöä. Kunnioita tekijänoikeuksia ja lataamiesi sivustojen käyttöehtoja."
     },
@@ -238,14 +229,16 @@
       "pending": "Viimeistellään ostostasi…",
       "tier_monthly": "Kuukausittainen",
       "tier_yearly": "Vuosittainen",
-      "tier_lifetime": "Elinikäinen",
+      "tier_lifetime": "Lisenssi",
       "plan_label": "Paketti",
       "copy_btn": "Kopioi avain",
       "not_installed": "Eikö sovellus ole vielä asennettuna?",
       "download_app": "Lataa sovellus",
       "error": "Emme vielä löytäneet lisenssiäsi. Lataa sivu uudelleen hetken kuluttua.",
       "no_session": "Istunto puuttuu — käytä ostovahvistuksesi linkkiä.",
-      "footer_note": "Tämä sivu tarkistaa automaattisesti muutaman sekunnin ajan maksun jälkeen. Jos mitään ei näy, lataa sivu uudelleen tai lähetä sähköpostia osoitteeseen {support_email} maksuvahvistuksesi kanssa."
+      "footer_note": "Tämä sivu tarkistaa automaattisesti muutaman sekunnin ajan maksun jälkeen. Jos mitään ei näy, lataa sivu uudelleen tai lähetä sähköpostia osoitteeseen {support_email} maksuvahvistuksesi kanssa.",
+      "pending_delivery": "Säilytit 14 päivän peruuttamisoikeutesi. Lisenssiavaimesi näkyy tällä sivulla {date} alkaen.",
+      "pending_delivery_note": "Tallenna tämä sivu kirjanmerkkeihin ja palaa silloin. Peruuttamiseen ennen sitä riittää sähköposti — saat täyden hyvityksen."
     },
     "refund": {
       "title": "Peruuttaminen ja hyvitys",
@@ -259,6 +252,15 @@
       "error_already_canceled": "Tämä lisenssi on jo hyvitetty tai peruutettu.",
       "error_window_expired": "Tämän ostoksen 14 päivän hyvitysaika on päättynyt. Ota yhteyttä tukeen, jos haluat silti keskustella asiasta.",
       "error_generic": "Jokin meni pieleen. Yritä uudelleen tai ota yhteyttä tukeen."
+    },
+    "checkout": {
+      "title": "14 päivän peruuttamisoikeutesi",
+      "body": "Lisenssi on digitaalinen tuote. Lain mukaan voit perua oston 14 päivän kuluessa — mutta lisenssiavain voidaan silloin luovuttaa vasta määräajan päätyttyä ({refund_start}peruuttamisohje{refund_end}). Maksat nyt joka tapauksessa; valitse, milloin saat lisenssisi:",
+      "waive_btn": "Saa lisenssi heti",
+      "waive_note": "Pyydän täten nimenomaisesti välitöntä toimitusta ja vahvistan, että luovun samalla peruuttamisoikeudestani.",
+      "wait_btn": "Odotan 14 päivää",
+      "wait_note": "Lisenssiavaimeni luovutetaan, kun 14 päivän peruuttamisaika on päättynyt. Siihen asti voin perua ja saan täyden hyvityksen.",
+      "cancel_btn": "Peruuta"
     }
   }
 }

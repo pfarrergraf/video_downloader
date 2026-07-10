@@ -187,26 +187,17 @@
       "f6_desc": "Android版を直接インストールできます。アカウント登録も、Playストアの審査も、地域制限もありません。"
     },
     "pricing": {
-      "h2": "シンプルで分かりやすい料金",
+      "h2": "ひとつのライセンス、ひとつの価格",
       "lead": "無料でずっと使えます：フルHD／4K画質で3日1回ダウンロード可能。Proなら無制限。",
-      "monthly_title": "月額プラン",
-      "monthly_note": "いつでも解約可能",
-      "yearly_flag": "お得なプラン",
-      "yearly_title": "年額プラン",
-      "yearly_note": "月あたり€0.67未満",
-      "lifetime_title": "買い切りプラン",
+      "lifetime_title": "ライセンス",
       "lifetime_amount_suffix": "一括払い",
       "lifetime_note": "一度支払えば、ずっと使えます",
       "feature_unlimited": "無制限ダウンロード（1日の上限なし）",
       "feature_batch": "一括ダウンロード",
       "feature_priority_updates": "優先アップデート",
       "feature_all_updates": "今後のアップデートもすべて含む",
-      "cta_monthly": "月額プランを選ぶ",
-      "cta_yearly": "年額プランを選ぶ",
-      "cta_lifetime": "買い切りプランを選ぶ",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "法定の14日間のクーリングオフ期間が終了する前に、直ちにアクセスを開始することを求めます。これにより、購入完了と同時にクーリングオフ権を失うことを理解しています({terms_start}利用規約{terms_end}第6.3条および{refund_start}クーリングオフに関する通知{refund_end}を参照)。有効化後の自動返金はありません。"
+      "cta_lifetime": "ライセンスを購入",
+      "license_flag": "サブスクリプションなし"
     },
     "faq": {
       "h2": "よくある質問",
@@ -217,7 +208,7 @@
       "q3_title": "ライセンスキーはどこで入力しますか？",
       "q3_body": "購入直後に確認ページでライセンスキーが表示されます。それをアプリの設定画面に入力してください。",
       "q4_title": "返金してもらえますか？",
-      "q4_body": "ライセンスの有効化後は自動返金は行われません。迷った場合は、購入不要の無料版をご利用ください。",
+      "q4_body": "購入時に14日間の撤回権を保持すれば、ライセンスの引き渡し前ならいつでもキャンセルして返金を受けられます。即時引き渡しを選ぶとその権利を放棄します — 以降の返金は任意です。迷う場合は、まず無料版をお使いください。",
       "q5_title": "これは合法ですか？",
       "q5_body": "ダウンロードしたコンテンツの利用については、ご自身の責任となります。著作権とダウンロード元サイトの利用規約を尊重してください。"
     },
@@ -238,14 +229,16 @@
       "pending": "購入手続きを完了しています…",
       "tier_monthly": "月額プラン",
       "tier_yearly": "年額プラン",
-      "tier_lifetime": "買い切りプラン",
+      "tier_lifetime": "ライセンス",
       "plan_label": "プラン",
       "copy_btn": "キーをコピー",
       "not_installed": "まだアプリをお持ちでない方",
       "download_app": "アプリをダウンロード",
       "error": "ライセンスがまだ見つかりません。しばらくしてからこのページを再読み込みしてください。",
       "no_session": "セッションが見つかりません。購入確認メールに記載のリンクからアクセスしてください。",
-      "footer_note": "このページは支払い後、数秒間自動的に確認を行います。何も表示されない場合は、ページを再読み込みするか、お支払いの確認情報を添えて{support_email}までメールしてください。"
+      "footer_note": "このページは支払い後、数秒間自動的に確認を行います。何も表示されない場合は、ページを再読み込みするか、お支払いの確認情報を添えて{support_email}までメールしてください。",
+      "pending_delivery": "14日間の撤回権を保持しました。ライセンスキーは{date}以降このページに表示されます。",
+      "pending_delivery_note": "このページをブックマークして、その日にまたお越しください。それ以前に撤回するにはメール1通で十分です — 全額返金されます。"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "14日間の撤回権について",
+      "body": "ライセンスはデジタル商品です。法律により購入から14日以内は撤回できます — ただしその場合、ライセンスキーは期間終了後にのみ引き渡せます（{refund_start}撤回に関する情報{refund_end}）。どちらの場合も支払いは今です。ライセンスをいつ受け取るか選んでください：",
+      "waive_btn": "ライセンスをすぐ受け取る",
+      "waive_note": "私はここに即時の引き渡しを明示的に求め、それにより撤回権を放棄することを確認します。",
+      "wait_btn": "14日間待ちます",
+      "wait_note": "私のライセンスキーは14日間の撤回期間終了後に引き渡されます。それまでは撤回して全額返金を受けられます。",
+      "cancel_btn": "キャンセル"
     }
   }
 }

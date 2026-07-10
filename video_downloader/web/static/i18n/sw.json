@@ -187,26 +187,17 @@
       "f6_desc": "Install the Android version directly. No account, no Play Store review process, no region locks."
     },
     "pricing": {
-      "h2": "Simple, honest pricing",
+      "h2": "Leseni moja, bei moja",
       "lead": "Free forever: 3 download a day in full HD/4K quality. Unlimited with Pro.",
-      "monthly_title": "Monthly",
-      "monthly_note": "Cancel anytime",
-      "yearly_flag": "Best value",
-      "yearly_title": "Yearly",
-      "yearly_note": "Less than €0.67/month",
-      "lifetime_title": "Lifetime",
+      "lifetime_title": "Leseni",
       "lifetime_amount_suffix": "one-time",
       "lifetime_note": "Pay once, use forever",
       "feature_unlimited": "Unlimited downloads (no daily cap)",
       "feature_batch": "Batch downloads",
       "feature_priority_updates": "Priority updates",
       "feature_all_updates": "All future updates included",
-      "cta_monthly": "Choose monthly",
-      "cta_yearly": "Choose yearly",
-      "cta_lifetime": "Choose lifetime",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Naomba ufikiaji uanze mara moja, kabla ya kipindi cha kisheria cha siku 14 cha kujiondoa kumalizika. Naelewa kuwa hii inamaanisha ninapoteza haki yangu ya kujiondoa mara ununuzi unapokamilika (angalia {terms_start}Masharti ya Matumizi{terms_end} §6.3 na {refund_start}Ilani ya Kujiondoa{refund_end}). Hakuna urejeshaji fedha wa moja kwa moja baada ya uanzishaji."
+      "cta_lifetime": "Nunua leseni",
+      "license_flag": "Hakuna usajili"
     },
     "faq": {
       "h2": "Frequently asked questions",
@@ -217,7 +208,7 @@
       "q3_title": "Where do I enter my license key?",
       "q3_body": "Right after purchase you'll see your license key on the confirmation page — enter it in the app's settings.",
       "q4_title": "Je, ninaweza kupata pesa zangu?",
-      "q4_body": "Hakuna urejeshaji fedha wa moja kwa moja baada ya leseni kuamilishwa. Kama huna uhakika, tumia toleo la bure badala yake - hakuna ununuzi unaohitajika.",
+      "q4_body": "Ukihifadhi haki yako ya kujiondoa ya siku 14 wakati wa kununua, unaweza kughairi wakati wowote kabla leseni haijakabidhiwa na kurudishiwa pesa zako. Ukichagua ukabidhi wa papo hapo, unaachana na haki hiyo — marejesho baada ya hapo ni ya hiari. Ukiwa na shaka, tumia kwanza toleo la bure.",
       "q5_title": "Is this legal?",
       "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from."
     },
@@ -238,14 +229,16 @@
       "pending": "Finishing up your purchase…",
       "tier_monthly": "Monthly",
       "tier_yearly": "Yearly",
-      "tier_lifetime": "Lifetime",
+      "tier_lifetime": "Leseni",
       "plan_label": "Plan",
       "copy_btn": "Copy key",
       "not_installed": "Don't have the app yet?",
       "download_app": "Download the app",
       "error": "We couldn't find your license yet. Please reload this page in a moment.",
       "no_session": "Session missing — please use the link from your purchase confirmation.",
-      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation."
+      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation.",
+      "pending_delivery": "Ulihifadhi haki yako ya kujiondoa ya siku 14. Ufunguo wako wa leseni utaonekana kwenye ukurasa huu kuanzia {date}.",
+      "pending_delivery_note": "Hifadhi ukurasa huu kwenye alamisho na urudi wakati huo. Kujiondoa kabla ya tarehe hiyo, barua pepe moja inatosha — utapata marejesho kamili."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "Haki yako ya kujiondoa ya siku 14",
+      "body": "Leseni ni bidhaa ya kidijitali. Kisheria unaweza kujiondoa kwenye ununuzi ndani ya siku 14 — lakini ufunguo wa leseni unaweza kukabidhiwa tu baada ya muda huo kuisha ({refund_start}taarifa za kujiondoa{refund_end}). Kwa vyovyote unalipa sasa; chagua lini upokee leseni yako:",
+      "waive_btn": "Pokea leseni mara moja",
+      "waive_note": "Kwa hili naomba waziwazi ukabidhi wa papo hapo na ninathibitisha kwamba kwa hilo naachana na haki yangu ya kujiondoa.",
+      "wait_btn": "Nitasubiri siku 14",
+      "wait_note": "Ufunguo wangu wa leseni utakabidhiwa baada ya kipindi cha kujiondoa cha siku 14 kuisha. Hadi wakati huo naweza kujiondoa na kupata marejesho kamili.",
+      "cancel_btn": "Ghairi"
     }
   }
 }

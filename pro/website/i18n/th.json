@@ -187,26 +187,17 @@
       "f6_desc": "Install the Android version directly. No account, no Play Store review process, no region locks."
     },
     "pricing": {
-      "h2": "Simple, honest pricing",
+      "h2": "หนึ่งไลเซนส์ หนึ่งราคา",
       "lead": "Free forever: 3 download a day in full HD/4K quality. Unlimited with Pro.",
-      "monthly_title": "Monthly",
-      "monthly_note": "Cancel anytime",
-      "yearly_flag": "Best value",
-      "yearly_title": "Yearly",
-      "yearly_note": "Less than €0.67/month",
-      "lifetime_title": "Lifetime",
+      "lifetime_title": "ไลเซนส์",
       "lifetime_amount_suffix": "one-time",
       "lifetime_note": "Pay once, use forever",
       "feature_unlimited": "Unlimited downloads (no daily cap)",
       "feature_batch": "Batch downloads",
       "feature_priority_updates": "Priority updates",
       "feature_all_updates": "All future updates included",
-      "cta_monthly": "Choose monthly",
-      "cta_yearly": "Choose yearly",
-      "cta_lifetime": "Choose lifetime",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "ฉันขอให้เริ่มการเข้าถึงทันที ก่อนที่ระยะเวลาการเพิกถอนตามกฎหมาย 14 วันจะสิ้นสุดลง ฉันเข้าใจว่าสิ่งนี้หมายความว่าฉันจะสูญเสียสิทธิ์ในการเพิกถอนทันทีที่การซื้อเสร็จสมบูรณ์ (ดู {terms_start}ข้อกำหนดการใช้งาน{terms_end} §6.3 และ {refund_start}ประกาศการเพิกถอน{refund_end}) ไม่มีการคืนเงินอัตโนมัติหลังจากเปิดใช้งาน"
+      "cta_lifetime": "ซื้อไลเซนส์",
+      "license_flag": "ไม่มีการสมัครสมาชิก"
     },
     "faq": {
       "h2": "Frequently asked questions",
@@ -217,7 +208,7 @@
       "q3_title": "Where do I enter my license key?",
       "q3_body": "Right after purchase you'll see your license key on the confirmation page — enter it in the app's settings.",
       "q4_title": "ฉันขอเงินคืนได้ไหม?",
-      "q4_body": "ไม่มีการคืนเงินอัตโนมัติหลังจากเปิดใช้งานไลเซนส์แล้ว หากไม่แน่ใจ ให้ใช้เวอร์ชันฟรีแทน - ไม่ต้องซื้อ",
+      "q4_body": "หากคุณคงสิทธิ์ถอนตัว 14 วันไว้ตอนซื้อ คุณยกเลิกได้ทุกเมื่อก่อนได้รับไลเซนส์และรับเงินคืน หากเลือกรับทันที คุณสละสิทธิ์นั้น — การคืนเงินหลังจากนั้นเป็นไปโดยสมัครใจ หากไม่แน่ใจ ให้ใช้เวอร์ชันฟรีก่อน",
       "q5_title": "Is this legal?",
       "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from."
     },
@@ -238,14 +229,16 @@
       "pending": "Finishing up your purchase…",
       "tier_monthly": "Monthly",
       "tier_yearly": "Yearly",
-      "tier_lifetime": "Lifetime",
+      "tier_lifetime": "ไลเซนส์",
       "plan_label": "Plan",
       "copy_btn": "Copy key",
       "not_installed": "Don't have the app yet?",
       "download_app": "Download the app",
       "error": "We couldn't find your license yet. Please reload this page in a moment.",
       "no_session": "Session missing — please use the link from your purchase confirmation.",
-      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation."
+      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation.",
+      "pending_delivery": "คุณคงสิทธิ์ถอนตัว 14 วันไว้ คีย์ไลเซนส์ของคุณจะปรากฏบนหน้านี้ตั้งแต่ {date}",
+      "pending_delivery_note": "บุ๊กมาร์กหน้านี้แล้วกลับมาตอนนั้น หากต้องการถอนตัวก่อนวันดังกล่าว แค่ส่งอีเมล — คุณจะได้รับเงินคืนเต็มจำนวน"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "สิทธิ์ถอนตัว 14 วันของคุณ",
+      "body": "ไลเซนส์เป็นสินค้าดิจิทัล ตามกฎหมายคุณถอนตัวจากการซื้อได้ภายใน 14 วัน — แต่คีย์ไลเซนส์จะส่งมอบได้หลังพ้นกำหนดนั้นเท่านั้น ({refund_start}ข้อมูลการถอนตัว{refund_end}) ทั้งสองกรณีชำระเงินตอนนี้ เลือกว่าจะรับไลเซนส์เมื่อใด:",
+      "waive_btn": "รับไลเซนส์ทันที",
+      "waive_note": "ข้าพเจ้าขอเรียกร้องการส่งมอบทันทีโดยชัดแจ้ง และยืนยันว่าข้าพเจ้าสละสิทธิ์ถอนตัวด้วยการนี้",
+      "wait_btn": "ฉันจะรอ 14 วัน",
+      "wait_note": "คีย์ไลเซนส์ของฉันจะส่งมอบเมื่อพ้นกำหนดถอนตัว 14 วัน ก่อนหน้านั้นฉันถอนตัวและรับเงินคืนเต็มจำนวนได้",
+      "cancel_btn": "ยกเลิก"
     }
   }
 }

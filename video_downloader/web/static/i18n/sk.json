@@ -187,26 +187,17 @@
       "f6_desc": "Nainštaluj verziu pre Android priamo. Bez účtu, bez schvaľovacieho procesu Play Store, bez regionálnych obmedzení."
     },
     "pricing": {
-      "h2": "Jednoduché a férové ceny",
+      "h2": "Jedna licencia, jedna cena",
       "lead": "Navždy zadarmo: 3 stiahnutie denne v plnej kvalite HD/4K. Neobmedzene s Pro.",
-      "monthly_title": "Mesačne",
-      "monthly_note": "Kedykoľvek zrušiteľné",
-      "yearly_flag": "Najvýhodnejšie",
-      "yearly_title": "Ročne",
-      "yearly_note": "Menej ako 0,67 €/mesiac",
-      "lifetime_title": "Doživotne",
+      "lifetime_title": "Licencia",
       "lifetime_amount_suffix": "jednorazovo",
       "lifetime_note": "Zaplať raz, používaj navždy",
       "feature_unlimited": "Neobmedzené sťahovanie (bez denného limitu)",
       "feature_batch": "Hromadné sťahovanie",
       "feature_priority_updates": "Prioritné aktualizácie",
       "feature_all_updates": "Všetky budúce aktualizácie v cene",
-      "cta_monthly": "Vybrať mesačne",
-      "cta_yearly": "Vybrať ročne",
-      "cta_lifetime": "Vybrať doživotne",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Žiadam, aby prístup začal okamžite, ešte pred uplynutím zákonnej 14-dňovej lehoty na odstúpenie od zmluvy. Beriem na vedomie, že tým strácam právo na odstúpenie od zmluvy hneď po dokončení nákupu (pozri {terms_start}Podmienky používania{terms_end} §6.3 a {refund_start}Poučenie o odstúpení{refund_end}). Po aktivácii nevzniká nárok na automatické vrátenie peňazí."
+      "cta_lifetime": "Kúpiť licenciu",
+      "license_flag": "Žiadne predplatné"
     },
     "faq": {
       "h2": "Časté otázky",
@@ -217,7 +208,7 @@
       "q3_title": "Kam mám zadať svoj licenčný kľúč?",
       "q3_body": "Hneď po nákupe uvidíš svoj licenčný kľúč na potvrdzovacej stránke — zadaj ho v nastaveniach aplikácie.",
       "q4_title": "Môžem dostať vrátenie peňazí?",
-      "q4_body": "Po aktivácii licencie nedochádza k automatickému vráteniu peňazí. Ak si nie ste istí, použite radšej bezplatnú verziu - nákup nie je potrebný.",
+      "q4_body": "Ak si pri nákupe ponecháš 14-dňové právo na odstúpenie, môžeš kedykoľvek pred dodaním licencie zrušiť nákup a dostaneš peniaze späť. Ak zvolíš okamžité dodanie, tohto práva sa vzdávaš — neskoršie vrátenie peňazí je dobrovoľné. Ak si nie si istý, použi najprv bezplatnú verziu.",
       "q5_title": "Je to legálne?",
       "q5_body": "Za spôsob použitia stiahnutého obsahu zodpovedáš ty. Rešpektuj prosím autorské práva a podmienky stránok, z ktorých sťahuješ."
     },
@@ -238,14 +229,16 @@
       "pending": "Dokončujeme tvoj nákup…",
       "tier_monthly": "Mesačný",
       "tier_yearly": "Ročný",
-      "tier_lifetime": "Doživotný",
+      "tier_lifetime": "Licencia",
       "plan_label": "Plán",
       "copy_btn": "Kopírovať kľúč",
       "not_installed": "Ešte nemáš aplikáciu?",
       "download_app": "Stiahnuť aplikáciu",
       "error": "Zatiaľ sa nám nepodarilo nájsť tvoju licenciu. Za chvíľu prosím obnov túto stránku.",
       "no_session": "Chýba relácia — použi prosím odkaz z potvrdenia o nákupe.",
-      "footer_note": "Táto stránka automaticky kontroluje stav niekoľko sekúnd po platbe. Ak sa nič nezobrazí, obnov stránku alebo napíš e-mail na {support_email} s potvrdením platby."
+      "footer_note": "Táto stránka automaticky kontroluje stav niekoľko sekúnd po platbe. Ak sa nič nezobrazí, obnov stránku alebo napíš e-mail na {support_email} s potvrdením platby.",
+      "pending_delivery": "Ponechal si si 14-dňové právo na odstúpenie. Tvoj licenčný kľúč sa na tejto stránke objaví od {date}.",
+      "pending_delivery_note": "Ulož si túto stránku do záložiek a vráť sa potom. Na odstúpenie pred týmto dátumom stačí e-mail — dostaneš plnú sumu späť."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "Tvoje 14-dňové právo na odstúpenie",
+      "body": "Licencia je digitálny produkt. Zo zákona môžeš od nákupu odstúpiť do 14 dní — licenčný kľúč však potom smie byť odovzdaný až po uplynutí tejto lehoty ({refund_start}poučenie o odstúpení{refund_end}). Platíš v oboch prípadoch hneď; vyber si, kedy licenciu dostaneš:",
+      "waive_btn": "Získať licenciu ihneď",
+      "waive_note": "Týmto výslovne žiadam o okamžité dodanie a potvrdzujem, že sa tým vzdávam svojho práva na odstúpenie od zmluvy.",
+      "wait_btn": "Počkám 14 dní",
+      "wait_note": "Môj licenčný kľúč bude odovzdaný po uplynutí 14-dňovej lehoty na odstúpenie. Dovtedy môžem odstúpiť a dostanem plnú sumu späť.",
+      "cancel_btn": "Zrušiť"
     }
   }
 }

@@ -13,6 +13,11 @@ CREATE TABLE licenses (
   stripe_checkout_session_id TEXT,
   status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'canceled', 'expired')),
   current_period_end INTEGER,
+  -- NULL = delivered immediately (buyer waived the 14-day withdrawal right
+  -- in the checkout dialog). A timestamp = buyer kept the right; the key is
+  -- sealed (license-for-session/validate refuse it) until this moment.
+  -- Added 2026-07-10 via: ALTER TABLE licenses ADD COLUMN deliver_at INTEGER;
+  deliver_at INTEGER,
   created_at INTEGER NOT NULL,
   updated_at INTEGER NOT NULL
 );

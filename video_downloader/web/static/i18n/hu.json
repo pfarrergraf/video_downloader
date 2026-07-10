@@ -187,26 +187,17 @@
       "f6_desc": "Telepítsd az Android-verziót közvetlenül. Nincs szükség fiókra, Play Store-jóváhagyásra vagy régiós korlátozásra."
     },
     "pricing": {
-      "h2": "Egyszerű, tisztességes árazás",
+      "h2": "Egy licenc, egy ár",
       "lead": "Örökre ingyenes: napi 3 letöltés teljes HD/4K minőségben. Pro-val korlátlan.",
-      "monthly_title": "Havi",
-      "monthly_note": "Bármikor lemondható",
-      "yearly_flag": "Legjobb ajánlat",
-      "yearly_title": "Éves",
-      "yearly_note": "Havi 0,67 € alatt",
-      "lifetime_title": "Élethosszig tartó",
+      "lifetime_title": "Licenc",
       "lifetime_amount_suffix": "egyszeri",
       "lifetime_note": "Fizess egyszer, használd örökre",
       "feature_unlimited": "Korlátlan letöltés (nincs napi limit)",
       "feature_batch": "Tömeges letöltés",
       "feature_priority_updates": "Elsőbbségi frissítések",
       "feature_all_updates": "Minden jövőbeli frissítés benne foglaltatik",
-      "cta_monthly": "Havi csomag választása",
-      "cta_yearly": "Éves csomag választása",
-      "cta_lifetime": "Élethosszig tartó csomag választása",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Kérem, hogy a hozzáférés azonnal induljon, még a törvényben előírt 14 napos elállási határidő lejárta előtt. Tudomásul veszem, hogy ezáltal elveszítem elállási jogomat, amint a vásárlás befejeződik (lásd: {terms_start}Felhasználási feltételek{terms_end} 6.3. pont és a {refund_start}Elállási tájékoztató{refund_end}). Aktiválás után nincs automatikus visszatérítés."
+      "cta_lifetime": "Licenc vásárlása",
+      "license_flag": "Nincs előfizetés"
     },
     "faq": {
       "h2": "Gyakran ismételt kérdések",
@@ -217,7 +208,7 @@
       "q3_title": "Hol adhatom meg a licenckulcsomat?",
       "q3_body": "Közvetlenül a vásárlás után megjelenik a licenckulcsod a visszaigazoló oldalon — add meg az alkalmazás beállításaiban.",
       "q4_title": "Kaphatok visszatérítést?",
-      "q4_body": "A licenc aktiválása után nincs automatikus visszatérítés. Ha bizonytalan vagy, inkább használd az ingyenes verziót - nem igényel vásárlást.",
+      "q4_body": "Ha a vásárláskor megtartod a 14 napos elállási jogodat, a licenc átadása előtt bármikor elállhatsz, és visszakapod a pénzed. Ha az azonnali átadást választod, lemondasz erről a jogról — a későbbi visszatérítés önkéntes. Ha bizonytalan vagy, előbb használd az ingyenes verziót.",
       "q5_title": "Ez legális?",
       "q5_body": "Te vagy felelős azért, hogyan használod a letöltött tartalmat. Kérjük, tartsd tiszteletben a szerzői jogokat és azon oldalak feltételeit, amelyekről letöltesz."
     },
@@ -238,14 +229,16 @@
       "pending": "A vásárlás véglegesítése folyamatban…",
       "tier_monthly": "Havi",
       "tier_yearly": "Éves",
-      "tier_lifetime": "Élethosszig tartó",
+      "tier_lifetime": "Licenc",
       "plan_label": "Csomag",
       "copy_btn": "Kulcs másolása",
       "not_installed": "Még nincs meg az alkalmazás?",
       "download_app": "Alkalmazás letöltése",
       "error": "Egyelőre nem találtuk a licencedet. Kérjük, tölts be újra ezt az oldalt egy pillanat múlva.",
       "no_session": "Hiányzó munkamenet — kérjük, használd a vásárlási visszaigazolásban kapott linket.",
-      "footer_note": "Ez az oldal a fizetés után néhány másodpercig automatikusan ellenőrzi az állapotot. Ha nem jelenik meg semmi, tölts be újra az oldalt, vagy írj e-mailt a {support_email} címre a fizetési visszaigazolásoddal."
+      "footer_note": "Ez az oldal a fizetés után néhány másodpercig automatikusan ellenőrzi az állapotot. Ha nem jelenik meg semmi, tölts be újra az oldalt, vagy írj e-mailt a {support_email} címre a fizetési visszaigazolásoddal.",
+      "pending_delivery": "Megtartottad a 14 napos elállási jogodat. A licenckulcsod {date} után jelenik meg ezen az oldalon.",
+      "pending_delivery_note": "Mentsd el ezt az oldalt könyvjelzőként, és térj vissza akkor. A korábbi elálláshoz elég egy e-mail — a teljes összeget visszakapod."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "A 14 napos elállási jogod",
+      "body": "A licenc digitális termék. A törvény szerint a vásárlástól 14 napon belül elállhatsz — a licenckulcs azonban ekkor csak a határidő lejárta után adható át ({refund_start}elállási tájékoztató{refund_end}). Mindkét esetben most fizetsz; válaszd ki, mikor kapod meg a licencedet:",
+      "waive_btn": "Licenc azonnali átvétele",
+      "waive_note": "Ezennel kifejezetten kérem az azonnali átadást, és megerősítem, hogy ezzel lemondok az elállási jogomról.",
+      "wait_btn": "Várok 14 napot",
+      "wait_note": "A licenckulcsomat a 14 napos elállási határidő lejárta után adják át. Addig bármikor elállhatok, és a teljes összeget visszakapom.",
+      "cancel_btn": "Mégse"
     }
   }
 }

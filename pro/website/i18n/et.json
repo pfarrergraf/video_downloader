@@ -187,26 +187,17 @@
       "f6_desc": "Paigalda Androidi versioon otse. Kontot pole vaja, Play Store'i ülevaatusprotsessi pole ja regioonipiiranguid pole."
     },
     "pricing": {
-      "h2": "Lihtne ja aus hinnakiri",
+      "h2": "Üks litsents, üks hind",
       "lead": "Igavesti tasuta: 3 allalaadimine päevas täielikus HD/4K kvaliteedis. Pro'ga piiramatult.",
-      "monthly_title": "Kuutasu",
-      "monthly_note": "Tühista igal ajal",
-      "yearly_flag": "Parim hind",
-      "yearly_title": "Aastatasu",
-      "yearly_note": "Vähem kui 0,67 €/kuus",
-      "lifetime_title": "Eluaegne",
+      "lifetime_title": "Litsents",
       "lifetime_amount_suffix": "ühekordne",
       "lifetime_note": "Maksa üks kord, kasuta igavesti",
       "feature_unlimited": "Piiramatud allalaadimised (päevast piirangut pole)",
       "feature_batch": "Kogumina allalaadimine",
       "feature_priority_updates": "Prioriteetsed uuendused",
       "feature_all_updates": "Kõik tulevased uuendused sisalduvad",
-      "cta_monthly": "Vali kuutasu",
-      "cta_yearly": "Vali aastatasu",
-      "cta_lifetime": "Vali eluaegne",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Nõuan, et juurdepääs algaks kohe, enne seadusjärgse 14-päevase taganemistähtaja lõppu. Saan aru, et sellega kaotan oma taganemisõiguse kohe, kui ost on lõpule viidud (vt {terms_start}Kasutustingimusi{terms_end} §6.3 ja {refund_start}Taganemisjuhendit{refund_end}). Pärast aktiveerimist automaatset tagasimakset ei tehta."
+      "cta_lifetime": "Osta litsents",
+      "license_flag": "Ilma tellimuseta"
     },
     "faq": {
       "h2": "Korduma kippuvad küsimused",
@@ -217,7 +208,7 @@
       "q3_title": "Kuhu sisestan oma litsentsivõtme?",
       "q3_body": "Kohe pärast ostu näed litsentsivõtit kinnituslehel — sisesta see rakenduse seadetes.",
       "q4_title": "Kas saan raha tagasi?",
-      "q4_body": "Pärast litsentsi aktiveerimist automaatset tagasimakset ei toimu. Kui sa pole kindel, kasuta selle asemel tasuta versiooni - ostu pole vaja.",
+      "q4_body": "Kui jätad ostul alles oma 14-päevase taganemisõiguse, saad enne litsentsi üleandmist igal ajal loobuda ja raha tagasi. Kui valid kohese üleandmise, loobud sellest õigusest — hilisemad tagasimaksed on vabatahtlikud. Kahtluse korral kasuta esmalt tasuta versiooni.",
       "q5_title": "Kas see on seaduslik?",
       "q5_body": "Sina vastutad allalaaditud sisu kasutamise eest. Palun austa autoriõigusi ja nende saitide kasutustingimusi, millelt alla laadid."
     },
@@ -238,14 +229,16 @@
       "pending": "Ostu vormistamine lõpetamisel…",
       "tier_monthly": "Kuutasu",
       "tier_yearly": "Aastatasu",
-      "tier_lifetime": "Eluaegne",
+      "tier_lifetime": "Litsents",
       "plan_label": "Pakett",
       "copy_btn": "Kopeeri võti",
       "not_installed": "Rakendust pole veel?",
       "download_app": "Laadi rakendus alla",
       "error": "Me ei leidnud veel sinu litsentsi. Palun laadi see leht mõne hetke pärast uuesti.",
       "no_session": "Seanss puudub — palun kasuta linki oma ostukinnitusest.",
-      "footer_note": "See leht kontrollib automaatselt mõne sekundi jooksul pärast makset. Kui midagi ei ilmu, laadi leht uuesti või saada e-kiri aadressile {support_email} koos maksekinnitusega."
+      "footer_note": "See leht kontrollib automaatselt mõne sekundi jooksul pärast makset. Kui midagi ei ilmu, laadi leht uuesti või saada e-kiri aadressile {support_email} koos maksekinnitusega.",
+      "pending_delivery": "Jätsid alles oma 14-päevase taganemisõiguse. Sinu litsentsivõti ilmub sellele lehele alates {date}.",
+      "pending_delivery_note": "Lisa see leht järjehoidjatesse ja tule siis tagasi. Varem taganemiseks piisab e-kirjast — saad kogu raha tagasi."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "Sinu 14-päevane taganemisõigus",
+      "body": "Litsents on digitaalne toode. Seaduse järgi võid ostust taganeda 14 päeva jooksul — kuid litsentsivõtme saab siis üle anda alles pärast selle tähtaja lõppu ({refund_start}taganemisjuhend{refund_end}). Maksad mõlemal juhul kohe; vali, millal litsentsi saad:",
+      "waive_btn": "Saa litsents kohe",
+      "waive_note": "Palun käesolevaga sõnaselgelt kohest üleandmist ja kinnitan, et loobun sellega oma taganemisõigusest.",
+      "wait_btn": "Ootan 14 päeva",
+      "wait_note": "Minu litsentsivõti antakse üle, kui 14-päevane taganemistähtaeg on möödunud. Seni võin taganeda ja saan kogu raha tagasi.",
+      "cancel_btn": "Tühista"
     }
   }
 }

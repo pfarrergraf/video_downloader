@@ -187,26 +187,17 @@
       "f6_desc": "Installera Android-versionen direkt. Inget konto, ingen granskningsprocess i Play Store, inga regionlås."
     },
     "pricing": {
-      "h2": "Enkel, ärlig prissättning",
+      "h2": "En licens, ett pris",
       "lead": "Gratis för alltid: 3 nedladdning om dagen i full HD/4K-kvalitet. Obegränsat med Pro.",
-      "monthly_title": "Månadsvis",
-      "monthly_note": "Avsluta när du vill",
-      "yearly_flag": "Bäst värde",
-      "yearly_title": "Årsvis",
-      "yearly_note": "Mindre än €0,67/månad",
-      "lifetime_title": "Livstid",
+      "lifetime_title": "Licens",
       "lifetime_amount_suffix": "engångsbelopp",
       "lifetime_note": "Betala en gång, använd för alltid",
       "feature_unlimited": "Obegränsade nedladdningar (inget dagligt tak)",
       "feature_batch": "Massnedladdningar",
       "feature_priority_updates": "Prioriterade uppdateringar",
       "feature_all_updates": "Alla framtida uppdateringar ingår",
-      "cta_monthly": "Välj månadsvis",
-      "cta_yearly": "Välj årsvis",
-      "cta_lifetime": "Välj livstid",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Jag begär att åtkomsten börjar omedelbart, innan den lagstadgade 14-dagars ångerfristen löper ut. Jag förstår att jag därmed förlorar min ångerrätt så snart köpet är slutfört (se {terms_start}Användarvillkoren{terms_end} §6.3 och {refund_start}Ångerinformationen{refund_end}). Det finns ingen automatisk återbetalning efter aktivering."
+      "cta_lifetime": "Köp licens",
+      "license_flag": "Ingen prenumeration"
     },
     "faq": {
       "h2": "Vanliga frågor",
@@ -217,7 +208,7 @@
       "q3_title": "Var anger jag min licensnyckel?",
       "q3_body": "Direkt efter köpet ser du din licensnyckel på bekräftelsesidan — ange den i appens inställningar.",
       "q4_title": "Kan jag få pengarna tillbaka?",
-      "q4_body": "Det finns ingen automatisk återbetalning efter att licensen aktiverats. Är du osäker, använd den gratis versionen istället - inget köp krävs.",
+      "q4_body": "Om du behåller din 14 dagars ångerrätt vid köpet kan du ångra dig när som helst innan licensen levereras och få pengarna tillbaka. Väljer du omedelbar leverans avstår du från den rätten — senare återbetalningar är frivilliga. Är du osäker, använd gratisversionen först.",
       "q5_title": "Är det här lagligt?",
       "q5_body": "Du ansvarar själv för hur du använder nedladdat innehåll. Respektera upphovsrätten och villkoren för de sajter du laddar ner från."
     },
@@ -238,14 +229,16 @@
       "pending": "Slutför ditt köp…",
       "tier_monthly": "Månadsvis",
       "tier_yearly": "Årsvis",
-      "tier_lifetime": "Livstid",
+      "tier_lifetime": "Licens",
       "plan_label": "Plan",
       "copy_btn": "Kopiera nyckel",
       "not_installed": "Har du inte appen än?",
       "download_app": "Ladda ner appen",
       "error": "Vi kunde inte hitta din licens än. Ladda om sidan om en stund.",
       "no_session": "Sessionen saknas — använd länken från din köpbekräftelse.",
-      "footer_note": "Den här sidan kontrollerar automatiskt i några sekunder efter betalningen. Om inget visas kan du ladda om sidan eller mejla {support_email} med din betalningsbekräftelse."
+      "footer_note": "Den här sidan kontrollerar automatiskt i några sekunder efter betalningen. Om inget visas kan du ladda om sidan eller mejla {support_email} med din betalningsbekräftelse.",
+      "pending_delivery": "Du behöll din 14 dagars ångerrätt. Din licensnyckel visas på den här sidan från och med {date}.",
+      "pending_delivery_note": "Spara sidan som bokmärke och kom tillbaka då. För att ångra dig innan dess räcker ett mejl — du får full återbetalning."
     },
     "refund": {
       "title": "Ångerrätt och återbetalning",
@@ -259,6 +252,15 @@
       "error_already_canceled": "Den här licensen har redan återbetalats eller avbrutits.",
       "error_window_expired": "14-dagarsperioden för återbetalning av detta köp har löpt ut. Kontakta supporten om du ändå vill diskutera detta.",
       "error_generic": "Något gick fel. Försök igen eller kontakta supporten."
+    },
+    "checkout": {
+      "title": "Din 14 dagars ångerrätt",
+      "body": "Licensen är en digital produkt. Enligt lag kan du ångra köpet inom 14 dagar — men licensnyckeln får då lämnas ut först när fristen har löpt ut ({refund_start}ångerinformation{refund_end}). Du betalar nu i båda fallen; välj när du får din licens:",
+      "waive_btn": "Få licensen direkt",
+      "waive_note": "Jag begär härmed uttryckligen omedelbar leverans och bekräftar att jag därmed avstår från min ångerrätt.",
+      "wait_btn": "Jag väntar 14 dagar",
+      "wait_note": "Min licensnyckel lämnas ut när 14-dagars ångerfristen har löpt ut. Fram till dess kan jag ångra mig och få full återbetalning.",
+      "cancel_btn": "Avbryt"
     }
   }
 }

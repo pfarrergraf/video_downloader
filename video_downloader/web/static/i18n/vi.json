@@ -187,26 +187,17 @@
       "f6_desc": "Cài đặt phiên bản Android trực tiếp. Không cần tài khoản, không qua quy trình kiểm duyệt của Play Store, không khóa vùng."
     },
     "pricing": {
-      "h2": "Giá cả đơn giản, minh bạch",
+      "h2": "Một giấy phép, một mức giá",
       "lead": "Miễn phí trọn đời: 3 lượt tải mỗi ngày ở chất lượng Full HD/4K. Không giới hạn với Pro.",
-      "monthly_title": "Hàng tháng",
-      "monthly_note": "Hủy bất cứ lúc nào",
-      "yearly_flag": "Giá trị tốt nhất",
-      "yearly_title": "Hàng năm",
-      "yearly_note": "Chưa đến €0,67/tháng",
-      "lifetime_title": "Trọn đời",
+      "lifetime_title": "Giấy phép",
       "lifetime_amount_suffix": "thanh toán một lần",
       "lifetime_note": "Trả một lần, dùng mãi mãi",
       "feature_unlimited": "Tải không giới hạn (không giới hạn hàng ngày)",
       "feature_batch": "Tải hàng loạt",
       "feature_priority_updates": "Cập nhật ưu tiên",
       "feature_all_updates": "Bao gồm tất cả bản cập nhật trong tương lai",
-      "cta_monthly": "Chọn gói hàng tháng",
-      "cta_yearly": "Chọn gói hàng năm",
-      "cta_lifetime": "Chọn gói trọn đời",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Tôi yêu cầu quyền truy cập bắt đầu ngay lập tức, trước khi thời hạn rút lui hợp pháp 14 ngày kết thúc. Tôi hiểu rằng điều này có nghĩa là tôi sẽ mất quyền rút lui ngay khi hoàn tất giao dịch mua (xem {terms_start}Điều khoản sử dụng{terms_end} mục 6.3 và {refund_start}Thông báo rút lui{refund_end}). Không có hoàn tiền tự động sau khi kích hoạt."
+      "cta_lifetime": "Mua giấy phép",
+      "license_flag": "Không cần đăng ký thuê bao"
     },
     "faq": {
       "h2": "Câu hỏi thường gặp",
@@ -217,7 +208,7 @@
       "q3_title": "Tôi nhập mã giấy phép ở đâu?",
       "q3_body": "Ngay sau khi mua, bạn sẽ thấy mã giấy phép trên trang xác nhận — hãy nhập mã đó trong phần cài đặt của ứng dụng.",
       "q4_title": "Tôi có thể được hoàn tiền không?",
-      "q4_body": "Không có hoàn tiền tự động sau khi giấy phép được kích hoạt. Nếu bạn không chắc chắn, hãy dùng bản miễn phí thay thế - không cần mua.",
+      "q4_body": "Nếu giữ quyền rút lui 14 ngày khi mua, bạn có thể hủy bất cứ lúc nào trước khi nhận giấy phép và được hoàn tiền. Nếu chọn nhận ngay, bạn từ bỏ quyền đó — các khoản hoàn tiền sau đó là tự nguyện. Nếu chưa chắc, hãy dùng bản miễn phí trước.",
       "q5_title": "Việc này có hợp pháp không?",
       "q5_body": "Bạn chịu trách nhiệm về cách sử dụng nội dung đã tải xuống. Vui lòng tôn trọng bản quyền và điều khoản của các trang web mà bạn tải từ đó."
     },
@@ -238,14 +229,16 @@
       "pending": "Đang hoàn tất giao dịch mua của bạn…",
       "tier_monthly": "Hàng tháng",
       "tier_yearly": "Hàng năm",
-      "tier_lifetime": "Trọn đời",
+      "tier_lifetime": "Giấy phép",
       "plan_label": "Gói",
       "copy_btn": "Sao chép mã",
       "not_installed": "Chưa có ứng dụng?",
       "download_app": "Tải ứng dụng",
       "error": "Chúng tôi chưa tìm thấy giấy phép của bạn. Vui lòng tải lại trang này sau ít phút.",
       "no_session": "Thiếu phiên làm việc — vui lòng dùng liên kết từ email xác nhận mua hàng của bạn.",
-      "footer_note": "Trang này tự động kiểm tra trong vài giây sau khi thanh toán. Nếu không có gì hiện ra, hãy tải lại trang hoặc gửi email đến {support_email} kèm xác nhận thanh toán của bạn."
+      "footer_note": "Trang này tự động kiểm tra trong vài giây sau khi thanh toán. Nếu không có gì hiện ra, hãy tải lại trang hoặc gửi email đến {support_email} kèm xác nhận thanh toán của bạn.",
+      "pending_delivery": "Bạn đã giữ quyền rút lui 14 ngày. Khóa giấy phép của bạn sẽ xuất hiện trên trang này từ {date}.",
+      "pending_delivery_note": "Hãy đánh dấu trang này và quay lại khi đó. Để rút lui trước ngày đó chỉ cần một email — bạn sẽ được hoàn tiền đầy đủ."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "Quyền rút lui 14 ngày của bạn",
+      "body": "Giấy phép là sản phẩm kỹ thuật số. Theo luật, bạn có thể rút lui khỏi giao dịch trong 14 ngày — nhưng khóa giấy phép khi đó chỉ được giao sau khi hết thời hạn này ({refund_start}thông tin rút lui{refund_end}). Cả hai trường hợp đều thanh toán ngay; hãy chọn thời điểm nhận giấy phép:",
+      "waive_btn": "Nhận giấy phép ngay",
+      "waive_note": "Tôi xin yêu cầu rõ ràng việc giao ngay và xác nhận rằng qua đó tôi từ bỏ quyền rút lui của mình.",
+      "wait_btn": "Tôi sẽ đợi 14 ngày",
+      "wait_note": "Khóa giấy phép của tôi sẽ được giao khi hết thời hạn rút lui 14 ngày. Trước đó tôi có thể rút lui và được hoàn tiền đầy đủ.",
+      "cancel_btn": "Hủy"
     }
   }
 }

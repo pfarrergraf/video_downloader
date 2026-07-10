@@ -63,9 +63,8 @@ function dtApplyTranslations() {
     if (key === 'website.hero.title_html') {
       const emphasis = dtT('website.hero.title_emphasis');
       el.innerHTML = dtT(key).split('{emphasis}').join(`<span>${emphasis}</span>`);
-    } else if (key === 'website.pricing.consent_label') {
+    } else if (key === 'website.checkout.body') {
       el.innerHTML = dtT(key)
-        .split('{terms_start}').join('<a href="agb.html">').split('{terms_end}').join('</a>')
         .split('{refund_start}').join('<a href="widerruf.html">').split('{refund_end}').join('</a>');
     }
   });
@@ -76,33 +75,23 @@ function dtApplyTranslations() {
   dtUpdateStripeLinks();
 }
 
-// The checkbox (index.html's #withdrawal-consent) is the customer's explicit,
-// in-the-order-process confirmation that (a) they want performance to start
-// before the statutory 14-day withdrawal period ends and (b) they understand
-// that doing so ends that right early (§ 356 Abs. 5 BGB) - required for that
-// early-termination to actually be legally effective, not just a formality.
-// Until it's checked, the buy buttons are inert (see .cta-disabled in
-// index.html); once checked, a timestamp is stamped into the Stripe Payment
-// Link's client_reference_id so the specific consent moment is tied to the
-// resulting Checkout Session as evidence.
+// Both checkout-dialog choices point at the same Stripe Payment Link; the
+// client_reference_id tells the webhook (functions/_lib.js) whether the buyer
+// expressly waived their 14-day withdrawal right ("waived-<epoch ms>", the
+// timestamp kept as evidence of the waiver moment - required by § 356 Abs. 5
+// BGB for the early lapse to be effective) or kept it ("wait14": the license
+// key stays sealed until the period has passed). Only [a-zA-Z0-9_-] survives
+// Stripe's client_reference_id validation - an ISO timestamp's ':'/'.' would
+// make Stripe silently drop the whole value, so epoch millis it is. The
+// waived link's timestamp is re-stamped at click time (see index.html) so it
+// records the actual moment of consent, not page load.
 function dtUpdateStripeLinks() {
   const lang = localStorage.getItem('dt_lang') || 'auto';
   const effective = lang === 'auto' ? dtDetectLang() : lang;
   const stripeLocale = STRIPE_LOCALE_MAP[effective] || 'auto';
-  const consentBox = document.getElementById('withdrawal-consent');
-  const consentGiven = !!(consentBox && consentBox.checked);
   document.querySelectorAll('a[data-stripe-link]').forEach((a) => {
-    const base = a.dataset.stripeLink;
-    let href = `${base}?locale=${stripeLocale}`;
-    if (consentGiven) {
-      if (!a.dataset.consentTs) a.dataset.consentTs = new Date().toISOString();
-      href += `&client_reference_id=${encodeURIComponent('consent-' + a.dataset.consentTs)}`;
-    } else {
-      delete a.dataset.consentTs;
-    }
-    a.href = href;
-    a.classList.toggle('cta-disabled', !consentGiven);
-    a.setAttribute('aria-disabled', String(!consentGiven));
+    const choice = a.dataset.withdrawalChoice === 'wait14' ? 'wait14' : `waived-${Date.now()}`;
+    a.href = `${a.dataset.stripeLink}?locale=${stripeLocale}&client_reference_id=${choice}`;
   });
 }
 

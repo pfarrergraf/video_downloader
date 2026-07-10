@@ -187,26 +187,17 @@
       "f6_desc": "Android sürümünü doğrudan yükleyin. Hesap yok, Play Store inceleme süreci yok, bölge kilidi yok."
     },
     "pricing": {
-      "h2": "Basit, dürüst fiyatlandırma",
+      "h2": "Tek lisans, tek fiyat",
       "lead": "Sonsuza dek ücretsiz: günde tam HD/4K kalitesinde 3 indirme. Pro ile sınırsız.",
-      "monthly_title": "Aylık",
-      "monthly_note": "İstediğiniz zaman iptal edin",
-      "yearly_flag": "En avantajlı",
-      "yearly_title": "Yıllık",
-      "yearly_note": "Ayda €0,67'den az",
-      "lifetime_title": "Ömür Boyu",
+      "lifetime_title": "Lisans",
       "lifetime_amount_suffix": "tek seferlik",
       "lifetime_note": "Bir kez öde, sonsuza dek kullan",
       "feature_unlimited": "Sınırsız indirme (günlük limit yok)",
       "feature_batch": "Toplu indirme",
       "feature_priority_updates": "Öncelikli güncellemeler",
       "feature_all_updates": "Gelecekteki tüm güncellemeler dahil",
-      "cta_monthly": "Aylığı seç",
-      "cta_yearly": "Yıllığı seç",
-      "cta_lifetime": "Ömür boyu seç",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Erişimin, yasal 14 günlük cayma süresi dolmadan hemen başlamasını talep ediyorum. Bunun, satın alma tamamlanır tamamlanmaz cayma hakkımı kaybetmem anlamına geldiğini anlıyorum ({terms_start}Kullanım Koşulları{terms_end} §6.3 ve {refund_start}Cayma Bildirimi{refund_end}'ne bakın). Etkinleştirmeden sonra otomatik geri ödeme yapılmaz."
+      "cta_lifetime": "Lisans satın al",
+      "license_flag": "Abonelik yok"
     },
     "faq": {
       "h2": "Sıkça sorulan sorular",
@@ -217,7 +208,7 @@
       "q3_title": "Lisans anahtarımı nereye giriyorum?",
       "q3_body": "Satın alma işleminden hemen sonra lisans anahtarınızı onay sayfasında görürsünüz — uygulamanın ayarlarına girin.",
       "q4_title": "Para iadesi alabilir miyim?",
-      "q4_body": "Lisans etkinleştirildikten sonra otomatik para iadesi yapılmaz. Emin değilseniz, satın alma gerektirmeyen ücretsiz sürümü kullanın.",
+      "q4_body": "Satın alırken 14 günlük cayma hakkını korursan, lisans teslim edilmeden önce istediğin zaman vazgeçebilir ve paranı geri alabilirsin. Anında teslimi seçersen bu haktan feragat edersin — sonrasındaki iadeler gönüllüdür. Emin değilsen önce ücretsiz sürümü kullan.",
       "q5_title": "Bu yasal mı?",
       "q5_body": "İndirilen içeriği nasıl kullandığınızdan siz sorumlusunuz. Lütfen telif haklarına ve indirdiğiniz sitelerin koşullarına saygı gösterin."
     },
@@ -238,14 +229,16 @@
       "pending": "Satın alma işleminiz tamamlanıyor…",
       "tier_monthly": "Aylık",
       "tier_yearly": "Yıllık",
-      "tier_lifetime": "Ömür Boyu",
+      "tier_lifetime": "Lisans",
       "plan_label": "Plan",
       "copy_btn": "Anahtarı kopyala",
       "not_installed": "Uygulama henüz sizde yok mu?",
       "download_app": "Uygulamayı indir",
       "error": "Lisansınızı henüz bulamadık. Lütfen bir süre sonra bu sayfayı yeniden yükleyin.",
       "no_session": "Oturum bulunamadı — lütfen satın alma onayınızdaki bağlantıyı kullanın.",
-      "footer_note": "Bu sayfa, ödemeden sonra birkaç saniye boyunca otomatik olarak kontrol eder. Bir şey görünmezse sayfayı yeniden yükleyin veya ödeme onayınızla birlikte {support_email} adresine e-posta gönderin."
+      "footer_note": "Bu sayfa, ödemeden sonra birkaç saniye boyunca otomatik olarak kontrol eder. Bir şey görünmezse sayfayı yeniden yükleyin veya ödeme onayınızla birlikte {support_email} adresine e-posta gönderin.",
+      "pending_delivery": "14 günlük cayma hakkını korudun. Lisans anahtarın {date} tarihinden itibaren bu sayfada görünecek.",
+      "pending_delivery_note": "Bu sayfayı yer imlerine ekle ve o zaman geri dön. Daha önce caymak için bir e-posta yeterli — tam iade alırsın."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "14 günlük cayma hakkın",
+      "body": "Lisans dijital bir üründür. Yasaya göre satın almadan 14 gün içinde cayabilirsin — ancak lisans anahtarı bu durumda ancak sürenin bitiminden sonra teslim edilebilir ({refund_start}cayma bilgilendirmesi{refund_end}). Her iki durumda da şimdi ödersin; lisansını ne zaman alacağını seç:",
+      "waive_btn": "Lisansı hemen al",
+      "waive_note": "İşbu belgeyle açıkça anında teslimi talep ediyor ve böylece cayma hakkımdan feragat ettiğimi onaylıyorum.",
+      "wait_btn": "14 gün beklerim",
+      "wait_note": "Lisans anahtarım 14 günlük cayma süresi dolduğunda teslim edilir. O zamana kadar cayabilir ve tam iade alabilirim.",
+      "cancel_btn": "İptal"
     }
   }
 }

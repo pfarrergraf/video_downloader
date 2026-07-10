@@ -76,6 +76,24 @@
     `;
   }
 
+  function renderPendingDelivery(deliverAt) {
+    // Buyer kept their 14-day withdrawal right: the key exists but stays
+    // sealed until deliver_at. This page's URL keeps working - they bookmark
+    // it and the key appears here once the date has passed.
+    const lang = localStorage.getItem("dt_lang") || "auto";
+    const effective = lang === "auto" ? dtDetectLang() : lang;
+    let dateLabel;
+    try {
+      dateLabel = new Date(deliverAt * 1000).toLocaleDateString(effective, { year: "numeric", month: "long", day: "numeric" });
+    } catch (err) {
+      dateLabel = new Date(deliverAt * 1000).toLocaleDateString();
+    }
+    resultEl.innerHTML = `
+      <p>${dtT("website.success.pending_delivery", { date: `<strong>${dateLabel}</strong>` })}</p>
+      <p class="muted">${dtT("website.success.pending_delivery_note")}</p>
+    `;
+  }
+
   function renderError() {
     resultEl.innerHTML = `<p>${dtT("website.success.error")}</p>`;
   }
@@ -87,6 +105,7 @@
   function replayState() {
     renderFooterNote();
     if (lastState.kind === "key") renderKey(lastState.licenseKey, lastState.tier);
+    else if (lastState.kind === "pending_delivery") renderPendingDelivery(lastState.deliverAt);
     else if (lastState.kind === "error") renderError();
     else if (lastState.kind === "no_session") renderNoSession();
   }
@@ -104,6 +123,11 @@
       try {
         const res = await fetch(`/api/license-for-session?session_id=${encodeURIComponent(sessionId)}`);
         const data = await res.json();
+        if (data.found && data.pending_delivery) {
+          lastState = { kind: "pending_delivery", deliverAt: data.deliver_at };
+          renderPendingDelivery(data.deliver_at);
+          return;
+        }
         if (data.found) {
           lastState = { kind: "key", licenseKey: data.license_key, tier: data.tier };
           renderKey(data.license_key, data.tier);

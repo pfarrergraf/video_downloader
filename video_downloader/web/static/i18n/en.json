@@ -187,26 +187,17 @@
       "f6_desc": "Install the Android version directly. No account, no Play Store review process, no region locks."
     },
     "pricing": {
-      "h2": "Simple, honest pricing",
+      "h2": "One license, one price",
       "lead": "Free forever: 3 downloads a day in full HD/4K quality. Unlimited with Pro.",
-      "monthly_title": "Monthly",
-      "monthly_note": "Cancel anytime",
-      "monthly_amount_suffix": "/month",
-      "yearly_flag": "Best value",
-      "yearly_title": "Yearly",
-      "yearly_note": "Less than €0.67/month",
-      "yearly_amount_suffix": "/year",
-      "lifetime_title": "Lifetime",
+      "lifetime_title": "License",
       "lifetime_amount_suffix": "one-time",
       "lifetime_note": "Pay once, use forever",
       "feature_unlimited": "Unlimited downloads (no daily cap)",
       "feature_batch": "Playlist downloads",
       "feature_priority_updates": "Priority updates",
       "feature_all_updates": "All future updates included",
-      "cta_monthly": "Choose monthly",
-      "cta_yearly": "Choose yearly",
-      "cta_lifetime": "Choose lifetime",
-      "consent_label": "I request that access begins immediately, before the 14-day statutory withdrawal period ends. I understand this means I lose my right of withdrawal once the purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3 and the {refund_start}Withdrawal Notice{refund_end}). There is no automatic refund after activation."
+      "cta_lifetime": "Buy license",
+      "license_flag": "No subscription"
     },
     "faq": {
       "h2": "Frequently asked questions",
@@ -217,7 +208,7 @@
       "q3_title": "Where do I enter my license key?",
       "q3_body": "Right after purchase you'll see your license key on the confirmation page — enter it in the app's settings.",
       "q4_title": "Can I get a refund?",
-      "q4_body": "There's no automatic refund once your license is activated. If you're unsure, just use the free version instead — no purchase required.",
+      "q4_body": "If you keep your 14-day right of withdrawal at checkout, you can cancel any time before your license is delivered and get your money back. If you choose immediate delivery, you waive that right — refunds after that are voluntary. If you're unsure, just use the free version first.",
       "q5_title": "Is this legal?",
       "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from."
     },
@@ -238,14 +229,16 @@
       "pending": "Finishing up your purchase…",
       "tier_monthly": "Monthly",
       "tier_yearly": "Yearly",
-      "tier_lifetime": "Lifetime",
+      "tier_lifetime": "License",
       "plan_label": "Plan",
       "copy_btn": "Copy key",
       "not_installed": "Don't have the app yet?",
       "download_app": "Download the app",
       "error": "We couldn't find your license yet. Please reload this page in a moment.",
       "no_session": "Session missing — please use the link from your purchase confirmation.",
-      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation."
+      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation.",
+      "pending_delivery": "You kept your 14-day right of withdrawal. Your license key will appear on this page from {date}.",
+      "pending_delivery_note": "Bookmark this page and come back then. To withdraw before that date, just email us — you'll get a full refund."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "Your 14-day right of withdrawal",
+      "body": "The license is a digital product. By law you may withdraw from the purchase within 14 days — but the license key may then only be handed over after that period has ended ({refund_start}withdrawal notice{refund_end}). You pay now either way; choose when you receive your license:",
+      "waive_btn": "Get the license immediately",
+      "waive_note": "I hereby expressly request immediate delivery and confirm that I thereby waive my right of withdrawal.",
+      "wait_btn": "I'll wait 14 days",
+      "wait_note": "My license key is delivered once the 14-day withdrawal period has ended. Until then I can withdraw for a full refund.",
+      "cancel_btn": "Cancel"
     }
   }
 }

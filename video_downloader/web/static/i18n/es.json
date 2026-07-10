@@ -187,26 +187,17 @@
       "f6_desc": "Instala la versión para Android directamente. Sin cuenta, sin proceso de revisión de Play Store, sin restricciones regionales."
     },
     "pricing": {
-      "h2": "Precios simples y honestos",
+      "h2": "Una licencia, un precio",
       "lead": "Gratis para siempre: 3 descarga al día en calidad Full HD/4K. Ilimitadas con Pro.",
-      "monthly_title": "Mensual",
-      "monthly_note": "Cancela cuando quieras",
-      "yearly_flag": "Mejor relación calidad-precio",
-      "yearly_title": "Anual",
-      "yearly_note": "Menos de 0,67 €/mes",
-      "lifetime_title": "De por vida",
+      "lifetime_title": "Licencia",
       "lifetime_amount_suffix": "pago único",
       "lifetime_note": "Paga una vez, úsalo para siempre",
       "feature_unlimited": "Descargas ilimitadas (sin límite diario)",
       "feature_batch": "Descargas por lotes",
       "feature_priority_updates": "Actualizaciones prioritarias",
       "feature_all_updates": "Todas las actualizaciones futuras incluidas",
-      "cta_monthly": "Elegir mensual",
-      "cta_yearly": "Elegir anual",
-      "cta_lifetime": "Elegir de por vida",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Solicito que el acceso comience de inmediato, antes de que finalice el plazo legal de desistimiento de 14 días. Entiendo que esto significa que pierdo mi derecho de desistimiento en cuanto se complete la compra (ver {terms_start}Términos de uso{terms_end} §6.3 y el {refund_start}Aviso de desistimiento{refund_end}). No hay reembolso automático después de la activación."
+      "cta_lifetime": "Comprar licencia",
+      "license_flag": "Sin suscripción"
     },
     "faq": {
       "h2": "Preguntas frecuentes",
@@ -217,7 +208,7 @@
       "q3_title": "¿Dónde introduzco mi clave de licencia?",
       "q3_body": "Justo después de la compra verás tu clave de licencia en la página de confirmación; introdúcela en los ajustes de la aplicación.",
       "q4_title": "¿Puedo obtener un reembolso?",
-      "q4_body": "No hay reembolso automático una vez activada la licencia. Si no estás seguro, usa la versión gratuita - no requiere compra.",
+      "q4_body": "Si conservas tu derecho de desistimiento de 14 días al comprar, puedes cancelar en cualquier momento antes de recibir tu licencia y recuperar tu dinero. Si eliges la entrega inmediata, renuncias a ese derecho — los reembolsos posteriores son voluntarios. Si tienes dudas, usa primero la versión gratuita.",
       "q5_title": "¿Esto es legal?",
       "q5_body": "Tú eres responsable del uso que hagas del contenido descargado. Por favor, respeta los derechos de autor y las condiciones de los sitios de los que descargas."
     },
@@ -238,14 +229,16 @@
       "pending": "Finalizando tu compra…",
       "tier_monthly": "Mensual",
       "tier_yearly": "Anual",
-      "tier_lifetime": "De por vida",
+      "tier_lifetime": "Licencia",
       "plan_label": "Plan",
       "copy_btn": "Copiar clave",
       "not_installed": "¿Todavía no tienes la aplicación?",
       "download_app": "Descargar la aplicación",
       "error": "Todavía no hemos encontrado tu licencia. Por favor, recarga esta página en unos instantes.",
       "no_session": "Falta la sesión: usa el enlace de tu confirmación de compra.",
-      "footer_note": "Esta página se actualiza automáticamente durante unos segundos después del pago. Si no aparece nada, recarga la página o envía un correo a {support_email} con tu confirmación de pago."
+      "footer_note": "Esta página se actualiza automáticamente durante unos segundos después del pago. Si no aparece nada, recarga la página o envía un correo a {support_email} con tu confirmación de pago.",
+      "pending_delivery": "Has conservado tu derecho de desistimiento de 14 días. Tu clave de licencia aparecerá en esta página a partir del {date}.",
+      "pending_delivery_note": "Guarda esta página en favoritos y vuelve entonces. Para desistir antes de esa fecha, basta un correo — recibirás un reembolso completo."
     },
     "refund": {
       "title": "Desistimiento y reembolso",
@@ -259,6 +252,15 @@
       "error_already_canceled": "Esta licencia ya ha sido reembolsada o cancelada.",
       "error_window_expired": "El plazo de 14 días para el reembolso de esta compra ha finalizado. Ponte en contacto con soporte si aún deseas hablar sobre ello.",
       "error_generic": "Algo salió mal. Inténtalo de nuevo o ponte en contacto con soporte."
+    },
+    "checkout": {
+      "title": "Tu derecho de desistimiento de 14 días",
+      "body": "La licencia es un producto digital. Por ley puedes desistir de la compra en un plazo de 14 días — pero la clave de licencia solo puede entregarse una vez transcurrido ese plazo ({refund_start}información sobre desistimiento{refund_end}). En ambos casos pagas ahora; elige cuándo recibes tu licencia:",
+      "waive_btn": "Recibir la licencia de inmediato",
+      "waive_note": "Solicito expresamente la entrega inmediata y confirmo que con ello renuncio a mi derecho de desistimiento.",
+      "wait_btn": "Esperaré 14 días",
+      "wait_note": "Mi clave de licencia se entregará al finalizar el plazo de desistimiento de 14 días. Hasta entonces puedo desistir y recibir un reembolso completo.",
+      "cancel_btn": "Cancelar"
     }
   }
 }

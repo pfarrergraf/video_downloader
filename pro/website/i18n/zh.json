@@ -187,26 +187,17 @@
       "f6_desc": "直接安装 Android 版本。无需账号，无需 Play 商店审核流程，也没有地区限制。"
     },
     "pricing": {
-      "h2": "简单透明的定价",
+      "h2": "一个许可证，一个价格",
       "lead": "永久免费：每天可下载 3 次全高清/4K 画质内容。升级专业版即可无限下载。",
-      "monthly_title": "月付",
-      "monthly_note": "随时可取消",
-      "yearly_flag": "最超值",
-      "yearly_title": "年付",
-      "yearly_note": "低至每月 €0.67",
-      "lifetime_title": "终身版",
+      "lifetime_title": "许可证",
       "lifetime_amount_suffix": "一次性付费",
       "lifetime_note": "一次付费，永久使用",
       "feature_unlimited": "无限下载（无每日限额）",
       "feature_batch": "批量下载",
       "feature_priority_updates": "优先获取更新",
       "feature_all_updates": "包含未来所有更新",
-      "cta_monthly": "选择月付",
-      "cta_yearly": "选择年付",
-      "cta_lifetime": "选择终身版",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "我要求在法定14天撤回期结束之前立即开通访问权限。我理解这意味着一旦购买完成，我将失去撤回权（参见{terms_start}使用条款{terms_end}第6.3条和{refund_start}撤回须知{refund_end}）。激活后不提供自动退款。"
+      "cta_lifetime": "购买许可证",
+      "license_flag": "无订阅"
     },
     "faq": {
       "h2": "常见问题",
@@ -217,7 +208,7 @@
       "q3_title": "在哪里输入许可证密钥？",
       "q3_body": "购买成功后，您会在确认页面上看到许可证密钥 — 在应用的设置中输入即可。",
       "q4_title": "我可以退款吗？",
-      "q4_body": "许可证激活后不提供自动退款。如果不确定，请改用无需购买的免费版本。",
+      "q4_body": "如果购买时保留14天撤回权，你可以在许可证交付前随时取消并拿回款项。如果选择立即交付，则放弃该权利 — 之后的退款属自愿性质。不确定的话，请先使用免费版。",
       "q5_title": "这样做合法吗？",
       "q5_body": "您需要对下载内容的使用方式负责。请尊重版权，并遵守所下载网站的相关条款。"
     },
@@ -238,14 +229,16 @@
       "pending": "正在完成您的购买…",
       "tier_monthly": "月付",
       "tier_yearly": "年付",
-      "tier_lifetime": "终身版",
+      "tier_lifetime": "许可证",
       "plan_label": "套餐",
       "copy_btn": "复制密钥",
       "not_installed": "还没有安装应用？",
       "download_app": "下载应用",
       "error": "我们暂时未能找到您的许可证。请稍后重新加载此页面。",
       "no_session": "会话信息缺失 — 请使用购买确认邮件中的链接。",
-      "footer_note": "付款完成后，本页面会自动检查几秒钟。如果没有显示任何内容，请重新加载页面，或将您的付款确认信息发送至 {support_email}。"
+      "footer_note": "付款完成后，本页面会自动检查几秒钟。如果没有显示任何内容，请重新加载页面，或将您的付款确认信息发送至 {support_email}。",
+      "pending_delivery": "你保留了14天撤回权。你的许可证密钥将从{date}起显示在此页面。",
+      "pending_delivery_note": "请收藏此页面并届时回来。在该日期前撤回只需发一封邮件 — 你将获得全额退款。"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "你的14天撤回权",
+      "body": "许可证是数字产品。依法你可以在14天内撤回购买 — 但许可证密钥届时只能在该期限结束后交付（{refund_start}撤回须知{refund_end}）。两种情况都是现在付款；请选择何时收到许可证：",
+      "waive_btn": "立即获得许可证",
+      "waive_note": "本人特此明确要求立即交付，并确认因此放弃本人的撤回权。",
+      "wait_btn": "我愿意等14天",
+      "wait_note": "我的许可证密钥将在14天撤回期结束后交付。在此之前我可以撤回并获得全额退款。",
+      "cancel_btn": "取消"
     }
   }
 }

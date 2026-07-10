@@ -187,26 +187,17 @@
       "f6_desc": "Install the Android version directly. No account, no Play Store review process, no region locks."
     },
     "pricing": {
-      "h2": "Simple, honest pricing",
+      "h2": "Satu lesen, satu harga",
       "lead": "Free forever: 3 download a day in full HD/4K quality. Unlimited with Pro.",
-      "monthly_title": "Monthly",
-      "monthly_note": "Cancel anytime",
-      "yearly_flag": "Best value",
-      "yearly_title": "Yearly",
-      "yearly_note": "Less than €0.67/month",
-      "lifetime_title": "Lifetime",
+      "lifetime_title": "Lesen",
       "lifetime_amount_suffix": "one-time",
       "lifetime_note": "Pay once, use forever",
       "feature_unlimited": "Unlimited downloads (no daily cap)",
       "feature_batch": "Batch downloads",
       "feature_priority_updates": "Priority updates",
       "feature_all_updates": "All future updates included",
-      "cta_monthly": "Choose monthly",
-      "cta_yearly": "Choose yearly",
-      "cta_lifetime": "Choose lifetime",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Saya meminta agar akses bermula dengan segera, sebelum tempoh penarikan balik berkanun 14 hari tamat. Saya faham bahawa ini bermakna saya kehilangan hak penarikan balik sebaik sahaja pembelian selesai (lihat {terms_start}Terma Penggunaan{terms_end} §6.3 dan {refund_start}Notis Penarikan Balik{refund_end}). Tiada bayaran balik automatik selepas pengaktifan."
+      "cta_lifetime": "Beli lesen",
+      "license_flag": "Tiada langganan"
     },
     "faq": {
       "h2": "Frequently asked questions",
@@ -217,7 +208,7 @@
       "q3_title": "Where do I enter my license key?",
       "q3_body": "Right after purchase you'll see your license key on the confirmation page — enter it in the app's settings.",
       "q4_title": "Bolehkah saya mendapatkan bayaran balik?",
-      "q4_body": "Tiada bayaran balik automatik selepas lesen diaktifkan. Jika anda tidak pasti, gunakan sahaja versi percuma - tiada pembelian diperlukan.",
+      "q4_body": "Jika anda mengekalkan hak penarikan diri 14 hari semasa membeli, anda boleh membatalkan bila-bila masa sebelum lesen diserahkan dan mendapat wang kembali. Jika memilih penyerahan segera, anda melepaskan hak itu — bayaran balik selepas itu adalah sukarela. Jika tidak pasti, gunakan versi percuma dahulu.",
       "q5_title": "Is this legal?",
       "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from."
     },
@@ -238,14 +229,16 @@
       "pending": "Finishing up your purchase…",
       "tier_monthly": "Monthly",
       "tier_yearly": "Yearly",
-      "tier_lifetime": "Lifetime",
+      "tier_lifetime": "Lesen",
       "plan_label": "Plan",
       "copy_btn": "Copy key",
       "not_installed": "Don't have the app yet?",
       "download_app": "Download the app",
       "error": "We couldn't find your license yet. Please reload this page in a moment.",
       "no_session": "Session missing — please use the link from your purchase confirmation.",
-      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation."
+      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation.",
+      "pending_delivery": "Anda mengekalkan hak penarikan diri 14 hari anda. Kunci lesen anda akan muncul di halaman ini mulai {date}.",
+      "pending_delivery_note": "Tanda halaman ini dan kembali kemudian. Untuk menarik diri sebelum tarikh itu, satu e-mel sudah memadai — anda mendapat bayaran balik penuh."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "Hak penarikan diri 14 hari anda",
+      "body": "Lesen ialah produk digital. Mengikut undang-undang anda boleh menarik diri daripada pembelian dalam 14 hari — tetapi kunci lesen hanya boleh diserahkan selepas tempoh itu tamat ({refund_start}maklumat penarikan diri{refund_end}). Dalam kedua-dua kes anda membayar sekarang; pilih bila anda menerima lesen:",
+      "waive_btn": "Terima lesen serta-merta",
+      "waive_note": "Dengan ini saya secara nyata meminta penyerahan segera dan mengesahkan bahawa dengan itu saya melepaskan hak penarikan diri saya.",
+      "wait_btn": "Saya tunggu 14 hari",
+      "wait_note": "Kunci lesen saya akan diserahkan setelah tempoh penarikan diri 14 hari tamat. Sehingga itu saya boleh menarik diri dan mendapat bayaran balik penuh.",
+      "cancel_btn": "Batal"
     }
   }
 }

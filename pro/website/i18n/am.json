@@ -187,26 +187,17 @@
       "f6_desc": "Install the Android version directly. No account, no Play Store review process, no region locks."
     },
     "pricing": {
-      "h2": "Simple, honest pricing",
+      "h2": "አንድ ፈቃድ፣ አንድ ዋጋ",
       "lead": "Free forever: 3 download a day in full HD/4K quality. Unlimited with Pro.",
-      "monthly_title": "Monthly",
-      "monthly_note": "Cancel anytime",
-      "yearly_flag": "Best value",
-      "yearly_title": "Yearly",
-      "yearly_note": "Less than €0.67/month",
-      "lifetime_title": "Lifetime",
+      "lifetime_title": "ፈቃድ",
       "lifetime_amount_suffix": "one-time",
       "lifetime_note": "Pay once, use forever",
       "feature_unlimited": "Unlimited downloads (no daily cap)",
       "feature_batch": "Batch downloads",
       "feature_priority_updates": "Priority updates",
       "feature_all_updates": "All future updates included",
-      "cta_monthly": "Choose monthly",
-      "cta_yearly": "Choose yearly",
-      "cta_lifetime": "Choose lifetime",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "ግዢው እንደተጠናቀቀ ወዲያውኑ የመሰረዝ መብቴን እንደማጣ በመረዳት፣ በህግ የተደነገገው የ14 ቀናት የመሰረዝ ጊዜ ከማብቃቱ በፊት መዳረሻው ወዲያውኑ እንዲጀምር እጠይቃለሁ ({terms_start}የአጠቃቀም ውሎችን{terms_end} §6.3 እና {refund_start}የመሰረዝ ማስታወቂያን{refund_end} ይመልከቱ)። ከተነቃቃ በኋላ ራስ-ሰር ተመላሽ ገንዘብ የለም።"
+      "cta_lifetime": "ፈቃድ ይግዙ",
+      "license_flag": "ምዝገባ የለም"
     },
     "faq": {
       "h2": "Frequently asked questions",
@@ -217,7 +208,7 @@
       "q3_title": "Where do I enter my license key?",
       "q3_body": "Right after purchase you'll see your license key on the confirmation page — enter it in the app's settings.",
       "q4_title": "ገንዘብ ተመላሽ ማግኘት እችላለሁ?",
-      "q4_body": "ፍቃዱ ከነቃ በኋላ ራስ-ሰር ገንዘብ ተመላሽ የለም። እርግጠኛ ካልሆኑ፣ ግዢ የማያስፈልገውን ነጻ ስሪት ይጠቀሙ።",
+      "q4_body": "በግዢ ጊዜ የ14 ቀን የመውጣት መብትዎን ከያዙ፣ ፈቃዱ ከመሰጠቱ በፊት በማንኛውም ጊዜ ሰርዘው ገንዘብዎን መመለስ ይችላሉ። ወዲያውኑ መስጠትን ከመረጡ ይህን መብት ይተዋሉ — ከዚያ በኋላ ተመላሽ ገንዘብ በፈቃደኝነት ነው። እርግጠኛ ካልሆኑ መጀመሪያ ነፃውን ስሪት ይጠቀሙ።",
       "q5_title": "Is this legal?",
       "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from."
     },
@@ -238,14 +229,16 @@
       "pending": "Finishing up your purchase…",
       "tier_monthly": "Monthly",
       "tier_yearly": "Yearly",
-      "tier_lifetime": "Lifetime",
+      "tier_lifetime": "ፈቃድ",
       "plan_label": "Plan",
       "copy_btn": "Copy key",
       "not_installed": "Don't have the app yet?",
       "download_app": "Download the app",
       "error": "We couldn't find your license yet. Please reload this page in a moment.",
       "no_session": "Session missing — please use the link from your purchase confirmation.",
-      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation."
+      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation.",
+      "pending_delivery": "የ14 ቀን የመውጣት መብትዎን ይዘዋል። የፈቃድ ቁልፍዎ ከ{date} ጀምሮ በዚህ ገጽ ላይ ይታያል።",
+      "pending_delivery_note": "ይህን ገጽ ያስቀምጡ እና ያኔ ይመለሱ። ከዚያ ቀን በፊት ለመውጣት አንድ ኢሜይል በቂ ነው — ሙሉ ተመላሽ ያገኛሉ።"
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "የ14 ቀን የመውጣት መብትዎ",
+      "body": "ፈቃዱ ዲጂታል ምርት ነው። በሕግ መሠረት ግዢውን በ14 ቀናት ውስጥ መሰረዝ ይችላሉ — ነገር ግን የፈቃድ ቁልፉ ያኔ ይህ ጊዜ ካለቀ በኋላ ብቻ ሊሰጥ ይችላል ({refund_start}የመውጣት መረጃ{refund_end})። በሁለቱም ሁኔታ አሁን ይከፍላሉ፤ ፈቃድዎን መቼ እንደሚቀበሉ ይምረጡ፦",
+      "waive_btn": "ፈቃዱን ወዲያውኑ ይቀበሉ",
+      "waive_note": "በዚህ በግልጽ ወዲያውኑ መሰጠትን እጠይቃለሁ እናም በዚህም የመውጣት መብቴን እንደምተው አረጋግጣለሁ።",
+      "wait_btn": "14 ቀን እጠብቃለሁ",
+      "wait_note": "የፈቃድ ቁልፌ የ14 ቀን የመውጣት ጊዜ ካለቀ በኋላ ይሰጣል። እስከዚያ ድረስ መውጣት እችላለሁ እና ሙሉ ተመላሽ አገኛለሁ።",
+      "cancel_btn": "ሰርዝ"
     }
   }
 }

@@ -187,26 +187,17 @@
       "f6_desc": "Install the Android version directly. No account, no Play Store review process, no region locks."
     },
     "pricing": {
-      "h2": "Simple, honest pricing",
+      "h2": "Isang lisensya, isang presyo",
       "lead": "Free forever: 3 download a day in full HD/4K quality. Unlimited with Pro.",
-      "monthly_title": "Monthly",
-      "monthly_note": "Cancel anytime",
-      "yearly_flag": "Best value",
-      "yearly_title": "Yearly",
-      "yearly_note": "Less than €0.67/month",
-      "lifetime_title": "Lifetime",
+      "lifetime_title": "Lisensya",
       "lifetime_amount_suffix": "one-time",
       "lifetime_note": "Pay once, use forever",
       "feature_unlimited": "Unlimited downloads (no daily cap)",
       "feature_batch": "Batch downloads",
       "feature_priority_updates": "Priority updates",
       "feature_all_updates": "All future updates included",
-      "cta_monthly": "Choose monthly",
-      "cta_yearly": "Choose yearly",
-      "cta_lifetime": "Choose lifetime",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Hinihiling ko na magsimula agad ang access, bago matapos ang legal na 14 araw na palugit ng pag-withdraw. Nauunawaan ko na ibig sabihin nito, mawawala ang aking karapatang mag-withdraw sa sandaling matapos ang pagbili (tingnan ang {terms_start}Mga Tuntunin ng Paggamit{terms_end} §6.3 at ang {refund_start}Paunawa sa Pag-withdraw{refund_end}). Walang awtomatikong refund pagkatapos ng activation."
+      "cta_lifetime": "Bumili ng lisensya",
+      "license_flag": "Walang subscription"
     },
     "faq": {
       "h2": "Frequently asked questions",
@@ -217,7 +208,7 @@
       "q3_title": "Where do I enter my license key?",
       "q3_body": "Right after purchase you'll see your license key on the confirmation page — enter it in the app's settings.",
       "q4_title": "Pwede ba akong makakuha ng refund?",
-      "q4_body": "Walang automatic na refund kapag na-activate na ang lisensya. Kung hindi ka sigurado, gamitin na lang ang libreng bersyon - walang kailangang bilhin.",
+      "q4_body": "Kung pananatilihin mo ang iyong 14-araw na karapatang umatras sa pagbili, maaari kang magkansela anumang oras bago maihatid ang lisensya at maibabalik ang pera mo. Kung pipiliin ang agarang paghahatid, isinusuko mo ang karapatang iyon — boluntaryo na ang mga refund pagkatapos. Kung hindi ka sigurado, subukan muna ang libreng bersyon.",
       "q5_title": "Is this legal?",
       "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from."
     },
@@ -238,14 +229,16 @@
       "pending": "Finishing up your purchase…",
       "tier_monthly": "Monthly",
       "tier_yearly": "Yearly",
-      "tier_lifetime": "Lifetime",
+      "tier_lifetime": "Lisensya",
       "plan_label": "Plan",
       "copy_btn": "Copy key",
       "not_installed": "Don't have the app yet?",
       "download_app": "Download the app",
       "error": "We couldn't find your license yet. Please reload this page in a moment.",
       "no_session": "Session missing — please use the link from your purchase confirmation.",
-      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation."
+      "footer_note": "This page automatically checks for a few seconds after payment. If nothing shows up, reload the page or email {support_email} with your payment confirmation.",
+      "pending_delivery": "Pinanatili mo ang iyong 14-araw na karapatang umatras. Lalabas ang iyong license key sa pahinang ito simula {date}.",
+      "pending_delivery_note": "I-bookmark ang pahinang ito at bumalik sa araw na iyon. Para umatras bago ang petsang iyon, sapat na ang isang email — makakakuha ka ng buong refund."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "Ang iyong 14-araw na karapatang umatras",
+      "body": "Ang lisensya ay digital na produkto. Ayon sa batas maaari kang umatras sa pagbili sa loob ng 14 araw — pero ang license key ay maibibigay lamang pagkatapos ng panahong iyon ({refund_start}impormasyon sa pag-atras{refund_end}). Sa parehong kaso magbabayad ka ngayon; piliin kung kailan mo matatanggap ang lisensya:",
+      "waive_btn": "Kunin agad ang lisensya",
+      "waive_note": "Hinihiling ko nang malinaw ang agarang paghahatid at kinukumpirma kong sa gayon ay isinusuko ko ang aking karapatang umatras.",
+      "wait_btn": "Maghihintay ako ng 14 araw",
+      "wait_note": "Ang aking license key ay ibibigay kapag natapos ang 14-araw na panahon ng pag-atras. Hanggang doon maaari akong umatras at makakuha ng buong refund.",
+      "cancel_btn": "Kanselahin"
     }
   }
 }

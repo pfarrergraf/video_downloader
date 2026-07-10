@@ -187,26 +187,17 @@
       "f6_desc": "Instalirajte verziju za Android direktno. Bez naloga, bez procesa provere na Play prodavnici, bez regionalnih ograničenja."
     },
     "pricing": {
-      "h2": "Jednostavne, poštene cene",
+      "h2": "Jedna licenca, jedna cena",
       "lead": "Zauvek besplatno: 3 preuzimanje dnevno u punom HD/4K kvalitetu. Neograničeno uz Pro.",
-      "monthly_title": "Mesečno",
-      "monthly_note": "Otkažite u bilo kom trenutku",
-      "yearly_flag": "Najbolja vrednost",
-      "yearly_title": "Godišnje",
-      "yearly_note": "Manje od 0.67€ mesečno",
-      "lifetime_title": "Doživotno",
+      "lifetime_title": "Licenca",
       "lifetime_amount_suffix": "jednokratno",
       "lifetime_note": "Platite jednom, koristite zauvek",
       "feature_unlimited": "Neograničena preuzimanja (bez dnevnog limita)",
       "feature_batch": "Grupno preuzimanje",
       "feature_priority_updates": "Prioritetna ažuriranja",
       "feature_all_updates": "Uključena sva buduća ažuriranja",
-      "cta_monthly": "Izaberi mesečno",
-      "cta_yearly": "Izaberi godišnje",
-      "cta_lifetime": "Izaberi doživotno",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Zahtevam da pristup počne odmah, pre isteka zakonskog roka od 14 dana za odustanak. Razumem da time gubim pravo na odustanak čim je kupovina završena (vidi {terms_start}Uslove korišćenja{terms_end} §6.3 i {refund_start}Obaveštenje o odustanku{refund_end}). Nakon aktivacije nema automatskog povraćaja novca."
+      "cta_lifetime": "Kupi licencu",
+      "license_flag": "Bez pretplate"
     },
     "faq": {
       "h2": "Često postavljana pitanja",
@@ -217,7 +208,7 @@
       "q3_title": "Gde unosim svoj licencni ključ?",
       "q3_body": "Odmah nakon kupovine videćete svoj licencni ključ na stranici sa potvrdom — unesite ga u podešavanjima aplikacije.",
       "q4_title": "Да ли могу да добијем повраћај новца?",
-      "q4_body": "Након активације лиценце нема аутоматског повраћаја новца. Ако нисте сигурни, користите бесплатну верзију - куповина није потребна.",
+      "q4_body": "Ako pri kupovini zadržiš svoje 14-dnevno pravo na odustajanje, možeš odustati u bilo kom trenutku pre isporuke licence i dobiti novac nazad. Ako izabereš trenutnu isporuku, odričeš se tog prava — kasniji povraćaji su dobrovoljni. Ako nisi siguran, prvo koristi besplatnu verziju.",
       "q5_title": "Da li je ovo legalno?",
       "q5_body": "Vi ste odgovorni za način na koji koristite preuzeti sadržaj. Molimo poštujte autorska prava i uslove korišćenja sajtova sa kojih preuzimate."
     },
@@ -238,14 +229,16 @@
       "pending": "Završavamo vašu kupovinu…",
       "tier_monthly": "Mesečno",
       "tier_yearly": "Godišnje",
-      "tier_lifetime": "Doživotno",
+      "tier_lifetime": "Licenca",
       "plan_label": "Plan",
       "copy_btn": "Kopiraj ključ",
       "not_installed": "Još nemate aplikaciju?",
       "download_app": "Preuzmite aplikaciju",
       "error": "Još nismo uspeli da pronađemo vašu licencu. Molimo osvežite stranicu za trenutak.",
       "no_session": "Sesija nedostaje — molimo koristite link iz potvrde kupovine.",
-      "footer_note": "Ova stranica automatski proverava nekoliko sekundi nakon plaćanja. Ako se ništa ne pojavi, osvežite stranicu ili pošaljite email na {support_email} sa potvrdom o plaćanju."
+      "footer_note": "Ova stranica automatski proverava nekoliko sekundi nakon plaćanja. Ako se ništa ne pojavi, osvežite stranicu ili pošaljite email na {support_email} sa potvrdom o plaćanju.",
+      "pending_delivery": "Zadržao si svoje 14-dnevno pravo na odustajanje. Tvoj licencni ključ pojaviće se na ovoj stranici od {date}.",
+      "pending_delivery_note": "Sačuvaj ovu stranicu u obeleživače i vrati se tada. Za odustajanje pre tog datuma dovoljan je imejl — dobijaš pun povraćaj."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "Tvoje 14-dnevno pravo na odustajanje",
+      "body": "Licenca je digitalni proizvod. Po zakonu možeš odustati od kupovine u roku od 14 dana — ali licencni ključ tada sme biti predat tek nakon isteka tog roka ({refund_start}obaveštenje o odustajanju{refund_end}). U oba slučaja plaćaš sada; izaberi kada ćeš primiti licencu:",
+      "waive_btn": "Primi licencu odmah",
+      "waive_note": "Ovim izričito zahtevam trenutnu isporuku i potvrđujem da se time odričem svog prava na odustajanje.",
+      "wait_btn": "Čekaću 14 dana",
+      "wait_note": "Moj licencni ključ biće predat nakon isteka 14-dnevnog roka za odustajanje. Do tada mogu odustati i dobiti pun povraćaj.",
+      "cancel_btn": "Otkaži"
     }
   }
 }

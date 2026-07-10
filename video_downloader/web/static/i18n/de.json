@@ -187,26 +187,17 @@
       "f6_desc": "Installiere die Android-Version direkt. Kein Konto, kein Play-Store-Prüfprozess, keine Regionssperren."
     },
     "pricing": {
-      "h2": "Einfache, ehrliche Preise",
+      "h2": "Eine Lizenz, ein Preis",
       "lead": "Für immer kostenlos: 3 Downloads pro Tag in voller HD/4K-Qualität. Unbegrenzt mit Pro.",
-      "monthly_title": "Monatlich",
-      "monthly_note": "Jederzeit kündbar",
-      "yearly_flag": "Bestes Angebot",
-      "yearly_title": "Jährlich",
-      "yearly_note": "Weniger als 0,67 €/Monat",
-      "lifetime_title": "Lebenslang",
+      "lifetime_title": "Lizenzkauf",
       "lifetime_amount_suffix": "einmalig",
       "lifetime_note": "Einmal zahlen, für immer nutzen",
       "feature_unlimited": "Unbegrenzte Downloads (kein Tageslimit)",
       "feature_batch": "Playlist-Downloads",
       "feature_priority_updates": "Bevorzugte Updates",
       "feature_all_updates": "Alle zukünftigen Updates inklusive",
-      "cta_monthly": "Monatlich wählen",
-      "cta_yearly": "Jährlich wählen",
-      "cta_lifetime": "Lebenslang wählen",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Ich verlange, dass die Ausführung sofort beginnt, bevor die gesetzliche 14-tägige Widerrufsfrist abläuft. Mir ist bewusst, dass ich dadurch mein Widerrufsrecht verliere, sobald der Kauf abgeschlossen ist (siehe {terms_start}Nutzungsbedingungen{terms_end} §6.3 und {refund_start}Widerrufsbelehrung{refund_end}). Eine automatische Rückerstattung nach Freischaltung gibt es nicht."
+      "cta_lifetime": "Lizenz kaufen",
+      "license_flag": "Kein Abo"
     },
     "faq": {
       "h2": "Häufig gestellte Fragen",
@@ -217,7 +208,7 @@
       "q3_title": "Wo gebe ich meinen Lizenzschlüssel ein?",
       "q3_body": "Direkt nach dem Kauf siehst du deinen Lizenzschlüssel auf der Bestätigungsseite — gib ihn in den Einstellungen der App ein.",
       "q4_title": "Kann ich eine Rückerstattung bekommen?",
-      "q4_body": "Es gibt keine automatische Rückerstattung nach Freischaltung der Lizenz. Bist du unsicher, nutze einfach die kostenlose Version — dafür ist kein Kauf nötig.",
+      "q4_body": "Behältst du beim Kauf dein 14-tägiges Widerrufsrecht, kannst du bis zur Bereitstellung der Lizenz jederzeit widerrufen und erhältst dein Geld zurück. Wählst du die sofortige Bereitstellung, verzichtest du auf dieses Recht — Rückerstattungen danach sind freiwillig. Bist du unsicher, nutze einfach zuerst die kostenlose Version.",
       "q5_title": "Ist das legal?",
       "q5_body": "Du bist selbst dafür verantwortlich, wie du heruntergeladene Inhalte nutzt. Bitte respektiere das Urheberrecht und die Nutzungsbedingungen der Seiten, von denen du herunterlädst."
     },
@@ -238,14 +229,16 @@
       "pending": "Dein Kauf wird abgeschlossen…",
       "tier_monthly": "Monatlich",
       "tier_yearly": "Jährlich",
-      "tier_lifetime": "Lebenslang",
+      "tier_lifetime": "Lizenzkauf",
       "plan_label": "Plan",
       "copy_btn": "Schlüssel kopieren",
       "not_installed": "Hast du die App noch nicht?",
       "download_app": "App herunterladen",
       "error": "Wir konnten deine Lizenz noch nicht finden. Bitte lade diese Seite gleich noch einmal.",
       "no_session": "Sitzung fehlt — bitte verwende den Link aus deiner Kaufbestätigung.",
-      "footer_note": "Diese Seite prüft nach der Zahlung automatisch für ein paar Sekunden. Falls nichts erscheint, lade die Seite neu oder schreibe eine E-Mail an {support_email} mit deiner Zahlungsbestätigung."
+      "footer_note": "Diese Seite prüft nach der Zahlung automatisch für ein paar Sekunden. Falls nichts erscheint, lade die Seite neu oder schreibe eine E-Mail an {support_email} mit deiner Zahlungsbestätigung.",
+      "pending_delivery": "Du hast dein 14-tägiges Widerrufsrecht behalten. Dein Lizenzschlüssel erscheint ab dem {date} auf dieser Seite.",
+      "pending_delivery_note": "Speichere diese Seite als Lesezeichen und schau dann wieder vorbei. Für einen Widerruf vor diesem Datum genügt eine E-Mail — du erhältst den vollen Kaufpreis zurück."
     },
     "refund": {
       "title": "Widerruf & Rückerstattung",
@@ -259,6 +252,15 @@
       "error_already_canceled": "Diese Lizenz wurde bereits erstattet oder storniert.",
       "error_window_expired": "Die 14-tägige Rückerstattungsfrist für diesen Kauf ist abgelaufen. Kontaktiere den Support, falls du das trotzdem besprechen möchtest.",
       "error_generic": "Etwas ist schiefgelaufen. Bitte versuche es erneut oder kontaktiere den Support."
+    },
+    "checkout": {
+      "title": "Dein 14-tägiges Widerrufsrecht",
+      "body": "Die Lizenz ist ein digitales Produkt. Gesetzlich kannst du den Kauf innerhalb von 14 Tagen widerrufen — der Lizenzschlüssel darf dann aber erst nach Ablauf dieser Frist übergeben werden ({refund_start}Widerrufsbelehrung{refund_end}). Bezahlt wird in beiden Fällen jetzt; wähle, wann du deine Lizenz erhältst:",
+      "waive_btn": "Lizenz sofort erhalten",
+      "waive_note": "Ich verlange hiermit ausdrücklich die sofortige Bereitstellung und bestätige, dass ich dadurch auf mein Widerrufsrecht verzichte.",
+      "wait_btn": "Ich warte 14 Tage",
+      "wait_note": "Mein Lizenzschlüssel wird nach Ablauf der 14-tägigen Widerrufsfrist bereitgestellt. Bis dahin kann ich jederzeit widerrufen und erhalte den vollen Kaufpreis zurück.",
+      "cancel_btn": "Abbrechen"
     }
   }
 }

@@ -72,27 +72,34 @@
   .btn-primary:hover { background: #d9bb82; text-decoration: none; }
   .btn-ghost { border-color: var(--border); color: var(--text); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
-  /* No pointer-events:none here (that used to make an un-consented click do
-     nothing at all, with zero feedback - easy to miss why "Buy" didn't work).
-     The click handler below intercepts it and points at the checkbox instead. */
-  .cta-disabled { opacity: 0.4; cursor: not-allowed; }
 
-  .consent-row {
-    max-width: 640px; margin: 0 auto 28px; display: flex; gap: 10px; align-items: flex-start;
-    font-size: 0.85rem; color: var(--text-dim); line-height: 1.5;
-    border-radius: 10px; padding: 8px; transition: box-shadow 0.3s ease, background 0.3s ease;
+  /* The withdrawal choice lives in this checkout dialog, NOT on the pricing
+     section itself - the legal text only appears once someone actually
+     starts buying. Both options proceed to the same Stripe Payment Link;
+     they differ only in the client_reference_id the webhook reads to decide
+     whether the license key is delivered immediately (right waived) or
+     sealed until the 14-day period has passed (right kept). */
+  #withdrawal-modal {
+    position: fixed; inset: 0; background: rgba(8, 6, 12, 0.78); z-index: 40;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
   }
-  .consent-row input { margin-top: 3px; width: 17px; height: 17px; flex-shrink: 0; }
-  .consent-row a { color: var(--accent); }
-  .consent-row.consent-highlight {
-    box-shadow: 0 0 0 2px var(--accent);
-    background: rgba(201, 168, 105, 0.12);
-    animation: consent-pulse 0.5s ease 2;
+  #withdrawal-modal.hidden { display: none; }
+  #withdrawal-modal .modal-card {
+    background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 16px;
+    max-width: 520px; width: 100%; padding: 28px 26px; max-height: 90vh; overflow-y: auto;
   }
-  @keyframes consent-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.015); }
+  #withdrawal-modal h3 { margin: 0 0 10px; font-size: 1.2rem; }
+  #withdrawal-modal p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.6; margin: 0 0 18px; }
+  #withdrawal-modal .choice {
+    display: block; width: 100%; text-align: left; margin-bottom: 12px; padding: 14px 16px;
+    border-radius: 12px; font-size: 0.95rem; line-height: 1.5; text-decoration: none;
   }
+  #withdrawal-modal .choice small { display: block; font-weight: 400; opacity: 0.85; margin-top: 4px; }
+  #withdrawal-modal .modal-cancel {
+    background: none; border: none; color: var(--text-dim); font-size: 0.9rem;
+    cursor: pointer; padding: 10px; width: 100%; font-family: inherit;
+  }
+  #withdrawal-modal .modal-cancel:hover { color: var(--text); }
 
   .hero { padding: 60px 24px 48px; overflow: hidden; }
   .hero-grid { display: flex; align-items: center; gap: 56px; }
@@ -282,33 +289,12 @@
 
 <section id="pricing">
   <div class="wrap">
-    <h2 data-i18n="website.pricing.h2">Simple, honest pricing</h2>
+    <h2 data-i18n="website.pricing.h2">One license, one price</h2>
     <p class="section-lead" data-i18n="website.pricing.lead">Free forever: 3 downloads a day in full HD/4K quality. Unlimited with Pro.</p>
-    <div class="consent-row">
-      <input type="checkbox" id="withdrawal-consent" />
-      <label for="withdrawal-consent" data-i18n-html="website.pricing.consent_label">
-        I request that access begins immediately, before the 14-day statutory withdrawal
-        period ends. I understand this means I lose my right of withdrawal once the
-        purchase is complete (see {terms_start}Terms of Use{terms_end} §6.3 and the
-        {refund_start}Withdrawal Notice{refund_end}). There is no automatic refund after
-        activation.
-      </label>
-    </div>
-    <div class="pricing">
+    <div class="pricing" style="max-width: 420px;">
       <div class="price-card featured">
-        <div class="flag" data-i18n="website.pricing.yearly_flag">Best value</div>
-        <h3 data-i18n="website.pricing.yearly_title">Yearly</h3>
-        <div class="amount">8&nbsp;€<small data-i18n="website.pricing.yearly_amount_suffix">/year</small></div>
-        <div class="note" data-i18n="website.pricing.yearly_note">Less than €0.67/month</div>
-        <ul>
-          <li data-i18n="website.pricing.feature_unlimited">Unlimited downloads (no daily cap)</li>
-          <li data-i18n="website.pricing.feature_batch">Playlist downloads</li>
-          <li data-i18n="website.pricing.feature_priority_updates">Priority updates</li>
-        </ul>
-        <a class="btn btn-primary" data-i18n="website.pricing.cta_yearly" data-stripe-link="https://buy.stripe.com/14AcN5cBM8Ab6Pi7MJgrS01" href="https://buy.stripe.com/14AcN5cBM8Ab6Pi7MJgrS01">Choose yearly</a>
-      </div>
-      <div class="price-card">
-        <h3 data-i18n="website.pricing.lifetime_title">Lifetime</h3>
+        <div class="flag" data-i18n="website.pricing.license_flag">No subscription</div>
+        <h3 data-i18n="website.pricing.lifetime_title">License</h3>
         <div class="amount">12&nbsp;€<small>&nbsp;<span data-i18n="website.pricing.lifetime_amount_suffix">one-time</span></small></div>
         <div class="note" data-i18n="website.pricing.lifetime_note">Pay once, use forever</div>
         <ul>
@@ -316,11 +302,31 @@
           <li data-i18n="website.pricing.feature_batch">Playlist downloads</li>
           <li data-i18n="website.pricing.feature_all_updates">All future updates included</li>
         </ul>
-        <a class="btn btn-ghost" data-i18n="website.pricing.cta_lifetime" data-stripe-link="https://buy.stripe.com/5kQ00j6do03FflOffbgrS03" href="https://buy.stripe.com/5kQ00j6do03FflOffbgrS03">Choose lifetime</a>
+        <a class="btn btn-primary" id="buy-license-btn" data-i18n="website.pricing.cta_lifetime" href="#">Buy license</a>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Withdrawal choice: shown when the buy button is clicked, never on the
+     page itself. Statutory background: the 14-day withdrawal right for
+     digital content either runs its course before delivery, or lapses with
+     the buyer's express request for immediate delivery (§356 (5) BGB). -->
+<div id="withdrawal-modal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="withdrawal-modal-title">
+  <div class="modal-card">
+    <h3 id="withdrawal-modal-title" data-i18n="website.checkout.title">Your 14-day right of withdrawal</h3>
+    <p data-i18n-html="website.checkout.body">The license is a digital product. By law you may withdraw from the purchase within 14 days — but the license key may then only be handed over after that period has ended ({refund_start}withdrawal notice{refund_end}). You pay now either way; choose when you receive your license:</p>
+    <a class="btn btn-primary choice" id="checkout-waive-btn" data-stripe-link="https://buy.stripe.com/5kQ00j6do03FflOffbgrS03" data-withdrawal-choice="waived" href="https://buy.stripe.com/5kQ00j6do03FflOffbgrS03?client_reference_id=waived">
+      <span data-i18n="website.checkout.waive_btn">Get the license immediately</span>
+      <small data-i18n="website.checkout.waive_note">I hereby expressly request immediate delivery and confirm that I thereby waive my right of withdrawal.</small>
+    </a>
+    <a class="btn btn-ghost choice" id="checkout-wait-btn" data-stripe-link="https://buy.stripe.com/5kQ00j6do03FflOffbgrS03" data-withdrawal-choice="wait14" href="https://buy.stripe.com/5kQ00j6do03FflOffbgrS03?client_reference_id=wait14">
+      <span data-i18n="website.checkout.wait_btn">I'll wait 14 days</span>
+      <small data-i18n="website.checkout.wait_note">My license key is delivered once the 14-day withdrawal period has ended. Until then I can withdraw for a full refund.</small>
+    </a>
+    <button class="modal-cancel" id="checkout-cancel-btn" data-i18n="website.checkout.cancel_btn">Cancel</button>
+  </div>
+</div>
 
 <section id="faq">
   <div class="wrap">
@@ -340,7 +346,7 @@
       </details>
       <details class="faq-item">
         <summary data-i18n="website.faq.q4_title">Can I get a refund?</summary>
-        <p data-i18n="website.faq.q4_body">There's no automatic refund once your license is activated. If you're unsure, just use the free version instead — no purchase required.</p>
+        <p data-i18n="website.faq.q4_body">If you keep your 14-day right of withdrawal at checkout, you can cancel any time before your license is delivered and get your money back. If you choose immediate delivery, you waive that right — refunds after that are voluntary. If you're unsure, just use the free version first.</p>
       </details>
       <details class="faq-item">
         <summary data-i18n="website.faq.q5_title">Is this legal?</summary>
@@ -367,24 +373,30 @@
 <script src="/i18n.js"></script>
 <script>
   dtInitI18n();
-  document.getElementById('withdrawal-consent').addEventListener('change', () => {
-    dtUpdateStripeLinks();
+  // The buy button opens the withdrawal-choice dialog; the two choices are
+  // plain links to the same Stripe Payment Link, differing only in
+  // client_reference_id (read by the webhook - see functions/_lib.js).
+  const modal = document.getElementById('withdrawal-modal');
+  document.getElementById('buy-license-btn').addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.classList.remove('hidden');
+    document.getElementById('checkout-waive-btn').focus();
   });
-  // Clicking "Choose yearly/lifetime" before checking the consent box used to
-  // just do nothing (no feedback at all, since .cta-disabled was pointer-events:
-  // none) - easy to miss why "Buy" didn't seem to work. Now it always points
-  // the customer at the checkbox instead of silently failing.
-  document.querySelectorAll('a[data-stripe-link]').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      if (!a.classList.contains('cta-disabled')) return;
-      e.preventDefault();
-      const row = document.querySelector('.consent-row');
-      const box = document.getElementById('withdrawal-consent');
-      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      row.classList.add('consent-highlight');
-      box.focus({ preventScroll: true });
-      setTimeout(() => row.classList.remove('consent-highlight'), 1600);
-    });
+  // Re-stamp the waiver evidence timestamp at the actual moment of consent
+  // (the click), not whenever translations last re-rendered the links.
+  document.getElementById('checkout-waive-btn').addEventListener('click', function () {
+    const url = new URL(this.href);
+    url.searchParams.set('client_reference_id', 'waived-' + Date.now());
+    this.href = url.toString();
+  });
+  document.getElementById('checkout-cancel-btn').addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.add('hidden');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') modal.classList.add('hidden');
   });
 </script>
 </body>

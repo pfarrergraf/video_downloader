@@ -127,6 +127,14 @@ async function inferTierFromLineItems(session, env) {
   }
 }
 
+// The checkout page's withdrawal-choice dialog appends this as
+// ?client_reference_id=... to the Stripe Payment Link. "wait14" = the buyer
+// kept their statutory 14-day withdrawal right, so the license key is only
+// handed over once that period has passed (delivery before then would void
+// the right). Anything else (normally "waived", or absent on old links) =
+// express waiver, immediate delivery - the pre-2026-07 behavior.
+const WITHDRAWAL_WAIT_SECONDS = 14 * 24 * 3600;
+
 async function handleCheckoutCompleted(session, env) {
   let tier = session.metadata?.tier;
   if (!tier || !["monthly", "yearly", "lifetime"].includes(tier)) {
@@ -168,12 +176,13 @@ async function handleCheckoutCompleted(session, env) {
   }
 
   const licenseKey = generateLicenseKey();
+  const deliverAt = session.client_reference_id === "wait14" ? now + WITHDRAWAL_WAIT_SECONDS : null;
 
   await env.DB.prepare(
     `INSERT INTO licenses
       (license_key, tier, email, stripe_customer_id, stripe_subscription_id,
-       stripe_checkout_session_id, status, current_period_end, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, 'active', ?, ?, ?)`,
+       stripe_checkout_session_id, status, current_period_end, deliver_at, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, ?)`,
   )
     .bind(
       licenseKey,
@@ -183,12 +192,13 @@ async function handleCheckoutCompleted(session, env) {
       session.subscription ?? null,
       session.id,
       currentPeriodEnd,
+      deliverAt,
       now,
       now,
     )
     .run();
 
-  return { created: true, license_key: licenseKey };
+  return { created: true, license_key: licenseKey, deliver_at: deliverAt };
 }
 
 // SEPA Direct Debit (and other delayed-notification payment methods) fire

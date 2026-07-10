@@ -187,26 +187,17 @@
       "f6_desc": "Namesti različico za Android neposredno. Brez računa, brez postopka pregleda v trgovini Play, brez regijskih omejitev."
     },
     "pricing": {
-      "h2": "Preprost, pošten cenik",
+      "h2": "Ena licenca, ena cena",
       "lead": "Za vedno brezplačno: 3 prenos na dan v polni kakovosti HD/4K. Neomejeno s Pro.",
-      "monthly_title": "Mesečno",
-      "monthly_note": "Kadar koli prekliči",
-      "yearly_flag": "Najboljša vrednost",
-      "yearly_title": "Letno",
-      "yearly_note": "Manj kot 0,67 €/mesec",
-      "lifetime_title": "Doživljenjsko",
+      "lifetime_title": "Licenca",
       "lifetime_amount_suffix": "enkratno plačilo",
       "lifetime_note": "Plačaj enkrat, uporabljaj za vedno",
       "feature_unlimited": "Neomejeni prenosi (brez dnevne omejitve)",
       "feature_batch": "Množični prenosi",
       "feature_priority_updates": "Prednostne posodobitve",
       "feature_all_updates": "Vključene vse prihodnje posodobitve",
-      "cta_monthly": "Izberi mesečno",
-      "cta_yearly": "Izberi letno",
-      "cta_lifetime": "Izberi doživljenjsko",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Zahtevam, da se dostop začne takoj, še pred iztekom zakonsko določenega 14-dnevnega roka za odstop od pogodbe. Razumem, da s tem izgubim pravico do odstopa od pogodbe takoj, ko je nakup zaključen (glejte {terms_start}Pogoje uporabe{terms_end} §6.3 in {refund_start}Obvestilo o odstopu{refund_end}). Po aktivaciji ni samodejnega povračila."
+      "cta_lifetime": "Kupi licenco",
+      "license_flag": "Brez naročnine"
     },
     "faq": {
       "h2": "Pogosta vprašanja",
@@ -217,7 +208,7 @@
       "q3_title": "Kje vnesem svoj licenčni ključ?",
       "q3_body": "Takoj po nakupu boš na potrditveni strani videl svoj licenčni ključ — vnesi ga v nastavitvah aplikacije.",
       "q4_title": "Ali lahko dobim povračilo?",
-      "q4_body": "Po aktivaciji licence ni samodejnega povračila. Če niste prepričani, raje uporabite brezplačno različico - nakup ni potreben.",
+      "q4_body": "Če ob nakupu obdržiš svojo 14-dnevno pravico do odstopa, lahko kadar koli pred izročitvijo licence odstopiš in dobiš denar nazaj. Če izbereš takojšnjo izročitev, se tej pravici odpoveš — kasnejša vračila so prostovoljna. Če si negotov, najprej uporabi brezplačno različico.",
       "q5_title": "Ali je to zakonito?",
       "q5_body": "Sam si odgovoren za način uporabe prenesene vsebine. Prosimo, spoštuj avtorske pravice in pogoje strani, s katerih prenašaš."
     },
@@ -238,14 +229,16 @@
       "pending": "Zaključujemo tvoj nakup …",
       "tier_monthly": "Mesečno",
       "tier_yearly": "Letno",
-      "tier_lifetime": "Doživljenjsko",
+      "tier_lifetime": "Licenca",
       "plan_label": "Paket",
       "copy_btn": "Kopiraj ključ",
       "not_installed": "Še nimaš aplikacije?",
       "download_app": "Prenesi aplikacijo",
       "error": "Tvoje licence še nismo našli. Prosimo, čez trenutek znova naloži to stran.",
       "no_session": "Seja manjka — prosimo, uporabi povezavo iz potrditve nakupa.",
-      "footer_note": "Ta stran po plačilu nekaj sekund samodejno preverja stanje. Če se nič ne prikaže, znova naloži stran ali piši na {support_email} s potrdilom plačila."
+      "footer_note": "Ta stran po plačilu nekaj sekund samodejno preverja stanje. Če se nič ne prikaže, znova naloži stran ali piši na {support_email} s potrdilom plačila.",
+      "pending_delivery": "Obdržal si svojo 14-dnevno pravico do odstopa. Tvoj licenčni ključ se bo na tej strani pojavil od {date}.",
+      "pending_delivery_note": "Shrani to stran med zaznamke in se vrni takrat. Za odstop pred tem datumom zadošča e-pošta — prejmeš celotno vračilo."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "Tvoja 14-dnevna pravica do odstopa",
+      "body": "Licenca je digitalni izdelek. Po zakonu lahko od nakupa odstopiš v 14 dneh — vendar se licenčni ključ takrat sme izročiti šele po izteku tega roka ({refund_start}obvestilo o odstopu{refund_end}). V obeh primerih plačaš zdaj; izberi, kdaj prejmeš licenco:",
+      "waive_btn": "Prejmi licenco takoj",
+      "waive_note": "S tem izrecno zahtevam takojšnjo izročitev in potrjujem, da se s tem odpovedujem svoji pravici do odstopa.",
+      "wait_btn": "Počakal bom 14 dni",
+      "wait_note": "Moj licenčni ključ bo izročen po izteku 14-dnevnega odstopnega roka. Do takrat lahko odstopim in prejmem celotno vračilo.",
+      "cancel_btn": "Prekliči"
     }
   }
 }

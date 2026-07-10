@@ -187,26 +187,17 @@
       "f6_desc": "Installa la versione per Android direttamente. Nessun account, nessun processo di revisione del Play Store, nessun blocco regionale."
     },
     "pricing": {
-      "h2": "Prezzi semplici e trasparenti",
+      "h2": "Una licenza, un prezzo",
       "lead": "Gratis per sempre: 3 download al giorno in qualità Full HD/4K. Illimitati con Pro.",
-      "monthly_title": "Mensile",
-      "monthly_note": "Annulla quando vuoi",
-      "yearly_flag": "Il più conveniente",
-      "yearly_title": "Annuale",
-      "yearly_note": "Meno di €0.67/mese",
-      "lifetime_title": "A vita",
+      "lifetime_title": "Licenza",
       "lifetime_amount_suffix": "pagamento unico",
       "lifetime_note": "Paga una volta, usa per sempre",
       "feature_unlimited": "Download illimitati (nessun limite giornaliero)",
       "feature_batch": "Download in blocco",
       "feature_priority_updates": "Aggiornamenti prioritari",
       "feature_all_updates": "Tutti i futuri aggiornamenti inclusi",
-      "cta_monthly": "Scegli mensile",
-      "cta_yearly": "Scegli annuale",
-      "cta_lifetime": "Scegli a vita",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Richiedo che l'accesso inizi immediatamente, prima della scadenza del periodo legale di recesso di 14 giorni. Comprendo che ciò significa perdere il mio diritto di recesso non appena l'acquisto è completato (vedi {terms_start}Termini di utilizzo{terms_end} §6.3 e l'{refund_start}Avviso di recesso{refund_end}). Non è previsto alcun rimborso automatico dopo l'attivazione."
+      "cta_lifetime": "Acquista licenza",
+      "license_flag": "Nessun abbonamento"
     },
     "faq": {
       "h2": "Domande frequenti",
@@ -217,7 +208,7 @@
       "q3_title": "Dove inserisco la mia chiave di licenza?",
       "q3_body": "Subito dopo l'acquisto vedrai la tua chiave di licenza nella pagina di conferma — inseriscila nelle impostazioni dell'app.",
       "q4_title": "Posso ottenere un rimborso?",
-      "q4_body": "Non è previsto un rimborso automatico dopo l'attivazione della licenza. In caso di dubbio, usa invece la versione gratuita - nessun acquisto richiesto.",
+      "q4_body": "Se mantieni il diritto di recesso di 14 giorni al momento dell'acquisto, puoi annullare in qualsiasi momento prima della consegna della licenza e riavere i tuoi soldi. Se scegli la consegna immediata, rinunci a tale diritto — i rimborsi successivi sono volontari. Se sei indeciso, usa prima la versione gratuita.",
       "q5_title": "È legale?",
       "q5_body": "Sei responsabile di come utilizzi i contenuti scaricati. Rispetta il copyright e i termini dei siti da cui scarichi."
     },
@@ -238,14 +229,16 @@
       "pending": "Completamento dell'acquisto in corso…",
       "tier_monthly": "Mensile",
       "tier_yearly": "Annuale",
-      "tier_lifetime": "A vita",
+      "tier_lifetime": "Licenza",
       "plan_label": "Piano",
       "copy_btn": "Copia chiave",
       "not_installed": "Non hai ancora l'app?",
       "download_app": "Scarica l'app",
       "error": "Non siamo ancora riusciti a trovare la tua licenza. Ricarica questa pagina tra poco.",
       "no_session": "Sessione mancante — utilizza il link ricevuto nella conferma d'acquisto.",
-      "footer_note": "Questa pagina effettua un controllo automatico per alcuni secondi dopo il pagamento. Se non appare nulla, ricarica la pagina o scrivi a {support_email} allegando la conferma del pagamento."
+      "footer_note": "Questa pagina effettua un controllo automatico per alcuni secondi dopo il pagamento. Se non appare nulla, ricarica la pagina o scrivi a {support_email} allegando la conferma del pagamento.",
+      "pending_delivery": "Hai mantenuto il tuo diritto di recesso di 14 giorni. La tua chiave di licenza apparirà su questa pagina a partire dal {date}.",
+      "pending_delivery_note": "Aggiungi questa pagina ai preferiti e torna in quella data. Per recedere prima, basta un'e-mail — riceverai un rimborso completo."
     },
     "refund": {
       "title": "Recesso e rimborso",
@@ -259,6 +252,15 @@
       "error_already_canceled": "Questa licenza è già stata rimborsata o annullata.",
       "error_window_expired": "Il periodo di 14 giorni per il rimborso di questo acquisto è terminato. Contatta l'assistenza se desideri comunque discuterne.",
       "error_generic": "Si è verificato un errore. Riprova oppure contatta l'assistenza."
+    },
+    "checkout": {
+      "title": "Il tuo diritto di recesso di 14 giorni",
+      "body": "La licenza è un prodotto digitale. Per legge puoi recedere dall'acquisto entro 14 giorni — ma la chiave di licenza può essere consegnata solo al termine di tale periodo ({refund_start}informativa sul recesso{refund_end}). In entrambi i casi paghi ora; scegli quando ricevere la licenza:",
+      "waive_btn": "Ricevi subito la licenza",
+      "waive_note": "Richiedo espressamente la consegna immediata e confermo di rinunciare così al mio diritto di recesso.",
+      "wait_btn": "Aspetto 14 giorni",
+      "wait_note": "La mia chiave di licenza sarà consegnata al termine del periodo di recesso di 14 giorni. Fino ad allora posso recedere con rimborso completo.",
+      "cancel_btn": "Annulla"
     }
   }
 }

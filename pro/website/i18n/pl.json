@@ -187,26 +187,17 @@
       "f6_desc": "Zainstaluj wersję na Androida bezpośrednio. Bez konta, bez procesu weryfikacji w Sklepie Play, bez blokad regionalnych."
     },
     "pricing": {
-      "h2": "Prosty, uczciwy cennik",
+      "h2": "Jedna licencja, jedna cena",
       "lead": "Zawsze za darmo: 3 pobieranie dziennie w pełnej jakości HD/4K. Bez limitu z Pro.",
-      "monthly_title": "Miesięcznie",
-      "monthly_note": "Anuluj w dowolnym momencie",
-      "yearly_flag": "Najlepsza oferta",
-      "yearly_title": "Rocznie",
-      "yearly_note": "Mniej niż 0,67 €/miesiąc",
-      "lifetime_title": "Dożywotnio",
+      "lifetime_title": "Licencja",
       "lifetime_amount_suffix": "jednorazowo",
       "lifetime_note": "Zapłać raz, korzystaj na zawsze",
       "feature_unlimited": "Nielimitowane pobieranie (bez dziennego limitu)",
       "feature_batch": "Pobieranie zbiorcze",
       "feature_priority_updates": "Priorytetowe aktualizacje",
       "feature_all_updates": "Wszystkie przyszłe aktualizacje w cenie",
-      "cta_monthly": "Wybierz plan miesięczny",
-      "cta_yearly": "Wybierz plan roczny",
-      "cta_lifetime": "Wybierz plan dożywotni",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Żądam, aby dostęp rozpoczął się natychmiast, przed upływem ustawowego 14-dniowego terminu odstąpienia od umowy. Rozumiem, że oznacza to utratę prawa odstąpienia od umowy z chwilą zakończenia zakupu (zob. {terms_start}Warunki użytkowania{terms_end} §6.3 oraz {refund_start}Pouczenie o odstąpieniu{refund_end}). Po aktywacji nie przysługuje automatyczny zwrot środków."
+      "cta_lifetime": "Kup licencję",
+      "license_flag": "Bez subskrypcji"
     },
     "faq": {
       "h2": "Najczęściej zadawane pytania",
@@ -217,7 +208,7 @@
       "q3_title": "Gdzie wpisać klucz licencyjny?",
       "q3_body": "Zaraz po zakupie zobaczysz swój klucz licencyjny na stronie potwierdzenia — wpisz go w ustawieniach aplikacji.",
       "q4_title": "Czy mogę otrzymać zwrot pieniędzy?",
-      "q4_body": "Po aktywacji licencji nie ma automatycznego zwrotu pieniędzy. Jeśli nie jesteś pewien, skorzystaj z darmowej wersji - zakup nie jest wymagany.",
+      "q4_body": "Jeśli przy zakupie zachowasz 14-dniowe prawo odstąpienia, możesz zrezygnować w każdej chwili przed dostarczeniem licencji i odzyskać pieniądze. Jeśli wybierzesz natychmiastowe dostarczenie, zrzekasz się tego prawa — późniejsze zwroty są dobrowolne. W razie wątpliwości najpierw skorzystaj z wersji darmowej.",
       "q5_title": "Czy to legalne?",
       "q5_body": "Odpowiadasz za sposób, w jaki korzystasz z pobranych treści. Szanuj prawa autorskie i regulaminy stron, z których pobierasz materiały."
     },
@@ -238,14 +229,16 @@
       "pending": "Finalizowanie zakupu…",
       "tier_monthly": "Miesięczny",
       "tier_yearly": "Roczny",
-      "tier_lifetime": "Dożywotni",
+      "tier_lifetime": "Licencja",
       "plan_label": "Plan",
       "copy_btn": "Skopiuj klucz",
       "not_installed": "Nie masz jeszcze aplikacji?",
       "download_app": "Pobierz aplikację",
       "error": "Nie udało się jeszcze znaleźć Twojej licencji. Odśwież tę stronę za chwilę.",
       "no_session": "Brak sesji — skorzystaj z linku z potwierdzenia zakupu.",
-      "footer_note": "Ta strona automatycznie sprawdza status przez kilka sekund po płatności. Jeśli nic się nie pojawi, odśwież stronę lub napisz na {support_email}, podając potwierdzenie płatności."
+      "footer_note": "Ta strona automatycznie sprawdza status przez kilka sekund po płatności. Jeśli nic się nie pojawi, odśwież stronę lub napisz na {support_email}, podając potwierdzenie płatności.",
+      "pending_delivery": "Zachowałeś 14-dniowe prawo odstąpienia. Twój klucz licencyjny pojawi się na tej stronie od {date}.",
+      "pending_delivery_note": "Dodaj tę stronę do zakładek i wróć w tym terminie. Aby odstąpić wcześniej, wystarczy e-mail — otrzymasz pełny zwrot."
     },
     "refund": {
       "title": "Odstąpienie od umowy i zwrot środków",
@@ -259,6 +252,15 @@
       "error_already_canceled": "Ta licencja została już zwrócona lub anulowana.",
       "error_window_expired": "14-dniowy okres na zwrot środków dla tego zakupu już minął. Skontaktuj się z pomocą techniczną, jeśli mimo to chcesz to omówić.",
       "error_generic": "Coś poszło nie tak. Spróbuj ponownie lub skontaktuj się z pomocą techniczną."
+    },
+    "checkout": {
+      "title": "Twoje 14-dniowe prawo odstąpienia",
+      "body": "Licencja to produkt cyfrowy. Zgodnie z prawem możesz odstąpić od zakupu w ciągu 14 dni — ale klucz licencyjny może zostać wydany dopiero po upływie tego terminu ({refund_start}pouczenie o odstąpieniu{refund_end}). W obu przypadkach płacisz teraz; wybierz, kiedy otrzymasz licencję:",
+      "waive_btn": "Otrzymaj licencję od razu",
+      "waive_note": "Niniejszym wyraźnie żądam natychmiastowego dostarczenia i potwierdzam, że tym samym zrzekam się prawa odstąpienia od umowy.",
+      "wait_btn": "Poczekam 14 dni",
+      "wait_note": "Mój klucz licencyjny zostanie wydany po upływie 14-dniowego terminu odstąpienia. Do tego czasu mogę odstąpić od umowy i otrzymać pełny zwrot.",
+      "cancel_btn": "Anuluj"
     }
   }
 }

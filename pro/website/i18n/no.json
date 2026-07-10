@@ -187,26 +187,17 @@
       "f6_desc": "Installer Android-versjonen direkte. Ingen konto, ingen Play Store-godkjenningsprosess, ingen regionsperringer."
     },
     "pricing": {
-      "h2": "Enkel, ærlig prising",
+      "h2": "Én lisens, én pris",
       "lead": "Gratis for alltid: 3 nedlasting om dagen i full HD/4K-kvalitet. Ubegrenset med Pro.",
-      "monthly_title": "Månedlig",
-      "monthly_note": "Avbryt når som helst",
-      "yearly_flag": "Best verdi",
-      "yearly_title": "Årlig",
-      "yearly_note": "Mindre enn €0,67/måned",
-      "lifetime_title": "Livstid",
+      "lifetime_title": "Lisens",
       "lifetime_amount_suffix": "engangsbeløp",
       "lifetime_note": "Betal én gang, bruk for alltid",
       "feature_unlimited": "Ubegrensede nedlastinger (ingen daglig grense)",
       "feature_batch": "Batch-nedlastinger",
       "feature_priority_updates": "Prioriterte oppdateringer",
       "feature_all_updates": "Alle fremtidige oppdateringer inkludert",
-      "cta_monthly": "Velg månedlig",
-      "cta_yearly": "Velg årlig",
-      "cta_lifetime": "Velg livstid",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Jeg krever at tilgangen starter umiddelbart, før den lovpålagte 14-dagers angrefristen utløper. Jeg forstår at jeg dermed mister angreretten min så snart kjøpet er fullført (se {terms_start}Bruksvilkårene{terms_end} §6.3 og {refund_start}Angreveiledningen{refund_end}). Det gis ingen automatisk refusjon etter aktivering."
+      "cta_lifetime": "Kjøp lisens",
+      "license_flag": "Ingen abonnement"
     },
     "faq": {
       "h2": "Ofte stilte spørsmål",
@@ -217,7 +208,7 @@
       "q3_title": "Hvor legger jeg inn lisensnøkkelen min?",
       "q3_body": "Rett etter kjøpet ser du lisensnøkkelen din på bekreftelsessiden — legg den inn i appens innstillinger.",
       "q4_title": "Kan jeg få pengene tilbake?",
-      "q4_body": "Det gis ingen automatisk refusjon etter at lisensen er aktivert. Er du usikker, bruk heller den gratis versjonen - ingen kjøp nødvendig.",
+      "q4_body": "Hvis du beholder din 14-dagers angrerett ved kjøpet, kan du angre når som helst før lisensen leveres og få pengene tilbake. Velger du umiddelbar levering, gir du avkall på den retten — senere refusjoner er frivillige. Er du usikker, bruk gratisversjonen først.",
       "q5_title": "Er dette lovlig?",
       "q5_body": "Du er selv ansvarlig for hvordan du bruker innhold du laster ned. Vennligst respekter opphavsrett og vilkårene til sidene du laster ned fra."
     },
@@ -238,14 +229,16 @@
       "pending": "Fullfører kjøpet ditt…",
       "tier_monthly": "Månedlig",
       "tier_yearly": "Årlig",
-      "tier_lifetime": "Livstid",
+      "tier_lifetime": "Lisens",
       "plan_label": "Plan",
       "copy_btn": "Kopier nøkkel",
       "not_installed": "Har du ikke appen ennå?",
       "download_app": "Last ned appen",
       "error": "Vi fant ikke lisensen din ennå. Vennligst last siden på nytt om et øyeblikk.",
       "no_session": "Økten mangler — bruk lenken fra kjøpsbekreftelsen din.",
-      "footer_note": "Denne siden sjekker automatisk i noen sekunder etter betalingen. Hvis ingenting dukker opp, last siden på nytt eller send en e-post til {support_email} med betalingsbekreftelsen din."
+      "footer_note": "Denne siden sjekker automatisk i noen sekunder etter betalingen. Hvis ingenting dukker opp, last siden på nytt eller send en e-post til {support_email} med betalingsbekreftelsen din.",
+      "pending_delivery": "Du beholdt din 14-dagers angrerett. Lisensnøkkelen din vises på denne siden fra {date}.",
+      "pending_delivery_note": "Lagre denne siden som bokmerke og kom tilbake da. For å angre før den datoen holder en e-post — du får full refusjon."
     },
     "refund": {
       "title": "Angrerett og refusjon",
@@ -259,6 +252,15 @@
       "error_already_canceled": "Denne lisensen er allerede refundert eller kansellert.",
       "error_window_expired": "14-dagers refusjonsvinduet for dette kjøpet er utløpt. Kontakt support hvis du fortsatt ønsker å diskutere dette.",
       "error_generic": "Noe gikk galt. Prøv igjen eller kontakt support."
+    },
+    "checkout": {
+      "title": "Din 14-dagers angrerett",
+      "body": "Lisensen er et digitalt produkt. Etter loven kan du angre kjøpet innen 14 dager — men lisensnøkkelen kan da først utleveres når fristen er utløpt ({refund_start}angrerettinformasjon{refund_end}). Du betaler nå uansett; velg når du mottar lisensen:",
+      "waive_btn": "Motta lisensen umiddelbart",
+      "waive_note": "Jeg ber herved uttrykkelig om umiddelbar levering og bekrefter at jeg dermed gir avkall på angreretten min.",
+      "wait_btn": "Jeg venter 14 dager",
+      "wait_note": "Lisensnøkkelen min utleveres når 14-dagers angrefristen er utløpt. Frem til da kan jeg angre og få full refusjon.",
+      "cancel_btn": "Avbryt"
     }
   }
 }

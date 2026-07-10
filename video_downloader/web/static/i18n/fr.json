@@ -187,26 +187,17 @@
       "f6_desc": "Installez la version pour Android directement. Pas de compte, pas de processus de validation du Play Store, pas de restriction géographique."
     },
     "pricing": {
-      "h2": "Des tarifs simples et honnêtes",
+      "h2": "Une licence, un prix",
       "lead": "Gratuit pour toujours : 3 téléchargement par jour en qualité HD/4K complète. Illimité avec Pro.",
-      "monthly_title": "Mensuel",
-      "monthly_note": "Annulez à tout moment",
-      "yearly_flag": "Meilleure offre",
-      "yearly_title": "Annuel",
-      "yearly_note": "Moins de 0,67 €/mois",
-      "lifetime_title": "À vie",
+      "lifetime_title": "Licence",
       "lifetime_amount_suffix": "paiement unique",
       "lifetime_note": "Payez une fois, utilisez pour toujours",
       "feature_unlimited": "Téléchargements illimités (pas de plafond quotidien)",
       "feature_batch": "Téléchargements groupés",
       "feature_priority_updates": "Mises à jour prioritaires",
       "feature_all_updates": "Toutes les futures mises à jour incluses",
-      "cta_monthly": "Choisir mensuel",
-      "cta_yearly": "Choisir annuel",
-      "cta_lifetime": "Choisir à vie",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Je demande que l'accès commence immédiatement, avant la fin du délai légal de rétractation de 14 jours. Je comprends que cela signifie que je perds mon droit de rétractation dès que l'achat est finalisé (voir les {terms_start}Conditions d'utilisation{terms_end} §6.3 et l'{refund_start}Avis de rétractation{refund_end}). Il n'y a pas de remboursement automatique après activation."
+      "cta_lifetime": "Acheter la licence",
+      "license_flag": "Sans abonnement"
     },
     "faq": {
       "h2": "Questions fréquentes",
@@ -217,7 +208,7 @@
       "q3_title": "Où dois-je entrer ma clé de licence ?",
       "q3_body": "Juste après l'achat, votre clé de licence s'affiche sur la page de confirmation — entrez-la dans les paramètres de l'application.",
       "q4_title": "Puis-je obtenir un remboursement ?",
-      "q4_body": "Il n'y a pas de remboursement automatique après l'activation de la licence. En cas de doute, utilisez plutôt la version gratuite - aucun achat requis.",
+      "q4_body": "Si tu conserves ton droit de rétractation de 14 jours lors de l'achat, tu peux annuler à tout moment avant la remise de ta licence et être remboursé. Si tu choisis la remise immédiate, tu renonces à ce droit — les remboursements ultérieurs sont volontaires. En cas de doute, utilise d'abord la version gratuite.",
       "q5_title": "Est-ce légal ?",
       "q5_body": "Vous êtes responsable de l'usage que vous faites des contenus téléchargés. Merci de respecter le droit d'auteur et les conditions d'utilisation des sites depuis lesquels vous téléchargez."
     },
@@ -238,14 +229,16 @@
       "pending": "Finalisation de votre achat…",
       "tier_monthly": "Mensuel",
       "tier_yearly": "Annuel",
-      "tier_lifetime": "À vie",
+      "tier_lifetime": "Licence",
       "plan_label": "Formule",
       "copy_btn": "Copier la clé",
       "not_installed": "Vous n'avez pas encore l'application ?",
       "download_app": "Télécharger l'application",
       "error": "Nous n'avons pas encore trouvé votre licence. Merci de recharger cette page dans un instant.",
       "no_session": "Session manquante — veuillez utiliser le lien de votre confirmation d'achat.",
-      "footer_note": "Cette page vérifie automatiquement pendant quelques secondes après le paiement. Si rien ne s'affiche, rechargez la page ou envoyez un e-mail à {support_email} avec votre confirmation de paiement."
+      "footer_note": "Cette page vérifie automatiquement pendant quelques secondes après le paiement. Si rien ne s'affiche, rechargez la page ou envoyez un e-mail à {support_email} avec votre confirmation de paiement.",
+      "pending_delivery": "Tu as conservé ton droit de rétractation de 14 jours. Ta clé de licence apparaîtra sur cette page à partir du {date}.",
+      "pending_delivery_note": "Ajoute cette page à tes favoris et reviens à cette date. Pour te rétracter avant, un simple e-mail suffit — tu seras intégralement remboursé."
     },
     "refund": {
       "title": "Rétractation et remboursement",
@@ -259,6 +252,15 @@
       "error_already_canceled": "Cette licence a déjà été remboursée ou annulée.",
       "error_window_expired": "Le délai de remboursement de 14 jours pour cet achat est écoulé. Contactez le support si vous souhaitez tout de même en discuter.",
       "error_generic": "Une erreur s'est produite. Veuillez réessayer ou contacter le support."
+    },
+    "checkout": {
+      "title": "Ton droit de rétractation de 14 jours",
+      "body": "La licence est un produit numérique. La loi te permet de te rétracter dans les 14 jours — mais la clé de licence ne peut alors être remise qu'après la fin de ce délai ({refund_start}informations sur la rétractation{refund_end}). Le paiement a lieu maintenant dans les deux cas ; choisis quand tu reçois ta licence :",
+      "waive_btn": "Recevoir la licence immédiatement",
+      "waive_note": "Je demande expressément la remise immédiate et je confirme renoncer ainsi à mon droit de rétractation.",
+      "wait_btn": "J'attends 14 jours",
+      "wait_note": "Ma clé de licence sera remise à la fin du délai de rétractation de 14 jours. Jusque-là, je peux me rétracter et être intégralement remboursé.",
+      "cancel_btn": "Annuler"
     }
   }
 }

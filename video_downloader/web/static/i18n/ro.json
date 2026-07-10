@@ -187,26 +187,17 @@
       "f6_desc": "Instalează versiunea pentru Android direct. Fără cont, fără proces de verificare Play Store, fără restricții regionale."
     },
     "pricing": {
-      "h2": "Prețuri simple și corecte",
+      "h2": "O licență, un preț",
       "lead": "Gratuit pentru totdeauna: 3 descărcare pe zi în calitate Full HD/4K. Nelimitat cu Pro.",
-      "monthly_title": "Lunar",
-      "monthly_note": "Anulează oricând",
-      "yearly_flag": "Cea mai bună ofertă",
-      "yearly_title": "Anual",
-      "yearly_note": "Mai puțin de 0,67 €/lună",
-      "lifetime_title": "Pe viață",
+      "lifetime_title": "Licență",
       "lifetime_amount_suffix": "plată unică",
       "lifetime_note": "Plătești o dată, folosești pentru totdeauna",
       "feature_unlimited": "Descărcări nelimitate (fără limită zilnică)",
       "feature_batch": "Descărcări în lot",
       "feature_priority_updates": "Actualizări prioritare",
       "feature_all_updates": "Toate actualizările viitoare incluse",
-      "cta_monthly": "Alege planul lunar",
-      "cta_yearly": "Alege planul anual",
-      "cta_lifetime": "Alege planul pe viață",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Solicit ca accesul să înceapă imediat, înainte de expirarea perioadei legale de retragere de 14 zile. Înțeleg că astfel îmi pierd dreptul de retragere de îndată ce achiziția este finalizată (a se vedea {terms_start}Termenii de utilizare{terms_end} §6.3 și {refund_start}Informarea privind retragerea{refund_end}). Nu există rambursare automată după activare."
+      "cta_lifetime": "Cumpără licența",
+      "license_flag": "Fără abonament"
     },
     "faq": {
       "h2": "Întrebări frecvente",
@@ -217,7 +208,7 @@
       "q3_title": "Unde introduc cheia de licență?",
       "q3_body": "Imediat după achiziție vei vedea cheia de licență pe pagina de confirmare — introdu-o în setările aplicației.",
       "q4_title": "Pot primi o rambursare?",
-      "q4_body": "Nu există rambursare automată după activarea licenței. Dacă nu ești sigur, folosește versiunea gratuită - nu necesită achiziție.",
+      "q4_body": "Dacă îți păstrezi dreptul de retragere de 14 zile la cumpărare, poți renunța oricând înainte de livrarea licenței și primești banii înapoi. Dacă alegi livrarea imediată, renunți la acest drept — rambursările ulterioare sunt voluntare. Dacă ai îndoieli, folosește mai întâi versiunea gratuită.",
       "q5_title": "Este legal?",
       "q5_body": "Tu ești responsabil pentru modul în care folosești conținutul descărcat. Te rugăm să respecți drepturile de autor și termenii site-urilor de pe care descarci."
     },
@@ -238,14 +229,16 @@
       "pending": "Se finalizează achiziția…",
       "tier_monthly": "Lunar",
       "tier_yearly": "Anual",
-      "tier_lifetime": "Pe viață",
+      "tier_lifetime": "Licență",
       "plan_label": "Plan",
       "copy_btn": "Copiază cheia",
       "not_installed": "Nu ai încă aplicația?",
       "download_app": "Descarcă aplicația",
       "error": "Nu am putut găsi încă licența ta. Te rugăm să reîncarci această pagină peste puțin timp.",
       "no_session": "Sesiune lipsă — te rugăm să folosești linkul din confirmarea achiziției.",
-      "footer_note": "Această pagină verifică automat timp de câteva secunde după plată. Dacă nu apare nimic, reîncarcă pagina sau trimite un e-mail la {support_email} cu confirmarea plății."
+      "footer_note": "Această pagină verifică automat timp de câteva secunde după plată. Dacă nu apare nimic, reîncarcă pagina sau trimite un e-mail la {support_email} cu confirmarea plății.",
+      "pending_delivery": "Ți-ai păstrat dreptul de retragere de 14 zile. Cheia ta de licență va apărea pe această pagină începând cu {date}.",
+      "pending_delivery_note": "Salvează această pagină la favorite și revino atunci. Pentru retragere înainte de această dată e de ajuns un e-mail — primești rambursare integrală."
     },
     "refund": {
       "title": "Retragere și rambursare",
@@ -259,6 +252,15 @@
       "error_already_canceled": "Această licență a fost deja rambursată sau anulată.",
       "error_window_expired": "Perioada de 14 zile pentru rambursarea acestei achiziții a expirat. Contactează asistența dacă dorești totuși să discuți acest lucru.",
       "error_generic": "A apărut o eroare. Te rugăm să încerci din nou sau să contactezi asistența."
+    },
+    "checkout": {
+      "title": "Dreptul tău de retragere de 14 zile",
+      "body": "Licența este un produs digital. Conform legii, te poți retrage din cumpărare în termen de 14 zile — dar cheia de licență poate fi predată abia după expirarea acestui termen ({refund_start}informații privind retragerea{refund_end}). În ambele cazuri plătești acum; alege când primești licența:",
+      "waive_btn": "Primește licența imediat",
+      "waive_note": "Solicit în mod expres livrarea imediată și confirm că renunț astfel la dreptul meu de retragere.",
+      "wait_btn": "Aștept 14 zile",
+      "wait_note": "Cheia mea de licență va fi predată după expirarea termenului de retragere de 14 zile. Până atunci mă pot retrage și primesc rambursare integrală.",
+      "cancel_btn": "Anulează"
     }
   }
 }

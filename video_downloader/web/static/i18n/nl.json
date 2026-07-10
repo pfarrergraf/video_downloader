@@ -187,26 +187,17 @@
       "f6_desc": "Installeer de Android-versie rechtstreeks. Geen account, geen goedkeuringsproces van de Play Store, geen regiobeperkingen."
     },
     "pricing": {
-      "h2": "Eenvoudige, eerlijke prijzen",
+      "h2": "Eén licentie, één prijs",
       "lead": "Voor altijd gratis: 3 download per dag in volledige HD/4K-kwaliteit. Onbeperkt met Pro.",
-      "monthly_title": "Maandelijks",
-      "monthly_note": "Op elk moment opzegbaar",
-      "yearly_flag": "Beste waarde",
-      "yearly_title": "Jaarlijks",
-      "yearly_note": "Minder dan €0,67/maand",
-      "lifetime_title": "Levenslang",
+      "lifetime_title": "Licentie",
       "lifetime_amount_suffix": "eenmalig",
       "lifetime_note": "Eén keer betalen, voor altijd gebruiken",
       "feature_unlimited": "Onbeperkt downloaden (geen dagelijkse limiet)",
       "feature_batch": "Batchdownloads",
       "feature_priority_updates": "Prioritaire updates",
       "feature_all_updates": "Alle toekomstige updates inbegrepen",
-      "cta_monthly": "Kies maandelijks",
-      "cta_yearly": "Kies jaarlijks",
-      "cta_lifetime": "Kies levenslang",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Ik verzoek dat de toegang onmiddellijk begint, voordat de wettelijke herroepingstermijn van 14 dagen verstrijkt. Ik begrijp dat ik daardoor mijn herroepingsrecht verlies zodra de aankoop is voltooid (zie {terms_start}Gebruiksvoorwaarden{terms_end} §6.3 en de {refund_start}Herroepingsmelding{refund_end}). Er is geen automatische terugbetaling na activering."
+      "cta_lifetime": "Licentie kopen",
+      "license_flag": "Geen abonnement"
     },
     "faq": {
       "h2": "Veelgestelde vragen",
@@ -217,7 +208,7 @@
       "q3_title": "Waar voer ik mijn licentiesleutel in?",
       "q3_body": "Direct na aankoop zie je je licentiesleutel op de bevestigingspagina — voer deze in bij de instellingen van de app.",
       "q4_title": "Kan ik geld terugkrijgen?",
-      "q4_body": "Er is geen automatische terugbetaling na activering van de licentie. Twijfel je? Gebruik dan gewoon de gratis versie - geen aankoop nodig.",
+      "q4_body": "Als je bij aankoop je 14-daagse herroepingsrecht behoudt, kun je op elk moment vóór levering van je licentie annuleren en krijg je je geld terug. Kies je voor directe levering, dan doe je afstand van dat recht — terugbetalingen daarna zijn vrijwillig. Twijfel je? Gebruik dan eerst de gratis versie.",
       "q5_title": "Is dit legaal?",
       "q5_body": "Je bent zelf verantwoordelijk voor hoe je gedownloade content gebruikt. Respecteer auteursrecht en de voorwaarden van de sites waar je van downloadt."
     },
@@ -238,14 +229,16 @@
       "pending": "Je aankoop wordt afgerond…",
       "tier_monthly": "Maandelijks",
       "tier_yearly": "Jaarlijks",
-      "tier_lifetime": "Levenslang",
+      "tier_lifetime": "Licentie",
       "plan_label": "Abonnement",
       "copy_btn": "Sleutel kopiëren",
       "not_installed": "Heb je de app nog niet?",
       "download_app": "Download de app",
       "error": "We konden je licentie nog niet vinden. Vernieuw deze pagina zo dadelijk.",
       "no_session": "Sessie ontbreekt — gebruik de link uit je aankoopbevestiging.",
-      "footer_note": "Deze pagina controleert automatisch enkele seconden na betaling. Als er niets verschijnt, vernieuw de pagina of e-mail {support_email} met je betalingsbevestiging."
+      "footer_note": "Deze pagina controleert automatisch enkele seconden na betaling. Als er niets verschijnt, vernieuw de pagina of e-mail {support_email} met je betalingsbevestiging.",
+      "pending_delivery": "Je hebt je 14-daagse herroepingsrecht behouden. Je licentiesleutel verschijnt vanaf {date} op deze pagina.",
+      "pending_delivery_note": "Sla deze pagina op als bladwijzer en kom dan terug. Om vóór die datum te herroepen volstaat een e-mail — je krijgt alles terugbetaald."
     },
     "refund": {
       "title": "Herroeping & terugbetaling",
@@ -259,6 +252,15 @@
       "error_already_canceled": "Deze licentie is al terugbetaald of geannuleerd.",
       "error_window_expired": "De termijn van 14 dagen voor terugbetaling van deze aankoop is verstreken. Neem contact op met support als je dit alsnog wilt bespreken.",
       "error_generic": "Er is iets misgegaan. Probeer het opnieuw of neem contact op met support."
+    },
+    "checkout": {
+      "title": "Je 14-daagse herroepingsrecht",
+      "body": "De licentie is een digitaal product. Wettelijk kun je de aankoop binnen 14 dagen herroepen — maar de licentiesleutel mag dan pas na afloop van die termijn worden geleverd ({refund_start}herroepingsinformatie{refund_end}). Je betaalt in beide gevallen nu; kies wanneer je je licentie ontvangt:",
+      "waive_btn": "Licentie direct ontvangen",
+      "waive_note": "Ik verzoek hierbij uitdrukkelijk om directe levering en bevestig dat ik daarmee afstand doe van mijn herroepingsrecht.",
+      "wait_btn": "Ik wacht 14 dagen",
+      "wait_note": "Mijn licentiesleutel wordt geleverd zodra de 14-daagse herroepingstermijn is verstreken. Tot die tijd kan ik herroepen en krijg ik alles terugbetaald.",
+      "cancel_btn": "Annuleren"
     }
   }
 }

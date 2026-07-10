@@ -13,7 +13,7 @@ export async function onRequestGet({ request, env }) {
   if (!key) return jsonResponse({ valid: false, error: "missing key" }, 400);
 
   const row = await env.DB.prepare(
-    `SELECT tier, status, current_period_end FROM licenses WHERE license_key = ?`,
+    `SELECT tier, status, current_period_end, deliver_at FROM licenses WHERE license_key = ?`,
   )
     .bind(key)
     .first();
@@ -21,6 +21,12 @@ export async function onRequestGet({ request, env }) {
   if (!row) return jsonResponse({ valid: false });
 
   const now = Math.floor(Date.now() / 1000);
+  // Buyer kept their 14-day withdrawal right: the license exists but is not
+  // delivered yet, so it must not validate before deliver_at (see
+  // license-for-session.js - same rule, same reason).
+  if (row.deliver_at != null && row.deliver_at > now) {
+    return jsonResponse({ valid: false, status: "pending_delivery", deliver_at: row.deliver_at });
+  }
   const expired =
     row.status !== "active" ||
     (row.tier !== "lifetime" && row.current_period_end !== null && row.current_period_end < now);

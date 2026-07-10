@@ -187,26 +187,17 @@
       "f6_desc": "Installer Android-versionen direkte. Ingen konto, ingen godkendelsesproces i Play Store, ingen regionslåsning."
     },
     "pricing": {
-      "h2": "Enkle, ærlige priser",
+      "h2": "Én licens, én pris",
       "lead": "Gratis for altid: 3 download om dagen i fuld HD/4K-kvalitet. Ubegrænset med Pro.",
-      "monthly_title": "Månedlig",
-      "monthly_note": "Opsig når som helst",
-      "yearly_flag": "Bedst værdi",
-      "yearly_title": "Årlig",
-      "yearly_note": "Mindre end €0,67/måned",
-      "lifetime_title": "Livstid",
+      "lifetime_title": "Licens",
       "lifetime_amount_suffix": "engangsbeløb",
       "lifetime_note": "Betal én gang, brug for altid",
       "feature_unlimited": "Ubegrænsede downloads (intet dagligt loft)",
       "feature_batch": "Batch-downloads",
       "feature_priority_updates": "Prioriterede opdateringer",
       "feature_all_updates": "Alle fremtidige opdateringer inkluderet",
-      "cta_monthly": "Vælg månedlig",
-      "cta_yearly": "Vælg årlig",
-      "cta_lifetime": "Vælg livstid",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Jeg anmoder om, at adgangen begynder med det samme, før den lovpligtige 14-dages fortrydelsesfrist udløber. Jeg er klar over, at jeg dermed mister min fortrydelsesret, så snart købet er gennemført (se {terms_start}Brugsbetingelserne{terms_end} §6.3 og {refund_start}Fortrydelsesvejledningen{refund_end}). Der er ingen automatisk refundering efter aktivering."
+      "cta_lifetime": "Køb licens",
+      "license_flag": "Intet abonnement"
     },
     "faq": {
       "h2": "Ofte stillede spørgsmål",
@@ -217,7 +208,7 @@
       "q3_title": "Hvor indtaster jeg min licensnøgle?",
       "q3_body": "Lige efter købet ser du din licensnøgle på bekræftelsessiden — indtast den i appens indstillinger.",
       "q4_title": "Kan jeg få pengene tilbage?",
-      "q4_body": "Der er ingen automatisk refundering, når licensen er aktiveret. Er du i tvivl, så brug i stedet den gratis version - intet køb nødvendigt.",
+      "q4_body": "Hvis du beholder din 14-dages fortrydelsesret ved købet, kan du fortryde når som helst før licensen leveres og få pengene tilbage. Vælger du øjeblikkelig levering, giver du afkald på den ret — senere refusion er frivillig. Er du i tvivl, så brug først gratisversionen.",
       "q5_title": "Er det lovligt?",
       "q5_body": "Du er selv ansvarlig for, hvordan du bruger downloadet indhold. Respekter venligst ophavsret og vilkårene for de sider, du downloader fra."
     },
@@ -238,14 +229,16 @@
       "pending": "Færdiggør dit køb…",
       "tier_monthly": "Månedlig",
       "tier_yearly": "Årlig",
-      "tier_lifetime": "Livstid",
+      "tier_lifetime": "Licens",
       "plan_label": "Plan",
       "copy_btn": "Kopier nøgle",
       "not_installed": "Har du ikke appen endnu?",
       "download_app": "Download appen",
       "error": "Vi kunne ikke finde din licens endnu. Genindlæs venligst siden om et øjeblik.",
       "no_session": "Session mangler — brug venligst linket fra din købsbekræftelse.",
-      "footer_note": "Denne side tjekker automatisk i nogle sekunder efter betalingen. Hvis intet vises, så genindlæs siden eller send en e-mail til {support_email} med din betalingsbekræftelse."
+      "footer_note": "Denne side tjekker automatisk i nogle sekunder efter betalingen. Hvis intet vises, så genindlæs siden eller send en e-mail til {support_email} med din betalingsbekræftelse.",
+      "pending_delivery": "Du beholdt din 14-dages fortrydelsesret. Din licensnøgle vises på denne side fra {date}.",
+      "pending_delivery_note": "Gem denne side som bogmærke og kom tilbage. For at fortryde inden da er en e-mail nok — du får det fulde beløb tilbage."
     },
     "refund": {
       "title": "Fortrydelse & tilbagebetaling",
@@ -259,6 +252,15 @@
       "error_already_canceled": "Denne licens er allerede blevet tilbagebetalt eller annulleret.",
       "error_window_expired": "14-dages-fristen for tilbagebetaling af dette køb er udløbet. Kontakt support, hvis du stadig gerne vil drøfte dette.",
       "error_generic": "Noget gik galt. Prøv venligst igen, eller kontakt support."
+    },
+    "checkout": {
+      "title": "Din 14-dages fortrydelsesret",
+      "body": "Licensen er et digitalt produkt. Ifølge loven kan du fortryde købet inden for 14 dage — men licensnøglen må så først udleveres, når fristen er udløbet ({refund_start}fortrydelsesvejledning{refund_end}). Du betaler nu i begge tilfælde; vælg, hvornår du modtager din licens:",
+      "waive_btn": "Modtag licensen med det samme",
+      "waive_note": "Jeg anmoder hermed udtrykkeligt om øjeblikkelig levering og bekræfter, at jeg dermed giver afkald på min fortrydelsesret.",
+      "wait_btn": "Jeg venter 14 dage",
+      "wait_note": "Min licensnøgle udleveres, når 14-dages fortrydelsesfristen er udløbet. Indtil da kan jeg fortryde og få det fulde beløb tilbage.",
+      "cancel_btn": "Annuller"
     }
   }
 }

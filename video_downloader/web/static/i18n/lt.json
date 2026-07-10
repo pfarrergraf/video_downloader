@@ -187,26 +187,17 @@
       "f6_desc": "Įdiek Android versiją tiesiogiai. Jokios paskyros, jokio „Play Store“ peržiūros proceso, jokių regiono apribojimų."
     },
     "pricing": {
-      "h2": "Paprastos, sąžiningos kainos",
+      "h2": "Viena licencija, viena kaina",
       "lead": "Visada nemokama: 3 atsisiuntimas per dieną pilnos HD/4K kokybės. Neribotai su Pro.",
-      "monthly_title": "Mėnesinis",
-      "monthly_note": "Atšauk bet kada",
-      "yearly_flag": "Geriausia vertė",
-      "yearly_title": "Metinis",
-      "yearly_note": "Mažiau nei 0,67 €/mėn.",
-      "lifetime_title": "Visam laikui",
+      "lifetime_title": "Licencija",
       "lifetime_amount_suffix": "vienkartinis mokėjimas",
       "lifetime_note": "Sumokėk vieną kartą, naudokis visada",
       "feature_unlimited": "Neriboti atsisiuntimai (be dienos limito)",
       "feature_batch": "Atsisiuntimai grupėmis",
       "feature_priority_updates": "Prioritetiniai atnaujinimai",
       "feature_all_updates": "Įtraukti visi būsimi atnaujinimai",
-      "cta_monthly": "Rinktis mėnesinį",
-      "cta_yearly": "Rinktis metinį",
-      "cta_lifetime": "Rinktis visam laikui",
-      "monthly_amount_suffix": "/month",
-      "yearly_amount_suffix": "/year",
-      "consent_label": "Reikalauju, kad prieiga prasidėtų nedelsiant, dar nepasibaigus 14 dienų teisės aktais nustatytam atsisakymo terminui. Suprantu, kad taip prarandu teisę atsisakyti sutarties, kai tik pirkimas užbaigiamas (žr. {terms_start}Naudojimo sąlygas{terms_end} 6.3 punktą ir {refund_start}Pranešimą apie atsisakymą{refund_end}). Po aktyvinimo automatinis pinigų grąžinimas netaikomas."
+      "cta_lifetime": "Pirkti licenciją",
+      "license_flag": "Jokios prenumeratos"
     },
     "faq": {
       "h2": "Dažniausiai užduodami klausimai",
@@ -217,7 +208,7 @@
       "q3_title": "Kur įvesti savo licencijos raktą?",
       "q3_body": "Iškart po pirkimo patvirtinimo puslapyje pamatysi savo licencijos raktą — įvesk jį programėlės nustatymuose.",
       "q4_title": "Ar galiu susigrąžinti pinigus?",
-      "q4_body": "Aktyvavus licenciją automatinis pinigų grąžinimas nenumatytas. Jei abejojate, naudokite nemokamą versiją - pirkti nereikia.",
+      "q4_body": "Jei pirkdamas išsaugai 14 dienų teisę atsisakyti sutarties, gali bet kada iki licencijos pateikimo atsisakyti ir atgauti pinigus. Jei pasirenki neatidėliotiną pateikimą, šios teisės atsisakai — vėlesni grąžinimai yra savanoriški. Jei abejoji, pirmiausia naudok nemokamą versiją.",
       "q5_title": "Ar tai teisėta?",
       "q5_body": "Tu pats atsakai už tai, kaip naudoji atsisiųstą turinį. Prašome gerbti autorių teises ir svetainių, iš kurių atsisiunčiate, taisykles."
     },
@@ -238,14 +229,16 @@
       "pending": "Baigiama tvarkyti tavo pirkimą…",
       "tier_monthly": "Mėnesinis",
       "tier_yearly": "Metinis",
-      "tier_lifetime": "Visam laikui",
+      "tier_lifetime": "Licencija",
       "plan_label": "Planas",
       "copy_btn": "Kopijuoti raktą",
       "not_installed": "Dar neturi programėlės?",
       "download_app": "Atsisiųsti programėlę",
       "error": "Kol kas nepavyko rasti tavo licencijos. Perkrauk šį puslapį po akimirkos.",
       "no_session": "Trūksta sesijos — naudok nuorodą iš pirkimo patvirtinimo.",
-      "footer_note": "Šis puslapis automatiškai tikrina po apmokėjimo kelias sekundes. Jei nieko neatsiranda, perkrauk puslapį arba parašyk el. paštu {support_email} su savo mokėjimo patvirtinimu."
+      "footer_note": "Šis puslapis automatiškai tikrina po apmokėjimo kelias sekundes. Jei nieko neatsiranda, perkrauk puslapį arba parašyk el. paštu {support_email} su savo mokėjimo patvirtinimu.",
+      "pending_delivery": "Išsaugojai savo 14 dienų teisę atsisakyti sutarties. Tavo licencijos raktas šiame puslapyje pasirodys nuo {date}.",
+      "pending_delivery_note": "Išsisaugok šį puslapį ir sugrįžk tada. Norint atsisakyti anksčiau, užtenka el. laiško — atgausi visą sumą."
     },
     "refund": {
       "title": "Withdrawal & refund",
@@ -259,6 +252,15 @@
       "error_already_canceled": "This license has already been refunded or canceled.",
       "error_window_expired": "The 14-day refund window for this purchase has ended. Contact support if you'd still like to discuss this.",
       "error_generic": "Something went wrong. Please try again or contact support."
+    },
+    "checkout": {
+      "title": "Tavo 14 dienų teisė atsisakyti sutarties",
+      "body": "Licencija yra skaitmeninis produktas. Pagal įstatymą gali atsisakyti pirkinio per 14 dienų — bet licencijos raktas tada gali būti perduotas tik pasibaigus šiam terminui ({refund_start}informacija apie sutarties atsisakymą{refund_end}). Abiem atvejais moki dabar; pasirink, kada gausi licenciją:",
+      "waive_btn": "Gauti licenciją iš karto",
+      "waive_note": "Šiuo aš aiškiai prašau neatidėliotino pateikimo ir patvirtinu, kad taip atsisakau savo teisės atsisakyti sutarties.",
+      "wait_btn": "Palauksiu 14 dienų",
+      "wait_note": "Mano licencijos raktas bus perduotas pasibaigus 14 dienų atsisakymo terminui. Iki tol galiu atsisakyti ir atgauti visą sumą.",
+      "cancel_btn": "Atšaukti"
     }
   }
 }
