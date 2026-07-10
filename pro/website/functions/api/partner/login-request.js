@@ -1,5 +1,6 @@
 import {
   affiliateProgramEnabled,
+  checkAffiliateRateLimit,
   issuePartnerToken,
   jsonResponse,
   normalizeEmail,
@@ -7,6 +8,11 @@ import {
   sendTransactionalEmail,
   verifyTurnstile,
 } from "../../_affiliate.js";
+
+// Turnstile alone bounds scripted abuse but not a slow/human-solved or
+// CAPTCHA-farmed attacker email-bombing a victim's inbox with login links.
+const RATE_LIMIT_WINDOW_SECONDS = 15 * 60;
+const RATE_LIMIT_MAX_ATTEMPTS = 5;
 
 export async function onRequestPost({ request, env }) {
   try {
@@ -16,6 +22,15 @@ export async function onRequestPost({ request, env }) {
       return jsonResponse({ error: "human_verification_failed" }, 400);
     }
     const email = normalizeEmail(body.email);
+    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+    const allowed = await checkAffiliateRateLimit(
+      env,
+      "partner_login_request",
+      `${ip}:${email}`,
+      RATE_LIMIT_WINDOW_SECONDS,
+      RATE_LIMIT_MAX_ATTEMPTS,
+    );
+    if (!allowed) return jsonResponse({ ok: true });
     const affiliate = await env.DB.prepare(
       `SELECT id, email FROM affiliates WHERE email = ? COLLATE NOCASE AND status = 'active'`,
     ).bind(email).first();

@@ -20,7 +20,7 @@ object AffiliateReferral {
     fun capture(context: Context, intent: Intent?): Boolean {
         if (intent?.action != Intent.ACTION_VIEW) return false
         val uri = intent.data ?: return false
-        val host = uri.host ?: return false
+        val host = uri.host?.lowercase() ?: return false
         if (uri.scheme != "https" || host !in ALLOWED_HOSTS) return false
         val segments = uri.pathSegments
         if (segments.size != 2 || segments[0] != "claim") return false
@@ -40,7 +40,7 @@ object AffiliateReferral {
      * All unrelated outbound URLs remain byte-for-byte unchanged.
      */
     fun rewritePricingUrl(context: Context, original: Uri): Uri {
-        val host = original.host ?: return original
+        val host = original.host?.lowercase() ?: return original
         if (original.scheme != "https" || host !in ALLOWED_HOSTS) return original
         val isPricing = original.fragment == "pricing" || original.path == "/pricing"
         if (!isPricing) return original

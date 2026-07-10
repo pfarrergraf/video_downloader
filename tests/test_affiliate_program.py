@@ -173,3 +173,28 @@ def test_security_headers_cover_partner_and_api_surfaces() -> None:
         "Cache-Control: no-store",
     ):
         assert required in headers
+
+
+def test_admin_and_partner_dashboards_html_escape_untrusted_fields() -> None:
+    """Regression test for AFF-001 (stored XSS): partner-controlled display_name/
+    email/code and admin-entered external_reference must never reach innerHTML
+    unescaped again. A self-registered partner fully controls display_name,
+    code and email (only length- and loose-regex-validated server-side), and
+    /api/admin/overview returns them to every admin dashboard load."""
+    admin_html = (WEBSITE / "partner-admin.html").read_text(encoding="utf-8")
+    dashboard_html = (WEBSITE / "partner-dashboard.html").read_text(encoding="utf-8")
+
+    assert "const esc=" in admin_html
+    assert "const esc=" in dashboard_html
+
+    # These untrusted fields must be wrapped in esc(...) wherever they're
+    # interpolated into an innerHTML template literal.
+    for field in ("a.display_name", "a.code", "a.email", "a.id", "p.display_name", "p.code", "p.id", "p.status"):
+        assert f"esc({field})" in admin_html, f"{field} must be HTML-escaped in partner-admin.html"
+    assert "esc(p.external_reference)" in dashboard_html
+    assert "esc(p.status)" in dashboard_html
+
+    # And the old, unescaped interpolation patterns must be gone.
+    for leaked in ("${a.display_name}", "${a.code}", "${a.email}", "${p.external_reference}"):
+        assert leaked not in admin_html
+        assert leaked not in dashboard_html

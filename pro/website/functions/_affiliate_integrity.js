@@ -20,7 +20,7 @@ function integer(value) {
   return Number.parseInt(value || 0, 10) || 0;
 }
 
-function deviationBps(left, right) {
+export function deviationBps(left, right) {
   const a = integer(left);
   const b = integer(right);
   if (a === 0 && b === 0) return 0;

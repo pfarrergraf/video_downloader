@@ -21,6 +21,7 @@ SECRET_PATTERNS = {
     "Stripe secret key": re.compile(r"\bsk_(?:live|test)_[A-Za-z0-9]{16,}\b"),
     "Stripe webhook secret": re.compile(r"\bwhsec_[A-Za-z0-9]{16,}\b"),
     "Resend API key": re.compile(r"\bre_[A-Za-z0-9]{20,}\b"),
+    "Turnstile secret key": re.compile(r"\b[0-3]x[0-9A-Za-z_-]{20,}\b"),
     "private key": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
 }
 
