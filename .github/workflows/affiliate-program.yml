@@ -5,7 +5,7 @@ on:
     paths:
       - "pro/website/**"
       - "android/app/src/main/**"
-      - "tests/test_affiliate_program.py"
+      - "tests/test_affiliate_*.py"
       - ".github/workflows/affiliate-program.yml"
   workflow_dispatch:
 
@@ -22,8 +22,8 @@ jobs:
           enable-cache: true
       - name: Create development environment with uv
         run: uv sync --extra dev
-      - name: Execute affiliate schema and security tests
-        run: uv run pytest tests/test_affiliate_program.py -v
+      - name: Execute affiliate schema, security, and secret tests
+        run: uv run pytest tests/test_affiliate_program.py tests/test_affiliate_no_secrets.py -v
 
   cloudflare-functions:
     runs-on: ubuntu-latest
