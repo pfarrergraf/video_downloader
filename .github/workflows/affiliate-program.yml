@@ -20,7 +20,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
-      - name: Create locked development environment
+      - name: Create development environment with uv
         run: uv sync --extra dev
       - name: Execute affiliate schema and security tests
         run: uv run pytest tests/test_affiliate_program.py -v
@@ -35,9 +35,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-          cache: npm
-          cache-dependency-path: pro/website/package.json
-      - name: Parse all critical JavaScript modules
+      - name: Parse every Cloudflare Function and browser module
         run: npm run check
       - name: Test fixed commission schedule
         run: npm test
