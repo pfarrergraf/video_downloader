@@ -33,15 +33,22 @@ Dieses Dokument ist der zusammenfassende technische Bericht. Für die einzelnen 
 
 ## Ergebnis
 
-**12 Findings identifiziert** (AFF-001 bis AFF-012), davon:
+**12 Findings identifiziert** (AFF-001 bis AFF-012). Der kanonische Status je Finding steht in
+`RISK_REGISTER.md` — diese Zusammenfassung übernimmt dessen Zahlen unverändert:
 
-- **9 behoben und regressionsgetestet** (AFF-001, AFF-003, AFF-004, AFF-006 teilweise, AFF-007, AFF-008,
-  AFF-012, plus die explizite 5,00-%-Grenzsemantik als Test-Coverage-Anforderung).
-- **3 als dokumentiertes Restrisiko mit Begründung eingestuft** (AFF-002 architekturelle Android-Grenze,
-  AFF-005 erfordert externen Repository-Zugriff außerhalb dieses Sitzungsscopes, AFF-009 erfordert
-  Produktionszugriff).
+- **6 vollständig behoben und retestet:** AFF-001 (P1), AFF-003 (P2), AFF-004 (P2), AFF-007 (P3),
+  AFF-008 (P3), AFF-012 (P3).
+- **1 Kontrollschwäche teilweise behoben:** AFF-006 (P2) — Turnstile-Blindfleck geschlossen, die
+  grundsätzliche Umgehbarkeit regexbasierter Secret-Scans bleibt eine dokumentierte Restlimitation.
+- **5 verbleibend bzw. als strukturelles/operatives Restrisiko dokumentiert:** AFF-002 (P2, architekturelle
+  Android-Plattformgrenze), AFF-005 (P2, erfordert externen Repository-Zugriff außerhalb dieses
+  Sitzungsscopes), AFF-009 (P2, erfordert Produktionszugriff), AFF-010 (P3, CSP-Härtung als Folgearbeit),
+  AFF-011 (P3/Informational, Login-CSRF als Folgearbeit).
 - **0 offene P0/Critical-Findings.**
 - **0 offene P1/High-Findings** (das einzige gefundene P1, AFF-001, ist behoben).
+
+Zusätzlich wurde die geforderte exakte 5,00-%-Grenzsemantik (500 vs. 501 Basispunkte) unabhängig von den
+zwölf Findings als eigener Test-Coverage-Nachweis ergänzt (siehe `PENETRATION_TEST_RESULTS.md`).
 
 Die zentralen, im Auftrag explizit geforderten mathematischen Invarianten wurden verifiziert:
 - `Gesamtauszahlungen ≤ Anzahl zugeordneter Lizenzen × 4,00 EUR` — durchgesetzt, doppelt geprüft
@@ -72,7 +79,7 @@ zulässigen bzw. unzulässigen Formulierungen, die für diese Prüfung gelten.
 | Alle bestehenden CI-Tests grün | ✅ (201 Python + 8 Node-Tests, Syntaxprüfung) |
 | Neue Security-Tests grün | ✅ |
 | Keine offenen P0-/P1-Findings | ✅ |
-| P2-Findings behoben oder formal dokumentiert | ✅ (3 behoben, 2 formal dokumentiert mit Begründung: AFF-005, AFF-009) |
+| P2-Findings behoben oder formal dokumentiert | ✅ (von 6 P2-Findings: AFF-003/AFF-004 behoben, AFF-006 teilweise behoben mit dokumentierter Restlimitation, AFF-002/AFF-005/AFF-009 formal mit Begründung dokumentiert) |
 | Threat Model vollständig | ✅ `THREAT_MODEL.md` |
 | ASVS-Matrix vollständig | ✅ `ASVS_5_MATRIX.md` |
 | NIST-SSDF-Matrix vollständig | ✅ `NIST_SSDF_MATRIX.md` |

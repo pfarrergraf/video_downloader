@@ -23,9 +23,18 @@ Details, Reproduktion und Retest-Ergebnisse je Finding stehen in `PENETRATION_TE
 ## Einordnung nach HANDOVER.md-Schweregradskala
 
 - **P0/Critical:** keine offenen Findings dieser Kategorie identifiziert. Insbesondere wurde **keine** Möglichkeit gefunden, die harten Auszahlungsinvarianten (`Gesamtauszahlungen <= Lizenzen × 4 EUR`, `Gesamtauszahlungen <= qualifizierte Provisionen`) zu verletzen, Ledger-/Audit-Hash-Ketten unbemerkt zu manipulieren, oder personenbezogene Käuferdaten aus dem Partner-Dashboard zu erhalten.
-- **P1/High:** AFF-001 (behoben und retestet).
-- **P2/Medium:** AFF-003, AFF-004, AFF-005, AFF-006, AFF-009 (drei behoben, zwei dokumentiert mit Begründung).
-- **P3/Low/Info:** AFF-002, AFF-007, AFF-008, AFF-010, AFF-011.
+- **P1/High:** AFF-001 — behoben und retestet.
+- **P2/Medium (6 Findings):** AFF-003, AFF-004 — behoben und retestet. AFF-006 — teilweise behoben (Muster ergänzt, regexbasierte Grenze bleibt bestehen). AFF-002, AFF-005, AFF-009 — offen bzw. dokumentiertes Restrisiko (siehe Begründungen unten und in `RESIDUAL_RISK_ACCEPTANCE.md`).
+- **P3/Low/Informational (5 Findings):** AFF-007, AFF-008, AFF-012 — behoben und retestet. AFF-010, AFF-011 — offen, als Folgearbeit dokumentiert (siehe `RESIDUAL_RISK_ACCEPTANCE.md`).
+
+## Gesamtstatus (kanonisch — maßgeblich für jede Zusammenfassung dieser Prüfung)
+
+Von 12 identifizierten Findings sind **6 vollständig behoben und retestet** (AFF-001, AFF-003, AFF-004,
+AFF-007, AFF-008, AFF-012), **1 Kontrollschwäche teilweise behoben** (AFF-006) und **5 verbleibend bzw. als
+strukturelles/operatives Restrisiko dokumentiert** (AFF-002, AFF-005, AFF-009, AFF-010, AFF-011).
+**Keine offenen P0- oder P1-Findings.** Jede andere Zahl in `EXECUTIVE_SECURITY_SUMMARY.md`,
+`SECURITY_ASSESSMENT_REPORT.md` oder der PR-Beschreibung muss mit dieser Zeile übereinstimmen — diese Tabelle
+ist die kanonische Quelle.
 
 ## Warum AFF-002 nicht als blockierendes P1 eingestuft wird
 

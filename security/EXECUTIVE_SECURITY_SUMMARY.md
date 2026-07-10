@@ -15,10 +15,13 @@ Prüfungen (siehe `docs/AFFILIATE_PROGRAM_IMPLEMENTATION.md` und `HANDOVER.md` �
 ## Ergebnis in einem Satz
 
 Die Kernfinanzlogik (Provisionsstaffel, absolute Auszahlungsobergrenze, Append-only-Hash-Ketten,
-Maker-Checker-Auszahlung, 5,00-%-Reconciliation-Sperre) hält den geforderten harten Invarianten stand;
-**ein kritisches (P1) und mehrere mittlere (P2) Findings** wurden gefunden, alle mit Code-Zugriff behebbaren
-Findings sind **behoben und regressionsgetestet**; zwei Findings erfordern externe/operative Schritte
-außerhalb dieser Sitzung (siehe unten).
+Maker-Checker-Auszahlung, 5,00-%-Reconciliation-Sperre) hält den geforderten harten Invarianten stand.
+**Kanonischer Stand (siehe `RISK_REGISTER.md`, maßgeblich für jede Zahl in diesem Dokument):** von 12
+identifizierten Findings sind **6 vollständig behoben und retestet** (darunter das einzige P1), **1
+Kontrollschwäche teilweise behoben**, und **5 verbleibend bzw. als strukturelles/operatives Restrisiko
+dokumentiert** — davon zwei (AFF-010 CSP-Härtung, AFF-011 Login-CSRF) bewusst als Folgearbeit
+zurückgestellte, aber grundsätzlich im Code behebbare P3-Punkte, und drei (AFF-002, AFF-005, AFF-009)
+echte externe/strukturelle Grenzen dieser Sitzung. **Keine offenen P0- oder P1-Findings.**
 
 ## Wichtigste Befunde
 
@@ -56,6 +59,14 @@ Vollständige Liste inkl. P3/Informational: `RISK_REGISTER.md`. Details, CVSS, R
    aus dem Repository heraus geprüft werden.
 3. **Externer Penetrationstest, Rechts-/Steuerprüfung, formelle SOC-2-/ISO-27001-/PCI-Zertifizierung** —
    ausdrücklich außerhalb des Mandats dieser Sitzung (siehe `HANDOVER.md` §9, §13).
+4. **AFF-010 (CSP-Härtung) und AFF-011 (Login-CSRF)** — anders als 1.–3. sind dies keine externen/
+   strukturellen Grenzen, sondern bewusst zurückgestellte Code-Arbeit: AFF-010 erfordert eine
+   website-weite Umstellung aller Inline-Skripte auf externe Dateien, damit `'unsafe-inline'` aus der CSP
+   entfernt werden kann, ohne andere (nicht-affiliate-bezogene) Seiten zu brechen, die außerhalb der
+   Sichtbarkeit dieser Prüfung liegen; AFF-011 erfordert eine neue Nonce-Bindung zwischen
+   Login-Request und Magic-Link-Einlösung. Beide sind als P3/Low-Informational eingestuft (geringe
+   Auswirkung) und wurden bewusst nicht unter Zeitdruck in dieser Sitzung umgesetzt, um das Risiko einer
+   unausgereiften, schlecht getesteten Änderung an der Authentisierungs-/Auslieferungslogik zu vermeiden.
 
 ## Go/No-Go-Einschätzung dieser Prüfung
 

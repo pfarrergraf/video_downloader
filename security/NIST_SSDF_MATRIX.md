@@ -34,7 +34,7 @@ Interne Readiness-Bewertung, keine formelle Attestierung.
 
 | Praktik | Status | Evidenz |
 |---|---|---|
-| RV.1 Schwachstellen identifizieren/beheben fortlaufend | ✅ (dieser Zyklus) | 12 Findings identifiziert, 9 behoben, 3 mit begründeter Ausnahme dokumentiert |
+| RV.1 Schwachstellen identifizieren/beheben fortlaufend | ✅ (dieser Zyklus) | 12 Findings identifiziert: 6 vollständig behoben, 1 teilweise behoben, 5 mit begründeter Ausnahme/als Folgearbeit dokumentiert (kanonisch: `RISK_REGISTER.md`) |
 | RV.2 Ursachenanalyse statt Symptombehandlung | ✅ | Fixes adressieren die zugrunde liegende Race-Condition-Ursache (fehlende `changes`-Prüfung), nicht nur Symptome |
 | RV.3 Regressionstests für jede Behebung | ✅ | Neue Tests für AFF-001, AFF-003, AFF-006; bestehende Suite vollständig grün nachgewiesen |
 
