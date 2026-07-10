@@ -1,0 +1,58 @@
+name: Affiliate program validation
+
+on:
+  pull_request:
+    paths:
+      - "pro/website/**"
+      - "android/app/src/main/**"
+      - "tests/test_affiliate_program.py"
+      - ".github/workflows/affiliate-program.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  finance-and-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Create locked development environment
+        run: uv sync --extra dev
+      - name: Execute affiliate schema and security tests
+        run: uv run pytest tests/test_affiliate_program.py -v
+
+  cloudflare-functions:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pro/website
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: pro/website/package.json
+      - name: Parse all critical JavaScript modules
+        run: npm run check
+      - name: Test fixed commission schedule
+        run: npm test
+
+  android-referral-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile Android referral integration
+        working-directory: android
+        run: ./gradlew :app:compileDebugKotlin --stacktrace
