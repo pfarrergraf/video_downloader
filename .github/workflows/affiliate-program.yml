@@ -7,6 +7,7 @@ on:
       - "android/app/src/main/**"
       - "tests/test_affiliate_*.py"
       - ".github/workflows/affiliate-program.yml"
+      - ".github/workflows/deploy-pro-website.yml"
   workflow_dispatch:
 
 permissions:
@@ -22,8 +23,8 @@ jobs:
           enable-cache: true
       - name: Create development environment with uv
         run: uv sync --extra dev
-      - name: Execute affiliate schema, security, and secret tests
-        run: uv run pytest tests/test_affiliate_program.py tests/test_affiliate_no_secrets.py -v
+      - name: Execute affiliate schema, security, secret, and rollout tests
+        run: uv run pytest tests/test_affiliate_*.py -v
 
   cloudflare-functions:
     runs-on: ubuntu-latest
@@ -37,7 +38,7 @@ jobs:
           node-version: "22"
       - name: Parse every Cloudflare Function and browser module
         run: npm run check
-      - name: Test fixed commission schedule
+      - name: Test fixed commission schedule and rollout flags
         run: npm test
 
   android-referral-compile:
