@@ -4,7 +4,10 @@ import {
   prepareAffiliatePayout,
   runReconciliation,
 } from "../../_affiliate.js";
-import { requireIntegrityForPayout, runIntegrityGate } from "../../_affiliate_integrity.js";
+import {
+  requireLockedIntegrityForPayout,
+  runLockedIntegrityGate,
+} from "../../_affiliate_integrity_lock.js";
 
 export async function onRequestPost({ request, env }) {
   try {
@@ -16,12 +19,12 @@ export async function onRequestPost({ request, env }) {
 
     const actor = "system-payout-engine";
     await runReconciliation(env, actor);
-    await requireIntegrityForPayout(env, actor);
+    await requireLockedIntegrityForPayout(env, actor);
     const result = await prepareAffiliatePayout(env, affiliateId, actor);
     const httpStatus = typeof result.status === "number" ? result.status : 200;
     if (result.error) return jsonResponse(result, httpStatus);
 
-    const postCheck = await runIntegrityGate(env, actor);
+    const postCheck = await runLockedIntegrityGate(env, actor);
     if (postCheck.status !== "ok") {
       await env.DB.prepare(
         `UPDATE affiliate_payouts SET status = 'blocked', updated_at = ? WHERE id = ? AND status = 'prepared'`,
@@ -31,7 +34,7 @@ export async function onRequestPost({ request, env }) {
     return jsonResponse({ ...result, integrity_check_id: postCheck.id }, 200);
   } catch (error) {
     console.error("payout preparation failed", error);
-    const status = error.code === "payouts_frozen" ? 409 : 500;
+    const status = ["payouts_frozen", "integrity_check_busy"].includes(error.code) ? 409 : 500;
     return jsonResponse({
       error: error.code || "payout_preparation_failed",
       message: String(error?.message || error),
