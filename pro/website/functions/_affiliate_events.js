@@ -13,6 +13,17 @@ function objectId(value) {
   return typeof value === "string" ? value : value.id || null;
 }
 
+async function updateCheckoutStatusByPaymentIntent(env, paymentIntentId, status, now) {
+  if (!paymentIntentId) return;
+  await env.DB.prepare(
+    `UPDATE affiliate_checkout_intents
+        SET payment_status = ?, finalized_at = COALESCE(finalized_at, ?)
+      WHERE stripe_checkout_session_id IN (
+        SELECT stripe_checkout_session_id FROM licenses WHERE stripe_payment_intent_id = ?
+      )`,
+  ).bind(status, now, paymentIntentId).run();
+}
+
 export async function postProcessAffiliateCheckout(session, licenseKey, env) {
   if (!licenseKey) return { attributed: false, reason: "license missing" };
   const result = await handleAffiliateCheckoutPaid(session, licenseKey, env);
@@ -33,34 +44,32 @@ export async function postProcessAffiliateCheckout(session, licenseKey, env) {
   // commission row (which would otherwise look like a reconciliation defect).
   if (!commission && affiliate?.status !== "active") {
     const rejectedId = crypto.randomUUID();
-    await env.DB.batch([
-      env.DB.prepare(
-        `INSERT OR IGNORE INTO affiliate_commissions
-          (id, affiliate_id, license_key, stripe_checkout_session_id,
-           stripe_payment_intent_id, status, eligible_at, reversed_at,
-           reversal_reason, created_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, 'rejected', ?, ?, 'affiliate_not_active', ?, ?)`,
-      ).bind(
-        rejectedId,
-        result.affiliate_id,
-        licenseKey,
-        session.id,
-        paymentIntentId,
-        now,
-        now,
-        now,
-        now,
-      ),
-      env.DB.prepare(
-        `UPDATE licenses
-            SET affiliate_commission_id = COALESCE(affiliate_commission_id, ?), updated_at = ?
-          WHERE license_key = ?`,
-      ).bind(rejectedId, now, licenseKey),
-    ]);
+    await env.DB.prepare(
+      `INSERT OR IGNORE INTO affiliate_commissions
+        (id, affiliate_id, license_key, stripe_checkout_session_id,
+         stripe_payment_intent_id, status, eligible_at, reversed_at,
+         reversal_reason, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, 'rejected', ?, ?, 'affiliate_not_active', ?, ?)`,
+    ).bind(
+      rejectedId,
+      result.affiliate_id,
+      licenseKey,
+      session.id,
+      paymentIntentId,
+      now,
+      now,
+      now,
+      now,
+    ).run();
     commission = await env.DB.prepare(
       `SELECT id, status FROM affiliate_commissions WHERE stripe_checkout_session_id = ?`,
     ).bind(session.id).first();
     if (commission) {
+      await env.DB.prepare(
+        `UPDATE licenses
+            SET affiliate_commission_id = COALESCE(affiliate_commission_id, ?), updated_at = ?
+          WHERE license_key = ?`,
+      ).bind(commission.id, now, licenseKey).run();
       await appendAudit(env, "system", "inactive_partner_conversion_rejected", "commission", commission.id, {
         checkout_session_id: session.id,
         affiliate_status: affiliate?.status || "missing",
@@ -91,6 +100,12 @@ export async function postProcessAffiliateCheckout(session, licenseKey, env) {
 }
 
 export async function handleAffiliatePaymentFailure(session, env) {
+  const now = nowSeconds();
+  await env.DB.prepare(
+    `UPDATE affiliate_checkout_intents
+        SET payment_status = 'failed', finalized_at = COALESCE(finalized_at, ?)
+      WHERE stripe_checkout_session_id = ?`,
+  ).bind(now, session.id).run();
   return reverseCommission(env, {
     sessionId: session.id,
     paymentIntentId: objectId(session.payment_intent),
@@ -99,15 +114,33 @@ export async function handleAffiliatePaymentFailure(session, env) {
 }
 
 export async function handleAffiliateChargeRefunded(charge, env) {
+  const paymentIntentId = objectId(charge.payment_intent);
+  const now = nowSeconds();
+  const fullyRefunded = charge.refunded === true ||
+    (Number(charge.amount_refunded || 0) >= Number(charge.amount || 0) && Number(charge.amount || 0) > 0);
+  if (paymentIntentId) {
+    await updateCheckoutStatusByPaymentIntent(env, paymentIntentId, fullyRefunded ? "refunded" : "paid", now);
+    if (fullyRefunded) {
+      await env.DB.prepare(
+        `UPDATE licenses SET status = 'canceled', updated_at = ?
+          WHERE stripe_payment_intent_id = ? AND status <> 'canceled'`,
+      ).bind(now, paymentIntentId).run();
+    }
+  }
+  // Any refund removes the affiliate reward. A partial goodwill refund may
+  // leave the customer's license active, but it never funds a full commission.
   return reverseCommission(env, {
-    paymentIntentId: objectId(charge.payment_intent),
-    reason: "stripe_refunded",
+    paymentIntentId,
+    reason: fullyRefunded ? "stripe_refunded" : "stripe_partially_refunded",
   });
 }
 
 export async function handleAffiliateDisputeCreated(dispute, env) {
+  const paymentIntentId = objectId(dispute.payment_intent);
+  const now = nowSeconds();
+  await updateCheckoutStatusByPaymentIntent(env, paymentIntentId, "disputed", now);
   return reverseCommission(env, {
-    paymentIntentId: objectId(dispute.payment_intent),
+    paymentIntentId,
     reason: "stripe_dispute",
   });
 }
@@ -115,10 +148,13 @@ export async function handleAffiliateDisputeCreated(dispute, env) {
 export async function handleAffiliateDisputeClosed(dispute, env) {
   const paymentIntentId = objectId(dispute.payment_intent);
   if (!paymentIntentId) return { restored: false, reason: "missing payment intent" };
+  const now = nowSeconds();
   if (dispute.status !== "won") {
+    await updateCheckoutStatusByPaymentIntent(env, paymentIntentId, "disputed", now);
     return reverseCommission(env, { paymentIntentId, reason: `stripe_dispute_${dispute.status || "lost"}` });
   }
 
+  await updateCheckoutStatusByPaymentIntent(env, paymentIntentId, "paid", now);
   const commission = await env.DB.prepare(
     `SELECT * FROM affiliate_commissions WHERE stripe_payment_intent_id = ? LIMIT 1`,
   ).bind(paymentIntentId).first();
@@ -126,7 +162,6 @@ export async function handleAffiliateDisputeClosed(dispute, env) {
     return { restored: false, reason: "no reversible disputed commission" };
   }
 
-  const now = nowSeconds();
   if (!commission.qualified_sale_number || !commission.commission_cents) {
     await env.DB.prepare(
       `UPDATE affiliate_commissions
