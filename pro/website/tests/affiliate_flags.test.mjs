@@ -17,6 +17,9 @@ function readyEnv(overrides = {}) {
     RESEND_API_KEY: "resend-secret",
     PARTNER_FROM_EMAIL: "DownloadThat <partner@example.test>",
     REFERRAL_HASH_SALT: "01234567890123456789012345678901",
+    STRIPE_SECRET_KEY: "stripe-secret",
+    STRIPE_WEBHOOK_SECRET: "stripe-webhook-secret",
+    STRIPE_PRICE_ID: "price_test",
     ...overrides,
   };
 }
@@ -28,9 +31,12 @@ test("registration can be enabled while checkout remains disabled", () => {
   assert.equal(affiliateCheckoutEnabled(env), false);
 });
 
-test("checkout requires its own explicit true flag", () => {
+test("checkout requires its own explicit true flag and complete Stripe configuration", () => {
   assert.equal(affiliateCheckoutEnabled(readyEnv({ AFFILIATE_CHECKOUT_ENABLED: "true" })), true);
   assert.equal(affiliateCheckoutEnabled(readyEnv({ AFFILIATE_REGISTRATION_ENABLED: "false", AFFILIATE_CHECKOUT_ENABLED: "true" })), false);
+  for (const key of ["STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "STRIPE_PRICE_ID"]) {
+    assert.equal(affiliateCheckoutEnabled(readyEnv({ AFFILIATE_CHECKOUT_ENABLED: "true", [key]: "" })), false, key);
+  }
 });
 
 test("registration fails closed when a required dependency is missing", () => {
