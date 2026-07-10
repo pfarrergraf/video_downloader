@@ -1,6 +1,7 @@
 import {
   PARTNER_TERMS_VERSION,
   affiliateProgramEnabled,
+  checkAffiliateRateLimit,
   issuePartnerToken,
   isReservedPartnerCode,
   jsonResponse,
@@ -17,6 +18,11 @@ function validEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 254;
 }
 
+// Bounds registration spam / reserved-code and taken-slug enumeration from a
+// single IP; Turnstile alone doesn't rate-limit a slow or CAPTCHA-farmed actor.
+const RATE_LIMIT_WINDOW_SECONDS = 60 * 60;
+const RATE_LIMIT_MAX_ATTEMPTS = 10;
+
 export async function onRequestPost({ request, env }) {
   try {
     if (!affiliateProgramEnabled(env) || !env.DB) return jsonResponse({ error: "not_found" }, 404);
@@ -24,6 +30,15 @@ export async function onRequestPost({ request, env }) {
     if (!(await verifyTurnstile(body.turnstile_token, request, env))) {
       return jsonResponse({ error: "human_verification_failed" }, 400);
     }
+    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+    const allowed = await checkAffiliateRateLimit(
+      env,
+      "partner_register",
+      ip,
+      RATE_LIMIT_WINDOW_SECONDS,
+      RATE_LIMIT_MAX_ATTEMPTS,
+    );
+    if (!allowed) return jsonResponse({ error: "rate_limited" }, 429);
 
     const email = normalizeEmail(body.email);
     const displayName = String(body.display_name || "").trim().slice(0, 100);
