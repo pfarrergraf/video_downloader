@@ -5,7 +5,10 @@ import {
   normalizeEmail,
   runReconciliation,
 } from "../../_affiliate.js";
-import { requireIntegrityForPayout, runIntegrityGate } from "../../_affiliate_integrity.js";
+import {
+  requireLockedIntegrityForPayout,
+  runLockedIntegrityGate,
+} from "../../_affiliate_integrity_lock.js";
 
 export async function onRequestPost({ request, env }) {
   try {
@@ -18,12 +21,12 @@ export async function onRequestPost({ request, env }) {
     const actor = `admin:${normalizeEmail(env.AFFILIATE_ADMIN_EMAIL)}`;
 
     await runReconciliation(env, actor);
-    await requireIntegrityForPayout(env, actor);
+    await requireLockedIntegrityForPayout(env, actor);
     const result = await markAffiliatePayoutPaid(env, payoutId, actor, externalReference);
     const httpStatus = typeof result.status === "number" ? result.status : 200;
     if (result.error) return jsonResponse(result, httpStatus);
 
-    const postCheck = await runIntegrityGate(env, actor);
+    const postCheck = await runLockedIntegrityGate(env, actor);
     if (postCheck.status !== "ok") {
       return jsonResponse({
         error: "post_settlement_integrity_failure",
@@ -34,7 +37,7 @@ export async function onRequestPost({ request, env }) {
     return jsonResponse({ ...result, integrity_check_id: postCheck.id }, 200);
   } catch (error) {
     console.error("payout settlement failed", error);
-    const status = error.code === "payouts_frozen" ? 409 : 500;
+    const status = ["payouts_frozen", "integrity_check_busy"].includes(error.code) ? 409 : 500;
     return jsonResponse({
       error: error.code || "payout_settlement_failed",
       message: String(error?.message || error),
