@@ -18,16 +18,60 @@ export async function postProcessAffiliateCheckout(session, licenseKey, env) {
   const result = await handleAffiliateCheckoutPaid(session, licenseKey, env);
   if (!result.attributed) return result;
 
-  const buyerEmail = normalizeEmail(session.customer_details?.email || session.customer_email || "");
-  const affiliate = await env.DB.prepare(`SELECT email FROM affiliates WHERE id = ?`)
+  const now = nowSeconds();
+  const paymentIntentId = objectId(session.payment_intent);
+  const affiliate = await env.DB.prepare(`SELECT email, status FROM affiliates WHERE id = ?`)
     .bind(result.affiliate_id)
     .first();
+  let commission = await env.DB.prepare(
+    `SELECT id, status FROM affiliate_commissions WHERE stripe_checkout_session_id = ?`,
+  ).bind(session.id).first();
+
+  // A partner can be suspended after the customer opened Checkout but before
+  // Stripe confirms payment. Keep the conversion trail complete, but make it
+  // explicitly non-payable instead of leaving a license without a matching
+  // commission row (which would otherwise look like a reconciliation defect).
+  if (!commission && affiliate?.status !== "active") {
+    const rejectedId = crypto.randomUUID();
+    await env.DB.batch([
+      env.DB.prepare(
+        `INSERT OR IGNORE INTO affiliate_commissions
+          (id, affiliate_id, license_key, stripe_checkout_session_id,
+           stripe_payment_intent_id, status, eligible_at, reversed_at,
+           reversal_reason, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, 'rejected', ?, ?, 'affiliate_not_active', ?, ?)`,
+      ).bind(
+        rejectedId,
+        result.affiliate_id,
+        licenseKey,
+        session.id,
+        paymentIntentId,
+        now,
+        now,
+        now,
+        now,
+      ),
+      env.DB.prepare(
+        `UPDATE licenses
+            SET affiliate_commission_id = COALESCE(affiliate_commission_id, ?), updated_at = ?
+          WHERE license_key = ?`,
+      ).bind(rejectedId, now, licenseKey),
+    ]);
+    commission = await env.DB.prepare(
+      `SELECT id, status FROM affiliate_commissions WHERE stripe_checkout_session_id = ?`,
+    ).bind(session.id).first();
+    if (commission) {
+      await appendAudit(env, "system", "inactive_partner_conversion_rejected", "commission", commission.id, {
+        checkout_session_id: session.id,
+        affiliate_status: affiliate?.status || "missing",
+      });
+    }
+    return { attributed: true, rejected: true, reason: "affiliate_not_active" };
+  }
+
+  const buyerEmail = normalizeEmail(session.customer_details?.email || session.customer_email || "");
   if (!buyerEmail || normalizeEmail(affiliate?.email) !== buyerEmail) return result;
 
-  const now = nowSeconds();
-  const commission = await env.DB.prepare(
-    `SELECT id FROM affiliate_commissions WHERE stripe_checkout_session_id = ?`,
-  ).bind(session.id).first();
   if (commission) {
     await env.DB.batch([
       env.DB.prepare(
