@@ -1,21 +1,8 @@
 name: Deploy Pro website to Cloudflare Pages
 
-# Runs entirely on GitHub's own runners, which have normal internet access —
-# unlike the Claude Code sessions that authored this repo's code, whose
-# network egress is policy-blocked from reaching api.cloudflare.com
-# (confirmed directly, see memory.md). This is the actual deploy mechanism:
-# push code -> this workflow ships it -> no wrangler CLI needed on anyone's
-# phone/laptop, no dashboard clicking after the one-time secrets setup below.
-#
-# One-time setup (repo Settings -> Secrets and variables -> Actions):
-#   CLOUDFLARE_API_TOKEN   - Cloudflare dashboard -> My Profile -> API Tokens
-#                            -> Create Token -> template "Edit Cloudflare Workers"
-#   CLOUDFLARE_ACCOUNT_ID  - Cloudflare dashboard right sidebar on any page
-#   STRIPE_SECRET_KEY      - Stripe dashboard -> Developers -> API keys (sk_test_...)
-#   STRIPE_WEBHOOK_SECRET  - only exists AFTER the first deploy (need the URL to
-#                            create the Stripe webhook first) - add this one later,
-#                            then re-run this workflow manually (workflow_dispatch)
-#                            or push again.
+# Pushes to master deploy the public site. Affiliate registration is enabled only
+# when all required non-payment secrets are present. Checkout remains explicitly
+# disabled until the owner changes AFFILIATE_CHECKOUT_ENABLED in a separate step.
 on:
   push:
     branches: ["claude/gothic-downloader-website-bp7r2u", "master"]
@@ -24,33 +11,110 @@ on:
       - ".github/workflows/deploy-pro-website.yml"
   workflow_dispatch: {}
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # GitHub Actions doesn't allow the `secrets` context directly inside a
-    # step's `if:` condition ("Unrecognized named-value: 'secrets'") - this
-    # is a documented platform limitation, not a typo. The fix is to mirror
-    # the two optional secrets into job-level env first, then check `env.X`
-    # in `if:` instead - env IS allowed there.
     env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
       STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+      STRIPE_PRICE_ID: ${{ secrets.STRIPE_PRICE_ID }}
+      TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+      TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      PARTNER_FROM_EMAIL: ${{ secrets.PARTNER_FROM_EMAIL }}
+      REFERRAL_HASH_SALT: ${{ secrets.REFERRAL_HASH_SALT }}
+      AFFILIATE_ADMIN_EMAIL: ${{ secrets.AFFILIATE_ADMIN_EMAIL }}
+      ANDROID_CERT_SHA256: ${{ secrets.ANDROID_CERT_SHA256 }}
     steps:
       - uses: actions/checkout@v4
 
-      # `wrangler pages deploy` needs the project to already exist - it can't
-      # create one non-interactively (unlike some older wrangler versions'
-      # `pages publish`). continue-on-error so subsequent runs, where the
-      # project already exists, aren't marked failed just because this
-      # command errors on the "already exists" case.
+      - name: Require Cloudflare deployment credentials
+        shell: bash
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN is missing"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "CLOUDFLARE_ACCOUNT_ID is missing"; exit 1; }
+
       - name: Ensure Cloudflare Pages project exists
         continue-on-error: true
+        working-directory: pro/website
         run: npx -y wrangler@3 pages project create downloadthat --production-branch=master
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Deploy static site + Functions to Cloudflare Pages
+      - name: Export D1 backup before affiliate migrations
+        working-directory: pro/website
+        run: npx -y wrangler@3 d1 export downloadthat-licenses --remote --output=../../downloadthat-licenses-before-affiliate.sql
+
+      - name: Upload pre-migration D1 backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: downloadthat-licenses-before-affiliate-${{ github.run_id }}
+          path: downloadthat-licenses-before-affiliate.sql
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Apply tested D1 migrations
+        working-directory: pro/website
+        run: npx -y wrangler@3 d1 migrations apply downloadthat-licenses --remote
+
+      - name: Set safe affiliate rollout flags
+        working-directory: pro/website
+        shell: bash
+        run: |
+          printf '%s' 'true' | npx -y wrangler@3 pages secret put AFFILIATE_PROGRAM_ENABLED --project-name=downloadthat
+          printf '%s' 'true' | npx -y wrangler@3 pages secret put AFFILIATE_REGISTRATION_ENABLED --project-name=downloadthat
+          printf '%s' 'false' | npx -y wrangler@3 pages secret put AFFILIATE_CHECKOUT_ENABLED --project-name=downloadthat
+          printf '%s' 'production' | npx -y wrangler@3 pages secret put ENVIRONMENT --project-name=downloadthat
+          printf '%s' 'https://downloadthat.gaistreich.com' | npx -y wrangler@3 pages secret put PUBLIC_BASE_URL --project-name=downloadthat
+
+      - name: Set optional partner registration secrets
+        if: ${{ env.TURNSTILE_SECRET_KEY != '' && env.TURNSTILE_SITE_KEY != '' && env.RESEND_API_KEY != '' && env.PARTNER_FROM_EMAIL != '' && env.REFERRAL_HASH_SALT != '' }}
+        working-directory: pro/website
+        shell: bash
+        run: |
+          printf '%s' "$TURNSTILE_SECRET_KEY" | npx -y wrangler@3 pages secret put TURNSTILE_SECRET_KEY --project-name=downloadthat
+          printf '%s' "$TURNSTILE_SITE_KEY" | npx -y wrangler@3 pages secret put TURNSTILE_SITE_KEY --project-name=downloadthat
+          printf '%s' "$RESEND_API_KEY" | npx -y wrangler@3 pages secret put RESEND_API_KEY --project-name=downloadthat
+          printf '%s' "$PARTNER_FROM_EMAIL" | npx -y wrangler@3 pages secret put PARTNER_FROM_EMAIL --project-name=downloadthat
+          printf '%s' "$REFERRAL_HASH_SALT" | npx -y wrangler@3 pages secret put REFERRAL_HASH_SALT --project-name=downloadthat
+
+      - name: Report missing registration prerequisites
+        if: ${{ env.TURNSTILE_SECRET_KEY == '' || env.TURNSTILE_SITE_KEY == '' || env.RESEND_API_KEY == '' || env.PARTNER_FROM_EMAIL == '' || env.REFERRAL_HASH_SALT == '' }}
+        shell: bash
+        run: |
+          echo "::warning::Partner pages will be public, but registration remains fail-closed until TURNSTILE_SECRET_KEY, TURNSTILE_SITE_KEY, RESEND_API_KEY, PARTNER_FROM_EMAIL, and REFERRAL_HASH_SALT are configured as GitHub Actions secrets and this workflow is rerun."
+
+      - name: Set optional affiliate administration and Android values
+        if: ${{ env.AFFILIATE_ADMIN_EMAIL != '' || env.ANDROID_CERT_SHA256 != '' }}
+        working-directory: pro/website
+        shell: bash
+        run: |
+          if [ -n "$AFFILIATE_ADMIN_EMAIL" ]; then
+            printf '%s' "$AFFILIATE_ADMIN_EMAIL" | npx -y wrangler@3 pages secret put AFFILIATE_ADMIN_EMAIL --project-name=downloadthat
+          fi
+          if [ -n "$ANDROID_CERT_SHA256" ]; then
+            printf '%s' "$ANDROID_CERT_SHA256" | npx -y wrangler@3 pages secret put ANDROID_CERT_SHA256 --project-name=downloadthat
+          fi
+
+      - name: Preserve existing Stripe configuration without enabling checkout
+        if: ${{ env.STRIPE_SECRET_KEY != '' || env.STRIPE_WEBHOOK_SECRET != '' || env.STRIPE_PRICE_ID != '' }}
+        working-directory: pro/website
+        shell: bash
+        run: |
+          if [ -n "$STRIPE_SECRET_KEY" ]; then
+            printf '%s' "$STRIPE_SECRET_KEY" | npx -y wrangler@3 pages secret put STRIPE_SECRET_KEY --project-name=downloadthat
+          fi
+          if [ -n "$STRIPE_WEBHOOK_SECRET" ]; then
+            printf '%s' "$STRIPE_WEBHOOK_SECRET" | npx -y wrangler@3 pages secret put STRIPE_WEBHOOK_SECRET --project-name=downloadthat
+          fi
+          if [ -n "$STRIPE_PRICE_ID" ]; then
+            printf '%s' "$STRIPE_PRICE_ID" | npx -y wrangler@3 pages secret put STRIPE_PRICE_ID --project-name=downloadthat
+          fi
+
+      - name: Deploy static site and Functions to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -58,20 +122,21 @@ jobs:
           workingDirectory: pro/website
           command: pages deploy . --project-name=downloadthat
 
-      - name: Set STRIPE_SECRET_KEY on the Pages project
-        if: ${{ env.STRIPE_SECRET_KEY != '' }}
-        run: echo "$STRIPE_SECRET_KEY" | npx wrangler pages secret put STRIPE_SECRET_KEY --project-name=downloadthat
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      # Doesn't exist until the Stripe webhook has been created (needs this
-      # deploy's URL first) - continue-on-error so the first run isn't marked
-      # failed just because this secret isn't set up yet.
-      - name: Set STRIPE_WEBHOOK_SECRET on the Pages project
-        if: ${{ env.STRIPE_WEBHOOK_SECRET != '' }}
-        continue-on-error: true
-        run: echo "$STRIPE_WEBHOOK_SECRET" | npx wrangler pages secret put STRIPE_WEBHOOK_SECRET --project-name=downloadthat
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Verify public registration mode and payment lock
+        shell: bash
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            response="$(curl --fail --silent --show-error https://downloadthat.pages.dev/api/partner/config || true)"
+            if [ -n "$response" ]; then
+              echo "$response"
+              RESPONSE="$response" node -e '
+                const config = JSON.parse(process.env.RESPONSE);
+                if (config.checkout_enabled !== false) throw new Error("checkout must remain disabled");
+                if (config.registration_enabled !== true) throw new Error("registration flag was not enabled");
+              '
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Public config endpoint did not become reachable" >&2
+          exit 1
