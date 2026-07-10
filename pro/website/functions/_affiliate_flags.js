@@ -20,5 +20,11 @@ export function affiliateRegistrationReady(env) {
 }
 
 export function affiliateCheckoutEnabled(env) {
-  return affiliateRegistrationEnabled(env) && enabled(env.AFFILIATE_CHECKOUT_ENABLED);
+  return Boolean(
+    affiliateRegistrationReady(env)
+      && enabled(env.AFFILIATE_CHECKOUT_ENABLED)
+      && env.STRIPE_SECRET_KEY
+      && env.STRIPE_WEBHOOK_SECRET
+      && env.STRIPE_PRICE_ID,
+  );
 }
