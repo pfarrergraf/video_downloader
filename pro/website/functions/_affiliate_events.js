@@ -31,16 +31,38 @@ export async function postProcessAffiliateCheckout(session, licenseKey, env) {
 
   const now = nowSeconds();
   const paymentIntentId = objectId(session.payment_intent);
+
   // Stripe sends checkout.session.completed before delayed payment methods such
-  // as SEPA have actually cleared. The shared creation helper must still attach
-  // the license and attribution, but this row must not claim money was received
-  // until async_payment_succeeded arrives.
+  // as SEPA have actually cleared. Keep license attribution, but remove the
+  // helper's provisional commission row. async_payment_succeeded will call this
+  // function again and create the real 30-day commission only after money exists.
   if (session.payment_status !== "paid") {
-    await env.DB.prepare(
-      `UPDATE affiliate_checkout_intents
-          SET payment_status = 'created', finalized_at = NULL
-        WHERE stripe_checkout_session_id = ?`,
-    ).bind(session.id).run();
+    const draft = await env.DB.prepare(
+      `SELECT id FROM affiliate_commissions
+        WHERE stripe_checkout_session_id = ? AND qualified_sale_number IS NULL
+          AND settled_cents = 0 LIMIT 1`,
+    ).bind(session.id).first();
+    const statements = [
+      env.DB.prepare(
+        `UPDATE affiliate_checkout_intents
+            SET payment_status = 'created', finalized_at = NULL
+          WHERE stripe_checkout_session_id = ?`,
+      ).bind(session.id),
+    ];
+    if (draft) {
+      statements.push(
+        env.DB.prepare(
+          `UPDATE licenses SET affiliate_commission_id = NULL, updated_at = ?
+            WHERE license_key = ?`,
+        ).bind(now, licenseKey),
+        env.DB.prepare(
+          `DELETE FROM affiliate_commissions
+            WHERE id = ? AND qualified_sale_number IS NULL AND settled_cents = 0`,
+        ).bind(draft.id),
+      );
+    }
+    await env.DB.batch(statements);
+    return { attributed: true, awaiting_payment: true, affiliate_id: result.affiliate_id };
   }
 
   const affiliate = await env.DB.prepare(`SELECT email, status FROM affiliates WHERE id = ?`)
@@ -128,9 +150,7 @@ export async function handleAffiliatePaymentFailure(session, env) {
     reason: "stripe_async_payment_failed",
   });
 
-  // A delayed payment which never cleared was never a paid affiliate sale.
-  // Preserve its immutable audit event, but remove the non-financial draft row
-  // so paid-session reconciliation is not permanently distorted.
+  // Defensive cleanup for legacy/staged rows created before the paid-only rule.
   if (commission && !commission.qualified_sale_number && Number(commission.settled_cents || 0) === 0) {
     await env.DB.batch([
       env.DB.prepare(
