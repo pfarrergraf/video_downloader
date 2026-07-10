@@ -1,9 +1,19 @@
-import { affiliateProgramEnabled, jsonResponse } from "../../_affiliate.js";
+import { jsonResponse } from "../../_affiliate.js";
+import {
+  affiliateCheckoutEnabled,
+  affiliateRegistrationEnabled,
+  affiliateRegistrationReady,
+} from "../../_affiliate_flags.js";
 
 export async function onRequestGet({ env }) {
+  const registrationEnabled = affiliateRegistrationEnabled(env);
+  const registrationReady = affiliateRegistrationReady(env);
   return jsonResponse({
-    enabled: affiliateProgramEnabled(env),
-    turnstile_site_key: env.TURNSTILE_SITE_KEY || null,
+    enabled: registrationReady,
+    registration_enabled: registrationEnabled,
+    registration_ready: registrationReady,
+    checkout_enabled: affiliateCheckoutEnabled(env),
+    turnstile_site_key: registrationReady ? env.TURNSTILE_SITE_KEY : null,
     payout_minimum_cents: 5000,
     attribution_days: 180,
     review_days: 30,
