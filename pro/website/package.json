@@ -1,0 +1,9 @@
+{
+  "name": "downloadthat-affiliate-functions",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check functions/_affiliate.js && node --check functions/_affiliate_integrity.js && node --check functions/_affiliate_events.js && node --check affiliate-site.js"
+  }
+}
