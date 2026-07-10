@@ -31,6 +31,18 @@ export async function postProcessAffiliateCheckout(session, licenseKey, env) {
 
   const now = nowSeconds();
   const paymentIntentId = objectId(session.payment_intent);
+  // Stripe sends checkout.session.completed before delayed payment methods such
+  // as SEPA have actually cleared. The shared creation helper must still attach
+  // the license and attribution, but this row must not claim money was received
+  // until async_payment_succeeded arrives.
+  if (session.payment_status !== "paid") {
+    await env.DB.prepare(
+      `UPDATE affiliate_checkout_intents
+          SET payment_status = 'created', finalized_at = NULL
+        WHERE stripe_checkout_session_id = ?`,
+    ).bind(session.id).run();
+  }
+
   const affiliate = await env.DB.prepare(`SELECT email, status FROM affiliates WHERE id = ?`)
     .bind(result.affiliate_id)
     .first();
@@ -101,16 +113,38 @@ export async function postProcessAffiliateCheckout(session, licenseKey, env) {
 
 export async function handleAffiliatePaymentFailure(session, env) {
   const now = nowSeconds();
+  const commission = await env.DB.prepare(
+    `SELECT id, qualified_sale_number, settled_cents
+       FROM affiliate_commissions WHERE stripe_checkout_session_id = ? LIMIT 1`,
+  ).bind(session.id).first();
   await env.DB.prepare(
     `UPDATE affiliate_checkout_intents
         SET payment_status = 'failed', finalized_at = COALESCE(finalized_at, ?)
       WHERE stripe_checkout_session_id = ?`,
   ).bind(now, session.id).run();
-  return reverseCommission(env, {
+  const result = await reverseCommission(env, {
     sessionId: session.id,
     paymentIntentId: objectId(session.payment_intent),
     reason: "stripe_async_payment_failed",
   });
+
+  // A delayed payment which never cleared was never a paid affiliate sale.
+  // Preserve its immutable audit event, but remove the non-financial draft row
+  // so paid-session reconciliation is not permanently distorted.
+  if (commission && !commission.qualified_sale_number && Number(commission.settled_cents || 0) === 0) {
+    await env.DB.batch([
+      env.DB.prepare(
+        `UPDATE licenses SET affiliate_commission_id = NULL, updated_at = ?
+          WHERE stripe_checkout_session_id = ?`,
+      ).bind(now, session.id),
+      env.DB.prepare(
+        `DELETE FROM affiliate_commissions
+          WHERE id = ? AND qualified_sale_number IS NULL AND settled_cents = 0`,
+      ).bind(commission.id),
+    ]);
+    return { ...result, unpaid_draft_removed: true };
+  }
+  return result;
 }
 
 export async function handleAffiliateChargeRefunded(charge, env) {
