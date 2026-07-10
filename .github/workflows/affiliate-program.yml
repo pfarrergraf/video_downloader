@@ -66,3 +66,11 @@ jobs:
             exit "$status"
           fi
           tail -n 40 affiliate-android-build.log
+      - name: Upload Android compile log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: affiliate-android-build-log
+          path: android/affiliate-android-build.log
+          if-no-files-found: error
+          retention-days: 7
