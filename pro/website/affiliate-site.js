@@ -33,9 +33,14 @@
     modalCard.insertBefore(wrapper, firstChoice);
   }
 
-  async function startCheckout(event, choice, config) {
+  function blockCheckout(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    alert("Die Bezahlung ist noch nicht freigeschaltet. Das Partnerprogramm kann bereits getestet werden; die Kauf-Freigabe folgt separat.");
+  }
+
+  async function startCheckout(event, choice) {
     const anchor = event.currentTarget;
-    const fallback = anchor.href;
     event.preventDefault();
     event.stopImmediatePropagation();
     anchor.setAttribute("aria-busy", "true");
@@ -52,10 +57,6 @@
           partner_code: document.getElementById("checkout-partner-code")?.value || "",
         }),
       });
-      if (response.status === 404 && !config.enabled) {
-        location.href = fallback;
-        return;
-      }
       const data = await response.json();
       if (!response.ok || !data.url) throw new Error(data.error || "checkout_failed");
       location.href = data.url;
@@ -71,13 +72,19 @@
   async function init() {
     const config = await fetch("/api/partner/config", { cache: "no-store" })
       .then((response) => response.json())
-      .catch(() => ({ enabled: false }));
-    if (!config.enabled) return;
-    addPartnerCodeField();
+      .catch(() => ({ checkout_enabled: false }));
     const waived = document.getElementById("checkout-waive-btn");
     const wait = document.getElementById("checkout-wait-btn");
-    waived?.addEventListener("click", (event) => startCheckout(event, "waived", config), true);
-    wait?.addEventListener("click", (event) => startCheckout(event, "wait14", config), true);
+
+    if (!config.checkout_enabled) {
+      waived?.addEventListener("click", blockCheckout, true);
+      wait?.addEventListener("click", blockCheckout, true);
+      return;
+    }
+
+    addPartnerCodeField();
+    waived?.addEventListener("click", (event) => startCheckout(event, "waived"), true);
+    wait?.addEventListener("click", (event) => startCheckout(event, "wait14"), true);
 
     const params = new URLSearchParams(location.search);
     if (params.get("buy") === "1") {
