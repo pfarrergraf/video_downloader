@@ -55,6 +55,12 @@ object AffiliateReferral {
             return original
         }
 
-        return Uri.parse("https://downloadthat.pages.dev/p/$slug?buy=1")
+        return Uri.Builder()
+            .scheme("https")
+            .authority(host)
+            .appendPath("p")
+            .appendPath(slug)
+            .appendQueryParameter("buy", "1")
+            .build()
     }
 }
