@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DownloadThat Partnerprogramm</title>
+<meta name="description" content="Als Creator, Influencer oder Publisher DownloadThat empfehlen und pro bestätigtem Lizenzkauf 2 bis 4 Euro verdienen." />
+<style>
+:root{--bg:#0e0c14;--panel:#1b1626;--border:#2c2438;--text:#f1ede4;--dim:#aaa1b4;--accent:#c9a869;--ok:#7cbf7c;--bad:#e37c7c}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}.wrap{max-width:980px;margin:auto;padding:24px}.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}.nav a{color:var(--accent);text-decoration:none}.hero{padding:54px 0 32px;text-align:center}.hero h1{font-size:clamp(2rem,6vw,3.6rem);margin:0 0 14px}.hero p{color:var(--dim);max-width:700px;margin:auto;font-size:1.08rem}.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:34px 0}.tier,.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:22px}.tier strong{display:block;font-size:1.7rem;color:var(--accent)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}.card h2{margin-top:0}.muted{color:var(--dim)}label{display:block;margin:13px 0 5px;color:var(--dim);font-size:.9rem}input,select,textarea{width:100%;background:#110e18;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:12px;font:inherit}textarea{min-height:90px}.check{display:flex;gap:9px;align-items:flex-start;margin-top:14px}.check input{width:auto;margin-top:5px}.btn{display:inline-block;width:100%;border:0;border-radius:10px;padding:13px 18px;margin-top:18px;background:var(--accent);color:#15111b;font-weight:700;cursor:pointer}.btn:disabled{opacity:.5}.msg{min-height:24px;margin-top:12px}.ok{color:var(--ok)}.bad{color:var(--bad)}footer{padding:50px 0;color:var(--dim);text-align:center;font-size:.85rem}a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="nav"><a href="/">← DownloadThat</a><a href="#login">Partner-Login</a></div>
+  <section class="hero">
+    <h1>DownloadThat Partnerprogramm</h1>
+    <p>Für Creator, Influencer, Publisher und Technik-Communities. Empfiehl die kostenlose App und verdiene bei jedem bestätigten Pro-Lizenzkauf.</p>
+  </section>
+
+  <div class="tiers" aria-label="Provisionsstaffel">
+    <div class="tier"><strong>2,00 €</strong><span>Verkauf 1–10</span></div>
+    <div class="tier"><strong>2,50 €</strong><span>Verkauf 11–50</span></div>
+    <div class="tier"><strong>3,00 €</strong><span>Verkauf 51–100</span></div>
+    <div class="tier"><strong>3,50 €</strong><span>Verkauf 101–500</span></div>
+    <div class="tier"><strong>4,00 €</strong><span>ab Verkauf 501</span></div>
+  </div>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Partner werden</h2>
+      <p class="muted">Nach der E-Mail-Bestätigung erhältst du sofort deinen persönlichen Partnerlink und Partnercode. Provisionen werden 30 Tage geprüft und monatlich ab 50 € ausgezahlt.</p>
+      <form id="register-form">
+        <label for="display-name">Öffentlicher Creator-Name</label><input id="display-name" required maxlength="100" />
+        <label for="legal-name">Vollständiger Name / Firma</label><input id="legal-name" required maxlength="160" />
+        <label for="email">E-Mail-Adresse</label><input id="email" type="email" required autocomplete="email" />
+        <label for="country">Land</label><input id="country" value="DE" required maxlength="2" />
+        <label for="website">Website</label><input id="website" type="url" placeholder="https://…" />
+        <label for="channels">Social-Media-Kanäle, durch Komma getrennt</label><textarea id="channels" placeholder="YouTube: https://…, TikTok: https://…"></textarea>
+        <label for="code">Gewünschter Partnercode</label><input id="code" required minlength="3" maxlength="32" placeholder="TECHNIKMAX" />
+        <div class="check"><input id="adult" type="checkbox" required /><label for="adult">Ich bin mindestens 18 Jahre alt.</label></div>
+        <div class="check"><input id="terms" type="checkbox" required /><label for="terms">Ich akzeptiere die <a href="/partnerbedingungen.html" target="_blank">Partnerbedingungen</a> und die <a href="/datenschutz.html" target="_blank">Datenschutzerklärung</a>.</label></div>
+        <div id="register-turnstile"></div>
+        <button class="btn" type="submit">Partnerkonto erstellen</button>
+        <div class="msg" id="register-msg" role="status"></div>
+      </form>
+    </section>
+
+    <section class="card" id="login">
+      <h2>Partner-Login</h2>
+      <p class="muted">Du erhältst einen einmaligen, 20 Minuten gültigen Anmeldelink per E-Mail. Es gibt kein Passwort.</p>
+      <form id="login-form">
+        <label for="login-email">E-Mail-Adresse</label><input id="login-email" type="email" required autocomplete="email" />
+        <div id="login-turnstile"></div>
+        <button class="btn" type="submit">Anmeldelink senden</button>
+        <div class="msg" id="login-msg" role="status"></div>
+      </form>
+      <hr style="border:0;border-top:1px solid var(--border);margin:30px 0" />
+      <h2>Transparente Regeln</h2>
+      <p class="muted">180 Tage Zuordnung, letzter gültiger Partnerkontakt. Rückerstattungen, Eigenkäufe und Zahlungsstreitigkeiten werden nicht vergütet. Partner sehen keine personenbezogenen Käuferdaten.</p>
+      <p class="muted"><strong>Werbekennzeichnung:</strong> Affiliate-Links müssen als Werbung beziehungsweise Affiliate-Link kenntlich gemacht werden.</p>
+    </section>
+  </div>
+  <footer><a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="/partnerbedingungen.html">Partnerbedingungen</a></footer>
+</div>
+<script>
+let config=null,registerWidget=null,loginWidget=null;
+const msg=(id,text,ok=false)=>{const el=document.getElementById(id);el.textContent=text;el.className='msg '+(ok?'ok':'bad')};
+async function loadConfig(){config=await fetch('/api/partner/config',{cache:'no-store'}).then(r=>r.json());if(!config.enabled){msg('register-msg','Das Partnerprogramm ist noch nicht freigeschaltet.');document.querySelectorAll('button').forEach(b=>b.disabled=true);return;}if(config.turnstile_site_key){const s=document.createElement('script');s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';s.async=true;s.defer=true;s.onload=()=>{registerWidget=turnstile.render('#register-turnstile',{sitekey:config.turnstile_site_key});loginWidget=turnstile.render('#login-turnstile',{sitekey:config.turnstile_site_key});};document.head.appendChild(s);}}
+function token(widget){return window.turnstile&&widget!==null?turnstile.getResponse(widget):''}
+document.getElementById('register-form').addEventListener('submit',async e=>{e.preventDefault();msg('register-msg','');const body={display_name:document.getElementById('display-name').value,legal_name:document.getElementById('legal-name').value,email:document.getElementById('email').value,country:document.getElementById('country').value,website:document.getElementById('website').value,channels:document.getElementById('channels').value.split(',').map(v=>v.trim()).filter(Boolean),code:document.getElementById('code').value,is_adult:document.getElementById('adult').checked,accept_terms:document.getElementById('terms').checked,turnstile_token:token(registerWidget)};const res=await fetch('/api/partner/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const data=await res.json();if(res.ok){msg('register-msg','Bitte bestätige jetzt die E-Mail, die wir dir gesendet haben.',true);e.target.reset();}else{msg('register-msg','Registrierung fehlgeschlagen: '+(data.error||'unbekannter Fehler'));if(window.turnstile&&registerWidget!==null)turnstile.reset(registerWidget);}});
+document.getElementById('login-form').addEventListener('submit',async e=>{e.preventDefault();const res=await fetch('/api/partner/login-request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.getElementById('login-email').value,turnstile_token:token(loginWidget)})});if(res.ok)msg('login-msg','Falls ein aktives Konto existiert, wurde der Anmeldelink gesendet.',true);else msg('login-msg','Die Anfrage konnte nicht verarbeitet werden.');if(window.turnstile&&loginWidget!==null)turnstile.reset(loginWidget);});
+loadConfig().catch(()=>msg('register-msg','Konfiguration konnte nicht geladen werden.'));
+</script>
+</body>
+</html>
