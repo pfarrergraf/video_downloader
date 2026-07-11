@@ -125,7 +125,12 @@ with open('$TEST_DIR/window_dump.xml', encoding='utf-8') as f:
 nodes = re.findall(r'<node[^>]*text=\"Video\"[^>]*bounds=\"\[(\d+),(\d+)\]\[(\d+),(\d+)\]\"', xml)
 if not nodes:
     nodes = re.findall(r'<node[^>]*text=\"[^\"]*Video[^\"]*\"[^>]*bounds=\"\[(\d+),(\d+)\]\[(\d+),(\d+)\]\"', xml)
-if nodes:
+# The home screen's persistent kind-toggle is ALWAYS present, so a single
+# match means only that toggle has rendered yet and the picker itself
+# hasn't shown up - require both (home toggle + picker button) before
+# trusting the 'lowest on screen' pick, or an early dump could tap the
+# wrong one and the retry loop would stop looking.
+if len(nodes) >= 2:
     x1, y1, x2, y2 = max(nodes, key=lambda n: int(n[1]))
     print(f'{(int(x1) + int(x2)) // 2} {(int(y1) + int(y2)) // 2}')
 " || true)"
