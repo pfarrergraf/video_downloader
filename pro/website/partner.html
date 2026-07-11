@@ -224,6 +224,14 @@
   }
   .btn:hover { filter: saturate(1.15) brightness(1.06); }
   .btn:disabled { opacity: 0.5; cursor: not-allowed; filter: none; }
+  .btn-inline { display: inline-flex; align-items: center; gap: 8px; width: auto; text-decoration: none; }
+
+  /* Kit teaser: prospective partners should see what they'll actually be
+     handed before they register, not discover creator-kit.html by accident
+     later - same .card look as the rest of the page. */
+  .kit-teaser { margin: 0 0 34px; text-align: center; }
+  .kit-teaser h2 { margin-top: 0; }
+  .kit-teaser p { max-width: 640px; margin: 0 auto; }
   .msg { min-height: 24px; margin-top: 12px; font-size: 0.92rem; }
   .ok { color: var(--ok); }
   .bad { color: var(--bad); }
@@ -296,6 +304,14 @@
     <div class="tier"><strong>3,50 €</strong><span>Verkauf 101–500</span></div>
     <div class="tier"><strong>4,00 €</strong><span>ab Verkauf 501</span></div>
   </div>
+
+  <section class="card kit-teaser">
+    <h2>Das bekommst du: das Creator-Kit</h2>
+    <p class="muted">Fertige Story-, Feed- und YouTube-Vorlagen, Videovorlagen und Karten — in Deutsch
+    und Englisch, mit echten App-Screenshots. Nach der Registrierung personalisieren wir Link, Code
+    und QR-Code für dich in allen Vorlagen.</p>
+    <a class="btn btn-inline" href="/creator-kit.html">Creator-Kit ansehen →</a>
+  </section>
 
   <div class="grid">
     <section class="card">
