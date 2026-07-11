@@ -314,9 +314,14 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--pc3-teal); outl
   .pc3-orbits span:nth-child(2) { width: 70vw; }
   .pc3-orbits span:nth-child(3) { width: 108vw; }
   .pc3-source { width: 70px; padding: 7px; border-radius: 15px; }
-  .pc3-source--video { left: -3%; top: 20%; }
-  .pc3-source--audio { right: -3%; top: 22%; }
-  .pc3-source--image { right: 1%; bottom: 20%; }
+  /* Video+Audio anchored near the stage's top edge, Images near the bottom
+     edge (mirrors the desktop 16%/19%/bottom:15% split) — NOT top:20%/22%
+     vs bottom:20%, which collided at the low end of the stage-height clamp
+     (260px): a card is ~90px tall, so two cards both fighting for the
+     vertical middle overlapped on real, shorter phone viewports. */
+  .pc3-source--video { left: -3%; top: 5%; }
+  .pc3-source--audio { right: -3%; top: 7%; }
+  .pc3-source--image { right: 1%; bottom: 5%; }
   .pc3-source__icon { width: 27px; height: 27px; font-size: 13px; }
   .pc3-source__stack, .pc3-source__wave, .pc3-source__grid { transform: scale(.72); }
   .pc3-controls { gap: 8px; }
