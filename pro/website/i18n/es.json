@@ -101,6 +101,9 @@
       "advanced_summary": "Avanzado",
       "quality_label": "Video quality"
     },
+    "share_format": {
+      "title": "What do you want to save?"
+    },
     "status": {
       "pending": "En espera…",
       "in_progress": "Descargando…",
