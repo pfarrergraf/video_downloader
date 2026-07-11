@@ -26,6 +26,13 @@ build = [
 dev = [
   "pytest>=8.3.0",
 ]
+# Creator-Kit-Generator (creator_tools/) — reine Dev-/Desktop-Werkzeuge, nicht Teil
+# der App. Pure-Python-Wheels (Termux-Regel bleibt gewahrt); das Rendering nutzt
+# zusätzlich ein lokales Chromium und ffmpeg, siehe creator_tools/README.md.
+creator = [
+  "segno>=1.6.0",
+  "pillow>=10.0.0",
+]
 
 [project.scripts]
 classydl = "video_downloader.cli:main"

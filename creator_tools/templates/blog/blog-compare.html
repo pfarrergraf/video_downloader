@@ -1,0 +1,47 @@
+<!doctype html>
+<html><head>{{>base_head}}
+<style>
+  body.{{{theme}}} { display:flex; flex-direction:column; padding:60px 72px; }
+  .head { display:flex; justify-content:space-between; align-items:center; }
+  h1 { font-size:58px; line-height:1.08; margin-top:30px; }
+  .cols { flex:1; display:flex; gap:32px; margin-top:36px; min-height:0; }
+  .tier { flex:1; padding:38px 42px; display:flex; flex-direction:column; gap:22px; }
+  .tier h2 { font-size:40px; }
+  .tier .price { font-family:"Space Grotesk"; font-size:56px; font-weight:700; }
+  .tier .per { font-size:21px; color:var(--muted); font-weight:600; }
+  ul.checks { display:flex; flex-direction:column; gap:14px; font-size:24px; font-weight:600; }
+  .tier.pro { border:2px solid var(--accent); position:relative; }
+  .tier.pro::after { content:"{{#is_de}}Einmal zahlen{{/is_de}}{{^is_de}}Pay once{{/is_de}}"; position:absolute; top:-20px; right:34px;
+      background:var(--grad); color:var(--chip-ink); font-weight:800; font-size:19px; padding:8px 20px; border-radius:999px; }
+  .foot { margin-top:26px; font-size:18px; color:var(--muted); line-height:1.4; }
+</style></head>
+<body class="{{{theme}}}">
+  <div class="head">
+    {{>logo_row}}
+    <div class="chip-ghost" style="font-size:20px;padding:9px 22px;">{{t.ad_label}}</div>
+  </div>
+  <h1>{{#is_de}}Free oder Pro — <span class="grad-text">ehrlich verglichen</span>.{{/is_de}}{{^is_de}}Free or Pro — <span class="grad-text">an honest comparison</span>.{{/is_de}}</h1>
+  <div class="cols">
+    <div class="tier card">
+      <h2>Free</h2>
+      <div><span class="price">0 €</span> <span class="per">{{#is_de}}für immer{{/is_de}}{{^is_de}}forever{{/is_de}}</span></div>
+      <ul class="checks">
+        <li>{{#is_de}}3 Downloads pro Tag{{/is_de}}{{^is_de}}3 downloads per day{{/is_de}}</li>
+        <li>{{#is_de}}Volle HD/4K-Qualität{{/is_de}}{{^is_de}}Full HD/4K quality{{/is_de}}</li>
+        <li>{{#is_de}}Video, Audio (MP3) &amp; Bilder{{/is_de}}{{^is_de}}Video, audio (MP3) &amp; images{{/is_de}}</li>
+        <li>{{#is_de}}Kein Konto, keine Werbung{{/is_de}}{{^is_de}}No account, no ads{{/is_de}}</li>
+      </ul>
+    </div>
+    <div class="tier card pro">
+      <h2 class="grad-text">Pro</h2>
+      <div><span class="price grad-text">{{f.pro.price}}</span> <span class="per">{{t.pro.billing}}</span></div>
+      <ul class="checks">
+        <li>{{t.pro.features.0}}</li>
+        <li>{{t.pro.features.1}}</li>
+        <li>{{t.pro.features.2}}</li>
+        <li>{{#is_de}}Gleiche Qualität wie Free — nur ohne Limit{{/is_de}}{{^is_de}}Same quality as Free — just no limit{{/is_de}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot">{{t.honest_limits}} · {{t.rights_note}}</div>
+</body></html>

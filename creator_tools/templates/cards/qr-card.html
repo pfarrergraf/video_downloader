@@ -1,0 +1,26 @@
+<!doctype html>
+<html><head>{{>base_head}}
+<style>
+  body.{{{theme}}} { display:flex; flex-direction:column; align-items:center; text-align:center; padding:{{{qr_pad_v}}}px 90px; }
+  .mid { flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:40px; }
+  h1 { font-size:{{{qr_title_size}}}px; line-height:1.06; max-width:860px; }
+  .qr-frame { width:{{{qr_size}}}px; height:{{{qr_size}}}px; }
+  .code-line { font-size:34px; font-weight:700; }
+  .code-line b { font-family:"Space Grotesk"; font-size:44px; letter-spacing:.05em; }
+  .link { font-size:26px; font-weight:600; color:var(--muted); word-break:break-all; max-width:820px; }
+  .foot { flex:none; display:flex; flex-direction:column; gap:10px; align-items:center; }
+  .footnote { font-size:20px; color:var(--muted); line-height:1.35; max-width:840px; }
+</style></head>
+<body class="{{{theme}}}">
+  {{>logo_row}}
+  <div class="mid">
+    <h1>{{{qr_title}}}</h1>
+    <div class="qr-frame">{{{qr_svg}}}</div>
+    <div class="code-line">{{#is_de}}Code:{{/is_de}}{{^is_de}}Code:{{/is_de}} <b class="grad-text">{{creator.affiliate_code}}</b></div>
+    <div class="link" data-autofit data-autofit-min="16">{{creator.affiliate_link}}</div>
+  </div>
+  <div class="foot">
+    <div class="chip-ghost" style="font-size:20px;padding:9px 22px;">{{t.ad_label}}</div>
+    <div class="footnote">{{t.affiliate_disclosure}}</div>
+  </div>
+</body></html>

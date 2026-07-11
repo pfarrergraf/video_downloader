@@ -1,0 +1,38 @@
+<!doctype html>
+<html><head>{{>base_head}}
+<style>
+  body.{{{theme}}} { display:flex; flex-direction:column; }
+  .safe { flex:1; display:flex; flex-direction:column; padding:230px 72px 330px; }
+  .head { display:flex; justify-content:space-between; align-items:center; }
+  h1 { font-size:92px; line-height:1.04; margin-top:44px; }
+  .stage { flex:1; display:flex; align-items:center; justify-content:center; margin:48px 0 8px; min-height:0; }
+  .phone { width:470px; height:730px; flex:none; }
+  .points { display:flex; flex-direction:column; gap:18px; font-size:34px; font-weight:600; }
+  ul.checks { display:flex; flex-direction:column; gap:16px; }
+  .cta-row { margin-top:44px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+  .btn { font-size:34px; padding:26px 46px; }
+  .handle { font-size:32px; font-weight:700; color:var(--muted); max-width:380px; overflow:hidden; white-space:nowrap; }
+</style></head>
+<body class="{{{theme}}}">
+  <div class="safe">
+    <div class="head">
+      {{>logo_row}}
+      <div class="chip-ghost" style="font-size:26px;padding:12px 28px;">{{t.ad_label}}</div>
+    </div>
+    <h1>{{#is_de}}Diese App solltest<br>du <span class="grad-text">kennen</span>.{{/is_de}}{{^is_de}}You should <span class="grad-text">know</span><br>this app.{{/is_de}}</h1>
+    <div class="stage">
+      <div class="phone"><img src="__STORE_ASSETS__/screenshot_main.png" alt=""></div>
+    </div>
+    <div class="points">
+      <ul class="checks">
+        <li>{{t.key_features.0}}</li>
+        <li>{{t.key_features.3}}</li>
+        <li>{{t.free_tier.text}}</li>
+      </ul>
+    </div>
+    <div class="cta-row">
+      <div class="btn">{{#creator.cta}}{{creator.cta}}{{/creator.cta}}{{^creator.cta}}{{#is_de}}Kostenlos testen{{/is_de}}{{^is_de}}Try it free{{/is_de}}{{/creator.cta}}</div>
+      <div class="handle" data-autofit data-autofit-min="20">{{creator.creator_handle}}</div>
+    </div>
+  </div>
+</body></html>

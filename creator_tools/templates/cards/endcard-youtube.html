@@ -1,0 +1,35 @@
+<!doctype html>
+<html><head>{{>base_head}}
+<style>
+  /* YouTube-Endcard 1920×1080: rechts unten Platz für YouTube-Elemente lassen */
+  body.{{{theme}}} { display:flex; padding:70px 80px; gap:60px; }
+  .left { flex:1.1; display:flex; flex-direction:column; justify-content:center; gap:36px; min-width:0; }
+  h1 { font-size:88px; line-height:1.05; }
+  .sub { font-size:32px; color:var(--muted); font-weight:600; line-height:1.4; }
+  .codebox { border:2.5px dashed var(--accent); border-radius:22px; padding:24px 34px; align-self:flex-start; text-align:center; }
+  .codebox .lbl { font-size:20px; color:var(--muted); font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+  .codebox .code { font-family:"Space Grotesk"; font-weight:700; font-size:60px; letter-spacing:.05em; }
+  .link { font-size:26px; font-weight:700; word-break:break-all; }
+  .disclosure { font-size:18px; color:var(--muted); max-width:700px; line-height:1.35; }
+  .right { flex:1; display:flex; flex-direction:column; gap:26px; align-items:center; justify-content:flex-start; }
+  .qr-frame { width:280px; height:280px; }
+  .yt-space { width:100%; flex:1; border:2px dashed var(--border); border-radius:20px; display:flex; align-items:center; justify-content:center;
+              color:var(--muted); font-size:22px; font-weight:600; text-align:center; line-height:1.4; }
+</style></head>
+<body class="{{{theme}}}">
+  <div class="left">
+    {{>logo_row}}
+    <h1>{{#is_de}}Danke fürs <span class="grad-text">Zuschauen</span>.{{/is_de}}{{^is_de}}Thanks for <span class="grad-text">watching</span>.{{/is_de}}</h1>
+    <div class="sub">{{#is_de}}DownloadThat kostenlos testen — Link &amp; Code unten in der Beschreibung.{{/is_de}}{{^is_de}}Try DownloadThat for free — link &amp; code in the description below.{{/is_de}}</div>
+    <div class="codebox">
+      <div class="lbl">{{#is_de}}Creator-Code{{/is_de}}{{^is_de}}Creator code{{/is_de}}</div>
+      <div class="code grad-text" data-autofit data-autofit-min="30">{{creator.affiliate_code}}</div>
+    </div>
+    <div class="link" data-autofit data-autofit-min="16">{{creator.affiliate_link}}</div>
+    <div class="disclosure">{{t.affiliate_disclosure}}</div>
+  </div>
+  <div class="right">
+    <div class="qr-frame">{{{qr_svg}}}</div>
+    <div class="yt-space">{{#is_de}}Freifläche für YouTube-Endcard-Elemente<br>(Video-Empfehlung / Abo-Button){{/is_de}}{{^is_de}}Reserved for YouTube endcard elements<br>(video suggestion / subscribe button){{/is_de}}</div>
+  </div>
+</body></html>

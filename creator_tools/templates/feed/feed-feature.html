@@ -1,0 +1,35 @@
+<!doctype html>
+<html><head>{{>base_head}}
+<style>
+  body.{{{theme}}} { display:flex; flex-direction:column; padding:64px 68px; }
+  .head { display:flex; justify-content:space-between; align-items:center; }
+  .mid { flex:1; display:flex; flex-direction:column; justify-content:center; gap:36px; min-height:0; }
+  .kicker { font-size:24px; }
+  h1 { font-size:86px; line-height:1.04; max-width:900px; }
+  .desc { font-size:33px; font-weight:500; color:var(--muted); line-height:1.45; max-width:860px; }
+  .visual { display:flex; align-items:center; gap:40px; margin-top:10px; }
+  .bigicon { width:150px; height:150px; border-radius:36px; background:var(--grad); display:flex; align-items:center; justify-content:center; font-size:74px; flex:none; }
+  .factline { font-size:29px; font-weight:700; line-height:1.4; }
+  .foot { flex:none; display:flex; justify-content:space-between; align-items:center; margin-top:24px; gap:24px; }
+  .footnote { font-size:19px; line-height:1.3; max-width:660px; }
+  .handle { font-size:24px; font-weight:700; color:var(--muted); }
+</style></head>
+<body class="{{{theme}}}">
+  <div class="head">
+    {{>logo_row}}
+    <div class="chip-ghost" style="font-size:22px;padding:10px 24px;">{{t.ad_label}}</div>
+  </div>
+  <div class="mid">
+    <div class="kicker">{{{feat_kicker}}}</div>
+    <h1>{{{feat_title}}}</h1>
+    <div class="desc">{{{feat_desc}}}</div>
+    <div class="visual">
+      <div class="bigicon">{{{feat_icon}}}</div>
+      <div class="factline">{{{feat_fact}}}</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="footnote">{{{feat_foot}}}</div>
+    <div class="handle" data-autofit data-autofit-min="16">{{creator.creator_handle}}</div>
+  </div>
+</body></html>

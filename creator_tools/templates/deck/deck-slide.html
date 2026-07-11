@@ -1,0 +1,51 @@
+<!doctype html>
+<html><head>{{>base_head}}
+<style>
+  body.{{{theme}}} { display:flex; flex-direction:column; padding:80px 100px 60px; }
+  .head { display:flex; justify-content:space-between; align-items:center; }
+  .pagenum { font-family:"Space Grotesk"; font-weight:700; font-size:26px; color:var(--muted); }
+  .kicker { font-size:26px; margin-top:56px; }
+  h1 { font-size:96px; line-height:1.05; margin-top:18px; max-width:1500px; }
+  .mid { flex:1; display:flex; gap:70px; margin-top:44px; min-height:0; align-items:center; }
+  .content { flex:1.4; font-size:36px; line-height:1.5; color:var(--muted); font-weight:500; min-width:0; }
+  .content b, .content strong { color:var(--ink); }
+  .content ul.checks { display:flex; flex-direction:column; gap:22px; font-size:34px; font-weight:600; color:var(--ink); }
+  .content table { border-collapse:collapse; font-size:26px; min-width:620px; }
+  .content th, .content td { padding:9px 20px; text-align:left; border-bottom:1px solid var(--border); }
+  .content th { color:var(--muted); font-weight:600; font-size:19px; letter-spacing:.08em; text-transform:uppercase; }
+  .content td b { font-family:"Space Grotesk"; font-size:29px; color:var(--ink); }
+  .side { flex:1; display:flex; align-items:center; justify-content:center; }
+  .side .phone { width:340px; height:560px; }
+  .side .bigicon { width:280px; height:280px; border-radius:64px; background:var(--grad); display:flex; align-items:center; justify-content:center; font-size:140px; }
+  .side .qr-frame { width:340px; height:340px; }
+  .foot { flex:none; display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:22px; }
+  /* Portrait-Ableitung (Social-Bild 1080×1350) */
+  body.portrait { padding:64px 72px 52px; }
+  body.portrait h1 { font-size:76px; }
+  body.portrait .kicker { margin-top:40px; }
+  body.portrait .mid { flex-direction:column; gap:44px; align-items:flex-start; margin-top:36px; }
+  body.portrait .content { font-size:31px; }
+  body.portrait .content ul.checks { font-size:30px; gap:18px; }
+  body.portrait .content table { min-width:100%; font-size:27px; }
+  body.portrait .side { align-self:center; }
+  body.portrait .side .phone { width:300px; height:470px; }
+  body.portrait .side .bigicon { width:210px; height:210px; font-size:104px; border-radius:48px; }
+  body.portrait .side .qr-frame { width:290px; height:290px; }
+  body.portrait .foot { font-size:19px; }
+</style></head>
+<body class="{{{theme}}}{{#portrait}} portrait{{/portrait}}">
+  <div class="head">
+    {{>logo_row}}
+    <div class="pagenum">{{{page_no}}} / {{{page_total}}}</div>
+  </div>
+  <div class="kicker">{{{slide_kicker}}}</div>
+  <h1>{{{slide_title}}}</h1>
+  <div class="mid">
+    <div class="content">{{{slide_content}}}</div>
+    <div class="side">{{{slide_side}}}</div>
+  </div>
+  <div class="foot">
+    <div>DownloadThat · {{#is_de}}Creator- &amp; Partnerprogramm{{/is_de}}{{^is_de}}Creator &amp; partner program{{/is_de}}</div>
+    <div>{{f.partner_url}}</div>
+  </div>
+</body></html>

@@ -79,6 +79,21 @@ before touching `android/`:
   exercises this path, which is exactly how this bug was caught (three phases
   after it was introduced).
 
+## Influencer-/Affiliate-Creator-Kit (`creator_tools/`)
+
+Marketing-Templates und Render-Pipeline (HTML→PNG/PDF via lokales Chromium, MP4 via
+ffmpeg). Fertige Renders liegen unter `pro/website/assets/influencer/` und werden vom
+Partner-Portal `pro/website/creator-kit.html` verlinkt. Wichtig:
+
+- **Preise/Limits/Provisionen nur in `creator_tools/config/product_facts.json` ändern**
+  (einzige Faktenquelle; `tests/test_creator_tools.py` prüft Konsistenz mit
+  `licensing.py`), danach `uv run python creator_tools/build_kit.py all` + `build_previews.py`.
+- Personalisierte Kits: `uv run python creator_tools/generate_creator_kit.py <config.json>`.
+- Erlaubte/verbotene Werbeaussagen: `docs/INFLUENCER_CREATIVE_AUDIT.md`. Kein Rabatt
+  existiert — `{{discount_text}}` darf nie erfunden befüllt werden.
+- Das ist ein reines Desktop-/CI-Werkzeug; nichts davon läuft auf Termux/Android oder
+  wird von der App importiert (Termux-Wheels-Regel bleibt unberührt).
+
 ## Testing
 
 ```bash

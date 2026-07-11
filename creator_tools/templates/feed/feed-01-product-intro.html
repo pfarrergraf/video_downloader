@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head>{{>base_head}}
+<style>
+  body.{{{theme}}} { display:flex; flex-direction:column; padding:64px 68px; }
+  .head { display:flex; justify-content:space-between; align-items:center; }
+  .main { flex:1; display:flex; gap:56px; align-items:center; min-height:0; margin-top:20px; }
+  .copy { flex:1.15; display:flex; flex-direction:column; gap:34px; }
+  .kicker { font-size:24px; }
+  h1 { font-size:78px; line-height:1.05; }
+  ul.checks { display:flex; flex-direction:column; gap:20px; font-size:31px; font-weight:600; }
+  .price { display:flex; align-items:baseline; gap:16px; }
+  .price b { font-family:"Space Grotesk"; font-size:56px; white-space:nowrap; }
+  .price span { font-size:24px; color:var(--muted); line-height:1.3; }
+  .phone { width:400px; height:640px; flex:none; }
+  .foot { flex:none; display:flex; justify-content:space-between; align-items:center; margin-top:24px; gap:24px; }
+  .footnote { font-size:19px; line-height:1.3; max-width:660px; }
+  .handle { font-size:24px; font-weight:700; color:var(--muted); }
+</style></head>
+<body class="{{{theme}}}">
+  <div class="head">
+    {{>logo_row}}
+    <div class="chip-ghost" style="font-size:22px;padding:10px 24px;">{{t.ad_label}}</div>
+  </div>
+  <div class="main">
+    <div class="copy">
+      <div class="kicker">{{#is_de}}Android · Ohne Konto · Ohne Werbung{{/is_de}}{{^is_de}}Android · No account · No ads{{/is_de}}</div>
+      <h1>{{#is_de}}Video, Audio &amp; Bilder — <span class="grad-text">direkt aufs Handy</span>.{{/is_de}}{{^is_de}}Video, audio &amp; images — <span class="grad-text">straight to your phone</span>.{{/is_de}}</h1>
+      <ul class="checks">
+        <li>{{t.key_features.1}}</li>
+        <li>{{t.key_features.2}}</li>
+        <li>{{t.key_features.3}}</li>
+        <li>{{t.key_features.5}}</li>
+      </ul>
+      <div class="price"><b class="grad-text">{{f.pro.price}}</b><span>{{t.pro.billing}} · {{t.free_tier.text}}</span></div>
+    </div>
+    <div class="phone"><img src="__STORE_ASSETS__/screenshot_main.png" alt=""></div>
+  </div>
+  <div class="foot">
+    <div class="footnote">{{t.rights_note}}</div>
+    <div class="handle" data-autofit data-autofit-min="16">{{creator.creator_handle}}</div>
+  </div>
+</body></html>

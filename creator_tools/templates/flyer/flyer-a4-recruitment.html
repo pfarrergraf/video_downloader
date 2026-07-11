@@ -1,0 +1,123 @@
+<!doctype html>
+<html><head>{{>base_head}}
+{{#print}}<style>@page { size: A4; margin: 0; } html, body { width: 210mm; height: 297mm; } body { zoom: 0.64008; }</style>{{/print}}
+<style>
+  body.{{{theme}}} { display:flex; flex-direction:column; padding:60px 68px 48px; }
+  .head { display:flex; justify-content:space-between; align-items:center; }
+  .kicker { font-size:17px; }
+  h1 { font-size:63px; line-height:1.07; margin-top:34px; }
+  .lead { font-size:23px; color:var(--muted); line-height:1.5; margin-top:18px; max-width:980px; }
+  .cols { display:flex; gap:28px; margin-top:32px; align-items:stretch; }
+  .col-product { flex:1.15; display:flex; gap:26px; }
+  .phone { width:252px; height:420px; flex:none; border-radius:30px; border-width:7px; align-self:center; }
+  .facts { display:flex; flex-direction:column; gap:14px; justify-content:center; }
+  .facts h3 { font-size:25px; }
+  ul.checks { display:flex; flex-direction:column; gap:11px; font-size:18px; font-weight:600; }
+  .pricebox { margin-top:8px; font-size:17px; color:var(--muted); line-height:1.5; }
+  .pricebox b { color:var(--ink); font-size:22px; }
+  .col-model { flex:1; display:flex; flex-direction:column; gap:14px; justify-content:center; }
+  .col-model h3 { font-size:25px; }
+  table { border-collapse:collapse; width:100%; font-size:17.5px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--border); }
+  th { color:var(--muted); font-weight:600; font-size:14px; letter-spacing:.08em; text-transform:uppercase; }
+  td b { font-family:"Space Grotesk"; font-size:19px; }
+  .model-notes { font-size:15.5px; color:var(--muted); line-height:1.5; }
+  .status { border:1.5px solid var(--accent); border-radius:14px; padding:12px 16px; font-size:16px; font-weight:600; }
+  .steps-strip { display:flex; gap:18px; margin-top:28px; }
+  .step { flex:1; display:flex; gap:16px; align-items:center; border:1px solid var(--border); border-radius:18px; padding:20px 22px; }
+  .step .num { width:52px; height:52px; border-radius:50%; background:var(--grad); color:var(--chip-ink); font-family:"Space Grotesk"; font-weight:700; font-size:25px; display:flex; align-items:center; justify-content:center; flex:none; }
+  .step .txt { font-size:19px; font-weight:700; line-height:1.25; }
+  .step .sub { font-size:15px; font-weight:500; color:var(--muted); }
+  .row2 { display:flex; gap:28px; margin-top:28px; }
+  .getbox { flex:1.5; }
+  .getbox h3 { font-size:25px; margin-bottom:14px; }
+  .get-grid { display:grid; grid-template-columns:1fr 1fr; gap:11px 22px; font-size:17.5px; font-weight:600; }
+  .get-grid div::before { content:"→ "; color:var(--accent); font-weight:800; }
+  .cta { flex:1; display:flex; gap:22px; align-items:center; }
+  .qr-frame { width:170px; height:170px; padding:14px; border-radius:18px; flex:none; }
+  .cta-copy { display:flex; flex-direction:column; gap:11px; }
+  .cta-copy .btn { font-size:20px; padding:15px 26px; align-self:flex-start; }
+  .cta-copy .url { font-size:16px; font-weight:700; word-break:break-all; }
+  .cta-copy .contact { font-size:15px; color:var(--muted); }
+  .foot { margin-top:auto; padding-top:20px; border-top:1px solid var(--border); display:flex; justify-content:space-between; gap:30px; font-size:13.5px; color:var(--muted); line-height:1.45; }
+</style></head>
+<body class="{{{theme}}}">
+  <div class="head">
+    {{>logo_row}}
+    <div class="chip" style="font-size:16px;padding:9px 20px;">{{#is_de}}Creator- &amp; Partnerprogramm{{/is_de}}{{^is_de}}Creator &amp; partner program{{/is_de}}</div>
+  </div>
+
+  <h1>{{#is_de}}Empfiehl eine App, die deine Community <span class="grad-text">wirklich nutzt</span>.{{/is_de}}{{^is_de}}Recommend an app your community will <span class="grad-text">actually use</span>.{{/is_de}}</h1>
+  <div class="lead">{{t.one_liner}} {{#is_de}}Teilen antippen, DownloadThat wählen, fertig — mehr muss dein Publikum nicht lernen.{{/is_de}}{{^is_de}}Tap share, pick DownloadThat, done — that's all your audience has to learn.{{/is_de}}</div>
+
+  <div class="cols">
+    <div class="col-product card" style="padding:22px;">
+      <div class="phone"><img src="__STORE_ASSETS__/screenshot_main.png" alt=""></div>
+      <div class="facts">
+        <h3>{{#is_de}}Das Produkt{{/is_de}}{{^is_de}}The product{{/is_de}}</h3>
+        <ul class="checks">
+          <li>{{t.key_features.0}}</li>
+          <li>{{t.key_features.1}}</li>
+          <li>{{t.key_features.2}}</li>
+          <li>{{t.key_features.3}}</li>
+          <li>{{t.key_features.4}}</li>
+          <li>{{t.key_features.5}}</li>
+        </ul>
+        <div class="pricebox">
+          {{t.free_tier.text}}<br>
+          Pro: <b>{{f.pro.price}}</b> {{t.pro.billing}}<br>
+          {{t.honest_limits}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-model card" style="padding:22px;">
+      <h3>{{#is_de}}Die Vergütung — transparent gestaffelt{{/is_de}}{{^is_de}}The commission — transparent tiers{{/is_de}}</h3>
+      <table>
+        <tr><th>{{#is_de}}Deine bestätigten Verkäufe{{/is_de}}{{^is_de}}Your confirmed sales{{/is_de}}</th><th>{{#is_de}}Provision je Verkauf{{/is_de}}{{^is_de}}Commission per sale{{/is_de}}</th></tr>
+        <tr><td>1 – 10</td><td><b>2,00 €</b></td></tr>
+        <tr><td>11 – 50</td><td><b>2,50 €</b></td></tr>
+        <tr><td>51 – 100</td><td><b>3,00 €</b></td></tr>
+        <tr><td>101 – 500</td><td><b>3,50 €</b></td></tr>
+        <tr><td>{{#is_de}}ab 501{{/is_de}}{{^is_de}}501+{{/is_de}}</td><td><b>4,00 €</b></td></tr>
+      </table>
+      <div class="model-notes">
+        {{#is_de}}180 Tage Attribution · dein Code hat Vorrang · Auszahlung monatlich ab 50 € · 30 Tage Prüfzeit · keine Einkommensgarantie — was du verdienst, hängt von deiner Reichweite ab.{{/is_de}}{{^is_de}}180-day attribution · your code takes priority · monthly payout from €50 · 30-day review period · no income guarantee — what you earn depends on your reach.{{/is_de}}
+      </div>
+      <div class="status">⏳ {{t.affiliate.status_note}}</div>
+    </div>
+  </div>
+
+  <div class="steps-strip">
+    <div class="step"><div class="num">1</div><div><div class="txt">{{t.steps.0}}</div><div class="sub">{{#is_de}}In YouTube, Insta &amp; Co. — wie immer{{/is_de}}{{^is_de}}In YouTube, Insta &amp; co. — as usual{{/is_de}}</div></div></div>
+    <div class="step"><div class="num">2</div><div><div class="txt">{{t.steps.1}}</div><div class="sub">{{#is_de}}Taucht im normalen Teilen-Menü auf{{/is_de}}{{^is_de}}Shows up in the normal share sheet{{/is_de}}</div></div></div>
+    <div class="step"><div class="num">3</div><div><div class="txt">{{t.steps.2}}</div><div class="sub">{{#is_de}}Läuft im Hintergrund weiter{{/is_de}}{{^is_de}}Keeps running in the background{{/is_de}}</div></div></div>
+  </div>
+
+  <div class="row2">
+    <div class="getbox card" style="padding:22px;">
+      <h3>{{#is_de}}Was du von uns bekommst{{/is_de}}{{^is_de}}What you get from us{{/is_de}}</h3>
+      <div class="get-grid">
+        <div>{{#is_de}}Story-, Reel- &amp; Feed-Vorlagen{{/is_de}}{{^is_de}}Story, reel &amp; feed templates{{/is_de}}</div>
+        <div>{{#is_de}}YouTube-Thumbnails &amp; Endcards{{/is_de}}{{^is_de}}YouTube thumbnails &amp; endcards{{/is_de}}</div>
+        <div>{{#is_de}}Fertige Videovorlagen (MP4){{/is_de}}{{^is_de}}Ready video templates (MP4){{/is_de}}</div>
+        <div>{{#is_de}}Skripte, Hooks &amp; Captions (DE/EN){{/is_de}}{{^is_de}}Scripts, hooks &amp; captions (DE/EN){{/is_de}}</div>
+        <div>{{#is_de}}Personalisierte Code- &amp; QR-Karten{{/is_de}}{{^is_de}}Personalized code &amp; QR cards{{/is_de}}</div>
+        <div>{{#is_de}}Persönlichen Link, Code &amp; Dashboard{{/is_de}}{{^is_de}}Personal link, code &amp; dashboard{{/is_de}}</div>
+      </div>
+    </div>
+    <div class="cta">
+      <div class="qr-frame">{{{qr_svg}}}</div>
+      <div class="cta-copy">
+        <div class="btn">{{#is_de}}DownloadThat-Partner werden{{/is_de}}{{^is_de}}Become a DownloadThat partner{{/is_de}}</div>
+        <div class="url">{{f.partner_url}}</div>
+        <div class="contact">{{#is_de}}Fragen? Antwort kommt persönlich vom Betreiber — über das Partnerportal.{{/is_de}}{{^is_de}}Questions? You'll get a personal reply from the maker — via the partner portal.{{/is_de}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div style="max-width:640px;">{{t.rights_note}} {{#is_de}}DownloadThat funktioniert nicht mit DRM-Streaming-Diensten. Affiliate-Links sind als Werbung zu kennzeichnen.{{/is_de}}{{^is_de}}DownloadThat does not work with DRM streaming services. Affiliate links must be disclosed as advertising.{{/is_de}}</div>
+    <div>{{f.site_url}}</div>
+  </div>
+</body></html>

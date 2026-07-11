@@ -1,0 +1,87 @@
+{
+  "_comment": "Einzige Faktenquelle für alle Creator-Kit-Templates. Werte sind gegen den Code verifiziert (siehe docs/INFLUENCER_CREATIVE_AUDIT.md). Änderungen hier statt in Templates vornehmen.",
+  "product_name": "DownloadThat",
+  "site_url": "https://downloadthat.pages.dev",
+  "partner_url": "https://downloadthat.pages.dev/partner.html",
+  "creator_kit_url": "https://downloadthat.pages.dev/creator-kit.html",
+  "tagline": {
+    "de": "Video, Audio & Bilder — direkt auf dein Handy.",
+    "en": "Video, audio & images — straight to your phone."
+  },
+  "one_liner": {
+    "de": "Eine Android-App, die Videos, Audio und Bilder von fast jeder Seite direkt auf dem Gerät speichert — ohne Cloud, ohne Werbung, ohne Konto.",
+    "en": "An Android app that saves videos, audio and images from almost any site directly on your device — no cloud, no ads, no account."
+  },
+  "free_tier": {
+    "downloads_per_day": 3,
+    "text": {
+      "de": "Für immer kostenlos: 3 Downloads pro Tag in voller HD/4K-Qualität.",
+      "en": "Free forever: 3 downloads a day in full HD/4K quality."
+    },
+    "short": {
+      "de": "Free: 3 Downloads/Tag — volle Qualität",
+      "en": "Free: 3 downloads/day — full quality"
+    }
+  },
+  "pro": {
+    "price": "12 €",
+    "billing": { "de": "einmalig · kein Abo", "en": "one-time · no subscription" },
+    "features": {
+      "de": ["Unbegrenzte Downloads", "Playlist-Downloads", "Alle zukünftigen Updates"],
+      "en": ["Unlimited downloads", "Playlist downloads", "All future updates"]
+    }
+  },
+  "steps": {
+    "de": ["Teilen antippen", "DownloadThat wählen", "Fertig — lokal gespeichert"],
+    "en": ["Tap share", "Pick DownloadThat", "Done — saved locally"]
+  },
+  "key_features": {
+    "de": [
+      "Video, Audio (MP3) & Bilder",
+      "Ganze Playlists auf einmal",
+      "Bis 4K-Qualität",
+      "100 % lokal — kein Cloud-Upload",
+      "Keine Werbung, kein Tracking, kein Konto",
+      "Downloads laufen im Hintergrund weiter"
+    ],
+    "en": [
+      "Video, audio (MP3) & images",
+      "Whole playlists at once",
+      "Up to 4K quality",
+      "100% on-device — no cloud upload",
+      "No ads, no tracking, no account",
+      "Downloads keep running in the background"
+    ]
+  },
+  "honest_limits": {
+    "de": "Funktioniert nicht mit DRM-Streaming-Diensten wie Spotify oder Netflix. Nur für Android.",
+    "en": "Does not work with DRM streaming services like Spotify or Netflix. Android only."
+  },
+  "rights_note": {
+    "de": "Lade nur Inhalte herunter, für die du die erforderlichen Rechte oder die Erlaubnis besitzt.",
+    "en": "Only download content you have the necessary rights or permission for."
+  },
+  "ad_label": { "de": "Werbung", "en": "Ad" },
+  "affiliate_disclosure": {
+    "de": "Affiliate-Link: Bei einem Kauf über diesen Link erhalte ich eine Provision. Für dich ändert sich der Preis nicht.",
+    "en": "Affiliate link: I may earn a commission if you purchase through this link, at no additional cost to you."
+  },
+  "affiliate": {
+    "status_note": {
+      "de": "Partnerregistrierung geöffnet — die Auszahlungsfunktion wird separat freigeschaltet.",
+      "en": "Partner registration is open — payouts will be enabled separately."
+    },
+    "payouts_enabled": false,
+    "commission_tiers": [
+      { "sales_from": 1, "sales_to": 10, "eur": "2,00" },
+      { "sales_from": 11, "sales_to": 50, "eur": "2,50" },
+      { "sales_from": 51, "sales_to": 100, "eur": "3,00" },
+      { "sales_from": 101, "sales_to": 500, "eur": "3,50" },
+      { "sales_from": 501, "sales_to": null, "eur": "4,00" }
+    ],
+    "attribution_days": 180,
+    "review_days": 30,
+    "payout_min_eur": 50,
+    "customer_discount": null
+  }
+}

@@ -1,0 +1,45 @@
+<!doctype html>
+<html><head>{{>base_head}}
+<style>
+  body.{{{theme}}} { display:flex; flex-direction:column; }
+  .safe { flex:1; display:flex; flex-direction:column; padding:230px 72px 330px; }
+  .head { display:flex; justify-content:space-between; align-items:center; }
+  .mid { flex:1; display:flex; flex-direction:column; justify-content:center; gap:44px; }
+  h1 { font-size:88px; line-height:1.05; }
+  .codebox { border:3px dashed var(--accent); border-radius:28px; padding:44px; text-align:center; }
+  .codebox .lbl { font-size:26px; color:var(--muted); font-weight:600; letter-spacing:.12em; text-transform:uppercase; }
+  .codebox .code { font-family:"Space Grotesk"; font-weight:700; font-size:110px; letter-spacing:.05em; margin-top:10px; }
+  .qr-row { display:flex; align-items:center; gap:38px; }
+  .qr-frame { width:300px; height:300px; flex:none; }
+  .qr-copy { font-size:34px; font-weight:700; line-height:1.35; }
+  .qr-copy .link { font-size:26px; font-weight:600; color:var(--muted); word-break:break-all; margin-top:14px; }
+  .foot { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; }
+  .footnote { font-size:22px; line-height:1.3; max-width:640px; }
+  .handle { font-size:30px; font-weight:700; color:var(--muted); }
+</style></head>
+<body class="{{{theme}}}">
+  <div class="safe">
+    <div class="head">
+      {{>logo_row}}
+      <div class="chip" style="font-size:26px;padding:12px 28px;">{{t.ad_label}}</div>
+    </div>
+    <div class="mid">
+      <h1>{{{story_title}}}</h1>
+      <div class="codebox">
+        <div class="lbl">{{#is_de}}Mein Creator-Code{{/is_de}}{{^is_de}}My creator code{{/is_de}}</div>
+        <div class="code grad-text" data-autofit data-autofit-min="48">{{creator.affiliate_code}}</div>
+      </div>
+      <div class="qr-row">
+        <div class="qr-frame">{{{qr_svg}}}</div>
+        <div class="qr-copy">
+          {{#is_de}}Scannen oder Link in meiner Bio öffnen.{{/is_de}}{{^is_de}}Scan or open the link in my bio.{{/is_de}}
+          <div class="link" data-autofit data-autofit-min="16">{{creator.affiliate_link}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="footnote">{{t.affiliate_disclosure}}</div>
+      <div class="handle" data-autofit data-autofit-min="20">{{creator.creator_handle}}</div>
+    </div>
+  </div>
+</body></html>

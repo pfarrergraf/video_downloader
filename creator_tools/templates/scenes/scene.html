@@ -1,0 +1,30 @@
+<!doctype html>
+<html><head>{{>base_head}}
+<style>
+  body.{{{theme}}} { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+                     padding:140px 90px; position:relative; gap:54px; }
+  .brand-corner { position:absolute; top:90px; left:0; right:0; display:flex; justify-content:center; }
+  h1 { font-size:{{{scene_title_size}}}px; line-height:1.05; max-width:920px; }
+  .sub { font-size:42px; font-weight:600; color:var(--muted); line-height:1.4; max-width:860px; }
+  .phone { width:{{{scene_phone_w}}}px; height:{{{scene_phone_h}}}px; }
+  .bigicon { width:300px; height:300px; border-radius:72px; background:var(--grad); display:flex; align-items:center; justify-content:center; font-size:150px; }
+  .codebox { border:3px dashed var(--accent); border-radius:28px; padding:40px 60px; }
+  .codebox .code { font-family:"Space Grotesk"; font-weight:700; font-size:96px; letter-spacing:.05em; }
+  .qr-frame { width:400px; height:400px; }
+  .caption { position:absolute; left:80px; right:80px; bottom:170px; font-size:46px; font-weight:800; line-height:1.25;
+             text-shadow:0 4px 30px rgba(0,0,0,.55); }
+  .theme-cu .caption { text-shadow:none; }
+  .steplist { display:flex; flex-direction:column; gap:26px; text-align:left; }
+  .steplist .row { display:flex; gap:24px; align-items:center; padding:26px 34px; }
+  .steplist .num { width:72px; height:72px; border-radius:50%; background:var(--grad); color:var(--chip-ink);
+                   font-family:"Space Grotesk"; font-weight:700; font-size:36px; display:flex; align-items:center; justify-content:center; flex:none; }
+  .steplist .txt { font-size:38px; font-weight:700; }
+  .avatar { width:220px; height:220px; border-radius:50%; background:var(--grad); display:flex; align-items:center; justify-content:center;
+            font-family:"Space Grotesk"; font-weight:700; font-size:96px; color:var(--chip-ink); overflow:hidden; }
+  .avatar img { width:100%; height:100%; object-fit:cover; }
+</style></head>
+<body class="{{{theme}}}">
+  <div class="brand-corner">{{>logo_row}}</div>
+  {{{scene_body}}}
+  {{#scene_caption}}<div class="caption">{{{scene_caption}}}</div>{{/scene_caption}}
+</body></html>
