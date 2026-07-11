@@ -54,14 +54,18 @@ def test_all_six_cinema_scenes_present() -> None:
 
 
 def test_headline_lead_and_cta_are_dom_text_not_js_generated() -> None:
+    # Headline/lead are visually hidden (product feedback: the animation should
+    # carry the hero) but must stay real DOM text on a real <h1> — not removed
+    # outright, and never something JS has to generate — so the page keeps an
+    # accessible/SEO title. The secondary "See Pro pricing" CTA was dropped
+    # from the hero entirely (redundant with the pricing section below).
     html = _index_html()
+    assert "<h1" in html
     assert 'data-i18n="website.hero_cinema.title_line_1"' in html
     assert 'data-i18n="website.hero_cinema.title_line_2"' in html
     assert 'data-i18n="website.hero_cinema.title_line_3"' in html
     assert 'data-i18n="website.hero_cinema.lead"' in html
-    # CTAs reuse the already-translated existing hero keys rather than duplicating them.
     assert 'data-i18n="website.hero.cta_primary"' in html
-    assert 'data-i18n="website.hero.cta_secondary"' in html
     assert 'href="/download"' in html
 
 
@@ -144,19 +148,20 @@ def test_lab_preview_files_are_unmodified_and_still_present() -> None:
 def test_new_hero_cinema_i18n_keys_are_wired_up() -> None:
     # The in-phone scenes are intentionally near-textless (icons + motion only,
     # per product feedback); each scene's step_* copy survives only as an
-    # aria-label for screen readers. trust_local/trust_cloud/format_title/
-    # stream_title/inside_title/success_title/success_body are unused by
-    # design now (the trust chip reuses website.hero.trust_chip instead, and
-    # the other headings were dropped) — their i18n entries are left in place
-    # across all locales in case this direction changes again, but nothing
-    # requires them to appear in the markup.
+    # aria-label for screen readers. Per further product feedback, the
+    # eyebrow, trust chip, legal note, secondary CTA and Windows link were
+    # dropped from the hero entirely (kept, still translated, elsewhere on
+    # the site: legal note in the FAQ, Windows link in the footer). eyebrow/
+    # legal/trust_local/trust_cloud/format_title/stream_title/inside_title/
+    # success_title/success_body are unused by design now; their i18n
+    # entries are left in place across all locales in case this direction
+    # changes again, but nothing requires them to appear in the markup.
     html = _index_html()
     required_keys = (
-        "eyebrow", "title_line_1", "title_line_2", "title_line_3", "lead", "legal",
+        "title_line_1", "title_line_2", "title_line_3", "lead",
         "step_source", "step_share", "step_format", "step_stream", "step_inside", "step_success",
         "share_title", "format_video", "format_audio", "format_images",
         "replay", "stepthrough",
     )
     for key in required_keys:
         assert f"website.hero_cinema.{key}" in html, f"missing data-i18n wiring for {key}"
-    assert 'data-i18n="website.hero.trust_chip"' in html

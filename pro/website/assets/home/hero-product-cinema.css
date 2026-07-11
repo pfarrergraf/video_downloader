@@ -7,6 +7,16 @@
    assets/gpt_product_cinema_v3/ does, which is fine there since that file
    *is* the whole page; here it would leak into nav/footer/pricing/etc). */
 
+/* Global utility (deliberately not scoped under .pc3 — also used by the
+   Features section heading below): visually hidden but present for screen
+   readers and search engines, standard clip-based sr-only technique. Used
+   where product feedback asked for text to disappear visually without the
+   page silently losing its <h1> or a section's accessible heading. */
+.pc3-sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
 .pc3 {
   --pc3-bg: #07060b;
   --pc3-line: rgba(255, 255, 255, .13);
@@ -51,60 +61,27 @@
 .pc3-aurora--left { left: -32vw; top: -24vw; background: var(--pc3-coral); }
 .pc3-aurora--right { right: -32vw; bottom: -25vw; background: var(--pc3-teal); }
 
-/* ---- Layout: copy column + cinema column, stacked below 1081px ----
-   Grid areas (not just column order) so the secondary CTA/legal/Windows
-   link can sit *after* the phone on mobile — matching the required mobile
-   priority order (nav, headline, lead, primary CTA, phone, then secondary
-   info) — while desktop keeps them stacked in the same left column. */
+/* ---- Layout: copy column (now just the primary CTA) + cinema column,
+   stacked below 1081px. ---- */
 .cinema-layout {
   position: relative; z-index: 10; width: 100%; max-width: 1240px; margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(0, .92fr) minmax(340px, 1.08fr);
-  grid-template-areas: "primary cinema" "secondary cinema";
+  grid-template-areas: "primary cinema";
   align-items: center; gap: clamp(14px, 3vh, 32px) clamp(20px, 3.5vw, 56px);
 }
-.pc3-copy--primary { grid-area: primary; align-self: end; }
-.pc3-copy--secondary { grid-area: secondary; align-self: start; }
+.pc3-copy--primary { grid-area: primary; }
 .pc3-cinema { grid-area: cinema; }
 @media (max-width: 1080px) {
-  .cinema-layout { grid-template-columns: 1fr; grid-template-areas: "primary" "cinema" "secondary"; text-align: center; }
-  .pc3-copy--primary, .pc3-copy--secondary { align-self: auto; }
+  .cinema-layout { grid-template-columns: 1fr; grid-template-areas: "primary" "cinema"; text-align: center; }
 }
 
 .pc3-copy { max-width: 620px; }
 @media (max-width: 1080px) { .pc3-copy { margin: 0 auto; } }
-.pc3-eyebrow { margin: 0 0 clamp(8px, 1.4vh, 16px); color: var(--pc3-gold); font-size: .75rem; font-weight: 900; letter-spacing: .2em; }
-.pc3-title { margin: 0; font-size: clamp(2rem, 4.6vw, 4.6rem); line-height: .86; letter-spacing: -.04em; font-weight: 900; }
-.pc3-title > span { display: block; overflow: hidden; padding: .04em .08em .09em 0; }
-.pc3-title b { display: inline-block; transform: translateY(112%) rotateX(-18deg); opacity: 0; filter: blur(14px); animation: pc3-title-in 1s var(--pc3-ease) forwards; }
-.pc3-title > span:nth-child(2) b { animation-delay: .12s; }
-.pc3-title > span:nth-child(3) b { animation-delay: .24s; }
-.pc3-title__accent {
-  background: var(--pc3-grad); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
-  animation-name: pc3-title-in, pc3-grad; animation-duration: 1s, 8s;
-  animation-timing-function: var(--pc3-ease), linear; animation-fill-mode: forwards, both; animation-iteration-count: 1, infinite;
-}
-@keyframes pc3-title-in { to { transform: none; opacity: 1; filter: none; } }
-@keyframes pc3-grad { to { background-position: -220% 0; } }
 
-.pc3-lead { max-width: 46ch; margin: clamp(10px, 1.8vh, 20px) 0 0; color: var(--pc3-muted); font-size: clamp(1rem, 1.3vw, 1.2rem); line-height: 1.5; }
-@media (max-width: 1080px) { .pc3-lead { margin-left: auto; margin-right: auto; } }
-
-.pc3-trust {
-  display: inline-flex; align-items: center; gap: 8px; min-height: 34px; margin-top: clamp(10px, 1.6vh, 18px);
-  padding: 0 16px; border: 1px solid var(--pc3-line); border-radius: 999px; background: rgba(255, 255, 255, .035);
-  color: var(--pc3-muted); font-size: .85rem; font-weight: 600;
-}
-
-.pc3-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(14px, 2vh, 24px); }
-.pc3-actions--secondary { margin-top: 0; }
+.pc3-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 @media (max-width: 1080px) { .pc3-actions { justify-content: center; } }
 .pc3-actions .btn { min-height: 44px; }
-.pc3-legal { max-width: 54ch; margin: clamp(8px, 1.2vh, 14px) 0 0; color: rgba(200, 193, 209, .62); font-size: .7rem; line-height: 1.5; }
-@media (max-width: 1080px) { .pc3-legal { margin-left: auto; margin-right: auto; } }
-.secondary-link { margin-top: 10px; font-size: .78rem; }
-.secondary-link a { color: var(--pc3-muted); }
-.secondary-link a:hover { color: var(--pc3-coral); }
 
 /* ---- Cinema stage ---- */
 .pc3-cinema { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(8px, 1.4vh, 16px); perspective: 1700px; }
@@ -285,7 +262,6 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--pc3-teal); outl
 /* ---- Reduced motion (manual toggle) ---- */
 .pc3.is-reduced .pc3-source, .pc3.is-reduced .pc3-stream-canvas, .pc3.is-reduced .pc3-orbits { display: none; }
 .pc3.is-reduced .pc3-device, .pc3.is-reduced .pc3-camera-rig { animation: none !important; transform: none !important; }
-.pc3.is-reduced .pc3-title b { animation: none; opacity: 1; transform: none; filter: none; }
 
 /* ---- Responsive ---- */
 @media (max-width: 1080px) {
@@ -297,12 +273,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--pc3-teal); outl
 }
 @media (max-width: 700px) {
   .pc3 { padding: clamp(8px, 1.6vh, 16px) 14px; }
-  .pc3-title { font-size: clamp(1.7rem, 9.5vw, 2.5rem); letter-spacing: -.03em; }
-  .pc3-lead { font-size: .92rem; max-width: 34ch; }
-  .pc3-pills span { min-height: 28px; padding: 0 9px; font-size: .62rem; }
   .pc3-actions { gap: 8px; }
   .pc3-actions .btn { min-height: 42px; padding: 0 16px; font-size: .85rem; }
-  .pc3-legal { font-size: .62rem; max-width: 32ch; }
   .pc3-stage { height: clamp(260px, 46vh, 400px); }
   .pc3-device { width: clamp(185px, 52vw, 225px); }
   .pc3-orbits span:nth-child(1) { width: 92vw; }
@@ -326,7 +298,6 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--pc3-teal); outl
 @media (prefers-reduced-motion: reduce) {
   .pc3-source, .pc3-stream-canvas, .pc3-orbits, .pc3-glass-flare, .pc3-portal { display: none !important; }
   .pc3-device, .pc3-camera-rig { animation: none !important; transform: none !important; }
-  .pc3-title b { animation: none !important; opacity: 1; transform: none; filter: none; }
 }
 
 @media (forced-colors: active) {

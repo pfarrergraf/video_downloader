@@ -193,14 +193,16 @@
   <div class="pc3-aurora pc3-aurora--right" aria-hidden="true"></div>
   <div class="cinema-layout">
     <div class="pc3-copy pc3-copy--primary">
-      <p class="pc3-eyebrow" data-i18n="website.hero_cinema.eyebrow">ANDROID · LOCAL · DIRECT</p>
-      <h1 class="pc3-title">
-        <span><b data-i18n="website.hero_cinema.title_line_1">SHARE.</b></span>
-        <span><b class="pc3-title__accent" data-i18n="website.hero_cinema.title_line_2">CHOOSE.</b></span>
-        <span><b data-i18n="website.hero_cinema.title_line_3">SAVE.</b></span>
+      <!-- Visually empty by design (product feedback: the animation should
+           carry the hero, not a text block) — kept as screen-reader/SEO-only
+           content so the page still has one real <h1> and a one-line summary,
+           instead of silently losing that structure. -->
+      <h1 class="pc3-sr-only">
+        <span data-i18n="website.hero_cinema.title_line_1">SHARE.</span>
+        <span data-i18n="website.hero_cinema.title_line_2">CHOOSE.</span>
+        <span data-i18n="website.hero_cinema.title_line_3">SAVE.</span>
       </h1>
-      <p class="pc3-lead" data-i18n="website.hero_cinema.lead">Save video, audio and images straight to your Android device in a few steps.</p>
-      <div class="pc3-trust" data-i18n="website.hero.trust_chip">🔒 100% on your device — no cloud</div>
+      <p class="pc3-sr-only" data-i18n="website.hero_cinema.lead">Save video, audio and images straight to your Android device in a few steps.</p>
       <div class="pc3-actions pc3-actions--primary">
         <a class="btn btn-primary" data-i18n="website.hero.cta_primary" href="/download">Download for free</a>
       </div>
@@ -311,23 +313,14 @@
         </div>
       </div>
     </div>
-
-    <div class="pc3-copy pc3-copy--secondary">
-      <div class="pc3-actions pc3-actions--secondary">
-        <a class="btn btn-ghost" data-i18n="website.hero.cta_secondary" href="#pricing">See Pro pricing</a>
-      </div>
-      <p class="pc3-legal" data-i18n="website.hero_cinema.legal">Only save content you have the necessary rights or permission to use.</p>
-      <div class="secondary-link">
-        <a href="/download-windows" data-i18n="website.hero.windows_link">Also available for Windows →</a>
-      </div>
-    </div>
   </div>
 </section>
 
 <section id="features">
   <div class="wrap">
-    <h2 data-i18n="website.features.h2">Everything you need, nothing you don't</h2>
-    <p class="section-lead" data-i18n="website.features.lead">A fast, private downloader that just works — with a Pro tier for anyone who wants more.</p>
+    <!-- Visually removed per product feedback; kept sr-only so the section
+         still has an accessible landmark heading. -->
+    <h2 class="pc3-sr-only" data-i18n="website.features.h2">Everything you need, nothing you don't</h2>
     <div class="features">
       <div class="feature-tile">
         <div class="icon">🎬</div>
