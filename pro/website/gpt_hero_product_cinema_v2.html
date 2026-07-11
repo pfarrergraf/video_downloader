@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DownloadThat — GPT Product Cinema V2</title>
+  <meta name="description" content="Premium Hero Animation Lab for DownloadThat">
+  <link rel="stylesheet" href="assets/gpt_product_cinema_v2/gpt_product_cinema_v2.css">
+</head>
+<body>
+<div class="pc-shell" data-pc-root data-pc-step="source">
+  <span class="pc-ambient pc-ambient--coral"></span>
+  <span class="pc-ambient pc-ambient--teal"></span>
+  <header class="pc-nav">
+    <div class="pc-brand"><span class="pc-brand-mark">↓</span><span>DownloadThat</span><span class="pc-lab-label">GPT PRODUCT CINEMA V2</span></div>
+    <a class="pc-btn" href="/download">Kostenlos testen</a>
+  </header>
+
+  <main class="pc-hero">
+    <section class="pc-copy" aria-labelledby="pc-title">
+      <p class="pc-eyebrow">Android · lokal · direkt</p>
+      <h1 class="pc-title" id="pc-title">
+        <span class="pc-title-line"><span class="pc-title-word">TEILEN.</span></span>
+        <span class="pc-title-line"><span class="pc-title-word pc-title-emphasis">AUSWÄHLEN.</span></span>
+        <span class="pc-title-line"><span class="pc-title-word">SPEICHERN.</span></span>
+      </h1>
+      <p class="pc-lead">Video, Audio und Bilder mit wenigen Schritten direkt auf deinem Android-Gerät speichern.</p>
+      <div class="pc-trust" aria-label="Produkteigenschaften">
+        <span class="pc-chip"><i></i>lokale Verarbeitung</span>
+        <span class="pc-chip"><i></i>kein unnötiger Cloud-Upload</span>
+        <span class="pc-chip"><i></i>kostenlos testen</span>
+      </div>
+      <div class="pc-actions">
+        <button class="pc-btn" type="button" data-pc-replay>Produktdemo abspielen</button>
+        <a class="pc-btn pc-btn--ghost" href="/download">Android-Version öffnen</a>
+      </div>
+      <p class="pc-legal">Nur Inhalte speichern, für die du die erforderlichen Rechte oder eine Erlaubnis besitzt.</p>
+    </section>
+
+    <section class="pc-cinema" data-pc-cinema aria-label="Interaktive Produktdemonstration">
+      <canvas class="pc-particle-canvas" data-pc-particles aria-hidden="true"></canvas>
+      <div class="pc-rings" aria-hidden="true"><span class="pc-ring pc-ring--1"></span><span class="pc-ring pc-ring--2"></span><span class="pc-ring pc-ring--3"></span></div>
+      <span class="pc-float-file pc-file--video" aria-hidden="true">▶</span>
+      <span class="pc-float-file pc-file--audio" aria-hidden="true">♫</span>
+      <span class="pc-float-file pc-file--image" aria-hidden="true">▧</span>
+      <span class="pc-float-file pc-file--link" aria-hidden="true">↗</span>
+
+      <div class="pc-device-wrap" data-pc-device-wrap>
+        <div class="pc-device">
+          <span class="pc-camera" aria-hidden="true"></span>
+          <div class="pc-screen">
+            <div class="pc-screen-head"><span class="pc-app-brand"><span class="pc-app-icon">↓</span>DownloadThat</span><span class="pc-status"></span></div>
+
+            <section class="pc-scene is-active" data-pc-scene="source">
+              <div class="pc-media-card">
+                <div class="pc-media-thumb"></div><span class="pc-play">▶</span>
+                <div class="pc-lines"><i></i><i></i><i></i></div>
+                <button class="pc-share-button" type="button" data-pc-next="share" aria-label="Link teilen">↗</button>
+              </div>
+              <span class="pc-scene-index">1 · Link teilen</span>
+            </section>
+
+            <section class="pc-scene" data-pc-scene="share">
+              <div class="pc-share-sheet">
+                <h3>Teilen mit</h3>
+                <div class="pc-share-apps">
+                  <button class="pc-share-app" type="button" tabindex="-1"><b>✉</b><small>Mail</small></button>
+                  <button class="pc-share-app" type="button" tabindex="-1"><b>↗</b><small>Browser</small></button>
+                  <button class="pc-share-app pc-share-app--dt" type="button" data-pc-next="format"><b>↓</b><small>DownloadThat</small></button>
+                  <button class="pc-share-app" type="button" tabindex="-1"><b>⋯</b><small>Mehr</small></button>
+                </div>
+              </div>
+              <span class="pc-scene-index">2 · DownloadThat wählen</span>
+            </section>
+
+            <section class="pc-scene" data-pc-scene="format">
+              <div class="pc-format-panel">
+                <h3>Was möchtest du speichern?</h3>
+                <button class="pc-choice" type="button" data-pc-next="transfer"><b>▶</b><span><strong>Video</strong><br><small>MP4 · beste verfügbare Qualität</small></span></button>
+                <button class="pc-choice" type="button" data-pc-next="transfer"><b>♫</b><span><strong>Audio</strong><br><small>Tonspur lokal extrahieren</small></span></button>
+                <button class="pc-choice" type="button" data-pc-next="transfer"><b>▧</b><span><strong>Bilder</strong><br><small>Bilddateien direkt speichern</small></span></button>
+              </div>
+              <span class="pc-scene-index">3 · Format auswählen</span>
+            </section>
+
+            <section class="pc-scene" data-pc-scene="transfer">
+              <div class="pc-download-panel">
+                <span class="pc-download-icon">↓</span>
+                <h3>Wird lokal gespeichert</h3>
+                <div class="pc-track"><i></i></div>
+                <p>Die Datei wird direkt auf deinem Gerät verarbeitet.</p>
+              </div>
+              <span class="pc-scene-index">4 · Download läuft</span>
+            </section>
+
+            <section class="pc-scene" data-pc-scene="success">
+              <div class="pc-success-panel">
+                <span class="pc-success-icon">✓</span>
+                <h3>Gespeichert.</h3>
+                <p>Direkt auf deinem Gerät.</p>
+              </div>
+              <span class="pc-scene-index">5 · Fertig</span>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <button class="pc-replay" type="button" data-pc-replay aria-label="Animation erneut abspielen">↻ <span>Replay</span></button>
+      <div class="pc-timeline" aria-live="polite">
+        <div class="pc-timeline-head"><span class="pc-timeline-number" data-pc-timeline-number>01</span><p class="pc-timeline-copy" data-pc-timeline-copy>Medienlink öffnen und teilen.</p></div>
+        <div class="pc-timeline-track"><i data-pc-timeline-progress></i></div>
+      </div>
+    </section>
+  </main>
+
+  <section class="pc-below" aria-label="Technische Eigenschaften">
+    <div class="pc-proof">
+      <article class="pc-proof-card"><b>Ohne Build-Zwang</b><span>Reines HTML, CSS und JavaScript. Als statische Cloudflare-Seite einsetzbar.</span></article>
+      <article class="pc-proof-card"><b>Progressive Enhancement</b><span>Die Kernbotschaft bleibt auch ohne Animation und bei Reduced Motion verständlich.</span></article>
+      <article class="pc-proof-card"><b>Merge-freundlich</b><span>Eigene Namespaces, keine Änderung an Stripe, Checkout, Affiliate- oder Lizenzlogik.</span></article>
+    </div>
+  </section>
+</div>
+<script src="assets/gpt_product_cinema_v2/gpt_product_cinema_v2.js" defer></script>
+</body>
+</html>
