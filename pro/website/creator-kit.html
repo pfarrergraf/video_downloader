@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>DownloadThat — Creator-Kit</title>
+<style>
+  @font-face { font-family:"Inter"; src:url("assets/influencer/fonts/Inter.ttf"); font-weight:100 900; }
+  @font-face { font-family:"Space Grotesk"; src:url("assets/influencer/fonts/SpaceGrotesk.ttf"); font-weight:300 700; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --bg:#0e0c14; --card:#1b1626; --border:#2c2438; --ink:#f1ede4; --muted:#a89fb3; --accent:#c9a869;
+          --grad:linear-gradient(120deg,#8a713f,#c9a869,#ecd9a8); }
+  body { background:radial-gradient(100% 40% at 90% -5%, rgba(201,168,105,.12), transparent 60%), var(--bg);
+         color:var(--ink); font-family:"Inter",system-ui,sans-serif; line-height:1.6; }
+  .wrap { max-width:1060px; margin:0 auto; padding:48px 24px 90px; }
+  h1,h2,h3 { font-family:"Space Grotesk","Inter",sans-serif; letter-spacing:-0.02em; line-height:1.15; }
+  .grad { background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  header { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .logo { display:flex; align-items:center; gap:14px; font-family:"Space Grotesk"; font-weight:700; font-size:24px; }
+  .logo img { width:44px; height:44px; border-radius:12px; }
+  header a { color:var(--accent); text-decoration:none; font-weight:600; font-size:15px; }
+  h1 { font-size:clamp(30px,5vw,44px); margin-top:40px; }
+  .lead { color:var(--muted); margin-top:12px; max-width:760px; }
+  .notice { border:1.5px solid var(--accent); border-radius:14px; padding:14px 18px; margin-top:22px; font-size:15px; }
+  section { margin-top:48px; }
+  h2 { font-size:24px; margin-bottom:6px; }
+  .sect-note { color:var(--muted); font-size:14.5px; margin-bottom:18px; max-width:820px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+  .dl { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:10px; }
+  .dl img { width:100%; border-radius:10px; border:1px solid var(--border); }
+  .dl .name { font-weight:700; font-size:14.5px; }
+  .dl .meta { color:var(--muted); font-size:12.5px; }
+  .dl a.btn { display:inline-block; background:var(--grad); color:#14111c; font-weight:700; font-size:13.5px;
+              border-radius:999px; padding:8px 16px; text-decoration:none; align-self:flex-start; }
+  .dl a.more { color:var(--accent); font-size:13px; }
+  ul.plain { padding-left:20px; color:var(--muted); font-size:14.5px; display:flex; flex-direction:column; gap:6px; }
+  code { background:#241e33; border-radius:6px; padding:1px 7px; font-size:.92em; }
+  .legal { margin-top:56px; border-top:1px solid var(--border); padding-top:22px; color:var(--muted); font-size:13.5px; }
+  .legal b { color:var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><img src="assets/influencer/screenshots/icon-512.png" alt=""><span class="grad">DownloadThat</span></div>
+    <nav><a href="partner.html">Partnerprogramm</a> · <a href="index.html">Produktseite</a></nav>
+  </header>
+
+  <h1>Creator-Kit: <span class="grad">fertige Werbemittel</span> für Partner.</h1>
+  <p class="lead">Alles hier ist sofort verwendbar: Stories, Feed-Posts, Carousels, YouTube-Material,
+  Karten, Flyer und Videovorlagen — in Deutsch und Englisch, mit echten App-Screenshots.
+  Die Muster zeigen Platzhalter („Dein Name“, Code <code>DEINCODE</code>); nach deiner
+  Registrierung personalisieren wir Link, Code und QR-Code für dich.</p>
+  <div class="notice">⏳ Die Partnerregistrierung ist geöffnet — die Auszahlungsfunktion wird separat
+  freigeschaltet. Kennzeichne Affiliate-Inhalte immer als Werbung (Textbausteine unten).</div>
+
+  <section>
+    <h2>Stories, Reels & TikTok (1080 × 1920)</h2>
+    <p class="sect-note">10 Vorlagen mit Safe Areas (oben 230 px, unten 330 px frei). Dateiname endet
+    auf <code>-de</code>/<code>-en</code>.</p>
+    <div class="cards">
+      <div class="dl"><img src="assets/influencer/promotion/stories/story-01-know-this-app-de.png" alt="" loading="lazy">
+        <div class="name">„Diese App solltest du kennen“ + 9 weitere</div>
+        <div class="meta">PNG · 1080×1920 · DE/EN</div>
+        <a class="btn" href="assets/influencer/promotion/stories/story-01-know-this-app-de.png" download>Beispiel laden</a>
+        <a class="more" href="assets/influencer/index.html#stories">Alle Story-Vorlagen →</a></div>
+      <div class="dl"><img src="assets/influencer/promotion/stories/story-07-my-code-de.png" alt="" loading="lazy">
+        <div class="name">Creator-Code-Story (personalisierbar)</div>
+        <div class="meta">PNG · 1080×1920 · DE/EN · QR + Code</div>
+        <a class="btn" href="assets/influencer/promotion/stories/story-07-my-code-de.png" download>Beispiel laden</a></div>
+      <div class="dl"><img src="assets/influencer/promotion/youtube/shorts-cover-de.png" alt="" loading="lazy">
+        <div class="name">Shorts-/Reel-Cover</div>
+        <div class="meta">PNG · 1080×1920 · DE/EN</div>
+        <a class="btn" href="assets/influencer/promotion/youtube/shorts-cover-de.png" download>Laden</a></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Feed-Posts & Carousels</h2>
+    <p class="sect-note">10 Feed-Vorlagen (1080×1350, ausgewählte Motive auch 1080×1080 und 1200×628)
+    und 3 Carousel-Sets à 5 Slides.</p>
+    <div class="cards">
+      <div class="dl"><img src="assets/influencer/promotion/feed/feed-01-product-intro-de-1080x1350.png" alt="" loading="lazy">
+        <div class="name">Produktvorstellung + 9 weitere</div>
+        <div class="meta">PNG · 3 Formate · DE/EN</div>
+        <a class="more" href="assets/influencer/index.html#feed">Alle Feed-Vorlagen →</a></div>
+      <div class="dl"><img src="assets/influencer/promotion/carousel/carousel-how-it-works/slide-1-de.png" alt="" loading="lazy">
+        <div class="name">Carousel „So funktioniert’s“ (5 Slides)</div>
+        <div class="meta">PNG · 1080×1350 · DE/EN</div>
+        <a class="more" href="assets/influencer/index.html#carousel">Alle 3 Sets →</a></div>
+      <div class="dl"><img src="assets/influencer/promotion/blog/blog-05-compare-de.png" alt="" loading="lazy">
+        <div class="name">Blog-/Newsletter-Grafiken</div>
+        <div class="meta">Header, CTA-Banner, QR-Banner, Vergleich, Schritte</div>
+        <a class="more" href="assets/influencer/index.html#blog">Alle Blog-Grafiken →</a></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>YouTube</h2>
+    <p class="sect-note">6 Thumbnail-Motive (Texte austauschbar — HTML-Master im Repo unter
+    <code>creator_tools/templates/</code>), Endcard mit Freifläche für YouTube-Elemente, Affiliate-Link-Karte.</p>
+    <div class="cards">
+      <div class="dl"><img src="assets/influencer/promotion/youtube/thumb-01-spart-zeit-de.png" alt="" loading="lazy">
+        <div class="name">Thumbnails (6 Motive)</div>
+        <div class="meta">PNG · 1280×720</div>
+        <a class="more" href="assets/influencer/index.html#youtube">Alle YouTube-Assets →</a></div>
+      <div class="dl"><img src="assets/influencer/promotion/youtube/endcard-de.png" alt="" loading="lazy">
+        <div class="name">Video-Endcard</div>
+        <div class="meta">PNG · 1920×1080 · DE/EN</div>
+        <a class="btn" href="assets/influencer/promotion/youtube/endcard-de.png" download>Laden</a></div>
+      <div class="dl"><img src="assets/influencer/promotion/cards/qr-square-de.png" alt="" loading="lazy">
+        <div class="name">Affiliate- & QR-Karten</div>
+        <div class="meta">3 QR-Formate + Karten in 3 Designrichtungen</div>
+        <a class="more" href="assets/influencer/index.html#cards">Alle Karten →</a></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Videovorlagen (MP4, H.264/AAC, mit Untertiteln + SRT)</h2>
+    <p class="sect-note">7 Vorlagen / 9 Clips: 10-s-Intro, 15-s-Tutorial, 20-s-Creator-Ad (personalisierbar),
+    30-s-Review, 3-teilige Story-Sequenz, textbasierte No-Voice-Version (EN), Sprecher-Version inkl.
+    Voiceover-Skript (DE/EN). Musik: neutraler, selbst erzeugter Pad — austauschbar.</p>
+    <div class="cards">
+      <div class="dl"><div class="name">▶ 10-s-Produktintro</div><div class="meta">1080×1920 · DE</div>
+        <a class="btn" href="assets/influencer/promotion/video/video-01-intro-10s-de.mp4" download>MP4 laden</a></div>
+      <div class="dl"><div class="name">▶ 20-s-Creator-Ad (mit Code/QR)</div><div class="meta">1080×1920 · DE</div>
+        <a class="btn" href="assets/influencer/promotion/video/video-03-creator-ad-20s-de.mp4" download>MP4 laden</a></div>
+      <div class="dl"><div class="name">▶ Alle Videos + Untertitel</div><div class="meta">9 MP4 + 9 SRT + 2 Skripte</div>
+        <a class="more" href="assets/influencer/index.html#video">Alle Videos →</a></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Für die Ansprache neuer Partner (Kit A)</h2>
+    <div class="cards">
+      <div class="dl"><img src="assets/influencer/recruitment/flyer-a4-de.png" alt="" loading="lazy">
+        <div class="name">A4-Flyer</div><div class="meta">PDF (druckfähig) + PNG · DE/EN</div>
+        <a class="btn" href="assets/influencer/recruitment/flyer-a4-de.pdf" download>PDF laden</a></div>
+      <div class="dl"><img src="assets/influencer/recruitment/deck/slide-1-de.png" alt="" loading="lazy">
+        <div class="name">Kurz-Deck (8 Seiten)</div><div class="meta">1920×1080 + Social-Portrait · DE/EN</div>
+        <a class="more" href="assets/influencer/index.html#recruitment">Alle Seiten →</a></div>
+      <div class="dl"><div class="name">One-Pager (Web)</div><div class="meta">HTML · DE/EN</div>
+        <a class="btn" href="assets/influencer/recruitment/downloadthat-creator-onepager.html">Öffnen</a></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Texte, Skripte & Personalisierung</h2>
+    <ul class="plain">
+      <li>Hooks & Videoskripte: <code>docs/INFLUENCER_VIDEO_SCRIPTS.md</code> im Repo</li>
+      <li>Captions, Beschreibungen, Offenlegung (DE/EN): <code>docs/INFLUENCER_COPY_LIBRARY.md</code></li>
+      <li>Platzhalter-Konvention: <code>{{creator_name}}</code>, <code>{{affiliate_link}}</code>,
+          <code>{{affiliate_code}}</code>, <code>{{discount_text}}</code> (bleibt leer — aktuell gibt es keinen Rabatt),
+          <code>{{campaign_name}}</code>, <code>{{language}}</code></li>
+      <li>Personalisierte Fassungen (dein Name, Code, Link, QR in allen Vorlagen und Videos) erzeugen wir
+          nach der Registrierung — oder selbst per
+          <code>uv run python creator_tools/generate_creator_kit.py &lt;config.json&gt;</code></li>
+    </ul>
+  </section>
+
+  <section class="legal">
+    <p><b>Werbekennzeichnung (Pflicht):</b> Deutsch „Werbung“ / „Anzeige“ und
+    „Affiliate-Link: Bei einem Kauf über diesen Link erhalte ich eine Provision. Für dich ändert sich der
+    Preis nicht.“ — Englisch „Ad“ / „Sponsored“ und “Affiliate link: I may earn a commission if you purchase
+    through this link, at no additional cost to you.” Kennzeichnung gehört an den Anfang, nicht versteckt in Hashtags.</p>
+    <p style="margin-top:10px;"><b>Produktaussagen:</b> DownloadThat lädt Medien von fast jeder Seite — aber
+    nicht von DRM-Streaming-Diensten (z. B. Netflix, Spotify). Keine erfundenen Rabatte, Nutzerzahlen oder
+    Einnahme-Versprechen. Bitte übernimm, wo passend: „Lade nur Inhalte herunter, für die du die
+    erforderlichen Rechte oder die Erlaubnis besitzt.“</p>
+    <p style="margin-top:10px;">Alle Rechtstexte sind prüfungsbedürftige Vorlagen und keine Rechtsberatung.
+    Formate & Maße: Stories/Reels 1080×1920 · Feed 1080×1350 / 1080×1080 / 1200×628 · Thumbnails 1280×720 ·
+    Endcards 1920×1080 · Flyer DIN A4. Fragen: über das <a href="partner.html" style="color:var(--accent);">Partnerportal</a>.</p>
+  </section>
+</div>
+</body></html>

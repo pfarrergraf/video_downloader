@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DownloadThat — Creator &amp; partner program</title>
+<style>
+  @font-face { font-family:"Inter"; src:url("../fonts/Inter.ttf"); font-weight:100 900; }
+  @font-face { font-family:"Space Grotesk"; src:url("../fonts/SpaceGrotesk.ttf"); font-weight:300 700; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --bg:#0e0c14; --card:#1b1626; --border:#2c2438; --ink:#f1ede4; --muted:#a89fb3;
+          --accent:#c9a869; --grad:linear-gradient(120deg,#8a713f,#c9a869,#ecd9a8); }
+  body { background:radial-gradient(100% 50% at 90% -5%, rgba(201,168,105,.13), transparent 60%), var(--bg);
+         color:var(--ink); font-family:"Inter",system-ui,sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:880px; margin:0 auto; padding:56px 28px 80px; }
+  h1,h2,h3 { font-family:"Space Grotesk","Inter",sans-serif; letter-spacing:-0.02em; line-height:1.12; }
+  .grad { background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  header { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .logo { display:flex; align-items:center; gap:14px; font-family:"Space Grotesk"; font-weight:700; font-size:26px; }
+  .logo img { width:46px; height:46px; border-radius:12px; }
+  .chip { background:var(--grad); color:#14111c; font-weight:700; border-radius:999px; padding:8px 18px; font-size:14px; }
+  h1 { font-size:clamp(34px,6vw,54px); margin-top:44px; }
+  .lead { color:var(--muted); font-size:19px; margin-top:16px; max-width:720px; }
+  section { margin-top:44px; }
+  h2 { font-size:26px; margin-bottom:16px; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:26px 28px; }
+  ul.checks { list-style:none; display:flex; flex-direction:column; gap:10px; font-weight:600; }
+  ul.checks li { display:flex; gap:10px; }
+  ul.checks li::before { content:"✓"; color:var(--accent); font-weight:800; }
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+  .muted { color:var(--muted); }
+  table { border-collapse:collapse; width:100%; margin-top:8px; }
+  th,td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--border); }
+  th { color:var(--muted); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; }
+  td b { font-family:"Space Grotesk"; font-size:18px; }
+  .status { border:1.5px solid var(--accent); border-radius:14px; padding:12px 16px; font-weight:600; margin-top:16px; font-size:15px; }
+  .shots { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  .shots img { width:200px; border-radius:18px; border:1px solid var(--border); }
+  ol.ideas { padding-left:22px; display:flex; flex-direction:column; gap:10px; }
+  .cta { text-align:center; padding:40px 28px; }
+  .btn { display:inline-block; background:var(--grad); color:#14111c; font-weight:800; border-radius:999px;
+         padding:16px 34px; font-size:18px; text-decoration:none; margin-top:14px; }
+  .cta .url { margin-top:14px; font-weight:700; word-break:break-all; }
+  footer { margin-top:56px; color:var(--muted); font-size:13.5px; border-top:1px solid var(--border); padding-top:20px; }
+  a { color:var(--accent); }
+</style></head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><img src="../screenshots/icon-512.png" alt=""><span class="grad">DownloadThat</span></div>
+    <div class="chip">Creator &amp; partner program</div>
+  </header>
+
+  <h1>An app your audience will <span class="grad">actually use</span> — and one you can honestly recommend.</h1>
+  <p class="lead">An Android app that saves videos, audio and images from almost any site directly on your device — no cloud, no ads, no account.</p>
+
+  <section>
+    <h2>Why viewers find it useful</h2>
+    <div class="grid2">
+      <div class="card"><ul class="checks">
+        <li>Video, audio (MP3) &amp; images</li><li>Whole playlists at once</li><li>Up to 4K quality</li>
+      </ul></div>
+      <div class="card"><ul class="checks">
+        <li>100% on-device — no cloud upload</li><li>No ads, no tracking, no account</li><li>Downloads keep running in the background</li>
+      </ul></div>
+    </div>
+    <p class="muted" style="margin-top:14px;">Free forever: 3 downloads a day in full HD/4K quality. Pro: 12 € one-time · no subscription. Does not work with DRM streaming services like Spotify or Netflix. Android only.</p>
+  </section>
+
+  <section>
+    <h2>Real app, real screenshots</h2>
+    <div class="shots">
+      <img src="../screenshots/screenshot_main.png" alt="DownloadThat Startansicht">
+      <img src="../screenshots/screenshot_queue.png" alt="DownloadThat Warteschlange">
+      <img src="../screenshots/screenshot_settings.png" alt="DownloadThat Einstellungen">
+    </div>
+  </section>
+
+  <section>
+    <h2>How easily it fits into a video</h2>
+    <div class="card">
+      <p>The whole flow fits in <b>under 15 seconds</b>: tap share → pick DownloadThat → the file is saved locally. No setup, no account — ideal for Shorts, Reels and tutorial segments.</p>
+      <ol class="ideas" style="margin-top:14px;">
+        <li>15-second demo (“the share trick”)</li>
+        <li>Honest review with a Free-vs-Pro verdict</li>
+        <li>Tutorial: archiving podcast episodes as MP3</li>
+        <li>Story series: “3 things I like”</li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <h2>How the affiliate model works</h2>
+    <div class="card">
+      <table>
+        <tr><th>Your confirmed sales</th><th>Commission per sale</th></tr>
+        <tr><td>1 – 10</td><td><b>2,00 €</b></td></tr>
+        <tr><td>11 – 50</td><td><b>2,50 €</b></td></tr>
+        <tr><td>51 – 100</td><td><b>3,00 €</b></td></tr>
+        <tr><td>101 – 500</td><td><b>3,50 €</b></td></tr>
+        <tr><td>501+</td><td><b>4,00 €</b></td></tr>
+      </table>
+      <p class="muted" style="margin-top:12px;">180-day attribution · your code takes priority · monthly payout from €50 · 30-day review period · no income guarantee.</p>
+      <div class="status">⏳ Partner registration is open — payouts will be enabled separately.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ready-made creatives — nothing to design</h2>
+    <div class="card"><ul class="checks">
+      <li>10 story and 10 feed templates (DE/EN)</li>
+      <li>YouTube thumbnails, Shorts covers, endcards</li>
+      <li>7 finished video templates (MP4, subtitled)</li>
+      <li>Personalized code, link and QR cards</li>
+      <li>Scripts, hooks, captions and disclosure copy</li>
+    </ul>
+    <p class="muted" style="margin-top:12px;">All in the <a href="https://downloadthat.pages.dev/creator-kit.html">creator kit</a> — after registration we personalize link, code and QR for you.</p></div>
+  </section>
+
+  <div class="cta card" style="margin-top:48px;">
+    <h2>Sounds fair? Let's get started.</h2>
+    <p class="muted">Registration takes two minutes — magic-link login, no password. You'll get a personal reply from the maker.</p>
+    <a class="btn" href="https://downloadthat.pages.dev/partner.html">Become a DownloadThat partner</a>
+    <div class="url muted">https://downloadthat.pages.dev/partner.html</div>
+  </div>
+
+  <footer>
+    Only download content you have the necessary rights or permission for. DownloadThat does not work with DRM streaming services (e.g. Netflix, Spotify) and is an Android app (sideload, no Play Store). Affiliate links must be disclosed as advertising. This document is not legal advice.
+  </footer>
+</div>
+</body></html>
