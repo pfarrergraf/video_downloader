@@ -49,12 +49,15 @@
   }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 1080px; margin: 0 auto; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.02em; }
+  /* Matches the real app icon exactly (dark backdrop, gradient arrow-into-
+     tray glyph) — not the inverse (gradient backdrop, dark glyph) used
+     here before. See pro/website/assets/influencer/screenshots/icon-512.png. */
   .brand-icon {
     width: 30px; height: 30px; border-radius: 8px;
-    background: var(--grad);
+    background: #100e1c;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1rem; color: var(--bg);
   }
+  .brand-icon svg { width: 62%; height: 62%; }
   nav.links { display: flex; gap: 28px; font-size: 0.95rem; }
   nav.links a { color: var(--text-dim); }
   nav.links a:hover { color: var(--text); text-decoration: none; }
@@ -176,7 +179,18 @@
 
 <header class="nav">
   <div class="nav-inner">
-    <div class="brand"><span class="brand-icon">⬇</span> DownloadThat</div>
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <defs><linearGradient id="dt-mark-nav" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ff657d"/><stop offset="49%" stop-color="#ffad65"/><stop offset="100%" stop-color="#40e3c4"/>
+          </linearGradient></defs>
+          <path d="M12 4v9M8 9l4 4 4-4" stroke="url(#dt-mark-nav)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7.5 19.2h9" stroke="url(#dt-mark-nav)" stroke-width="2.3" stroke-linecap="round"/>
+        </svg>
+      </span>
+      DownloadThat
+    </div>
     <nav class="links">
       <a href="#features" data-i18n="website.nav.features">Features</a>
       <a href="#pricing" data-i18n="website.nav.pricing">Pricing</a>
@@ -234,7 +248,15 @@
             <div class="pc3-screen" data-pc3-screen>
               <div class="pc3-screen__glass" aria-hidden="true"></div>
               <header class="pc3-appbar" aria-hidden="true">
-                <span class="pc3-appbar__brand"><b>↓</b>DownloadThat</span>
+                <span class="pc3-appbar__brand">
+                  <b><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <defs><linearGradient id="dt-mark-appbar" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#ff657d"/><stop offset="49%" stop-color="#ffad65"/><stop offset="100%" stop-color="#40e3c4"/>
+                    </linearGradient></defs>
+                    <path d="M12 4v9M8 9l4 4 4-4" stroke="url(#dt-mark-appbar)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7.5 19.2h9" stroke="url(#dt-mark-appbar)" stroke-width="2.3" stroke-linecap="round"/>
+                  </svg></b>DownloadThat
+                </span>
                 <span class="pc3-appbar__signal"><i></i><i></i><i></i></span>
               </header>
 
@@ -246,7 +268,12 @@
                 <article class="pc3-media-card">
                   <div class="pc3-media-card__visual" aria-hidden="true"><span>▶</span></div>
                   <div class="pc3-media-card__text" aria-hidden="true"><i></i><i></i><i></i></div>
-                  <button class="pc3-share" type="button" data-pc3-next="share" data-i18n-attr="aria-label:website.hero_cinema.share_title">↗</button>
+                  <button class="pc3-share" type="button" data-pc3-next="share" data-i18n-attr="aria-label:website.hero_cinema.share_title">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 4v9M8 9l4 4 4-4" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M7.5 19.2h9" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+                    </svg>
+                  </button>
                 </article>
               </section>
 
@@ -255,7 +282,16 @@
                   <div class="pc3-share-apps">
                     <span aria-hidden="true"><b>✉</b></span>
                     <span aria-hidden="true"><b>↗</b></span>
-                    <button type="button" data-pc3-next="format" class="pc3-share-apps__dt" data-i18n-attr="aria-label:website.hero_cinema.share_title"><b>↓</b><small>DownloadThat</small></button>
+                    <button type="button" data-pc3-next="format" class="pc3-share-apps__dt" data-i18n-attr="aria-label:website.hero_cinema.share_title">
+                      <b><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <defs><linearGradient id="dt-mark-sheet" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stop-color="#ff657d"/><stop offset="49%" stop-color="#ffad65"/><stop offset="100%" stop-color="#40e3c4"/>
+                        </linearGradient></defs>
+                        <path d="M12 4v9M8 9l4 4 4-4" stroke="url(#dt-mark-sheet)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7.5 19.2h9" stroke="url(#dt-mark-sheet)" stroke-width="2.3" stroke-linecap="round"/>
+                      </svg></b>
+                      <small>DownloadThat</small>
+                    </button>
                     <span aria-hidden="true"><b>⋯</b></span>
                   </div>
                 </div>
