@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DownloadThat — Product Cinema V3</title>
+<meta name="description" content="DownloadThat Product Cinema V3: magnetischer Datenstrom und Kamerafahrt durch das Smartphone">
+<link rel="stylesheet" href="assets/gpt_product_cinema_v3/gpt_product_cinema_v3_base.css">
+<link rel="stylesheet" href="assets/gpt_product_cinema_v3/gpt_product_cinema_v3_stage.css">
+<link rel="stylesheet" href="assets/gpt_product_cinema_v3/gpt_product_cinema_v3_motion.css">
+</head>
+<body>
+<div class="pc3" data-pc3-root data-pc3-phase="intro">
+  <div class="pc3-noise" aria-hidden="true"></div>
+  <div class="pc3-aurora pc3-aurora--left" aria-hidden="true"></div>
+  <div class="pc3-aurora pc3-aurora--right" aria-hidden="true"></div>
+
+  <header class="pc3-nav">
+    <a class="pc3-brand" href="#top" aria-label="DownloadThat Start">
+      <span class="pc3-brand__mark">↓</span>
+      <span>DownloadThat</span>
+      <span class="pc3-brand__tag">PRODUCT CINEMA V3</span>
+    </a>
+    <div class="pc3-nav__actions">
+      <button class="pc3-icon-button" type="button" data-pc3-motion aria-pressed="false" aria-label="Bewegung reduzieren">◐</button>
+      <a class="pc3-button pc3-button--small" href="/download">Kostenlos testen</a>
+    </div>
+  </header>
+
+  <main class="pc3-hero" id="top">
+    <section class="pc3-copy" aria-labelledby="pc3-title">
+      <p class="pc3-eyebrow">ANDROID · LOKAL · DIREKT</p>
+      <h1 class="pc3-title" id="pc3-title">
+        <span><b>TEILEN.</b></span>
+        <span><b class="pc3-title__accent">AUSWÄHLEN.</b></span>
+        <span><b>SPEICHERN.</b></span>
+      </h1>
+      <p class="pc3-lead">Video, Audio und Bilder werden als sichtbarer Datenstrom in DownloadThat aufgenommen und direkt auf deinem Gerät gespeichert.</p>
+      <div class="pc3-pills" aria-label="Produktvorteile">
+        <span><i></i>lokale Verarbeitung</span>
+        <span><i></i>kein unnötiger Cloud-Upload</span>
+        <span><i></i>für Android</span>
+      </div>
+      <div class="pc3-actions">
+        <button class="pc3-button" type="button" data-pc3-replay>Film abspielen</button>
+        <button class="pc3-button pc3-button--ghost" type="button" data-pc3-stepthrough>Schrittweise ansehen</button>
+      </div>
+      <p class="pc3-legal">Nur Inhalte speichern, für die du die erforderlichen Rechte oder eine Erlaubnis besitzt.</p>
+    </section>
+
+    <section class="pc3-cinema" data-pc3-cinema aria-label="Interaktive Produktanimation">
+      <div class="pc3-stage" data-pc3-stage>
+        <canvas class="pc3-stream-canvas" data-pc3-stream aria-hidden="true"></canvas>
+        <div class="pc3-orbits" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+
+        <div class="pc3-source pc3-source--video" data-pc3-source="video" aria-hidden="true">
+          <span class="pc3-source__icon">▶</span>
+          <div class="pc3-source__stack"><i></i><i></i><i></i></div>
+          <small>VIDEO</small>
+        </div>
+        <div class="pc3-source pc3-source--audio" data-pc3-source="audio" aria-hidden="true">
+          <span class="pc3-source__icon">♫</span>
+          <div class="pc3-source__wave"><i></i><i></i><i></i><i></i><i></i></div>
+          <small>AUDIO</small>
+        </div>
+        <div class="pc3-source pc3-source--image" data-pc3-source="image" aria-hidden="true">
+          <span class="pc3-source__icon">▧</span>
+          <div class="pc3-source__grid"><i></i><i></i><i></i><i></i></div>
+          <small>BILDER</small>
+        </div>
+
+        <div class="pc3-camera-rig" data-pc3-camera-rig>
+          <div class="pc3-device" data-pc3-device>
+            <div class="pc3-device__edge" aria-hidden="true"></div>
+            <div class="pc3-device__buttons" aria-hidden="true"><i></i><i></i></div>
+            <div class="pc3-device__camera" aria-hidden="true"><i></i></div>
+            <div class="pc3-screen" data-pc3-screen>
+              <div class="pc3-screen__glass" aria-hidden="true"></div>
+              <header class="pc3-appbar">
+                <span class="pc3-appbar__brand"><b>↓</b>DownloadThat</span>
+                <span class="pc3-appbar__signal"><i></i><i></i><i></i></span>
+              </header>
+
+              <section class="pc3-view is-active" data-pc3-view="source">
+                <article class="pc3-media-card">
+                  <div class="pc3-media-card__visual"><span>▶</span></div>
+                  <div class="pc3-media-card__text"><i></i><i></i><i></i></div>
+                  <button class="pc3-share" type="button" data-pc3-next="share" aria-label="Link teilen">↗</button>
+                </article>
+                <p class="pc3-view__label">1 · Link teilen</p>
+              </section>
+
+              <section class="pc3-view" data-pc3-view="share">
+                <div class="pc3-share-sheet">
+                  <h2>Teilen mit</h2>
+                  <div class="pc3-share-apps">
+                    <span><b>✉</b><small>Mail</small></span>
+                    <span><b>↗</b><small>Browser</small></span>
+                    <button type="button" data-pc3-next="format" class="pc3-share-apps__dt"><b>↓</b><small>DownloadThat</small></button>
+                    <span><b>⋯</b><small>Mehr</small></span>
+                  </div>
+                </div>
+                <p class="pc3-view__label">2 · DownloadThat wählen</p>
+              </section>
+
+              <section class="pc3-view" data-pc3-view="format">
+                <div class="pc3-format-card">
+                  <h2>Was möchtest du speichern?</h2>
+                  <button type="button" data-pc3-next="stream"><b>▶</b><span><strong>Video</strong><small>MP4 · beste verfügbare Qualität</small></span></button>
+                  <button type="button" data-pc3-next="stream"><b>♫</b><span><strong>Audio</strong><small>Tonspur lokal extrahieren</small></span></button>
+                  <button type="button" data-pc3-next="stream"><b>▧</b><span><strong>Bilder</strong><small>Bilddateien direkt speichern</small></span></button>
+                </div>
+                <p class="pc3-view__label">3 · Format auswählen</p>
+              </section>
+
+              <section class="pc3-view pc3-view--focus" data-pc3-view="stream">
+                <div class="pc3-ingest">
+                  <div class="pc3-ingest__core" data-pc3-ingest-core><span>↓</span></div>
+                  <h2>Daten werden aufgenommen</h2>
+                  <p>Video, Audio und Bilder bündeln sich zu einer lokalen Datei.</p>
+                  <div class="pc3-ingest__meter"><i></i></div>
+                </div>
+                <p class="pc3-view__label">4 · Datenstrom</p>
+              </section>
+
+              <section class="pc3-view pc3-view--focus" data-pc3-view="inside">
+                <div class="pc3-inside">
+                  <div class="pc3-inside__file"><span>MP4</span><b>↓</b></div>
+                  <h2>Wird lokal gespeichert</h2>
+                  <div class="pc3-progress"><i></i></div>
+                  <p>Keine unnötige Cloud-Zwischenstation.</p>
+                </div>
+                <p class="pc3-view__label">5 · Lokal verarbeiten</p>
+              </section>
+
+              <section class="pc3-view" data-pc3-view="success">
+                <div class="pc3-success">
+                  <div class="pc3-success__check">✓</div>
+                  <h2>Gespeichert.</h2>
+                  <p>Direkt auf deinem Gerät.</p>
+                  <a href="/download">Kostenlos ausprobieren</a>
+                </div>
+                <p class="pc3-view__label">6 · Fertig</p>
+              </section>
+            </div>
+          </div>
+        </div>
+
+        <div class="pc3-glass-flare" data-pc3-flare aria-hidden="true"></div>
+        <div class="pc3-portal" data-pc3-portal aria-hidden="true"><span></span></div>
+      </div>
+
+      <div class="pc3-controls">
+        <button type="button" data-pc3-replay>↻ <span>Replay</span></button>
+        <div class="pc3-timeline" aria-live="polite">
+          <span data-pc3-index>01</span>
+          <p data-pc3-caption>Medienlink öffnen und teilen.</p>
+          <div><i data-pc3-progress></i></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="pc3-proof" aria-label="Produktionsreife">
+    <article><b>Magnetischer Datenstrom</b><span>Video, Audio und Bilder bleiben als unterschiedliche Medien erkennbar und formen sich sichtbar zum DownloadThat-Pfeil.</span></article>
+    <article><b>Kamerafahrt durch das Gerät</b><span>Die Aufmerksamkeit wandert von der Marke zur konkreten Bedienung und danach zurück zum ruhigen CTA-Endzustand.</span></article>
+    <article><b>Merge-freundlich</b><span>Eigener Namespace, keine externe Bibliothek, keine Änderung an Checkout, Stripe, Affiliate- oder Lizenzlogik.</span></article>
+  </section>
+</div>
+<script src="assets/gpt_product_cinema_v3/gpt_product_cinema_v3.js" defer></script>
+</body>
+</html>
