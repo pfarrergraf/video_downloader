@@ -139,7 +139,10 @@
 .pc3-screen__glass { position: absolute; inset: 0; z-index: 30; pointer-events: none; background: linear-gradient(115deg, rgba(255, 255, 255, .09), transparent 22% 73%, rgba(255, 255, 255, .025)); mix-blend-mode: screen; transition: opacity .5s; }
 .pc3-appbar { position: absolute; z-index: 15; left: 16px; right: 16px; top: 30px; display: flex; align-items: center; justify-content: space-between; }
 .pc3-appbar__brand { display: flex; align-items: center; gap: 6px; font-size: .68rem; font-weight: 900; }
-.pc3-appbar__brand b { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; background: var(--pc3-grad); color: #07060b; }
+/* Dark backdrop + gradient glyph — matches the real app icon exactly
+   (assets/influencer/screenshots/icon-512.png), not the inverse. */
+.pc3-appbar__brand b { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; background: #100e1c; }
+.pc3-appbar__brand svg { width: 62%; height: 62%; }
 .pc3-appbar__signal { display: flex; gap: 3px; align-items: flex-end; }
 .pc3-appbar__signal i { display: block; width: 3px; border-radius: 3px; background: rgba(255, 255, 255, .45); }
 .pc3-appbar__signal i:nth-child(1) { height: 4px; }
@@ -162,9 +165,10 @@
 .pc3-media-card__text i:nth-child(3) { width: 54%; }
 .pc3-share {
   position: absolute; right: 12px; bottom: 12px; display: grid; place-items: center; width: 46px; height: 46px;
-  border: 0; border-radius: 50%; background: var(--pc3-grad); color: #07060b; font-size: 20px; cursor: pointer;
+  border: 0; border-radius: 50%; background: var(--pc3-grad); color: #07060b; cursor: pointer;
   box-shadow: 0 8px 22px rgba(255, 101, 125, .24); animation: pc3-pulse 1.8s ease-in-out infinite;
 }
+.pc3-share svg { width: 46%; height: 46%; }
 @keyframes pc3-pulse { 50% { transform: scale(1.08); box-shadow: 0 0 0 12px rgba(255, 101, 125, 0); } }
 
 .pc3-share-sheet { align-self: end; width: calc(100% + 28px); margin: 0 -14px -22px; padding: 26px 12px; border-radius: 26px 26px 0 0; background: rgba(246, 243, 250, .97); color: #17121e; box-shadow: 0 -22px 46px rgba(0, 0, 0, .28); }
@@ -173,7 +177,9 @@
 .pc3-share-apps b { display: grid; place-items: center; width: 44px; height: 44px; margin: 0 auto 6px; border-radius: 14px; background: #d9d4df; font-size: 19px; }
 .pc3-share-apps small { display: block; font-size: .5rem; font-weight: 800; }
 .pc3-share-apps__dt { cursor: pointer; }
-.pc3-share-apps__dt b { width: 48px; height: 48px; background: var(--pc3-grad); color: #07060b; box-shadow: 0 8px 18px rgba(255, 101, 125, .25); }
+/* Dark backdrop + gradient glyph — the real app icon, not the inverse. */
+.pc3-share-apps__dt b { width: 48px; height: 48px; background: #100e1c; box-shadow: 0 8px 18px rgba(255, 101, 125, .25); }
+.pc3-share-apps__dt svg { width: 62%; height: 62%; }
 
 .pc3-format-card, .pc3-ingest, .pc3-inside, .pc3-success {
   width: 100%; padding: 18px 14px; border: 1px solid var(--pc3-line); border-radius: 20px;
