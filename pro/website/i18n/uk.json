@@ -101,6 +101,9 @@
       "advanced_summary": "Додатково",
       "quality_label": "Video quality"
     },
+    "share_format": {
+      "title": "What do you want to save?"
+    },
     "status": {
       "pending": "Очікує…",
       "in_progress": "Завантаження…",

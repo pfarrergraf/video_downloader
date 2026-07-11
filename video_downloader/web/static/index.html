@@ -370,6 +370,16 @@
     display: flex; align-items: center; justify-content: center; z-index: 54; padding: 1rem;
   }
   #delete-overlay .card { max-width: 380px; width: 100%; }
+  /* Explicit third step of the 2-tap share flow: Share -> pick DownloadThat
+     -> pick a format (this), instead of silently reusing whatever kind was
+     last set. Same kind-toggle look as the home screen for one visual
+     language throughout the app. */
+  #share-format-overlay {
+    position: fixed; inset: 0; background: var(--overlay-strong);
+    display: flex; align-items: center; justify-content: center; z-index: 56; padding: 1rem;
+  }
+  #share-format-overlay .card { max-width: 380px; width: 100%; }
+  #share-format-overlay .kind-row button { min-height: 84px; font-size: 1.15rem; }
   #delete-overlay .card button { width: 100%; margin-top: 0.6rem; }
   /* The destructive choice is visually marked as such, but stays an outline
      (not a filled red primary) so it never reads as the recommended action. */
@@ -551,6 +561,21 @@
     <!-- Reuses app.queue.cancel_btn - "Cancel" is already translated in all
          languages there; a new key would just duplicate it. -->
     <button class="secondary" id="delete-cancel-btn"><span aria-hidden="true">↩️</span> <span data-i18n="app.queue.cancel_btn">Cancel</span></button>
+  </div>
+</div>
+
+<div id="share-format-overlay" class="hidden">
+  <div class="card">
+    <h2 data-i18n="app.share_format.title">What do you want to save?</h2>
+    <div class="kind-row" role="group">
+      <button class="kind-toggle" id="share-format-video-btn" type="button">
+        <span aria-hidden="true">🎬</span> <span data-i18n="app.home.video_toggle">Video</span>
+      </button>
+      <button class="kind-toggle" id="share-format-audio-btn" type="button">
+        <span aria-hidden="true">🎵</span> <span data-i18n="app.home.audio_toggle">Audio only</span>
+      </button>
+    </div>
+    <button class="secondary" id="share-format-cancel-btn" type="button" style="width:100%; margin-top:0.9rem;" data-i18n="app.queue.cancel_btn">Cancel</button>
   </div>
 </div>
 
@@ -1051,7 +1076,9 @@ $('url-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') start
 
 // -- native hooks (Android shell calls these; harmless no-ops elsewhere) ----
 // A URL shared into the app ("Share -> DownloadThat"): fill the field and
-// start immediately with the remembered Smart Mode settings - the 2-tap flow.
+// show the format picker - the explicit third step of the flow (Share ->
+// pick DownloadThat -> pick a format), rather than silently downloading
+// with whatever kind was last used.
 let pendingSharedUrl = null;
 window.onSharedUrl = (url) => {
   if (!url || !/^https?:\/\//i.test(url)) return;
@@ -1062,8 +1089,24 @@ window.onSharedUrl = (url) => {
   }
   $('url-input').value = url;
   $('batch-urls').value = '';
-  startDownload();
+  $('share-format-overlay').classList.remove('hidden');
 };
+function closeShareFormatPicker() {
+  $('share-format-overlay').classList.add('hidden');
+}
+$('share-format-video-btn').addEventListener('click', () => {
+  setMediaKind('video');
+  closeShareFormatPicker();
+  startDownload();
+});
+$('share-format-audio-btn').addEventListener('click', () => {
+  setMediaKind('audio');
+  closeShareFormatPicker();
+  startDownload();
+});
+// Cancelling leaves the shared link in the field - the existing kind toggle
+// and Download button on the home screen still work normally from here.
+$('share-format-cancel-btn').addEventListener('click', closeShareFormatPicker);
 function deliverPendingSharedUrl() {
   // Cold-start path: the native side may also hold a shared URL that arrived
   // before the page was ready - pull it via the bridge once, then deliver.
