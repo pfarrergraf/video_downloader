@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title data-i18n="website.meta.title">DownloadThat — Video, Audio & Image Downloader for Android</title>
 <meta name="description" data-i18n-attr="content:website.meta.description" content="Download videos, audio and images straight to your Android phone. No Play Store, no ads, no lock-in. Free core, Pro for €12 one-time — no subscription." />
+<link rel="stylesheet" href="assets/home/hero-product-cinema.css" />
 <style>
   :root {
     /* Creator Energy palette — same tokens as the app's own UI and the
@@ -107,120 +108,6 @@
   }
   #withdrawal-modal .modal-cancel:hover { color: var(--text); }
 
-  /* Hero is a single centered column at every width on purpose: the demo
-     animation is meant to be the very first thing anyone sees, on a phone
-     or a desktop, not something that only leads on mobile. */
-  .hero { padding: 48px 24px 44px; overflow: hidden; }
-  .hero-grid { display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center; }
-  .hero-copy { max-width: 560px; }
-  .hero h1 { font-size: 2.5rem; line-height: 1.16; margin: 0 0 12px; }
-  .hero h1 span {
-    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .hero p.lead { color: var(--text-dim); font-size: 1.08rem; max-width: 480px; margin: 0 auto 18px; }
-  .trust-chip {
-    display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600;
-    border: 1px solid var(--border); background: var(--bg-elevated); border-radius: 999px;
-    padding: 8px 16px; margin: 0 0 22px;
-  }
-  .hero .cta-row { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-  .secondary-link { margin-top: 12px; font-size: 0.85rem; }
-  .secondary-link a { color: var(--text-dim); }
-  .secondary-link a:hover { color: var(--accent); }
-
-  @media (max-width: 480px) {
-    .hero h1 { font-size: 2rem; }
-  }
-
-  .hero-visual { position: relative; display: flex; justify-content: center; }
-  .glow {
-    position: absolute; width: 380px; height: 380px; border-radius: 50%;
-    background:
-      radial-gradient(circle at 35% 35%, rgba(255, 107, 107, 0.3), transparent 60%),
-      radial-gradient(circle at 65% 65%, rgba(74, 223, 182, 0.28), transparent 60%);
-    top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0;
-  }
-  .phone-mockup {
-    position: relative; z-index: 1; width: 240px;
-    background: linear-gradient(160deg, #322a3f, #0b0910);
-    border-radius: 38px; padding: 12px;
-    box-shadow: 0 50px 90px -35px rgba(0, 0, 0, 0.75), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-  }
-  .phone-notch {
-    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
-    width: 80px; height: 16px; background: #0b0910; border-radius: 0 0 12px 12px; z-index: 2;
-  }
-
-  /* Silent, textless 4-frame loop: tap share -> pick DownloadThat -> download
-     progresses -> saved. Frames 1-2 are honest stylized illustrations (never
-     claimed to be real screenshots); frames 3-4 are real crops of
-     store_assets/screenshot_queue.png. Every locale gets the same animation -
-     there is no text baked into it to translate. */
-  .phone-screen {
-    position: relative; border-radius: 27px; overflow: hidden; background: var(--bg);
-    aspect-ratio: 9 / 16.5;
-  }
-  .demo-frame {
-    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    padding: 22px 18px; opacity: 0;
-    animation: dt-demo-cycle 9s infinite;
-  }
-  .demo-frame img { width: 100%; border-radius: 12px; display: block; }
-  .demo-frame--tap { animation-delay: 0s; }
-  .demo-frame--sheet { animation-delay: -2.25s; }
-  .demo-frame--progress { animation-delay: -4.5s; }
-  .demo-frame--done { animation-delay: -6.75s; }
-  @keyframes dt-demo-cycle {
-    0% { opacity: 0; }
-    3% { opacity: 1; }
-    22% { opacity: 1; }
-    28% { opacity: 0; }
-    100% { opacity: 0; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .demo-frame { animation: none; opacity: 0; }
-    .demo-frame--done { opacity: 1; }
-  }
-
-  .demo-card {
-    width: 100%; max-width: 170px; aspect-ratio: 4 / 3; border-radius: 16px;
-    background: linear-gradient(135deg, var(--card), var(--bg-elevated));
-    border: 1px solid var(--border); position: relative; overflow: hidden;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-  .demo-frame--sheet .demo-card { opacity: 0.5; transform: scale(0.94); }
-  .demo-card-thumb {
-    position: absolute; inset: 14px 14px auto 14px; height: 55%; border-radius: 10px;
-    background: linear-gradient(135deg, rgba(255, 107, 107, 0.35), rgba(74, 223, 182, 0.3));
-  }
-  .demo-card-thumb::after {
-    content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    border-style: solid; border-width: 8px 0 8px 13px;
-    border-color: transparent transparent transparent rgba(255, 255, 255, 0.85);
-  }
-  .demo-share-btn {
-    position: absolute; right: 22%; bottom: 24%; width: 40px; height: 40px; border-radius: 50%;
-    background: var(--grad); color: var(--bg); display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
-    animation: dt-pulse 1.8s ease-in-out infinite;
-  }
-  @keyframes dt-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.12); }
-  }
-  .demo-sheet {
-    position: absolute; left: 14px; right: 14px; bottom: 16px;
-    background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 18px;
-    padding: 14px 10px; display: flex; align-items: center; justify-content: space-around;
-    box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.3);
-  }
-  .demo-sheet-dot { width: 30px; height: 30px; border-radius: 50%; background: var(--border); flex: none; }
-  .demo-sheet-app {
-    width: 42px; height: 42px; border-radius: 50%; background: var(--grad); flex: none;
-    display: flex; align-items: center; justify-content: center; color: var(--bg); font-size: 1.1rem;
-    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.25); transform: scale(1.05);
-  }
-
   section { padding: 44px 24px; }
   section h2 { font-size: 1.9rem; text-align: center; margin: 0 0 12px; }
   section p.section-lead { text-align: center; color: var(--text-dim); max-width: 560px; margin: 0 auto 32px; }
@@ -300,52 +187,153 @@
   </div>
 </header>
 
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-visual">
-      <div class="glow"></div>
-      <div class="phone-mockup">
-        <div class="phone-notch"></div>
-        <div class="phone-screen demo-loop" aria-hidden="true">
-          <div class="demo-frame demo-frame--tap">
-            <div class="demo-card">
-              <div class="demo-card-thumb"></div>
-            </div>
-            <div class="demo-share-btn">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-                <line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/>
-              </svg>
+<section class="pc3" data-pc3-root data-pc3-phase="intro">
+  <div class="pc3-noise" aria-hidden="true"></div>
+  <div class="pc3-aurora pc3-aurora--left" aria-hidden="true"></div>
+  <div class="pc3-aurora pc3-aurora--right" aria-hidden="true"></div>
+  <div class="cinema-layout">
+    <div class="pc3-copy pc3-copy--primary">
+      <p class="pc3-eyebrow" data-i18n="website.hero_cinema.eyebrow">ANDROID · LOCAL · DIRECT</p>
+      <h1 class="pc3-title">
+        <span><b data-i18n="website.hero_cinema.title_line_1">SHARE.</b></span>
+        <span><b class="pc3-title__accent" data-i18n="website.hero_cinema.title_line_2">CHOOSE.</b></span>
+        <span><b data-i18n="website.hero_cinema.title_line_3">SAVE.</b></span>
+      </h1>
+      <p class="pc3-lead" data-i18n="website.hero_cinema.lead">Save video, audio and images straight to your Android device in a few steps.</p>
+      <div class="pc3-pills" aria-label="Product benefits">
+        <span><i></i><span data-i18n="website.hero_cinema.trust_local">100% on your device</span></span>
+        <span><i></i><span data-i18n="website.hero_cinema.trust_cloud">No unnecessary cloud stop</span></span>
+      </div>
+      <div class="pc3-actions pc3-actions--primary">
+        <a class="btn btn-primary" data-i18n="website.hero.cta_primary" href="/download">Download for free</a>
+      </div>
+    </div>
+
+    <div class="pc3-cinema" data-pc3-cinema data-i18n-attr="aria-label:website.hero_cinema.region_label" aria-label="Interactive product animation">
+      <div class="pc3-stage" data-pc3-stage>
+        <canvas class="pc3-stream-canvas" data-pc3-stream aria-hidden="true"></canvas>
+        <div class="pc3-orbits" aria-hidden="true"><span></span><span></span><span></span></div>
+
+        <div class="pc3-source pc3-source--video" data-pc3-source="video" aria-hidden="true">
+          <span class="pc3-source__icon">▶</span>
+          <div class="pc3-source__stack"><i></i><i></i><i></i></div>
+          <small>VIDEO</small>
+        </div>
+        <div class="pc3-source pc3-source--audio" data-pc3-source="audio" aria-hidden="true">
+          <span class="pc3-source__icon">♫</span>
+          <div class="pc3-source__wave"><i></i><i></i><i></i><i></i><i></i></div>
+          <small>AUDIO</small>
+        </div>
+        <div class="pc3-source pc3-source--image" data-pc3-source="image" aria-hidden="true">
+          <span class="pc3-source__icon">▧</span>
+          <div class="pc3-source__grid"><i></i><i></i><i></i><i></i></div>
+          <small data-i18n="website.hero_cinema.format_images">IMAGES</small>
+        </div>
+
+        <div class="pc3-camera-rig" data-pc3-camera-rig>
+          <div class="pc3-device" data-pc3-device>
+            <div class="pc3-device__edge" aria-hidden="true"></div>
+            <div class="pc3-device__buttons" aria-hidden="true"><i></i><i></i></div>
+            <div class="pc3-device__camera" aria-hidden="true"><i></i></div>
+            <div class="pc3-screen" data-pc3-screen>
+              <div class="pc3-screen__glass" aria-hidden="true"></div>
+              <header class="pc3-appbar" aria-hidden="true">
+                <span class="pc3-appbar__brand"><b>↓</b>DownloadThat</span>
+                <span class="pc3-appbar__signal"><i></i><i></i><i></i></span>
+              </header>
+
+              <section class="pc3-view is-active" data-pc3-view="source">
+                <article class="pc3-media-card">
+                  <div class="pc3-media-card__visual" aria-hidden="true"><span>▶</span></div>
+                  <div class="pc3-media-card__text" aria-hidden="true"><i></i><i></i><i></i></div>
+                  <button class="pc3-share" type="button" data-pc3-next="share" data-i18n-attr="aria-label:website.hero_cinema.share_title">↗</button>
+                </article>
+                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_source">Open a media link and share it.</p>
+              </section>
+
+              <section class="pc3-view" data-pc3-view="share">
+                <div class="pc3-share-sheet">
+                  <h2 data-i18n="website.hero_cinema.share_title">Share with</h2>
+                  <div class="pc3-share-apps">
+                    <span aria-hidden="true"><b>✉</b><small>Mail</small></span>
+                    <span aria-hidden="true"><b>↗</b><small>Browser</small></span>
+                    <button type="button" data-pc3-next="format" class="pc3-share-apps__dt"><b>↓</b><small>DownloadThat</small></button>
+                    <span aria-hidden="true"><b>⋯</b><small>More</small></span>
+                  </div>
+                </div>
+                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_share">Pick DownloadThat from the share sheet.</p>
+              </section>
+
+              <section class="pc3-view" data-pc3-view="format">
+                <div class="pc3-format-card">
+                  <h2 data-i18n="website.hero_cinema.format_title">What do you want to save?</h2>
+                  <div class="pc3-format-card__grid">
+                    <button type="button" data-pc3-next="stream"><b aria-hidden="true">▶</b><span data-i18n="website.hero_cinema.format_video">Video</span></button>
+                    <button type="button" data-pc3-next="stream"><b aria-hidden="true">♫</b><span data-i18n="website.hero_cinema.format_audio">Audio</span></button>
+                    <button type="button" data-pc3-next="stream"><b aria-hidden="true">▧</b><span data-i18n="website.hero_cinema.format_images">Images</span></button>
+                  </div>
+                </div>
+                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_format">Choose video, audio or images.</p>
+              </section>
+
+              <section class="pc3-view" data-pc3-view="stream">
+                <div class="pc3-ingest">
+                  <div class="pc3-ingest__core" aria-hidden="true"><span>↓</span></div>
+                  <h2 data-i18n="website.hero_cinema.stream_title">Bundling the data</h2>
+                  <p data-i18n="website.hero_cinema.trust_local">100% on your device</p>
+                  <div class="pc3-ingest__meter" aria-hidden="true"><i></i></div>
+                </div>
+                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_stream">Media is bundled together.</p>
+              </section>
+
+              <section class="pc3-view" data-pc3-view="inside">
+                <div class="pc3-inside">
+                  <div class="pc3-inside__file" aria-hidden="true"><span>MP4</span><b>↓</b></div>
+                  <h2 data-i18n="website.hero_cinema.inside_title">Saving locally</h2>
+                  <div class="pc3-progress" aria-hidden="true"><i></i></div>
+                  <p data-i18n="website.hero_cinema.trust_cloud">No unnecessary cloud stop</p>
+                </div>
+                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_inside">The file is processed locally.</p>
+              </section>
+
+              <section class="pc3-view" data-pc3-view="success">
+                <div class="pc3-success">
+                  <div class="pc3-success__check" aria-hidden="true">✓</div>
+                  <h2 data-i18n="website.hero_cinema.success_title">Saved.</h2>
+                  <p data-i18n="website.hero_cinema.success_body">Saved directly on your device.</p>
+                  <a data-i18n="website.hero.cta_primary" href="/download">Download for free</a>
+                </div>
+                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_success">Saved — right on your device.</p>
+              </section>
             </div>
           </div>
-          <div class="demo-frame demo-frame--sheet">
-            <div class="demo-card">
-              <div class="demo-card-thumb"></div>
-            </div>
-            <div class="demo-sheet">
-              <span class="demo-sheet-dot"></span>
-              <span class="demo-sheet-dot"></span>
-              <span class="demo-sheet-app">⬇</span>
-              <span class="demo-sheet-dot"></span>
-            </div>
-          </div>
-          <div class="demo-frame demo-frame--progress">
-            <img src="assets/home/demo-progress.png" alt="" />
-          </div>
-          <div class="demo-frame demo-frame--done">
-            <img src="assets/home/demo-done.png" alt="" />
-          </div>
+        </div>
+
+        <div class="pc3-glass-flare" data-pc3-flare aria-hidden="true"></div>
+        <div class="pc3-portal" data-pc3-portal aria-hidden="true"><span></span></div>
+      </div>
+
+      <div class="pc3-controls">
+        <button type="button" data-pc3-replay>
+          <span aria-hidden="true">↻</span><span data-i18n="website.hero_cinema.replay">Replay</span>
+        </button>
+        <button type="button" data-pc3-stepthrough>
+          <span aria-hidden="true">→</span><span data-i18n="website.hero_cinema.stepthrough">Step through</span>
+        </button>
+        <button type="button" class="pc3-icon-button" data-pc3-motion aria-pressed="false" data-i18n-attr="aria-label:website.hero_cinema.motion_toggle_label" aria-label="Toggle motion">◐</button>
+        <div class="pc3-timeline" aria-live="polite">
+          <span data-pc3-index>01</span>
+          <p data-pc3-caption></p>
+          <div><i data-pc3-progress></i></div>
         </div>
       </div>
     </div>
-    <div class="hero-copy">
-      <h1 data-i18n-html="website.hero.title_html">Share. <span>Save</span>. Done.</h1>
-      <p class="lead" data-i18n="website.hero.lead">Video, audio and images from almost any site — straight to your phone.</p>
-      <div class="trust-chip" data-i18n="website.hero.trust_chip">🔒 100% on your device — no cloud</div>
-      <div class="cta-row">
-        <a class="btn btn-primary" data-i18n="website.hero.cta_primary" href="/download">Download for free</a>
+
+    <div class="pc3-copy pc3-copy--secondary">
+      <div class="pc3-actions pc3-actions--secondary">
         <a class="btn btn-ghost" data-i18n="website.hero.cta_secondary" href="#pricing">See Pro pricing</a>
       </div>
+      <p class="pc3-legal" data-i18n="website.hero_cinema.legal">Only save content you have the necessary rights or permission to use.</p>
       <div class="secondary-link">
         <a href="/download-windows" data-i18n="website.hero.windows_link">Also available for Windows →</a>
       </div>
@@ -474,6 +462,7 @@
 </footer>
 
 <script src="/i18n.js"></script>
+<script src="assets/home/hero-product-cinema.js" defer></script>
 <script>
   dtInitI18n();
   // The buy button opens the withdrawal-choice dialog; the two choices are
