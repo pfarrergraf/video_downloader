@@ -9,9 +9,14 @@
   @font-face { font-family:"Inter"; src:url("assets/influencer/fonts/Inter.ttf"); font-weight:100 900; }
   @font-face { font-family:"Space Grotesk"; src:url("assets/influencer/fonts/SpaceGrotesk.ttf"); font-weight:300 700; }
   * { margin:0; padding:0; box-sizing:border-box; }
-  :root { --bg:#0e0c14; --card:#1b1626; --border:#2c2438; --ink:#f1ede4; --muted:#a89fb3; --accent:#c9a869;
-          --grad:linear-gradient(120deg,#8a713f,#c9a869,#ecd9a8); }
-  body { background:radial-gradient(100% 40% at 90% -5%, rgba(201,168,105,.12), transparent 60%), var(--bg);
+  /* Same Creator Energy tokens as index.html/partner.html - one brand across
+     the marketing site, the partner program and this creator portal. */
+  :root { --bg:#12101f; --card:#1c1a2e; --border:#2e2b47; --ink:#ffffff; --muted:#b9b3d0; --accent:#ff6b6b;
+          --grad:linear-gradient(100deg,#ff6b6b 0%,#ffb26b 50%,#4adfb6 100%); }
+  body { background:
+           radial-gradient(100% 45% at 90% -5%, rgba(255,107,107,.14), transparent 60%),
+           radial-gradient(80% 40% at 5% 10%, rgba(74,223,182,.10), transparent 60%),
+           var(--bg);
          color:var(--ink); font-family:"Inter",system-ui,sans-serif; line-height:1.6; }
   .wrap { max-width:1060px; margin:0 auto; padding:48px 24px 90px; }
   h1,h2,h3 { font-family:"Space Grotesk","Inter",sans-serif; letter-spacing:-0.02em; line-height:1.15; }
@@ -31,7 +36,7 @@
   .dl img { width:100%; border-radius:10px; border:1px solid var(--border); }
   .dl .name { font-weight:700; font-size:14.5px; }
   .dl .meta { color:var(--muted); font-size:12.5px; }
-  .dl a.btn { display:inline-block; background:var(--grad); color:#14111c; font-weight:700; font-size:13.5px;
+  .dl a.btn { display:inline-block; background:var(--grad); color:var(--bg); font-weight:700; font-size:13.5px;
               border-radius:999px; padding:8px 16px; text-decoration:none; align-self:flex-start; }
   .dl a.more { color:var(--accent); font-size:13px; }
   ul.plain { padding-left:20px; color:var(--muted); font-size:14.5px; display:flex; flex-direction:column; gap:6px; }

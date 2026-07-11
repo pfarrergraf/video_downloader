@@ -158,17 +158,13 @@
       "download": "Download"
     },
     "hero": {
-      "eyebrow": "Gratis grundfunktioner · Ingen reklamer · Ingen konto nødvendig",
       "title_html": "Download {emphasis}.<br/>Direkte til din telefon.",
       "title_emphasis": "næsten alt",
       "lead": "Video, lyd og billeder fra næsten alle sider — downloadet direkte til din Android-telefon. Ingen upload til skyen, ingen data forlader nogensinde din enhed, ingen Play Store nødvendig.",
       "cta_primary": "Download den gratis Android-version",
       "cta_secondary": "Se Pro-priser",
       "windows_link": "Findes også til Windows →",
-      "badge1": "Ingen Google Play nødvendig",
-      "badge2": "Kører 100% på din enhed",
-      "badge3": "HD- og 4K-understøttelse",
-      "badge4": "Grundfunktionerne er gratis for altid"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Alt, hvad du har brug for — intet, du ikke har",
@@ -184,7 +180,8 @@
       "f5_title": "Lyduddrag",
       "f5_desc": "Træk kun lydsporet ud af en hvilken som helst video, og gem det som MP3.",
       "f6_title": "Ingen app store nødvendig",
-      "f6_desc": "Installer Android-versionen direkte. Ingen konto, ingen godkendelsesproces i Play Store, ingen regionslåsning."
+      "f6_desc": "Installer Android-versionen direkte. Ingen konto, ingen godkendelsesproces i Play Store, ingen regionslåsning.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Én licens, én pris",

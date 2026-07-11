@@ -158,17 +158,13 @@
       "download": "Stiahnuť"
     },
     "hero": {
-      "eyebrow": "Základ zadarmo · Bez reklám · Bez potreby účtu",
       "title_html": "Stiahni si {emphasis}.<br/>Priamo do telefónu.",
       "title_emphasis": "takmer všetko",
       "lead": "Video, zvuk a obrázky takmer z akejkoľvek stránky — stiahnuté priamo do tvojho telefónu s Androidom. Žiadne nahrávanie do cloudu, žiadne dáta neopustia tvoje zariadenie, Play Store nepotrebuješ.",
       "cta_primary": "Stiahnuť bezplatnú verziu pre Android",
       "cta_secondary": "Pozrieť ceny Pro",
       "windows_link": "Dostupné aj pre Windows →",
-      "badge1": "Bez potreby Google Play",
-      "badge2": "Beží 100 % na tvojom zariadení",
-      "badge3": "Podpora HD a 4K",
-      "badge4": "Základ je navždy zadarmo"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Všetko, čo potrebuješ, nič navyše",
@@ -184,7 +180,8 @@
       "f5_title": "Extrakcia zvuku",
       "f5_desc": "Vytiahni z akéhokoľvek videa len zvukovú stopu a ulož ju ako MP3.",
       "f6_title": "Bez potreby obchodu s aplikáciami",
-      "f6_desc": "Nainštaluj verziu pre Android priamo. Bez účtu, bez schvaľovacieho procesu Play Store, bez regionálnych obmedzení."
+      "f6_desc": "Nainštaluj verziu pre Android priamo. Bez účtu, bez schvaľovacieho procesu Play Store, bez regionálnych obmedzení.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Jedna licencia, jedna cena",

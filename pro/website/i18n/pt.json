@@ -158,17 +158,13 @@
       "download": "Baixar"
     },
     "hero": {
-      "eyebrow": "Núcleo gratuito · Sem anúncios · Sem conta necessária",
       "title_html": "Baixe {emphasis}.<br/>Direto para o seu celular.",
       "title_emphasis": "quase tudo",
       "lead": "Vídeos, áudios e imagens de quase qualquer site — baixados direto para o seu celular Android. Sem upload para a nuvem, nenhum dado sai do seu dispositivo, sem necessidade de Play Store.",
       "cta_primary": "Baixar a versão gratuita para Android",
       "cta_secondary": "Ver preços do Pro",
       "windows_link": "Também disponível para Windows →",
-      "badge1": "Não precisa do Google Play",
-      "badge2": "Roda 100% no seu dispositivo",
-      "badge3": "Suporte a HD e 4K",
-      "badge4": "O núcleo é gratuito para sempre"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Tudo o que você precisa, nada do que não precisa",
@@ -184,7 +180,8 @@
       "f5_title": "Extração de áudio",
       "f5_desc": "Extraia apenas a trilha de áudio de qualquer vídeo e salve como MP3.",
       "f6_title": "Não precisa de loja de aplicativos",
-      "f6_desc": "Instale a versão para Android diretamente. Sem conta, sem processo de revisão da Play Store, sem bloqueio regional."
+      "f6_desc": "Instale a versão para Android diretamente. Sem conta, sem processo de revisão da Play Store, sem bloqueio regional.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Uma licença, um preço",

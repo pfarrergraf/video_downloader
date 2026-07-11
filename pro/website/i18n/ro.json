@@ -158,17 +158,13 @@
       "download": "Descărcare"
     },
     "hero": {
-      "eyebrow": "Nucleu gratuit · Fără reclame · Fără cont necesar",
       "title_html": "Descarcă {emphasis}.<br/>Direct pe telefonul tău.",
       "title_emphasis": "aproape tot",
       "lead": "Video, audio și imagini de pe aproape orice site — descărcate direct pe telefonul tău Android. Fără încărcare în cloud, datele tale nu părăsesc niciodată dispozitivul, fără nevoie de Play Store.",
       "cta_primary": "Descarcă versiunea gratuită pentru Android",
       "cta_secondary": "Vezi prețurile Pro",
       "windows_link": "Disponibil și pentru Windows →",
-      "badge1": "Fără nevoie de Google Play",
-      "badge2": "Funcționează 100% pe dispozitivul tău",
-      "badge3": "Suport HD și 4K",
-      "badge4": "Nucleul este gratuit pentru totdeauna"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Tot ce ai nevoie, nimic în plus",
@@ -184,7 +180,8 @@
       "f5_title": "Extragere audio",
       "f5_desc": "Extrage doar pista audio din orice videoclip și salveaz-o ca MP3.",
       "f6_title": "Fără nevoie de magazin de aplicații",
-      "f6_desc": "Instalează versiunea pentru Android direct. Fără cont, fără proces de verificare Play Store, fără restricții regionale."
+      "f6_desc": "Instalează versiunea pentru Android direct. Fără cont, fără proces de verificare Play Store, fără restricții regionale.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "O licență, un preț",

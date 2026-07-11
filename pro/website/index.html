@@ -225,14 +225,20 @@
   section h2 { font-size: 1.9rem; text-align: center; margin: 0 0 12px; }
   section p.section-lead { text-align: center; color: var(--text-dim); max-width: 560px; margin: 0 auto 32px; }
 
-  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; max-width: 1080px; margin: 0 auto; }
-  .feature-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px;
+  /* Icon + title only, on purpose - no body copy to read. Each tile is one
+     scannable fact; the full explanation (e.g. "just not with DRM sites like
+     Spotify") lives in the copy library / FAQ for anyone who wants more. */
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 14px; max-width: 1080px; margin: 0 auto; }
+  .feature-tile {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;
   }
-  .feature-card .icon { font-size: 1.6rem; margin-bottom: 12px; }
-  .feature-card h3 { margin: 0 0 8px; font-size: 1.05rem; }
-  .feature-card p { margin: 0; color: var(--text-dim); font-size: 0.92rem; line-height: 1.5; }
-  .feature-card p + p { margin-top: 10px; }
+  .feature-tile .icon { font-size: 1.9rem; line-height: 1; }
+  .feature-tile .icon.text-badge {
+    font-weight: 800; font-size: 1.05rem; letter-spacing: 0.02em;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .feature-tile h3 { margin: 0; font-size: 0.88rem; font-weight: 700; line-height: 1.3; }
 
   .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; max-width: 960px; margin: 0 auto; }
   .price-card {
@@ -352,26 +358,33 @@
     <h2 data-i18n="website.features.h2">Everything you need, nothing you don't</h2>
     <p class="section-lead" data-i18n="website.features.lead">A fast, private downloader that just works — with a Pro tier for anyone who wants more.</p>
     <div class="features">
-      <div class="feature-card">
+      <div class="feature-tile">
         <div class="icon">🎬</div>
         <h3 data-i18n="website.features.f1_title">Video, audio &amp; images</h3>
-        <p data-i18n="website.features.f1_desc">Paste a link, pick a quality up to 4K, download. Works with most video, audio and image sites — just not with streaming services like Spotify or Netflix.</p>
       </div>
-      <div class="feature-card">
-        <div class="icon">🎞️</div>
+      <div class="feature-tile">
+        <div class="icon">♾️</div>
         <h3 data-i18n="website.features.f2_title">Download whole playlists</h3>
-        <p data-i18n="website.features.f2_desc">Paste a playlist link and download every video in it, all at once.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-tile">
+        <div class="icon text-badge">4K</div>
+        <h3 data-i18n="website.features.f7_title">Up to 4K quality</h3>
+      </div>
+      <div class="feature-tile">
+        <div class="icon">🎧</div>
+        <h3 data-i18n="website.features.f5_title">Audio extraction</h3>
+      </div>
+      <div class="feature-tile">
         <div class="icon">🔒</div>
         <h3 data-i18n="website.features.f3_title">Private by design</h3>
-        <p data-i18n="website.features.f3_desc">Everything runs locally on your phone. Nothing gets uploaded to a server you don't control.</p>
-        <p data-i18n="website.features.f4_desc">No ad networks, no hidden tracking, no confusing paywalls. Just the app.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-tile">
+        <div class="icon">🚫</div>
+        <h3 data-i18n="website.features.f4_title">No ads, no tracking</h3>
+      </div>
+      <div class="feature-tile">
         <div class="icon">📲</div>
         <h3 data-i18n="website.features.f6_title">No app store needed</h3>
-        <p data-i18n="website.features.f6_desc">Install the Android version directly. No account, no Play Store review process, no region locks.</p>
       </div>
     </div>
   </div>

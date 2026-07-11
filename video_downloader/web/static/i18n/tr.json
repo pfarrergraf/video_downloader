@@ -158,17 +158,13 @@
       "download": "İndir"
     },
     "hero": {
-      "eyebrow": "Temel özellikler ücretsiz · Reklamsız · Hesap gerekmez",
       "title_html": "{emphasis} indirin.<br/>Doğrudan telefonunuza.",
       "title_emphasis": "neredeyse her şeyi",
       "lead": "Neredeyse her siteden video, ses ve görseller — doğrudan Android telefonunuza indirilir. Buluta yükleme yok, verileriniz cihazınızdan asla çıkmaz, Play Store gerekmez.",
       "cta_primary": "Ücretsiz Android sürümünü indir",
       "cta_secondary": "Pro fiyatlandırmasını gör",
       "windows_link": "Windows için de mevcut →",
-      "badge1": "Google Play gerekmez",
-      "badge2": "%100 cihazınızda çalışır",
-      "badge3": "HD ve 4K desteği",
-      "badge4": "Temel özellikler sonsuza dek ücretsiz"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "İhtiyacınız olan her şey, olmayan ise hiçbir şey",
@@ -184,7 +180,8 @@
       "f5_title": "Ses çıkarma",
       "f5_desc": "Herhangi bir videodan yalnızca ses parçasını çıkarın ve MP3 olarak kaydedin.",
       "f6_title": "Uygulama mağazası gerekmez",
-      "f6_desc": "Android sürümünü doğrudan yükleyin. Hesap yok, Play Store inceleme süreci yok, bölge kilidi yok."
+      "f6_desc": "Android sürümünü doğrudan yükleyin. Hesap yok, Play Store inceleme süreci yok, bölge kilidi yok.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Tek lisans, tek fiyat",

@@ -158,17 +158,13 @@
       "download": "Pobierz"
     },
     "hero": {
-      "eyebrow": "Darmowa podstawa · Bez reklam · Bez konta",
       "title_html": "Pobierz {emphasis}.<br/>Prosto na telefon.",
       "title_emphasis": "prawie wszystko",
       "lead": "Wideo, audio i zdjęcia z niemal każdej strony — pobierane prosto na telefon z Androidem. Bez przesyłania do chmury, żadne dane nie opuszczają Twojego urządzenia, Sklep Play niepotrzebny.",
       "cta_primary": "Pobierz darmową wersję na Androida",
       "cta_secondary": "Zobacz cennik Pro",
       "windows_link": "Dostępne również dla Windows →",
-      "badge1": "Sklep Google Play niepotrzebny",
-      "badge2": "Działa w 100% na Twoim urządzeniu",
-      "badge3": "Obsługa HD i 4K",
-      "badge4": "Podstawowa wersja zawsze darmowa"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Wszystko, czego potrzebujesz, nic więcej",
@@ -184,7 +180,8 @@
       "f5_title": "Ekstrakcja audio",
       "f5_desc": "Wyodrębnij samą ścieżkę dźwiękową z dowolnego wideo i zapisz ją jako MP3.",
       "f6_title": "Sklep z aplikacjami niepotrzebny",
-      "f6_desc": "Zainstaluj wersję na Androida bezpośrednio. Bez konta, bez procesu weryfikacji w Sklepie Play, bez blokad regionalnych."
+      "f6_desc": "Zainstaluj wersję na Androida bezpośrednio. Bez konta, bez procesu weryfikacji w Sklepie Play, bez blokad regionalnych.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Jedna licencja, jedna cena",

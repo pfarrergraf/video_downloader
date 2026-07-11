@@ -158,17 +158,13 @@
       "download": "Preuzimanje"
     },
     "hero": {
-      "eyebrow": "Besplatna osnovna verzija · Bez reklama · Nije potreban nalog",
       "title_html": "Preuzmite {emphasis}.<br/>Direktno na telefon.",
       "title_emphasis": "skoro sve",
       "lead": "Video, audio i slike sa gotovo bilo kog sajta — preuzeti direktno na vaš Android telefon. Bez slanja u oblak, podaci nikada ne napuštaju vaš uređaj, nije potrebna Play prodavnica.",
       "cta_primary": "Preuzmi besplatnu verziju za Android",
       "cta_secondary": "Pogledaj Pro cene",
       "windows_link": "Dostupno i za Windows →",
-      "badge1": "Google Play nije potreban",
-      "badge2": "Radi 100% na vašem uređaju",
-      "badge3": "Podrška za HD i 4K",
-      "badge4": "Osnovna verzija zauvek besplatna"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Sve što vam treba, ništa suvišno",
@@ -184,7 +180,8 @@
       "f5_title": "Izdvajanje audia",
       "f5_desc": "Izdvojte samo audio zapis iz bilo kog videa i sačuvajte ga kao MP3.",
       "f6_title": "Nije potrebna prodavnica aplikacija",
-      "f6_desc": "Instalirajte verziju za Android direktno. Bez naloga, bez procesa provere na Play prodavnici, bez regionalnih ograničenja."
+      "f6_desc": "Instalirajte verziju za Android direktno. Bez naloga, bez procesa provere na Play prodavnici, bez regionalnih ograničenja.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Jedna licenca, jedna cena",

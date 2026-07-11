@@ -158,17 +158,13 @@
       "download": "Download"
     },
     "hero": {
-      "eyebrow": "Gratis nelle funzioni base · Niente pubblicità · Nessun account richiesto",
       "title_html": "Scarica {emphasis}.<br/>Direttamente sul tuo telefono.",
       "title_emphasis": "quasi tutto",
       "lead": "Video, audio e immagini da quasi qualsiasi sito — scaricati direttamente sul tuo telefono Android. Nessun caricamento sul cloud, nessun dato lascia mai il tuo dispositivo, nessun Play Store necessario.",
       "cta_primary": "Scarica la versione gratuita per Android",
       "cta_secondary": "Vedi i prezzi Pro",
       "windows_link": "Disponibile anche per Windows →",
-      "badge1": "Google Play non necessario",
-      "badge2": "Funziona al 100% sul tuo dispositivo",
-      "badge3": "Supporto HD e 4K",
-      "badge4": "Le funzioni base sono gratis per sempre"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Tutto quello che ti serve, niente di superfluo",
@@ -184,7 +180,8 @@
       "f5_title": "Estrazione audio",
       "f5_desc": "Estrai solo la traccia audio da qualsiasi video e salvala in MP3.",
       "f6_title": "Nessuno store necessario",
-      "f6_desc": "Installa la versione per Android direttamente. Nessun account, nessun processo di revisione del Play Store, nessun blocco regionale."
+      "f6_desc": "Installa la versione per Android direttamente. Nessun account, nessun processo di revisione del Play Store, nessun blocco regionale.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Una licenza, un prezzo",

@@ -158,17 +158,13 @@
       "download": "Last ned"
     },
     "hero": {
-      "eyebrow": "Gratis kjerne · Ingen reklame · Ingen konto nødvendig",
       "title_html": "Last ned {emphasis}.<br/>Rett til telefonen din.",
       "title_emphasis": "nesten alt",
       "lead": "Video, lyd og bilder fra nesten hvilken som helst side — lastet ned direkte til Android-telefonen din. Ingen skyopplasting, ingen data forlater noensinne enheten din, ingen Play Store nødvendig.",
       "cta_primary": "Last ned den gratis Android-versjonen",
       "cta_secondary": "Se Pro-priser",
       "windows_link": "Finnes også for Windows →",
-      "badge1": "Ingen Google Play nødvendig",
-      "badge2": "Kjører 100 % på enheten din",
-      "badge3": "Støtte for HD og 4K",
-      "badge4": "Kjernen er gratis for alltid"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Alt du trenger, ingenting du ikke trenger",
@@ -184,7 +180,8 @@
       "f5_title": "Lyduttrekk",
       "f5_desc": "Hent ut kun lydsporet fra en hvilken som helst video og lagre det som MP3.",
       "f6_title": "Ingen app-butikk nødvendig",
-      "f6_desc": "Installer Android-versjonen direkte. Ingen konto, ingen Play Store-godkjenningsprosess, ingen regionsperringer."
+      "f6_desc": "Installer Android-versjonen direkte. Ingen konto, ingen Play Store-godkjenningsprosess, ingen regionsperringer.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Én lisens, én pris",

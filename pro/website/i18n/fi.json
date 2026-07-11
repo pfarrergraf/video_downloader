@@ -158,17 +158,13 @@
       "download": "Lataa"
     },
     "hero": {
-      "eyebrow": "Ilmainen perusversio · Ei mainoksia · Ei tiliä tarvita",
       "title_html": "Lataa {emphasis}.<br/>Suoraan puhelimeesi.",
       "title_emphasis": "melkein kaiken",
       "lead": "Videot, äänet ja kuvat lähes miltä tahansa sivustolta — ladattuna suoraan Android-puhelimeesi. Ei pilveen lähetystä, tietosi eivät koskaan poistu laitteeltasi, eikä Play Kauppaa tarvita.",
       "cta_primary": "Lataa ilmainen Android-versio",
       "cta_secondary": "Katso Pro-hinnoittelu",
       "windows_link": "Saatavilla myös Windowsille →",
-      "badge1": "Google Playta ei tarvita",
-      "badge2": "Toimii 100 % laitteellasi",
-      "badge3": "HD- ja 4K-tuki",
-      "badge4": "Perusversio on ikuisesti ilmainen"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Kaikki mitä tarvitset, ei mitään ylimääräistä",
@@ -184,7 +180,8 @@
       "f5_title": "Äänen erottelu",
       "f5_desc": "Poimi pelkkä ääniraita mistä tahansa videosta ja tallenna se MP3-muodossa.",
       "f6_title": "Ei sovelluskauppaa tarvita",
-      "f6_desc": "Asenna Android-versio suoraan. Ei tiliä, ei Play Kaupan arviointiprosessia, ei aluelukituksia."
+      "f6_desc": "Asenna Android-versio suoraan. Ei tiliä, ei Play Kaupan arviointiprosessia, ei aluelukituksia.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Yksi lisenssi, yksi hinta",

@@ -158,17 +158,13 @@
       "download": "Download"
     },
     "hero": {
-      "eyebrow": "Free core · No ads · No account needed",
       "title_html": "Download {emphasis}.<br/>Straight to your phone.",
       "title_emphasis": "almost everything",
       "lead": "Video, audio and images from almost any site — downloaded straight to your Android phone. No cloud upload, no data ever leaves your device, no Play Store needed.",
       "cta_primary": "Download the free Android version",
       "cta_secondary": "See Pro pricing",
       "windows_link": "มีให้ใช้งานบน Windows ด้วย →",
-      "badge1": "No Google Play needed",
-      "badge2": "Runs 100% on your device",
-      "badge3": "HD & 4K support",
-      "badge4": "Core is free forever"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Everything you need, nothing you don't",
@@ -184,7 +180,8 @@
       "f5_title": "Audio extraction",
       "f5_desc": "Pull just the audio track out of any video and save it as MP3.",
       "f6_title": "No app store needed",
-      "f6_desc": "Install the Android version directly. No account, no Play Store review process, no region locks."
+      "f6_desc": "Install the Android version directly. No account, no Play Store review process, no region locks.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "หนึ่งไลเซนส์ หนึ่งราคา",

@@ -158,17 +158,13 @@
       "download": "Letöltés"
     },
     "hero": {
-      "eyebrow": "Ingyenes alapváltozat · Nincsenek hirdetések · Nem kell fiók",
       "title_html": "Töltsd le {emphasis}.<br/>Egyenesen a telefonodra.",
       "title_emphasis": "majdnem mindent",
       "lead": "Videók, hangfájlok és képek szinte bármely oldalról — egyenesen az Android telefonodra töltve. Nincs felhőbe töltés, az adataid soha nem hagyják el az eszközödet, és nincs szükség Play Store-ra.",
       "cta_primary": "Ingyenes Android-verzió letöltése",
       "cta_secondary": "Pro árak megtekintése",
       "windows_link": "Windowsra is elérhető →",
-      "badge1": "Nincs szükség Google Play-re",
-      "badge2": "100%-ban az eszközödön fut",
-      "badge3": "HD és 4K támogatás",
-      "badge4": "Az alapváltozat örökre ingyenes"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Minden, amire szükséged van — semmi felesleges",
@@ -184,7 +180,8 @@
       "f5_title": "Hangkinyerés",
       "f5_desc": "Nyerd ki bármely videó hangsávját, és mentsd el MP3 formátumban.",
       "f6_title": "Nincs szükség áruházra",
-      "f6_desc": "Telepítsd az Android-verziót közvetlenül. Nincs szükség fiókra, Play Store-jóváhagyásra vagy régiós korlátozásra."
+      "f6_desc": "Telepítsd az Android-verziót közvetlenül. Nincs szükség fiókra, Play Store-jóváhagyásra vagy régiós korlátozásra.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Egy licenc, egy ár",

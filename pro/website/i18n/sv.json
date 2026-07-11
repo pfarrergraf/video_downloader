@@ -158,17 +158,13 @@
       "download": "Ladda ner"
     },
     "hero": {
-      "eyebrow": "Kostnadsfri kärna · Inga annonser · Inget konto krävs",
       "title_html": "Ladda ner {emphasis}.<br/>Direkt till din telefon.",
       "title_emphasis": "nästan allt",
       "lead": "Video, ljud och bilder från nästan vilken sajt som helst — nedladdade direkt till din Android-telefon. Ingen molnuppladdning, ingen data lämnar någonsin din enhet, ingen Play Store behövs.",
       "cta_primary": "Ladda ner den kostnadsfria Android-versionen",
       "cta_secondary": "Se Pro-priser",
       "windows_link": "Finns även för Windows →",
-      "badge1": "Ingen Google Play behövs",
-      "badge2": "Körs 100 % på din enhet",
-      "badge3": "Stöd för HD och 4K",
-      "badge4": "Kärnan är gratis för alltid"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Allt du behöver, inget du inte behöver",
@@ -184,7 +180,8 @@
       "f5_title": "Ljudextrahering",
       "f5_desc": "Extrahera bara ljudspåret från valfri video och spara det som MP3.",
       "f6_title": "Ingen appbutik behövs",
-      "f6_desc": "Installera Android-versionen direkt. Inget konto, ingen granskningsprocess i Play Store, inga regionlås."
+      "f6_desc": "Installera Android-versionen direkt. Inget konto, ingen granskningsprocess i Play Store, inga regionlås.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "En licens, ett pris",

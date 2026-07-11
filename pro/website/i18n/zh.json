@@ -158,17 +158,13 @@
       "download": "下载"
     },
     "hero": {
-      "eyebrow": "核心功能免费 · 无广告 · 无需账号",
       "title_html": "下载{emphasis}。<br/>直接传到您的手机。",
       "title_emphasis": "几乎一切",
       "lead": "几乎任何网站的视频、音频和图片 — 直接下载到您的 Android 手机。无需上传云端，数据绝不离开您的设备，也无需 Play 商店。",
       "cta_primary": "下载免费的 Android 版本",
       "cta_secondary": "查看专业版价格",
       "windows_link": "同样支持 Windows →",
-      "badge1": "无需 Google Play",
-      "badge2": "100% 在您的设备上运行",
-      "badge3": "支持高清与 4K",
-      "badge4": "核心功能永久免费"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "您需要的一切，没有多余的东西",
@@ -184,7 +180,8 @@
       "f5_title": "音频提取",
       "f5_desc": "从任意视频中提取音轨，并保存为 MP3。",
       "f6_title": "无需应用商店",
-      "f6_desc": "直接安装 Android 版本。无需账号，无需 Play 商店审核流程，也没有地区限制。"
+      "f6_desc": "直接安装 Android 版本。无需账号，无需 Play 商店审核流程，也没有地区限制。",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "一个许可证，一个价格",

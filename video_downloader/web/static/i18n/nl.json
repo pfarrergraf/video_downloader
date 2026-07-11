@@ -158,17 +158,13 @@
       "download": "Download"
     },
     "hero": {
-      "eyebrow": "Gratis kern · Geen advertenties · Geen account nodig",
       "title_html": "Download {emphasis}.<br/>Rechtstreeks naar je telefoon.",
       "title_emphasis": "bijna alles",
       "lead": "Video, audio en afbeeldingen van bijna elke site — rechtstreeks gedownload naar je Android-telefoon. Geen cloud-upload, er verlaat nooit data je apparaat, geen Play Store nodig.",
       "cta_primary": "Download de gratis Android-versie",
       "cta_secondary": "Bekijk Pro-prijzen",
       "windows_link": "Ook beschikbaar voor Windows →",
-      "badge1": "Geen Google Play nodig",
-      "badge2": "Draait 100% op je apparaat",
-      "badge3": "Ondersteuning voor HD en 4K",
-      "badge4": "Kern is voor altijd gratis"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Alles wat je nodig hebt, niets wat je niet nodig hebt",
@@ -184,7 +180,8 @@
       "f5_title": "Audio extraheren",
       "f5_desc": "Haal alleen het audiospoor uit een video en sla het op als MP3.",
       "f6_title": "Geen appstore nodig",
-      "f6_desc": "Installeer de Android-versie rechtstreeks. Geen account, geen goedkeuringsproces van de Play Store, geen regiobeperkingen."
+      "f6_desc": "Installeer de Android-versie rechtstreeks. Geen account, geen goedkeuringsproces van de Play Store, geen regiobeperkingen.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Eén licentie, één prijs",

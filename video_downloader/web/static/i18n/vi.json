@@ -158,17 +158,13 @@
       "download": "Tải xuống"
     },
     "hero": {
-      "eyebrow": "Miễn phí bản cơ bản · Không quảng cáo · Không cần tài khoản",
       "title_html": "Tải {emphasis}.<br/>Trực tiếp về điện thoại của bạn.",
       "title_emphasis": "gần như mọi thứ",
       "lead": "Video, âm thanh và hình ảnh từ hầu hết mọi trang web — tải trực tiếp về điện thoại Android của bạn. Không tải lên đám mây, dữ liệu không bao giờ rời khỏi thiết bị, không cần Play Store.",
       "cta_primary": "Tải phiên bản Android miễn phí",
       "cta_secondary": "Xem giá gói Pro",
       "windows_link": "Cũng có sẵn cho Windows →",
-      "badge1": "Không cần Google Play",
-      "badge2": "Chạy 100% trên thiết bị của bạn",
-      "badge3": "Hỗ trợ HD & 4K",
-      "badge4": "Bản cơ bản miễn phí trọn đời"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Mọi thứ bạn cần, không thứ gì thừa",
@@ -184,7 +180,8 @@
       "f5_title": "Trích xuất âm thanh",
       "f5_desc": "Tách riêng track âm thanh từ bất kỳ video nào và lưu thành MP3.",
       "f6_title": "Không cần cửa hàng ứng dụng",
-      "f6_desc": "Cài đặt phiên bản Android trực tiếp. Không cần tài khoản, không qua quy trình kiểm duyệt của Play Store, không khóa vùng."
+      "f6_desc": "Cài đặt phiên bản Android trực tiếp. Không cần tài khoản, không qua quy trình kiểm duyệt của Play Store, không khóa vùng.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Một giấy phép, một mức giá",

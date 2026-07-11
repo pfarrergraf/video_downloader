@@ -158,17 +158,13 @@
       "download": "Lejupielādēt"
     },
     "hero": {
-      "eyebrow": "Bezmaksas pamatfunkcijas · Bez reklāmām · Konts nav nepieciešams",
       "title_html": "Lejupielādē {emphasis}.<br/>Tieši savā tālrunī.",
       "title_emphasis": "gandrīz visu",
       "lead": "Video, audio un attēli gandrīz no jebkuras vietnes — lejupielādēti tieši jūsu Android tālrunī. Bez augšupielādes mākonī, dati nekad nepamet jūsu ierīci, Play veikals nav nepieciešams.",
       "cta_primary": "Lejupielādēt bezmaksas Android versiju",
       "cta_secondary": "Skatīt Pro cenas",
       "windows_link": "Pieejams arī Windows →",
-      "badge1": "Google Play nav nepieciešams",
-      "badge2": "Darbojas 100% jūsu ierīcē",
-      "badge3": "HD un 4K atbalsts",
-      "badge4": "Pamatfunkcijas vienmēr bez maksas"
+      "trust_chip": "🔒 100% on your device — no cloud"
     },
     "features": {
       "h2": "Viss, kas nepieciešams, nekā liekā",
@@ -184,7 +180,8 @@
       "f5_title": "Audio izvilkšana",
       "f5_desc": "Izvelciet audio celiņu no jebkura video un saglabājiet to kā MP3.",
       "f6_title": "Lietotņu veikals nav nepieciešams",
-      "f6_desc": "Instalējiet Android versiju tieši. Bez konta, bez Play veikala pārbaudes procesa, bez reģionāliem ierobežojumiem."
+      "f6_desc": "Instalējiet Android versiju tieši. Bez konta, bez Play veikala pārbaudes procesa, bez reģionāliem ierobežojumiem.",
+      "f7_title": "Up to 4K quality"
     },
     "pricing": {
       "h2": "Viena licence, viena cena",
