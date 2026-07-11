@@ -172,13 +172,32 @@
 @keyframes pc3-pulse { 50% { transform: scale(1.08); box-shadow: 0 0 0 12px rgba(255, 101, 125, 0); } }
 
 .pc3-share-sheet { align-self: end; width: calc(100% + 28px); margin: 0 -14px -22px; padding: 26px 12px; border-radius: 26px 26px 0 0; background: rgba(246, 243, 250, .97); color: #17121e; box-shadow: 0 -22px 46px rgba(0, 0, 0, .28); }
-.pc3-share-apps { display: flex; justify-content: space-around; align-items: center; gap: 6px; }
-.pc3-share-apps span, .pc3-share-apps button { width: 56px; border: 0; background: none; color: inherit; text-align: center; }
-.pc3-share-apps b { display: grid; place-items: center; width: 44px; height: 44px; margin: 0 auto 6px; border-radius: 14px; background: #d9d4df; font-size: 19px; }
-.pc3-share-apps small { display: block; font-size: .5rem; font-weight: 800; }
+/* Four fixed 56px-wide items (224px+ gaps) never fit inside the phone's own
+   screen width - --pc3-device-w floors at 190px on every real phone (15vw is
+   nowhere near that floor below ~1267px viewports), leaving well under 150px
+   for this row. A fixed width meant the row simply overflowed past the
+   phone's overflow:hidden edge, cropping the DownloadThat tile and its label
+   (caught via a real Samsung Galaxy screenshot). flex:1 1 0 + min-width:0
+   instead divides whatever width IS available equally among all four items,
+   so the row's rendered width can never exceed its container - nothing to
+   clip. The icon circle's width is capped at 100% of that (now possibly
+   shrunk) item so it can't overflow its own tile either, and the label is
+   left free to wrap onto a second line rather than being cut off, so the
+   full "DownloadThat" text always stays visible even on the narrowest phones. */
+.pc3-share-apps { display: flex; justify-content: space-between; align-items: center; gap: 4px; }
+.pc3-share-apps span, .pc3-share-apps button { flex: 1 1 0; min-width: 0; max-width: 56px; padding: 0; border: 0; background: none; color: inherit; text-align: center; }
+.pc3-share-apps b { display: grid; place-items: center; width: min(44px, 100%); aspect-ratio: 1; margin: 0 auto 6px; border-radius: 14px; background: #d9d4df; font-size: 19px; }
+.pc3-share-apps small { display: block; font-size: .5rem; font-weight: 800; overflow-wrap: break-word; }
 .pc3-share-apps__dt { cursor: pointer; }
+/* The only item whose full label actually matters is DownloadThat's - the
+   other three (mail/share/more) are unlabelled decoration - so it gets a
+   bigger share of the row than an even split would give it, cutting how
+   often "DownloadThat" needs to wrap at all. The <wbr> in the markup means
+   that when it still doesn't fit on one line, it breaks at the natural
+   Download/That boundary instead of mid-word. */
+.pc3-share-apps button.pc3-share-apps__dt { flex-grow: 1.6; }
 /* Dark backdrop + gradient glyph — the real app icon, not the inverse. */
-.pc3-share-apps__dt b { width: 48px; height: 48px; background: #100e1c; box-shadow: 0 8px 18px rgba(255, 101, 125, .25); }
+.pc3-share-apps__dt b { width: min(48px, 100%); background: #100e1c; box-shadow: 0 8px 18px rgba(255, 101, 125, .25); }
 .pc3-share-apps__dt svg { width: 62%; height: 62%; }
 
 .pc3-format-card, .pc3-ingest, .pc3-inside, .pc3-success {
