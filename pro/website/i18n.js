@@ -27,6 +27,10 @@ const STRIPE_LOCALE_MAP = {
 };
 
 let STRINGS = {};
+// Falls back to the English string for any key a given locale file hasn't
+// caught up on yet (e.g. a newly-added key only translated in en/de so far),
+// so a locale gap shows real English text instead of a raw "website.x.y" key.
+let FALLBACK_STRINGS = {};
 
 function dtDetectLang() {
   const raw = (navigator.language || 'en').toLowerCase();
@@ -34,11 +38,15 @@ function dtDetectLang() {
   return SUPPORTED_CODES.includes(short) ? short : 'en';
 }
 
-function dtT(key, vars) {
+function dtLookup(strings, key) {
   const parts = key.split('.');
-  let node = STRINGS;
+  let node = strings;
   for (const p of parts) node = node && typeof node === 'object' ? node[p] : undefined;
-  let str = typeof node === 'string' ? node : key;
+  return typeof node === 'string' ? node : undefined;
+}
+
+function dtT(key, vars) {
+  let str = dtLookup(STRINGS, key) ?? dtLookup(FALLBACK_STRINGS, key) ?? key;
   if (vars) for (const [k, v] of Object.entries(vars)) str = str.split(`{${k}}`).join(v);
   return str;
 }
@@ -95,10 +103,18 @@ function dtUpdateStripeLinks() {
   });
 }
 
+let EN_STRINGS_CACHE = null;
+
 async function dtSetLanguage(pref) {
   localStorage.setItem('dt_lang', pref);
   const effective = pref === 'auto' ? dtDetectLang() : pref;
   STRINGS = (await dtLoadStrings(effective)) || (await dtLoadStrings('en')) || {};
+  if (effective === 'en') {
+    FALLBACK_STRINGS = STRINGS;
+  } else {
+    EN_STRINGS_CACHE = EN_STRINGS_CACHE || (await dtLoadStrings('en')) || {};
+    FALLBACK_STRINGS = EN_STRINGS_CACHE;
+  }
   dtApplyTranslations();
   document.querySelectorAll('.lang-switcher').forEach((sel) => { sel.value = pref; });
 }

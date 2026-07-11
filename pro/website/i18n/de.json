@@ -149,7 +149,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Video-, Audio- & Bilder-Downloader für Android",
-      "description": "Lade Videos, Audio und Bilder direkt auf dein Android-Handy herunter. Kein Play Store, keine Werbung, keine Bindung. Kostenloser Kern, Pro ab 8 €/Jahr."
+      "description": "Lade Videos, Audio und Bilder direkt auf dein Android-Handy herunter. Kein Play Store, keine Werbung, keine Bindung. Kostenloser Kern, Pro für 12 € einmalig — kein Abo."
     },
     "nav": {
       "features": "Funktionen",
@@ -158,23 +158,19 @@
       "download": "Download"
     },
     "hero": {
-      "eyebrow": "Kostenloser Kern · Keine Werbung · Kein Konto nötig",
-      "title_html": "Lade {emphasis} herunter.<br/>Direkt auf dein Handy.",
-      "title_emphasis": "fast alles",
-      "lead": "Video, Audio und Bilder von fast jeder Seite — direkt auf dein Android-Handy heruntergeladen. Kein Cloud-Upload, keine Daten verlassen jemals dein Gerät, kein Play Store nötig.",
-      "cta_primary": "Kostenlose Android-Version herunterladen",
+      "title_html": "Teilen. {emphasis}. Fertig.",
+      "title_emphasis": "Speichern",
+      "lead": "Video, Audio und Bilder von fast jeder Seite — direkt auf dein Handy.",
+      "trust_chip": "🔒 100 % auf deinem Gerät — keine Cloud",
+      "cta_primary": "Kostenlos herunterladen",
       "cta_secondary": "Pro-Preise ansehen",
-      "windows_link": "Auch für Windows verfügbar →",
-      "badge1": "Kein Google Play nötig",
-      "badge2": "Läuft 100 % auf deinem Gerät",
-      "badge3": "HD- & 4K-Unterstützung",
-      "badge4": "Kern für immer kostenlos"
+      "windows_link": "Auch für Windows verfügbar →"
     },
     "features": {
       "h2": "Alles, was du brauchst, nichts, was du nicht brauchst",
       "lead": "Ein schneller, privater Downloader, der einfach funktioniert — mit einer Pro-Stufe für alle, die mehr wollen.",
       "f1_title": "Video, Audio & Bilder",
-      "f1_desc": "Link einfügen, Qualität wählen, herunterladen. Funktioniert mit den meisten Video-, Audio- und Bilderseiten — nur nicht mit Streaming-Diensten wie Spotify oder Netflix.",
+      "f1_desc": "Link einfügen, Qualität bis 4K wählen, herunterladen. Funktioniert mit den meisten Video-, Audio- und Bilderseiten — nur nicht mit Streaming-Diensten wie Spotify oder Netflix.",
       "f2_title": "Ganze Playlists herunterladen",
       "f2_desc": "Playlist-Link einfügen und alle Videos daraus auf einmal herunterladen.",
       "f3_title": "Privat von Grund auf",
