@@ -200,10 +200,7 @@
         <span><b data-i18n="website.hero_cinema.title_line_3">SAVE.</b></span>
       </h1>
       <p class="pc3-lead" data-i18n="website.hero_cinema.lead">Save video, audio and images straight to your Android device in a few steps.</p>
-      <div class="pc3-pills" aria-label="Product benefits">
-        <span><i></i><span data-i18n="website.hero_cinema.trust_local">100% on your device</span></span>
-        <span><i></i><span data-i18n="website.hero_cinema.trust_cloud">No unnecessary cloud stop</span></span>
-      </div>
+      <div class="pc3-trust" data-i18n="website.hero.trust_chip">🔒 100% on your device — no cloud</div>
       <div class="pc3-actions pc3-actions--primary">
         <a class="btn btn-primary" data-i18n="website.hero.cta_primary" href="/download">Download for free</a>
       </div>
@@ -217,17 +214,14 @@
         <div class="pc3-source pc3-source--video" data-pc3-source="video" aria-hidden="true">
           <span class="pc3-source__icon">▶</span>
           <div class="pc3-source__stack"><i></i><i></i><i></i></div>
-          <small>VIDEO</small>
         </div>
         <div class="pc3-source pc3-source--audio" data-pc3-source="audio" aria-hidden="true">
           <span class="pc3-source__icon">♫</span>
           <div class="pc3-source__wave"><i></i><i></i><i></i><i></i><i></i></div>
-          <small>AUDIO</small>
         </div>
         <div class="pc3-source pc3-source--image" data-pc3-source="image" aria-hidden="true">
           <span class="pc3-source__icon">▧</span>
           <div class="pc3-source__grid"><i></i><i></i><i></i><i></i></div>
-          <small data-i18n="website.hero_cinema.format_images">IMAGES</small>
         </div>
 
         <div class="pc3-camera-rig" data-pc3-camera-rig>
@@ -242,68 +236,58 @@
                 <span class="pc3-appbar__signal"><i></i><i></i><i></i></span>
               </header>
 
-              <section class="pc3-view is-active" data-pc3-view="source">
+              <!-- Each scene is intentionally near-textless (icons + motion
+                   only) per product feedback; an aria-label carries the same
+                   short description to screen-reader users without showing
+                   it on screen, so nothing is lost for accessibility. -->
+              <section class="pc3-view is-active" data-pc3-view="source" data-i18n-attr="aria-label:website.hero_cinema.step_source" aria-label="Open a media link and share it.">
                 <article class="pc3-media-card">
                   <div class="pc3-media-card__visual" aria-hidden="true"><span>▶</span></div>
                   <div class="pc3-media-card__text" aria-hidden="true"><i></i><i></i><i></i></div>
                   <button class="pc3-share" type="button" data-pc3-next="share" data-i18n-attr="aria-label:website.hero_cinema.share_title">↗</button>
                 </article>
-                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_source">Open a media link and share it.</p>
               </section>
 
-              <section class="pc3-view" data-pc3-view="share">
+              <section class="pc3-view" data-pc3-view="share" data-i18n-attr="aria-label:website.hero_cinema.step_share" aria-label="Pick DownloadThat from the share sheet.">
                 <div class="pc3-share-sheet">
-                  <h2 data-i18n="website.hero_cinema.share_title">Share with</h2>
                   <div class="pc3-share-apps">
-                    <span aria-hidden="true"><b>✉</b><small>Mail</small></span>
-                    <span aria-hidden="true"><b>↗</b><small>Browser</small></span>
-                    <button type="button" data-pc3-next="format" class="pc3-share-apps__dt"><b>↓</b><small>DownloadThat</small></button>
-                    <span aria-hidden="true"><b>⋯</b><small>More</small></span>
+                    <span aria-hidden="true"><b>✉</b></span>
+                    <span aria-hidden="true"><b>↗</b></span>
+                    <button type="button" data-pc3-next="format" class="pc3-share-apps__dt" data-i18n-attr="aria-label:website.hero_cinema.share_title"><b>↓</b><small>DownloadThat</small></button>
+                    <span aria-hidden="true"><b>⋯</b></span>
                   </div>
                 </div>
-                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_share">Pick DownloadThat from the share sheet.</p>
               </section>
 
-              <section class="pc3-view" data-pc3-view="format">
+              <section class="pc3-view" data-pc3-view="format" data-i18n-attr="aria-label:website.hero_cinema.step_format" aria-label="Choose video, audio or images.">
                 <div class="pc3-format-card">
-                  <h2 data-i18n="website.hero_cinema.format_title">What do you want to save?</h2>
                   <div class="pc3-format-card__grid">
                     <button type="button" data-pc3-next="stream"><b aria-hidden="true">▶</b><span data-i18n="website.hero_cinema.format_video">Video</span></button>
                     <button type="button" data-pc3-next="stream"><b aria-hidden="true">♫</b><span data-i18n="website.hero_cinema.format_audio">Audio</span></button>
                     <button type="button" data-pc3-next="stream"><b aria-hidden="true">▧</b><span data-i18n="website.hero_cinema.format_images">Images</span></button>
                   </div>
                 </div>
-                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_format">Choose video, audio or images.</p>
               </section>
 
-              <section class="pc3-view" data-pc3-view="stream">
+              <section class="pc3-view" data-pc3-view="stream" data-i18n-attr="aria-label:website.hero_cinema.step_stream" aria-label="Media is bundled together.">
                 <div class="pc3-ingest">
                   <div class="pc3-ingest__core" aria-hidden="true"><span>↓</span></div>
-                  <h2 data-i18n="website.hero_cinema.stream_title">Bundling the data</h2>
-                  <p data-i18n="website.hero_cinema.trust_local">100% on your device</p>
                   <div class="pc3-ingest__meter" aria-hidden="true"><i></i></div>
                 </div>
-                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_stream">Media is bundled together.</p>
               </section>
 
-              <section class="pc3-view" data-pc3-view="inside">
+              <section class="pc3-view" data-pc3-view="inside" data-i18n-attr="aria-label:website.hero_cinema.step_inside" aria-label="The file is processed locally.">
                 <div class="pc3-inside">
                   <div class="pc3-inside__file" aria-hidden="true"><span>MP4</span><b>↓</b></div>
-                  <h2 data-i18n="website.hero_cinema.inside_title">Saving locally</h2>
                   <div class="pc3-progress" aria-hidden="true"><i></i></div>
-                  <p data-i18n="website.hero_cinema.trust_cloud">No unnecessary cloud stop</p>
                 </div>
-                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_inside">The file is processed locally.</p>
               </section>
 
-              <section class="pc3-view" data-pc3-view="success">
+              <section class="pc3-view" data-pc3-view="success" data-i18n-attr="aria-label:website.hero_cinema.step_success" aria-label="Saved — right on your device.">
                 <div class="pc3-success">
                   <div class="pc3-success__check" aria-hidden="true">✓</div>
-                  <h2 data-i18n="website.hero_cinema.success_title">Saved.</h2>
-                  <p data-i18n="website.hero_cinema.success_body">Saved directly on your device.</p>
                   <a data-i18n="website.hero.cta_primary" href="/download">Download for free</a>
                 </div>
-                <p class="pc3-view__label" data-i18n="website.hero_cinema.step_success">Saved — right on your device.</p>
               </section>
             </div>
           </div>
@@ -323,7 +307,6 @@
         <button type="button" class="pc3-icon-button" data-pc3-motion aria-pressed="false" data-i18n-attr="aria-label:website.hero_cinema.motion_toggle_label" aria-label="Toggle motion">◐</button>
         <div class="pc3-timeline" aria-live="polite">
           <span data-pc3-index>01</span>
-          <p data-pc3-caption></p>
           <div><i data-pc3-progress></i></div>
         </div>
       </div>

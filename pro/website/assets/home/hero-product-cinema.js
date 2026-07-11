@@ -19,13 +19,11 @@
   const rig = root.querySelector('[data-pc3-camera-rig]');
   const views = [...root.querySelectorAll('[data-pc3-view]')];
   const number = root.querySelector('[data-pc3-index]');
-  const caption = root.querySelector('[data-pc3-caption]');
   const progress = root.querySelector('[data-pc3-progress]');
   const motionButton = root.querySelector('[data-pc3-motion]');
 
-  // Timings only; the caption text itself is read live from each scene's
-  // own (already-translated, already in the accessibility tree) label so
-  // this file never needs to know what language the page is in.
+  // Timings only — each scene carries its own (already-translated)
+  // aria-label for screen readers; there's no on-screen caption to sync.
   const sequence = [
     { id: 'source', at: 0, n: '01' },
     { id: 'share', at: 1350, n: '02' },
@@ -54,10 +52,6 @@
       v.inert = !active;
     });
     if (number) number.textContent = sequence[idx].n;
-    if (caption) {
-      const label = root.querySelector(`[data-pc3-view="${id}"] .pc3-view__label`);
-      caption.textContent = label ? label.textContent : '';
-    }
     if (progress) progress.style.width = `${((idx + 1) / sequence.length) * 100}%`;
   }
 
