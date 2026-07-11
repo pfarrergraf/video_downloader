@@ -83,10 +83,17 @@
 @media (max-width: 1080px) { .pc3-actions { justify-content: center; } }
 .pc3-actions .btn { min-height: 44px; }
 
-/* ---- Cinema stage ---- */
-.pc3-cinema { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(8px, 1.4vh, 16px); perspective: 1700px; }
+/* ---- Cinema stage ----
+   --pc3-device-w is the single source of truth for the phone's width; the
+   stage's height floor is *derived* from it (aspect-ratio 9/18.55 + a fixed
+   margin) instead of being a second, independently-tuned number. Two
+   separately guessed clamp()s drifted out of sync before (the phone ended
+   up taller than its own overflow:clip stage on mobile, silently cropping
+   its bottom edge — exactly where the share/success buttons live) — a
+   calc() tied to the same custom property can't drift like that again. */
+.pc3-cinema { --pc3-device-w: clamp(190px, 15vw, 250px); position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(8px, 1.4vh, 16px); perspective: 1700px; }
 .pc3-stage {
-  position: relative; width: 100%; height: clamp(320px, 56vh, 560px);
+  position: relative; width: 100%; height: clamp(calc(var(--pc3-device-w) * 2.061 + 90px), 56vh, 560px);
   display: grid; place-items: center; perspective: 1700px; transform-style: preserve-3d;
   overflow: clip; border-radius: 32px;
 }
@@ -103,7 +110,7 @@
 
 .pc3-camera-rig { position: relative; z-index: 8; transform-style: preserve-3d; will-change: transform, filter; transition: transform .3s var(--pc3-ease), filter .3s var(--pc3-ease); }
 .pc3-device {
-  position: relative; width: clamp(190px, 15vw, 250px); aspect-ratio: 9 / 18.55; padding: 10px; border-radius: 44px;
+  position: relative; width: var(--pc3-device-w); aspect-ratio: 9 / 18.55; padding: 10px; border-radius: 44px;
   transform-style: preserve-3d;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, .5), transparent 8% 78%, rgba(64, 227, 196, .15)),
@@ -266,7 +273,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--pc3-teal); outl
 /* ---- Responsive ---- */
 @media (max-width: 1080px) {
   .pc3-cinema { min-height: 0; }
-  .pc3-stage { height: clamp(300px, 52vh, 480px); }
+  .pc3-stage { height: clamp(calc(var(--pc3-device-w) * 2.061 + 70px), 52vh, 480px); }
   .pc3-source--video { left: 4%; }
   .pc3-source--audio { right: 4%; }
   .pc3-source--image { right: 8%; }
@@ -275,8 +282,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--pc3-teal); outl
   .pc3 { padding: clamp(8px, 1.6vh, 16px) 14px; }
   .pc3-actions { gap: 8px; }
   .pc3-actions .btn { min-height: 42px; padding: 0 16px; font-size: .85rem; }
-  .pc3-stage { height: clamp(260px, 46vh, 400px); }
-  .pc3-device { width: clamp(185px, 52vw, 225px); }
+  .pc3-cinema { --pc3-device-w: clamp(185px, 52vw, 225px); }
+  .pc3-stage { height: clamp(calc(var(--pc3-device-w) * 2.061 + 50px), 46vh, 400px); }
   .pc3-orbits span:nth-child(1) { width: 92vw; }
   .pc3-orbits span:nth-child(2) { width: 70vw; }
   .pc3-orbits span:nth-child(3) { width: 108vw; }
