@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-# Proves the "Share -> DownloadThat" 2-tap flow end-to-end on the emulator:
-# an ACTION_SEND intent carrying "some text + URL" must be picked up by
-# MainActivity (manifest intent-filter -> onNewIntent -> URL extraction ->
-# WebView JS bridge -> window.onSharedUrl auto-queue with the remembered
-# Smart-Mode settings) and come out the other end as a completed download.
+# Proves the "Share -> DownloadThat -> pick a format" flow end-to-end on the
+# emulator: an ACTION_SEND intent carrying "some text + URL" must be picked
+# up by MainActivity (manifest intent-filter -> onNewIntent -> URL
+# extraction -> WebView JS bridge -> window.onSharedUrl), show the
+# share-format picker (#share-format-overlay in index.html) instead of
+# auto-downloading, and - once "Video" is tapped, the same way a real user
+# would - come out the other end as a completed download.
 #
 # Runs after download_pipeline_test.sh, so the app is already installed,
 # started, logged in (debug auto-login), and the local file server pattern
@@ -104,7 +106,52 @@ adb shell am start -n de.classydl.app/.MainActivity \
 
 echo "Sent ACTION_SEND intent with $TEST_URL"
 
-# The page's JS must now auto-queue it - find the job by source.
+# The link lands in the field and the share-format picker appears instead of
+# auto-downloading - tap "Video" the same way a real user would. The picker's
+# button and the home screen's persistent kind-toggle both render the label
+# "Video" (same visual language throughout the app), so among matches pick
+# the one whose bounds sit lowest on screen: the picker is a full-viewport
+# centered modal, so its buttons land further down than the home screen's
+# row, which sits right under the URL field near the top.
+TAP_XY=""
+for i in $(seq 1 15); do
+  adb shell uiautomator dump /sdcard/window_dump.xml >/dev/null 2>&1 || true
+  adb pull /sdcard/window_dump.xml "$TEST_DIR/window_dump.xml" >/dev/null 2>&1 || true
+  if [ -s "$TEST_DIR/window_dump.xml" ]; then
+    TAP_XY="$(python3 -c "
+import re
+with open('$TEST_DIR/window_dump.xml', encoding='utf-8') as f:
+    xml = f.read()
+nodes = re.findall(r'<node[^>]*text=\"Video\"[^>]*bounds=\"\[(\d+),(\d+)\]\[(\d+),(\d+)\]\"', xml)
+if not nodes:
+    nodes = re.findall(r'<node[^>]*text=\"[^\"]*Video[^\"]*\"[^>]*bounds=\"\[(\d+),(\d+)\]\[(\d+),(\d+)\]\"', xml)
+# The home screen's persistent kind-toggle is ALWAYS present, so a single
+# match means only that toggle has rendered yet and the picker itself
+# hasn't shown up - require both (home toggle + picker button) before
+# trusting the 'lowest on screen' pick, or an early dump could tap the
+# wrong one and the retry loop would stop looking.
+if len(nodes) >= 2:
+    x1, y1, x2, y2 = max(nodes, key=lambda n: int(n[1]))
+    print(f'{(int(x1) + int(x2)) // 2} {(int(y1) + int(y2)) // 2}')
+" || true)"
+  fi
+  if [ -n "$TAP_XY" ]; then
+    break
+  fi
+  sleep 1
+done
+
+if [ -z "$TAP_XY" ]; then
+  echo "Could not locate the share-format picker's Video button via uiautomator" >&2
+  tail -c 4000 "$TEST_DIR/window_dump.xml" 2>/dev/null || true
+  adb logcat -d -s python.stdout python.stderr ClassyDL chromium 2>/dev/null | tail -n 100 || true
+  exit 1
+fi
+
+echo "Tapping the picker's Video button at: $TAP_XY"
+adb shell input tap $TAP_XY
+
+# The page's JS must now have queued it - find the job by source.
 #
 # Both the curl and the JSON parse are deliberately tolerant of failure here
 # (`|| true`, try/except): under `set -e`, a single transient hiccup inside
@@ -137,7 +184,7 @@ if [ -z "$JOB_ID" ]; then
   adb logcat -d -s python.stdout python.stderr ClassyDL chromium 2>/dev/null | tail -n 100 || true
   exit 1
 fi
-echo "Shared URL was auto-queued as job $JOB_ID"
+echo "Shared URL was queued (after tapping Video) as job $JOB_ID"
 
 STATUS=""
 for i in $(seq 1 30); do
