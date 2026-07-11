@@ -104,6 +104,13 @@
     "share_format": {
       "title": "What do you want to save?"
     },
+    "help": {
+      "button_label": "Help",
+      "close_label": "Close",
+      "step1": "Share a link from any app, then choose DownloadThat.",
+      "step2": "Pick video or audio.",
+      "step3": "Your file is saved on your device."
+    },
     "status": {
       "pending": "Очікує…",
       "in_progress": "Завантаження…",

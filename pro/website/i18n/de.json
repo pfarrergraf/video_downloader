@@ -104,6 +104,13 @@
     "share_format": {
       "title": "Was möchtest du speichern?"
     },
+    "help": {
+      "button_label": "Hilfe",
+      "close_label": "Schließen",
+      "step1": "Teile einen Link aus einer beliebigen App und wähle DownloadThat.",
+      "step2": "Wähle Video oder Audio.",
+      "step3": "Deine Datei wird auf deinem Gerät gespeichert."
+    },
     "status": {
       "pending": "Wartet…",
       "in_progress": "Lädt herunter…",
