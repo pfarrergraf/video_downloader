@@ -141,6 +141,7 @@
     margin: 0 auto;
   }
   .header-titles { text-align: left; }
+  .header-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
   header h1 { font-size: 1.45rem; color: var(--accent); letter-spacing: -0.01em; }
   header p { color: var(--text-dim); margin: 0.15rem 0 0; font-size: 0.85rem; }
   .icon-btn {
@@ -380,6 +381,32 @@
   }
   #share-format-overlay .card { max-width: 380px; width: 100%; }
   #share-format-overlay .kind-row button { min-height: 84px; font-size: 1.15rem; }
+  /* Icon-only walkthrough: every label a screen reader needs lives in a
+     .sr-only span next to the pictures, but nothing readable is required to
+     follow the steps - the icons and arrows alone must carry the meaning. */
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+  #help-overlay {
+    position: fixed; inset: 0; background: var(--overlay-strong);
+    display: flex; align-items: center; justify-content: center; z-index: 57; padding: 1rem;
+  }
+  #help-overlay .card { max-width: 420px; width: 100%; position: relative; }
+  #help-close-btn {
+    position: absolute; top: 0.6rem; right: 0.6rem;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--bg-panel); border: 1px solid var(--border); color: var(--text);
+    font-size: 1.1rem; cursor: pointer;
+  }
+  .help-steps { display: flex; flex-direction: column; gap: 1.4rem; margin-top: 1.6rem; }
+  .help-step {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.5rem; flex-wrap: wrap;
+  }
+  .help-icon { font-size: 2rem; line-height: 1; display: inline-flex; }
+  .help-icon svg { width: 32px; height: 32px; }
+  .help-arrow { color: var(--text-dim); font-size: 1.4rem; flex-shrink: 0; }
   #delete-overlay .card button { width: 100%; margin-top: 0.6rem; }
   /* The destructive choice is visually marked as such, but stays an outline
      (not a filled red primary) so it never reads as the recommended action. */
@@ -415,6 +442,14 @@
 </style>
 </head>
 <body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="help-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff5c7a" /><stop offset="100%" stop-color="#22e0c9" />
+    </linearGradient>
+  </defs>
+</svg>
 
 <div id="splash">
   <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
@@ -579,13 +614,57 @@
   </div>
 </div>
 
+<!-- Icon-only walkthrough of the real 3-step flow (Share -> pick
+     DownloadThat -> pick a format -> saved). No visible text is required to
+     follow it - every step reads as pictures and arrows alone; the
+     .sr-only spans exist only for screen readers. -->
+<div id="help-overlay" class="hidden">
+  <div class="card">
+    <button id="help-close-btn" aria-label="Close" data-i18n-aria="app.help.close_label">✕</button>
+    <div class="help-steps">
+      <div class="help-step">
+        <span class="help-icon" aria-hidden="true">🔗</span>
+        <span class="help-arrow" aria-hidden="true">→</span>
+        <span class="help-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>
+        </span>
+        <span class="help-arrow" aria-hidden="true">→</span>
+        <span class="help-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><path d="M32 6 L32 34 M20 24 L32 38 L44 24" stroke="url(#help-grad)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" /><rect x="14" y="46" width="36" height="6" rx="3" fill="url(#help-grad)" /></svg>
+        </span>
+        <span class="sr-only" data-i18n="app.help.step1">Share a link from any app, then choose DownloadThat.</span>
+      </div>
+      <div class="help-step">
+        <span class="help-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><path d="M32 6 L32 34 M20 24 L32 38 L44 24" stroke="url(#help-grad)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" /><rect x="14" y="46" width="36" height="6" rx="3" fill="url(#help-grad)" /></svg>
+        </span>
+        <span class="help-arrow" aria-hidden="true">→</span>
+        <span class="help-icon" aria-hidden="true">🎬</span>
+        <span class="help-icon" aria-hidden="true">🎵</span>
+        <span class="sr-only" data-i18n="app.help.step2">Pick video or audio.</span>
+      </div>
+      <div class="help-step">
+        <span class="help-icon" aria-hidden="true">⬇️</span>
+        <span class="help-arrow" aria-hidden="true">→</span>
+        <span class="help-icon" aria-hidden="true">✅</span>
+        <span class="help-arrow" aria-hidden="true">→</span>
+        <span class="help-icon" aria-hidden="true">📁</span>
+        <span class="sr-only" data-i18n="app.help.step3">Your file is saved on your device.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="app" class="hidden">
   <header>
     <div class="header-titles">
       <h1>DownloadThat</h1>
       <p data-i18n="app.tagline">Download media from most sites, on any device</p>
     </div>
-    <button class="icon-btn" id="settings-open-btn" aria-label="Settings" data-i18n-aria="app.settings.gear_label">⚙️</button>
+    <div class="header-actions">
+      <button class="icon-btn" id="help-open-btn" aria-label="Help" data-i18n-aria="app.help.button_label">❓</button>
+      <button class="icon-btn" id="settings-open-btn" aria-label="Settings" data-i18n-aria="app.settings.gear_label">⚙️</button>
+    </div>
   </header>
   <main>
     <div class="card">
@@ -978,6 +1057,13 @@ $('engine-update-btn').addEventListener('click', async () => {
   } catch (e) {
     toast(e.message || '');
   }
+});
+
+$('help-open-btn').addEventListener('click', () => {
+  $('help-overlay').classList.remove('hidden');
+});
+$('help-close-btn').addEventListener('click', () => {
+  $('help-overlay').classList.add('hidden');
 });
 
 $('settings-open-btn').addEventListener('click', () => {
