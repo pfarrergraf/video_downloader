@@ -345,6 +345,21 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 1rem;
   }
+  /* Folder glyph tinted yellow to read as a folder at a glance among the
+     other monochrome icon buttons. */
+  button.folder-btn { color: #ffcb3d; }
+  /* The share/trash glyphs are provided raster icons, not currentColor
+     SVG paths - trash brings its own red sticker background, so the
+     button chrome underneath is stripped to avoid a double background. */
+  button.trash-btn {
+    background: transparent;
+    border-color: transparent;
+  }
+  button.share-btn img { filter: none; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) button.share-btn img { filter: invert(1); }
+  }
+  :root[data-theme="dark"] button.share-btn img { filter: invert(1); }
 
   #login-overlay {
     position: fixed; inset: 0; background: var(--overlay-strong);
@@ -1856,22 +1871,26 @@ function jobRow(job) {
         fileRow.appendChild(link);
       }
 
-      // Big labelled buttons, not icon puzzles: "View" plays the file,
-      // "Share" opens the system share sheet.
+      // Icon-only buttons (no "View"/"Share" labels) so open/share/folder/
+      // delete all fit on one row even on narrow phone screens.
       const openBtn = document.createElement('button');
-      openBtn.className = 'primary';
-      openBtn.innerHTML = `${iconSvg('open')} <span>${t('app.queue.open_btn')}</span>`;
+      openBtn.className = 'primary file-icon-btn';
+      openBtn.innerHTML = iconSvg('open');
+      openBtn.title = t('app.queue.open_btn');
+      openBtn.setAttribute('aria-label', t('app.queue.open_btn'));
       openBtn.addEventListener('click', () => openFile(job.id, f.filename));
       fileRow.appendChild(openBtn);
 
       const shareBtn = document.createElement('button');
-      shareBtn.className = 'secondary';
-      shareBtn.innerHTML = `${iconSvg('share')} <span>${t('app.queue.share_btn')}</span>`;
+      shareBtn.className = 'secondary file-icon-btn share-btn';
+      shareBtn.innerHTML = '<img src="/icons/share.png" alt="" width="24" height="24">';
+      shareBtn.title = t('app.queue.share_btn');
+      shareBtn.setAttribute('aria-label', t('app.queue.share_btn'));
       shareBtn.addEventListener('click', () => shareFile(job.id, f.filename));
       fileRow.appendChild(shareBtn);
 
       const folderBtn = document.createElement('button');
-      folderBtn.className = 'secondary file-icon-btn';
+      folderBtn.className = 'secondary file-icon-btn folder-btn';
       folderBtn.innerHTML = iconSvg('folder');
       folderBtn.title = t('app.queue.open_folder_btn');
       folderBtn.setAttribute('aria-label', t('app.queue.open_folder_btn'));
@@ -1896,8 +1915,8 @@ function jobRow(job) {
 
   if (FINISHED_STATUSES.includes(job.status)) {
     const del = document.createElement('button');
-    del.className = 'secondary file-icon-btn';
-    del.innerHTML = iconSvg('trash');
+    del.className = 'secondary file-icon-btn trash-btn';
+    del.innerHTML = '<img src="/icons/trash.png" alt="" width="34" height="34">';
     del.title = t('app.queue.delete_btn');
     del.setAttribute('aria-label', t('app.queue.delete_btn'));
     del.addEventListener('click', () => openDeleteDialog(job.id));
