@@ -316,7 +316,16 @@
   .job-error summary { cursor: pointer; color: var(--text-dim); font-size: 0.8rem; min-height: 44px; display: flex; align-items: center; }
   .job-error .raw { color: var(--text-dim); font-size: 0.78rem; word-break: break-word; }
   .file-row { flex-basis: 100%; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.2rem; }
-  .file-row button { display: inline-flex; align-items: center; gap: 0.4rem; }
+  /* Grid (not flex-wrap) so that when four icons don't fit one row, they
+     wrap as clean 2x2 pairs instead of leaving one icon stranded alone. */
+  .action-row {
+    flex-basis: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 48px);
+    gap: 0.5rem;
+    justify-content: start;
+  }
+  .action-row button { display: inline-flex; align-items: center; justify-content: center; }
   .progress-track {
     flex-basis: 100%;
     height: 10px;
@@ -1855,9 +1864,15 @@ function jobRow(job) {
     li.appendChild(label);
   }
 
+  // All per-file action icons (open/share/folder/delete) share one grid so
+  // they land on a single row when there's space, and wrap in clean pairs
+  // instead of an orphaned single icon when there isn't.
+  let actionRow = null;
   if (job.files && job.files.length) {
     const fileRow = document.createElement('div');
     fileRow.className = 'file-row';
+    actionRow = document.createElement('div');
+    actionRow.className = 'action-row';
     const isAndroid = !!(window.AndroidBridge && window.AndroidBridge.isAvailable && window.AndroidBridge.isAvailable());
     job.files.forEach((f) => {
       // On Android the row title already shows the filename and View/Share
@@ -1879,7 +1894,7 @@ function jobRow(job) {
       openBtn.title = t('app.queue.open_btn');
       openBtn.setAttribute('aria-label', t('app.queue.open_btn'));
       openBtn.addEventListener('click', () => openFile(job.id, f.filename));
-      fileRow.appendChild(openBtn);
+      actionRow.appendChild(openBtn);
 
       const shareBtn = document.createElement('button');
       shareBtn.className = 'secondary file-icon-btn share-btn';
@@ -1887,7 +1902,7 @@ function jobRow(job) {
       shareBtn.title = t('app.queue.share_btn');
       shareBtn.setAttribute('aria-label', t('app.queue.share_btn'));
       shareBtn.addEventListener('click', () => shareFile(job.id, f.filename));
-      fileRow.appendChild(shareBtn);
+      actionRow.appendChild(shareBtn);
 
       const folderBtn = document.createElement('button');
       folderBtn.className = 'secondary file-icon-btn folder-btn';
@@ -1895,8 +1910,9 @@ function jobRow(job) {
       folderBtn.title = t('app.queue.open_folder_btn');
       folderBtn.setAttribute('aria-label', t('app.queue.open_folder_btn'));
       folderBtn.addEventListener('click', () => openFolder(job.id, f.filename));
-      fileRow.appendChild(folderBtn);
+      actionRow.appendChild(folderBtn);
     });
+    fileRow.appendChild(actionRow);
     li.appendChild(fileRow);
   }
 
@@ -1920,7 +1936,7 @@ function jobRow(job) {
     del.title = t('app.queue.delete_btn');
     del.setAttribute('aria-label', t('app.queue.delete_btn'));
     del.addEventListener('click', () => openDeleteDialog(job.id));
-    li.appendChild(del);
+    (actionRow || li).appendChild(del);
   }
   return li;
 }
