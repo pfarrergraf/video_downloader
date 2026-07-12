@@ -1,4 +1,4 @@
-"""Site scraper – discovers videos, audio files, and images on any web page."""
+"""Site scraper – discovers videos, audio files, images, and documents on any web page."""
 
 from __future__ import annotations
 
@@ -36,11 +36,19 @@ IMAGE_EXTENSIONS = {
     ".ico", ".tiff", ".tif", ".avif", ".heic", ".heif",
 }
 
+DOCUMENT_EXTENSIONS = {
+    ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
+    ".zip", ".txt", ".csv", ".odt", ".ods",
+}
+
 MANIFEST_EXTENSIONS = {".m3u8", ".mpd"}
 
-ALL_MEDIA_EXTENSIONS = VIDEO_EXTENSIONS | AUDIO_EXTENSIONS | IMAGE_EXTENSIONS | MANIFEST_EXTENSIONS
+ALL_MEDIA_EXTENSIONS = (
+    VIDEO_EXTENSIONS | AUDIO_EXTENSIONS | IMAGE_EXTENSIONS
+    | DOCUMENT_EXTENSIONS | MANIFEST_EXTENSIONS
+)
 
-MediaType = str  # "video" | "audio" | "image" | "unknown"
+MediaType = str  # "video" | "audio" | "image" | "document" | "unknown"
 
 Logger = Callable[[str], None]
 
@@ -79,6 +87,8 @@ def classify_url(url: str) -> MediaType:
         return "audio"
     if ext in IMAGE_EXTENSIONS:
         return "image"
+    if ext in DOCUMENT_EXTENSIONS:
+        return "document"
     return "unknown"
 
 
@@ -139,7 +149,7 @@ class SiteScraper:
         same_domain : bool
             Only keep media on the same domain.
         media_types : set | None
-            Restrict to these types (``{"video", "audio", "image"}``).
+            Restrict to these types (``{"video", "audio", "image", "document"}``).
             ``None`` means all.
         name_filter : str | None
             Wildcard pattern for filename matching (e.g. ``"*thumb*"``).
@@ -337,7 +347,7 @@ class SiteScraper:
             if not text:
                 continue
             for match in re.findall(
-                r'https?://[^\s"\'<>\\]+?\.(?:mp4|webm|mkv|mov|mp3|m4a|aac|flac|wav|ogg|opus|jpg|jpeg|png|gif|webp|svg|avif|m3u8|mpd)(?:\?[^\s"\'<>\\]*)?',
+                r'https?://[^\s"\'<>\\]+?\.(?:mp4|webm|mkv|mov|mp3|m4a|aac|flac|wav|ogg|opus|jpg|jpeg|png|gif|webp|svg|avif|pdf|docx?|zip|m3u8|mpd)(?:\?[^\s"\'<>\\]*)?',
                 text,
                 flags=re.IGNORECASE,
             ):

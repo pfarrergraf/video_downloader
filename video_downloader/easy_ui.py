@@ -224,7 +224,7 @@ class EasyUiApp:
         type_combo = ttk.Combobox(
             site_frame,
             textvariable=self.type_filter_var,
-            values=("all", "video", "audio", "image"),
+            values=("all", "video", "audio", "image", "document"),
             state="readonly",
             width=10,
         )
@@ -273,13 +273,15 @@ class EasyUiApp:
         sel_audio_btn.grid(row=0, column=3, padx=4, pady=4)
         sel_images_btn = ttk.Button(actions, text="All Images", command=lambda: self._select_by_type("image"))
         sel_images_btn.grid(row=0, column=4, padx=4, pady=4)
+        sel_docs_btn = ttk.Button(actions, text="All Documents", command=lambda: self._select_by_type("document"))
+        sel_docs_btn.grid(row=0, column=5, padx=4, pady=4)
 
         download_selected_btn = ttk.Button(
             actions,
             text="Download Selected",
             command=self._download_selected_links,
         )
-        download_selected_btn.grid(row=0, column=5, padx=4, pady=4)
+        download_selected_btn.grid(row=0, column=6, padx=4, pady=4)
         self.download_button_refs.append(download_selected_btn)
 
         download_all_btn = ttk.Button(
@@ -287,11 +289,11 @@ class EasyUiApp:
             text="Download All Found",
             command=self._download_all_links,
         )
-        download_all_btn.grid(row=0, column=6, padx=4, pady=4)
+        download_all_btn.grid(row=0, column=7, padx=4, pady=4)
         self.download_button_refs.append(download_all_btn)
 
         self.status_label = ttk.Label(actions, text="Ready")
-        self.status_label.grid(row=0, column=7, padx=8, pady=4, sticky="w")
+        self.status_label.grid(row=0, column=8, padx=8, pady=4, sticky="w")
 
         log_frame = ttk.LabelFrame(root, text="Activity")
         log_frame.grid(row=4, column=0, sticky="nsew", padx=10, pady=(0, 10))

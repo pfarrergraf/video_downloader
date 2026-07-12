@@ -15,6 +15,7 @@ from .models import DownloadRequest, DownloadResult
 from .utils import (
     ensure_output_dir,
     guess_extension,
+    is_direct_asset_url,
     is_direct_media_url,
     is_manifest_url,
     parse_content_disposition,
@@ -552,14 +553,18 @@ def _ensure_extension(filename: str, extension: str) -> str:
 
 
 def _response_looks_like_media(url: str, content_type: str | None) -> bool:
-    if is_direct_media_url(url):
+    if is_direct_media_url(url) or is_direct_asset_url(url):
         return True
     if not content_type:
         return False
     lower = content_type.lower()
-    if lower.startswith("video/") or lower.startswith("audio/"):
+    if lower.startswith("video/") or lower.startswith("audio/") or lower.startswith("image/"):
         return True
-    allow_markers = ("octet-stream", "application/mp4", "mpegurl", "dash+xml")
+    allow_markers = (
+        "octet-stream", "application/mp4", "mpegurl", "dash+xml",
+        "application/pdf", "application/msword", "application/vnd.openxmlformats",
+        "application/vnd.oasis.opendocument", "application/zip", "text/plain", "text/csv",
+    )
     return any(marker in lower for marker in allow_markers)
 
 

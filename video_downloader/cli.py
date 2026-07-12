@@ -522,7 +522,7 @@ def _print_scrape_table(
 
     display = items if show_all else items[:50]
     for idx, item in enumerate(display, start=1):
-        type_color = {"video": "red", "audio": "blue", "image": "green"}.get(item.media_type, "white")
+        type_color = {"video": "red", "audio": "blue", "image": "green", "document": "yellow"}.get(item.media_type, "white")
         table.add_row(
             str(idx),
             f"[{type_color}]{item.media_type}[/{type_color}]",
@@ -561,12 +561,12 @@ def _scrape_interactive(
         # Type filter
         if raw.lower().startswith("type "):
             type_arg = raw[5:].strip().lower()
-            if type_arg in {"video", "audio", "image"}:
+            if type_arg in {"video", "audio", "image", "document"}:
                 current = filter_items(items, media_types={type_arg})
                 _print_scrape_table(console, current)
                 console.print(f"Showing {len(current)} {type_arg} items")
                 continue
-            console.print("[yellow]Valid types: video, audio, image[/yellow]")
+            console.print("[yellow]Valid types: video, audio, image, document[/yellow]")
             continue
 
         # Name filter
@@ -833,14 +833,14 @@ def _build_parser() -> argparse.ArgumentParser:
     # ── scrape command ──────────────────────────────────────────────────
     scrape_parser = subparsers.add_parser(
         "scrape",
-        help="Scrape a website for videos, audio, and images",
+        help="Scrape a website for videos, audio, images, and documents",
     )
     scrape_parser.add_argument("url", help="Website URL to scrape")
     scrape_parser.add_argument(
         "-t",
         "--type",
         action="append",
-        choices=["video", "audio", "image"],
+        choices=["video", "audio", "image", "document"],
         help="Filter by media type (repeat for multiple: -t video -t audio)",
     )
     scrape_parser.add_argument(

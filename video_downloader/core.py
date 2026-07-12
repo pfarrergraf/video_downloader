@@ -11,7 +11,12 @@ from .strategies import (
     StrategyError,
     YtDlpStrategy,
 )
-from .utils import extract_media_candidates, is_direct_media_url, is_manifest_url
+from .utils import (
+    extract_media_candidates,
+    is_direct_asset_url,
+    is_direct_media_url,
+    is_manifest_url,
+)
 
 Logger = Callable[[str], None]
 
@@ -77,7 +82,16 @@ class DownloadManager:
         if not (source.startswith("http://") or source.startswith("https://")):
             return [("yt-dlp", source)]
 
-        queue: list[tuple[str, str]] = [("yt-dlp", source)]
+        queue: list[tuple[str, str]] = []
+        if is_direct_asset_url(source) and not is_direct_media_url(source):
+            # A known image/document extension (e.g. .jpg, .pdf, .zip) is a
+            # plain static file, not a page yt-dlp needs to extract from - and
+            # yt-dlp's generic extractor, tried against it anyway, downloads
+            # the same bytes but mislabels the extension (e.g. "unknown_video"
+            # for a PDF). Try the direct fetch first; yt-dlp stays queued right
+            # after as a fallback in case direct fails for some other reason.
+            queue.append(("direct", source))
+        queue.append(("yt-dlp", source))
 
         if is_manifest_url(source):
             queue.append(("ffmpeg", source))

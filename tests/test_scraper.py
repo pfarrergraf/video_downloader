@@ -53,6 +53,18 @@ class TestClassifyUrl:
     def test_no_extension(self):
         assert classify_url("https://example.com/media") == "unknown"
 
+    def test_pdf(self):
+        assert classify_url("https://example.com/report.pdf") == "document"
+
+    def test_docx(self):
+        assert classify_url("https://example.com/letter.docx") == "document"
+
+    def test_zip(self):
+        assert classify_url("https://example.com/archive.zip") == "document"
+
+    def test_svg_is_image(self):
+        assert classify_url("https://example.com/icon.svg") == "image"
+
 
 # ── _path_ext ───────────────────────────────────────────────────────────
 
@@ -191,7 +203,8 @@ SAMPLE_HTML = """
     <audio>
         <source src="/sounds/beep.mp3">
     </audio>
-    <a href="/downloads/archive.zip">Not media</a>
+    <a href="/downloads/archive.zip">A document</a>
+    <a href="/downloads/report.pdf">A PDF</a>
     <a href="/downloads/song.flac">A song</a>
     <a href="/page2.html">Another page</a>
     <script>
@@ -239,7 +252,16 @@ class TestSiteScraperExtraction:
     def test_no_non_media_links(self):
         items = self._extract()
         urls = {i.url for i in items}
-        assert not any("archive.zip" in u for u in urls)
+        assert not any("page2.html" in u for u in urls)
+
+    def test_finds_documents(self):
+        items = self._extract()
+        documents = [i for i in items if i.media_type == "document"]
+        # archive.zip, report.pdf
+        assert len(documents) >= 2
+        urls = {i.url for i in documents}
+        assert any("archive.zip" in u for u in urls)
+        assert any("report.pdf" in u for u in urls)
 
     def test_script_extraction(self):
         items = self._extract()
@@ -275,8 +297,11 @@ class TestSiteScraperScrapeWithFilter:
         raw = scraper._extract_media(soup, "https://example.com")
         videos = filter_items(raw, media_types={"video"})
         images = filter_items(raw, media_types={"image"})
+        documents = filter_items(raw, media_types={"document"})
         assert all(i.media_type == "video" for i in videos)
         assert all(i.media_type == "image" for i in images)
+        assert all(i.media_type == "document" for i in documents)
+        assert len(documents) >= 2
 
     def test_name_filter(self):
         from bs4 import BeautifulSoup

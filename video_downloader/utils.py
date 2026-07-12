@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import mimetypes
 import os
 import re
 from pathlib import Path
@@ -24,6 +25,15 @@ MEDIA_EXTENSIONS = {
 
 MANIFEST_HINTS = (".m3u8", ".mpd")
 
+# Non-video/audio assets a site scrape can discover (images, documents) that a
+# generic "download this URL" request should also be allowed to fetch directly.
+ASSET_EXTENSIONS = {
+    ".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".bmp",
+    ".ico", ".tiff", ".tif", ".avif", ".heic", ".heif",
+    ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
+    ".zip", ".txt", ".csv", ".odt", ".ods",
+}
+
 
 def ensure_output_dir(path: Path) -> Path:
     path.mkdir(parents=True, exist_ok=True)
@@ -46,7 +56,15 @@ def is_direct_media_url(url: str) -> bool:
     return any(path.endswith(ext) for ext in MEDIA_EXTENSIONS)
 
 
-def guess_extension(url: str, content_type: str | None) -> str:
+def is_direct_asset_url(url: str) -> bool:
+    """Like is_direct_media_url, but also accepts scraped non-media assets
+    (images, documents) so a generic direct download can fetch them too."""
+    parsed = urlparse(url)
+    path = parsed.path.lower()
+    return any(path.endswith(ext) for ext in ASSET_EXTENSIONS)
+
+
+def guess_extension(url: str, content_type: str | None, fallback: str = ".mp4") -> str:
     if content_type:
         content_type = content_type.lower()
         if "mp4" in content_type:
@@ -55,8 +73,11 @@ def guess_extension(url: str, content_type: str | None) -> str:
             return ".webm"
         if "mpegurl" in content_type or "m3u8" in content_type:
             return ".mp4"
+        guessed = mimetypes.guess_extension(content_type.split(";")[0].strip())
+        if guessed:
+            return guessed
     ext = os.path.splitext(urlparse(url).path)[1]
-    return ext if ext else ".mp4"
+    return ext if ext else fallback
 
 
 def parse_content_disposition(value: str | None) -> str | None:

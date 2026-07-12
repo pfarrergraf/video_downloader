@@ -1,6 +1,11 @@
 from __future__ import annotations
 
-from video_downloader.utils import extract_media_candidates
+from video_downloader.utils import (
+    extract_media_candidates,
+    guess_extension,
+    is_direct_asset_url,
+    is_direct_media_url,
+)
 
 
 def test_extract_media_candidates_ignores_ordinary_navigation_links() -> None:
@@ -38,3 +43,40 @@ def test_extract_media_candidates_still_finds_og_video_meta_tags() -> None:
     candidates = extract_media_candidates("https://example.com/article", html)
 
     assert "https://cdn.example.com/embed.mp4" in candidates
+
+
+def test_is_direct_media_url_excludes_images_and_documents() -> None:
+    # is_direct_media_url stays video/audio-only: it also feeds the auto-mode
+    # fallback queue for video/audio downloads, so widening it here would flood
+    # that queue with unrelated image/document candidates.
+    assert not is_direct_media_url("https://example.com/photo.jpg")
+    assert not is_direct_media_url("https://example.com/report.pdf")
+    assert is_direct_media_url("https://example.com/clip.mp4")
+
+
+def test_is_direct_asset_url_includes_images_and_documents() -> None:
+    assert is_direct_asset_url("https://example.com/photo.jpg")
+    assert is_direct_asset_url("https://example.com/icon.svg")
+    assert is_direct_asset_url("https://example.com/report.pdf")
+    assert is_direct_asset_url("https://example.com/archive.zip")
+    assert not is_direct_asset_url("https://example.com/page.html")
+
+
+class TestGuessExtension:
+    def test_defaults_to_mp4_fallback(self) -> None:
+        assert guess_extension("https://example.com/media", None) == ".mp4"
+
+    def test_custom_fallback(self) -> None:
+        assert guess_extension("https://example.com/media", None, fallback=".bin") == ".bin"
+
+    def test_url_extension_wins_without_content_type(self) -> None:
+        assert guess_extension("https://example.com/report.pdf", None) == ".pdf"
+
+    def test_content_type_guesses_pdf(self) -> None:
+        assert guess_extension("https://example.com/download", "application/pdf") == ".pdf"
+
+    def test_content_type_guesses_image(self) -> None:
+        assert guess_extension("https://example.com/download", "image/png") == ".png"
+
+    def test_mp4_content_type_still_wins(self) -> None:
+        assert guess_extension("https://example.com/download", "video/mp4") == ".mp4"
