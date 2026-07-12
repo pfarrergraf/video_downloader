@@ -99,7 +99,8 @@
       "audio_toggle": "Nur Ton",
       "download_btn": "Herunterladen",
       "advanced_summary": "Erweitert",
-      "quality_label": "Videoqualität"
+      "quality_label": "Videoqualität",
+      "file_toggle": "Dateien"
     },
     "share_format": {
       "title": "Was möchtest du speichern?"
@@ -114,7 +115,7 @@
       "guide_title": "So funktioniert's",
       "guide_step1": "Teile einen Link aus einer beliebigen App.",
       "guide_step2": "Wähle DownloadThat im Teilen-Menü.",
-      "guide_step3": "Wähle Video oder Audio.",
+      "guide_step3": "Wähle Video, Audio oder andere Dateien (Bilder, PDFs, ...).",
       "guide_step4": "DownloadThat fasst die Daten zusammen.",
       "guide_step5": "Die Datei wird lokal auf deinem Gerät gespeichert.",
       "guide_step6": "Fertig – du findest sie jederzeit unter „Meine Downloads“."
@@ -162,6 +163,19 @@
       "body": "Du kannst die heruntergeladene Datei auf dem Gerät behalten oder sie zusammen mit dem Eintrag löschen.",
       "entry_only_btn": "Nur aus der Liste entfernen",
       "with_files_btn": "Auch Datei(en) löschen"
+    },
+    "scrape": {
+      "label": "Bilder, PDFs und andere Dateien einer Seite finden",
+      "url_placeholder": "https://…",
+      "scan_btn": "Scannen",
+      "scanning": "Scanne…",
+      "none_found": "Keine Dateien auf dieser Seite gefunden.",
+      "found_count": "{count} Datei(en) gefunden.",
+      "select_all_btn": "Alle auswählen",
+      "download_btn": "Auswahl herunterladen",
+      "need_url_toast": "Füge zuerst einen Seitenlink ein.",
+      "scan_failed_toast": "Seite konnte nicht gescannt werden.",
+      "need_selection_toast": "Wähle zuerst mindestens eine Datei aus."
     }
   },
   "website": {

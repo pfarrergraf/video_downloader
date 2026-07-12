@@ -700,7 +700,7 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             store = self.server.store
             if isinstance(body.get("language"), str) and body["language"]:
                 store.set_setting("language", body["language"])
-            if body.get("media_kind") in ("video", "audio"):
+            if body.get("media_kind") in ("video", "audio", "file"):
                 store.set_setting("media_kind", body["media_kind"])
             if body.get("theme") in ("auto", "light", "dark"):
                 store.set_setting("theme", body["theme"])

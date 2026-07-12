@@ -229,7 +229,16 @@
   /* The one-screen download flow: link in, kind toggle, one big button. */
   .kind-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.9rem; }
   button.kind-toggle {
-    flex: 1;
+    /* flex:1 alone lets 3+ tiles shrink toward zero width instead of
+       wrapping the row - with the global button rule's overflow-wrap:
+       anywhere (needed elsewhere for long German compound words), that
+       silently degrades into wrapping text one character per line. A
+       min-width forces the row to wrap to a second line instead once three
+       tiles no longer fit, and reverting to word-boundary wrapping here
+       (two-word labels only) avoids the character-wrap entirely until
+       min-width is actually reached. */
+    flex: 1 1 100px;
+    min-width: 100px;
     min-height: 64px;
     border-radius: 16px;
     background: var(--bg-panel-2);
@@ -237,6 +246,8 @@
     color: var(--text-dim);
     display: flex; align-items: center; justify-content: center; gap: 0.5rem;
     font-size: 1.05rem;
+    overflow-wrap: normal;
+    word-break: normal;
   }
   button.kind-toggle[aria-pressed="true"] {
     border-color: var(--accent);
@@ -270,6 +281,17 @@
     transition: transform 0.15s ease;
   }
   details.advanced[open] summary::before { transform: rotate(90deg); }
+
+  .scrape-section { margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .scrape-item {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--border);
+  }
+  .scrape-item:last-child { border-bottom: none; }
+  .scrape-item input[type=checkbox] { width: 20px; height: 20px; min-height: unset; flex-shrink: 0; }
+  .scrape-item .scrape-filename {
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.9rem;
+  }
 
   #clipboard-chip {
     display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
@@ -928,6 +950,9 @@
       <button class="kind-toggle" id="share-format-audio-btn" type="button">
         <span aria-hidden="true">🎵</span> <span data-i18n="app.home.audio_toggle">Audio only</span>
       </button>
+      <button class="kind-toggle" id="share-format-file-btn" type="button">
+        <span aria-hidden="true">🖼️📄</span> <span data-i18n="app.home.file_toggle">Other files</span>
+      </button>
     </div>
     <button class="secondary" id="share-format-cancel-btn" type="button" style="width:100%; margin-top:0.9rem;" data-i18n="app.queue.cancel_btn">Cancel</button>
   </div>
@@ -1163,24 +1188,44 @@
         <button class="kind-toggle" id="kind-audio-btn" aria-pressed="false">
           <span aria-hidden="true">🎵</span> <span data-i18n="app.home.audio_toggle">Audio only</span> <span class="check" aria-hidden="true">✔</span>
         </button>
+        <button class="kind-toggle" id="kind-file-btn" aria-pressed="false">
+          <span aria-hidden="true">🖼️📄</span> <span data-i18n="app.home.file_toggle">Other files</span> <span class="check" aria-hidden="true">✔</span>
+        </button>
       </div>
 
       <button class="primary" id="download-btn"><span aria-hidden="true">⬇️</span> <span data-i18n="app.home.download_btn">Download</span></button>
 
       <details class="advanced" id="advanced-details">
         <summary data-i18n="app.home.advanced_summary">Advanced</summary>
-        <label for="quality-select" data-i18n="app.home.quality_label">Video quality</label>
-        <select id="quality-select">
-          <option value="2160" data-i18n="app.quality.auto">Auto (up to 4K)</option>
-          <option value="240" data-i18n="app.quality.p240">240p</option>
-          <option value="480" data-i18n="app.quality.p480">480p</option>
-          <option value="720" data-i18n="app.quality.p720">HD (720p)</option>
-          <option value="1080" data-i18n="app.quality.p1080">Full HD (1080p)</option>
-          <option value="1440" data-i18n="app.quality.p1440">2K (1440p)</option>
-          <option value="2160" data-i18n="app.quality.p2160">4K (2160p)</option>
-        </select>
+        <div id="quality-row">
+          <label for="quality-select" data-i18n="app.home.quality_label">Video quality</label>
+          <select id="quality-select">
+            <option value="2160" data-i18n="app.quality.auto">Auto (up to 4K)</option>
+            <option value="240" data-i18n="app.quality.p240">240p</option>
+            <option value="480" data-i18n="app.quality.p480">480p</option>
+            <option value="720" data-i18n="app.quality.p720">HD (720p)</option>
+            <option value="1080" data-i18n="app.quality.p1080">Full HD (1080p)</option>
+            <option value="1440" data-i18n="app.quality.p1440">2K (1440p)</option>
+            <option value="2160" data-i18n="app.quality.p2160">4K (2160p)</option>
+          </select>
+        </div>
         <label for="batch-urls" data-i18n="app.batch.label">Paste a link, multiple links (one per line), or a playlist link</label>
         <textarea id="batch-urls" rows="4" data-i18n-placeholder="app.batch.placeholder" placeholder="Paste a link, multiple links (one per line), or a playlist link"></textarea>
+
+        <div class="scrape-section" id="scrape-section">
+          <label for="scrape-url-input" data-i18n="app.scrape.label">Find images, PDFs, and other files on a page</label>
+          <div class="row">
+            <input type="url" id="scrape-url-input" inputmode="url" autocomplete="off"
+                   data-i18n-placeholder="app.scrape.url_placeholder" placeholder="https://…" style="flex:1; min-width:160px;" />
+            <button class="secondary" id="scrape-scan-btn" type="button" data-i18n="app.scrape.scan_btn">Scan</button>
+          </div>
+          <p class="muted hidden" id="scrape-status"></p>
+          <div id="scrape-list"></div>
+          <div class="row hidden" id="scrape-actions">
+            <button class="secondary" id="scrape-select-all-btn" type="button" data-i18n="app.scrape.select_all_btn">Select all</button>
+            <button class="primary" id="scrape-download-btn" type="button" data-i18n="app.scrape.download_btn">Download selected</button>
+          </div>
+        </div>
       </details>
     </div>
 
@@ -1216,6 +1261,12 @@ const LANGUAGES = [
 ];
 const SUPPORTED_CODES = LANGUAGES.map((l) => l[0]);
 let STRINGS = {};
+// English is the source-of-truth translation: newly added keys often land
+// here (and in a couple of other languages) before every one of the ~50
+// locale files catches up. Without this fallback, a key missing from the
+// active language would render as its raw dotted path (e.g.
+// "app.scrape.label") instead of readable English.
+let DEFAULT_STRINGS = {};
 let languagePref = 'auto';
 
 function detectDeviceLang() {
@@ -1224,11 +1275,17 @@ function detectDeviceLang() {
   return SUPPORTED_CODES.includes(short) ? short : 'en';
 }
 
-function t(key, vars) {
+function lookupString(strings, key) {
   const parts = key.split('.');
-  let node = STRINGS;
+  let node = strings;
   for (const p of parts) node = node && typeof node === 'object' ? node[p] : undefined;
-  let str = typeof node === 'string' ? node : key;
+  return typeof node === 'string' ? node : undefined;
+}
+
+function t(key, vars) {
+  let str = lookupString(STRINGS, key);
+  if (str === undefined) str = lookupString(DEFAULT_STRINGS, key);
+  if (str === undefined) str = key;
   if (vars) for (const [k, v] of Object.entries(vars)) str = str.split(`{${k}}`).join(v);
   return str;
 }
@@ -1253,7 +1310,8 @@ function applyStaticTranslations() {
 async function setLanguage(pref, opts = {}) {
   languagePref = pref;
   const effective = pref === 'auto' ? detectDeviceLang() : pref;
-  STRINGS = (await loadStrings(effective)) || (await loadStrings('en')) || {};
+  if (!Object.keys(DEFAULT_STRINGS).length) DEFAULT_STRINGS = (await loadStrings('en')) || {};
+  STRINGS = (effective === 'en' ? DEFAULT_STRINGS : await loadStrings(effective)) || DEFAULT_STRINGS;
   applyStaticTranslations();
   if ($('settings-language')) $('settings-language').value = pref;
   if (!$('app').classList.contains('hidden')) {
@@ -1468,17 +1526,24 @@ function renderLimitBody() {
 
 function setMediaKind(kind, opts = {}) {
   const audio = kind === 'audio';
-  $('kind-video-btn').setAttribute('aria-pressed', String(!audio));
+  const file = kind === 'file';
+  $('kind-video-btn').setAttribute('aria-pressed', String(!audio && !file));
   $('kind-audio-btn').setAttribute('aria-pressed', String(audio));
+  $('kind-file-btn').setAttribute('aria-pressed', String(file));
+  // Quality only means anything for a yt-dlp video pull - meaningless for a
+  // raw file fetch (images/PDFs/etc. are downloaded byte-for-byte).
+  $('quality-row').classList.toggle('hidden', file);
   if (!opts.skipPersist) {
-    api('/api/settings', { method: 'POST', body: { media_kind: audio ? 'audio' : 'video' } }).catch(() => {});
+    api('/api/settings', { method: 'POST', body: { media_kind: audio ? 'audio' : (file ? 'file' : 'video') } }).catch(() => {});
   }
 }
 function currentMediaKind() {
+  if ($('kind-file-btn').getAttribute('aria-pressed') === 'true') return 'file';
   return $('kind-audio-btn').getAttribute('aria-pressed') === 'true' ? 'audio' : 'video';
 }
 $('kind-video-btn').addEventListener('click', () => setMediaKind('video'));
 $('kind-audio-btn').addEventListener('click', () => setMediaKind('audio'));
+$('kind-file-btn').addEventListener('click', () => setMediaKind('file'));
 $('quality-select').addEventListener('change', (e) => {
   api('/api/settings', { method: 'POST', body: { quality_height: e.target.value } }).catch(() => {});
 });
@@ -1495,7 +1560,10 @@ async function refreshSettings() {
     if (typeof settings.free_limit === 'number') freeLimit = settings.free_limit;
     if (typeof settings.free_window_hours === 'number') freeWindowHours = settings.free_window_hours;
     renderLimitBody();
-    setMediaKind(settings.media_kind === 'audio' ? 'audio' : 'video', { skipPersist: true });
+    const persistedKind = settings.media_kind === 'audio' || settings.media_kind === 'file'
+      ? settings.media_kind
+      : 'video';
+    setMediaKind(persistedKind, { skipPersist: true });
     if (settings.quality_height) $('quality-select').value = String(settings.quality_height);
     $('settings-folder-label').textContent = settings.export_folder_label || t('app.settings.folder_default');
     const androidAvailable = !!(window.AndroidBridge && window.AndroidBridge.isAvailable && window.AndroidBridge.isAvailable());
@@ -1646,6 +1714,96 @@ async function startDownload() {
 $('download-btn').addEventListener('click', startDownload);
 $('url-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') startDownload(); });
 
+// -- page scraping (Advanced): find images/PDFs/other files on a page ------
+let scrapeResults = [];
+
+function renderScrapeResults() {
+  const list = $('scrape-list');
+  list.innerHTML = '';
+  if (!scrapeResults.length) {
+    $('scrape-status').textContent = t('app.scrape.none_found');
+    $('scrape-actions').classList.add('hidden');
+    return;
+  }
+  $('scrape-status').textContent = t('app.scrape.found_count', { count: String(scrapeResults.length) });
+  const icons = { video: '🎬', audio: '🎵', image: '🖼️', document: '📄' };
+  scrapeResults.forEach((item, index) => {
+    const row = document.createElement('label');
+    row.className = 'scrape-item';
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'scrape-check';
+    checkbox.dataset.index = String(index);
+    const icon = document.createElement('span');
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = icons[item.media_type] || '📎';
+    const name = document.createElement('span');
+    name.className = 'scrape-filename';
+    // Filename/url come from a scraped third-party page - always set as
+    // text, never HTML, so a malicious page can't inject markup here.
+    name.textContent = item.filename || item.url;
+    row.append(checkbox, icon, name);
+    list.appendChild(row);
+  });
+  $('scrape-actions').classList.remove('hidden');
+}
+
+$('scrape-scan-btn').addEventListener('click', async () => {
+  const url = $('scrape-url-input').value.trim();
+  if (!url) return toast(t('app.scrape.need_url_toast'));
+  $('scrape-scan-btn').disabled = true;
+  $('scrape-status').classList.remove('hidden');
+  $('scrape-status').textContent = t('app.scrape.scanning');
+  $('scrape-list').innerHTML = '';
+  $('scrape-actions').classList.add('hidden');
+  try {
+    const result = await api('/api/scrape', { method: 'POST', body: { url } });
+    scrapeResults = result.items || [];
+    renderScrapeResults();
+  } catch (e) {
+    scrapeResults = [];
+    toast(e.message || t('app.scrape.scan_failed_toast'));
+    $('scrape-status').textContent = '';
+  } finally {
+    $('scrape-scan-btn').disabled = false;
+  }
+});
+
+$('scrape-select-all-btn').addEventListener('click', () => {
+  document.querySelectorAll('.scrape-check').forEach((cb) => { cb.checked = true; });
+});
+
+$('scrape-download-btn').addEventListener('click', async () => {
+  const checked = Array.from(document.querySelectorAll('.scrape-check:checked'));
+  if (!checked.length) return toast(t('app.scrape.need_selection_toast'));
+  $('scrape-download-btn').disabled = true;
+  let queued = 0;
+  for (const checkbox of checked) {
+    const item = scrapeResults[Number(checkbox.dataset.index)];
+    if (!item) continue;
+    try {
+      // audioOnly=false, no playlist: each scraped item is queued as its own
+      // job via the same /api/queue endpoint manual links use. For an
+      // image/PDF/document URL the backend's "auto" method already tries a
+      // direct fetch first (see core.DownloadManager._build_auto_queue), so
+      // no extra media-type hint needs to travel with the request.
+      await queueSource(item.url, false, false);
+      queued += 1;
+    } catch (e) {
+      // Best-effort: keep queueing the rest even if one item fails/hits a
+      // quota limit, then surface the failure via handleQueueError below.
+      handleQueueError(e, 'app.batch.queue_failed_toast');
+    }
+  }
+  $('scrape-download-btn').disabled = false;
+  if (queued) {
+    toast(t('app.batch.queued_toast', { count: String(queued) }));
+    if (window.AndroidBridge && window.AndroidBridge.onDownloadQueued) {
+      try { window.AndroidBridge.onDownloadQueued(); } catch (err) { /* bridge absent */ }
+    }
+  }
+});
+
 // -- native hooks (Android shell calls these; harmless no-ops elsewhere) ----
 // A URL shared into the app ("Share -> DownloadThat"): fill the field and
 // show the format picker - the explicit third step of the flow (Share ->
@@ -1673,6 +1831,11 @@ $('share-format-video-btn').addEventListener('click', () => {
 });
 $('share-format-audio-btn').addEventListener('click', () => {
   setMediaKind('audio');
+  closeShareFormatPicker();
+  startDownload();
+});
+$('share-format-file-btn').addEventListener('click', () => {
+  setMediaKind('file');
   closeShareFormatPicker();
   startDownload();
 });

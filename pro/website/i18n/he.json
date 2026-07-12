@@ -99,7 +99,8 @@
       "audio_toggle": "Audio only",
       "download_btn": "Download",
       "advanced_summary": "Advanced",
-      "quality_label": "Video quality"
+      "quality_label": "Video quality",
+      "file_toggle": "Files"
     },
     "share_format": {
       "title": "What do you want to save?"
@@ -114,7 +115,7 @@
       "guide_title": "How it works",
       "guide_step1": "Share a link from any app.",
       "guide_step2": "Choose DownloadThat from the share sheet.",
-      "guide_step3": "Pick video or audio.",
+      "guide_step3": "Pick video, audio, or other files (images, PDFs, ...).",
       "guide_step4": "DownloadThat bundles the media together.",
       "guide_step5": "The file is saved locally on your device.",
       "guide_step6": "Done — find it any time in \"My downloads\"."
@@ -162,6 +163,19 @@
       "body": "אפשר להשאיר את הקובץ שהורד במכשיר, או למחוק אותו יחד עם הרשומה.",
       "entry_only_btn": "הסרה מהרשימה בלבד",
       "with_files_btn": "למחוק גם את הקבצים"
+    },
+    "scrape": {
+      "label": "Find images, PDFs, and other files on a page",
+      "url_placeholder": "https://…",
+      "scan_btn": "Scan",
+      "scanning": "Scanning…",
+      "none_found": "No files found on that page.",
+      "found_count": "Found {count} file(s).",
+      "select_all_btn": "Select all",
+      "download_btn": "Download selected",
+      "need_url_toast": "Paste a page link first.",
+      "scan_failed_toast": "Couldn't scan that page.",
+      "need_selection_toast": "Select at least one file first."
     }
   },
   "website": {

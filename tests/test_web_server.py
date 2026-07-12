@@ -700,6 +700,22 @@ def test_settings_smart_mode_roundtrip(server: ClassyDLServer) -> None:
     assert body["theme"] == "dark"
 
 
+def test_settings_smart_mode_accepts_file_kind(server: ClassyDLServer) -> None:
+    # "file" is the third Smart Mode option (images/PDFs/other documents,
+    # alongside video/audio) - it must round-trip like the other two.
+    cookie = _login(server)
+    status, _, _ = _request(
+        server,
+        "POST",
+        "/api/settings",
+        {"media_kind": "file"},
+        cookie=cookie,
+    )
+    assert status == 200
+    _, body, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    assert body["media_kind"] == "file"
+
+
 def test_settings_reject_invalid_smart_mode_values(server: ClassyDLServer) -> None:
     cookie = _login(server)
     _request(

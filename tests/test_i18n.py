@@ -112,10 +112,17 @@ def test_new_ux_keys_exist_in_source() -> None:
         "app.clipboard.insert_btn",
         "app.theme.label",
         "app.queue.details_toggle",
+        # Page scraping (find images/PDFs/other files on a page) was
+        # reintroduced under the "Advanced" section per owner request,
+        # after being fully removed in the one-screen redesign - this time
+        # it stays a collapsed sub-section rather than its own top-level
+        # card, so it doesn't regress the simplified main flow.
+        "app.home.file_toggle",
+        "app.scrape.label",
+        "app.scrape.scan_btn",
+        "app.scrape.download_btn",
     ):
         assert expected in keys
-    # The page-scraper UI is gone; its keys must not linger.
-    assert not any(k.startswith("app.scrape.") for k in keys)
 
 
 def test_index_html_has_no_external_resource_dependencies() -> None:
