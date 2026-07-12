@@ -14,14 +14,11 @@
   const reducedBySystem = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let reduced = reducedBySystem;
   let timers = [];
-  let stepIndex = 0;
   const stage = root.querySelector('[data-pc3-stage]');
   const rig = root.querySelector('[data-pc3-camera-rig]');
   const views = [...root.querySelectorAll('[data-pc3-view]')];
   const number = root.querySelector('[data-pc3-index]');
   const progress = root.querySelector('[data-pc3-progress]');
-  const motionButton = root.querySelector('[data-pc3-motion]');
-  const soundButton = root.querySelector('[data-pc3-sound]');
 
   // ---- Sound effects (synthesized with the Web Audio API - no audio files,
   // keeping this component's no-external-asset rule). Off by default: an
@@ -220,7 +217,6 @@
 
   function show(id) {
     const idx = Math.max(0, sequence.findIndex((s) => s.id === id));
-    stepIndex = idx;
     root.dataset.pc3Phase = id;
     views.forEach((v) => {
       const active = v.dataset.pc3View === id;
@@ -237,6 +233,10 @@
     if (progress) progress.style.width = `${((idx + 1) / sequence.length) * 100}%`;
   }
 
+  // No manual Replay/Step-through controls (per product feedback - too much
+  // UI clutter): the story just keeps looping on its own. reducedBySystem
+  // (prefers-reduced-motion) still stops it from looping at all - it jumps
+  // straight to 'success' and stays there, same as before.
   function play() {
     clearTimers();
     root.classList.add('is-running');
@@ -245,52 +245,31 @@
       return;
     }
     sequence.forEach((s) => timers.push(setTimeout(() => show(s.id), s.at)));
-    timers.push(setTimeout(() => root.classList.remove('is-running'), RUN_DURATION));
+    timers.push(setTimeout(() => {
+      root.classList.remove('is-running');
+      play();
+    }, RUN_DURATION));
   }
 
-  function nextStep() {
-    clearTimers();
-    stepIndex = (stepIndex + 1) % sequence.length;
-    show(sequence[stepIndex].id);
-  }
-
+  // The CTA/DownloadThat-tile taps inside the phone still jump straight to
+  // the next scene on a real click, same as always.
   root.addEventListener('click', (e) => {
     const next = e.target.closest('[data-pc3-next]');
     if (next) {
       clearTimers();
       show(next.dataset.pc3Next);
-      return;
-    }
-    if (e.target.closest('[data-pc3-replay]')) {
-      play();
-      return;
-    }
-    if (e.target.closest('[data-pc3-stepthrough]')) {
-      nextStep();
     }
   });
 
-  if (motionButton) {
-    motionButton.addEventListener('click', () => {
-      reduced = !reduced;
-      motionButton.setAttribute('aria-pressed', String(reduced));
-      root.classList.toggle('is-reduced', reduced);
-      clearTimers();
-      show(reduced ? 'success' : 'source');
-    });
-  }
-
-  if (soundButton) {
-    soundButton.addEventListener('click', () => {
-      soundOn = !soundOn;
-      soundButton.setAttribute('aria-pressed', String(soundOn));
-      soundButton.textContent = soundOn ? '🔊' : '🔇';
-      if (soundOn) {
-        const ctx = ensureAudioCtx();
-        if (ctx && ctx.state === 'suspended') ctx.resume();
-      }
-    });
-  }
+  // No dedicated sound toggle either - the very first interaction anywhere
+  // on the page unlocks it (satisfies the browser's user-gesture
+  // requirement) and turns it on for the rest of the visit.
+  document.addEventListener('pointerdown', () => {
+    if (soundOn) return;
+    soundOn = true;
+    const ctx = ensureAudioCtx();
+    if (ctx && ctx.state === 'suspended') ctx.resume();
+  }, { once: true });
 
   if (!reducedBySystem && stage && rig) {
     stage.addEventListener('pointermove', (e) => {
@@ -305,9 +284,14 @@
 
   // Autoplay timers keep no useful purpose in a hidden tab; the canvas rAF
   // loop below already stops itself, this stops the phase sequence too so
-  // a backgrounded tab doesn't silently race through the whole story.
+  // a backgrounded tab doesn't silently race through the whole story. Since
+  // there's no Replay button anymore to restart it, coming back to the tab
+  // has to explicitly restart the loop itself (from 'source') - otherwise,
+  // with no manual control left, the animation would freeze forever the
+  // moment a visitor ever switched away and back.
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) clearTimers();
+    else if (!reduced) play();
   });
 
   function initStream() {
@@ -351,7 +335,7 @@
       particles.length = 0;
       for (let i = 0; i < count; i++) {
         const group = i % 2;
-        const anchors = [{ x: w * .08, y: h * .23 }, { x: w * .91, y: h * .25 }];
+        const anchors = [{ x: w * .08, y: h * .23 }, { x: w * .91, y: h * .56 }];
         const a = anchors[group];
         particles.push({ x: a.x + (Math.random() - .5) * 50, y: a.y + (Math.random() - .5) * 50, vx: 0, vy: 0, r: .8 + Math.random() * 1.8, c: group, p: i * .77, trail: [] });
       }
@@ -367,10 +351,10 @@
       if (phase === 'stream') return arrow[i] || center;
       if (phase === 'inside') return center;
       if (phase === 'success') return { x: center.x + Math.cos(i * 2.399) * 20, y: center.y + Math.sin(i * 2.399) * 20 };
-      const anchors = [{ x: w * .08, y: h * .23 }, { x: w * .91, y: h * .25 }];
+      const anchors = [{ x: w * .08, y: h * .23 }, { x: w * .91, y: h * .56 }];
       const a = anchors[p.c];
       const t = .5 + .5 * Math.sin(time * .00025 + p.p);
-      const bends = [{ x: w * .22, y: h * .32 }, { x: w * .78, y: h * .30 }];
+      const bends = [{ x: w * .22, y: h * .32 }, { x: w * .78, y: h * .53 }];
       return { x: bezier(a.x, bends[p.c].x, center.x * .88, center.x, t * .35), y: bezier(a.y, bends[p.c].y, center.y * .9, center.y, t * .35) };
     }
 

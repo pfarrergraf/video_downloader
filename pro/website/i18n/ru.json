@@ -109,7 +109,15 @@
       "close_label": "Close",
       "step1": "Share a link from any app, then choose DownloadThat.",
       "step2": "Pick video or audio.",
-      "step3": "Your file is saved on your device."
+      "step3": "Your file is saved on your device.",
+      "guide_btn": "Guide",
+      "guide_title": "How it works",
+      "guide_step1": "Share a link from any app.",
+      "guide_step2": "Choose DownloadThat from the share sheet.",
+      "guide_step3": "Pick video or audio.",
+      "guide_step4": "DownloadThat bundles the media together.",
+      "guide_step5": "The file is saved locally on your device.",
+      "guide_step6": "Done — find it any time in \"My downloads\"."
     },
     "status": {
       "pending": "Ожидание…",

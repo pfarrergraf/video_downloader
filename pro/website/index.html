@@ -378,19 +378,13 @@
         <div class="pc3-portal" data-pc3-portal aria-hidden="true"><span></span></div>
       </div>
 
+      <!-- No manual Replay/Step-through/Motion/Sound buttons by design (per
+           product feedback - too much UI clutter): the story loops on its
+           own forever (hero-product-cinema.js), prefers-reduced-motion is
+           still honored automatically, and sound unlocks itself on the
+           visitor's first interaction with the page. Only the passive
+           step-number + progress indicator remains. -->
       <div class="pc3-controls">
-        <button type="button" data-pc3-replay>
-          <span aria-hidden="true">↻</span><span data-i18n="website.hero_cinema.replay">Replay</span>
-        </button>
-        <button type="button" data-pc3-stepthrough>
-          <span aria-hidden="true">→</span><span data-i18n="website.hero_cinema.stepthrough">Step through</span>
-        </button>
-        <button type="button" class="pc3-icon-button" data-pc3-motion aria-pressed="false" data-i18n-attr="aria-label:website.hero_cinema.motion_toggle_label" aria-label="Toggle motion">◐</button>
-        <!-- Off by default: browsers block un-gestured audio anyway, and an
-             autoplaying marketing animation shouldn't suddenly make noise.
-             Tap/swipe clicks and the download whirr only start once this is
-             explicitly turned on (see hero-product-cinema.js). -->
-        <button type="button" class="pc3-icon-button" data-pc3-sound aria-pressed="false" data-i18n-attr="aria-label:website.hero_cinema.sound_toggle_label" aria-label="Toggle sound">🔇</button>
         <div class="pc3-timeline" aria-live="polite">
           <span data-pc3-index>01</span>
           <div><i data-pc3-progress></i></div>

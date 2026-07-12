@@ -364,14 +364,8 @@
 .pc3-portal { position: absolute; z-index: 29; left: 50%; top: 50%; width: 100px; height: 100px; transform: translate(-50%, -50%) scale(.4); border-radius: 50%; border: 1px solid rgba(255, 255, 255, .35); opacity: 0; box-shadow: 0 0 60px rgba(64, 227, 196, .25), inset 0 0 34px rgba(255, 101, 125, .16); }
 .pc3-portal span { position: absolute; inset: 12px; border-radius: 50%; border: 1px solid rgba(64, 227, 196, .35); }
 
-/* ---- Player controls: replay / step-through / motion + timeline ---- */
+/* ---- Passive step/progress indicator (no manual controls by design) ---- */
 .pc3-controls { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; width: 100%; }
-.pc3-controls > button {
-  display: inline-flex; align-items: center; gap: 7px; min-height: 44px; min-width: 44px; padding: 0 13px;
-  border: 1px solid var(--pc3-line); border-radius: 12px; background: rgba(15, 12, 22, .68); color: var(--pc3-muted);
-  cursor: pointer; backdrop-filter: blur(18px); font-size: .82rem;
-}
-.pc3-icon-button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--pc3-line); border-radius: 12px; background: rgba(15, 12, 22, .68); color: var(--pc3-muted); cursor: pointer; }
 .pc3-timeline { width: min(300px, 60%); padding: 10px 14px; border: 1px solid var(--pc3-line); border-radius: 14px; background: rgba(15, 12, 22, .68); backdrop-filter: blur(18px); }
 .pc3-timeline > span { color: var(--pc3-gold); font-size: .72rem; font-weight: 950; letter-spacing: .12em; }
 .pc3-timeline p { display: inline; margin-left: 8px; color: var(--pc3-muted); font-size: .72rem; }
@@ -438,5 +432,4 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--pc3-teal); outl
 
 @media (forced-colors: active) {
   .pc3-source, .pc3-media-card, .pc3-format-card button, .pc3-share-sheet, .pc3-ingest, .pc3-inside, .pc3-success { border: 1px solid CanvasText; }
-  .pc3-controls > button, .pc3-icon-button { border: 1px solid ButtonText; }
 }

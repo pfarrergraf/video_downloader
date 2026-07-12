@@ -109,7 +109,15 @@
       "close_label": "Schließen",
       "step1": "Teile einen Link aus einer beliebigen App und wähle DownloadThat.",
       "step2": "Wähle Video oder Audio.",
-      "step3": "Deine Datei wird auf deinem Gerät gespeichert."
+      "step3": "Deine Datei wird auf deinem Gerät gespeichert.",
+      "guide_btn": "Anleitung",
+      "guide_title": "So funktioniert's",
+      "guide_step1": "Teile einen Link aus einer beliebigen App.",
+      "guide_step2": "Wähle DownloadThat im Teilen-Menü.",
+      "guide_step3": "Wähle Video oder Audio.",
+      "guide_step4": "DownloadThat fasst die Daten zusammen.",
+      "guide_step5": "Die Datei wird lokal auf deinem Gerät gespeichert.",
+      "guide_step6": "Fertig – du findest sie jederzeit unter „Meine Downloads“."
     },
     "status": {
       "pending": "Wartet…",

@@ -70,14 +70,19 @@ def test_headline_lead_and_cta_are_dom_text_not_js_generated() -> None:
 
 
 def test_reduced_motion_hooks_exist() -> None:
+    # No manual Replay/Step-through/Motion/Sound buttons by design (per
+    # product feedback - too much UI clutter): the story loops on its own
+    # forever, and prefers-reduced-motion is honored automatically instead
+    # of via a manual toggle the visitor has to find and click.
     css = CSS.read_text(encoding="utf-8")
     js = JS.read_text(encoding="utf-8")
     html = _index_html()
     assert "prefers-reduced-motion" in css
     assert "prefers-reduced-motion: reduce" in js
-    assert "data-pc3-motion" in html
-    assert "data-pc3-replay" in html
-    assert "data-pc3-stepthrough" in html
+    assert "data-pc3-motion" not in html
+    assert "data-pc3-replay" not in html
+    assert "data-pc3-stepthrough" not in html
+    assert "data-pc3-sound" not in html
 
 
 def test_inactive_scenes_are_removed_from_accessibility_tree_by_script() -> None:
@@ -161,12 +166,14 @@ def test_new_hero_cinema_i18n_keys_are_wired_up() -> None:
     # flow only ever offers Video/Audio (there is no Images toggle anywhere
     # in video_downloader/web/static/index.html), so showing an "Images"
     # choice in the animation would misrepresent what the app actually does.
+    # replay/stepthrough/motion_toggle_label/sound_toggle_label are unused
+    # too now: there are no manual controls at all (per product feedback -
+    # too much UI clutter), the story just loops on its own forever.
     html = _index_html()
     required_keys = (
         "title_line_1", "title_line_2", "title_line_3", "lead",
         "step_source", "step_share", "step_format", "step_stream", "step_inside", "step_success",
         "share_title", "share_cta", "format_video", "format_audio",
-        "replay", "stepthrough", "motion_toggle_label", "sound_toggle_label",
     )
     for key in required_keys:
         assert f"website.hero_cinema.{key}" in html, f"missing data-i18n wiring for {key}"

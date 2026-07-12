@@ -394,7 +394,7 @@
   }
   #help-overlay .card { max-width: 420px; width: 100%; position: relative; }
   #help-close-btn {
-    position: absolute; top: 0.6rem; right: 0.6rem;
+    position: absolute; top: 0.6rem; right: 0.6rem; z-index: 2;
     width: 40px; height: 40px; border-radius: 50%;
     background: var(--bg-panel); border: 1px solid var(--border); color: var(--text);
     font-size: 1.1rem; cursor: pointer;
@@ -439,6 +439,325 @@
     font-weight: 700;
     letter-spacing: -0.01em;
   }
+
+  /* ==== In-app help walkthrough: same "Product Cinema" animation used on
+     the marketing homepage (pro/website/assets/home/hero-product-cinema.{css,js}),
+     reused verbatim here (per product feedback: the old icon-only 3-step
+     walkthrough explained the app poorly). Scoped under .pc3/.pc3-* exactly
+     like the website version - do not let these rules leak a bare :root/
+     body/button/a selector, same reasoning as the website's own copy. The
+     .help-anim overrides right after it adapt the hero's full-viewport
+     sizing to fit inside the #help-overlay modal card instead. ==== */
+  .pc3 {
+    --pc3-bg: #07060b;
+    --pc3-line: rgba(255, 255, 255, .13);
+    --pc3-coral: #ff657d;
+    --pc3-orange: #ffad65;
+    --pc3-teal: #40e3c4;
+    --pc3-gold: #ebc978;
+    --pc3-text: #fffaf2;
+    --pc3-muted: #c8c1d1;
+    --pc3-grad: linear-gradient(110deg, var(--pc3-coral), var(--pc3-orange) 49%, var(--pc3-teal));
+    --pc3-ease: cubic-bezier(.22, 1, .36, 1);
+    color-scheme: dark;
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    display: flex;
+    align-items: center;
+    color: var(--pc3-text);
+    background:
+      radial-gradient(circle at 78% 43%, rgba(64, 227, 196, .095), transparent 29%),
+      radial-gradient(circle at 14% 12%, rgba(255, 101, 125, .11), transparent 25%),
+      linear-gradient(145deg, #07060b, #0d0915 52%, #06050a);
+  }
+  .pc3 button { font: inherit; }
+  .pc3-noise {
+    position: absolute; inset: 0; z-index: -2; opacity: .17; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+  }
+  .pc3::before {
+    content: ""; position: absolute; inset: 0; z-index: -4;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, .018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, .018) 1px, transparent 1px);
+    background-size: 78px 78px;
+    mask-image: radial-gradient(circle at 70% 43%, #000 0 28%, transparent 77%);
+  }
+  .pc3-aurora { position: absolute; z-index: -3; width: min(760px, 70vw); aspect-ratio: 1; border-radius: 50%; filter: blur(110px); opacity: .21; pointer-events: none; }
+  .pc3-aurora--left { left: -32vw; top: -24vw; background: var(--pc3-coral); }
+  .pc3-aurora--right { right: -32vw; bottom: -25vw; background: var(--pc3-teal); }
+
+  .pc3-cinema { --pc3-device-w: clamp(190px, 15vw, 250px); position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(8px, 1.4vh, 16px); perspective: 1700px; width: 100%; }
+  .pc3-stage {
+    position: relative; width: 100%; height: clamp(calc(var(--pc3-device-w) * 2.061 + 90px), 56vh, 560px);
+    display: grid; place-items: center; perspective: 1700px; transform-style: preserve-3d;
+    overflow: clip; border-radius: 32px;
+  }
+  .pc3-stage::after {
+    content: ""; position: absolute; z-index: -2; bottom: 3%; width: min(560px, 60vw); height: 100px;
+    border-radius: 50%; background: radial-gradient(ellipse, rgba(0, 0, 0, .82), transparent 72%); filter: blur(18px);
+  }
+  .pc3-stream-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+  .pc3-orbits { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .pc3-orbits span { position: absolute; left: 50%; top: 50%; border: 1px solid rgba(255, 255, 255, .09); border-radius: 50%; transform-style: preserve-3d; }
+  .pc3-orbits span:nth-child(1) { width: min(620px, 62vw); aspect-ratio: 1; transform: translate(-50%, -49%) rotateX(70deg) rotateZ(-11deg); }
+  .pc3-orbits span:nth-child(2) { width: min(430px, 42vw); aspect-ratio: 1; border-color: rgba(64, 227, 196, .17); transform: translate(-50%, -47%) rotateX(74deg) rotateZ(22deg); }
+  .pc3-orbits span:nth-child(3) { width: min(730px, 72vw); aspect-ratio: 1; border-color: rgba(235, 201, 120, .07); transform: translate(-50%, -49%) rotateX(73deg) rotateZ(9deg); }
+
+  .pc3-camera-rig { position: relative; z-index: 8; transform-style: preserve-3d; will-change: transform, filter; transition: transform .3s var(--pc3-ease), filter .3s var(--pc3-ease); }
+  .pc3-device {
+    position: relative; width: var(--pc3-device-w); aspect-ratio: 9 / 18.55; padding: 10px; border-radius: 44px;
+    transform-style: preserve-3d;
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, .5), transparent 8% 78%, rgba(64, 227, 196, .15)),
+      linear-gradient(155deg, #776d81, #2b2331 14%, #07060b 64%, #463b50);
+    box-shadow:
+      0 60px 100px -40px rgba(0, 0, 0, .96), 0 0 0 1px rgba(255, 255, 255, .25),
+      inset 0 0 0 2px rgba(255, 255, 255, .055),
+      20px 0 60px -38px rgba(64, 227, 196, .34), -20px 0 60px -38px rgba(255, 101, 125, .34);
+    animation: pc3-device-float 6s ease-in-out infinite;
+  }
+  .pc3-device__edge { position: absolute; inset: 2px; border-radius: inherit; background: linear-gradient(120deg, rgba(255, 255, 255, .23), transparent 14% 75%, rgba(255, 255, 255, .07)); pointer-events: none; }
+  .pc3-device__buttons { position: absolute; right: -4px; top: 23%; display: flex; flex-direction: column; gap: 10px; }
+  .pc3-device__buttons i { display: block; width: 3px; height: 46px; border-radius: 4px; background: linear-gradient(#62586a, #18141d); }
+  .pc3-device__buttons i:last-child { height: 30px; }
+  .pc3-device__camera { position: absolute; z-index: 20; left: 50%; top: 14px; width: 70px; height: 19px; transform: translateX(-50%); border-radius: 18px; background: #040307; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .045); }
+  .pc3-device__camera i { position: absolute; right: 11px; top: 6px; width: 6px; height: 6px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #354064, #070812 68%); }
+  @keyframes pc3-device-float { 0%, 100% { transform: translateY(0) rotateY(-8deg) rotateX(2deg); } 50% { transform: translateY(-12px) rotateY(5deg) rotateX(-1deg); } }
+
+  .pc3-screen {
+    position: relative; height: 100%; overflow: hidden; border-radius: 36px; transform-style: preserve-3d;
+    background:
+      radial-gradient(circle at 15% 4%, rgba(255, 101, 125, .29), transparent 30%),
+      radial-gradient(circle at 87% 96%, rgba(64, 227, 196, .24), transparent 35%),
+      linear-gradient(165deg, #1d162b, #0d0a14 64%);
+  }
+  .pc3-screen__glass { position: absolute; inset: 0; z-index: 30; pointer-events: none; background: linear-gradient(115deg, rgba(255, 255, 255, .09), transparent 22% 73%, rgba(255, 255, 255, .025)); mix-blend-mode: screen; transition: opacity .5s; }
+  .pc3-appbar { position: absolute; z-index: 15; left: 16px; right: 16px; top: 30px; display: flex; align-items: center; justify-content: space-between; }
+  .pc3-appbar__brand { display: flex; align-items: center; gap: 6px; font-size: .68rem; font-weight: 900; }
+  .pc3-appbar__brand b { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; background: #100e1c; }
+  .pc3-appbar__brand svg { width: 62%; height: 62%; }
+  .pc3-appbar__signal { display: flex; gap: 3px; align-items: flex-end; }
+  .pc3-appbar__signal i { display: block; width: 3px; border-radius: 3px; background: rgba(255, 255, 255, .45); }
+  .pc3-appbar__signal i:nth-child(1) { height: 4px; }
+  .pc3-appbar__signal i:nth-child(2) { height: 6px; }
+  .pc3-appbar__signal i:nth-child(3) { height: 8px; }
+
+  .pc3-view {
+    position: absolute; inset: 0; display: grid; place-items: center; padding: 60px 14px 22px;
+    opacity: 0; transform: translateY(20px) scale(.965); filter: blur(6px); pointer-events: none; transition: .5s var(--pc3-ease);
+  }
+  .pc3-view.is-active { opacity: 1; transform: none; filter: none; pointer-events: auto; }
+
+  .pc3-media-card { position: relative; width: 100%; min-height: 58%; display: flex; flex-direction: column; border: 1px solid var(--pc3-line); border-radius: 20px; background: rgba(29, 23, 44, .89); box-shadow: 0 20px 44px rgba(0, 0, 0, .32); overflow: hidden; }
+  .pc3-media-card__visual { position: relative; flex: 1 1 auto; min-height: 0; margin: 10px; display: grid; place-items: center; border-radius: 14px; background: linear-gradient(135deg, rgba(255, 101, 125, .64), rgba(255, 173, 101, .22) 48%, rgba(64, 227, 196, .58)); overflow: hidden; }
+  .pc3-media-card__visual::before { content: ""; width: 150%; height: 40%; transform: rotate(-12deg); background: rgba(255, 255, 255, .12); filter: blur(18px); }
+  .pc3-media-card__play { position: absolute; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(5, 4, 8, .56); backdrop-filter: blur(12px); }
+  .pc3-media-card__badge { position: absolute; right: 8px; top: 8px; padding: 2px 7px; border-radius: 7px; background: rgba(5, 4, 8, .62); font-size: .58rem; font-weight: 800; letter-spacing: .02em; }
+  .pc3-media-card__scrub { position: absolute; left: 8px; right: 8px; bottom: 8px; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .28); }
+  .pc3-media-card__scrub i { display: block; width: 38%; height: 100%; border-radius: inherit; background: #fff; }
+  .pc3-media-card__text { padding: 4px 13px 11px; }
+  .pc3-media-card__text i { display: block; height: 6px; margin: 7px 0; border-radius: 6px; background: rgba(255, 255, 255, .14); }
+  .pc3-media-card__text i:nth-child(1) { width: 84%; }
+  .pc3-media-card__text i:nth-child(2) { width: 58%; }
+  .pc3-media-card::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(4, 3, 8, .5); opacity: 0; pointer-events: none; transition: opacity .45s var(--pc3-ease); }
+  .pc3-view[data-pc3-view="source"][data-pc3-sub="highlight"] .pc3-media-card::after,
+  .pc3-view[data-pc3-view="source"][data-pc3-sub="tap"] .pc3-media-card::after { opacity: 1; }
+
+  .pc3-share {
+    position: absolute; z-index: 5; right: 12px; bottom: 12px; display: grid; place-items: center; width: 46px; height: 46px;
+    border: 0; border-radius: 50%; background: var(--pc3-grad); color: #07060b; cursor: pointer;
+    box-shadow: 0 8px 22px rgba(255, 101, 125, .24); animation: pc3-pulse 1.8s ease-in-out infinite;
+    transition: transform .5s var(--pc3-ease), box-shadow .5s var(--pc3-ease);
+  }
+  .pc3-share svg { width: 46%; height: 46%; flex: none; }
+  @keyframes pc3-pulse { 50% { transform: scale(1.08); box-shadow: 0 0 0 12px rgba(255, 101, 125, 0); } }
+
+  .pc3-share--cta {
+    left: 100%; top: 100%; right: auto; bottom: auto;
+    transform: translate(calc(-100% - 12px), calc(-100% - 12px));
+    width: auto; height: 40px; padding: 0 16px 0 13px; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px;
+    animation: pc3-pulse 1.8s ease-in-out infinite;
+    transition: left .5s var(--pc3-ease), top .5s var(--pc3-ease), transform .5s var(--pc3-ease), box-shadow .5s var(--pc3-ease);
+  }
+  .pc3-share--cta svg { width: 17px; height: 17px; }
+  .pc3-share__label { font-size: .72rem; font-weight: 800; white-space: nowrap; }
+  .pc3-view[data-pc3-view="source"][data-pc3-sub="highlight"] .pc3-share--cta,
+  .pc3-view[data-pc3-view="source"][data-pc3-sub="tap"] .pc3-share--cta {
+    left: 50%; top: 56%;
+    transform: translate(-50%, -50%) scale(1.3);
+    animation: none;
+    box-shadow: 0 0 0 11px rgba(255, 101, 125, .14), 0 16px 32px rgba(255, 101, 125, .38);
+  }
+
+  .pc3-finger { position: absolute; z-index: 6; left: 50%; top: 100%; width: 30px; height: 30px; color: #fff; opacity: 0; pointer-events: none; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .45)); transition: left .5s var(--pc3-ease), top .5s var(--pc3-ease), opacity .3s; }
+  .pc3-finger svg { width: 100%; height: 100%; transform: rotate(-18deg); }
+  .pc3-finger__ring { position: absolute; inset: -6px; border-radius: 50%; border: 2px solid #fff; opacity: 0; }
+  .pc3-view[data-pc3-view="source"][data-pc3-sub="tap"] .pc3-finger__ring,
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="more-tap"] .pc3-finger__ring,
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-finger__ring { animation: pc3-finger-tap .5s var(--pc3-ease); }
+  @keyframes pc3-finger-tap { 0% { opacity: .9; transform: scale(.5); } 100% { opacity: 0; transform: scale(1.9); } }
+  .pc3-view[data-pc3-view="source"][data-pc3-sub="tap"] .pc3-finger { opacity: 1; }
+
+  .pc3-share-sheet { position: relative; z-index: 2; align-self: end; width: calc(100% + 28px); margin: 0 -14px -22px; padding: 26px 12px; border-radius: 26px 26px 0 0; background: rgba(246, 243, 250, .97); color: #17121e; box-shadow: 0 -22px 46px rgba(0, 0, 0, .28); transition: opacity .4s var(--pc3-ease), transform .4s var(--pc3-ease); }
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="sheet2"] .pc3-share-sheet,
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-dt"] .pc3-share-sheet,
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-share-sheet { opacity: 0; transform: translateY(10px); pointer-events: none; }
+  .pc3-share-apps { display: flex; justify-content: space-between; align-items: center; gap: 4px; }
+  .pc3-share-apps span, .pc3-share-apps button { flex: 1 1 0; min-width: 0; max-width: 56px; padding: 0; border: 0; background: none; color: inherit; text-align: center; }
+  .pc3-share-apps b { display: grid; place-items: center; width: min(44px, 100%); aspect-ratio: 1; margin: 0 auto 6px; border-radius: 14px; background: #d9d4df; font-size: 19px; }
+  .pc3-share-apps small { display: block; font-size: .5rem; font-weight: 800; overflow-wrap: break-word; }
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-more"] .pc3-share-apps__more b,
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="more-tap"] .pc3-share-apps__more b { background: #c9c1d6; box-shadow: 0 0 0 4px rgba(64, 227, 196, .22); }
+
+  .pc3-share-grid {
+    position: absolute; z-index: 3; left: 14px; right: 14px; bottom: 22px; height: calc(var(--pc3-device-w) * .37); overflow: hidden;
+    border-radius: 22px 22px 0 0; background: rgba(246, 243, 250, .97); color: #17121e; box-shadow: 0 -22px 46px rgba(0, 0, 0, .28);
+    opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .4s var(--pc3-ease), transform .4s var(--pc3-ease);
+  }
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="sheet2"] .pc3-share-grid,
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-dt"] .pc3-share-grid,
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-share-grid { opacity: 1; transform: none; pointer-events: auto; }
+  .pc3-share-grid__inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 4px; padding: 14px 10px; transform: translateY(0); transition: transform .6s var(--pc3-ease); }
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-dt"] .pc3-share-grid__inner,
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-share-grid__inner { transform: translateY(calc(var(--pc3-device-w) * -.3)); }
+  .pc3-share-grid__inner span, .pc3-share-grid__inner button { padding: 0; border: 0; background: none; color: inherit; text-align: center; }
+  .pc3-share-grid__inner b { display: grid; place-items: center; width: 100%; aspect-ratio: 1; margin: 0 auto 5px; border-radius: 14px; background: #d9d4df; font-size: 17px; }
+  .pc3-share-grid__inner small { display: block; font-size: .48rem; font-weight: 800; overflow-wrap: break-word; }
+  .pc3-share-grid__dt { cursor: pointer; }
+  .pc3-share-grid__dt b { background: #100e1c; box-shadow: 0 0 0 3px rgba(64, 227, 196, .35), 0 8px 18px rgba(255, 101, 125, .3); animation: pc3-pulse 1.8s ease-in-out infinite; }
+  .pc3-share-grid__dt svg { width: 60%; height: 60%; }
+
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-more"] .pc3-finger,
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="more-tap"] .pc3-finger,
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-dt"] .pc3-finger,
+  .pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-finger { opacity: 1; }
+
+  .pc3-format-card, .pc3-ingest, .pc3-inside, .pc3-success {
+    width: 100%; padding: 18px 14px; border: 1px solid var(--pc3-line); border-radius: 20px;
+    background: rgba(29, 23, 44, .91); box-shadow: 0 20px 44px rgba(0, 0, 0, .32); text-align: center;
+  }
+  .pc3-format-card { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+  .pc3-format-card__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .pc3-format-card button {
+    display: flex; flex-direction: column; align-items: center; gap: 6px; min-height: 44px; padding: 10px 6px;
+    border: 1px solid var(--pc3-line); border-radius: 12px; background: rgba(255, 255, 255, .045); color: var(--pc3-text);
+    cursor: pointer; transition: .22s;
+  }
+  .pc3-format-card button:hover, .pc3-format-card button:focus-visible { border-color: rgba(64, 227, 196, .58); transform: translateY(-2px); }
+  .pc3-format-card button b { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; background: rgba(255, 255, 255, .07); font-size: 15px; }
+  .pc3-format-card button span { display: block; font-size: .75rem; font-weight: 700; }
+
+  .pc3-ingest__core { display: grid; place-items: center; width: 72px; height: 72px; margin: 0 auto 14px; border-radius: 22px; background: var(--pc3-grad); color: #07060b; font-size: 34px; font-weight: 950; box-shadow: 0 14px 34px rgba(255, 101, 125, .2); transform-style: preserve-3d; }
+  .pc3-ingest__meter, .pc3-progress { height: 8px; margin: 13px 0 8px; overflow: hidden; border-radius: 8px; background: rgba(255, 255, 255, .12); }
+  .pc3-ingest__meter i, .pc3-progress i { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--pc3-grad); }
+  .pc3-view.is-active .pc3-ingest__meter i { animation: pc3-meter 2.2s var(--pc3-ease) forwards; }
+  .pc3-view.is-active .pc3-progress i { animation: pc3-progress 2.05s var(--pc3-ease) forwards; }
+  @keyframes pc3-meter { to { width: 82%; } }
+  @keyframes pc3-progress { to { width: 100%; } }
+
+  .pc3-inside__file { position: relative; width: 78px; height: 92px; margin: 0 auto 12px; border: 1px solid rgba(255, 255, 255, .15); border-radius: 16px; background: linear-gradient(150deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .025)); box-shadow: 0 18px 42px rgba(0, 0, 0, .35); }
+  .pc3-inside__file::before { content: ""; position: absolute; right: 0; top: 0; border-style: solid; border-width: 0 0 20px 20px; border-color: transparent transparent rgba(255, 255, 255, .11) transparent; }
+  .pc3-inside__file span { position: absolute; left: 11px; top: 12px; color: var(--pc3-gold); font-size: .62rem; font-weight: 900; letter-spacing: .1em; }
+  .pc3-inside__file b { position: absolute; left: 50%; top: 53%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: var(--pc3-grad); color: #07060b; font-size: 19px; }
+  .pc3-inside__row { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; font-size: .62rem; font-weight: 700; color: var(--pc3-muted); }
+  .pc3-inside__dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--pc3-gold); box-shadow: 0 0 0 3px rgba(235, 201, 120, .22); animation: pc3-inside-dot 1s ease-in-out infinite; }
+  @keyframes pc3-inside-dot { 50% { opacity: .35; } }
+  .pc3-inside__name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
+  .pc3-inside__percent { flex: none; color: var(--pc3-text); font-variant-numeric: tabular-nums; }
+
+  .pc3-success { border-color: rgba(64, 227, 196, .32); }
+  .pc3-success__check { display: grid; place-items: center; width: 68px; height: 68px; margin: 0 auto 14px; border-radius: 21px; background: linear-gradient(135deg, var(--pc3-teal), #98f8e5); color: #07060b; font-size: 33px; font-weight: 950; box-shadow: 0 14px 34px rgba(64, 227, 196, .18); }
+
+  .pc3-source {
+    position: absolute; z-index: 4; width: 96px; padding: 10px; border: 1px solid var(--pc3-line); border-radius: 20px;
+    background: rgba(24, 20, 36, .86); box-shadow: 0 18px 40px rgba(0, 0, 0, .4); backdrop-filter: blur(18px);
+    transform-style: preserve-3d; opacity: .82; will-change: transform, opacity, filter;
+  }
+  .pc3-source__icon { display: grid; place-items: center; width: 34px; height: 34px; margin: 0 auto; border-radius: 12px; background: rgba(255, 255, 255, .06); font-size: 17px; }
+  .pc3-source--video { left: 0; top: 22%; color: var(--pc3-coral); }
+  .pc3-source--audio { right: 0; top: 56%; color: var(--pc3-gold); }
+  .pc3-source__stack { position: relative; height: 26px; }
+  .pc3-source__stack i { position: absolute; left: 50%; width: 40px; height: 22px; border-radius: 7px; background: linear-gradient(135deg, rgba(255, 101, 125, .5), rgba(64, 227, 196, .3)); transform: translateX(-50%); }
+  .pc3-source__stack i:nth-child(1) { transform: translateX(-50%) rotate(-9deg); }
+  .pc3-source__stack i:nth-child(3) { transform: translateX(-50%) rotate(9deg); }
+  .pc3-source__wave { display: flex; align-items: center; justify-content: center; gap: 3px; height: 26px; }
+  .pc3-source__wave i { width: 3px; border-radius: 4px; background: currentColor; }
+  .pc3-source__wave i:nth-child(1), .pc3-source__wave i:nth-child(5) { height: 10px; }
+  .pc3-source__wave i:nth-child(2), .pc3-source__wave i:nth-child(4) { height: 20px; }
+  .pc3-source__wave i:nth-child(3) { height: 26px; }
+
+  .pc3-glass-flare { position: absolute; z-index: 30; left: 50%; top: 50%; width: 55%; height: 72%; transform: translate(-50%, -50%) scale(.45); border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, .5), rgba(64, 227, 196, .15) 22%, transparent 62%); opacity: 0; filter: blur(18px); pointer-events: none; }
+  .pc3-portal { position: absolute; z-index: 29; left: 50%; top: 50%; width: 100px; height: 100px; transform: translate(-50%, -50%) scale(.4); border-radius: 50%; border: 1px solid rgba(255, 255, 255, .35); opacity: 0; box-shadow: 0 0 60px rgba(64, 227, 196, .25), inset 0 0 34px rgba(255, 101, 125, .16); }
+  .pc3-portal span { position: absolute; inset: 12px; border-radius: 50%; border: 1px solid rgba(64, 227, 196, .35); }
+
+  .pc3-controls { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; width: 100%; }
+  .pc3-timeline { width: min(300px, 60%); padding: 10px 14px; border: 1px solid var(--pc3-line); border-radius: 14px; background: rgba(15, 12, 22, .68); backdrop-filter: blur(18px); }
+  .pc3-timeline > span { color: var(--pc3-gold); font-size: .72rem; font-weight: 950; letter-spacing: .12em; }
+  .pc3-timeline > div { height: 2px; margin-top: 9px; background: rgba(255, 255, 255, .1); }
+  .pc3-timeline i { display: block; width: 16.66%; height: 100%; background: var(--pc3-grad); transition: width .5s var(--pc3-ease); }
+
+  .pc3[data-pc3-phase="share"] .pc3-camera-rig { transform: translate3d(0, 0, 60px) rotateY(-2deg); }
+  .pc3[data-pc3-phase="format"] .pc3-camera-rig { transform: translate3d(0, 0, 130px) scale(1.04) rotateY(0deg); }
+  .pc3[data-pc3-phase="stream"] .pc3-camera-rig { transform: translate3d(0, 0, 210px) scale(1.1); }
+  .pc3[data-pc3-phase="inside"] .pc3-camera-rig { transform: translate3d(0, 0, 460px) scale(1.28); filter: saturate(1.06); }
+  .pc3[data-pc3-phase="inside"] .pc3-device { animation: none; }
+  .pc3[data-pc3-phase="inside"] .pc3-device__edge, .pc3[data-pc3-phase="inside"] .pc3-device__camera, .pc3[data-pc3-phase="inside"] .pc3-device__buttons { opacity: 0; transition: opacity .35s; }
+  .pc3[data-pc3-phase="inside"] .pc3-screen__glass { opacity: .2; }
+  .pc3[data-pc3-phase="inside"] .pc3-glass-flare { animation: pc3-flare .8s ease-out forwards; }
+  .pc3[data-pc3-phase="inside"] .pc3-portal { animation: pc3-portal .82s ease-out forwards; }
+  .pc3[data-pc3-phase="success"] .pc3-camera-rig { transform: translate3d(0, 0, 90px) scale(1.01) rotateY(4deg); }
+  .pc3[data-pc3-phase="success"] .pc3-device { animation: pc3-success-float 5.5s ease-in-out infinite; }
+  .pc3[data-pc3-phase="stream"] .pc3-source, .pc3[data-pc3-phase="inside"] .pc3-source, .pc3[data-pc3-phase="success"] .pc3-source { opacity: 0; filter: blur(7px); }
+  @keyframes pc3-flare { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.35); } 45% { opacity: .8; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(2.1); } }
+  @keyframes pc3-portal { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.35); } 45% { opacity: .75; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(2.4); } }
+  @keyframes pc3-success-float { 0%, 100% { transform: translateY(0) rotateY(4deg); } 50% { transform: translateY(-9px) rotateY(-2deg); } }
+
+  @media (max-width: 1080px) {
+    .pc3-cinema { min-height: 0; }
+    .pc3-stage { height: clamp(calc(var(--pc3-device-w) * 2.061 + 70px), 52vh, 480px); }
+    .pc3-source--video { left: 4%; }
+    .pc3-source--audio { right: 4%; }
+  }
+  @media (max-width: 700px) {
+    .pc3-cinema { --pc3-device-w: clamp(185px, 52vw, 225px); }
+    .pc3-stage { height: clamp(calc(var(--pc3-device-w) * 2.061 + 50px), 46vh, 400px); }
+    .pc3-orbits span:nth-child(1) { width: 92vw; }
+    .pc3-orbits span:nth-child(2) { width: 70vw; }
+    .pc3-orbits span:nth-child(3) { width: 108vw; }
+    .pc3-source { width: 70px; padding: 7px; border-radius: 15px; }
+    .pc3-source--video { left: -3%; top: 5%; }
+    .pc3-source--audio { right: -3%; bottom: 5%; top: auto; }
+    .pc3-source__icon { width: 27px; height: 27px; font-size: 13px; }
+    .pc3-source__stack, .pc3-source__wave { transform: scale(.72); }
+    .pc3-controls { gap: 8px; }
+    .pc3[data-pc3-phase="inside"] .pc3-camera-rig { transform: translate3d(0, 0, 300px) scale(1.16); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pc3-source, .pc3-stream-canvas, .pc3-orbits, .pc3-glass-flare, .pc3-portal { display: none !important; }
+    .pc3-device, .pc3-camera-rig { animation: none !important; transform: none !important; }
+  }
+  @media (forced-colors: active) {
+    .pc3-source, .pc3-media-card, .pc3-format-card button, .pc3-share-sheet, .pc3-ingest, .pc3-inside, .pc3-success { border: 1px solid CanvasText; }
+  }
+
+  /* ---- Overrides adapting the hero's full-viewport sizing to fit inside
+     the help modal's card instead. ---- */
+  #help-overlay.help-overlay--anim .card { max-width: 480px; }
+  .help-anim { position: relative; }
+  .help-anim .pc3 { min-height: 0; padding: 4px; justify-content: center; border-radius: 20px; }
+  .help-anim .pc3-cinema { --pc3-device-w: clamp(220px, 68vw, 320px); }
+  .help-guide-btn {
+    position: absolute; top: 0.6rem; left: 0.6rem; z-index: 2;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--bg-panel); border: 1px solid var(--border); color: var(--text);
+    font-size: 1.1rem; cursor: pointer;
+  }
+  #help-guide-overlay .card { max-width: 460px; }
+  .help-guide-steps { list-style: decimal; margin: 1rem 0 0; padding-left: 1.4rem; display: flex; flex-direction: column; gap: 0.7rem; }
+  .help-guide-steps li { line-height: 1.4; }
 </style>
 </head>
 <body>
@@ -614,44 +933,203 @@
   </div>
 </div>
 
-<!-- Icon-only walkthrough of the real 3-step flow (Share -> pick
-     DownloadThat -> pick a format -> saved). No visible text is required to
-     follow it - every step reads as pictures and arrows alone; the
-     .sr-only spans exist only for screen readers. -->
-<div id="help-overlay" class="hidden">
+<!-- Same "Product Cinema" animation as the marketing homepage
+     (pro/website/index.html's .pc3 hero), reused here per product feedback
+     that the old icon-only 3-step walkthrough explained the app poorly.
+     Lazily initialized (see initHelpAnimation() near the bottom of the
+     script block) only once this overlay is first opened, so its canvas/
+     timers/sound never run in the background before anyone taps Help. A
+     separate "Anleitung"/guide button opens #help-guide-overlay with the
+     six steps written out as plain text for anyone who'd rather read them. -->
+<div id="help-overlay" class="hidden help-overlay--anim">
   <div class="card">
     <button id="help-close-btn" aria-label="Close" data-i18n-aria="app.help.close_label">✕</button>
-    <div class="help-steps">
-      <div class="help-step">
-        <span class="help-icon" aria-hidden="true">🔗</span>
-        <span class="help-arrow" aria-hidden="true">→</span>
-        <span class="help-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>
-        </span>
-        <span class="help-arrow" aria-hidden="true">→</span>
-        <span class="help-icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64"><path d="M32 6 L32 34 M20 24 L32 38 L44 24" stroke="url(#help-grad)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" /><rect x="14" y="46" width="36" height="6" rx="3" fill="url(#help-grad)" /></svg>
-        </span>
-        <span class="sr-only" data-i18n="app.help.step1">Share a link from any app, then choose DownloadThat.</span>
-      </div>
-      <div class="help-step">
-        <span class="help-icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64"><path d="M32 6 L32 34 M20 24 L32 38 L44 24" stroke="url(#help-grad)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" /><rect x="14" y="46" width="36" height="6" rx="3" fill="url(#help-grad)" /></svg>
-        </span>
-        <span class="help-arrow" aria-hidden="true">→</span>
-        <span class="help-icon" aria-hidden="true">🎬</span>
-        <span class="help-icon" aria-hidden="true">🎵</span>
-        <span class="sr-only" data-i18n="app.help.step2">Pick video or audio.</span>
-      </div>
-      <div class="help-step">
-        <span class="help-icon" aria-hidden="true">⬇️</span>
-        <span class="help-arrow" aria-hidden="true">→</span>
-        <span class="help-icon" aria-hidden="true">✅</span>
-        <span class="help-arrow" aria-hidden="true">→</span>
-        <span class="help-icon" aria-hidden="true">📁</span>
-        <span class="sr-only" data-i18n="app.help.step3">Your file is saved on your device.</span>
-      </div>
+    <button id="help-guide-btn" class="help-guide-btn" data-i18n-aria="app.help.guide_btn" aria-label="Guide">📖</button>
+    <div class="help-anim">
+      <section class="pc3" data-pc3-root data-pc3-phase="intro">
+        <div class="pc3-noise" aria-hidden="true"></div>
+        <div class="pc3-aurora pc3-aurora--left" aria-hidden="true"></div>
+        <div class="pc3-aurora pc3-aurora--right" aria-hidden="true"></div>
+        <div class="pc3-cinema" data-pc3-cinema data-i18n-aria="website.hero_cinema.region_label" aria-label="Interactive product animation">
+          <div class="pc3-stage" data-pc3-stage>
+            <canvas class="pc3-stream-canvas" data-pc3-stream aria-hidden="true"></canvas>
+            <div class="pc3-orbits" aria-hidden="true"><span></span><span></span><span></span></div>
+
+            <div class="pc3-source pc3-source--video" data-pc3-source="video" aria-hidden="true">
+              <span class="pc3-source__icon">▶</span>
+              <div class="pc3-source__stack"><i></i><i></i><i></i></div>
+            </div>
+            <div class="pc3-source pc3-source--audio" data-pc3-source="audio" aria-hidden="true">
+              <span class="pc3-source__icon">♫</span>
+              <div class="pc3-source__wave"><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+
+            <div class="pc3-camera-rig" data-pc3-camera-rig>
+              <div class="pc3-device" data-pc3-device>
+                <div class="pc3-device__edge" aria-hidden="true"></div>
+                <div class="pc3-device__buttons" aria-hidden="true"><i></i><i></i></div>
+                <div class="pc3-device__camera" aria-hidden="true"><i></i></div>
+                <div class="pc3-screen" data-pc3-screen>
+                  <div class="pc3-screen__glass" aria-hidden="true"></div>
+                  <header class="pc3-appbar" aria-hidden="true">
+                    <span class="pc3-appbar__brand">
+                      <b><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <defs><linearGradient id="dt-mark-appbar" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stop-color="#ff657d"/><stop offset="49%" stop-color="#ffad65"/><stop offset="100%" stop-color="#40e3c4"/>
+                        </linearGradient></defs>
+                        <path d="M12 4v9M8 9l4 4 4-4" stroke="url(#dt-mark-appbar)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7.5 19.2h9" stroke="url(#dt-mark-appbar)" stroke-width="2.3" stroke-linecap="round"/>
+                      </svg></b>DownloadThat
+                    </span>
+                    <span class="pc3-appbar__signal"><i></i><i></i><i></i></span>
+                  </header>
+
+                  <section class="pc3-view is-active" data-pc3-view="source" data-i18n-aria="website.hero_cinema.step_source" aria-label="Open a media link and share it.">
+                    <article class="pc3-media-card pc3-media-card--video">
+                      <div class="pc3-media-card__visual" aria-hidden="true">
+                        <span class="pc3-media-card__play">▶</span>
+                        <span class="pc3-media-card__badge">0:42</span>
+                        <div class="pc3-media-card__scrub"><i></i></div>
+                      </div>
+                      <div class="pc3-media-card__text" aria-hidden="true"><i></i><i></i></div>
+                      <button class="pc3-share pc3-share--cta" type="button" data-pc3-next="share" data-i18n-aria="website.hero_cinema.share_title">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <polyline points="15 14 20 9 15 4" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M4 20v-7a4 4 0 0 1 4-4h12" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="pc3-share__label" data-i18n="website.hero_cinema.share_cta">Share now</span>
+                      </button>
+                      <div class="pc3-finger" data-pc3-finger aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M9 12.6V5.3a1.6 1.6 0 0 1 3.2 0V11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M12.2 11V4.1a1.6 1.6 0 0 1 3.2 0V11.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M15.4 11.3V5.7a1.6 1.6 0 0 1 3.2 0V14c0 4-2.4 7-6.4 7-3 0-4.4-1-6-3l-2.3-3.9c-.5-.9-.1-1.9.8-2.2.7-.3 1.5 0 1.9.6l1.8 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="pc3-finger__ring" aria-hidden="true"></span>
+                      </div>
+                    </article>
+                  </section>
+
+                  <section class="pc3-view" data-pc3-view="share" data-i18n-aria="website.hero_cinema.step_share" aria-label="Pick DownloadThat from the share sheet.">
+                    <div class="pc3-share-sheet">
+                      <div class="pc3-share-apps">
+                        <span aria-hidden="true"><b>✉</b></span>
+                        <span aria-hidden="true"><b>📶</b></span>
+                        <span aria-hidden="true"><b>💬</b></span>
+                        <span class="pc3-share-apps__more" aria-hidden="true"><b>⋯</b></span>
+                      </div>
+                    </div>
+                    <div class="pc3-share-grid">
+                      <div class="pc3-share-grid__inner">
+                        <span aria-hidden="true"><b>✉</b></span>
+                        <span aria-hidden="true"><b>💬</b></span>
+                        <span aria-hidden="true"><b>📶</b></span>
+                        <span aria-hidden="true"><b>☁</b></span>
+                        <span aria-hidden="true"><b>📋</b></span>
+                        <span aria-hidden="true"><b>📝</b></span>
+                        <button type="button" data-pc3-next="format" class="pc3-share-grid__dt" data-i18n-aria="website.hero_cinema.share_title">
+                          <b><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <defs><linearGradient id="dt-mark-sheet" x1="0" y1="0" x2="1" y2="1">
+                              <stop offset="0%" stop-color="#ff657d"/><stop offset="49%" stop-color="#ffad65"/><stop offset="100%" stop-color="#40e3c4"/>
+                            </linearGradient></defs>
+                            <path d="M12 4v9M8 9l4 4 4-4" stroke="url(#dt-mark-sheet)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7.5 19.2h9" stroke="url(#dt-mark-sheet)" stroke-width="2.3" stroke-linecap="round"/>
+                          </svg></b>
+                          <small>Download<wbr>That</small>
+                        </button>
+                        <span aria-hidden="true"><b>📤</b></span>
+                        <span aria-hidden="true"><b>🎵</b></span>
+                      </div>
+                    </div>
+                    <div class="pc3-finger" data-pc3-finger aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M9 12.6V5.3a1.6 1.6 0 0 1 3.2 0V11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12.2 11V4.1a1.6 1.6 0 0 1 3.2 0V11.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M15.4 11.3V5.7a1.6 1.6 0 0 1 3.2 0V14c0 4-2.4 7-6.4 7-3 0-4.4-1-6-3l-2.3-3.9c-.5-.9-.1-1.9.8-2.2.7-.3 1.5 0 1.9.6l1.8 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      <span class="pc3-finger__ring" aria-hidden="true"></span>
+                    </div>
+                  </section>
+
+                  <section class="pc3-view" data-pc3-view="format" data-i18n-aria="website.hero_cinema.step_format" aria-label="Choose video or audio.">
+                    <div class="pc3-format-card">
+                      <div class="pc3-format-card__grid">
+                        <button type="button" data-pc3-next="stream"><b aria-hidden="true">▶</b><span data-i18n="website.hero_cinema.format_video">Video</span></button>
+                        <button type="button" data-pc3-next="stream"><b aria-hidden="true">♫</b><span data-i18n="website.hero_cinema.format_audio">Audio</span></button>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="pc3-view" data-pc3-view="stream" data-i18n-aria="website.hero_cinema.step_stream" aria-label="Media is bundled together.">
+                    <div class="pc3-ingest">
+                      <div class="pc3-ingest__core" aria-hidden="true"><span>↓</span></div>
+                      <div class="pc3-ingest__meter" aria-hidden="true"><i></i></div>
+                    </div>
+                  </section>
+
+                  <section class="pc3-view" data-pc3-view="inside" data-i18n-aria="website.hero_cinema.step_inside" aria-label="The file is processed locally.">
+                    <div class="pc3-inside">
+                      <div class="pc3-inside__file" aria-hidden="true"><span>MP4</span><b>↓</b></div>
+                      <div class="pc3-inside__row" aria-hidden="true">
+                        <span class="pc3-inside__dot"></span>
+                        <span class="pc3-inside__name">video.mp4</span>
+                        <span class="pc3-inside__percent" data-pc3-percent>0%</span>
+                      </div>
+                      <div class="pc3-progress" aria-hidden="true"><i></i></div>
+                    </div>
+                  </section>
+
+                  <!-- No "Download for free" CTA here (unlike the marketing
+                       site's version of this scene) - whoever is looking at
+                       this already has the app installed. -->
+                  <section class="pc3-view" data-pc3-view="success" data-i18n-aria="website.hero_cinema.step_success" aria-label="Saved — right on your device.">
+                    <div class="pc3-success">
+                      <div class="pc3-success__check" aria-hidden="true">✓</div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+
+            <div class="pc3-glass-flare" data-pc3-flare aria-hidden="true"></div>
+            <div class="pc3-portal" data-pc3-portal aria-hidden="true"><span></span></div>
+          </div>
+
+          <div class="pc3-controls">
+            <div class="pc3-timeline" aria-live="polite">
+              <span data-pc3-index>01</span>
+              <div><i data-pc3-progress></i></div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
+  </div>
+</div>
+
+<!-- The same six scenes as the animation above (source/share/format/stream/
+     inside/success), written out as plain visible text for anyone who'd
+     rather read than watch (per product feedback). Deliberately new
+     app.help.guide_step1..6 keys rather than reusing the old step1/2/3 -
+     those describe combined beats ("share, then choose DownloadThat" is one
+     line covering two scenes) and repurposing them would silently show a
+     stale, now-wrong translation in every language that hasn't been
+     retranslated yet. -->
+<div id="help-guide-overlay" class="hidden">
+  <div class="card">
+    <button id="help-guide-close-btn" aria-label="Close" data-i18n-aria="app.help.close_label">✕</button>
+    <h2 data-i18n="app.help.guide_title">How it works</h2>
+    <ol class="help-guide-steps">
+      <li data-i18n="app.help.guide_step1">Share a link from any app.</li>
+      <li data-i18n="app.help.guide_step2">Choose DownloadThat from the share sheet.</li>
+      <li data-i18n="app.help.guide_step3">Pick video or audio.</li>
+      <li data-i18n="app.help.guide_step4">DownloadThat bundles the media together.</li>
+      <li data-i18n="app.help.guide_step5">The file is saved locally on your device.</li>
+      <li data-i18n="app.help.guide_step6">Done — find it any time in "My downloads".</li>
+    </ol>
+  </div>
+</div>
+
   </div>
 </div>
 
@@ -1061,9 +1539,17 @@ $('engine-update-btn').addEventListener('click', async () => {
 
 $('help-open-btn').addEventListener('click', () => {
   $('help-overlay').classList.remove('hidden');
+  initHelpAnimation();
 });
 $('help-close-btn').addEventListener('click', () => {
   $('help-overlay').classList.add('hidden');
+});
+$('help-guide-btn').addEventListener('click', () => {
+  $('help-overlay').classList.add('hidden');
+  $('help-guide-overlay').classList.remove('hidden');
+});
+$('help-guide-close-btn').addEventListener('click', () => {
+  $('help-guide-overlay').classList.add('hidden');
 });
 
 $('settings-open-btn').addEventListener('click', () => {
@@ -1511,6 +1997,374 @@ setInterval(() => {
 // nobody is ever meant to see) with no way to know the real password.
 applyTheme('auto');
 setLanguage('auto', { skipPersist: true }).then(checkAuth);
+
+// -- In-app help animation (lazy) ----------------------------------------
+// Same "Product Cinema" animation as the marketing homepage
+// (pro/website/assets/home/hero-product-cinema.js), reused here per product
+// feedback that the old icon-only 3-step walkthrough explained the app
+// poorly. Wrapped as a function (instead of an auto-running IIFE like the
+// website's copy) and invoked once, lazily, only when the help overlay is
+// actually opened for the first time - otherwise its canvas particle
+// system and infinite auto-loop timers would run in the background for the
+// entire time the app is open, for an overlay most visits never look at.
+let helpAnimationStarted = false;
+function initHelpAnimation() {
+  if (helpAnimationStarted) return;
+  helpAnimationStarted = true;
+
+  const root = document.querySelector('#help-overlay [data-pc3-root]');
+  if (!root) return;
+
+  const reducedBySystem = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let reduced = reducedBySystem;
+  let timers = [];
+  const stage = root.querySelector('[data-pc3-stage]');
+  const rig = root.querySelector('[data-pc3-camera-rig]');
+  const views = [...root.querySelectorAll('[data-pc3-view]')];
+  const number = root.querySelector('[data-pc3-index]');
+  const progress = root.querySelector('[data-pc3-progress]');
+
+  let soundOn = false;
+  let audioCtx = null;
+  function ensureAudioCtx() {
+    if (audioCtx) return audioCtx;
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    audioCtx = Ctx ? new Ctx() : null;
+    return audioCtx;
+  }
+  function playClick() {
+    if (!soundOn || !audioCtx) return;
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1150, now);
+    osc.frequency.exponentialRampToValueAtTime(650, now + 0.05);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.22, now + 0.006);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.07);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.08);
+  }
+  function playSwipe() {
+    if (!soundOn || !audioCtx) return;
+    const now = audioCtx.currentTime;
+    const duration = 0.3;
+    const buffer = audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate * duration), audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    const noise = audioCtx.createBufferSource();
+    noise.buffer = buffer;
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.Q.value = 0.9;
+    filter.frequency.setValueAtTime(2600, now);
+    filter.frequency.exponentialRampToValueAtTime(500, now + duration);
+    const gain = audioCtx.createGain();
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.24, now + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    noise.connect(filter).connect(gain).connect(audioCtx.destination);
+    noise.start(now);
+    noise.stop(now + duration);
+  }
+  function playDownloadWhirr() {
+    if (!soundOn || !audioCtx) return;
+    const now = audioCtx.currentTime;
+    const duration = 2.0;
+    const hum = audioCtx.createOscillator();
+    hum.type = 'sawtooth';
+    hum.frequency.value = 96;
+    const humFilter = audioCtx.createBiquadFilter();
+    humFilter.type = 'lowpass';
+    humFilter.frequency.value = 420;
+    const humGain = audioCtx.createGain();
+    humGain.gain.setValueAtTime(0.0001, now);
+    humGain.gain.exponentialRampToValueAtTime(0.05, now + 0.15);
+    humGain.gain.setValueAtTime(0.05, now + duration - 0.2);
+    humGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    hum.connect(humFilter).connect(humGain).connect(audioCtx.destination);
+    hum.start(now);
+    hum.stop(now + duration + 0.05);
+    const tickCount = Math.floor(duration / 0.11);
+    for (let i = 0; i < tickCount; i++) {
+      const t = now + i * 0.11;
+      const osc = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.value = 260 + (i % 3) * 12;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.05, t + 0.004);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.03);
+      osc.connect(g).connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.04);
+    }
+  }
+  const SOUND_FX = { click: playClick, swipe: playSwipe };
+
+  const sequence = [
+    { id: 'source', at: 0, n: '01' },
+    { id: 'share', at: 2700, n: '02' },
+    { id: 'format', at: 7400, n: '03' },
+    { id: 'stream', at: 9100, n: '04' },
+    { id: 'inside', at: 11550, n: '05' },
+    { id: 'success', at: 13850, n: '06' },
+  ];
+  const RUN_DURATION = 15400;
+
+  const SOURCE_SUB = [
+    { value: 'idle', at: 0 },
+    { value: 'highlight', at: 1000 },
+    { value: 'tap', at: 1900, moves: [{ delay: 0, target: '.pc3-share--cta' }], sounds: [{ delay: 0, type: 'click' }] },
+  ];
+  const SHARE_SUB = [
+    { value: 'sheet1', at: 0 },
+    { value: 'swipe-more', at: 1200, moves: [{ delay: 0, target: '.pc3-share-apps__more' }], sounds: [{ delay: 0, type: 'swipe' }] },
+    { value: 'more-tap', at: 1700, sounds: [{ delay: 0, type: 'click' }] },
+    { value: 'sheet2', at: 2100 },
+    { value: 'swipe-dt', at: 3000, moves: [
+      { delay: 0, target: '.pc3-share-grid' },
+      { delay: 650, target: '.pc3-share-grid__dt' },
+    ], sounds: [{ delay: 0, type: 'swipe' }] },
+    { value: 'tap', at: 4000, sounds: [{ delay: 0, type: 'click' }] },
+  ];
+
+  function clearTimers() {
+    timers.forEach(clearTimeout);
+    timers = [];
+    root.classList.remove('is-running');
+  }
+
+  function moveFingerTo(finger, target) {
+    if (!finger || !target) return;
+    const parent = finger.offsetParent;
+    if (!parent) return;
+    const parentBox = parent.getBoundingClientRect();
+    const targetBox = target.getBoundingClientRect();
+    finger.style.left = `${targetBox.left + targetBox.width / 2 - parentBox.left}px`;
+    finger.style.top = `${targetBox.top + targetBox.height / 2 - parentBox.top}px`;
+  }
+
+  function runSub(viewId, steps) {
+    const view = views.find((v) => v.dataset.pc3View === viewId);
+    if (!view) return;
+    const finger = view.querySelector('.pc3-finger');
+    steps.forEach((s) => {
+      timers.push(setTimeout(() => { view.dataset.pc3Sub = s.value; }, s.at));
+      (s.moves || []).forEach((m) => {
+        timers.push(setTimeout(() => moveFingerTo(finger, view.querySelector(m.target)), s.at + m.delay));
+      });
+      (s.sounds || []).forEach((snd) => {
+        const fx = SOUND_FX[snd.type];
+        if (fx) timers.push(setTimeout(fx, s.at + snd.delay));
+      });
+    });
+  }
+
+  function runPercent() {
+    const el = root.querySelector('[data-pc3-percent]');
+    if (!el) return;
+    const duration = 2050;
+    const start = performance.now();
+    function tick(now) {
+      const pct = Math.min(100, Math.round(((now - start) / duration) * 100));
+      el.textContent = `${pct}%`;
+      if (pct < 100 && root.dataset.pc3Phase === 'inside') requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function show(id) {
+    const idx = Math.max(0, sequence.findIndex((s) => s.id === id));
+    root.dataset.pc3Phase = id;
+    views.forEach((v) => {
+      const active = v.dataset.pc3View === id;
+      v.classList.toggle('is-active', active);
+      v.toggleAttribute('aria-hidden', !active);
+      v.inert = !active;
+    });
+    if (id === 'source') runSub('source', SOURCE_SUB);
+    if (id === 'share') runSub('share', SHARE_SUB);
+    if (id === 'inside') { runPercent(); playDownloadWhirr(); }
+    if (number) number.textContent = sequence[idx].n;
+    if (progress) progress.style.width = `${((idx + 1) / sequence.length) * 100}%`;
+  }
+
+  function play() {
+    clearTimers();
+    root.classList.add('is-running');
+    if (reduced) {
+      show('success');
+      return;
+    }
+    sequence.forEach((s) => timers.push(setTimeout(() => show(s.id), s.at)));
+    timers.push(setTimeout(() => {
+      root.classList.remove('is-running');
+      play();
+    }, RUN_DURATION));
+  }
+
+  root.addEventListener('click', (e) => {
+    const next = e.target.closest('[data-pc3-next]');
+    if (next) {
+      clearTimers();
+      show(next.dataset.pc3Next);
+    }
+  });
+
+  document.addEventListener('pointerdown', () => {
+    if (soundOn) return;
+    soundOn = true;
+    const ctx = ensureAudioCtx();
+    if (ctx && ctx.state === 'suspended') ctx.resume();
+  }, { once: true });
+
+  if (!reducedBySystem && stage && rig) {
+    stage.addEventListener('pointermove', (e) => {
+      if (['inside', 'stream'].includes(root.dataset.pc3Phase)) return;
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      rig.style.rotate = `${-y * 2}deg ${x * 2}deg 0deg`;
+    });
+    stage.addEventListener('pointerleave', () => { rig.style.rotate = ''; });
+  }
+
+  // Pauses/resumes the loop only while the help overlay is both open and
+  // the tab is visible - the website's version only checks tab visibility
+  // since it has no modal to also be closed.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clearTimers();
+    else if (!reduced && !$('help-overlay').classList.contains('hidden')) play();
+  });
+
+  function initStream() {
+    const canvas = root.querySelector('[data-pc3-stream]');
+    const ctx = canvas && canvas.getContext('2d', { alpha: true });
+    if (!ctx || reducedBySystem) return;
+    let w = 0, h = 0, last = performance.now();
+    let raf = 0;
+    let slowFrames = 0;
+    let capped = false;
+    const pointer = { x: -9999, y: -9999 };
+    const palette = ['#ff657d', '#ebc978'];
+    const particles = [];
+
+    function arrowPoints(count) {
+      const pts = [];
+      const cx = w * .5, cy = h * .49, s = Math.min(w, h) * .155;
+      const segs = [[[0, -1], [0, .38]], [[-.6, -.04], [0, .64]], [[.6, -.04], [0, .64]], [[-.48, .9], [.48, .9]]];
+      for (let i = 0; i < count; i++) {
+        const seg = segs[i % segs.length], t = (i * .61803398875) % 1;
+        pts.push({ x: cx + (seg[0][0] + (seg[1][0] - seg[0][0]) * t) * s, y: cy + (seg[0][1] + (seg[1][1] - seg[0][1]) * t) * s });
+      }
+      return pts;
+    }
+    let arrow = [];
+
+    function resize() {
+      const r = canvas.getBoundingClientRect();
+      w = Math.max(1, r.width);
+      h = Math.max(1, r.height);
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(240, Math.max(120, Math.round(w / 4.2)));
+      arrow = arrowPoints(count);
+      particles.length = 0;
+      for (let i = 0; i < count; i++) {
+        const group = i % 2;
+        const anchors = [{ x: w * .08, y: h * .23 }, { x: w * .91, y: h * .56 }];
+        const a = anchors[group];
+        particles.push({ x: a.x + (Math.random() - .5) * 50, y: a.y + (Math.random() - .5) * 50, vx: 0, vy: 0, r: .8 + Math.random() * 1.8, c: group, p: i * .77, trail: [] });
+      }
+      capped = false;
+      slowFrames = 0;
+    }
+
+    function bezier(a, b, c, d, t) { const mt = 1 - t; return mt * mt * mt * a + 3 * mt * mt * t * b + 3 * mt * t * t * c + t * t * t * d; }
+
+    function target(p, i, time) {
+      const phase = root.dataset.pc3Phase;
+      const center = { x: w * .5, y: h * .49 };
+      if (phase === 'stream') return arrow[i] || center;
+      if (phase === 'inside') return center;
+      if (phase === 'success') return { x: center.x + Math.cos(i * 2.399) * 20, y: center.y + Math.sin(i * 2.399) * 20 };
+      const anchors = [{ x: w * .08, y: h * .23 }, { x: w * .91, y: h * .56 }];
+      const a = anchors[p.c];
+      const t = .5 + .5 * Math.sin(time * .00025 + p.p);
+      const bends = [{ x: w * .22, y: h * .32 }, { x: w * .78, y: h * .53 }];
+      return { x: bezier(a.x, bends[p.c].x, center.x * .88, center.x, t * .35), y: bezier(a.y, bends[p.c].y, center.y * .9, center.y, t * .35) };
+    }
+
+    function drawIcon(p) {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.strokeStyle = palette[p.c];
+      ctx.fillStyle = palette[p.c];
+      ctx.lineWidth = 1.2;
+      if (p.c === 0) { ctx.beginPath(); ctx.moveTo(-3, -4); ctx.lineTo(4, 0); ctx.lineTo(-3, 4); ctx.closePath(); ctx.fill(); }
+      else { for (let x = -4; x <= 4; x += 2) { const hh = 2 + Math.abs(Math.sin((x + p.p) * 1.7)) * 4; ctx.fillRect(x, -hh / 2, 1, hh); } }
+      ctx.restore();
+    }
+
+    function frame(time) {
+      const dt = Math.min(32, time - last);
+      last = time;
+      ctx.clearRect(0, 0, w, h);
+      const phase = root.dataset.pc3Phase;
+      particles.forEach((p, i) => {
+        const t = target(p, i, time);
+        const strength = phase === 'stream' ? .015 : phase === 'inside' ? .027 : .0045;
+        p.vx += (t.x - p.x) * strength * (dt / 16.67);
+        p.vy += (t.y - p.y) * strength * (dt / 16.67);
+        const dx = pointer.x - p.x, dy = pointer.y - p.y, dist = Math.hypot(dx, dy);
+        if (dist < 105 && phase !== 'inside') {
+          const f = (105 - dist) / 105;
+          p.vx -= dx / Math.max(dist, 1) * f * .1;
+          p.vy -= dy / Math.max(dist, 1) * f * .1;
+        }
+        p.vx *= .89; p.vy *= .89; p.x += p.vx; p.y += p.vy;
+        p.trail.push({ x: p.x, y: p.y });
+        if (p.trail.length > 6) p.trail.shift();
+        ctx.beginPath();
+        p.trail.forEach((q, j) => { if (j === 0) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y); });
+        ctx.strokeStyle = palette[p.c] + Math.round(22 + p.trail.length * 4).toString(16).padStart(2, '0');
+        ctx.lineWidth = .7;
+        ctx.stroke();
+        ctx.globalAlpha = phase === 'inside' ? Math.max(0, .75 - Math.hypot(p.x - w * .5, p.y - h * .49) / 150) : .7;
+        drawIcon(p);
+        ctx.globalAlpha = 1;
+      });
+      if (!capped) {
+        slowFrames = dt > 40 ? slowFrames + 1 : 0;
+        if (slowFrames > 90) {
+          particles.splice(0, Math.floor(particles.length / 3));
+          capped = true;
+        }
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    canvas.addEventListener('pointermove', (e) => { const r = canvas.getBoundingClientRect(); pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; });
+    canvas.addEventListener('pointerleave', () => { pointer.x = -9999; pointer.y = -9999; });
+    addEventListener('resize', resize, { passive: true });
+    addEventListener('orientationchange', resize);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) cancelAnimationFrame(raf);
+      else { last = performance.now(); raf = requestAnimationFrame(frame); }
+    });
+    resize();
+    raf = requestAnimationFrame(frame);
+  }
+
+  initStream();
+  show(reduced ? 'success' : 'source');
+  setTimeout(play, reduced ? 0 : 850);
+}
 </script>
 </body>
 </html>
