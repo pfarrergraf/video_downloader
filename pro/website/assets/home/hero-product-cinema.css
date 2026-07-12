@@ -220,10 +220,13 @@
 }
 
 /* ---- Finger cursor: shared tap/swipe primitive for the source and share
-   scenes. Position + visibility are driven purely by the per-view
-   data-pc3-sub attribute (see hero-product-cinema.js); percentage-based
-   left/top keep it correct across --pc3-device-w's responsive range. ---- */
-.pc3-finger { position: absolute; z-index: 6; left: 50%; top: 100%; width: 30px; height: 30px; color: #fff; opacity: 0; pointer-events: none; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .45)); transition: left .55s var(--pc3-ease), top .55s var(--pc3-ease), opacity .3s; }
+   scenes. Visibility is driven by the per-view data-pc3-sub attribute (see
+   below); its left/top position is set as an inline style by
+   hero-product-cinema.js, computed from the real target element's measured
+   position (getBoundingClientRect) rather than guessed percentages — a
+   fixed percentage only ever matched the specific viewport it was eyeballed
+   against and drifted off the actual button on other phones/breakpoints. */
+.pc3-finger { position: absolute; z-index: 6; left: 50%; top: 100%; width: 30px; height: 30px; color: #fff; opacity: 0; pointer-events: none; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .45)); transition: left .5s var(--pc3-ease), top .5s var(--pc3-ease), opacity .3s; }
 .pc3-finger svg { width: 100%; height: 100%; transform: rotate(-18deg); }
 .pc3-finger__ring { position: absolute; inset: -6px; border-radius: 50%; border: 2px solid #fff; opacity: 0; }
 /* Re-applying the "tap" attribute value (even to the same view on a replay)
@@ -231,10 +234,11 @@
    without any JS class-toggling — same idiom the existing pc3-progress/
    pc3-meter bars already rely on via .is-active. */
 .pc3-view[data-pc3-view="source"][data-pc3-sub="tap"] .pc3-finger__ring,
+.pc3-view[data-pc3-view="share"][data-pc3-sub="more-tap"] .pc3-finger__ring,
 .pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-finger__ring { animation: pc3-finger-tap .5s var(--pc3-ease); }
 @keyframes pc3-finger-tap { 0% { opacity: .9; transform: scale(.5); } 100% { opacity: 0; transform: scale(1.9); } }
 
-.pc3-view[data-pc3-view="source"][data-pc3-sub="tap"] .pc3-finger { left: 63%; top: 62%; opacity: 1; }
+.pc3-view[data-pc3-view="source"][data-pc3-sub="tap"] .pc3-finger { opacity: 1; }
 
 .pc3-share-sheet { position: relative; z-index: 2; align-self: end; width: calc(100% + 28px); margin: 0 -14px -22px; padding: 26px 12px; border-radius: 26px 26px 0 0; background: rgba(246, 243, 250, .97); color: #17121e; box-shadow: 0 -22px 46px rgba(0, 0, 0, .28); transition: opacity .4s var(--pc3-ease), transform .4s var(--pc3-ease); }
 /* Sheet 1 deliberately has no DownloadThat tile (per product feedback — a
@@ -255,17 +259,13 @@
 .pc3-share-apps span, .pc3-share-apps button { flex: 1 1 0; min-width: 0; max-width: 56px; padding: 0; border: 0; background: none; color: inherit; text-align: center; }
 .pc3-share-apps b { display: grid; place-items: center; width: min(44px, 100%); aspect-ratio: 1; margin: 0 auto 6px; border-radius: 14px; background: #d9d4df; font-size: 19px; }
 .pc3-share-apps small { display: block; font-size: .5rem; font-weight: 800; overflow-wrap: break-word; }
-.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-more"] .pc3-share-apps__more b { background: #c9c1d6; box-shadow: 0 0 0 4px rgba(64, 227, 196, .22); }
+.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-more"] .pc3-share-apps__more b,
+.pc3-view[data-pc3-view="share"][data-pc3-sub="more-tap"] .pc3-share-apps__more b { background: #c9c1d6; box-shadow: 0 0 0 4px rgba(64, 227, 196, .22); }
 
 /* ---- Sheet 2: the expanded "More" app grid, with DownloadThat placed a row
    down (not in the first visible row) and highlighted, requiring the swipe
    beat below to reveal it — matches a real Android "more apps" list instead
-   of an instant reveal. ---- */
-/* Deliberately shorter than the full 3-row icon list below (~1.3 rows tall)
-   so DownloadThat (row 2) starts out clipped below the fold — otherwise a
-   tall-enough sheet shows every icon at once and the swipe beat has nothing
-   left to reveal. */
-/* Fixed proportion of --pc3-device-w (~1.5 rows), not a percentage of the
+   of an instant reveal. Fixed proportion of --pc3-device-w, not a percentage of the
    view's own height — sized so row 1 fully shows and DownloadThat's row is
    only half-visible below the fold to start, giving the swipe beat below
    something real to reveal instead of nothing (a tall-enough sheet just
@@ -295,18 +295,16 @@
 .pc3-share-grid__dt svg { width: 60%; height: 60%; }
 
 .pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-more"] .pc3-finger,
+.pc3-view[data-pc3-view="share"][data-pc3-sub="more-tap"] .pc3-finger,
 .pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-dt"] .pc3-finger,
 .pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-finger { opacity: 1; }
-.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-more"] .pc3-finger { left: 82%; top: 82%; }
-.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-dt"] .pc3-finger { left: 46%; top: 62%; }
-.pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-finger { left: 38%; top: 44%; }
 
 .pc3-format-card, .pc3-ingest, .pc3-inside, .pc3-success {
   width: 100%; padding: 18px 14px; border: 1px solid var(--pc3-line); border-radius: 20px;
   background: rgba(29, 23, 44, .91); box-shadow: 0 20px 44px rgba(0, 0, 0, .32); text-align: center;
 }
 .pc3-format-card { display: flex; flex-direction: column; justify-content: center; height: 100%; }
-.pc3-format-card__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.pc3-format-card__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .pc3-format-card button {
   display: flex; flex-direction: column; align-items: center; gap: 6px; min-height: 44px; padding: 10px 6px;
   border: 1px solid var(--pc3-line); border-radius: 12px; background: rgba(255, 255, 255, .045); color: var(--pc3-text);
@@ -347,9 +345,11 @@
   transform-style: preserve-3d; opacity: .82; will-change: transform, opacity, filter;
 }
 .pc3-source__icon { display: grid; place-items: center; width: 34px; height: 34px; margin: 0 auto; border-radius: 12px; background: rgba(255, 255, 255, .06); font-size: 17px; }
-.pc3-source--video { left: 0; top: 16%; color: var(--pc3-coral); }
-.pc3-source--audio { right: 0; top: 19%; color: var(--pc3-gold); }
-.pc3-source--image { right: 4%; bottom: 15%; color: var(--pc3-teal); }
+/* Only Video and Audio — the app's share flow never offers an Images
+   choice (no such toggle exists in video_downloader/web/static/index.html),
+   so there is deliberately no third floating source card here. */
+.pc3-source--video { left: 0; top: 22%; color: var(--pc3-coral); }
+.pc3-source--audio { right: 0; top: 56%; color: var(--pc3-gold); }
 .pc3-source__stack { position: relative; height: 26px; }
 .pc3-source__stack i { position: absolute; left: 50%; width: 40px; height: 22px; border-radius: 7px; background: linear-gradient(135deg, rgba(255, 101, 125, .5), rgba(64, 227, 196, .3)); transform: translateX(-50%); }
 .pc3-source__stack i:nth-child(1) { transform: translateX(-50%) rotate(-9deg); }
@@ -359,8 +359,6 @@
 .pc3-source__wave i:nth-child(1), .pc3-source__wave i:nth-child(5) { height: 10px; }
 .pc3-source__wave i:nth-child(2), .pc3-source__wave i:nth-child(4) { height: 20px; }
 .pc3-source__wave i:nth-child(3) { height: 26px; }
-.pc3-source__grid { display: grid; grid-template-columns: repeat(2, 19px); gap: 3px; justify-content: center; }
-.pc3-source__grid i { height: 19px; border-radius: 6px; background: linear-gradient(135deg, rgba(64, 227, 196, .5), rgba(255, 173, 101, .28)); }
 
 .pc3-glass-flare { position: absolute; z-index: 30; left: 50%; top: 50%; width: 55%; height: 72%; transform: translate(-50%, -50%) scale(.45); border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, .5), rgba(64, 227, 196, .15) 22%, transparent 62%); opacity: 0; filter: blur(18px); pointer-events: none; }
 .pc3-portal { position: absolute; z-index: 29; left: 50%; top: 50%; width: 100px; height: 100px; transform: translate(-50%, -50%) scale(.4); border-radius: 50%; border: 1px solid rgba(255, 255, 255, .35); opacity: 0; box-shadow: 0 0 60px rgba(64, 227, 196, .25), inset 0 0 34px rgba(255, 101, 125, .16); }
@@ -410,7 +408,6 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--pc3-teal); outl
   .pc3-stage { height: clamp(calc(var(--pc3-device-w) * 2.061 + 70px), 52vh, 480px); }
   .pc3-source--video { left: 4%; }
   .pc3-source--audio { right: 4%; }
-  .pc3-source--image { right: 8%; }
 }
 @media (max-width: 700px) {
   .pc3 { padding: clamp(8px, 1.6vh, 16px) 14px; }
@@ -422,16 +419,14 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--pc3-teal); outl
   .pc3-orbits span:nth-child(2) { width: 70vw; }
   .pc3-orbits span:nth-child(3) { width: 108vw; }
   .pc3-source { width: 70px; padding: 7px; border-radius: 15px; }
-  /* Video+Audio anchored near the stage's top edge, Images near the bottom
-     edge (mirrors the desktop 16%/19%/bottom:15% split) — NOT top:20%/22%
-     vs bottom:20%, which collided at the low end of the stage-height clamp
-     (260px): a card is ~90px tall, so two cards both fighting for the
-     vertical middle overlapped on real, shorter phone viewports. */
+  /* Video top-left, Audio bottom-right — NOT both near the top (they
+     collided at the low end of the stage-height clamp, 260px: a card is
+     ~90px tall, so two cards fighting for the same vertical band overlapped
+     on real, shorter phone viewports). */
   .pc3-source--video { left: -3%; top: 5%; }
-  .pc3-source--audio { right: -3%; top: 7%; }
-  .pc3-source--image { right: 1%; bottom: 5%; }
+  .pc3-source--audio { right: -3%; bottom: 5%; top: auto; }
   .pc3-source__icon { width: 27px; height: 27px; font-size: 13px; }
-  .pc3-source__stack, .pc3-source__wave, .pc3-source__grid { transform: scale(.72); }
+  .pc3-source__stack, .pc3-source__wave { transform: scale(.72); }
   .pc3-controls { gap: 8px; }
   .pc3[data-pc3-phase="inside"] .pc3-camera-rig { transform: translate3d(0, 0, 300px) scale(1.16); }
 }

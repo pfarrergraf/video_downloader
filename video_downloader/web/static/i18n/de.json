@@ -187,7 +187,7 @@
       "legal": "Nur Inhalte speichern, für die du die erforderlichen Rechte oder eine Erlaubnis besitzt.",
       "step_source": "Medienlink öffnen und teilen.",
       "step_share": "DownloadThat im Teilen-Menü auswählen.",
-      "step_format": "Video, Audio oder Bilder wählen.",
+      "step_format": "Video oder Audio wählen.",
       "step_stream": "Medien werden gebündelt.",
       "step_inside": "Die Datei wird lokal verarbeitet.",
       "step_success": "Gespeichert – direkt auf dem Gerät.",
@@ -204,6 +204,7 @@
       "replay": "Wiederholen",
       "stepthrough": "Schritt für Schritt",
       "motion_toggle_label": "Bewegung umschalten",
+      "sound_toggle_label": "Ton umschalten",
       "region_label": "Interaktive Produktanimation"
     },
     "features": {

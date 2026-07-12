@@ -235,10 +235,6 @@
           <span class="pc3-source__icon">♫</span>
           <div class="pc3-source__wave"><i></i><i></i><i></i><i></i><i></i></div>
         </div>
-        <div class="pc3-source pc3-source--image" data-pc3-source="image" aria-hidden="true">
-          <span class="pc3-source__icon">▧</span>
-          <div class="pc3-source__grid"><i></i><i></i><i></i><i></i></div>
-        </div>
 
         <div class="pc3-camera-rig" data-pc3-camera-rig>
           <div class="pc3-device" data-pc3-device>
@@ -336,12 +332,11 @@
                 </div>
               </section>
 
-              <section class="pc3-view" data-pc3-view="format" data-i18n-attr="aria-label:website.hero_cinema.step_format" aria-label="Choose video, audio or images.">
+              <section class="pc3-view" data-pc3-view="format" data-i18n-attr="aria-label:website.hero_cinema.step_format" aria-label="Choose video or audio.">
                 <div class="pc3-format-card">
                   <div class="pc3-format-card__grid">
                     <button type="button" data-pc3-next="stream"><b aria-hidden="true">▶</b><span data-i18n="website.hero_cinema.format_video">Video</span></button>
                     <button type="button" data-pc3-next="stream"><b aria-hidden="true">♫</b><span data-i18n="website.hero_cinema.format_audio">Audio</span></button>
-                    <button type="button" data-pc3-next="stream"><b aria-hidden="true">▧</b><span data-i18n="website.hero_cinema.format_images">Images</span></button>
                   </div>
                 </div>
               </section>
@@ -391,6 +386,11 @@
           <span aria-hidden="true">→</span><span data-i18n="website.hero_cinema.stepthrough">Step through</span>
         </button>
         <button type="button" class="pc3-icon-button" data-pc3-motion aria-pressed="false" data-i18n-attr="aria-label:website.hero_cinema.motion_toggle_label" aria-label="Toggle motion">◐</button>
+        <!-- Off by default: browsers block un-gestured audio anyway, and an
+             autoplaying marketing animation shouldn't suddenly make noise.
+             Tap/swipe clicks and the download whirr only start once this is
+             explicitly turned on (see hero-product-cinema.js). -->
+        <button type="button" class="pc3-icon-button" data-pc3-sound aria-pressed="false" data-i18n-attr="aria-label:website.hero_cinema.sound_toggle_label" aria-label="Toggle sound">🔇</button>
         <div class="pc3-timeline" aria-live="polite">
           <span data-pc3-index>01</span>
           <div><i data-pc3-progress></i></div>

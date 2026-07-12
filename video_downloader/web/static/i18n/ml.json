@@ -204,6 +204,7 @@
       "replay": "Replay",
       "stepthrough": "Step through",
       "motion_toggle_label": "Toggle motion",
+      "sound_toggle_label": "Toggle sound",
       "region_label": "Interactive product animation"
     },
     "features": {

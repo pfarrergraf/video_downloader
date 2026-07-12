@@ -21,6 +21,97 @@
   const number = root.querySelector('[data-pc3-index]');
   const progress = root.querySelector('[data-pc3-progress]');
   const motionButton = root.querySelector('[data-pc3-motion]');
+  const soundButton = root.querySelector('[data-pc3-sound]');
+
+  // ---- Sound effects (synthesized with the Web Audio API - no audio files,
+  // keeping this component's no-external-asset rule). Off by default: an
+  // autoplaying hero animation making noise without the visitor asking for
+  // it would be intrusive, and browsers block un-gestured audio anyway. The
+  // AudioContext is only ever created/resumed from inside the sound
+  // toggle's own click handler (a real user gesture) - every later
+  // setTimeout-scheduled sound just reuses that already-unlocked context.
+  let soundOn = false;
+  let audioCtx = null;
+  function ensureAudioCtx() {
+    if (audioCtx) return audioCtx;
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    audioCtx = Ctx ? new Ctx() : null;
+    return audioCtx;
+  }
+  function playClick() {
+    if (!soundOn || !audioCtx) return;
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1150, now);
+    osc.frequency.exponentialRampToValueAtTime(650, now + 0.05);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.22, now + 0.006);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.07);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.08);
+  }
+  function playSwipe() {
+    if (!soundOn || !audioCtx) return;
+    const now = audioCtx.currentTime;
+    const duration = 0.3;
+    const buffer = audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate * duration), audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    const noise = audioCtx.createBufferSource();
+    noise.buffer = buffer;
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.Q.value = 0.9;
+    filter.frequency.setValueAtTime(2600, now);
+    filter.frequency.exponentialRampToValueAtTime(500, now + duration);
+    const gain = audioCtx.createGain();
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.24, now + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    noise.connect(filter).connect(gain).connect(audioCtx.destination);
+    noise.start(now);
+    noise.stop(now + duration);
+  }
+  // A projector/beamer-like whirr for the download beat: a low motor hum
+  // plus a steady run of reel-advance ticks, roughly matching the
+  // pc3-progress bar's own 2.05s runtime.
+  function playDownloadWhirr() {
+    if (!soundOn || !audioCtx) return;
+    const now = audioCtx.currentTime;
+    const duration = 2.0;
+    const hum = audioCtx.createOscillator();
+    hum.type = 'sawtooth';
+    hum.frequency.value = 96;
+    const humFilter = audioCtx.createBiquadFilter();
+    humFilter.type = 'lowpass';
+    humFilter.frequency.value = 420;
+    const humGain = audioCtx.createGain();
+    humGain.gain.setValueAtTime(0.0001, now);
+    humGain.gain.exponentialRampToValueAtTime(0.05, now + 0.15);
+    humGain.gain.setValueAtTime(0.05, now + duration - 0.2);
+    humGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    hum.connect(humFilter).connect(humGain).connect(audioCtx.destination);
+    hum.start(now);
+    hum.stop(now + duration + 0.05);
+    const tickCount = Math.floor(duration / 0.11);
+    for (let i = 0; i < tickCount; i++) {
+      const t = now + i * 0.11;
+      const osc = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.value = 260 + (i % 3) * 12;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.05, t + 0.004);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.03);
+      osc.connect(g).connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.04);
+    }
+  }
+  const SOUND_FX = { click: playClick, swipe: playSwipe };
 
   // Timings only — each scene carries its own (already-translated)
   // aria-label for screen readers; there's no on-screen caption to sync.
@@ -42,20 +133,36 @@
   // relative to whenever show('source') itself runs (autoplay or a manual
   // jump), not the timeline above, so this plays the same whether entered on
   // schedule or via stepthrough.
+  // `moves`: where the finger cursor should sit once this beat is showing,
+  // as CSS selectors resolved (and measured) at the moment each fires - see
+  // moveFingerTo(). By the time 'tap' runs, the CTA's own .5s grow/center
+  // transition (from 'highlight') has long finished, so measuring its
+  // resting position then is accurate with no extra delay.
   const SOURCE_SUB = [
     { value: 'idle', at: 0 },
     { value: 'highlight', at: 1000 },
-    { value: 'tap', at: 1900 },
+    { value: 'tap', at: 1900, moves: [{ delay: 0, target: '.pc3-share--cta' }], sounds: [{ delay: 0, type: 'click' }] },
   ];
   // Sub-beats for the 'share' scene: sheet 1 (no DownloadThat) -> finger
-  // swipes to "More" -> sheet 2 (full app grid) -> finger swipes down to
-  // reveal the highlighted DownloadThat tile -> tap.
+  // swipes to "More" -> tap "More" -> sheet 2 (full app grid) -> finger
+  // swipes down to reveal the highlighted DownloadThat tile -> tap.
+  // swipe-dt gets two moves: an immediate one to the (stationary) grid's own
+  // top edge, so the finger visibly swipes down as
+  // .pc3-share-grid__inner's .6s reveal transition runs, then a delayed one
+  // (matching that .6s) to the DownloadThat tile's now-settled position.
+  // 'more-tap' is a distinct beat from 'swipe-more' (rather than tapping the
+  // instant the finger arrives) purely so the tap ripple/click sound fires
+  // once the glide has actually finished, not at the start of it.
   const SHARE_SUB = [
     { value: 'sheet1', at: 0 },
-    { value: 'swipe-more', at: 1200 },
+    { value: 'swipe-more', at: 1200, moves: [{ delay: 0, target: '.pc3-share-apps__more' }], sounds: [{ delay: 0, type: 'swipe' }] },
+    { value: 'more-tap', at: 1700, sounds: [{ delay: 0, type: 'click' }] },
     { value: 'sheet2', at: 2100 },
-    { value: 'swipe-dt', at: 3000 },
-    { value: 'tap', at: 4000 },
+    { value: 'swipe-dt', at: 3000, moves: [
+      { delay: 0, target: '.pc3-share-grid' },
+      { delay: 650, target: '.pc3-share-grid__dt' },
+    ], sounds: [{ delay: 0, type: 'swipe' }] },
+    { value: 'tap', at: 4000, sounds: [{ delay: 0, type: 'click' }] },
   ];
 
   function clearTimers() {
@@ -64,10 +171,34 @@
     root.classList.remove('is-running');
   }
 
+  // Positions the finger cursor exactly on `target`'s center, measured live
+  // (getBoundingClientRect) rather than a percentage guessed against one
+  // viewport - keeps it accurate on every real phone/breakpoint, including
+  // after CSS transforms (highlight scale, grid reveal) have applied.
+  function moveFingerTo(finger, target) {
+    if (!finger || !target) return;
+    const parent = finger.offsetParent;
+    if (!parent) return;
+    const parentBox = parent.getBoundingClientRect();
+    const targetBox = target.getBoundingClientRect();
+    finger.style.left = `${targetBox.left + targetBox.width / 2 - parentBox.left}px`;
+    finger.style.top = `${targetBox.top + targetBox.height / 2 - parentBox.top}px`;
+  }
+
   function runSub(viewId, steps) {
     const view = views.find((v) => v.dataset.pc3View === viewId);
     if (!view) return;
-    steps.forEach((s) => timers.push(setTimeout(() => { view.dataset.pc3Sub = s.value; }, s.at)));
+    const finger = view.querySelector('.pc3-finger');
+    steps.forEach((s) => {
+      timers.push(setTimeout(() => { view.dataset.pc3Sub = s.value; }, s.at));
+      (s.moves || []).forEach((m) => {
+        timers.push(setTimeout(() => moveFingerTo(finger, view.querySelector(m.target)), s.at + m.delay));
+      });
+      (s.sounds || []).forEach((snd) => {
+        const fx = SOUND_FX[snd.type];
+        if (fx) timers.push(setTimeout(fx, s.at + snd.delay));
+      });
+    });
   }
 
   // Ticks the 'inside' scene's live percentage counter alongside the
@@ -101,7 +232,7 @@
     });
     if (id === 'source') runSub('source', SOURCE_SUB);
     if (id === 'share') runSub('share', SHARE_SUB);
-    if (id === 'inside') runPercent();
+    if (id === 'inside') { runPercent(); playDownloadWhirr(); }
     if (number) number.textContent = sequence[idx].n;
     if (progress) progress.style.width = `${((idx + 1) / sequence.length) * 100}%`;
   }
@@ -149,6 +280,18 @@
     });
   }
 
+  if (soundButton) {
+    soundButton.addEventListener('click', () => {
+      soundOn = !soundOn;
+      soundButton.setAttribute('aria-pressed', String(soundOn));
+      soundButton.textContent = soundOn ? '🔊' : '🔇';
+      if (soundOn) {
+        const ctx = ensureAudioCtx();
+        if (ctx && ctx.state === 'suspended') ctx.resume();
+      }
+    });
+  }
+
   if (!reducedBySystem && stage && rig) {
     stage.addEventListener('pointermove', (e) => {
       if (['inside', 'stream'].includes(root.dataset.pc3Phase)) return;
@@ -176,7 +319,11 @@
     let slowFrames = 0;
     let capped = false;
     const pointer = { x: -9999, y: -9999 };
-    const palette = ['#ff657d', '#ebc978', '#40e3c4'];
+    // Two groups (video, audio) — the app's share flow only ever offers
+    // Video/Audio (no Images toggle anywhere in the real app), so a third
+    // particle group would fly in from an anchor with no matching source
+    // card on screen.
+    const palette = ['#ff657d', '#ebc978'];
     const particles = [];
 
     function arrowPoints(count) {
@@ -203,8 +350,8 @@
       arrow = arrowPoints(count);
       particles.length = 0;
       for (let i = 0; i < count; i++) {
-        const group = i % 3;
-        const anchors = [{ x: w * .08, y: h * .23 }, { x: w * .91, y: h * .25 }, { x: w * .88, y: h * .77 }];
+        const group = i % 2;
+        const anchors = [{ x: w * .08, y: h * .23 }, { x: w * .91, y: h * .25 }];
         const a = anchors[group];
         particles.push({ x: a.x + (Math.random() - .5) * 50, y: a.y + (Math.random() - .5) * 50, vx: 0, vy: 0, r: .8 + Math.random() * 1.8, c: group, p: i * .77, trail: [] });
       }
@@ -220,10 +367,10 @@
       if (phase === 'stream') return arrow[i] || center;
       if (phase === 'inside') return center;
       if (phase === 'success') return { x: center.x + Math.cos(i * 2.399) * 20, y: center.y + Math.sin(i * 2.399) * 20 };
-      const anchors = [{ x: w * .08, y: h * .23 }, { x: w * .91, y: h * .25 }, { x: w * .88, y: h * .77 }];
+      const anchors = [{ x: w * .08, y: h * .23 }, { x: w * .91, y: h * .25 }];
       const a = anchors[p.c];
       const t = .5 + .5 * Math.sin(time * .00025 + p.p);
-      const bends = [{ x: w * .22, y: h * .32 }, { x: w * .78, y: h * .30 }, { x: w * .73, y: h * .69 }];
+      const bends = [{ x: w * .22, y: h * .32 }, { x: w * .78, y: h * .30 }];
       return { x: bezier(a.x, bends[p.c].x, center.x * .88, center.x, t * .35), y: bezier(a.y, bends[p.c].y, center.y * .9, center.y, t * .35) };
     }
 
@@ -234,8 +381,7 @@
       ctx.fillStyle = palette[p.c];
       ctx.lineWidth = 1.2;
       if (p.c === 0) { ctx.beginPath(); ctx.moveTo(-3, -4); ctx.lineTo(4, 0); ctx.lineTo(-3, 4); ctx.closePath(); ctx.fill(); }
-      else if (p.c === 1) { for (let x = -4; x <= 4; x += 2) { const hh = 2 + Math.abs(Math.sin((x + p.p) * 1.7)) * 4; ctx.fillRect(x, -hh / 2, 1, hh); } }
-      else { ctx.strokeRect(-4, -4, 8, 8); ctx.beginPath(); ctx.moveTo(-3, 2); ctx.lineTo(-1, 0); ctx.lineTo(1, 2); ctx.lineTo(4, -1); ctx.stroke(); }
+      else { for (let x = -4; x <= 4; x += 2) { const hh = 2 + Math.abs(Math.sin((x + p.p) * 1.7)) * 4; ctx.fillRect(x, -hh / 2, 1, hh); } }
       ctx.restore();
     }
 

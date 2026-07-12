@@ -187,7 +187,7 @@
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
       "step_share": "Pick DownloadThat from the share sheet.",
-      "step_format": "Choose video, audio or images.",
+      "step_format": "Choose video or audio.",
       "step_stream": "Media is bundled together.",
       "step_inside": "The file is processed locally.",
       "step_success": "Saved — right on your device.",
@@ -204,6 +204,7 @@
       "replay": "Replay",
       "stepthrough": "Step through",
       "motion_toggle_label": "Toggle motion",
+      "sound_toggle_label": "Toggle sound",
       "region_label": "Interactive product animation"
     },
     "features": {

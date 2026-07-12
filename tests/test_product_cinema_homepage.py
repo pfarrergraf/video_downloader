@@ -148,20 +148,25 @@ def test_lab_preview_files_are_unmodified_and_still_present() -> None:
 def test_new_hero_cinema_i18n_keys_are_wired_up() -> None:
     # The in-phone scenes are intentionally near-textless (icons + motion only,
     # per product feedback); each scene's step_* copy survives only as an
-    # aria-label for screen readers. Per further product feedback, the
-    # eyebrow, trust chip, legal note, secondary CTA and Windows link were
-    # dropped from the hero entirely (kept, still translated, elsewhere on
-    # the site: legal note in the FAQ, Windows link in the footer). eyebrow/
-    # legal/trust_local/trust_cloud/format_title/stream_title/inside_title/
-    # success_title/success_body are unused by design now; their i18n
-    # entries are left in place across all locales in case this direction
-    # changes again, but nothing requires them to appear in the markup.
+    # aria-label for screen readers, except the source-scene CTA (share_cta),
+    # which was deliberately given a visible label. Per further product
+    # feedback, the eyebrow, trust chip, legal note, secondary CTA and
+    # Windows link were dropped from the hero entirely (kept, still
+    # translated, elsewhere on the site: legal note in the FAQ, Windows link
+    # in the footer). eyebrow/legal/trust_local/trust_cloud/format_title/
+    # stream_title/inside_title/success_title/success_body are unused by
+    # design now; their i18n entries are left in place across all locales in
+    # case this direction changes again, but nothing requires them to appear
+    # in the markup. format_images is likewise unused now — the app's share
+    # flow only ever offers Video/Audio (there is no Images toggle anywhere
+    # in video_downloader/web/static/index.html), so showing an "Images"
+    # choice in the animation would misrepresent what the app actually does.
     html = _index_html()
     required_keys = (
         "title_line_1", "title_line_2", "title_line_3", "lead",
         "step_source", "step_share", "step_format", "step_stream", "step_inside", "step_success",
-        "share_title", "format_video", "format_audio", "format_images",
-        "replay", "stepthrough",
+        "share_title", "share_cta", "format_video", "format_audio",
+        "replay", "stepthrough", "motion_toggle_label", "sound_toggle_label",
     )
     for key in required_keys:
         assert f"website.hero_cinema.{key}" in html, f"missing data-i18n wiring for {key}"
