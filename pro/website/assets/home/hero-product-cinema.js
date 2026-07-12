@@ -24,19 +24,67 @@
 
   // Timings only — each scene carries its own (already-translated)
   // aria-label for screen readers; there's no on-screen caption to sync.
+  // 'source' and 'share' are now themselves short multi-beat stories (see
+  // SOURCE_SUB/SHARE_SUB below); their `at` gaps here leave enough room for
+  // those beats to play out before the next main scene cross-fades in.
   const sequence = [
     { id: 'source', at: 0, n: '01' },
-    { id: 'share', at: 1350, n: '02' },
-    { id: 'format', at: 2850, n: '03' },
-    { id: 'stream', at: 4300, n: '04' },
-    { id: 'inside', at: 6750, n: '05' },
-    { id: 'success', at: 9050, n: '06' },
+    { id: 'share', at: 2700, n: '02' },
+    { id: 'format', at: 7400, n: '03' },
+    { id: 'stream', at: 9100, n: '04' },
+    { id: 'inside', at: 11550, n: '05' },
+    { id: 'success', at: 13850, n: '06' },
+  ];
+  const RUN_DURATION = 15400;
+
+  // Sub-beats for the 'source' scene: the video card is shown, its share CTA
+  // grows and re-centers, then the finger cursor taps it. Offsets are
+  // relative to whenever show('source') itself runs (autoplay or a manual
+  // jump), not the timeline above, so this plays the same whether entered on
+  // schedule or via stepthrough.
+  const SOURCE_SUB = [
+    { value: 'idle', at: 0 },
+    { value: 'highlight', at: 1000 },
+    { value: 'tap', at: 1900 },
+  ];
+  // Sub-beats for the 'share' scene: sheet 1 (no DownloadThat) -> finger
+  // swipes to "More" -> sheet 2 (full app grid) -> finger swipes down to
+  // reveal the highlighted DownloadThat tile -> tap.
+  const SHARE_SUB = [
+    { value: 'sheet1', at: 0 },
+    { value: 'swipe-more', at: 1200 },
+    { value: 'sheet2', at: 2100 },
+    { value: 'swipe-dt', at: 3000 },
+    { value: 'tap', at: 4000 },
   ];
 
   function clearTimers() {
     timers.forEach(clearTimeout);
     timers = [];
     root.classList.remove('is-running');
+  }
+
+  function runSub(viewId, steps) {
+    const view = views.find((v) => v.dataset.pc3View === viewId);
+    if (!view) return;
+    steps.forEach((s) => timers.push(setTimeout(() => { view.dataset.pc3Sub = s.value; }, s.at)));
+  }
+
+  // Ticks the 'inside' scene's live percentage counter alongside the
+  // existing pc3-progress bar's own 2.05s CSS animation (kept in sync by
+  // literally sharing that duration) instead of a second CSS-only mechanism,
+  // since counting up needs text content, not just a width.
+  function runPercent() {
+    const el = root.querySelector('[data-pc3-percent]');
+    if (!el) return;
+    const duration = 2050;
+    const start = performance.now();
+    function tick(now) {
+      const pct = Math.min(100, Math.round(((now - start) / duration) * 100));
+      el.textContent = `${pct}%`;
+      if (pct < 100 && root.dataset.pc3Phase === 'inside') requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
   }
 
   function show(id) {
@@ -51,6 +99,9 @@
       v.toggleAttribute('aria-hidden', !active);
       v.inert = !active;
     });
+    if (id === 'source') runSub('source', SOURCE_SUB);
+    if (id === 'share') runSub('share', SHARE_SUB);
+    if (id === 'inside') runPercent();
     if (number) number.textContent = sequence[idx].n;
     if (progress) progress.style.width = `${((idx + 1) / sequence.length) * 100}%`;
   }
@@ -63,7 +114,7 @@
       return;
     }
     sequence.forEach((s) => timers.push(setTimeout(() => show(s.id), s.at)));
-    timers.push(setTimeout(() => root.classList.remove('is-running'), 10400));
+    timers.push(setTimeout(() => root.classList.remove('is-running'), RUN_DURATION));
   }
 
   function nextStep() {

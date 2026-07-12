@@ -155,50 +155,151 @@
 }
 .pc3-view.is-active { opacity: 1; transform: none; filter: none; pointer-events: auto; }
 
-.pc3-media-card { position: relative; width: 100%; min-height: 58%; border: 1px solid var(--pc3-line); border-radius: 20px; background: rgba(29, 23, 44, .89); box-shadow: 0 20px 44px rgba(0, 0, 0, .32); }
-.pc3-media-card__visual { height: 58%; margin: 10px; display: grid; place-items: center; border-radius: 14px; background: linear-gradient(135deg, rgba(255, 101, 125, .64), rgba(255, 173, 101, .22) 48%, rgba(64, 227, 196, .58)); overflow: hidden; }
+/* flex column (not the pre-existing height:58%-on-a-percentage-height child)
+   so .pc3-media-card__visual actually gets a real rendered height: a block
+   whose own height is only min-height-constrained (not an explicit height)
+   makes CSS treat percentage heights on its children as 'auto' per spec,
+   which collapsed the gradient thumbnail to 0px here even before this scene
+   was reworked — flex-grow distributes .pc3-media-card's real used height
+   properly regardless of how that height was established. */
+.pc3-media-card { position: relative; width: 100%; min-height: 58%; display: flex; flex-direction: column; border: 1px solid var(--pc3-line); border-radius: 20px; background: rgba(29, 23, 44, .89); box-shadow: 0 20px 44px rgba(0, 0, 0, .32); overflow: hidden; }
+.pc3-media-card__visual { position: relative; flex: 1 1 auto; min-height: 0; margin: 10px; display: grid; place-items: center; border-radius: 14px; background: linear-gradient(135deg, rgba(255, 101, 125, .64), rgba(255, 173, 101, .22) 48%, rgba(64, 227, 196, .58)); overflow: hidden; }
 .pc3-media-card__visual::before { content: ""; width: 150%; height: 40%; transform: rotate(-12deg); background: rgba(255, 255, 255, .12); filter: blur(18px); }
-.pc3-media-card__visual span { position: absolute; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(5, 4, 8, .56); backdrop-filter: blur(12px); }
+.pc3-media-card__play { position: absolute; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(5, 4, 8, .56); backdrop-filter: blur(12px); }
+/* Duration badge + scrub line: makes the card read unambiguously as a video
+   player (not a generic media card) at a glance, per product feedback. */
+.pc3-media-card__badge { position: absolute; right: 8px; top: 8px; padding: 2px 7px; border-radius: 7px; background: rgba(5, 4, 8, .62); font-size: .58rem; font-weight: 800; letter-spacing: .02em; }
+.pc3-media-card__scrub { position: absolute; left: 8px; right: 8px; bottom: 8px; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .28); }
+.pc3-media-card__scrub i { display: block; width: 38%; height: 100%; border-radius: inherit; background: #fff; }
 .pc3-media-card__text { padding: 4px 13px 11px; }
 .pc3-media-card__text i { display: block; height: 6px; margin: 7px 0; border-radius: 6px; background: rgba(255, 255, 255, .14); }
-.pc3-media-card__text i:nth-child(2) { width: 76%; }
-.pc3-media-card__text i:nth-child(3) { width: 54%; }
+.pc3-media-card__text i:nth-child(1) { width: 84%; }
+.pc3-media-card__text i:nth-child(2) { width: 58%; }
+/* Dims the card so the highlighted CTA reads as the sole focus once it grows
+   and re-centers — sits above the card's own background, below the CTA/finger
+   (both get their own higher z-index). */
+.pc3-media-card::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(4, 3, 8, .5); opacity: 0; pointer-events: none; transition: opacity .45s var(--pc3-ease); }
+.pc3-view[data-pc3-view="source"][data-pc3-sub="highlight"] .pc3-media-card::after,
+.pc3-view[data-pc3-view="source"][data-pc3-sub="tap"] .pc3-media-card::after { opacity: 1; }
+
 .pc3-share {
-  position: absolute; right: 12px; bottom: 12px; display: grid; place-items: center; width: 46px; height: 46px;
+  position: absolute; z-index: 5; right: 12px; bottom: 12px; display: grid; place-items: center; width: 46px; height: 46px;
   border: 0; border-radius: 50%; background: var(--pc3-grad); color: #07060b; cursor: pointer;
   box-shadow: 0 8px 22px rgba(255, 101, 125, .24); animation: pc3-pulse 1.8s ease-in-out infinite;
+  transition: transform .5s var(--pc3-ease), box-shadow .5s var(--pc3-ease);
 }
-.pc3-share svg { width: 46%; height: 46%; }
+.pc3-share svg { width: 46%; height: 46%; flex: none; }
 @keyframes pc3-pulse { 50% { transform: scale(1.08); box-shadow: 0 0 0 12px rgba(255, 101, 125, 0); } }
 
-.pc3-share-sheet { align-self: end; width: calc(100% + 28px); margin: 0 -14px -22px; padding: 26px 12px; border-radius: 26px 26px 0 0; background: rgba(246, 243, 250, .97); color: #17121e; box-shadow: 0 -22px 46px rgba(0, 0, 0, .28); }
+/* The source-scene CTA: same button, now a labelled pill instead of a bare
+   icon circle (per product feedback — this one CTA is allowed visible text,
+   see website.hero_cinema.share_cta). Positioned via left/top (not the base
+   right/bottom) specifically so the highlight beat below can animate left/top
+   to a true left:50%/transform:translate(-50%,-50%) center — a fixed
+   translate() offset instead overflowed the card on narrow phones, since the
+   pill's own width (~110-125px, mostly text-driven) doesn't shrink with
+   --pc3-device-w the way a proportional offset assumes. */
+.pc3-share--cta {
+  left: 100%; top: 100%; right: auto; bottom: auto;
+  transform: translate(calc(-100% - 12px), calc(-100% - 12px));
+  width: auto; height: 40px; padding: 0 16px 0 13px; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px;
+  animation: pc3-pulse 1.8s ease-in-out infinite;
+  transition: left .5s var(--pc3-ease), top .5s var(--pc3-ease), transform .5s var(--pc3-ease), box-shadow .5s var(--pc3-ease);
+}
+.pc3-share--cta svg { width: 17px; height: 17px; }
+.pc3-share__label { font-size: .72rem; font-weight: 800; white-space: nowrap; }
+/* Highlight beat: the CTA visibly grows and re-centers before the finger
+   taps it — true centering (left:50% + translate(-50%,-50%)), so it can
+   never overflow the card regardless of the pill's own rendered width. */
+.pc3-view[data-pc3-view="source"][data-pc3-sub="highlight"] .pc3-share--cta,
+.pc3-view[data-pc3-view="source"][data-pc3-sub="tap"] .pc3-share--cta {
+  left: 50%; top: 56%;
+  transform: translate(-50%, -50%) scale(1.3);
+  animation: none;
+  box-shadow: 0 0 0 11px rgba(255, 101, 125, .14), 0 16px 32px rgba(255, 101, 125, .38);
+}
+
+/* ---- Finger cursor: shared tap/swipe primitive for the source and share
+   scenes. Position + visibility are driven purely by the per-view
+   data-pc3-sub attribute (see hero-product-cinema.js); percentage-based
+   left/top keep it correct across --pc3-device-w's responsive range. ---- */
+.pc3-finger { position: absolute; z-index: 6; left: 50%; top: 100%; width: 30px; height: 30px; color: #fff; opacity: 0; pointer-events: none; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .45)); transition: left .55s var(--pc3-ease), top .55s var(--pc3-ease), opacity .3s; }
+.pc3-finger svg { width: 100%; height: 100%; transform: rotate(-18deg); }
+.pc3-finger__ring { position: absolute; inset: -6px; border-radius: 50%; border: 2px solid #fff; opacity: 0; }
+/* Re-applying the "tap" attribute value (even to the same view on a replay)
+   is treated as a fresh selector match, so the animation restarts every time
+   without any JS class-toggling — same idiom the existing pc3-progress/
+   pc3-meter bars already rely on via .is-active. */
+.pc3-view[data-pc3-view="source"][data-pc3-sub="tap"] .pc3-finger__ring,
+.pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-finger__ring { animation: pc3-finger-tap .5s var(--pc3-ease); }
+@keyframes pc3-finger-tap { 0% { opacity: .9; transform: scale(.5); } 100% { opacity: 0; transform: scale(1.9); } }
+
+.pc3-view[data-pc3-view="source"][data-pc3-sub="tap"] .pc3-finger { left: 63%; top: 62%; opacity: 1; }
+
+.pc3-share-sheet { position: relative; z-index: 2; align-self: end; width: calc(100% + 28px); margin: 0 -14px -22px; padding: 26px 12px; border-radius: 26px 26px 0 0; background: rgba(246, 243, 250, .97); color: #17121e; box-shadow: 0 -22px 46px rgba(0, 0, 0, .28); transition: opacity .4s var(--pc3-ease), transform .4s var(--pc3-ease); }
+/* Sheet 1 deliberately has no DownloadThat tile (per product feedback — a
+   real Android share sheet buries it behind "More…" too); it fades/slides
+   out once the story swipes over to the full app grid below. */
+.pc3-view[data-pc3-view="share"][data-pc3-sub="sheet2"] .pc3-share-sheet,
+.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-dt"] .pc3-share-sheet,
+.pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-share-sheet { opacity: 0; transform: translateY(10px); pointer-events: none; }
 /* Four fixed 56px-wide items (224px+ gaps) never fit inside the phone's own
    screen width - --pc3-device-w floors at 190px on every real phone (15vw is
    nowhere near that floor below ~1267px viewports), leaving well under 150px
    for this row. A fixed width meant the row simply overflowed past the
-   phone's overflow:hidden edge, cropping the DownloadThat tile and its label
-   (caught via a real Samsung Galaxy screenshot). flex:1 1 0 + min-width:0
-   instead divides whatever width IS available equally among all four items,
-   so the row's rendered width can never exceed its container - nothing to
-   clip. The icon circle's width is capped at 100% of that (now possibly
-   shrunk) item so it can't overflow its own tile either, and the label is
-   left free to wrap onto a second line rather than being cut off, so the
-   full "DownloadThat" text always stays visible even on the narrowest phones. */
+   phone's overflow:hidden edge, cropping a tile and its label (caught via a
+   real Samsung Galaxy screenshot). flex:1 1 0 + min-width:0 instead divides
+   whatever width IS available equally among all items, so the row's rendered
+   width can never exceed its container - nothing to clip. */
 .pc3-share-apps { display: flex; justify-content: space-between; align-items: center; gap: 4px; }
 .pc3-share-apps span, .pc3-share-apps button { flex: 1 1 0; min-width: 0; max-width: 56px; padding: 0; border: 0; background: none; color: inherit; text-align: center; }
 .pc3-share-apps b { display: grid; place-items: center; width: min(44px, 100%); aspect-ratio: 1; margin: 0 auto 6px; border-radius: 14px; background: #d9d4df; font-size: 19px; }
 .pc3-share-apps small { display: block; font-size: .5rem; font-weight: 800; overflow-wrap: break-word; }
-.pc3-share-apps__dt { cursor: pointer; }
-/* The only item whose full label actually matters is DownloadThat's - the
-   other three (mail/share/more) are unlabelled decoration - so it gets a
-   bigger share of the row than an even split would give it, cutting how
-   often "DownloadThat" needs to wrap at all. The <wbr> in the markup means
-   that when it still doesn't fit on one line, it breaks at the natural
-   Download/That boundary instead of mid-word. */
-.pc3-share-apps button.pc3-share-apps__dt { flex-grow: 1.6; }
-/* Dark backdrop + gradient glyph — the real app icon, not the inverse. */
-.pc3-share-apps__dt b { width: min(48px, 100%); background: #100e1c; box-shadow: 0 8px 18px rgba(255, 101, 125, .25); }
-.pc3-share-apps__dt svg { width: 62%; height: 62%; }
+.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-more"] .pc3-share-apps__more b { background: #c9c1d6; box-shadow: 0 0 0 4px rgba(64, 227, 196, .22); }
+
+/* ---- Sheet 2: the expanded "More" app grid, with DownloadThat placed a row
+   down (not in the first visible row) and highlighted, requiring the swipe
+   beat below to reveal it — matches a real Android "more apps" list instead
+   of an instant reveal. ---- */
+/* Deliberately shorter than the full 3-row icon list below (~1.3 rows tall)
+   so DownloadThat (row 2) starts out clipped below the fold — otherwise a
+   tall-enough sheet shows every icon at once and the swipe beat has nothing
+   left to reveal. */
+/* Fixed proportion of --pc3-device-w (~1.5 rows), not a percentage of the
+   view's own height — sized so row 1 fully shows and DownloadThat's row is
+   only half-visible below the fold to start, giving the swipe beat below
+   something real to reveal instead of nothing (a tall-enough sheet just
+   shows every icon at once). */
+.pc3-share-grid {
+  position: absolute; z-index: 3; left: 14px; right: 14px; bottom: 22px; height: calc(var(--pc3-device-w) * .37); overflow: hidden;
+  border-radius: 22px 22px 0 0; background: rgba(246, 243, 250, .97); color: #17121e; box-shadow: 0 -22px 46px rgba(0, 0, 0, .28);
+  opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .4s var(--pc3-ease), transform .4s var(--pc3-ease);
+}
+.pc3-view[data-pc3-view="share"][data-pc3-sub="sheet2"] .pc3-share-grid,
+.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-dt"] .pc3-share-grid,
+.pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-share-grid { opacity: 1; transform: none; pointer-events: auto; }
+.pc3-share-grid__inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 4px; padding: 14px 10px; transform: translateY(0); transition: transform .6s var(--pc3-ease); }
+/* The swipe beat shifts the grid up by roughly one row (a fixed proportion
+   of --pc3-device-w, not a percentage of the inner grid's own height — that
+   would keep changing as rows are added/removed) bringing the DownloadThat
+   tile fully into view the same way a real finger-drag would. */
+.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-dt"] .pc3-share-grid__inner,
+.pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-share-grid__inner { transform: translateY(calc(var(--pc3-device-w) * -.3)); }
+.pc3-share-grid__inner span, .pc3-share-grid__inner button { padding: 0; border: 0; background: none; color: inherit; text-align: center; }
+.pc3-share-grid__inner b { display: grid; place-items: center; width: 100%; aspect-ratio: 1; margin: 0 auto 5px; border-radius: 14px; background: #d9d4df; font-size: 17px; }
+.pc3-share-grid__inner small { display: block; font-size: .48rem; font-weight: 800; overflow-wrap: break-word; }
+.pc3-share-grid__dt { cursor: pointer; }
+/* Dark backdrop + gradient glyph — the real app icon, not the inverse — plus
+   a glow ring so it reads as the one the finger is aiming for. */
+.pc3-share-grid__dt b { background: #100e1c; box-shadow: 0 0 0 3px rgba(64, 227, 196, .35), 0 8px 18px rgba(255, 101, 125, .3); animation: pc3-pulse 1.8s ease-in-out infinite; }
+.pc3-share-grid__dt svg { width: 60%; height: 60%; }
+
+.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-more"] .pc3-finger,
+.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-dt"] .pc3-finger,
+.pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-finger { opacity: 1; }
+.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-more"] .pc3-finger { left: 82%; top: 82%; }
+.pc3-view[data-pc3-view="share"][data-pc3-sub="swipe-dt"] .pc3-finger { left: 46%; top: 62%; }
+.pc3-view[data-pc3-view="share"][data-pc3-sub="tap"] .pc3-finger { left: 38%; top: 44%; }
 
 .pc3-format-card, .pc3-ingest, .pc3-inside, .pc3-success {
   width: 100%; padding: 18px 14px; border: 1px solid var(--pc3-line); border-radius: 20px;
@@ -223,10 +324,18 @@
 @keyframes pc3-meter { to { width: 82%; } }
 @keyframes pc3-progress { to { width: 100%; } }
 
-.pc3-inside__file { position: relative; width: 92px; height: 108px; margin: 0 auto 14px; border: 1px solid rgba(255, 255, 255, .15); border-radius: 16px; background: linear-gradient(150deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .025)); box-shadow: 0 18px 42px rgba(0, 0, 0, .35); }
-.pc3-inside__file::before { content: ""; position: absolute; right: 0; top: 0; border-style: solid; border-width: 0 0 22px 22px; border-color: transparent transparent rgba(255, 255, 255, .11) transparent; }
-.pc3-inside__file span { position: absolute; left: 12px; top: 14px; color: var(--pc3-gold); font-size: .68rem; font-weight: 900; letter-spacing: .1em; }
-.pc3-inside__file b { position: absolute; left: 50%; top: 53%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: var(--pc3-grad); color: #07060b; font-size: 21px; }
+.pc3-inside__file { position: relative; width: 78px; height: 92px; margin: 0 auto 12px; border: 1px solid rgba(255, 255, 255, .15); border-radius: 16px; background: linear-gradient(150deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .025)); box-shadow: 0 18px 42px rgba(0, 0, 0, .35); }
+.pc3-inside__file::before { content: ""; position: absolute; right: 0; top: 0; border-style: solid; border-width: 0 0 20px 20px; border-color: transparent transparent rgba(255, 255, 255, .11) transparent; }
+.pc3-inside__file span { position: absolute; left: 11px; top: 12px; color: var(--pc3-gold); font-size: .62rem; font-weight: 900; letter-spacing: .1em; }
+.pc3-inside__file b { position: absolute; left: 50%; top: 53%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: var(--pc3-grad); color: #07060b; font-size: 19px; }
+/* Status row mimicking the real app's "downloading…" card (filename +
+   live percentage) so the final beat reads as the app itself mid-download,
+   not an abstract file icon. */
+.pc3-inside__row { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; font-size: .62rem; font-weight: 700; color: var(--pc3-muted); }
+.pc3-inside__dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--pc3-gold); box-shadow: 0 0 0 3px rgba(235, 201, 120, .22); animation: pc3-inside-dot 1s ease-in-out infinite; }
+@keyframes pc3-inside-dot { 50% { opacity: .35; } }
+.pc3-inside__name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
+.pc3-inside__percent { flex: none; color: var(--pc3-text); font-variant-numeric: tabular-nums; }
 
 .pc3-success { border-color: rgba(64, 227, 196, .32); }
 .pc3-success__check { display: grid; place-items: center; width: 68px; height: 68px; margin: 0 auto 14px; border-radius: 21px; background: linear-gradient(135deg, var(--pc3-teal), #98f8e5); color: #07060b; font-size: 33px; font-weight: 950; box-shadow: 0 14px 34px rgba(64, 227, 196, .18); }
