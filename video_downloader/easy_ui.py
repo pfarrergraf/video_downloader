@@ -373,7 +373,11 @@ class EasyUiApp:
             items = result.items
             entries = [LinkEntry(url=item.url, referer=item.referer) for item in items]
         except Exception as exc:
-            self.root.after(0, lambda: self._finish_scan_error(str(exc)))
+            # Bind the message now: `exc` is cleared at the end of the except
+            # block, but this lambda runs later on the Tk event loop, so
+            # referencing `exc` inside it would raise NameError.
+            message = str(exc)
+            self.root.after(0, lambda: self._finish_scan_error(message))
             return
         self.root.after(0, lambda: self._finish_scan_success_scrape(entries, items))
 

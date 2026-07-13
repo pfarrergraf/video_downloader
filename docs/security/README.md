@@ -68,6 +68,30 @@ Safer external framing:
 - `web-api-security-checklist.md` — Cloudflare/API/Stripe checklist.
 - `incident-response-plan.md` — first response plan for beta period.
 
+## Core-app & certification audit (2026-07-13)
+
+The evidence set was extended beyond the affiliate/web backend to cover the
+downloader core, the on-device web server, and the Android app, and a staged
+certification roadmap was added. New artifacts live in the top-level `security/`
+directory:
+
+- `RED_TEAM_REPORT_CORE_APP.md` — adversarial (CCC-style) assessment with
+  reproducible PoCs (`scripts/redteam_poc.py`). Confirmed & fixed: SSRF on
+  `/api/scrape`, world-readable local secrets, password-in-URL auto-login,
+  missing security headers. Debunked: external license-key forgery, Stripe
+  webhook forgery, path traversal, login brute-force.
+- `CERTIFICATION_LADDER.md` — L0 (self-assessment/transparency) → L1 (CI security
+  automation) → L2 (independent pentest) → L3 (formal seals: CRA, Play Data-Safety;
+  ISO 27001 / SOC 2 marked "prepared, not pursued"), with gates and a
+  proportionality call for a low-cost solo product.
+- `MASVS_MATRIX.md`, `ASVS_CORE_APP_ADDENDUM.md`, `CRA_GAP_ANALYSIS.md` — standard
+  mappings for the app/on-device server (certifier perspective, Rolle B).
+- `/SECURITY.md` + `pro/website/.well-known/security.txt` — coordinated disclosure.
+
+CI now runs SAST (bandit), a broken-code gate (ruff), the full test suite, CodeQL,
+and secret scanning — see `.github/workflows/security-scan.yml`, `codeql.yml`, and
+`.github/dependabot.yml`.
+
 ## Working rule
 
 Do not add dangerous Android permissions, weaken signing, expose secrets, or make stronger privacy claims than the code supports without updating this directory and documenting the reason.

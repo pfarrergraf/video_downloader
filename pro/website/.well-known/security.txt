@@ -1,0 +1,6 @@
+# DownloadThat / ClassyDL — security contact (RFC 9116)
+Contact: mailto:gpt.assist.benjamin@gmail.com
+Expires: 2027-07-13T00:00:00.000Z
+Preferred-Languages: de, en
+Canonical: https://downloadthat.pages.dev/.well-known/security.txt
+Policy: https://github.com/pfarrergraf/video_downloader/blob/main/SECURITY.md

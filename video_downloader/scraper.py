@@ -3,14 +3,66 @@
 from __future__ import annotations
 
 import fnmatch
+import ipaddress
 import mimetypes
 import re
+import socket
 from dataclasses import dataclass, field
 from typing import Callable
 from urllib.parse import urljoin, urlparse, unquote
 
 import requests
 from bs4 import BeautifulSoup
+
+
+class SsrfBlockedError(RuntimeError):
+    """Raised when a scrape target resolves to a non-public / disallowed host."""
+
+
+def _ip_is_blocked(ip: str) -> bool:
+    """True for loopback/private/link-local/reserved/multicast addresses -
+    i.e. anything that lets a scrape reach the host's own internal network or
+    a cloud metadata endpoint (169.254.169.254) rather than the public web."""
+    try:
+        addr = ipaddress.ip_address(ip)
+    except ValueError:
+        return True  # unparseable -> refuse rather than guess
+    return (
+        addr.is_private
+        or addr.is_loopback
+        or addr.is_link_local
+        or addr.is_reserved
+        or addr.is_multicast
+        or addr.is_unspecified
+    )
+
+
+def assert_public_url(url: str) -> None:
+    """SSRF guard: allow only http(s) URLs whose host resolves entirely to
+    public IPs. Raises SsrfBlockedError otherwise.
+
+    This is deliberately strict (blocks every resolved address, so a name
+    that maps to one public and one private IP is still refused). It does not
+    defend against DNS rebinding between this check and the actual connect -
+    that residual risk is accepted for this tool's threat model, where the
+    server binds loopback in the real deployments (see server.py / cli.py)."""
+    parsed = urlparse(url)
+    if parsed.scheme not in {"http", "https"}:
+        raise SsrfBlockedError(f"Blocked non-HTTP(S) URL scheme: {parsed.scheme or '(none)'}")
+    host = parsed.hostname
+    if not host:
+        raise SsrfBlockedError("Blocked URL with no host")
+    port = parsed.port or (443 if parsed.scheme == "https" else 80)
+    try:
+        infos = socket.getaddrinfo(host, port, proto=socket.IPPROTO_TCP)
+    except socket.gaierror as exc:
+        raise SsrfBlockedError(f"Could not resolve host '{host}': {exc}") from exc
+    for info in infos:
+        ip = info[4][0]
+        if _ip_is_blocked(ip):
+            raise SsrfBlockedError(
+                f"Blocked request to non-public address {ip} (host '{host}')"
+            )
 
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -109,15 +161,25 @@ def _filename_from_url(url: str) -> str:
 class SiteScraper:
     """Scrape a web page for all discoverable media assets."""
 
+    # Cap manually-followed redirects (we follow them ourselves so each hop is
+    # re-validated by the SSRF guard, which requests' own redirect handling
+    # would bypass).
+    MAX_REDIRECTS = 10
+
     def __init__(
         self,
         user_agent: str = DEFAULT_USER_AGENT,
         timeout: int = 30,
         logger: Logger | None = None,
+        allow_private_hosts: bool = False,
     ) -> None:
         self.user_agent = user_agent
         self.timeout = timeout
         self.logger = logger
+        # Off by default: the web endpoint (/api/scrape) fetches attacker-
+        # supplied URLs, so private/loopback targets must be refused. Power
+        # users scraping their own LAN can opt in explicitly.
+        self.allow_private_hosts = allow_private_hosts
 
     def scrape(
         self,
@@ -153,6 +215,12 @@ class SiteScraper:
 
         try:
             html, final_url = self._fetch_html(url)
+        except SsrfBlockedError:
+            # Hard failure for the top-level target: let the caller (e.g. the
+            # web /api/scrape handler) turn it into a clear 400, rather than a
+            # silent empty result. Blocked *sub-pages* in deep mode stay soft
+            # (handled in the deep loop below).
+            raise
         except Exception as exc:
             result.errors.append(f"Failed to fetch page: {exc}")
             return result
@@ -406,14 +474,32 @@ class SiteScraper:
         return urls
 
     def _fetch_html(self, url: str) -> tuple[str, str]:
-        """GET the page and return (html_text, final_url)."""
+        """GET the page and return (html_text, final_url).
+
+        Redirects are followed manually so the SSRF guard re-checks every hop
+        (a public URL that 302s to http://169.254.169.254/ would otherwise
+        sail straight through requests' built-in redirect follower)."""
         headers = {"User-Agent": self.user_agent}
-        with requests.get(url, headers=headers, timeout=self.timeout, allow_redirects=True) as resp:
-            resp.raise_for_status()
-            ct = resp.headers.get("Content-Type", "").lower()
-            if "html" not in ct:
-                raise RuntimeError(f"Not an HTML page (Content-Type: {ct})")
-            return resp.text, resp.url
+        current = url
+        for _ in range(self.MAX_REDIRECTS + 1):
+            if not self.allow_private_hosts:
+                assert_public_url(current)
+            with requests.get(
+                current,
+                headers=headers,
+                timeout=self.timeout,
+                allow_redirects=False,
+                stream=True,
+            ) as resp:
+                if resp.status_code in (301, 302, 303, 307, 308) and "location" in resp.headers:
+                    current = urljoin(current, resp.headers["location"])
+                    continue
+                resp.raise_for_status()
+                ct = resp.headers.get("Content-Type", "").lower()
+                if "html" not in ct:
+                    raise RuntimeError(f"Not an HTML page (Content-Type: {ct})")
+                return resp.text, resp.url
+        raise RuntimeError(f"Too many redirects (>{self.MAX_REDIRECTS})")
 
     def _log(self, msg: str) -> None:
         if self.logger:

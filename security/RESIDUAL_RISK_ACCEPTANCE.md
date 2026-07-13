@@ -56,3 +56,25 @@ sie aber nicht in dessen Namen.
 - **Kompensierende Kontrolle:** Keine zusätzliche.
 - **Zieldatum:** Kein festes Datum, in Verbesserungsplan aufgenommen.
 - **Verantwortlich:** Entwicklungsteam.
+
+## CORE-001 — Pro-Freischaltung client-seitig durchgesetzt
+
+- **Grund für Nicht-Behebung:** Die Free-/Pro-Entscheidung fällt in einem Server, der auf dem Gerät des
+  Nutzers läuft (siehe A2 in `RED_TEAM_REPORT_CORE_APP.md`). Serverseitiges DRM für eine 12-€-Einmalzahlung
+  wäre unverhältnismäßig und würde das Offline-/On-Device-Versprechen des Produkts brechen.
+- **Kompensierende Kontrolle:** Lizenzschlüssel sind serverseitig, zufällig, nicht fälschbar (A1); Online-
+  Re-Check alle 6 h; 7-Tage-Offline-Grace begrenzt dauerhaftes Offline-Tricksen nur eingeschränkt.
+  Der Angriff schädigt keine anderen Nutzer, nur den Umsatz im Einzelfall.
+- **Zieldatum:** Neubewertung, falls Missbrauch messbar wird oder ein Abo-Modell eingeführt wird.
+- **Verantwortlich:** Repository-Inhaber (Produktentscheidung).
+
+## CORE-002 — Keine Verschlüsselung lokaler Daten „at rest"; HTTP auf Loopback
+
+- **Grund für Nicht-Behebung:** Der On-Device-Server ist ein Einzelnutzer-Loopback-Dienst; TLS auf
+  `127.0.0.1` und at-rest-Verschlüsselung der lokalen SQLite-DB brächten für dieses Bedrohungsmodell
+  wenig gegenüber dem Komplexitäts-/Kompatibilitätspreis (Schlüsselverwaltung ohne Nutzer-Passwort).
+- **Kompensierende Kontrolle:** Dateirechte auf `0600`/`0700` gehärtet (A4), sodass Co-Tenants keinen
+  Lesezugriff haben; `Secure`-Cookies als Opt-in für TLS-Terminierungs-Deployments (`secure_cookies=True`);
+  lokale DSAR-Löschung via `classydl purge-data`.
+- **Zieldatum:** Falls ein Mehrbenutzer-/Server-Deployment offiziell unterstützt wird.
+- **Verantwortlich:** Entwicklungsteam / Repository-Inhaber.

@@ -39,7 +39,7 @@ from ..models import (
 )
 from ..queue_runner import QueueRunner
 from ..queue_store import QueueStore
-from ..scraper import SiteScraper
+from ..scraper import SiteScraper, SsrfBlockedError
 from ..utils import ensure_output_dir
 
 STATIC_DIR = Path(__file__).parent / "static"
@@ -139,6 +139,35 @@ class LoginThrottle:
     def record_success(self, ip: str) -> None:
         with self._lock:
             self._failures.pop(ip, None)
+
+
+# The desktop launcher used to put the web password itself in the auto-login
+# URL (?t=<password>), which leaks the long-lived secret into browser history,
+# referrers, and extensions. Instead the launcher mints one of these: a
+# single-use, short-lived token exchanged once for a session cookie.
+AUTOLOGIN_TOKEN_TTL_SECONDS = 120
+
+
+class AutoLoginTokens:
+    """Single-use, short-lived tokens for the desktop auto-login handshake."""
+
+    def __init__(self) -> None:
+        self._tokens: dict[str, float] = {}
+        self._lock = threading.Lock()
+
+    def issue(self) -> str:
+        token = secrets.token_urlsafe(32)
+        with self._lock:
+            self._tokens[token] = time.time() + AUTOLOGIN_TOKEN_TTL_SECONDS
+        return token
+
+    def consume(self, token: str | None) -> bool:
+        """Redeem a token exactly once; False if unknown/expired/already used."""
+        if not token:
+            return False
+        with self._lock:
+            expires = self._tokens.pop(token, None)
+            return expires is not None and expires >= time.time()
 
 
 class ChangeBus:
@@ -304,11 +333,15 @@ class ClassyDLServer(ThreadingHTTPServer):
         license_manager: LicenseManager | None = None,
         app_version: str = "",
         published_file_remover=None,
+        secure_cookies: bool = False,
     ) -> None:
         super().__init__(address, ClassyDLRequestHandler)
         self.store = store
         self.output_dir = output_dir
         self.password = password
+        # When True, session cookies carry the Secure flag - only correct
+        # behind a TLS terminator (see _send_json). Default HTTP/loopback: off.
+        self.secure_cookies = secure_cookies
         self.ffmpeg_binary = ffmpeg_binary
         self.license_manager = license_manager
         self.app_version = app_version
@@ -320,6 +353,7 @@ class ClassyDLServer(ThreadingHTTPServer):
         self.published_file_remover = published_file_remover
         self.sessions = SessionStore()
         self.login_throttle = LoginThrottle()
+        self.autologin_tokens = AutoLoginTokens()
         self.worker = BackgroundQueueWorker(store=store, output_dir=output_dir, workers=workers)
         # SSE push plumbing: every job-state/progress write in the store
         # bumps the bus; each /api/events client thread waits on it. Bounded
@@ -334,6 +368,10 @@ class ClassyDLServer(ThreadingHTTPServer):
         # of them commits a new job, letting a free-tier user queue more than
         # FREE_DAILY_DOWNLOAD_LIMIT downloads in a burst.
         self.quota_lock = threading.Lock()
+
+    def issue_autologin_token(self) -> str:
+        """Mint a single-use desktop auto-login token (see AutoLoginTokens)."""
+        return self.autologin_tokens.issue()
 
     def start_background_worker(self) -> None:
         self.worker.start()
@@ -368,6 +406,36 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
         except (UnicodeDecodeError, json.JSONDecodeError):
             return {}
 
+    # Applied to every response. The SPA is fully self-contained (no external
+    # CDN/font/script), so a strict CSP that only allows 'self' + inline
+    # (the SPA hand-inlines its script/style) blocks any injected exfiltration
+    # to a third-party host while keeping the page working. frame-ancestors
+    # 'none' is the clickjacking control the old server lacked entirely.
+    _SECURITY_CSP = (
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline'; "
+        "style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data: blob:; "
+        "media-src 'self' blob:; "
+        "font-src 'self' data:; "
+        "connect-src 'self'; "
+        "object-src 'none'; "
+        "base-uri 'none'; "
+        "form-action 'self'; "
+        "frame-ancestors 'none'"
+    )
+
+    def _send_security_headers(self) -> None:
+        """Emit the baseline hardening headers on every response.
+
+        Must be called after send_response() and before end_headers(). Kept in
+        one place so JSON, file, and SSE responses stay consistent.
+        """
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("X-Frame-Options", "DENY")
+        self.send_header("Referrer-Policy", "no-referrer")
+        self.send_header("Content-Security-Policy", self._SECURITY_CSP)
+
     def _send_json(
         self,
         status: int,
@@ -380,13 +448,19 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
         self.send_response(status, HTTP_REASONS.get(status, ""))
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(body)))
+        self._send_security_headers()
+        # `Secure` is opt-in (create_server(secure_cookies=True)): the default
+        # deployment is plain HTTP on loopback, where a Secure cookie would be
+        # silently dropped by the browser and break login. Operators who put
+        # this behind a TLS terminator flip the flag on.
+        secure = "; Secure" if getattr(self.server, "secure_cookies", False) else ""
         if set_cookie:
             self.send_header(
                 "Set-Cookie",
-                f"{SESSION_COOKIE}={set_cookie}; Max-Age={SESSION_TTL_SECONDS}; HttpOnly; SameSite=Lax; Path=/",
+                f"{SESSION_COOKIE}={set_cookie}; Max-Age={SESSION_TTL_SECONDS}; HttpOnly; SameSite=Lax; Path=/{secure}",
             )
         if delete_cookie:
-            self.send_header("Set-Cookie", f"{SESSION_COOKIE}=; Max-Age=0; HttpOnly; SameSite=Lax; Path=/")
+            self.send_header("Set-Cookie", f"{SESSION_COOKIE}=; Max-Age=0; HttpOnly; SameSite=Lax; Path=/{secure}")
         self.end_headers()
         self.wfile.write(body)
 
@@ -421,6 +495,7 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 self.send_response(416)
                 self.send_header("Content-Range", f"bytes */{file_size}")
                 self.send_header("Content-Length", "0")
+                self._send_security_headers()
                 self.end_headers()
                 return
             status = 206
@@ -441,6 +516,7 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         if download_name:
             self.send_header("Content-Disposition", f'attachment; filename="{download_name}"')
+        self._send_security_headers()
         self.end_headers()
         try:
             with file_obj:
@@ -487,6 +563,7 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             # Explicit close: tells this handler (and the client) the stream
             # has no length and ends when the connection does.
             self.send_header("Connection", "close")
+            self._send_security_headers()
             self.end_headers()
 
             bus = self.server.change_bus
@@ -653,6 +730,18 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             self._send_json(200, {"authenticated": True}, set_cookie=token)
             return
 
+        if path == "/api/desktop-login":
+            # One-time-token handshake for the desktop launcher: exchanges a
+            # single-use token (minted in-process by the launcher) for a
+            # session, so the long-lived password never rides in a URL.
+            body = self._read_json()
+            if not self.server.autologin_tokens.consume(str(body.get("token", ""))):
+                self._send_json(401, {"detail": "Invalid or expired token"})
+                return
+            token = self.server.sessions.issue()
+            self._send_json(200, {"authenticated": True}, set_cookie=token)
+            return
+
         if path == "/api/logout":
             self.server.sessions.revoke(self._session_token())
             self._send_json(200, {"authenticated": False}, delete_cookie=True)
@@ -800,6 +889,9 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                     name_filter=body.get("name_filter") or None,
                     deep=bool(body.get("deep", False)),
                 )
+            except SsrfBlockedError as exc:  # SSRF guard: refuse non-public targets
+                self._send_json(400, {"detail": str(exc)})
+                return
             except Exception as exc:  # network/parsing failures surface to the caller
                 self._send_json(502, {"detail": str(exc)})
                 return
@@ -989,6 +1081,7 @@ def create_server(
     license_manager: LicenseManager | None = None,
     app_version: str = "",
     published_file_remover=None,
+    secure_cookies: bool = False,
 ) -> ClassyDLServer:
     if not password:
         raise ValueError(
@@ -1009,6 +1102,7 @@ def create_server(
         license_manager=license_manager,
         app_version=app_version,
         published_file_remover=published_file_remover,
+        secure_cookies=secure_cookies,
     )
 
 

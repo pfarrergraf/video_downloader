@@ -1,0 +1,39 @@
+# Dependabot keeps dependencies and — crucially — GitHub Actions pinned and
+# patched. Enabling the `github-actions` ecosystem is the sustainable fix for
+# the tag-vs-SHA pinning finding (AFF-005): Dependabot proposes SHA/version
+# bumps as reviewable PRs instead of every workflow silently tracking a moving
+# tag. Grouped weekly so it isn't noisy.
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      python-dependencies:
+        patterns: ["*"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      github-actions:
+        patterns: ["*"]
+
+  - package-ecosystem: "npm"
+    directory: "/pro/website"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      npm-dependencies:
+        patterns: ["*"]
+
+  - package-ecosystem: "gradle"
+    directory: "/android"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3

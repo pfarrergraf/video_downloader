@@ -7,6 +7,8 @@ import pytest
 from video_downloader.scraper import (
     SiteScraper,
     ScrapedMedia,
+    SsrfBlockedError,
+    assert_public_url,
     classify_url,
     filter_items,
     format_size,
@@ -15,6 +17,51 @@ from video_downloader.scraper import (
     _is_same_domain,
     _path_ext,
 )
+
+
+# ── SSRF guard ────────────────────────────────────────────────────────────
+
+class TestSsrfGuard:
+    @pytest.mark.parametrize(
+        "url",
+        [
+            "http://127.0.0.1/",
+            "http://localhost/",
+            "http://169.254.169.254/latest/meta-data/",  # cloud metadata
+            "http://10.0.0.5/",
+            "http://192.168.1.1/",
+            "http://172.16.0.1/",
+            "http://[::1]/",
+        ],
+    )
+    def test_blocks_private_and_loopback(self, url):
+        with pytest.raises(SsrfBlockedError):
+            assert_public_url(url)
+
+    @pytest.mark.parametrize("url", ["file:///etc/passwd", "gopher://x/", "ftp://x/"])
+    def test_blocks_non_http_schemes(self, url):
+        with pytest.raises(SsrfBlockedError):
+            assert_public_url(url)
+
+    def test_blocks_missing_host(self):
+        with pytest.raises(SsrfBlockedError):
+            assert_public_url("http:///nohost")
+
+    def test_scrape_of_loopback_raises(self):
+        # Full path through scrape(): a loopback target is a hard error, not a
+        # silent empty result.
+        with pytest.raises(SsrfBlockedError):
+            SiteScraper().scrape("http://127.0.0.1:1/")
+
+    def test_allow_private_hosts_opt_in_skips_guard(self):
+        # With the opt-in flag the guard is bypassed: the loopback fetch is
+        # attempted and fails as an ordinary connection error, which scrape()
+        # captures in result.errors rather than raising SsrfBlockedError.
+        scraper = SiteScraper(allow_private_hosts=True, timeout=1)
+        result = scraper.scrape("http://127.0.0.1:1/")
+        assert result.items == []
+        assert result.errors  # a connection failure was recorded, not an SSRF block
+        assert not any("non-public" in e.lower() for e in result.errors)
 
 
 # ── classify_url ────────────────────────────────────────────────────────

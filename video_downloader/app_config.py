@@ -50,10 +50,26 @@ def resolve_paths() -> AppPaths:
     )
 
 
+def _harden(path: Path, mode: int) -> None:
+    """Best-effort restrictive permissions. No-op / advisory on Windows, where
+    POSIX modes don't apply - the data-dir there is already per-user under
+    %APPDATA%/%LOCALAPPDATA%. On Linux/Termux this stops a co-tenant local
+    user reading the state DB, config, logs, and secrets."""
+    try:
+        path.chmod(mode)
+    except OSError:
+        pass
+
+
 def ensure_runtime_paths(paths: AppPaths) -> None:
     paths.config_file.parent.mkdir(parents=True, exist_ok=True)
     paths.state_db.parent.mkdir(parents=True, exist_ok=True)
     paths.log_dir.mkdir(parents=True, exist_ok=True)
+    # Directories owner-only (0700) so the files inside them - state.db,
+    # config.toml, logs, web_password.txt, license.json - aren't world-listable.
+    _harden(paths.config_file.parent, 0o700)
+    _harden(paths.state_db.parent, 0o700)
+    _harden(paths.log_dir, 0o700)
 
 
 def default_config() -> AppConfig:
@@ -98,6 +114,7 @@ def save_config(paths: AppPaths, config: AppConfig) -> None:
         "",
     ]
     paths.config_file.write_text("\n".join(lines), encoding="utf-8")
+    _harden(paths.config_file, 0o600)
 
 
 def _clamp_int(value: object, lower: int, upper: int) -> int:

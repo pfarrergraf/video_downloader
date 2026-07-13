@@ -14,6 +14,10 @@ class FakeServer:
         self.stopped = False
         self.closed = False
         self.served = False
+        self.autologin_token = "one-time-token-abc"
+
+    def issue_autologin_token(self) -> str:
+        return self.autologin_token
 
     def start_background_worker(self) -> None:
         self.started = True
@@ -63,8 +67,12 @@ def test_password_is_generated_once_and_reused(monkeypatch: pytest.MonkeyPatch, 
     assert (tmp_path / "web_password.txt").read_text(encoding="utf-8").strip() == created_passwords[0]
     assert (tmp_path / "license.json").parent == tmp_path
     assert all(manager is not None for manager in license_managers)
-    assert _token_from_url(opened[0]) == created_passwords[0]
-    assert _token_from_url(opened[1]) == created_passwords[0]
+    # Security property: the auto-login URL carries a single-use token, NOT the
+    # long-lived web password (which must never travel in a URL).
+    assert _token_from_url(opened[0]) == servers[0].autologin_token
+    assert _token_from_url(opened[1]) == servers[1].autologin_token
+    assert created_passwords[0] not in opened[0]
+    assert created_passwords[0] not in opened[1]
     assert all(server.started and server.served and server.stopped and server.closed for server in servers)
 
 
@@ -87,6 +95,9 @@ def test_bind_failure_opens_existing_instance(monkeypatch: pytest.MonkeyPatch, t
 
     classydl_web_entry.main()
 
+    # When another instance already holds the port, we can't mint a token on a
+    # server we didn't create, so we just open the root - and crucially the
+    # persisted password never appears in the opened URL.
     assert len(opened) == 1
-    assert opened[0].startswith("http://127.0.0.1:8420/desktop_autologin.html?")
-    assert _token_from_url(opened[0]) == "existing-token"
+    assert opened[0] == "http://127.0.0.1:8420/"
+    assert "existing-token" not in opened[0]

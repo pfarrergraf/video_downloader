@@ -961,3 +961,115 @@ def test_events_stream_pushes_job_changes(server: ClassyDLServer) -> None:
 def test_events_stream_requires_auth(server: ClassyDLServer) -> None:
     status, _, _ = _request(server, "GET", "/api/events")
     assert status == 401
+
+
+# ── security hardening ──────────────────────────────────────────────────
+
+def _headers_for(server: ClassyDLServer, path: str, cookie: str | None = None) -> dict[str, str]:
+    conn = HTTPConnection(*server.server_address, timeout=5)
+    conn.request("GET", path, headers={"Cookie": cookie} if cookie else {})
+    resp = conn.getresponse()
+    resp.read()
+    headers = {k.lower(): v for k, v in resp.getheaders()}
+    conn.close()
+    return headers
+
+
+def test_security_headers_present_on_spa_and_api(server: ClassyDLServer) -> None:
+    for path in ("/", "/api/health"):
+        headers = _headers_for(server, path)
+        assert "content-security-policy" in headers, path
+        assert headers["x-frame-options"] == "DENY", path
+        assert headers["x-content-type-options"] == "nosniff", path
+        assert headers["referrer-policy"] == "no-referrer", path
+        assert "frame-ancestors 'none'" in headers["content-security-policy"], path
+
+
+def test_scrape_blocks_ssrf_to_loopback(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, body, _ = _request(
+        server, "POST", "/api/scrape", {"url": "http://127.0.0.1:1/"}, cookie=cookie
+    )
+    assert status == 400
+    assert "non-public" in body["detail"].lower()
+
+
+def test_scrape_blocks_non_http_scheme(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, body, _ = _request(
+        server, "POST", "/api/scrape", {"url": "file:///etc/passwd"}, cookie=cookie
+    )
+    assert status == 400
+    assert "scheme" in body["detail"].lower()
+
+
+def test_static_path_traversal_blocked(server: ClassyDLServer) -> None:
+    # A 404 (not a file read) proves the resolve-containment check held.
+    conn = HTTPConnection(*server.server_address, timeout=5)
+    conn.request("GET", "/..%2f..%2f..%2fetc%2fpasswd")
+    resp = conn.getresponse()
+    body = resp.read()
+    conn.close()
+    assert resp.status == 404
+    assert b"root:" not in body
+
+
+def test_download_path_traversal_blocked(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, _, _ = _request(
+        server, "GET", "/api/download/1/..%2f..%2f..%2fetc%2fpasswd", cookie=cookie
+    )
+    assert status == 404
+
+
+def test_desktop_login_one_time_token(server: ClassyDLServer) -> None:
+    token = server.issue_autologin_token()
+    # A valid unused token exchanges for a session.
+    status, body, set_cookie = _request(
+        server, "POST", "/api/desktop-login", {"token": token}
+    )
+    assert status == 200
+    assert body == {"authenticated": True}
+    assert set_cookie and "classydl_session=" in set_cookie
+    # Single-use: the same token is rejected the second time.
+    status, _, _ = _request(server, "POST", "/api/desktop-login", {"token": token})
+    assert status == 401
+    # An unknown token is rejected.
+    status, _, _ = _request(server, "POST", "/api/desktop-login", {"token": "nope"})
+    assert status == 401
+
+
+def test_session_cookie_secure_flag_is_opt_in(tmp_path: Path) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    srv = create_server(
+        store=store,
+        output_dir=tmp_path / "downloads",
+        password="crypt-keeper",
+        host="127.0.0.1",
+        port=0,
+        workers=1,
+        secure_cookies=True,
+    )
+    thread = threading.Thread(target=srv.serve_forever, daemon=True)
+    thread.start()
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        assert "Secure" in set_cookie
+    finally:
+        srv.shutdown()
+        srv.stop_background_worker()
+        srv.server_close()
+
+
+def test_state_db_is_owner_only(tmp_path: Path) -> None:
+    import os
+    import stat
+
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    mode = stat.S_IMODE(os.stat(tmp_path / "state.db").st_mode)
+    # No group/other bits (best-effort; on Windows chmod is advisory so we
+    # only assert the intent held on POSIX).
+    if os.name == "posix":
+        assert mode & 0o077 == 0, oct(mode)

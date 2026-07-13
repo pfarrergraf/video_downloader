@@ -137,7 +137,22 @@ class QueueStore:
             )
             self._migrate_jobs_columns(conn)
 
+        self._harden_db_files()
         self.ensure_default_profile()
+
+    def _harden_db_files(self) -> None:
+        """Restrict the state DB (and its WAL/SHM siblings) to the owner.
+
+        The DB holds the user's full download/scrape URL history in plaintext;
+        without this it lands at the process umask (world-readable 0644 on a
+        typical Linux host). Best-effort: advisory on Windows, and the WAL/SHM
+        files may not exist yet, so missing files are ignored."""
+        for suffix in ("", "-wal", "-shm"):
+            sibling = self.db_path.with_name(self.db_path.name + suffix)
+            try:
+                sibling.chmod(0o600)
+            except OSError:
+                pass
 
     def _migrate_jobs_columns(self, conn: sqlite3.Connection) -> None:
         # CREATE TABLE IF NOT EXISTS leaves pre-existing DBs (from before these
@@ -151,6 +166,27 @@ class QueueStore:
             conn.execute("ALTER TABLE jobs ADD COLUMN quality_height INTEGER")
         if "error_code" not in existing:
             conn.execute("ALTER TABLE jobs ADD COLUMN error_code TEXT")
+
+    def purge_user_data(self) -> dict[str, int]:
+        """Delete all activity/history rows that hold user-supplied URLs or
+        derived personal data - jobs, their files/events, and subscriptions.
+
+        Backs the `classydl purge-data` DSAR/"delete my data" command. Config
+        (profiles, settings) is intentionally left intact; use --logs on the
+        CLI to also clear the log file. Returns per-table deleted-row counts."""
+        counts: dict[str, int] = {}
+        with self._connect() as conn:
+            for table in (
+                "events",
+                "job_files",
+                "subscription_seen_items",
+                "subscriptions",
+                "jobs",
+            ):
+                cur = conn.execute(f"DELETE FROM {table}")  # noqa: S608 - fixed literal names
+                counts[table] = cur.rowcount if cur.rowcount and cur.rowcount > 0 else 0
+        self._notify_change()
+        return counts
 
     def get_setting(self, key: str, default: str | None = None) -> str | None:
         with self._connect() as conn:

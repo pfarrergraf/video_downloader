@@ -24,7 +24,7 @@ from .scheduler_windows import install_scheduler, uninstall_scheduler
 from .subscriptions import sync_due_subscriptions
 from .utils import ensure_output_dir, safe_filename
 
-NEW_COMMANDS = {"download", "queue", "profile", "sub", "history", "tui", "ui", "scrape", "web"}
+NEW_COMMANDS = {"download", "queue", "profile", "sub", "history", "tui", "ui", "scrape", "web", "purge-data"}
 
 
 def main() -> None:
@@ -102,7 +102,43 @@ def _dispatch_command(
     if args.command == "web":
         _command_web(console, store, config, args)
         return
+    if args.command == "purge-data":
+        _command_purge_data(console, store, config, args)
+        return
     raise ValueError(f"Unknown command: {args.command}")
+
+
+def _command_purge_data(
+    console: Console,
+    store: QueueStore,
+    config: AppConfig,
+    args: argparse.Namespace,
+) -> None:
+    """DSAR / "delete my data": wipe locally-stored download history and the
+    URLs it contains. Config (profiles/settings) is kept unless the user also
+    passes --logs to clear the log file."""
+    if not args.yes:
+        console.print(
+            "[bold yellow]This deletes all local download history, queued jobs, "
+            "subscriptions, and their event log from the state database.[/bold yellow]"
+        )
+        confirm = input("Type 'purge' to confirm: ").strip().lower()
+        if confirm != "purge":
+            console.print("Aborted.")
+            return
+    counts = store.purge_user_data()
+    total = sum(counts.values())
+    console.print(f"[bold green]Purged {total} record(s):[/bold green] {counts}")
+    if args.logs:
+        from .app_config import resolve_paths
+
+        log_file = resolve_paths().log_file
+        try:
+            if log_file.exists():
+                log_file.write_text("", encoding="utf-8")
+                console.print(f"Cleared log file: {log_file}")
+        except OSError as exc:
+            console.print(f"[yellow]Could not clear log file: {exc}[/yellow]")
 
 
 def _command_download(
@@ -429,6 +465,13 @@ def _command_web(
     output = args.output if args.output else config.default_output_dir
     output_dir = ensure_output_dir(Path(output).expanduser().resolve())
     workers = args.workers if args.workers else config.default_workers
+
+    if args.host not in ("127.0.0.1", "localhost", "::1"):
+        console.print(
+            f"[bold yellow]⚠ Binding to {args.host} exposes this server (and its "
+            "authenticated /api/scrape URL fetcher) to the network over plain HTTP. "
+            "Only do this on a trusted network; prefer 127.0.0.1.[/bold yellow]"
+        )
 
     console.print(f"[bold magenta]Starting Gothic web UI on http://{args.host}:{args.port}[/bold magenta]")
     run_server(
@@ -887,7 +930,12 @@ def _build_parser() -> argparse.ArgumentParser:
         "web",
         help="Launch the browser-based Gothic UI (reachable from phone/any device)",
     )
-    web_parser.add_argument("--host", default="0.0.0.0", help="Bind address (default: 0.0.0.0)")
+    web_parser.add_argument(
+        "--host",
+        default="127.0.0.1",
+        help="Bind address (default: 127.0.0.1, loopback only). Pass 0.0.0.0 "
+        "to expose it on the local network - only do this on a trusted network.",
+    )
     web_parser.add_argument("--port", type=int, default=8420, help="Bind port (default: 8420)")
     web_parser.add_argument(
         "--password",
@@ -895,6 +943,18 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     web_parser.add_argument("--workers", type=int, help="Concurrent download workers (default: config)")
     web_parser.add_argument("-o", "--output", help="Output directory for web downloads")
+
+    # ── purge-data command (DSAR / "delete my data") ────────────────────
+    purge_parser = subparsers.add_parser(
+        "purge-data",
+        help="Delete all locally-stored download history, jobs, and URLs (GDPR/DSAR)",
+    )
+    purge_parser.add_argument(
+        "-y", "--yes", action="store_true", help="Skip the interactive confirmation prompt"
+    )
+    purge_parser.add_argument(
+        "--logs", action="store_true", help="Also clear the application log file"
+    )
 
     return parser
 

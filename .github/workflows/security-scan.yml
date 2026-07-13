@@ -1,0 +1,73 @@
+name: Security scan
+
+# Fills the CI gap identified in the standards audit: the main Python test
+# suite never ran in CI (only affiliate tests did), and there was no SAST,
+# lint, or secret scanning. This workflow adds all four.
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-sast:
+    name: Lint + SAST (ruff, bandit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install dev + lint toolchain
+        run: uv sync --extra dev --extra lint
+      - name: Ruff (broken-code gate)
+        run: uv run ruff check video_downloader/
+      - name: Bandit (SAST, fail on High)
+        run: uv run bandit -c pyproject.toml -r video_downloader/ -q --severity-level high
+
+  tests:
+    name: Main test suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install dev environment
+        run: uv sync --extra dev
+      # tkinter is unavailable on the runner, so the two Tk-dependent files are
+      # excluded (documented gap, see CLAUDE.md), not silently skipped.
+      - name: Run tests
+        run: >
+          uv run pytest tests/
+          --ignore=tests/test_cli_compat.py
+          --ignore=tests/test_easy_ui.py
+          -q
+
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install dev environment
+        run: uv sync --extra dev
+      # Authoritative, repo-tuned check (knows the doc placeholders are not
+      # real secrets) - this one gates the build.
+      - name: Repo secret guard
+        run: uv run pytest tests/test_affiliate_no_secrets.py -q
+      # Broad scanner as an extra net; informational so doc placeholders like
+      # `sk_test_...` don't produce spurious build failures.
+      - name: gitleaks (informational)
+        continue-on-error: true
+        run: |
+          docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:latest \
+            detect --source=/repo --redact --no-banner || true

@@ -26,6 +26,13 @@ build = [
 dev = [
   "pytest>=8.3.0",
 ]
+# Static analysis / SAST run in CI (security-scan.yml). Pure-Python, dev/CI
+# only — never imported by the app or Android, so the Termux wheels rule is
+# unaffected.
+lint = [
+  "ruff>=0.6.0",
+  "bandit>=1.7.9",
+]
 # Creator-Kit-Generator (creator_tools/) — reine Dev-/Desktop-Werkzeuge, nicht Teil
 # der App. Pure-Python-Wheels (Termux-Regel bleibt gewahrt); das Rendering nutzt
 # zusätzlich ein lokales Chromium und ffmpeg, siehe creator_tools/README.md.
@@ -45,3 +52,20 @@ packages = ["video_downloader", "video_downloader.web"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+
+# Ruff here is a fast "is the code actually broken" gate, not a style pass:
+# E9 (syntax), F63/F7 (logic errors), F82 (undefined names / typos). Security
+# scanning is bandit's job (below), so the noisy flake8-bandit `S` rules are
+# deliberately not selected. Repo-wide style debt is out of scope.
+[tool.ruff]
+target-version = "py310"
+extend-exclude = ["android", "pro", "creator_tools", "build"]
+
+[tool.ruff.lint]
+select = ["E9", "F63", "F7", "F82"]
+
+[tool.bandit]
+# Skip asserts (B101) and the subprocess-use family (reviewed: yt-dlp/ffmpeg
+# are invoked with fixed, non-shell argv - see strategies.py).
+skips = ["B101", "B404", "B603", "B607"]
+exclude_dirs = ["tests", "android", "pro", "creator_tools", "build"]

@@ -17,10 +17,12 @@
   history.replaceState(null, '', '/');
   if (token) {
     try {
-      await fetch('/api/login', {
+      // Single-use one-time token (see /api/desktop-login) - never the
+      // account password, which must not travel in a URL.
+      await fetch('/api/desktop-login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: token }),
+        body: JSON.stringify({ token: token }),
       });
     } catch (e) {}
   }

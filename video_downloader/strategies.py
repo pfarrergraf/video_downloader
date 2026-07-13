@@ -490,7 +490,10 @@ def _direct_filename(request, source_url: str, response, content_type: str | Non
     path_name = Path(urlparse(source_url).path).name
     if path_name:
         return _ensure_extension(safe_filename(path_name), extension)
-    digest = hashlib.sha1(source_url.encode("utf-8")).hexdigest()[:12]
+    # Not a security hash: just a short, stable filename slug for a URL with
+    # no usable basename. usedforsecurity=False documents that and satisfies
+    # the SAST gate.
+    digest = hashlib.sha1(source_url.encode("utf-8"), usedforsecurity=False).hexdigest()[:12]
     return f"video_{digest}{extension}"
 
 

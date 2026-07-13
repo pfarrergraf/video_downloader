@@ -69,10 +69,16 @@ def main() -> None:
     if not password:
         password = secrets.token_hex(32)
         password_path.write_text(password + "\n", encoding="utf-8")
+    # The web password is a long-lived secret; keep it owner-only so a
+    # co-tenant on a multi-user host can't read it (best-effort on Windows,
+    # where POSIX modes are advisory).
+    try:
+        os.chmod(password_path, 0o600)
+    except OSError:
+        pass
 
     output_dir = ensure_output_dir(Path(config.default_output_dir).expanduser().resolve())
     workers = max(1, min(int(config.default_workers), int(config.max_workers), 8))
-    autologin_url = f"http://{host}:{port}/desktop_autologin.html?t={quote(password)}"
     platform_name = _PLATFORM_NAMES.get(platform_module.system().lower(), platform_module.system().lower())
     license_manager = LicenseManager(
         paths.config_file.parent / "license.json", LICENSE_API_BASE, platform=platform_name
@@ -90,13 +96,17 @@ def main() -> None:
         )
     except OSError:
         # Most likely another ClassyDL desktop-web instance is already bound to
-        # the fixed local port. Reuse the persisted password and open that
-        # running instance instead of showing a crash dialog for a harmless
-        # second launch.
-        webbrowser.open(autologin_url)
+        # the fixed local port. That instance already holds the user's session
+        # cookie (30-day TTL), so just open the root - no secret in the URL,
+        # and we can't mint a one-time token on a server we didn't create.
+        webbrowser.open(f"http://{host}:{port}/")
         return
 
     server.start_background_worker()
+    # Hand the browser a single-use token instead of the password: the token
+    # is redeemed once at /api/desktop-login and expires in seconds, so it's
+    # safe to leave in history/referrer.
+    autologin_url = f"http://{host}:{port}/desktop_autologin.html?t={quote(server.issue_autologin_token())}"
     webbrowser.open(autologin_url)
     try:
         server.serve_forever()

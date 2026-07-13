@@ -94,6 +94,12 @@ class LicenseManager:
     def _save(self) -> None:
         self._state_file.parent.mkdir(parents=True, exist_ok=True)
         self._state_file.write_text(json.dumps(asdict(self._state)))
+        # Holds the license key + device id; keep it owner-only so a co-tenant
+        # can't lift the key. Best-effort (advisory on Windows).
+        try:
+            self._state_file.chmod(0o600)
+        except OSError:
+            pass
 
     def status(self) -> LicenseState:
         return self._state
