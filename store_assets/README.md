@@ -23,8 +23,8 @@ submission.
 
 ### Short description (≤80 characters)
 
-**German:** `Videos, Audio & Bilder von jeder Seite herunterladen – schnell & einfach`
-**English:** `Download video, audio & images from any site — fast and simple`
+**German:** `Videos, Audio & Bilder von fast jeder Seite herunterladen – schnell & einfach`
+**English:** `Download video, audio & images from almost any site — fast and simple`
 
 ### Full description (≤4000 characters)
 

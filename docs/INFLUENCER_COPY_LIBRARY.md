@@ -408,7 +408,7 @@ placeholder before publishing — never post them unfilled:
 
 **EN**
 
-> Ad | Rip the audio as MP3 from almost any website — straight to your Android device, no cloud. Spotify & co. (DRM) won't work. {{affiliate_code}} / link in bio. Only download content with rights/permission.
+> Ad | Extract the audio as MP3 from almost any website — straight to your Android device, no cloud. Spotify & co. (DRM) won't work. {{affiliate_code}} / link in bio. Only download content with rights/permission.
 > #downloadthat #mp3 #audio #android #lifehack
 
 ### 3.4
