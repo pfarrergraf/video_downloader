@@ -36,16 +36,23 @@ Current value: `de.classydl.app`
 
 ---
 
+> ⚠️ **Facts must match `creator_tools/config/product_facts.json`** (the single
+> source of truth; `tests/test_creator_tools.py` enforces it): free tier = **3
+> downloads/day**, Pro = **one-time 12 €, no subscription**. Earlier drafts of this
+> doc said "5/day" and "monthly/yearly/lifetime" — both were wrong and are corrected
+> below. For the Data Safety form and content-policy risk, use
+> `docs/PLAY_STORE_READINESS.md` (more accurate than the summary here).
+
 ## Short description (≤80 chars)
 
 ```
-Download videos, audio & images from any site. Free core. Pro unlimited.
+Download video, audio & images from links you own. Free core, Pro unlimited.
 ```
 
 German:
 
 ```
-Videos, Audio & Bilder von jeder Seite laden. Kostenloser Kern, Pro unbegrenzt.
+Video, Audio & Bilder von deinen Links laden. Kostenloser Kern, Pro unbegrenzt.
 ```
 
 ---
@@ -53,45 +60,50 @@ Videos, Audio & Bilder von jeder Seite laden. Kostenloser Kern, Pro unbegrenzt.
 ## Full description
 
 ```
-DownloadThat downloads videos, audio, and images directly to your Android phone.
+DownloadThat saves video, audio, and images to your Android phone from links you provide — your own content, or media you are authorized to download.
 
-Paste a link, pick quality, tap download — that's it. Everything runs locally on your device. Nothing gets uploaded to any server you don't control.
+Paste a link, pick quality, tap download — that's it. Everything runs locally on your device.
 
 FEATURES
-• Videos from almost any site in your preferred quality (up to 4K)
-• Audio extraction — save any video as MP3
+• Save video from a link in your preferred quality (up to 4K)
+• Audio extraction — save a video's audio as MP3
 • Batch downloads — scan a page, pick what you want, download together
-• Image downloads — save images from any accessible URL
-• No cloud upload, no account needed for the free tier
-• No ads, no tracking SDKs, no dark-pattern paywalls
+• Image downloads — save images from a link
+• Runs on-device; no account needed for the free tier
+• No ads, no third-party tracking SDKs
 
 FREE TIER
-5 downloads per day in full HD/4K quality.
+3 downloads per day in full HD/4K quality.
 
-PRO TIER (monthly / yearly / lifetime)
-Unlimited downloads, batch mode, priority updates.
+PRO (one-time purchase, 12 €, no subscription)
+Unlimited downloads, playlist/batch mode, all future updates.
 
 PERMISSIONS
-INTERNET — required to fetch media from websites. No other permissions are requested.
+INTERNET, FOREGROUND_SERVICE(+DATA_SYNC), POST_NOTIFICATIONS — used to run and show progress for your downloads. No storage, contacts, location, camera, or tracking permissions.
 
 PRIVACY
-Nothing is sent to our servers during a download. Your download history stays on your device. See full privacy policy at: https://downloadthat.pages.dev/datenschutz.html
+The download itself runs on your device. If you buy Pro, your email and payment are handled by Stripe and a license key is stored to validate your purchase. Full privacy policy: https://downloadthat.pages.dev/datenschutz.html
 
 LEGAL
-You are responsible for how you use downloaded content. Please respect copyright and the terms of sites you download from.
+DownloadThat does not bypass DRM or paywalls. You are responsible for having the right to download the content, and for respecting copyright and each site's terms.
 ```
 
 ---
 
 ## Data safety answers
 
-Complete the Play Console Data Safety form with these answers:
+> ⚠️ The old "No — collects no data" answer is **inaccurate** and a common cause of
+> Play enforcement: the app sends a device identifier + license key to the license
+> server, and a Pro purchase collects an email + payment via Stripe. Use the accurate
+> mapping in **`docs/PLAY_STORE_READINESS.md` → "Data Safety mapping"**. Summary:
 
 | Question | Answer |
 |---|---|
-| Does your app collect or share any of the required user data types? | No |
-| Is all of the user data collected by your app encrypted in transit? | Yes (INTERNET permission is used only for outbound download requests over HTTPS) |
-| Do you provide a way for users to request that their data is deleted? | N/A (no user data collected) |
+| Does your app collect or share any user data? | **Yes** (collect, not share for ads) |
+| Data types collected | **Device or other IDs** (per-install `device_id` for the one-device license slot); **Email address** + **Purchase history** (only if the user buys Pro, via Stripe); no free-tier account data |
+| Is data encrypted in transit? | **Yes** (HTTPS to the license/payment backend) |
+| Do you provide a way to request deletion? | **Yes** — email the contact in `SECURITY.md`; erasure is fulfilled via `POST /api/admin/gdpr-erase`. Also `classydl purge-data` clears on-device data |
+| Data shared with third parties? | Payment/email processed by **Stripe** (payment processor, not advertising) |
 
 ---
 
