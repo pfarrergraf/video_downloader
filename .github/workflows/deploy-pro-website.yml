@@ -22,6 +22,7 @@ jobs:
       PLAY_STORE_URL: ${{ vars.PLAY_STORE_URL }}
       PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL || 'https://downloadthat.app' }}
       CANONICAL_REDIRECT_ENABLED: ${{ vars.CANONICAL_REDIRECT_ENABLED || 'false' }}
+      PLAY_BACKEND_CONFIGURED: ${{ vars.PLAY_BACKEND_CONFIGURED || 'false' }}
       GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL }}
       GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY }}
       PLAY_TOKEN_ENCRYPTION_KEY: ${{ secrets.PLAY_TOKEN_ENCRYPTION_KEY }}
@@ -32,13 +33,18 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - name: Enforce public claims policy before deployment
         run: python scripts/check_public_claims.py
-      - name: Require explicit decommission and Play configuration
+      - name: Require Cloudflare and optional Play configuration
         shell: bash
         run: |
-          test "$PLAY_DECOMMISSION_APPROVED" = "true" || { echo "Run the decommission preflight and set PLAY_DECOMMISSION_APPROVED=true"; exit 1; }
-          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID PLAY_STORE_URL GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY PLAY_TOKEN_ENCRYPTION_KEY PLAY_RTDN_AUDIENCE PLAY_RTDN_SERVICE_ACCOUNT_EMAIL PLAY_RECONCILIATION_SECRET; do
+          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
             test -n "${!name}" || { echo "$name is missing"; exit 1; }
           done
+          if [ "$PLAY_BACKEND_CONFIGURED" = "true" ]; then
+            test "$PLAY_DECOMMISSION_APPROVED" = "true" || { echo "Run the decommission preflight and set PLAY_DECOMMISSION_APPROVED=true"; exit 1; }
+            for name in GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY PLAY_TOKEN_ENCRYPTION_KEY PLAY_RTDN_AUDIENCE PLAY_RTDN_SERVICE_ACCOUNT_EMAIL PLAY_RECONCILIATION_SECRET; do
+              test -n "${!name}" || { echo "$name is missing"; exit 1; }
+            done
+          fi
 
       - name: Export D1 backup before migration
         working-directory: pro/website
@@ -58,7 +64,21 @@ jobs:
         working-directory: pro/website
         run: npx -y wrangler@3.114.15 d1 migrations apply downloadthat-licenses --remote
 
-      - name: Set Google Play runtime secrets
+      - name: Set public website runtime configuration
+        working-directory: pro/website
+        shell: bash
+        run: |
+          put() { printf '%s' "$2" | npx -y wrangler@3.114.15 pages secret put "$1" --project-name=downloadthat; }
+          put PUBLIC_BASE_URL "$PUBLIC_BASE_URL"
+          put CANONICAL_REDIRECT_ENABLED "$CANONICAL_REDIRECT_ENABLED"
+          put PLAY_PACKAGE_NAME "de.classydl.app"
+          put PLAY_PRODUCT_ID "pro"
+          if [ -n "$PLAY_STORE_URL" ]; then
+            put PLAY_STORE_URL "$PLAY_STORE_URL"
+          fi
+
+      - name: Set Google Play backend secrets
+        if: env.PLAY_BACKEND_CONFIGURED == 'true'
         working-directory: pro/website
         shell: bash
         run: |
@@ -69,11 +89,9 @@ jobs:
           put PLAY_RTDN_AUDIENCE "$PLAY_RTDN_AUDIENCE"
           put PLAY_RTDN_SERVICE_ACCOUNT_EMAIL "$PLAY_RTDN_SERVICE_ACCOUNT_EMAIL"
           put PLAY_RECONCILIATION_SECRET "$PLAY_RECONCILIATION_SECRET"
-          put PLAY_STORE_URL "$PLAY_STORE_URL"
-          put PUBLIC_BASE_URL "$PUBLIC_BASE_URL"
-          put CANONICAL_REDIRECT_ENABLED "$CANONICAL_REDIRECT_ENABLED"
-          put PLAY_PACKAGE_NAME "de.classydl.app"
-          put PLAY_PRODUCT_ID "pro"
+          if [ -n "$PLAY_STORE_URL" ]; then
+            put PLAY_STORE_URL "$PLAY_STORE_URL"
+          fi
 
       - name: Deploy static site and Functions
         uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
@@ -82,6 +100,30 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: pro/website
           command: pages deploy . --project-name=downloadthat
+
+      - name: Replace legacy Hello World route and attach production domains
+        shell: bash
+        run: |
+          auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json")
+
+          zone_json=$(curl --fail --silent --show-error "https://api.cloudflare.com/client/v4/zones?name=downloadthat.app" "${auth[@]}")
+          zone_id=$(jq -r '.result[0].id // empty' <<<"$zone_json")
+          if [ -n "$zone_id" ]; then
+            routes_json=$(curl --fail --silent --show-error "https://api.cloudflare.com/client/v4/zones/$zone_id/workers/routes" "${auth[@]}")
+            jq -r '.result[] | select(.pattern == "downloadthat.app/*" or .pattern == "www.downloadthat.app/*") | .id' <<<"$routes_json" |
+              while read -r route_id; do
+                [ -n "$route_id" ] || continue
+                curl --fail --silent --show-error -X DELETE "https://api.cloudflare.com/client/v4/zones/$zone_id/workers/routes/$route_id" "${auth[@]}" >/dev/null
+              done
+          fi
+
+          domains_url="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/downloadthat/domains"
+          for domain in downloadthat.app www.downloadthat.app; do
+            domains_json=$(curl --fail --silent --show-error "$domains_url" "${auth[@]}")
+            if ! jq -e --arg domain "$domain" '.result[] | select(.name == $domain)' <<<"$domains_json" >/dev/null; then
+              curl --fail --silent --show-error -X POST "$domains_url" "${auth[@]}" --data "{\"name\":\"$domain\"}" >/dev/null
+            fi
+          done
 
       - name: Verify Play-first deployment
         shell: bash
