@@ -75,7 +75,10 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
   führen zu 404 (bekanntes, bestehendes Verhalten).
 
 **Log T2:**
-- (offen)
+- 2026-07-14 — Claude/opus — **in Arbeit** auf `agent/claude/t2-t4`: Rechtsseite wird in die
+  13 Sprachen übersetzt, für die `datenschutz.<lang>.html` existiert (cs, da, el, es, fi, fr,
+  it, nl, no, pl, pt, ro, sv) — je als `rechtliches.<lang>.html`, gleiche Hülle/Style,
+  `legal-lang.js data-doc="rechtliches"`. Kein Zugriff auf i18n/*.json.
 
 ### T3 — „almost any" konsistent über alle i18n-Locales
 - [ ] `f5_desc` (und ähnliche absolute „any"/„jede") in den übrigen ~48
@@ -86,11 +89,16 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
 - (offen)
 
 ### T4 — „Offline-Hack"-Ton prüfen
-- [ ] `docs/INFLUENCER_VIDEO_SCRIPTS.md:223` („alles offline schauen / Offline-Hack")
+- [x] `docs/INFLUENCER_VIDEO_SCRIPTS.md:223` („alles offline schauen / Offline-Hack")
   tonal entschärfen (bereits durch „Nur mit Erlaubnis laden" abgemildert, aber grenzwertig).
 
 **Log T4:**
-- (offen)
+- 2026-07-14 — Claude/opus — **erledigt.** Skript 5 („Offline in den Urlaub") entschärft:
+  Overlay `Offline-Hack` → `Offline dabei`; „ich kann trotzdem alles schauen" →
+  „meine gespeicherten Videos laufen trotzdem" (DE) bzw. „my saved videos still play" (EN);
+  EN-Overlay `Offline` ergänzt. Fokus jetzt auf eigenem/gespeichertem Content statt auf
+  „alles schauen" — entspricht der Verbotsliste in `MARKETING_LEGAL_GUARDRAILS.md` (kein
+  „ohne Abo schauen"/„lädt alles"). Rest des Skripts (Rechte-Hinweis on-screen) unverändert.
 
 ### T5 — Retention-Cleanup automatisch triggern
 - [ ] `POST /api/admin/retention-cleanup` regelmäßig auslösen (z. B. GitHub-Actions-Cron

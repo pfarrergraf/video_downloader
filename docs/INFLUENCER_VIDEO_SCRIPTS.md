@@ -220,14 +220,14 @@ all she needs. Free, Android. Overlays: `Ad`, `Made simple on purpose`.
 
 ### Skript 5 — „Offline in den Urlaub"
 
-- **0–3 s:** „Flugmodus an. Und ich kann trotzdem alles schauen." / *Flugmodus-Toggle, dann Videogalerie* / `Werbung · Offline-Hack`
+- **0–3 s:** „Flugmodus an — und meine gespeicherten Videos laufen trotzdem." / *Flugmodus-Toggle, dann die eigene Videogalerie* / `Werbung · Offline dabei`
 - **3–8 s:** „Vor der Reise: Links teilen, Warteschlange füllen, Handy laden lassen." / *Mehrere Downloads stapeln sich in der Queue* / `Warteschlange füllen`
 - **8–12 s:** „Alles liegt lokal auf dem Gerät — kein Cloud-Gedöns, kein Konto." / *Dateimanager zeigt lokale Dateien* / `100 % lokal`
 - **12–15 s:** „3 Downloads am Tag gratis. Nur eigene/erlaubte Inhalte, klar? {{cta}}" / *Creator lehnt sich im Flugzeugsitz zurück* / `Nur mit Erlaubnis laden`
 
-**EN kompakt:** "Airplane mode on — and I can still watch everything." Fill the
+**EN kompakt:** "Airplane mode on — and my saved videos still play." Fill the
 queue before the trip; everything stays on-device, no cloud, no account. Free:
-3/day. Only download what you have rights to. Overlays: `Ad`, `100 % on-device`.
+3/day. Only download what you have rights to. Overlays: `Ad`, `Offline`, `100 % on-device`.
 
 ### Skript 6 — „MP3 aus dem eigenen Podcast"
 
