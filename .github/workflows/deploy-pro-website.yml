@@ -30,7 +30,7 @@ jobs:
       PLAY_RTDN_SERVICE_ACCOUNT_EMAIL: ${{ secrets.PLAY_RTDN_SERVICE_ACCOUNT_EMAIL }}
       PLAY_RECONCILIATION_SECRET: ${{ secrets.PLAY_RECONCILIATION_SECRET }}
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Enforce public claims policy before deployment
         run: python scripts/check_public_claims.py
       - name: Require Cloudflare and optional Play configuration
@@ -55,7 +55,7 @@ jobs:
         run: sha256sum downloadthat-licenses-before-play.sql > downloadthat-licenses-before-play.sql.sha256
       - name: Upload pre-migration evidence
         if: env.PLAY_BACKEND_CONFIGURED == 'true'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: downloadthat-licenses-before-play-${{ github.run_id }}
           path: |
@@ -100,7 +100,7 @@ jobs:
 
       - name: Deploy static site and Functions
         id: pages-deploy
-        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4.0.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
