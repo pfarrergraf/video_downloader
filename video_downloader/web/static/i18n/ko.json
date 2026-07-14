@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "대부분의 사이트에서든, 어떤 기기에서든 미디어를 다운로드하세요",
+    "tagline": "권리가 있는 미디어만 다운로드하세요.",
     "login": {
       "title": "로그인",
       "password_label": "비밀번호",
@@ -19,7 +19,8 @@
       "status_free": "무료 — 하루 {limit}회 다운로드. Pro: 무제한.",
       "need_key_toast": "먼저 라이선스 키를 입력하세요.",
       "activated_toast": "라이선스가 활성화되었습니다.",
-      "invalid_toast": "유효하지 않은 라이선스 키입니다."
+      "invalid_toast": "유효하지 않은 라이선스 키입니다.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "대기열",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — 안드로이드용 동영상, 오디오 및 이미지 다운로더",
-      "description": "동영상, 오디오, 이미지를 안드로이드 폰으로 바로 다운로드하세요. 플레이스토어도, 광고도, 종속도 없습니다. 핵심 기능은 무료, Pro는 월 €1부터."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "기능",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "{emphasis} 다운로드.<br/>바로 당신의 폰으로.",
       "title_emphasis": "거의 모든 것을",
-      "lead": "거의 모든 사이트의 동영상, 오디오, 이미지를 안드로이드 폰으로 바로 다운로드하세요. 클라우드 업로드도 없고, 데이터가 기기 밖으로 나가지 않으며, 플레이스토어도 필요 없습니다.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "무료 안드로이드 버전 다운로드",
       "cta_secondary": "Pro 요금제 보기",
       "windows_link": "Windows용도 있습니다 →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "필요한 건 다 있고, 필요 없는 건 없습니다",
       "lead": "빠르고 안전하게 그냥 작동하는 다운로더 — 더 많은 기능이 필요하다면 Pro 등급도 있습니다.",
       "f1_title": "대부분의 동영상과 오디오",
-      "f1_desc": "링크를 붙여넣고, 화질을 선택하고, 다운로드하세요. 대부분의 동영상, 오디오, 이미지 사이트에서 작동하지만 Spotify나 Netflix 같은 DRM 보호 서비스에서는 작동하지 않습니다.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "일괄 다운로드",
       "f2_desc": "페이지를 스캔해 모든 미디어 파일을 찾고, 선택/해제하여 한 번에 다운로드하세요.",
       "f3_title": "설계부터 비공개",
-      "f3_desc": "모든 작업이 폰에서 로컬로 실행됩니다. 당신이 관리하지 않는 서버로는 아무것도 업로드되지 않습니다.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "광고도, 추적도 없음",
       "f4_desc": "광고 네트워크도, 분석 SDK도, 눈속임 결제 유도도 없습니다. 오직 앱뿐입니다.",
       "f5_title": "오디오 추출",
-      "f5_desc": "거의 모든 동영상에서 오디오 트랙만 추출해 MP3로 저장하세요.",
-      "f6_title": "앱 스토어 불필요",
-      "f6_desc": "안드로이드 버전을 직접 설치하세요. 계정도, 플레이스토어 심사 과정도, 지역 제한도 없습니다.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "일괄 다운로드",
       "feature_priority_updates": "우선 업데이트",
       "feature_all_updates": "향후 모든 업데이트 포함",
-      "cta_lifetime": "라이선스 구매",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "구독 없음"
     },
     "faq": {
       "h2": "자주 묻는 질문",
       "q1_title": "앱을 사용하려면 Pro가 필요한가요?",
       "q1_body": "아니요. 앱은 무료이며 완전히 사용할 수 있습니다. Pro는 제한을 없애고 개발을 지원합니다.",
-      "q2_title": "구글 플레이 없이도 작동하나요?",
-      "q2_body": "네 — 직접 설치하는 독립형 안드로이드 버전입니다. 플레이스토어 계정이나 승인이 필요 없습니다.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "라이선스 키는 어디에 입력하나요?",
-      "q3_body": "구매 직후 확인 페이지에서 라이선스 키를 확인할 수 있습니다 — 앱 설정에서 입력하세요.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "환불받을 수 있나요?",
-      "q4_body": "구매 시 14일 철회권을 유지하면 라이선스가 전달되기 전 언제든지 취소하고 환불받을 수 있습니다. 즉시 전달을 선택하면 그 권리를 포기하는 것이며 — 이후 환불은 자발적입니다. 확신이 없다면 먼저 무료 버전을 사용해 보세요.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "이것은 합법인가요?",
       "q5_body": "다운로드한 콘텐츠의 사용에 대한 책임은 사용자 본인에게 있습니다. 저작권과 다운로드 대상 사이트의 이용 약관을 준수해 주세요.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

@@ -1,4 +1,8 @@
-# Production Security Checklist — Affiliate Program
+# Production Security Checklist — Historical Affiliate Program
+
+> This checklist preserves the completed affiliate audit. It is not a current
+> go-live checklist. Use `docs/GOOGLE_PLAY_OWNER_CHECKLIST.md` and
+> `GOOGLE_PLAY_SECURITY_ARCHITECTURE.md` for the Google-Play-first launch.
 
 Konsolidiert HANDOVER.md §6/§12 mit den Ergebnissen dieser Prüfung. **Kein Punkt hier ersetzt eine
 schriftliche Freigabe des Repository-Inhabers.**
@@ -20,12 +24,12 @@ schriftliche Freigabe des Repository-Inhabers.**
 
 ## Vor Produktionsaktivierung weiterhin zwingend erforderlich (nicht durch diese Sitzung leistbar)
 
-- [ ] **GitHub Actions auf Commit-SHA pinnen** (AFF-005) — erfordert Verifikation echter Hashes mit
-      Internetzugriff; Dependabot `github-actions`-Updates aktivieren.
+- [x] **GitHub Actions auf Commit-SHA gepinnt** (AFF-005); Regressionstest verhindert
+      eine Rückkehr zu beweglichen Tags.
 - [ ] **`ANDROID_CERT_SHA256` in Cloudflare-Produktionsumgebung verifizieren** (AFF-009) — `curl
       https://<domain>/.well-known/assetlinks.json` muss ein nicht-leeres, korrektes JSON liefern, für
       **beide** Produktionsdomains.
-- [ ] `wrangler`-Version in `deploy-pro-website.yml` fest pinnen statt `npx -y wrangler@3`.
+- [x] `wrangler`-Version in `deploy-pro-website.yml` exakt gepinnt.
 - [ ] Alle in HANDOVER.md §5 gelisteten Secrets/Variablen in Cloudflare setzen und verifizieren.
 - [ ] Vollständiger Stripe-Testmodus-Durchlauf: sofortige Kartenzahlung, SEPA erfolgreich/fehlgeschlagen,
       Voll-/Teil-Refund, Dispute erstellt/verloren/gewonnen, Webhook-Duplikate/-Reihenfolge (HANDOVER §6.3).
@@ -38,7 +42,7 @@ schriftliche Freigabe des Repository-Inhabers.**
       manuell sichtbar).
 - [ ] Automatisierten Aufräumprozess für abgelaufene Klicks/Tokens/Sessions einrichten
       (`PRIVACY_AND_DATA_RETENTION_REVIEW.md`).
-- [ ] CSP von `'unsafe-inline'` auf nonce-/hash-basiert umstellen (AFF-010, Verteidigung in der Tiefe).
+- [x] CSP `script-src` ohne `'unsafe-inline'`; Initialisierung in externe Datei verschoben (AFF-010).
 - [ ] Schriftliche Produktionsfreigabe des Repository-Inhabers dokumentieren.
 
 ## Automatisches No-Go (aus HANDOVER §12, unverändert gültig)

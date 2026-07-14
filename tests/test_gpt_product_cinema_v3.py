@@ -15,7 +15,9 @@ JS = ASSETS / "gpt_product_cinema_v3.js"
 
 def test_v3_files_exist() -> None:
     assert HTML.is_file()
-    assert PREVIEW.is_file()
+    # The old public dev preview had an inline script and would be deployed by
+    # Cloudflare Pages. Keep the reusable fragment/assets, not the preview page.
+    assert not PREVIEW.exists()
     assert JS.is_file()
     assert all(path.is_file() for path in CSS_FILES)
 
@@ -55,7 +57,7 @@ def test_accessibility_and_motion_controls_exist() -> None:
 
 
 def test_v3_does_not_embed_payment_or_android_permission_logic() -> None:
-    files = (HTML, PREVIEW, JS, *CSS_FILES)
+    files = (HTML, JS, *CSS_FILES)
     combined = "\n".join(path.read_text(encoding="utf-8") for path in files).lower()
     forbidden = (
         "buy.stripe.com",

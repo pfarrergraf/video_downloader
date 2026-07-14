@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "ಹೆಚ್ಚಿನ ಸೈಟ್‌ಗಳಿಂದ, ಯಾವುದೇ ಸಾಧನದಲ್ಲಿ ಮೀಡಿಯಾ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+    "tagline": "ನಿಮಗೆ ಹಕ್ಕುಗಳಿರುವ ಮೀಡಿಯಾವನ್ನು ಮಾತ್ರ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ.",
     "login": {
       "title": "ಲಾಗಿನ್",
       "password_label": "ಪಾಸ್‌ವರ್ಡ್",
@@ -19,7 +19,8 @@
       "status_free": "ಉಚಿತ — ದಿನಕ್ಕೆ {limit} ಡೌನ್‌ಲೋಡ್‌ಗಳು. ಪ್ರೊ: ಅಪರಿಮಿತ.",
       "need_key_toast": "ಮೊದಲು ಲೈಸೆನ್ಸ್ ಕೀ ನಮೂದಿಸಿ.",
       "activated_toast": "ಲೈಸೆನ್ಸ್ ಸಕ್ರಿಯಗೊಂಡಿದೆ.",
-      "invalid_toast": "ಅಮಾನ್ಯ ಲೈಸೆನ್ಸ್ ಕೀ."
+      "invalid_toast": "ಅಮಾನ್ಯ ಲೈಸೆನ್ಸ್ ಕೀ.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "ಕ್ಯೂ",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Android ಗಾಗಿ ವೀಡಿಯೊ, ಆಡಿಯೊ ಮತ್ತು ಚಿತ್ರ ಡೌನ್‌ಲೋಡರ್",
-      "description": "ವೀಡಿಯೊಗಳು, ಆಡಿಯೊ ಮತ್ತು ಚಿತ್ರಗಳನ್ನು ನೇರವಾಗಿ ನಿಮ್ಮ Android ಫೋನ್‌ಗೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ. Play Store ಇಲ್ಲ, ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಲಾಕ್-ಇನ್ ಇಲ್ಲ. ಮುಖ್ಯ ಆವೃತ್ತಿ ಉಚಿತ, ಪ್ರೊ €1/ತಿಂಗಳಿನಿಂದ."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "ವೈಶಿಷ್ಟ್ಯಗಳು",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "{emphasis} ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ.<br/>ನೇರವಾಗಿ ನಿಮ್ಮ ಫೋನ್‌ಗೆ.",
       "title_emphasis": "ಬಹುತೇಕ ಎಲ್ಲವನ್ನೂ",
-      "lead": "ಬಹುತೇಕ ಯಾವುದೇ ಸೈಟ್‌ನಿಂದ ವೀಡಿಯೊ, ಆಡಿಯೊ ಮತ್ತು ಚಿತ್ರಗಳು — ನೇರವಾಗಿ ನಿಮ್ಮ Android ಫೋನ್‌ಗೆ ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತವೆ. ಯಾವುದೇ ಕ್ಲೌಡ್ ಅಪ್‌ಲೋಡ್ ಇಲ್ಲ, ಯಾವುದೇ ಡೇಟಾ ನಿಮ್ಮ ಸಾಧನವನ್ನು ಬಿಟ್ಟು ಹೋಗುವುದಿಲ್ಲ, Play Store ಅಗತ್ಯವಿಲ್ಲ.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "ಉಚಿತ ಆಂಡ್ರಾಯ್ಡ್ ಆವೃತ್ತಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
       "cta_secondary": "ಪ್ರೊ ಬೆಲೆ ನೋಡಿ",
       "windows_link": "Windows ಗಾಗಿಯೂ ಲಭ್ಯವಿದೆ →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "ನಿಮಗೆ ಬೇಕಾದ್ದೆಲ್ಲಾ, ಬೇಡದ್ದು ಏನೂ ಇಲ್ಲ",
       "lead": "ಸುಲಭವಾಗಿ ಕೆಲಸ ಮಾಡುವ ವೇಗದ, ಖಾಸಗಿ ಡೌನ್‌ಲೋಡರ್ — ಹೆಚ್ಚು ಬಯಸುವವರಿಗೆ ಪ್ರೊ ಹಂತದೊಂದಿಗೆ.",
       "f1_title": "ಹೆಚ್ಚಿನ ವೀಡಿಯೊ ಅಥವಾ ಆಡಿಯೊ",
-      "f1_desc": "ಲಿಂಕ್ ಅಂಟಿಸಿ, ಗುಣಮಟ್ಟ ಆಯ್ಕೆಮಾಡಿ, ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ. ಹೆಚ್ಚಿನ ವೀಡಿಯೊ, ಆಡಿಯೊ ಮತ್ತು ಚಿತ್ರ ಸೈಟ್‌ಗಳೊಂದಿಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ — Spotify ಅಥವಾ Netflix ನಂತಹ DRM-ಸಂರಕ್ಷಿತ ಸೇವೆಗಳೊಂದಿಗೆ ಅಲ್ಲ.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "ಬ್ಯಾಚ್ ಡೌನ್‌ಲೋಡ್‌ಗಳು",
       "f2_desc": "ಪುಟದಲ್ಲಿರುವ ಪ್ರತಿಯೊಂದು ಮೀಡಿಯಾ ಫೈಲ್‌ಗಾಗಿ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ ಮತ್ತು ಆಯ್ಕೆ/ರದ್ದು ಆಯ್ಕೆಯೊಂದಿಗೆ ಅವುಗಳನ್ನು ಒಟ್ಟಿಗೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ.",
       "f3_title": "ವಿನ್ಯಾಸದಿಂದಲೇ ಖಾಸಗಿ",
-      "f3_desc": "ಎಲ್ಲವೂ ನಿಮ್ಮ ಫೋನ್‌ನಲ್ಲಿ ಸ್ಥಳೀಯವಾಗಿ ಚಲಿಸುತ್ತದೆ. ನೀವು ನಿಯಂತ್ರಿಸದ ಸರ್ವರ್‌ಗೆ ಏನೂ ಅಪ್‌ಲೋಡ್ ಆಗುವುದಿಲ್ಲ.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ",
       "f4_desc": "ಜಾಹೀರಾತು ನೆಟ್‌ವರ್ಕ್‌ಗಳಿಲ್ಲ, ಅನಾಲಿಟಿಕ್ಸ್ SDK ಗಳಿಲ್ಲ, ಡಾರ್ಕ್-ಪ್ಯಾಟರ್ನ್ ಪೇವಾಲ್‌ಗಳಿಲ್ಲ. ಕೇವಲ ಆಪ್ ಮಾತ್ರ.",
       "f5_title": "ಆಡಿಯೊ ಹೊರತೆಗೆಯುವಿಕೆ",
-      "f5_desc": "ಬಹುತೇಕ ಯಾವುದೇ ವೀಡಿಯೊದಿಂದ ಆಡಿಯೊ ಟ್ರ್ಯಾಕ್ ಅನ್ನು ಮಾತ್ರ ಹೊರತೆಗೆದು MP3 ಆಗಿ ಉಳಿಸಿ.",
-      "f6_title": "ಆಪ್ ಸ್ಟೋರ್ ಅಗತ್ಯವಿಲ್ಲ",
-      "f6_desc": "ಆಂಡ್ರಾಯ್ಡ್ ಆವೃತ್ತಿಯನ್ನು ನೇರವಾಗಿ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ. ಖಾತೆ ಇಲ್ಲ, Play Store ಪರಿಶೀಲನಾ ಪ್ರಕ್ರಿಯೆ ಇಲ್ಲ, ಪ್ರದೇಶ ಲಾಕ್‌ಗಳಿಲ್ಲ.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "ಬ್ಯಾಚ್ ಡೌನ್‌ಲೋಡ್‌ಗಳು",
       "feature_priority_updates": "ಆದ್ಯತೆಯ ಅಪ್‌ಡೇಟ್‌ಗಳು",
       "feature_all_updates": "ಎಲ್ಲಾ ಭವಿಷ್ಯದ ಅಪ್‌ಡೇಟ್‌ಗಳು ಸೇರಿವೆ",
-      "cta_lifetime": "ಲೈಸೆನ್ಸ್ ಖರೀದಿಸಿ",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "ಯಾವುದೇ ಚಂದಾದಾರಿಕೆ ಇಲ್ಲ"
     },
     "faq": {
       "h2": "ಪದೇ ಪದೇ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು",
       "q1_title": "ಆಪ್ ಬಳಸಲು ನನಗೆ ಪ್ರೊ ಬೇಕೇ?",
       "q1_body": "ಇಲ್ಲ. ಆಪ್ ಉಚಿತ ಮತ್ತು ಸಂಪೂರ್ಣವಾಗಿ ಬಳಸಬಹುದಾಗಿದೆ. ಪ್ರೊ ಮಿತಿಗಳನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ ಮತ್ತು ಅಭಿವೃದ್ಧಿಗೆ ಬೆಂಬಲ ನೀಡುತ್ತದೆ.",
-      "q2_title": "ಇದು Google Play ಇಲ್ಲದೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆಯೇ?",
-      "q2_body": "ಹೌದು — ಇದು ನೀವು ನೇರವಾಗಿ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡುವ ಸ್ವತಂತ್ರ ಆಂಡ್ರಾಯ್ಡ್ ಆವೃತ್ತಿಯಾಗಿದೆ. Play Store ಖಾತೆ ಅಥವಾ ಅನುಮೋದನೆ ಅಗತ್ಯವಿಲ್ಲ.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "ನನ್ನ ಲೈಸೆನ್ಸ್ ಕೀಯನ್ನು ನಾನು ಎಲ್ಲಿ ನಮೂದಿಸಬೇಕು?",
-      "q3_body": "ಖರೀದಿಸಿದ ತಕ್ಷಣ ನೀವು ದೃಢೀಕರಣ ಪುಟದಲ್ಲಿ ನಿಮ್ಮ ಲೈಸೆನ್ಸ್ ಕೀಯನ್ನು ನೋಡುತ್ತೀರಿ — ಅದನ್ನು ಆಪ್‌ನ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ನಮೂದಿಸಿ.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "ನಾನು ಮರುಪಾವತಿ ಪಡೆಯಬಹುದೇ?",
-      "q4_body": "ಖರೀದಿಯ ವೇಳೆ ನಿಮ್ಮ 14 ದಿನಗಳ ಹಿಂಪಡೆಯುವ ಹಕ್ಕನ್ನು ಉಳಿಸಿಕೊಂಡರೆ, ಲೈಸೆನ್ಸ್ ತಲುಪುವ ಮೊದಲು ಯಾವಾಗ ಬೇಕಾದರೂ ರದ್ದುಗೊಳಿಸಿ ಹಣ ಮರಳಿ ಪಡೆಯಬಹುದು. ತಕ್ಷಣದ ವಿತರಣೆ ಆರಿಸಿದರೆ ಆ ಹಕ್ಕನ್ನು ತ್ಯಜಿಸುತ್ತೀರಿ — ನಂತರದ ಮರುಪಾವತಿ ಸ್ವಯಂಪ್ರೇರಿತ. ಖಚಿತವಿಲ್ಲದಿದ್ದರೆ ಮೊದಲು ಉಚಿತ ಆವೃತ್ತಿ ಬಳಸಿ.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "ಇದು ಕಾನೂನುಬದ್ಧವೇ?",
       "q5_body": "ಡೌನ್‌ಲೋಡ್ ಮಾಡಿದ ವಿಷಯವನ್ನು ನೀವು ಹೇಗೆ ಬಳಸುತ್ತೀರಿ ಎಂಬುದಕ್ಕೆ ನೀವೇ ಜವಾಬ್ದಾರರು. ದಯವಿಟ್ಟು ಕೃತಿಸ್ವಾಮ್ಯ ಮತ್ತು ನೀವು ಡೌನ್‌ಲೋಡ್ ಮಾಡುವ ಸೈಟ್‌ಗಳ ನಿಯಮಗಳನ್ನು ಗೌರವಿಸಿ.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

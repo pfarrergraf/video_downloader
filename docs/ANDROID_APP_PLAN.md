@@ -1,5 +1,10 @@
 # Plan: Standalone, sideloadable Android app (no Play Store)
 
+> **HISTORISCH / ABGELÖST.** Dieser frühe Sideload-only-Plan beschreibt nicht die
+> aktuelle Google-Play-first-Architektur. Siehe
+> `security/GOOGLE_PLAY_SECURITY_ARCHITECTURE.md` und
+> `docs/GOOGLE_PLAY_OWNER_CHECKLIST.md`.
+
 Goal: package ClassyDL as a real Android APK that anyone can install by downloading
 the file and enabling "install from unknown sources" — no Google Play, no developer
 account, no review process. Distributed via GitHub Releases (and optionally F-Droid

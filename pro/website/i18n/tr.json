@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Çoğu siteden, herhangi bir cihaza medya indirin",
+    "tagline": "yalnızca haklarına sahip olduğunuz medyayı indirin.",
     "login": {
       "title": "Giriş yap",
       "password_label": "Şifre",
@@ -19,7 +19,8 @@
       "status_free": "Ücretsiz — günde {limit} indirme. Pro: sınırsız.",
       "need_key_toast": "Önce bir lisans anahtarı girin.",
       "activated_toast": "Lisans etkinleştirildi.",
-      "invalid_toast": "Geçersiz lisans anahtarı."
+      "invalid_toast": "Geçersiz lisans anahtarı.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "İndirdiklerim",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Android için Video, Ses ve Görsel İndirici",
-      "description": "Videoları, sesleri ve görselleri doğrudan Android telefonunuza indirin. Play Store yok, reklam yok, bağımlılık yok. Temel özellikler ücretsiz, Pro aylık €1'den başlıyor."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Özellikler",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "{emphasis} indirin.<br/>Doğrudan telefonunuza.",
       "title_emphasis": "neredeyse her şeyi",
-      "lead": "Neredeyse her siteden video, ses ve görseller — doğrudan Android telefonunuza indirilir. Buluta yükleme yok, verileriniz cihazınızdan asla çıkmaz, Play Store gerekmez.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Ücretsiz Android sürümünü indir",
       "cta_secondary": "Pro fiyatlandırmasını gör",
       "windows_link": "Windows için de mevcut →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "İhtiyacınız olan her şey, olmayan ise hiçbir şey",
       "lead": "Sorunsuz çalışan, hızlı ve gizliliğe önem veren bir indirici — daha fazlasını isteyenler için Pro seçeneğiyle.",
       "f1_title": "Çoğu video veya ses",
-      "f1_desc": "Bir bağlantı yapıştırın, kaliteyi seçin, indirin. Çoğu video, ses ve görsel sitesiyle çalışır — Spotify veya Netflix gibi DRM korumalı hizmetlerle çalışmaz.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Toplu indirme",
       "f2_desc": "Bir sayfadaki tüm medya dosyalarını tarayın ve seçip seçimi kaldırarak hepsini birlikte indirin.",
       "f3_title": "Tasarımdan gelen gizlilik",
-      "f3_desc": "Her şey telefonunuzda yerel olarak çalışır. Hiçbir şey kontrol etmediğiniz bir sunucuya yüklenmez.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Reklam yok, takip yok",
       "f4_desc": "Reklam ağı yok, analitik SDK'ları yok, aldatıcı ödeme duvarları yok. Sadece uygulama.",
       "f5_title": "Ses çıkarma",
-      "f5_desc": "Neredeyse her videodan yalnızca ses parçasını çıkarın ve MP3 olarak kaydedin.",
-      "f6_title": "Uygulama mağazası gerekmez",
-      "f6_desc": "Android sürümünü doğrudan yükleyin. Hesap yok, Play Store inceleme süreci yok, bölge kilidi yok.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Toplu indirme",
       "feature_priority_updates": "Öncelikli güncellemeler",
       "feature_all_updates": "Gelecekteki tüm güncellemeler dahil",
-      "cta_lifetime": "Lisans satın al",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Abonelik yok"
     },
     "faq": {
       "h2": "Sıkça sorulan sorular",
       "q1_title": "Uygulamayı kullanmak için Pro'ya ihtiyacım var mı?",
       "q1_body": "Hayır. Uygulama ücretsizdir ve tamamen kullanılabilir. Pro, sınırları kaldırır ve geliştirmeyi destekler.",
-      "q2_title": "Bu, Google Play olmadan çalışır mı?",
-      "q2_body": "Evet — doğrudan yüklediğiniz bağımsız bir Android sürümüdür. Play Store hesabı veya onayı gerekmez.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Lisans anahtarımı nereye giriyorum?",
-      "q3_body": "Satın alma işleminden hemen sonra lisans anahtarınızı onay sayfasında görürsünüz — uygulamanın ayarlarına girin.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Para iadesi alabilir miyim?",
-      "q4_body": "Satın alırken 14 günlük cayma hakkını korursan, lisans teslim edilmeden önce istediğin zaman vazgeçebilir ve paranı geri alabilirsin. Anında teslimi seçersen bu haktan feragat edersin — sonrasındaki iadeler gönüllüdür. Emin değilsen önce ücretsiz sürümü kullan.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Bu yasal mı?",
       "q5_body": "İndirilen içeriği nasıl kullandığınızdan siz sorumlusunuz. Lütfen telif haklarına ve indirdiğiniz sitelerin koşullarına saygı gösterin.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Descarcă materiale media de pe majoritatea site-urilor, pe orice dispozitiv",
+    "tagline": "descarcă doar materiale media pentru care ai drepturi.",
     "login": {
       "title": "Conectare",
       "password_label": "Parolă",
@@ -19,7 +19,8 @@
       "status_free": "Gratuit — {limit} descărcări pe zi. Pro: nelimitat.",
       "need_key_toast": "Introdu mai întâi o cheie de licență.",
       "activated_toast": "Licență activată.",
-      "invalid_toast": "Cheie de licență nevalidă."
+      "invalid_toast": "Cheie de licență nevalidă.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Coadă",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Descărcător de Video, Audio și Imagini pentru Android",
-      "description": "Descarcă videoclipuri, audio și imagini direct pe telefonul tău Android. Fără Play Store, fără reclame, fără blocaje. Nucleu gratuit, Pro de la 1 €/lună."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Funcționalități",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Descarcă {emphasis}.<br/>Direct pe telefonul tău.",
       "title_emphasis": "aproape tot",
-      "lead": "Video, audio și imagini de pe aproape orice site — descărcate direct pe telefonul tău Android. Fără încărcare în cloud, datele tale nu părăsesc niciodată dispozitivul, fără nevoie de Play Store.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Descarcă versiunea gratuită pentru Android",
       "cta_secondary": "Vezi prețurile Pro",
       "windows_link": "Disponibil și pentru Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Tot ce ai nevoie, nimic în plus",
       "lead": "Un descărcător rapid și privat care pur și simplu funcționează — cu un nivel Pro pentru cei care vor mai mult.",
       "f1_title": "Majoritatea materialelor video sau audio",
-      "f1_desc": "Lipește un link, alege o calitate, descarcă. Funcționează cu majoritatea site-urilor de video, audio și imagini — nu cu servicii protejate DRM precum Spotify sau Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Descărcări în lot",
       "f2_desc": "Scanează o pagină pentru toate fișierele media și descarcă-le împreună, cu selectare/deselectare.",
       "f3_title": "Confidențial din concepție",
-      "f3_desc": "Totul rulează local pe telefonul tău. Nimic nu este încărcat pe un server pe care nu îl controlezi.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Fără reclame, fără urmărire",
       "f4_desc": "Fără rețele de publicitate, fără SDK-uri de analiză, fără paywall-uri înșelătoare. Doar aplicația.",
       "f5_title": "Extragere audio",
-      "f5_desc": "Extrage doar pista audio din aproape orice videoclip și salveaz-o ca MP3.",
-      "f6_title": "Fără nevoie de magazin de aplicații",
-      "f6_desc": "Instalează versiunea pentru Android direct. Fără cont, fără proces de verificare Play Store, fără restricții regionale.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Descărcări în lot",
       "feature_priority_updates": "Actualizări prioritare",
       "feature_all_updates": "Toate actualizările viitoare incluse",
-      "cta_lifetime": "Cumpără licența",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Fără abonament"
     },
     "faq": {
       "h2": "Întrebări frecvente",
       "q1_title": "Am nevoie de Pro pentru a folosi aplicația?",
       "q1_body": "Nu. Aplicația este gratuită și complet funcțională. Pro elimină limitele și susține dezvoltarea.",
-      "q2_title": "Funcționează fără Google Play?",
-      "q2_body": "Da — este o versiune de sine stătătoare pentru Android, pe care o instalezi direct. Nu este nevoie de cont Play Store sau de aprobare.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Unde introduc cheia de licență?",
-      "q3_body": "Imediat după achiziție vei vedea cheia de licență pe pagina de confirmare — introdu-o în setările aplicației.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Pot primi o rambursare?",
-      "q4_body": "Dacă îți păstrezi dreptul de retragere de 14 zile la cumpărare, poți renunța oricând înainte de livrarea licenței și primești banii înapoi. Dacă alegi livrarea imediată, renunți la acest drept — rambursările ulterioare sunt voluntare. Dacă ai îndoieli, folosește mai întâi versiunea gratuită.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Este legal?",
       "q5_body": "Tu ești responsabil pentru modul în care folosești conținutul descărcat. Te rugăm să respecți drepturile de autor și termenii site-urilor de pe care descarci.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Retragere și rambursare",
-      "body": "Introdu cheia de licență și adresa de e-mail folosite la achiziție. Dacă achiziția a fost făcută în ultimele 14 zile, o vom rambursa integral prin Stripe și vom dezactiva licența imediat — fără a fi nevoie de un motiv.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "Cheie de licență",
       "email_label": "Adresa de e-mail folosită la achiziție",
       "submit_btn": "Solicită rambursarea",

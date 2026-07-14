@@ -128,22 +128,25 @@ def test_homepage_has_no_external_script_or_style_hosts() -> None:
     for tag, attr in (("link", "href"), ("script", "src")):
         for match in re.finditer(rf'<{tag}[^>]*\s{attr}="([^"]+)"', html):
             url = match.group(1)
+            if tag == "link" and 'rel="canonical"' in match.group(0):
+                continue
             assert not url.startswith(("http://", "https://", "//")), (
                 f"index.html loads an external resource: <{tag} {attr}={url!r}>"
             )
 
 
-def test_checkout_and_stripe_bits_are_untouched_by_the_hero_change() -> None:
+def test_homepage_routes_pro_to_google_play_options_without_legacy_checkout() -> None:
     html = _index_html()
-    assert 'id="withdrawal-modal"' in html
-    assert "buy.stripe.com" in html
-    assert "client_reference_id" in html
     assert 'id="buy-license-btn"' in html
+    assert 'href="/download/android"' in html
+    assert 'id="withdrawal-modal"' not in html
+    assert "buy.stripe.com" not in html
+    assert "client_reference_id" not in html
 
 
-def test_lab_preview_files_are_unmodified_and_still_present() -> None:
+def test_lab_fragment_remains_but_public_dev_preview_is_removed() -> None:
     assert LAB_HTML.is_file()
-    assert LAB_PREVIEW.is_file()
+    assert not LAB_PREVIEW.exists()
     assert LAB_ASSETS.is_dir()
     lab_html = LAB_HTML.read_text(encoding="utf-8")
     assert "PRODUCT CINEMA V3" in lab_html

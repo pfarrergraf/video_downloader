@@ -1,0 +1,29 @@
+name: Google Play purchase reconciliation
+
+on:
+  schedule:
+    - cron: "31 2 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: google-play-reconciliation
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    environment: play-production
+    steps:
+      - name: Reconcile verified purchases
+        shell: bash
+        env:
+          SECRET: ${{ secrets.PLAY_RECONCILIATION_SECRET }}
+          URL: ${{ vars.PLAY_RECONCILIATION_URL || 'https://downloadthat.app/api/play/reconcile' }}
+        run: |
+          test -n "$SECRET"
+          response="$(curl --fail-with-body --silent --show-error --retry 3 --retry-all-errors --max-time 120 --request POST --header "Authorization: Bearer $SECRET" --header 'Content-Type: application/json' --data '{"limit":1000}' "$URL")"
+          printf '%s\n' "$response"
+          RESPONSE="$response" node -e 'const r=JSON.parse(process.env.RESPONSE); if(r.failed) process.exit(1)'

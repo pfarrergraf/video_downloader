@@ -43,6 +43,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var folderPickerLauncher: ActivityResultLauncher<Uri?>
     private lateinit var notificationPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var purchaseController: PurchaseController
+    private lateinit var entitlementStore: EntitlementStore
+    private lateinit var entitlementApi: EntitlementApi
 
     // A URL shared into the app, waiting for the web UI to be ready.
     // @Volatile: written on the UI thread, read by the WebView's JS-bridge
@@ -69,13 +72,19 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.RequestPermission(),
         ) { /* granted or not, the service degrades gracefully either way */ }
 
-        AffiliateReferral.capture(this, intent)
         handleShareIntent(intent)
 
         webView = findViewById(R.id.webview)
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
         webView.addJavascriptInterface(WebAppBridge(), "AndroidBridge")
+        entitlementStore = EntitlementStore(this)
+        entitlementApi = EntitlementApi(this, ::onLicenseValidationResult)
+        purchaseController = PurchaseControllerFactory.create(this, ::deliverEntitlementResult)
+        purchaseController.start()
+        // Refresh on every foreground launch. Network failure leaves only the
+        // bounded 72-hour cache; an explicit invalid/revoked response clears it.
+        entitlementStore.licenseKey()?.let(entitlementApi::validateLicense)
         applySystemFontScale()
         webView.webViewClient = object : WebViewClient() {
             // WebAppBridge is exposed to whatever page this WebView has loaded —
@@ -90,11 +99,10 @@ class MainActivity : AppCompatActivity() {
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 val url = request?.url ?: return true
                 if (url.host == "127.0.0.1") return false
-                val outboundUrl = AffiliateReferral.rewritePricingUrl(this@MainActivity, url)
                 try {
-                    startActivity(Intent(Intent.ACTION_VIEW, outboundUrl).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    startActivity(Intent(Intent.ACTION_VIEW, url).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 } catch (e: Exception) {
-                    Log.e(TAG, "No app to handle $outboundUrl", e)
+                    Log.e(TAG, "No app to handle $url", e)
                 }
                 return true
             }
@@ -155,7 +163,6 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        AffiliateReferral.capture(this, intent)
         handleShareIntent(intent)
         deliverSharedUrlToPage()
     }
@@ -166,6 +173,12 @@ class MainActivity : AppCompatActivity() {
         // and onResume() fires *before* focus is granted - this is the
         // earliest callback where the read actually works.
         if (hasFocus) suggestClipboardUrl()
+    }
+
+    override fun onDestroy() {
+        if (::purchaseController.isInitialized) purchaseController.close()
+        if (::entitlementApi.isInitialized) entitlementApi.close()
+        super.onDestroy()
     }
 
     private fun handleShareIntent(intent: Intent?) {
@@ -287,6 +300,78 @@ class MainActivity : AppCompatActivity() {
                 startDownloadService()
                 maybeRequestNotificationPermission()
             }
+        }
+
+        /** Returns the native entitlement state without putting a key in a URL. */
+        @JavascriptInterface
+        fun getPurchaseStatus(): String = if (::purchaseController.isInitialized) {
+            purchaseController.statusJson()
+        } else {
+            """{"billingAvailable":false,"pro":false}"""
+        }
+
+        /** Active only in play builds; direct builds report billing_unavailable. */
+        @JavascriptInterface
+        fun purchasePro() {
+            runOnUiThread { purchaseController.purchase(this@MainActivity) }
+        }
+
+        @JavascriptInterface
+        fun restorePurchases() {
+            purchaseController.restore()
+        }
+
+        /** Both distributions can activate the stable cross-platform key. */
+        @JavascriptInterface
+        fun validateLicense(licenseKey: String) {
+            val normalized = licenseKey.trim()
+            if (normalized.length !in 8..200) {
+                deliverEntitlementResult("""{"ok":false,"error":"invalid_license_format"}""")
+                return
+            }
+            entitlementApi.validateLicense(normalized)
+        }
+
+        /** Direct builds use this as their primary route to the Play listing. */
+        @JavascriptInterface
+        fun openPlayStore() {
+            runOnUiThread {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.PLAY_STORE_URL)))
+                } catch (e: Exception) {
+                    Log.e(TAG, "No app can open the Play listing", e)
+                }
+            }
+        }
+    }
+
+    private fun onLicenseValidationResult(result: JSONObject) {
+        val key = result.optString("license_key", result.optString("licenseKey"))
+        val active = result.optBoolean(
+            "valid",
+            result.optBoolean("pro", result.optBoolean("active", false)),
+        ) && result.optBoolean("device_allowed", true)
+        if (result.optBoolean("ok") && active && key.isNotBlank()) {
+            entitlementStore.recordVerified(key)
+        } else if (
+            result.optBoolean("ok") && !active &&
+            result.optString("requested_license_key") == entitlementStore.licenseKey()
+        ) {
+            entitlementStore.clear()
+        }
+        result.put("pro", entitlementStore.isPro())
+        result.put("licenseKey", entitlementStore.licenseKey() ?: JSONObject.NULL)
+        deliverEntitlementResult(result.toString())
+    }
+
+    private fun deliverEntitlementResult(json: String) {
+        if (!::webView.isInitialized) return
+        val quoted = JSONObject.quote(json)
+        runOnUiThread {
+            webView.evaluateJavascript(
+                "window.onNativeEntitlementResult && window.onNativeEntitlementResult(JSON.parse($quoted));",
+                null,
+            )
         }
     }
 

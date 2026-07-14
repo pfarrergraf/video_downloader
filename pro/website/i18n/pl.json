@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Pobieraj multimedia z większości stron, na dowolnym urządzeniu",
+    "tagline": "pobieraj tylko te materiały, do których masz prawa.",
     "login": {
       "title": "Logowanie",
       "password_label": "Hasło",
@@ -19,7 +19,8 @@
       "status_free": "Darmowa wersja — {limit} pobierania dziennie. Pro: bez limitu.",
       "need_key_toast": "Najpierw wpisz klucz licencyjny.",
       "activated_toast": "Licencja aktywowana.",
-      "invalid_toast": "Nieprawidłowy klucz licencyjny."
+      "invalid_toast": "Nieprawidłowy klucz licencyjny.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Moje pobrania",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — pobieranie wideo, audio i zdjęć na Androida",
-      "description": "Pobieraj filmy, muzykę i zdjęcia bezpośrednio na telefon z Androidem. Bez Sklepu Play, bez reklam, bez zobowiązań. Podstawowa wersja darmowa, Pro już od 1 €/miesiąc."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Funkcje",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Pobierz {emphasis}.<br/>Prosto na telefon.",
       "title_emphasis": "prawie wszystko",
-      "lead": "Wideo, audio i zdjęcia z niemal każdej strony — pobierane prosto na telefon z Androidem. Bez przesyłania do chmury, żadne dane nie opuszczają Twojego urządzenia, Sklep Play niepotrzebny.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Pobierz darmową wersję na Androida",
       "cta_secondary": "Zobacz cennik Pro",
       "windows_link": "Dostępne również dla Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Wszystko, czego potrzebujesz, nic więcej",
       "lead": "Szybki, prywatny downloader, który po prostu działa — z wersją Pro dla tych, którzy chcą więcej.",
       "f1_title": "Większość filmów lub audio",
-      "f1_desc": "Wklej link, wybierz jakość, pobierz. Działa z większością stron z wideo, audio i zdjęciami — nie z usługami chronionymi DRM, takimi jak Spotify czy Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Pobieranie zbiorcze",
       "f2_desc": "Przeskanuj stronę w poszukiwaniu wszystkich plików multimedialnych i pobierz je razem, z możliwością zaznaczania/odznaczania.",
       "f3_title": "Prywatność w założeniu",
-      "f3_desc": "Wszystko działa lokalnie na Twoim telefonie. Nic nie trafia na serwer, nad którym nie masz kontroli.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Bez reklam, bez śledzenia",
       "f4_desc": "Żadnych sieci reklamowych, żadnych SDK analitycznych, żadnych podstępnych płatnych ograniczeń. Tylko aplikacja.",
       "f5_title": "Ekstrakcja audio",
-      "f5_desc": "Wyodrębnij samą ścieżkę dźwiękową z niemal każdego wideo i zapisz ją jako MP3.",
-      "f6_title": "Sklep z aplikacjami niepotrzebny",
-      "f6_desc": "Zainstaluj wersję na Androida bezpośrednio. Bez konta, bez procesu weryfikacji w Sklepie Play, bez blokad regionalnych.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Pobieranie zbiorcze",
       "feature_priority_updates": "Priorytetowe aktualizacje",
       "feature_all_updates": "Wszystkie przyszłe aktualizacje w cenie",
-      "cta_lifetime": "Kup licencję",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Bez subskrypcji"
     },
     "faq": {
       "h2": "Najczęściej zadawane pytania",
       "q1_title": "Czy potrzebuję Pro, żeby korzystać z aplikacji?",
       "q1_body": "Nie. Aplikacja jest darmowa i w pełni funkcjonalna. Pro znosi limity i wspiera rozwój aplikacji.",
-      "q2_title": "Czy to działa bez Google Play?",
-      "q2_body": "Tak — to samodzielna wersja na Androida, którą instalujesz bezpośrednio. Nie potrzebujesz konta ani zatwierdzenia w Sklepie Play.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Gdzie wpisać klucz licencyjny?",
-      "q3_body": "Zaraz po zakupie zobaczysz swój klucz licencyjny na stronie potwierdzenia — wpisz go w ustawieniach aplikacji.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Czy mogę otrzymać zwrot pieniędzy?",
-      "q4_body": "Jeśli przy zakupie zachowasz 14-dniowe prawo odstąpienia, możesz zrezygnować w każdej chwili przed dostarczeniem licencji i odzyskać pieniądze. Jeśli wybierzesz natychmiastowe dostarczenie, zrzekasz się tego prawa — późniejsze zwroty są dobrowolne. W razie wątpliwości najpierw skorzystaj z wersji darmowej.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Czy to legalne?",
       "q5_body": "Odpowiadasz za sposób, w jaki korzystasz z pobranych treści. Szanuj prawa autorskie i regulaminy stron, z których pobierasz materiały.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Odstąpienie od umowy i zwrot środków",
-      "body": "Wpisz klucz licencyjny oraz adres e-mail użyty przy zakupie. Jeśli zakup został dokonany w ciągu ostatnich 14 dni, zwrócimy pełną kwotę za pośrednictwem Stripe i natychmiast dezaktywujemy licencję — bez podawania przyczyny.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "Klucz licencyjny",
       "email_label": "Adres e-mail użyty przy zakupie",
       "submit_btn": "Zażądaj zwrotu środków",

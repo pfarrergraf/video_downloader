@@ -1,5 +1,9 @@
 # Penetration Test Plan — Affiliate Program
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 ## Scope
 
 **In Scope (diese interne Prüfung):**

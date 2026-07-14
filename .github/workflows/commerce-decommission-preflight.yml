@@ -1,0 +1,49 @@
+name: Commerce decommission preflight
+
+on:
+  workflow_dispatch:
+    inputs:
+      owner_confirmation:
+        description: "Type ONLY-TEST-DATA-AFTER-REVIEW after reviewing provider dashboards"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    environment: commerce-decommission
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      STRIPE_TEST_SECRET_KEY: ${{ secrets.STRIPE_TEST_SECRET_KEY }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff # v6
+      - name: Require explicit owner review
+        shell: bash
+        env:
+          CONFIRMATION: ${{ inputs.owner_confirmation }}
+        run: test "$CONFIRMATION" = "ONLY-TEST-DATA-AFTER-REVIEW"
+      - name: Export D1 without mutation
+        working-directory: pro/website
+        run: npx -y wrangler@3.114.15 d1 export downloadthat-licenses --remote --output=../../d1-before-play.sql
+      - name: Export Stripe test-mode evidence
+        run: uv run python scripts/export_stripe_test_evidence.py
+      - name: Build evidence manifest
+        shell: bash
+        run: |
+          sha256sum d1-before-play.sql > d1-before-play.sql.sha256
+          printf 'Owner confirmed dashboard review; workflow made no remote mutations.\n' > DECOMMISSION-README.txt
+      - name: Upload private review package
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: commerce-decommission-evidence-${{ github.run_id }}
+          path: |
+            d1-before-play.sql
+            d1-before-play.sql.sha256
+            stripe-test-export/
+            DECOMMISSION-README.txt
+          retention-days: 90

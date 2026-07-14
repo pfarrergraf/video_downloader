@@ -1,4 +1,10 @@
-# Privacy & Data Retention Review — Affiliate Program
+# Privacy & Data Retention Review — Historical Affiliate Program
+
+> Historical evidence only. Affiliate collection is being removed. Current
+> Play purchase data is limited to provider identifiers, encrypted Purchase
+> Tokens, token hashes, status/timestamps and the linked license. Financial
+> originals are retained separately under the controls in
+> `docs/GOOGLE_PLAY_OPERATIONS.md`.
 
 Technische Bewertung; **keine anwaltliche Datenschutzfreigabe** (HANDOVER §9.6).
 

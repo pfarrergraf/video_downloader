@@ -1,8 +1,16 @@
 # DownloadThat security program
 
 Date opened: 2026-07-03
-Branch of record: `claude/gothic-downloader-website-bp7r2u`
-Status: open working area for Claude/Copilot/humans
+Current status: see `../../security/CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`
+
+> **Architecture update (2026-07-14):** Google Play is the only planned active
+> cashier. Stripe and the affiliate program are being decommissioned. Use
+> `security/GOOGLE_PLAY_SECURITY_ARCHITECTURE.md` for the current trust model;
+> Stripe-/affiliate-specific material below is historical audit evidence.
+
+Current mandatory public-copy rules live in
+`../../security/PUBLIC_CLAIMS_POLICY.md`. Every public-copy change must pass
+`uv run python scripts/check_public_claims.py`.
 
 ## Purpose
 
@@ -35,9 +43,9 @@ Safer external framing:
 
 2. Web/API security
    - Cloudflare Pages Functions
-   - Stripe webhook validation
-   - D1 license database access
-   - refund endpoint abuse resistance
+   - Play Developer API purchase verification and acknowledgement
+   - authenticated RTDN, refund/revoke handling and reconciliation
+   - encrypted Purchase Tokens and D1 license access
    - rate limiting for public endpoints
 
 3. Data protection
@@ -94,4 +102,6 @@ and secret scanning — see `.github/workflows/security-scan.yml`, `codeql.yml`,
 
 ## Working rule
 
-Do not add dangerous Android permissions, weaken signing, expose secrets, or make stronger privacy claims than the code supports without updating this directory and documenting the reason.
+Do not add dangerous Android permissions, weaken signing, expose secrets, bypass
+DRM/TPM controls, or make stronger capability/privacy claims than the code supports.
+Run the claims scanner and relevant security tests before release.

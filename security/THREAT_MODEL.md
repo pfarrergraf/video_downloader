@@ -1,4 +1,7 @@
-# Threat Model — DownloadThat Affiliate Program (STRIDE)
+# Threat Model — Historical Affiliate Program (STRIDE)
+
+> Historical evidence only. For the active Google Play entitlement, RTDN and
+> finance-archive threat model, see `GOOGLE_PLAY_SECURITY_ARCHITECTURE.md`.
 
 ## 1. System Context
 

@@ -15,24 +15,24 @@ Prepared ahead of time so registration + submission (see
   three states in one shot — no real network download happened.
 - This README.
 
-All of these are placeholders/drafts good enough to submit with — swap the feature graphic and
-screenshots for real branded/localized versions later if desired, but none of it blocks
-submission.
+These assets are release candidates, but must still pass the policy-copy checks below and
+be recaptured after material UI changes. Store screenshots must use neutral example URLs;
+never show protected-platform brands or imply that every site is supported.
 
 ## Store listing text
 
 ### Short description (≤80 characters)
 
-**German:** `Videos, Audio & Bilder von fast jeder Seite herunterladen – schnell & einfach`
-**English:** `Download video, audio & images from almost any site — fast and simple`
+**German:** `Video, Audio und Bilder aus Links laden, die du rechtmäßig speichern darfst.`
+**English:** `Download video, audio and images from links you may lawfully save.`
 
 ### Full description (≤4000 characters)
 
 **German:**
 
 ```
-DownloadThat lädt Videos, Audio und Bilder von so gut wie jeder Website herunter –
-einfach den Link einfügen, Qualität wählen, fertig.
+DownloadThat speichert Videos, Audio und Bilder aus Links, die du rechtmäßig
+speichern darfst – direkt auf deinem Gerät.
 
 WICHTIGSTE FUNKTIONEN
 • Ein Feld für einen Link, mehrere Links oder eine ganze Playlist
@@ -49,15 +49,16 @@ tägliches Download-Kontingent. Mit DownloadThat Pro entfällt dieses Limit.
 
 WICHTIGER HINWEIS
 DownloadThat ist ein technisches Werkzeug. Du bist selbst dafür verantwortlich,
-sicherzustellen, dass du die erforderlichen Rechte an den Inhalten besitzt, die
-du herunterlädst. Bitte lade nur Inhalte herunter, an denen du die Rechte hast.
+sicherzustellen, dass du die erforderlichen Rechte an den Inhalten besitzt. Die
+App umgeht weder DRM noch Paywalls. Bitte lade nur eigene, gemeinfreie, entsprechend
+lizenzierte oder ausdrücklich freigegebene Inhalte herunter.
 ```
 
 **English:**
 
 ```
-DownloadThat downloads video, audio, and images from almost any website —
-just paste the link, pick a quality, and go.
+DownloadThat saves video, audio and images from links you may lawfully save —
+directly on your device.
 
 KEY FEATURES
 • One field for a single link, multiple links, or a whole playlist
@@ -65,7 +66,7 @@ KEY FEATURES
 • Quality selector from 240p up to 4K
 • Live progress bar for running downloads
 • Choose your own download folder, open or share files directly
-• Runs entirely on your device — no ads, no tracking
+• Media processing happens on your device — no ads, no tracking
 • Available in many languages
 
 FREE TO USE
@@ -74,8 +75,9 @@ quota. DownloadThat Pro removes that limit.
 
 IMPORTANT
 DownloadThat is a technical tool. You are responsible for making sure you
-have the rights to any content you download. Please only download content
-you have the rights to.
+have the required rights. The app does not bypass DRM or paywalls. Only save
+content you own, public-domain or appropriately licensed content, or content
+you have explicit permission to download.
 ```
 
 ## Regenerating

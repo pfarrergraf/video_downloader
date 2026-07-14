@@ -1,5 +1,9 @@
 # Affiliate Program – Penetration Test Results (Internal Assessment)
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 Diese Ergebnisse stammen aus einer **internen** Code-Review-, Threat-Modeling- und Whitebox-Testprüfung
 (kein externer Penetrationstest, siehe `PENETRATION_TEST_PLAN.md` §Scope). Geprüft wurde ausschließlich
 statisch (Quellcode, Migrationen, CI-Konfiguration) und über lokale/isolierte Node- bzw. SQLite-basierte

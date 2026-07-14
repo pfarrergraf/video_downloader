@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Изтеглай съдържание от повечето сайтове, на всяко устройство",
+    "tagline": "изтегляй само съдържание, за което имаш права.",
     "login": {
       "title": "Вход",
       "password_label": "Парола",
@@ -19,7 +19,8 @@
       "status_free": "Безплатна версия — {limit} изтегляния на ден. Pro: неограничено.",
       "need_key_toast": "Първо въведи лицензен ключ.",
       "activated_toast": "Лицензът е активиран.",
-      "invalid_toast": "Невалиден лицензен ключ."
+      "invalid_toast": "Невалиден лицензен ключ.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Опашка",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — изтегляне на видео, аудио и снимки за Android",
-      "description": "Изтегляй видеа, аудио и снимки директно на своя Android телефон. Без Play Store, без реклами, без обвързване. Безплатна основна версия, Pro от €1/месец."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Функции",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Изтегли {emphasis}.<br/>Направо на телефона си.",
       "title_emphasis": "почти всичко",
-      "lead": "Видео, аудио и снимки от почти всеки сайт — изтеглени направо на твоя Android телефон. Без качване в облак, без данни, които напускат устройството ти, без нужда от Play Store.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Изтегли безплатната версия за Android",
       "cta_secondary": "Виж цените на Pro",
       "windows_link": "Налично и за Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Всичко, от което имаш нужда, нищо излишно",
       "lead": "Бърз и поверителен инструмент за изтегляне, който просто работи — с Pro ниво за тези, които искат повече.",
       "f1_title": "Повечето видеа или аудио",
-      "f1_desc": "Постави връзка, избери качество, изтегли. Работи с повечето сайтове за видео, аудио и снимки — не с услуги, защитени с DRM, като Spotify или Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Групово изтегляне",
       "f2_desc": "Сканирай страница за всички медийни файлове и ги изтегли заедно, с възможност за избор.",
       "f3_title": "Поверителност по замисъл",
-      "f3_desc": "Всичко се изпълнява локално на телефона ти. Нищо не се качва на сървър, който не контролираш.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Без реклами, без проследяване",
       "f4_desc": "Без рекламни мрежи, без SDK за анализ, без заблуждаващи стени за плащане. Само приложението.",
       "f5_title": "Извличане на аудио",
-      "f5_desc": "Извади само аудио от почти всяко видео и го запази като MP3.",
-      "f6_title": "Не е нужен магазин за приложения",
-      "f6_desc": "Инсталирай версията за Android директно. Без акаунт, без процес на преглед от Play Store, без регионални ограничения.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Групово изтегляне",
       "feature_priority_updates": "Приоритетни актуализации",
       "feature_all_updates": "Включени всички бъдещи актуализации",
-      "cta_lifetime": "Купи лиценз",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Без абонамент"
     },
     "faq": {
       "h2": "Често задавани въпроси",
       "q1_title": "Трябва ли ми Pro, за да ползвам приложението?",
       "q1_body": "Не. Приложението е безплатно и напълно използваемо. Pro премахва ограниченията и подкрепя разработката.",
-      "q2_title": "Работи ли това без Google Play?",
-      "q2_body": "Да — това е самостоятелна версия за Android, която инсталираш директно. Не е нужен акаунт или одобрение от Play Store.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Къде въвеждам своя лицензен ключ?",
-      "q3_body": "Веднага след покупката ще видиш лицензния си ключ на страницата за потвърждение — въведи го в настройките на приложението.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Мога ли да получа възстановяване на сумата?",
-      "q4_body": "Ако при покупката запазиш 14-дневното си право на отказ, можеш да се откажеш по всяко време преди предаването на лиценза и да си получиш парите обратно. Ако избереш незабавно предаване, се отказваш от това право — последващите възстановявания са доброволни. Ако се колебаеш, първо използвай безплатната версия.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Законно ли е това?",
       "q5_body": "Ти носиш отговорност за начина, по който използваш изтегленото съдържание. Моля, спазвай авторските права и условията на сайтовете, от които изтегляш.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

@@ -2,14 +2,16 @@
 
 **App**: DownloadThat
 **Package name**: `de.classydl.app`
-**Beta type**: Signed release APK, direct sideload
-**Status**: Google Play internal testing track is not yet active.
+**Beta type**: Google Play internal testing (primary) or signed direct APK (secondary)
+**Status**: The Play-first release is being prepared.
 
 ---
 
 ## What the app does
 
-DownloadThat downloads videos, audio, and images from websites directly to your Android phone. Everything runs locally on your device. No cloud upload, no account needed for the free tier.
+DownloadThat saves video, audio and images from links you provide and may lawfully
+save. Media processing happens on your Android device; license checks and updates
+use limited network services. The Free tier needs no account.
 
 ---
 

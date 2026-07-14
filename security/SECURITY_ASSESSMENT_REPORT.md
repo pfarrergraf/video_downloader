@@ -1,5 +1,9 @@
 # Security Assessment Report — DownloadThat Creator/Affiliate Program
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 **Auftrag:** Interne Security-Readiness-Prüfung, Hardening und Remediation-Schleife für das Affiliate-
 Partnerprogramm, autorisiert durch `HANDOVER.md` §7.1 (Repository-Inhaber Benjamin Graf). **Geprüfter
 Ausgangsstand:** `feature/affiliate-partner-program` @ `fc77401` (PR #4). **Prüfbranch:**

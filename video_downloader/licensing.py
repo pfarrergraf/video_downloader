@@ -1,7 +1,7 @@
 """Tracks whether this install has a valid DownloadThat Pro license.
 
-Talks to the license-verification endpoint (GET /api/validate?key=... —
-see pro/website/functions/api/validate.js, a Cloudflare Pages Function on
+Talks to the license-verification endpoint (POST /api/license/validate —
+see pro/website/functions/api/license/validate.js, a Cloudflare Pages Function on
 the same deployment as the marketing site, not a separate Worker) at most
 once every CACHE_TTL_SECONDS, and keeps trusting the last successful result
 for up to OFFLINE_GRACE_SECONDS if the device has no connectivity, so a brief
@@ -43,7 +43,7 @@ import requests
 FREE_DAILY_DOWNLOAD_LIMIT = 3
 FREE_WINDOW_HOURS = 24
 CACHE_TTL_SECONDS = 6 * 3600
-OFFLINE_GRACE_SECONDS = 7 * 24 * 3600
+OFFLINE_GRACE_SECONDS = 72 * 3600
 
 
 @dataclass(slots=True)
@@ -118,14 +118,14 @@ class LicenseManager:
             return self._state
         if not force and time.time() - self._state.checked_at < CACHE_TTL_SECONDS:
             return self._state
-        params = {"key": self._state.key}
+        payload = {"key": self._state.key}
         if self._platform and self._state.device_id:
-            params["platform"] = self._platform
-            params["device_id"] = self._state.device_id
+            payload["platform"] = self._platform
+            payload["device_id"] = self._state.device_id
             if self._app_version:
-                params["app_version"] = self._app_version
+                payload["app_version"] = self._app_version
         try:
-            response = requests.get(f"{self._api_base}/api/validate", params=params, timeout=10)
+            response = requests.post(f"{self._api_base}/api/license/validate", json=payload, timeout=10)
             response.raise_for_status()
             data = response.json()
         except requests.RequestException:

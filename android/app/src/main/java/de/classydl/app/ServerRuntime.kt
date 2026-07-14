@@ -28,14 +28,12 @@ object ServerRuntime {
     // per-install password instead — see getOrCreatePassword().
     private const val DEBUG_PASSWORD = "classydl"
 
-    // The license-check endpoint (pro/website/functions/api/validate.js)
+    // The POST license endpoint (pro/website/functions/api/license/validate.js)
     // is a Cloudflare Pages Function on the same deployment as the
-    // marketing site/webhook. Only wired up for release builds (see
+    // marketing site. Only wired up for release builds (see
     // resolveLicenseApiBase()) so CI's debug-build pipeline tests keep
     // exercising the always-unrestricted path, unaffected by free-tier
     // limits.
-    private const val LICENSE_API_BASE = "https://downloadthat.pages.dev"
-
     // Idempotency guard: the service (START_STICKY) and the Activity may
     // both ask for a start; python-side android_entry.start() additionally
     // handles a stray duplicate bind gracefully (EADDRINUSE + health probe).
@@ -60,7 +58,7 @@ object ServerRuntime {
     }
 
     /** Empty string means "licensing off" to android_entry.start() — see its docstring. */
-    private fun resolveLicenseApiBase(): String = if (BuildConfig.DEBUG) "" else LICENSE_API_BASE
+    private fun resolveLicenseApiBase(): String = if (BuildConfig.DEBUG) "" else BuildConfig.LICENSE_API_BASE_URL
 
     /**
      * The bundled ffmpeg CLI (cross-compiled for Android, see

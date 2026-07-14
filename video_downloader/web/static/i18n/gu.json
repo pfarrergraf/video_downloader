@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "મોટાભાગની સાઈટ પરથી, કોઈપણ ડિવાઈસ પર મીડિયા ડાઉનલોડ કરો",
+    "tagline": "ફક્ત એ જ મીડિયા ડાઉનલોડ કરો જેના પર તમારો અધિકાર છે.",
     "login": {
       "title": "લોગિન કરો",
       "password_label": "પાસવર્ડ",
@@ -19,7 +19,8 @@
       "status_free": "ફ્રી — દરરોજ {limit} ડાઉનલોડ. પ્રો: અમર્યાદિત.",
       "need_key_toast": "પહેલા લાઇસન્સ કી દાખલ કરો.",
       "activated_toast": "લાઇસન્સ સક્રિય કરવામાં આવ્યું.",
-      "invalid_toast": "અમાન્ય લાઇસન્સ કી."
+      "invalid_toast": "અમાન્ય લાઇસન્સ કી.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "ક્યુ",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Android માટે વિડિયો, ઓડિયો અને ઇમેજ ડાઉનલોડર",
-      "description": "વિડિયો, ઓડિયો અને ઇમેજ સીધા તમારા Android ફોનમાં ડાઉનલોડ કરો. કોઈ Play Store નહીં, કોઈ જાહેરાત નહીં, કોઈ લોક-ઇન નહીં. ફ્રી કોર, પ્રો €1/મહિનાથી."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "ફીચર્સ",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "{emphasis} ડાઉનલોડ કરો.<br/>સીધા તમારા ફોનમાં.",
       "title_emphasis": "લગભગ બધું",
-      "lead": "લગભગ કોઈપણ સાઈટ પરથી વિડિયો, ઓડિયો અને ઇમેજ — સીધા તમારા Android ફોનમાં ડાઉનલોડ થાય છે. કોઈ ક્લાઉડ અપલોડ નહીં, કોઈ ડેટા ક્યારેય તમારા ડિવાઈસમાંથી બહાર જતો નથી, Play Store ની જરૂર નથી.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "ફ્રી એન્ડ્રોઇડ વર્ઝન ડાઉનલોડ કરો",
       "cta_secondary": "પ્રો કિંમત જુઓ",
       "windows_link": "Windows માટે પણ ઉપલબ્ધ →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "તમને જે જોઈએ છે તે બધું, જે નથી જોઈતું તે કંઈ નહીં",
       "lead": "એક ઝડપી, ખાનગી ડાઉનલોડર જે ફક્ત કામ કરે છે — વધુ ઈચ્છતા લોકો માટે પ્રો ટિયર સાથે.",
       "f1_title": "મોટાભાગના વિડિયો કે ઓડિયો",
-      "f1_desc": "લિંક પેસ્ટ કરો, ક્વૉલિટી પસંદ કરો, ડાઉનલોડ કરો. મોટાભાગની વિડિયો, ઓડિયો અને ઇમેજ સાઈટ્સ સાથે કામ કરે છે — Spotify અથવા Netflix જેવી DRM-સુરક્ષિત સેવાઓ સાથે નહીં.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "બેચ ડાઉનલોડ",
       "f2_desc": "પેજ પર દરેક મીડિયા ફાઇલ સ્કેન કરો અને પિક/અનપિક સાથે તેમને એકસાથે ડાઉનલોડ કરો.",
       "f3_title": "ડિઝાઇનથી જ ખાનગી",
-      "f3_desc": "બધું જ તમારા ફોન પર સ્થાનિક રીતે ચાલે છે. તમારા નિયંત્રણ બહારના કોઈ સર્વર પર કંઈ અપલોડ થતું નથી.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "કોઈ જાહેરાત નહીં, કોઈ ટ્રેકિંગ નહીં",
       "f4_desc": "કોઈ એડ નેટવર્ક નહીં, કોઈ એનાલિટિક્સ SDK નહીં, કોઈ ડાર્ક-પેટર્ન પેવોલ નહીં. ફક્ત એપ.",
       "f5_title": "ઓડિયો એક્સટ્રેક્શન",
-      "f5_desc": "લગભગ કોઈપણ વિડિયોમાંથી ફક્ત ઓડિયો ટ્રેક કાઢો અને તેને MP3 તરીકે સાચવો.",
-      "f6_title": "એપ સ્ટોરની જરૂર નથી",
-      "f6_desc": "એન્ડ્રોઇડ વર્ઝન સીધું ઇન્સ્ટોલ કરો. કોઈ એકાઉન્ટ નહીં, કોઈ Play Store સમીક્ષા પ્રક્રિયા નહીં, કોઈ પ્રદેશ લોક નહીં.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "બેચ ડાઉનલોડ",
       "feature_priority_updates": "પ્રાયોરિટી અપડેટ્સ",
       "feature_all_updates": "બધા ભાવિ અપડેટ્સ સામેલ",
-      "cta_lifetime": "લાઇસન્સ ખરીદો",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "કોઈ સબ્સ્ક્રિપ્શન નહીં"
     },
     "faq": {
       "h2": "વારંવાર પુછાતા પ્રશ્નો",
       "q1_title": "શું મારે એપ વાપરવા માટે પ્રો જોઈએ?",
       "q1_body": "ના. એપ ફ્રી છે અને સંપૂર્ણપણે વાપરી શકાય તેવી છે. પ્રો મર્યાદાઓ દૂર કરે છે અને ડેવલપમેન્ટને સપોર્ટ કરે છે.",
-      "q2_title": "શું આ Google Play વગર કામ કરે છે?",
-      "q2_body": "હા — તે એક સ્ટેન્ડઅલોન એન્ડ્રોઇડ વર્ઝન છે જે તમે સીધું ઇન્સ્ટોલ કરો છો. કોઈ Play Store એકાઉન્ટ કે મંજૂરીની જરૂર નથી.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "હું મારી લાઇસન્સ કી ક્યાં દાખલ કરું?",
-      "q3_body": "ખરીદી પછી તરત જ તમને પુષ્ટિકરણ પેજ પર તમારી લાઇસન્સ કી દેખાશે — તેને એપની સેટિંગ્સમાં દાખલ કરો.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "શું મને રિફંડ મળી શકે?",
-      "q4_body": "ખરીદતી વખતે 14 દિવસનો રદ કરવાનો અધિકાર જાળવી રાખો તો, લાઇસન્સ મળે તે પહેલાં ગમે ત્યારે રદ કરીને પૈસા પાછા મેળવી શકો છો. તાત્કાલિક ડિલિવરી પસંદ કરો તો આ અધિકાર છોડી દો છો — પછીના રિફંડ સ્વૈચ્છિક છે. અચોક્કસ હો તો પહેલા મફત વર્ઝન વાપરો.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "શું આ કાયદેસર છે?",
       "q5_body": "તમે ડાઉનલોડ કરેલી સામગ્રીનો ઉપયોગ કેવી રીતે કરો છો તેની જવાબદારી તમારી છે. કૃપા કરીને કૉપીરાઇટ અને તમે જે સાઈટ્સ પરથી ડાઉનલોડ કરો છો તેની શરતોનું સન્માન કરો.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

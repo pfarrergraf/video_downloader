@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "பெரும்பாலான சைட்டுகளிலிருந்து, எந்த சாதனத்திலும் மீடியாவைப் பதிவிறக்கவும்",
+    "tagline": "உங்களுக்கு உரிமை உள்ள மீடியாவை மட்டுமே பதிவிறக்கவும்.",
     "login": {
       "title": "உள்நுழையவும்",
       "password_label": "கடவுச்சொல்",
@@ -19,7 +19,8 @@
       "status_free": "இலவசம் — ஒரு நாளைக்கு {limit} பதிவிறக்கங்கள். Pro: வரம்பற்றது.",
       "need_key_toast": "முதலில் ஒரு உரிம விசையை உள்ளிடவும்.",
       "activated_toast": "உரிமம் செயல்படுத்தப்பட்டது.",
-      "invalid_toast": "தவறான உரிம விசை."
+      "invalid_toast": "தவறான உரிம விசை.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "வரிசை",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Android-க்கான வீடியோ, ஆடியோ & பட பதிவிறக்கி",
-      "description": "வீடியோக்கள், ஆடியோ மற்றும் படங்களை நேரடியாக உங்கள் Android மொபைலுக்குப் பதிவிறக்கவும். Play Store தேவையில்லை, விளம்பரங்கள் இல்லை, கட்டுப்பாடு இல்லை. முக்கிய அம்சங்கள் இலவசம், Pro €1/மாதம் முதல்."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "அம்சங்கள்",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "{emphasis} பதிவிறக்கவும்.<br/>நேரடியாக உங்கள் மொபைலுக்கு.",
       "title_emphasis": "கிட்டத்தட்ட எல்லாம்",
-      "lead": "கிட்டத்தட்ட எந்த சைட்டிலிருந்தும் வீடியோ, ஆடியோ மற்றும் படங்கள் — நேரடியாக உங்கள் Android மொபைலுக்குப் பதிவிறக்கப்படும். கிளவுட் பதிவேற்றம் இல்லை, தரவு உங்கள் சாதனத்தை விட்டு வெளியேறாது, Play Store தேவையில்லை.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "இலவச ஆண்ட்ராய்டு பதிப்பைப் பதிவிறக்கவும்",
       "cta_secondary": "Pro விலையைப் பார்க்கவும்",
       "windows_link": "Windows-க்கும் கிடைக்கிறது →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "உங்களுக்குத் தேவையான அனைத்தும், தேவையற்றது ஒன்றும் இல்லை",
       "lead": "சரியாகச் செயல்படும் வேகமான, தனிப்பட்ட பதிவிறக்கி — மேலும் தேவைப்படுபவர்களுக்கு Pro நிலை உள்ளது.",
       "f1_title": "பெரும்பாலான வீடியோ அல்லது ஆடியோ",
-      "f1_desc": "ஒரு இணைப்பை ஒட்டவும், தரத்தைத் தேர்ந்தெடுக்கவும், பதிவிறக்கவும். பெரும்பாலான வீடியோ, ஆடியோ மற்றும் பட சைட்டுகளில் செயல்படும் — Spotify அல்லது Netflix போன்ற DRM-பாதுகாக்கப்பட்ட சேவைகளுடன் அல்ல.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "தொகுதி பதிவிறக்கங்கள்",
       "f2_desc": "ஒரு பக்கத்தில் உள்ள ஒவ்வொரு மீடியா கோப்பையும் ஸ்கேன் செய்து, தேர்வு/தேர்வுநீக்கத்துடன் அவற்றை ஒன்றாகப் பதிவிறக்கவும்.",
       "f3_title": "வடிவமைப்பிலேயே தனியுரிமை",
-      "f3_desc": "அனைத்தும் உங்கள் மொபைலில் உள்ளூரில் இயங்குகிறது. நீங்கள் கட்டுப்படுத்தாத சர்வருக்கு எதுவும் பதிவேற்றப்படாது.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "விளம்பரங்கள் இல்லை, கண்காணிப்பு இல்லை",
       "f4_desc": "விளம்பர நெட்வொர்க்குகள் இல்லை, அனலிட்டிக்ஸ் SDK-கள் இல்லை, ஏமாற்றும் பணம் செலுத்தும் தடைகள் இல்லை. வெறும் பயன்பாடு மட்டுமே.",
       "f5_title": "ஆடியோ பிரித்தெடுத்தல்",
-      "f5_desc": "கிட்டத்தட்ட எந்த வீடியோவிலிருந்தும் ஆடியோ டிராக்கை மட்டும் பிரித்தெடுத்து MP3 ஆக சேமிக்கவும்.",
-      "f6_title": "ஆப் ஸ்டோர் தேவையில்லை",
-      "f6_desc": "ஆண்ட்ராய்டு பதிப்பை நேரடியாக நிறுவவும். கணக்கு தேவையில்லை, Play Store மதிப்பாய்வு செயல்முறை இல்லை, பிராந்திய கட்டுப்பாடுகள் இல்லை.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "தொகுதி பதிவிறக்கங்கள்",
       "feature_priority_updates": "முன்னுரிமை புதுப்பிப்புகள்",
       "feature_all_updates": "எதிர்கால புதுப்பிப்புகள் அனைத்தும் அடங்கும்",
-      "cta_lifetime": "லைசென்ஸ் வாங்கு",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "சந்தா இல்லை"
     },
     "faq": {
       "h2": "அடிக்கடி கேட்கப்படும் கேள்விகள்",
       "q1_title": "பயன்பாட்டைப் பயன்படுத்த Pro தேவையா?",
       "q1_body": "இல்லை. பயன்பாடு இலவசம் மற்றும் முழுமையாகப் பயன்படுத்தக்கூடியது. Pro வரம்புகளை நீக்கி, மேம்பாட்டை ஆதரிக்கிறது.",
-      "q2_title": "இது Google Play இல்லாமல் வேலை செய்யுமா?",
-      "q2_body": "ஆம் — இது நீங்கள் நேரடியாக நிறுவும் ஒரு தனித்த ஆண்ட்ராய்டு பதிப்பு. Play Store கணக்கு அல்லது ஒப்புதல் தேவையில்லை.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "எனது உரிம விசையை எங்கே உள்ளிடுவது?",
-      "q3_body": "வாங்கிய உடனேயே உறுதிப்படுத்தல் பக்கத்தில் உங்கள் உரிம விசையைக் காண்பீர்கள் — அதை பயன்பாட்டின் அமைப்புகளில் உள்ளிடவும்.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "எனக்கு பணத்தைத் திரும்பப் பெற முடியுமா?",
-      "q4_body": "வாங்கும்போது 14 நாள் விலகல் உரிமையை வைத்திருந்தால், லைசென்ஸ் வழங்கப்படும் முன் எப்போது வேண்டுமானாலும் ரத்து செய்து பணத்தைத் திரும்பப் பெறலாம். உடனடி வழங்கலைத் தேர்ந்தால் அந்த உரிமையை விட்டுவிடுகிறீர்கள் — அதன் பிறகான திருப்பிச் செலுத்தல்கள் தன்னார்வமானவை. உறுதியில்லை என்றால் முதலில் இலவச பதிப்பைப் பயன்படுத்துங்கள்.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "இது சட்டப்பூர்வமானதா?",
       "q5_body": "பதிவிறக்கம் செய்யப்பட்ட உள்ளடக்கத்தை நீங்கள் எவ்வாறு பயன்படுத்துகிறீர்கள் என்பதற்கு நீங்களே பொறுப்பு. பதிப்புரிமையையும் நீங்கள் பதிவிறக்கம் செய்யும் சைட்டுகளின் விதிமுறைகளையும் மதிக்கவும்.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

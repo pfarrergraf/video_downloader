@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "دانلود رسانه از بیشتر سایت‌ها، روی هر دستگاهی",
+    "tagline": "فقط رسانه‌ای را دانلود کنید که حق استفاده از آن را دارید.",
     "login": {
       "title": "ورود",
       "password_label": "رمز عبور",
@@ -19,7 +19,8 @@
       "status_free": "Free — {limit} downloads per day. Pro: unlimited.",
       "need_key_toast": "ابتدا یک کلید لایسنس وارد کنید.",
       "activated_toast": "لایسنس فعال شد.",
-      "invalid_toast": "کلید لایسنس نامعتبر است."
+      "invalid_toast": "کلید لایسنس نامعتبر است.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "صف",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — دانلودکننده ویدیو، صدا و تصویر برای اندروید",
-      "description": "ویدیو، صدا و تصاویر را مستقیم روی گوشی اندرویدتان دانلود کنید. بدون Play Store، بدون تبلیغات، بدون وابستگی. هسته رایگان، نسخه پرو از ۱ یورو در ماه."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "ویژگی‌ها",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "دانلود {emphasis}.<br/>مستقیم روی گوشی شما.",
       "title_emphasis": "تقریباً همه‌چیز",
-      "lead": "ویدیو، صدا و تصاویر از تقریباً هر سایتی — مستقیماً روی گوشی اندرویدتان دانلود می‌شود. بدون آپلود در فضای ابری، بدون خروج داده از دستگاهتان، بدون نیاز به Play Store.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "دانلود نسخه رایگان اندروید",
       "cta_secondary": "مشاهده قیمت نسخه پرو",
       "windows_link": "همچنین برای ویندوز موجود است →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "هر چیزی که نیاز دارید، بدون اضافات",
       "lead": "یک دانلودکننده سریع و خصوصی که به‌درستی کار می‌کند — با یک نسخه پرو برای کسانی که به امکانات بیشتری نیاز دارند.",
       "f1_title": "بیشتر ویدیوها یا فایل‌های صوتی",
-      "f1_desc": "یک لینک را جای‌گذاری کنید، کیفیت را انتخاب کنید و دانلود کنید. با اکثر سایت‌های ویدیو، صدا و تصویر کار می‌کند — نه با سرویس‌های دارای محافظت DRM مانند Spotify یا Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "دانلود دسته‌ای",
       "f2_desc": "یک صفحه را برای یافتن تمام فایل‌های رسانه‌ای اسکن کنید و آن‌ها را با امکان انتخاب/لغو انتخاب، با هم دانلود کنید.",
       "f3_title": "طراحی‌شده برای حریم خصوصی",
-      "f3_desc": "همه‌چیز به‌صورت محلی روی گوشی شما اجرا می‌شود. هیچ‌چیز به سروری که کنترلی روی آن ندارید آپلود نمی‌شود.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "بدون تبلیغات، بدون ردیابی",
       "f4_desc": "بدون شبکه‌های تبلیغاتی، بدون SDKهای تحلیلی، بدون پرداخت‌های اجباری پنهان. فقط خود اپلیکیشن.",
       "f5_title": "استخراج صدا",
-      "f5_desc": "فقط ترک صوتی تقریباً هر ویدیویی را استخراج کرده و به‌صورت MP3 ذخیره کنید.",
-      "f6_title": "بدون نیاز به فروشگاه اپلیکیشن",
-      "f6_desc": "نسخه اندروید را مستقیماً نصب کنید. بدون حساب کاربری، بدون فرآیند بررسی Play Store، بدون محدودیت منطقه‌ای.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "دانلود دسته‌ای",
       "feature_priority_updates": "به‌روزرسانی‌های اولویت‌دار",
       "feature_all_updates": "شامل تمام به‌روزرسانی‌های آینده",
-      "cta_lifetime": "خرید لایسنس",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "بدون اشتراک"
     },
     "faq": {
       "h2": "سوالات متداول",
       "q1_title": "آیا برای استفاده از اپلیکیشن به نسخه پرو نیاز دارم؟",
       "q1_body": "خیر. اپلیکیشن رایگان و کاملاً قابل استفاده است. نسخه پرو محدودیت‌ها را برمی‌دارد و از توسعه اپلیکیشن حمایت می‌کند.",
-      "q2_title": "آیا این اپلیکیشن بدون Google Play کار می‌کند؟",
-      "q2_body": "بله — این یک نسخه مستقل اندروید است که مستقیماً نصب می‌کنید. نیازی به حساب کاربری یا تأیید Play Store نیست.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "کلید لایسنس خود را کجا وارد کنم؟",
-      "q3_body": "بلافاصله پس از خرید، کلید لایسنس خود را در صفحه تأیید مشاهده خواهید کرد — آن را در تنظیمات اپلیکیشن وارد کنید.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "آیا می‌توانم پول خود را پس بگیرم؟",
-      "q4_body": "اگر هنگام خرید حق انصراف ۱۴ روزه‌ات را نگه داری، می‌توانی هر زمان پیش از تحویل لایسنس انصراف دهی و پولت را پس بگیری. اگر تحویل فوری را انتخاب کنی، از این حق صرف‌نظر می‌کنی — بازپرداخت‌های بعدی داوطلبانه است. اگر مطمئن نیستی، اول از نسخه رایگان استفاده کن.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "آیا این کار قانونی است؟",
       "q5_body": "شما مسئول نحوه استفاده از محتوای دانلودشده هستید. لطفاً به حق کپی‌رایت و شرایط سایت‌هایی که از آن‌ها دانلود می‌کنید احترام بگذارید.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

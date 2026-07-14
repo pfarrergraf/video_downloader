@@ -26,8 +26,8 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
 
 ## Konventionen (wichtige Leitplanken — nicht verletzen)
 
-- **Fakten nur in `creator_tools/config/product_facts.json`** ändern (einzige Quelle;
-  `tests/test_creator_tools.py` erzwingt Konsistenz): free = 3/Tag, Pro = 12 € einmalig.
+- Produktfakten aus aktiver App-, Play- und Website-Konfiguration ableiten; das
+  frühere Creator-/Affiliate-Kit wurde vollständig stillgelegt.
 - **DRM-Invariante:** kein DRM/TPM umgehen — `allow_unplayable_formats` bleibt aus, keine
   Decrypt-Tools. Abgesichert durch `tests/test_no_drm_circumvention.py` +
   `security/DRM_CIRCUMVENTION_AUDIT.md`.
@@ -87,17 +87,16 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
   liefert der Sprachumschalter für diese 13 Sprachen keine 404 mehr; verbleibende Sprachen der
   `LEGAL_LANGUAGES`-Liste (ohne `datenschutz`-Pendant) bleiben bewusst offen.
 
-### T3 — „almost any" konsistent über alle i18n-Locales
-- [ ] `f5_desc` (und ähnliche absolute „any"/„jede") in den übrigen ~48
-  `pro/website/i18n/*.json` (und dem In-App-Spiegel) auf die „fast jeder/almost any"-Formel
-  bringen — EN/DE sind bereits erledigt. Übersetzungsrunde erforderlich.
+### T3 — Public-Copy ohne pauschale Website-Support-Claims
+- [x] Pauschale Reichweitenformulierungen vollständig aus beiden i18n-Spiegeln
+  entfernt. Maßgeblich ist `security/PUBLIC_CLAIMS_POLICY.md`; eine bloße
+  Relativierung auf eine große Mehrheit ist ausdrücklich nicht mehr zulässig.
 
 **Log T3:**
 - (offen)
 
 ### T4 — „Offline-Hack"-Ton prüfen
-- [x] `docs/INFLUENCER_VIDEO_SCRIPTS.md:223` („alles offline schauen / Offline-Hack")
-  tonal entschärfen (bereits durch „Nur mit Erlaubnis laden" abgemildert, aber grenzwertig).
+- [x] Historische Influencer-Skripte und Generatoren aus dem aktiven Arbeitsstand entfernt.
 
 **Log T4:**
 - 2026-07-14 — Claude/opus — **erledigt.** Skript 5 („Offline in den Urlaub") entschärft:
@@ -126,14 +125,36 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
 ## Änderungs-Historie
 - 2026-07-14 — Board angelegt (Claude/opus). Enthält die offenen Punkte aus dem
   Standards-/Marketing-Audit; T1 wird direkt im Anschluss umgesetzt.
-- 2026-07-14 — GPT-5.6 — T3 + T5 **in Arbeit** auf `agent/gpt/t3-t5`:
-  i18n-Werte in beiden Spiegeln sowie automatischer Retention-Cleanup-Trigger.
+- 2026-07-14 — Frühere T3-Formulierung verworfen: relativierte pauschale Claims
+  waren weiterhin zu weit und wurden durch die verbindliche Public-Copy-Policy
+  ersetzt.
 
 ## Abschluss-Ergänzung 2026-07-14 (append-only)
 
-- [x] **T3 — erledigt (GPT-5.6):** `website.features.f5_desc` in den 48 beauftragten
-  Nicht-EN/DE-Locales beider i18n-Spiegel sprachspezifisch auf „almost any“ relativiert;
-  keine Keys geändert, Spiegel- und Key-Parität geprüft.
+- [x] **T3 — endgültig erledigt:** `hero`, Feature-Texte, App-Taglines und Store-Copy
+  beider i18n-Spiegel auf konkrete, rechtebezogene Formulierungen umgestellt;
+  repositoryweiter CI-Guard verhindert die Wiedereinführung.
 - [x] **T5 — erledigt (GPT-5.6):** täglicher GitHub-Actions-Cron mit manuellem Trigger,
   rotierbarer Bearer-Token plus bestehender Admin-Session als Authentifizierung und
   Deployment-Synchronisierung ergänzt. Gate: 263 Python-Tests, 21 Node-Tests, JS-Check grün.
+
+## T7 — Google-Play-first-Vertrieb und autonome Abrechnung
+
+- [x] Android-Flavors `playRelease` und `directRelease` mit gemeinsamer Paket-ID,
+  Signatur und Versionslogik; Play Billing nur im Play-Flavor.
+- [x] Serverseitige Kaufprüfung, idempotente Lizenzzuordnung, RTDN, Widerruf und
+  Reconciliation einschließlich D1-Migrationen und Tests.
+- [x] Website Play-first mit direkter APK als sekundärem Weg; aktive Stripe- und
+  Affiliate-Verkaufsflächen sicher stilllegen.
+- [x] Reproduzierbares Google-Play-Finanzarchiv mit Hashmanifest, `age`-Verschlüsselung,
+  zehnjähriger GCS-Aufbewahrung und lokalem PowerShell-Spiegel.
+- [x] Release-/Security-Gates, Store-Unterlagen und kompakte Owner-Checkliste erstellen.
+
+**Log T7:**
+- 2026-07-14 — Codex — **in Arbeit** auf `agent/codex/google-play-first`; externe
+  Play-Console-, Bank-, Identitäts- und Vertragsschritte bleiben ausdrücklich Owner-Gates.
+- 2026-07-14 — Codex — **Code abgeschlossen, Produktion noch gesperrt.** Python-Gate:
+  258 bestanden, 1 übersprungen; Node: 13 bestanden; Android-Variantenscan: 10/10.
+  Ein echter AAB-/APK-Build, 16-KiB-Binärprüfung, License-Tester-Kauf/Restore/Refund,
+  RTDN, GCS-Restore und Secret-Widerruf bleiben externe Produktions-Gates gemäß
+  `GOOGLE_PLAY_OWNER_CHECKLIST.md`.

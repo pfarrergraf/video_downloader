@@ -1,5 +1,9 @@
 # Attack Surface Map — Affiliate Program
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 ## Öffentlich erreichbare HTTP-Endpunkte (kein Auth erforderlich)
 
 | Route | Datei | Risiko-Notizen |

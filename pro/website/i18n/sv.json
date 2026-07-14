@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Ladda ner media från de flesta sajter, på vilken enhet som helst",
+    "tagline": "ladda bara ner media du har rättigheter till.",
     "login": {
       "title": "Logga in",
       "password_label": "Lösenord",
@@ -19,7 +19,8 @@
       "status_free": "Gratis — {limit} nedladdningar per dag. Pro: obegränsat.",
       "need_key_toast": "Ange en licensnyckel först.",
       "activated_toast": "Licens aktiverad.",
-      "invalid_toast": "Ogiltig licensnyckel."
+      "invalid_toast": "Ogiltig licensnyckel.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Kö",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — nedladdare för video, ljud och bilder till Android",
-      "description": "Ladda ner videor, ljud och bilder direkt till din Android-telefon. Ingen Play Store, inga annonser, ingen inlåsning. Kostnadsfri kärna, Pro från €1/månad."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Funktioner",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Ladda ner {emphasis}.<br/>Direkt till din telefon.",
       "title_emphasis": "nästan allt",
-      "lead": "Video, ljud och bilder från nästan vilken sajt som helst — nedladdade direkt till din Android-telefon. Ingen molnuppladdning, ingen data lämnar någonsin din enhet, ingen Play Store behövs.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Ladda ner den kostnadsfria Android-versionen",
       "cta_secondary": "Se Pro-priser",
       "windows_link": "Finns även för Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Allt du behöver, inget du inte behöver",
       "lead": "En snabb, privat nedladdare som bara fungerar — med en Pro-nivå för dig som vill ha mer.",
       "f1_title": "De flesta videor eller ljud",
-      "f1_desc": "Klistra in en länk, välj kvalitet, ladda ner. Fungerar med de flesta video-, ljud- och bildsajter — inte med DRM-skyddade tjänster som Spotify eller Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Massnedladdningar",
       "f2_desc": "Skanna en sida efter alla mediefiler och ladda ner dem tillsammans, med möjlighet att markera/avmarkera.",
       "f3_title": "Integritet inbyggd",
-      "f3_desc": "Allt körs lokalt på din telefon. Inget laddas upp till en server du inte kontrollerar.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Inga annonser, ingen spårning",
       "f4_desc": "Inga annonsnätverk, inga analys-SDK:er, inga vilseledande betalväggar. Bara appen.",
       "f5_title": "Ljudextrahering",
-      "f5_desc": "Extrahera bara ljudspåret från nästan vilken video som helst och spara det som MP3.",
-      "f6_title": "Ingen appbutik behövs",
-      "f6_desc": "Installera Android-versionen direkt. Inget konto, ingen granskningsprocess i Play Store, inga regionlås.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Massnedladdningar",
       "feature_priority_updates": "Prioriterade uppdateringar",
       "feature_all_updates": "Alla framtida uppdateringar ingår",
-      "cta_lifetime": "Köp licens",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Ingen prenumeration"
     },
     "faq": {
       "h2": "Vanliga frågor",
       "q1_title": "Behöver jag Pro för att använda appen?",
       "q1_body": "Nej. Appen är gratis och fullt användbar. Pro tar bort begränsningar och stödjer utvecklingen.",
-      "q2_title": "Fungerar det här utan Google Play?",
-      "q2_body": "Ja — det är en fristående Android-version du installerar direkt. Inget Play Store-konto eller godkännande behövs.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Var anger jag min licensnyckel?",
-      "q3_body": "Direkt efter köpet ser du din licensnyckel på bekräftelsesidan — ange den i appens inställningar.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Kan jag få pengarna tillbaka?",
-      "q4_body": "Om du behåller din 14 dagars ångerrätt vid köpet kan du ångra dig när som helst innan licensen levereras och få pengarna tillbaka. Väljer du omedelbar leverans avstår du från den rätten — senare återbetalningar är frivilliga. Är du osäker, använd gratisversionen först.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Är det här lagligt?",
       "q5_body": "Du ansvarar själv för hur du använder nedladdat innehåll. Respektera upphovsrätten och villkoren för de sajter du laddar ner från.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Ångerrätt och återbetalning",
-      "body": "Ange licensnyckeln och e-postadressen från ditt köp. Om köpet gjordes inom de senaste 14 dagarna återbetalar vi det i sin helhet via Stripe och avaktiverar licensen omedelbart — ingen anledning krävs.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "Licensnyckel",
       "email_label": "E-postadress som användes vid köpet",
       "submit_btn": "Begär återbetalning",

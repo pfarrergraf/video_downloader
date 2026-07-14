@@ -1,5 +1,9 @@
 # Affiliate Program – Risk / Findings Register
 
+> **HISTORICAL EVIDENCE:** Das Affiliate-System wurde 2026-07-14 entfernt.
+> Aktuelle Bewertung: `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`. AFF-005 und
+> AFF-010 wurden im Play-first-Arbeitsstand nachträglich geschlossen.
+
 Stand: 2026-07-10. Branch: `security/affiliate-readiness-hardening` (Basis: `feature/affiliate-partner-program` @ `fc77401`).
 
 Diese Tabelle ist die kanonische Fundstelle für alle in dieser Prüfung identifizierten Findings.

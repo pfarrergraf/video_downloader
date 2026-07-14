@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Download media van de meeste sites, op elk apparaat",
+    "tagline": "download alleen media waarvoor je de rechten hebt.",
     "login": {
       "title": "Inloggen",
       "password_label": "Wachtwoord",
@@ -19,7 +19,8 @@
       "status_free": "Gratis — {limit} downloads per dag. Pro: onbeperkt.",
       "need_key_toast": "Voer eerst een licentiesleutel in.",
       "activated_toast": "Licentie geactiveerd.",
-      "invalid_toast": "Ongeldige licentiesleutel."
+      "invalid_toast": "Ongeldige licentiesleutel.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Mijn downloads",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Video-, audio- en afbeeldingsdownloader voor Android",
-      "description": "Download video's, audio en afbeeldingen rechtstreeks naar je Android-telefoon. Geen Play Store, geen advertenties, geen verplichtingen. Gratis kernfunctionaliteit, Pro vanaf €1/maand."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Functies",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Download {emphasis}.<br/>Rechtstreeks naar je telefoon.",
       "title_emphasis": "bijna alles",
-      "lead": "Video, audio en afbeeldingen van bijna elke site — rechtstreeks gedownload naar je Android-telefoon. Geen cloud-upload, er verlaat nooit data je apparaat, geen Play Store nodig.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Download de gratis Android-versie",
       "cta_secondary": "Bekijk Pro-prijzen",
       "windows_link": "Ook beschikbaar voor Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Alles wat je nodig hebt, niets wat je niet nodig hebt",
       "lead": "Een snelle, privacyvriendelijke downloader die gewoon werkt — met een Pro-versie voor wie meer wil.",
       "f1_title": "De meeste video's of audio",
-      "f1_desc": "Plak een link, kies een kwaliteit, download. Werkt met de meeste video-, audio- en afbeeldingensites — niet met DRM-beveiligde diensten zoals Spotify of Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Batchdownloads",
       "f2_desc": "Scan een pagina op alle mediabestanden en download ze samen, met selecteren/deselecteren.",
       "f3_title": "Privacy vanaf het begin",
-      "f3_desc": "Alles draait lokaal op je telefoon. Er wordt niets geüpload naar een server waar jij geen controle over hebt.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Geen advertenties, geen tracking",
       "f4_desc": "Geen advertentienetwerken, geen analytics-SDK's, geen misleidende paywalls. Gewoon de app.",
       "f5_title": "Audio extraheren",
-      "f5_desc": "Haal alleen het audiospoor uit bijna elke video en sla het op als MP3.",
-      "f6_title": "Geen appstore nodig",
-      "f6_desc": "Installeer de Android-versie rechtstreeks. Geen account, geen goedkeuringsproces van de Play Store, geen regiobeperkingen.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Batchdownloads",
       "feature_priority_updates": "Prioritaire updates",
       "feature_all_updates": "Alle toekomstige updates inbegrepen",
-      "cta_lifetime": "Licentie kopen",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Geen abonnement"
     },
     "faq": {
       "h2": "Veelgestelde vragen",
       "q1_title": "Heb ik Pro nodig om de app te gebruiken?",
       "q1_body": "Nee. De app is gratis en volledig bruikbaar. Pro verwijdert limieten en ondersteunt de ontwikkeling.",
-      "q2_title": "Werkt dit zonder Google Play?",
-      "q2_body": "Ja — het is een zelfstandige Android-versie die je rechtstreeks installeert. Geen Play Store-account of goedkeuring nodig.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Waar voer ik mijn licentiesleutel in?",
-      "q3_body": "Direct na aankoop zie je je licentiesleutel op de bevestigingspagina — voer deze in bij de instellingen van de app.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Kan ik geld terugkrijgen?",
-      "q4_body": "Als je bij aankoop je 14-daagse herroepingsrecht behoudt, kun je op elk moment vóór levering van je licentie annuleren en krijg je je geld terug. Kies je voor directe levering, dan doe je afstand van dat recht — terugbetalingen daarna zijn vrijwillig. Twijfel je? Gebruik dan eerst de gratis versie.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Is dit legaal?",
       "q5_body": "Je bent zelf verantwoordelijk voor hoe je gedownloade content gebruikt. Respecteer auteursrecht en de voorwaarden van de sites waar je van downloadt.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Herroeping & terugbetaling",
-      "body": "Vul de licentiesleutel en het e-mailadres van je aankoop in. Als je aankoop binnen de afgelopen 14 dagen is gedaan, betalen we deze volledig terug via Stripe en deactiveren we de licentie direct — zonder opgave van reden.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "Licentiesleutel",
       "email_label": "E-mailadres gebruikt bij aankoop",
       "submit_btn": "Terugbetaling aanvragen",

@@ -1,45 +1,13 @@
-// Health check endpoint for Cloudflare Pages deployment validation.
-// Returns which required bindings and secrets are present WITHOUT revealing
-// their values. Safe to call after deployment to verify configuration.
-//
-// Expected response on a correctly configured deployment:
-// {
-//   "ok": true,
-//   "dbBindingPresent": true,
-//   "stripeSecretConfigured": true,
-//   "webhookSecretConfigured": true
-// }
+import { jsonResponse } from "../_lib.js";
 
-export async function onRequestGet(context) {
-  const { env } = context;
-
-  const dbBindingPresent = typeof env.DB !== "undefined" && env.DB !== null;
-  const stripeSecretConfigured =
-    typeof env.STRIPE_SECRET_KEY === "string" &&
-    env.STRIPE_SECRET_KEY.length > 0;
-  const webhookSecretConfigured =
-    typeof env.STRIPE_WEBHOOK_SECRET === "string" &&
-    env.STRIPE_WEBHOOK_SECRET.length > 0;
-
-  const ok = dbBindingPresent && stripeSecretConfigured;
-
-  return new Response(
-    JSON.stringify(
-      {
-        ok,
-        dbBindingPresent,
-        stripeSecretConfigured,
-        webhookSecretConfigured,
-      },
-      null,
-      2
+export async function onRequestGet({ env }) {
+  const checks = {
+    dbBindingPresent: Boolean(env.DB),
+    playServiceAccountConfigured: Boolean(
+      env.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL && env.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY,
     ),
-    {
-      status: ok ? 200 : 503,
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
-      },
-    }
-  );
+    tokenEncryptionConfigured: Boolean(env.PLAY_TOKEN_ENCRYPTION_KEY),
+    rtdnConfigured: Boolean(env.PLAY_RTDN_AUDIENCE && env.PLAY_RTDN_SERVICE_ACCOUNT_EMAIL),
+  };
+  return jsonResponse({ ok: Object.values(checks).every(Boolean), checks }, Object.values(checks).every(Boolean) ? 200 : 503);
 }

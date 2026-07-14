@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "ほとんどのサイトの動画・音声・画像を、どんな端末でもダウンロード",
+    "tagline": "権利を持つメディアのみダウンロードしてください。",
     "login": {
       "title": "ログイン",
       "password_label": "パスワード",
@@ -19,7 +19,8 @@
       "status_free": "無料版 — 毎日{limit}回までダウンロード可能。Proなら無制限。",
       "need_key_toast": "先にライセンスキーを入力してください。",
       "activated_toast": "ライセンスを有効化しました。",
-      "invalid_toast": "ライセンスキーが無効です。"
+      "invalid_toast": "ライセンスキーが無効です。",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "キュー",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Android向け動画・音声・画像ダウンローダー",
-      "description": "動画・音声・画像をAndroidスマホに直接ダウンロード。Playストア不要、広告なし、囲い込みなし。無料コア機能、Proは月額€1から。"
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "機能",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "{emphasis}をダウンロード。<br/>そのままスマホへ。",
       "title_emphasis": "ほぼなんでも",
-      "lead": "ほぼどんなサイトからでも動画・音声・画像をAndroidスマホに直接ダウンロード。クラウドへのアップロードなし、データが端末から出ることもなく、Playストアも不要です。",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "無料のAndroid版をダウンロード",
       "cta_secondary": "Proの料金を見る",
       "windows_link": "Windows版もあります →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "必要なものはすべて、余計なものは何もなし",
       "lead": "高速でプライベートなダウンローダーが、そのまま使える。もっと求める人にはProプランも。",
       "f1_title": "ほとんどの動画や音声",
-      "f1_desc": "リンクを貼り付けて、画質を選んで、ダウンロード。ほとんどの動画・音声・画像サイトに対応していますが、SpotifyやNetflixのようなDRM保護されたサービスには対応していません。",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "一括ダウンロード",
       "f2_desc": "ページ内のすべてのメディアファイルをスキャンし、選択・解除しながらまとめてダウンロードできます。",
       "f3_title": "設計段階からプライバシー重視",
-      "f3_desc": "すべての処理はスマホ内でローカルに完結。管理外のサーバーに何かがアップロードされることはありません。",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "広告なし、追跡なし",
       "f4_desc": "広告ネットワークも、解析SDKも、ダークパターンの課金誘導もありません。あるのはアプリそのものだけです。",
       "f5_title": "音声抽出",
-      "f5_desc": "ほぼどんな動画からでも音声トラックだけを取り出して、MP3として保存できます。",
-      "f6_title": "アプリストア不要",
-      "f6_desc": "Android版を直接インストールできます。アカウント登録も、Playストアの審査も、地域制限もありません。",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "一括ダウンロード",
       "feature_priority_updates": "優先アップデート",
       "feature_all_updates": "今後のアップデートもすべて含む",
-      "cta_lifetime": "ライセンスを購入",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "サブスクリプションなし"
     },
     "faq": {
       "h2": "よくある質問",
       "q1_title": "アプリを使うのにProは必要ですか？",
       "q1_body": "いいえ。アプリは無料で、そのまま問題なく使えます。Proは制限を解除し、開発をサポートするためのものです。",
-      "q2_title": "Google Playなしでも使えますか？",
-      "q2_body": "はい。直接インストールできる単体のAndroid版です。Playストアのアカウントや承認は必要ありません。",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "ライセンスキーはどこで入力しますか？",
-      "q3_body": "購入直後に確認ページでライセンスキーが表示されます。それをアプリの設定画面に入力してください。",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "返金してもらえますか？",
-      "q4_body": "購入時に14日間の撤回権を保持すれば、ライセンスの引き渡し前ならいつでもキャンセルして返金を受けられます。即時引き渡しを選ぶとその権利を放棄します — 以降の返金は任意です。迷う場合は、まず無料版をお使いください。",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "これは合法ですか？",
       "q5_body": "ダウンロードしたコンテンツの利用については、ご自身の責任となります。著作権とダウンロード元サイトの利用規約を尊重してください。",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

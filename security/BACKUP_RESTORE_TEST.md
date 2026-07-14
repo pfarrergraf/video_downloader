@@ -1,5 +1,9 @@
 # Backup & Restore — Plan und lokale Verifikation
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 ## Was in dieser Sitzung geprüft werden konnte
 
 Cloudflare D1 selbst (Snapshot-/Export-Mechanismus, tatsächliche Produktions-RPO/RTO) liegt außerhalb des

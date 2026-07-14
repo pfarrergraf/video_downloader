@@ -1,7 +1,7 @@
 name: Security scan
 
 # Fills the CI gap identified in the standards audit: the main Python test
-# suite never ran in CI (only affiliate tests did), and there was no SAST,
+# suite previously did not run in CI, and there was no SAST,
 # lint, or secret scanning. This workflow adds all four.
 
 on:
@@ -18,8 +18,8 @@ jobs:
     name: Lint + SAST (ruff, bandit)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff # v6
         with:
           enable-cache: true
       - name: Install dev + lint toolchain
@@ -33,8 +33,8 @@ jobs:
     name: Main test suite
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff # v6
         with:
           enable-cache: true
       - name: Install dev environment
@@ -48,14 +48,17 @@ jobs:
           --ignore=tests/test_easy_ui.py
           -q
 
+      - name: Enforce public claims policy
+        run: uv run python scripts/check_public_claims.py
+
   secret-scan:
     name: Secret scan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 0
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff # v6
         with:
           enable-cache: true
       - name: Install dev environment
@@ -63,7 +66,7 @@ jobs:
       # Authoritative, repo-tuned check (knows the doc placeholders are not
       # real secrets) - this one gates the build.
       - name: Repo secret guard
-        run: uv run pytest tests/test_affiliate_no_secrets.py -q
+        run: uv run pytest tests/test_no_embedded_secrets.py -q
       # Broad scanner as an extra net; informational so doc placeholders like
       # `sk_test_...` don't produce spurious build failures.
       - name: gitleaks (informational)

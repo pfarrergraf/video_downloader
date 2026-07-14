@@ -47,5 +47,5 @@ Diese Eigenschaft ist eine juristische Kernannahme. Daher:
 - Keine Widevine-/CENC-/ClearKey-Entschlüsselung, keine Einbindung von mp4decrypt/Bento4
   oder vergleichbaren Tools.
 - Jede Änderung in `strategies.py` an der yt-dlp-Optionskonstruktion ist gegen diese Auflage
-  zu prüfen. Empfehlung: künftig durch einen Test absichern, der das Fehlen von
-  `allow_unplayable_formats` erzwingt.
+  zu prüfen. Das wird durch `tests/test_no_drm_circumvention.py` fail-closed
+  abgesichert; der Test verbietet außerdem bekannte DRM-/Decryptor-Indikatoren.

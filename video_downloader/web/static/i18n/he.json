@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "הורידו מדיה מרוב האתרים, בכל מכשיר",
+    "tagline": "הורידו רק מדיה שיש לכם את הזכויות להוריד.",
     "login": {
       "title": "התחברות",
       "password_label": "סיסמה",
@@ -19,7 +19,8 @@
       "status_free": "חינמי — {limit} הורדות ביום. עם Pro: ללא הגבלה.",
       "need_key_toast": "יש להזין קודם מפתח רישיון.",
       "activated_toast": "הרישיון הופעל.",
-      "invalid_toast": "מפתח רישיון לא תקין."
+      "invalid_toast": "מפתח רישיון לא תקין.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "תור",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — אפליקציית הורדת וידאו, אודיו ותמונות לאנדרואיד",
-      "description": "הורידו סרטונים, קבצי אודיו ותמונות ישירות לטלפון האנדרואיד שלכם. בלי חנות Play, בלי פרסומות, בלי התחייבות. גרסת ליבה חינמית, Pro החל מ-€1 לחודש."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "יכולות",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "הורידו {emphasis}.<br/>ישירות לטלפון שלכם.",
       "title_emphasis": "כמעט הכול",
-      "lead": "וידאו, אודיו ותמונות מכמעט כל אתר — מורדים ישירות לטלפון האנדרואיד שלכם. בלי העלאה לענן, שום מידע לא יוצא מהמכשיר שלכם, ולא נדרשת חנות Play.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "הורידו את הגרסה החינמית לאנדרואיד",
       "cta_secondary": "צפייה בתמחור Pro",
       "windows_link": "זמין גם עבור Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "כל מה שאתם צריכים, ושום דבר מיותר",
       "lead": "מוריד מהיר ופרטי שפשוט עובד — עם דרגת Pro למי שרוצה עוד.",
       "f1_title": "רוב הווידאו או האודיו",
-      "f1_desc": "הדביקו קישור, בחרו איכות, הורידו. עובד עם רוב אתרי הווידאו, האודיו והתמונות — לא עם שירותים מוגני DRM כמו Spotify או Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "הורדות באצווה",
       "f2_desc": "סרקו עמוד לאיתור כל קבצי המדיה והורידו אותם יחד, עם בחירה/ביטול בחירה.",
       "f3_title": "פרטיות מהיסוד",
-      "f3_desc": "הכול פועל באופן מקומי על הטלפון שלכם. שום דבר לא מועלה לשרת שאינכם שולטים בו.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "בלי פרסומות, בלי מעקב",
       "f4_desc": "בלי רשתות פרסום, בלי כלי אנליטיקס, בלי חסמי תשלום ערמומיים. רק האפליקציה.",
       "f5_title": "חילוץ אודיו",
-      "f5_desc": "שלפו רק את רצועת האודיו מכמעט כל סרטון ושמרו אותה כ-MP3.",
-      "f6_title": "לא נדרשת חנות אפליקציות",
-      "f6_desc": "התקינו את הגרסה לאנדרואיד ישירות. בלי חשבון, בלי תהליך בדיקה של חנות Play, בלי הגבלות אזוריות.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "הורדות באצווה",
       "feature_priority_updates": "עדכונים בעדיפות גבוהה",
       "feature_all_updates": "כל העדכונים העתידיים כלולים",
-      "cta_lifetime": "קנה רישיון",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "ללא מינוי"
     },
     "faq": {
       "h2": "שאלות נפוצות",
       "q1_title": "האם אני צריך Pro כדי להשתמש באפליקציה?",
       "q1_body": "לא. האפליקציה חינמית וניתנת לשימוש מלא. Pro מסיר הגבלות ותומך בפיתוח.",
-      "q2_title": "האם זה עובד בלי Google Play?",
-      "q2_body": "כן — זוהי גרסה עצמאית לאנדרואיד שמתקינים ישירות. לא נדרש חשבון או אישור מחנות Play.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "איפה מזינים את מפתח הרישיון?",
-      "q3_body": "מיד לאחר הרכישה תראו את מפתח הרישיון שלכם בעמוד האישור — הזינו אותו בהגדרות האפליקציה.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "האם אני יכול לקבל החזר כספי?",
-      "q4_body": "אם בעת הרכישה תשמור על זכות הביטול בת 14 הימים, תוכל לבטל בכל עת לפני מסירת הרישיון ולקבל את כספך בחזרה. אם תבחר במסירה מיידית, אתה מוותר על זכות זו — החזרים לאחר מכן הם וולונטריים. אם אינך בטוח, השתמש קודם בגרסה החינמית.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "האם זה חוקי?",
       "q5_body": "האחריות על אופן השימוש בתוכן שהורדתם היא עליכם. אנא כבדו זכויות יוצרים ואת תנאי השימוש של האתרים שמהם אתם מורידים.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

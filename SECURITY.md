@@ -26,7 +26,7 @@ In scope:
 
 - The Python core and the standard-library web server (`video_downloader/`).
 - The Android app (`android/`, package `de.classydl.app`).
-- The Cloudflare-hosted licensing/payment/affiliate backend (`pro/website/`).
+- The Cloudflare-hosted Google-Play entitlement and licensing backend (`pro/website/`).
 
 Out of scope / known and accepted:
 
@@ -45,3 +45,8 @@ threat model, ASVS/MASVS self-assessments, a red-team report, a penetration-test
 plan, and an incident-response plan. Automated checks (SAST, dependency updates,
 code scanning, secret scanning, the full test suite) run in CI — see
 `.github/workflows/security-scan.yml` and `.github/workflows/codeql.yml`.
+
+The current commerce security design is documented in
+`security/GOOGLE_PLAY_SECURITY_ARCHITECTURE.md`. Older Stripe and affiliate
+assessment files are retained as historical evidence and are not a description
+of the active production architecture.

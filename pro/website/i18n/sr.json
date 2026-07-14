@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Preuzimajte sadržaj sa većine sajtova, na bilo kom uređaju",
+    "tagline": "preuzimajte samo sadržaj na koji imate pravo.",
     "login": {
       "title": "Prijava",
       "password_label": "Lozinka",
@@ -19,7 +19,8 @@
       "status_free": "Besplatno — {limit} preuzimanja dnevno. Pro: neograničeno.",
       "need_key_toast": "Prvo unesite licencni ključ.",
       "activated_toast": "Licenca je aktivirana.",
-      "invalid_toast": "Nevažeći licencni ključ."
+      "invalid_toast": "Nevažeći licencni ključ.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Red za preuzimanje",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — preuzimanje video, audio i slika za Android",
-      "description": "Preuzimajte video, audio i slike direktno na svoj Android telefon. Bez Play prodavnice, bez reklama, bez ograničenja. Osnovna verzija besplatna, Pro od 1€/mesečno."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Funkcije",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Preuzmite {emphasis}.<br/>Direktno na telefon.",
       "title_emphasis": "skoro sve",
-      "lead": "Video, audio i slike sa gotovo bilo kog sajta — preuzeti direktno na vaš Android telefon. Bez slanja u oblak, podaci nikada ne napuštaju vaš uređaj, nije potrebna Play prodavnica.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Preuzmi besplatnu verziju za Android",
       "cta_secondary": "Pogledaj Pro cene",
       "windows_link": "Dostupno i za Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Sve što vam treba, ništa suvišno",
       "lead": "Brz i privatan downloader koji jednostavno radi — sa Pro nivoom za sve koji žele više.",
       "f1_title": "Većina videa ili audia",
-      "f1_desc": "Nalepite link, izaberite kvalitet, preuzmite. Radi sa većinom video, audio i sajtova sa slikama — ne sa uslugama zaštićenim DRM-om, kao što su Spotify ili Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Grupno preuzimanje",
       "f2_desc": "Skenirajte stranicu za sve medijske fajlove i preuzmite ih zajedno, uz biranje/poništavanje izbora.",
       "f3_title": "Privatnost po dizajnu",
-      "f3_desc": "Sve se odvija lokalno na vašem telefonu. Ništa se ne šalje na server koji vi ne kontrolišete.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Bez reklama, bez praćenja",
       "f4_desc": "Bez reklamnih mreža, bez analitičkih SDK-ova, bez skrivenih trikova za plaćanje. Samo aplikacija.",
       "f5_title": "Izdvajanje audia",
-      "f5_desc": "Izdvojte samo audio zapis iz gotovo bilo kog videa i sačuvajte ga kao MP3.",
-      "f6_title": "Nije potrebna prodavnica aplikacija",
-      "f6_desc": "Instalirajte verziju za Android direktno. Bez naloga, bez procesa provere na Play prodavnici, bez regionalnih ograničenja.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Grupno preuzimanje",
       "feature_priority_updates": "Prioritetna ažuriranja",
       "feature_all_updates": "Uključena sva buduća ažuriranja",
-      "cta_lifetime": "Kupi licencu",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Bez pretplate"
     },
     "faq": {
       "h2": "Često postavljana pitanja",
       "q1_title": "Da li mi je potreban Pro da bih koristio aplikaciju?",
       "q1_body": "Ne. Aplikacija je besplatna i potpuno upotrebljiva. Pro uklanja ograničenja i podržava razvoj.",
-      "q2_title": "Da li ovo radi bez Google Play-a?",
-      "q2_body": "Da — to je samostalna verzija za Android koju instalirate direktno. Nije potreban nalog niti odobrenje Play prodavnice.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Gde unosim svoj licencni ključ?",
-      "q3_body": "Odmah nakon kupovine videćete svoj licencni ključ na stranici sa potvrdom — unesite ga u podešavanjima aplikacije.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Да ли могу да добијем повраћај новца?",
-      "q4_body": "Ako pri kupovini zadržiš svoje 14-dnevno pravo na odustajanje, možeš odustati u bilo kom trenutku pre isporuke licence i dobiti novac nazad. Ako izabereš trenutnu isporuku, odričeš se tog prava — kasniji povraćaji su dobrovoljni. Ako nisi siguran, prvo koristi besplatnu verziju.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Da li je ovo legalno?",
       "q5_body": "Vi ste odgovorni za način na koji koristite preuzeti sadržaj. Molimo poštujte autorska prava i uslove korišćenja sajtova sa kojih preuzimate.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

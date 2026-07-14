@@ -1,4 +1,8 @@
-# Data Flow and Trust Boundaries — Affiliate Program
+# Data Flow and Trust Boundaries — Historical Affiliate Program
+
+> Historical evidence only. The affiliate program and Stripe checkout are not
+> part of the Google-Play-first target deployment. The current flow and trust
+> boundaries are authoritative in `GOOGLE_PLAY_SECURITY_ARCHITECTURE.md`.
 
 ## 1. Klick → Attribution
 

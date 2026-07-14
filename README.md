@@ -8,8 +8,9 @@
 
 ## Get the app
 
-**[Download DownloadThat for Android →](https://downloadthat.pages.dev)** — sideloadable
-APK, no Play Store, no ads, no git clone or Python install needed. Free tier included;
+**[Download DownloadThat for Android →](https://downloadthat.app/download/android)**
+Available through Google Play, with a signed direct APK as a secondary option. No ads,
+no git clone or Python installation needed. Free tier included;
 Pro removes the daily download limit.
 
 Everything below is developer documentation for building and running ClassyDL's engine
@@ -126,7 +127,7 @@ uv run classydl tui
 
 ### Site Scraper
 
-Scrape any website for videos, audio files, and images – then pick what to download.
+Scan a page you provide for discoverable video, audio, and image files – then pick what to download. Only use sources and content you are entitled to access and save.
 
 ```bash
 # Scan a page and list all discovered media
@@ -266,7 +267,7 @@ Easy UI workflow:
 - Paste clipboard directly into the link field
 - Download one link immediately
 - Optional one-click auto-convert of downloaded videos to MP4
-- **Scrape any website** for videos, audio, and images
+- **Scan a provided page** for discoverable video, audio, and image files
 - Filter results by type (video / audio / image) or text pattern
 - Select `single`, `multiple`, or `all` discovered media
 - One-click buttons: **All Videos**, **All Audio**, **All Images**

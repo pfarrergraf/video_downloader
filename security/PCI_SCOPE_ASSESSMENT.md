@@ -1,5 +1,9 @@
 # PCI DSS Scope Assessment — Affiliate Program
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 **Wichtig:** Diese Bewertung stellt **keine** verbindliche PCI-DSS-Scope-Bestätigung dar. Der tatsächliche
 Scope und die anzuwendende SAQ-Kategorie müssen verbindlich mit Stripe bzw. dem Acquirer geklärt werden
 (HANDOVER §9.5, weiterhin offen).

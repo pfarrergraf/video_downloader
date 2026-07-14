@@ -33,14 +33,6 @@ lint = [
   "ruff>=0.6.0",
   "bandit>=1.7.9",
 ]
-# Creator-Kit-Generator (creator_tools/) — reine Dev-/Desktop-Werkzeuge, nicht Teil
-# der App. Pure-Python-Wheels (Termux-Regel bleibt gewahrt); das Rendering nutzt
-# zusätzlich ein lokales Chromium und ffmpeg, siehe creator_tools/README.md.
-creator = [
-  "segno>=1.6.0",
-  "pillow>=10.0.0",
-]
-
 [project.scripts]
 classydl = "video_downloader.cli:main"
 
@@ -59,7 +51,7 @@ pythonpath = ["."]
 # deliberately not selected. Repo-wide style debt is out of scope.
 [tool.ruff]
 target-version = "py310"
-extend-exclude = ["android", "pro", "creator_tools", "build"]
+extend-exclude = ["android", "pro", "build"]
 
 [tool.ruff.lint]
 select = ["E9", "F63", "F7", "F82"]
@@ -68,4 +60,4 @@ select = ["E9", "F63", "F7", "F82"]
 # Skip asserts (B101) and the subprocess-use family (reviewed: yt-dlp/ffmpeg
 # are invoked with fixed, non-shell argv - see strategies.py).
 skips = ["B101", "B404", "B603", "B607"]
-exclude_dirs = ["tests", "android", "pro", "creator_tools", "build"]
+exclude_dirs = ["tests", "android", "pro", "build"]

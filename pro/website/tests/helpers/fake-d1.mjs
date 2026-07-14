@@ -1,11 +1,11 @@
 // Minimal shim of the Cloudflare D1 binding surface used by
-// pro/website/functions/_affiliate*.js, backed by node:sqlite so tests run
+// pro/website/functions entitlement modules, backed by node:sqlite so tests run
 // the real schema.sql + migrations/*.sql against a real SQLite engine
 // (matching the pattern tests/test_affiliate_program.py already uses on the
 // Python side) instead of hand-rolled mock data.
 //
 // Deliberately only implements prepare().bind().first()/all()/run() and
-// batch() -- the only D1 surface _affiliate*.js touches.
+// batch() -- the D1 surface used by the entitlement backend.
 import { DatabaseSync } from "node:sqlite";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -68,5 +68,5 @@ export class FakeD1 {
 }
 
 export function makeEnv(overrides = {}) {
-  return { DB: new FakeD1(), REFERRAL_HASH_SALT: "test-salt", ...overrides };
+  return { DB: new FakeD1(), ...overrides };
 }

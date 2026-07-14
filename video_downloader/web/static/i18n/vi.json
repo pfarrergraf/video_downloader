@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Tải media từ hầu hết các trang web, trên mọi thiết bị",
+    "tagline": "chỉ tải những media mà bạn có quyền sử dụng.",
     "login": {
       "title": "Đăng nhập",
       "password_label": "Mật khẩu",
@@ -19,7 +19,8 @@
       "status_free": "Miễn phí — {limit} lượt tải mỗi ngày. Pro: không giới hạn.",
       "need_key_toast": "Vui lòng nhập mã giấy phép trước.",
       "activated_toast": "Đã kích hoạt giấy phép.",
-      "invalid_toast": "Mã giấy phép không hợp lệ."
+      "invalid_toast": "Mã giấy phép không hợp lệ.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Hàng đợi",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Trình tải Video, Âm thanh & Hình ảnh cho Android",
-      "description": "Tải video, âm thanh và hình ảnh trực tiếp về điện thoại Android của bạn. Không cần Play Store, không quảng cáo, không ràng buộc. Miễn phí bản cơ bản, Pro từ €1/tháng."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Tính năng",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Tải {emphasis}.<br/>Trực tiếp về điện thoại của bạn.",
       "title_emphasis": "gần như mọi thứ",
-      "lead": "Video, âm thanh và hình ảnh từ hầu hết mọi trang web — tải trực tiếp về điện thoại Android của bạn. Không tải lên đám mây, dữ liệu không bao giờ rời khỏi thiết bị, không cần Play Store.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Tải phiên bản Android miễn phí",
       "cta_secondary": "Xem giá gói Pro",
       "windows_link": "Cũng có sẵn cho Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Mọi thứ bạn cần, không thứ gì thừa",
       "lead": "Một trình tải nhanh, riêng tư và hoạt động ổn định — với gói Pro cho ai muốn nhiều hơn thế.",
       "f1_title": "Hầu hết video hoặc âm thanh",
-      "f1_desc": "Dán liên kết, chọn chất lượng, tải xuống. Hoạt động với hầu hết các trang video, âm thanh và hình ảnh — không hoạt động với các dịch vụ được bảo vệ DRM như Spotify hay Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Tải hàng loạt",
       "f2_desc": "Quét một trang để tìm mọi tệp media và tải chúng cùng lúc, với tùy chọn chọn/bỏ chọn.",
       "f3_title": "Riêng tư ngay từ thiết kế",
-      "f3_desc": "Mọi thứ chạy cục bộ trên điện thoại của bạn. Không có gì được tải lên máy chủ mà bạn không kiểm soát.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Không quảng cáo, không theo dõi",
       "f4_desc": "Không mạng quảng cáo, không SDK phân tích, không tường phí kiểu lừa đảo. Chỉ là ứng dụng thuần túy.",
       "f5_title": "Trích xuất âm thanh",
-      "f5_desc": "Tách riêng track âm thanh từ gần như bất kỳ video nào và lưu thành MP3.",
-      "f6_title": "Không cần cửa hàng ứng dụng",
-      "f6_desc": "Cài đặt phiên bản Android trực tiếp. Không cần tài khoản, không qua quy trình kiểm duyệt của Play Store, không khóa vùng.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Tải hàng loạt",
       "feature_priority_updates": "Cập nhật ưu tiên",
       "feature_all_updates": "Bao gồm tất cả bản cập nhật trong tương lai",
-      "cta_lifetime": "Mua giấy phép",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Không cần đăng ký thuê bao"
     },
     "faq": {
       "h2": "Câu hỏi thường gặp",
       "q1_title": "Tôi có cần Pro để dùng ứng dụng không?",
       "q1_body": "Không. Ứng dụng miễn phí và dùng được đầy đủ. Pro loại bỏ giới hạn và giúp hỗ trợ phát triển ứng dụng.",
-      "q2_title": "Ứng dụng có hoạt động mà không cần Google Play không?",
-      "q2_body": "Có — đây là phiên bản Android độc lập mà bạn cài đặt trực tiếp. Không cần tài khoản Play Store hay phê duyệt.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Tôi nhập mã giấy phép ở đâu?",
-      "q3_body": "Ngay sau khi mua, bạn sẽ thấy mã giấy phép trên trang xác nhận — hãy nhập mã đó trong phần cài đặt của ứng dụng.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Tôi có thể được hoàn tiền không?",
-      "q4_body": "Nếu giữ quyền rút lui 14 ngày khi mua, bạn có thể hủy bất cứ lúc nào trước khi nhận giấy phép và được hoàn tiền. Nếu chọn nhận ngay, bạn từ bỏ quyền đó — các khoản hoàn tiền sau đó là tự nguyện. Nếu chưa chắc, hãy dùng bản miễn phí trước.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Việc này có hợp pháp không?",
       "q5_body": "Bạn chịu trách nhiệm về cách sử dụng nội dung đã tải xuống. Vui lòng tôn trọng bản quyền và điều khoản của các trang web mà bạn tải từ đó.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

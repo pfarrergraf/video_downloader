@@ -1,5 +1,9 @@
 # Executive Security Summary — DownloadThat Creator/Affiliate Program
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 **Datum:** 2026-07-10 · **Geprüfter Stand:** `feature/affiliate-partner-program` @ `fc77401` (PR #4) ·
 **Prüfbranch:** `security/affiliate-readiness-hardening` · **Programmstatus:** weiterhin deaktiviert
 (`AFFILIATE_PROGRAM_ENABLED=false`), **keine Produktionsaktivierung durch diese Prüfung**.

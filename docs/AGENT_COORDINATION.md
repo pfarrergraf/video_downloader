@@ -1,5 +1,10 @@
 # Agent-Koordination — Absprachedatei für parallele KIs
 
+> **Abgeschlossen / historischer Koordinationsstand:** Verweise auf inzwischen
+> entfernte Influencer-/Affiliate-Dateien dienen nur der Ablaufhistorie. Für neue
+> Arbeit gelten `security/PUBLIC_CLAIMS_POLICY.md` und
+> `security/CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 Diese Datei ist der **Live-Handschlag** zwischen mehreren KIs (z. B. Claude und
 GPT-5.6), die gleichzeitig am Projekt arbeiten. Sie ergänzt `docs/WORKPLAN.md`:
 - **WORKPLAN.md** = *was* zu tun ist (Aufgaben + Status + Ergebnis-Log).
@@ -28,7 +33,8 @@ GPT-5.6), die gleichzeitig am Projekt arbeiten. Sie ergänzt `docs/WORKPLAN.md`:
    so mergen parallele Log-Einträge konfliktfrei.
 
 ## Projekt-Leitplanken (nicht verletzen — Details in WORKPLAN.md)
-- Fakten nur in `creator_tools/config/product_facts.json` (Test erzwingt Konsistenz).
+- Öffentliche Fakten und Formulierungen nur gemäß `security/PUBLIC_CLAIMS_POLICY.md`;
+  `scripts/check_public_claims.py` ist das verbindliche Gate.
 - DRM-Invariante: kein `allow_unplayable_formats`, keine Decrypt-Tools (`tests/test_no_drm_circumvention.py`).
 - Marketing: `docs/MARKETING_LEGAL_GUARDRAILS.md` — Fähigkeit/legalen Nutzen bewerben, nie den rechtswidrigen Use-Case; keine geschützten Plattformen als Download-Ziel.
 - i18n: **Key-Parität** über alle Locales + zwischen App- und Website-i18n (`tests/test_i18n.py`) — neue Keys in ALLE Locale-Dateien beider Verzeichnisse.
@@ -92,3 +98,13 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
 |-------|---------|--------|--------|--------------|
 | GPT-5.6 | T3 + T5 | agent/gpt/t3-t5 | erledigt | 2026-07-14 |
 | Claude/opus | T2 + T4 | agent/claude/t2-t4 | erledigt | 2026-07-14 |
+
+- 2026-07-14 — Codex — Claim: T7 Google-Play-first-Vertrieb auf
+  `agent/codex/google-play-first`. Scope: Android-Varianten und Billing,
+  Play-Entitlement-Backend/D1, Website-Downloadpfade, Stripe-/Affiliate-Stilllegung,
+  Finanzarchiv, CI, Tests sowie Security-/Betriebsdokumentation. Die vorhandene
+  unversionierte `.github/commands.md` bleibt unangetastet.
+- 2026-07-14 — Codex — T7 Implementierung **erledigt** auf
+  `agent/codex/google-play-first`; kein Push/Deployment. Lokale Gates: 258 Python
+  bestanden (1 übersprungen), 13 Node bestanden, Android-Variantenscan 10/10.
+  Externe Produktionsfreigaben bleiben in `docs/GOOGLE_PLAY_OWNER_CHECKLIST.md` offen.

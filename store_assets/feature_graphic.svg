@@ -27,5 +27,5 @@
 
   <!-- wordmark + tagline, right side -->
   <text x="380" y="240" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-weight="bold" font-size="68" fill="url(#textGrad)">DownloadThat</text>
-  <text x="382" y="285" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="28" fill="#9b96b8">Video, audio &amp; images — from any site</text>
+  <text x="382" y="285" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="28" fill="#9b96b8">Video, audio &amp; images — on your device</text>
 </svg>

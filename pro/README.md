@@ -1,5 +1,11 @@
 # DownloadThat Pro — backend + website
 
+> **HISTORICAL SETUP NOTES:** Die Stripe-/Affiliate- und
+> `gaistreich.com`-Anweisungen weiter unten dokumentieren den entfernten Aufbau.
+> Für die aktuelle Google-Play-first-Produktion mit `downloadthat.app` gelten
+> `../docs/GOOGLE_PLAY_OPERATIONS.md` und
+> `../docs/CLOUDFLARE_DOWNLOADTHAT_APP_SETUP.md`.
+
 Lives inside `video_downloader` (under `pro/`) rather than a separate repo — deliberately
 kept out of the Android app's Chaquopy source set (see `android/app/build.gradle`'s
 `exclude "pro/**"`) since it's JS/HTML for a separate Cloudflare deployment, not part of

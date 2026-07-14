@@ -1,5 +1,9 @@
 # OWASP ASVS 5.0.0 Mapping — Affiliate Program
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 Ziel: mindestens Level 2 für die internetexponierte Anwendung; Zahlungs-/Finanz-/Admin-/Integritätsbereiche
 zusätzlich gegen relevante Level-3-Anforderungen geprüft. Diese Matrix ist eine **interne Readiness-Bewertung**,
 keine formelle ASVS-Zertifizierung (die ASVS kennt ohnehin kein Zertifikat, sondern dient als

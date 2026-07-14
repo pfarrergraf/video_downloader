@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Λήψη περιεχομένου από τις περισσότερες σελίδες, σε οποιαδήποτε συσκευή",
+    "tagline": "κατεβάζετε μόνο περιεχόμενο για το οποίο έχετε τα δικαιώματα.",
     "login": {
       "title": "Σύνδεση",
       "password_label": "Κωδικός πρόσβασης",
@@ -19,7 +19,8 @@
       "status_free": "Δωρεάν — {limit} λήψεις την ημέρα. Pro: απεριόριστες.",
       "need_key_toast": "Εισάγετε πρώτα ένα κλειδί άδειας χρήσης.",
       "activated_toast": "Η άδεια χρήσης ενεργοποιήθηκε.",
-      "invalid_toast": "Μη έγκυρο κλειδί άδειας χρήσης."
+      "invalid_toast": "Μη έγκυρο κλειδί άδειας χρήσης.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Ουρά",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Λήψη Βίντεο, Ήχου & Εικόνων για Android",
-      "description": "Κατεβάστε βίντεο, ήχο και εικόνες απευθείας στο κινητό σας Android. Χωρίς Play Store, χωρίς διαφημίσεις, χωρίς δέσμευση. Δωρεάν βασική έκδοση, Pro από €1/μήνα."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Χαρακτηριστικά",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Κατέβασε {emphasis}.<br/>Απευθείας στο κινητό σου.",
       "title_emphasis": "σχεδόν τα πάντα",
-      "lead": "Βίντεο, ήχος και εικόνες από σχεδόν οποιαδήποτε σελίδα — κατεβασμένα απευθείας στο κινητό σας Android. Χωρίς μεταφόρτωση στο cloud, τα δεδομένα σας δεν φεύγουν ποτέ από τη συσκευή σας, χωρίς ανάγκη για Play Store.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Κατεβάστε τη δωρεάν έκδοση για Android",
       "cta_secondary": "Δείτε τις τιμές Pro",
       "windows_link": "Διαθέσιμο και για Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Όλα όσα χρειάζεστε, τίποτα περιττό",
       "lead": "Ένας γρήγορος, ιδιωτικός downloader που απλά λειτουργεί — με ένα επίπεδο Pro για όσους θέλουν περισσότερα.",
       "f1_title": "Τα περισσότερα βίντεο ή ήχοι",
-      "f1_desc": "Επικολλήστε έναν σύνδεσμο, επιλέξτε ποιότητα, κατεβάστε. Λειτουργεί με τις περισσότερες σελίδες βίντεο, ήχου και εικόνων — όχι με υπηρεσίες προστατευμένες με DRM όπως το Spotify ή το Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Μαζικές λήψεις",
       "f2_desc": "Σαρώστε μια σελίδα για κάθε αρχείο πολυμέσων και κατεβάστε τα όλα μαζί, με επιλογή/αποεπιλογή.",
       "f3_title": "Ιδιωτικό εκ σχεδιασμού",
-      "f3_desc": "Όλα εκτελούνται τοπικά στο κινητό σας. Τίποτα δεν μεταφορτώνεται σε έναν διακομιστή που δεν ελέγχετε.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Χωρίς διαφημίσεις, χωρίς παρακολούθηση",
       "f4_desc": "Χωρίς δίκτυα διαφημίσεων, χωρίς SDK ανάλυσης, χωρίς παγίδες πληρωμής. Μόνο η εφαρμογή.",
       "f5_title": "Εξαγωγή ήχου",
-      "f5_desc": "Εξάγετε μόνο το κομμάτι ήχου από σχεδόν οποιοδήποτε βίντεο και αποθηκεύστε το ως MP3.",
-      "f6_title": "Δεν χρειάζεται κατάστημα εφαρμογών",
-      "f6_desc": "Εγκαταστήστε την έκδοση για Android απευθείας. Χωρίς λογαριασμό, χωρίς διαδικασία έγκρισης του Play Store, χωρίς περιορισμούς περιοχής.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Μαζικές λήψεις",
       "feature_priority_updates": "Ενημερώσεις προτεραιότητας",
       "feature_all_updates": "Περιλαμβάνονται όλες οι μελλοντικές ενημερώσεις",
-      "cta_lifetime": "Αγορά άδειας",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Χωρίς συνδρομή"
     },
     "faq": {
       "h2": "Συχνές ερωτήσεις",
       "q1_title": "Χρειάζομαι το Pro για να χρησιμοποιήσω την εφαρμογή;",
       "q1_body": "Όχι. Η εφαρμογή είναι δωρεάν και πλήρως λειτουργική. Το Pro αφαιρεί τα όρια και υποστηρίζει την ανάπτυξη.",
-      "q2_title": "Λειτουργεί αυτό χωρίς το Google Play;",
-      "q2_body": "Ναι — είναι μια αυτόνομη έκδοση για Android που εγκαθιστάτε απευθείας. Δεν χρειάζεται λογαριασμός ή έγκριση από το Play Store.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Πού καταχωρώ το κλειδί άδειας χρήσης μου;",
-      "q3_body": "Αμέσως μετά την αγορά θα δείτε το κλειδί άδειας χρήσης σας στη σελίδα επιβεβαίωσης — καταχωρίστε το στις ρυθμίσεις της εφαρμογής.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Μπορώ να λάβω επιστροφή χρημάτων;",
-      "q4_body": "Αν διατηρήσεις το 14ήμερο δικαίωμα υπαναχώρησης κατά την αγορά, μπορείς να ακυρώσεις οποτεδήποτε πριν από την παράδοση της άδειας και να πάρεις τα χρήματά σου πίσω. Αν επιλέξεις άμεση παράδοση, παραιτείσαι από αυτό το δικαίωμα — μεταγενέστερες επιστροφές είναι εθελοντικές. Αν διστάζεις, χρησιμοποίησε πρώτα τη δωρεάν έκδοση.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Είναι νόμιμο αυτό;",
       "q5_body": "Είστε υπεύθυνοι για τον τρόπο χρήσης του περιεχομένου που κατεβάζετε. Παρακαλούμε σεβαστείτε τα πνευματικά δικαιώματα και τους όρους των σελίδων από τις οποίες κατεβάζετε.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Υπαναχώρηση & επιστροφή χρημάτων",
-      "body": "Εισαγάγετε το κλειδί άδειας χρήσης και τη διεύθυνση email από την αγορά σας. Αν η αγορά σας πραγματοποιήθηκε τις τελευταίες 14 ημέρες, θα σας επιστρέψουμε πλήρως τα χρήματα μέσω Stripe και θα απενεργοποιήσουμε αμέσως την άδεια — χωρίς να χρειάζεται αιτιολόγηση.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "Κλειδί άδειας χρήσης",
       "email_label": "Διεύθυνση email που χρησιμοποιήθηκε στην αγορά",
       "submit_btn": "Αίτημα επιστροφής χρημάτων",

@@ -11,6 +11,10 @@ plugins {
 def abiFilterList = project.hasProperty('abiFilters')
     ? project.abiFilters.split(',') as List<String>
     : ["arm64-v8a", "x86_64"]
+def playStoreUrl = project.findProperty('playStoreUrl') ?:
+    "https://play.google.com/store/apps/details?id=de.classydl.app"
+def licenseApiBaseUrl = project.findProperty('licenseApiBaseUrl') ?:
+    "https://downloadthat.app"
 
 android {
     namespace 'de.classydl.app'
@@ -43,24 +47,56 @@ android {
     }
 
     signingConfigs {
-        release {
-            // Populated only when the release CI job supplies these via env
-            // vars (sourced from GitHub Actions secrets — see
-            // .github/workflows/android-release.yml and
-            // docs/ANDROID_APP_PLAN.md for the one-time keystore setup). Left
-            // unset for local `gradle assembleRelease` runs without secrets,
-            // which still succeeds but produces an unsigned (uninstallable
-            // as-is) APK — same as plain AGP's default behavior, no
-            // regression from before this signingConfig existed.
-            def keystoreBase64 = System.getenv("ANDROID_KEYSTORE_BASE64")
+        appSigning {
+            // directRelease must be signed with the key transferred to Play
+            // App Signing. The legacy names remain accepted during migration.
+            def keystoreBase64 = System.getenv("ANDROID_APP_SIGNING_KEYSTORE_BASE64") ?: System.getenv("ANDROID_KEYSTORE_BASE64")
             if (keystoreBase64) {
-                def decodedKeystore = new File("${buildDir}/release-keystore.jks")
+                def decodedKeystore = new File("${buildDir}/app-signing-keystore.jks")
                 decodedKeystore.parentFile.mkdirs()
                 decodedKeystore.bytes = keystoreBase64.decodeBase64()
                 storeFile decodedKeystore
-                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
-                keyAlias System.getenv("ANDROID_KEY_ALIAS")
-                keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+                storePassword System.getenv("ANDROID_APP_SIGNING_KEYSTORE_PASSWORD") ?: System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANDROID_APP_SIGNING_KEY_ALIAS") ?: System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword System.getenv("ANDROID_APP_SIGNING_KEY_PASSWORD") ?: System.getenv("ANDROID_KEY_PASSWORD")
+            }
+        }
+        upload {
+            // Google re-signs the AAB with appSigning; CI only receives this
+            // independently revocable upload key.
+            def keystoreBase64 = System.getenv("ANDROID_UPLOAD_KEYSTORE_BASE64")
+            if (keystoreBase64) {
+                def decodedKeystore = new File("${buildDir}/upload-keystore.jks")
+                decodedKeystore.parentFile.mkdirs()
+                decodedKeystore.bytes = keystoreBase64.decodeBase64()
+                storeFile decodedKeystore
+                storePassword System.getenv("ANDROID_UPLOAD_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANDROID_UPLOAD_KEY_ALIAS")
+                keyPassword System.getenv("ANDROID_UPLOAD_KEY_PASSWORD")
+            }
+        }
+    }
+
+    flavorDimensions "distribution"
+    productFlavors {
+        play {
+            dimension "distribution"
+            buildConfigField "boolean", "PLAY_BILLING_ENABLED", "true"
+            buildConfigField "String", "PLAY_PRODUCT_ID", '"pro"'
+            buildConfigField "String", "PLAY_STORE_URL", groovy.json.JsonOutput.toJson(playStoreUrl)
+            buildConfigField "String", "LICENSE_API_BASE_URL", groovy.json.JsonOutput.toJson(licenseApiBaseUrl)
+            if (System.getenv("ANDROID_UPLOAD_KEYSTORE_BASE64")) {
+                signingConfig signingConfigs.upload
+            }
+        }
+        direct {
+            dimension "distribution"
+            buildConfigField "boolean", "PLAY_BILLING_ENABLED", "false"
+            buildConfigField "String", "PLAY_PRODUCT_ID", '"pro"'
+            buildConfigField "String", "PLAY_STORE_URL", groovy.json.JsonOutput.toJson(playStoreUrl)
+            buildConfigField "String", "LICENSE_API_BASE_URL", groovy.json.JsonOutput.toJson(licenseApiBaseUrl)
+            if (System.getenv("ANDROID_APP_SIGNING_KEYSTORE_BASE64") || System.getenv("ANDROID_KEYSTORE_BASE64")) {
+                signingConfig signingConfigs.appSigning
             }
         }
     }
@@ -68,9 +104,6 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            if (System.getenv("ANDROID_KEYSTORE_BASE64")) {
-                signingConfig signingConfigs.release
-            }
         }
     }
 
@@ -173,4 +206,9 @@ dependencies {
     // by android_bridge.export_file() to copy finished downloads into a
     // user-chosen folder (see MainActivity's folder picker).
     implementation 'androidx.documentfile:documentfile:1.0.1'
+    // Billing is deliberately absent from directRelease. This keeps the
+    // sideloaded APK a Free/activation client and prevents accidental use of
+    // an alternative in-app checkout.
+    playImplementation 'com.android.billingclient:billing-ktx:9.1.0'
+    testImplementation 'junit:junit:4.13.2'
 }

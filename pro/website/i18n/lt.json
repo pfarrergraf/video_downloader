@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Atsisiųsk turinį iš daugumos svetainių, bet kuriame įrenginyje",
+    "tagline": "atsisiųskite tik tą turinį, kurį turite teisę atsisiųsti.",
     "login": {
       "title": "Prisijungimas",
       "password_label": "Slaptažodis",
@@ -19,7 +19,8 @@
       "status_free": "Nemokama versija — {limit} atsisiuntimai per dieną. Pro: neribotai.",
       "need_key_toast": "Pirmiausia įveskite licencijos raktą.",
       "activated_toast": "Licencija aktyvuota.",
-      "invalid_toast": "Neteisingas licencijos raktas."
+      "invalid_toast": "Neteisingas licencijos raktas.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Eilė",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — vaizdo, garso ir nuotraukų atsisiuntimo programėlė „Android“",
-      "description": "Atsisiųsk vaizdo įrašus, garso įrašus ir nuotraukas tiesiai į „Android“ telefoną. Jokios „Play Store“, jokios reklamos, jokių įsipareigojimų. Nemokama pagrindinė versija, Pro nuo 1 €/mėn."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Galimybės",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Atsisiųsk {emphasis}.<br/>Tiesiai į telefoną.",
       "title_emphasis": "beveik viską",
-      "lead": "Vaizdo įrašai, garso įrašai ir nuotraukos iš beveik bet kurios svetainės — atsisiunčiami tiesiai į „Android“ telefoną. Jokio įkėlimo į debesį, jokie duomenys nepalieka jūsų įrenginio, „Play Store“ nereikalinga.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Atsisiųsti nemokamą Android versiją",
       "cta_secondary": "Peržiūrėti Pro kainas",
       "windows_link": "Taip pat prieinama „Windows“ →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Viskas, ko reikia, ir nieko nereikalingo",
       "lead": "Greitas ir privatus atsisiuntimo įrankis, kuris tiesiog veikia — su Pro lygiu tiems, kam reikia daugiau.",
       "f1_title": "Dauguma vaizdo ar garso įrašų",
-      "f1_desc": "Įklijuok nuorodą, pasirink kokybę, atsisiųsk. Veikia su dauguma vaizdo, garso ir nuotraukų svetainių — ne su DRM apsaugotomis paslaugomis, tokiomis kaip Spotify ar Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Atsisiuntimai grupėmis",
       "f2_desc": "Nuskenuok puslapį ir rask visus jame esančius failus, tada atsisiųsk juos kartu, pažymėdamas arba panaikindamas žymėjimą.",
       "f3_title": "Privatumas iš esmės",
-      "f3_desc": "Viskas vyksta vietoje, tavo telefone. Niekas neįkeliama į tau nepriklausantį serverį.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Jokios reklamos, jokio sekimo",
       "f4_desc": "Jokių reklamos tinklų, jokių analitikos SDK, jokių apgaulingų mokėjimo langų. Tik programėlė.",
       "f5_title": "Garso ištraukimas",
-      "f5_desc": "Ištrauk vien garso takelį iš beveik bet kurio vaizdo įrašo ir išsaugok kaip MP3.",
-      "f6_title": "Programėlių parduotuvė nereikalinga",
-      "f6_desc": "Įdiek Android versiją tiesiogiai. Jokios paskyros, jokio „Play Store“ peržiūros proceso, jokių regiono apribojimų.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Atsisiuntimai grupėmis",
       "feature_priority_updates": "Prioritetiniai atnaujinimai",
       "feature_all_updates": "Įtraukti visi būsimi atnaujinimai",
-      "cta_lifetime": "Pirkti licenciją",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Jokios prenumeratos"
     },
     "faq": {
       "h2": "Dažniausiai užduodami klausimai",
       "q1_title": "Ar norint naudotis programėle būtina Pro versija?",
       "q1_body": "Ne. Programėlė nemokama ir visiškai naudotina. Pro panaikina apribojimus ir palaiko kūrimą.",
-      "q2_title": "Ar tai veikia be „Google Play“?",
-      "q2_body": "Taip — tai atskira Android versija, kurią įdiegi tiesiogiai. „Play Store“ paskyra ar patvirtinimas nereikalingi.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Kur įvesti savo licencijos raktą?",
-      "q3_body": "Iškart po pirkimo patvirtinimo puslapyje pamatysi savo licencijos raktą — įvesk jį programėlės nustatymuose.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Ar galiu susigrąžinti pinigus?",
-      "q4_body": "Jei pirkdamas išsaugai 14 dienų teisę atsisakyti sutarties, gali bet kada iki licencijos pateikimo atsisakyti ir atgauti pinigus. Jei pasirenki neatidėliotiną pateikimą, šios teisės atsisakai — vėlesni grąžinimai yra savanoriški. Jei abejoji, pirmiausia naudok nemokamą versiją.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Ar tai teisėta?",
       "q5_body": "Tu pats atsakai už tai, kaip naudoji atsisiųstą turinį. Prašome gerbti autorių teises ir svetainių, iš kurių atsisiunčiate, taisykles.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

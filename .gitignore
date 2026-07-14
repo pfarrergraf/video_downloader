@@ -33,6 +33,7 @@ Thumbs.db
 .DS_Store
 
 # Test artifacts
+output/playwright/
 downloads/
 downloads_test/
 downloads_smoke*/
@@ -42,6 +43,8 @@ htmlcov/
 .coverage
 
 # Signing artifacts (never commit private keys or certs)
+.secrets/
+*.keystore.base64*
 classydl-selfsign.pfx
 classydl-selfsign.pfx.pass.txt
 classydl-selfsign.cer

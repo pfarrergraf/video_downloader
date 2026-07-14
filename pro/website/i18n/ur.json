@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "زیادہ تر سائٹس سے، کسی بھی ڈیوائس پر میڈیا ڈاؤن لوڈ کریں",
+    "tagline": "صرف وہی میڈیا ڈاؤن لوڈ کریں جس کے حقوق آپ کے پاس ہوں۔",
     "login": {
       "title": "لاگ ان کریں",
       "password_label": "پاس ورڈ",
@@ -19,7 +19,8 @@
       "status_free": "فری — روزانہ {limit} ڈاؤن لوڈ۔ پرو: لامحدود۔",
       "need_key_toast": "پہلے لائسنس کلید درج کریں۔",
       "activated_toast": "لائسنس فعال ہو گیا۔",
-      "invalid_toast": "غلط لائسنس کلید۔"
+      "invalid_toast": "غلط لائسنس کلید۔",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "قطار",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — اینڈرائیڈ کے لیے ویڈیو، آڈیو اور امیج ڈاؤن لوڈر",
-      "description": "ویڈیوز، آڈیو اور تصاویر براہ راست اپنے اینڈرائیڈ فون پر ڈاؤن لوڈ کریں۔ نہ پلے اسٹور، نہ اشتہارات، نہ کوئی پابندی۔ مفت بنیادی نسخہ، پرو صرف €1/ماہ سے۔"
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "خصوصیات",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "{emphasis} ڈاؤن لوڈ کریں۔<br/>سیدھا اپنے فون میں۔",
       "title_emphasis": "تقریباً سب کچھ",
-      "lead": "تقریباً کسی بھی سائٹ سے ویڈیو، آڈیو اور تصاویر — سیدھا آپ کے اینڈرائیڈ فون پر ڈاؤن لوڈ۔ نہ کلاؤڈ اپ لوڈ، نہ آپ کا ڈیٹا کبھی آپ کی ڈیوائس سے باہر جاتا ہے، نہ پلے اسٹور کی ضرورت۔",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "مفت اینڈرائیڈ ورژن ڈاؤن لوڈ کریں",
       "cta_secondary": "پرو کی قیمتیں دیکھیں",
       "windows_link": "ونڈوز کے لیے بھی دستیاب ہے →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "جو کچھ آپ کو چاہیے وہ سب کچھ، اضافی کچھ نہیں",
       "lead": "ایک تیز، نجی ڈاؤن لوڈر جو بس کام کرتا ہے — اور جو مزید چاہیں ان کے لیے پرو ٹیئر بھی۔",
       "f1_title": "زیادہ تر ویڈیو یا آڈیو",
-      "f1_desc": "لنک پیسٹ کریں، کوالٹی منتخب کریں، ڈاؤن لوڈ کریں۔ زیادہ تر ویڈیو، آڈیو اور امیج سائٹس کے ساتھ کام کرتا ہے — Spotify یا Netflix جیسی DRM سے محفوظ سروسز کے ساتھ نہیں۔",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "بیچ ڈاؤن لوڈز",
       "f2_desc": "کسی صفحے کو ہر میڈیا فائل کے لیے اسکین کریں اور انہیں منتخب/غیر منتخب کرتے ہوئے ایک ساتھ ڈاؤن لوڈ کریں۔",
       "f3_title": "ڈیزائن کے لحاظ سے نجی",
-      "f3_desc": "سب کچھ آپ کے فون پر مقامی طور پر چلتا ہے۔ کچھ بھی ایسے سرور پر اپ لوڈ نہیں ہوتا جس پر آپ کا کنٹرول نہ ہو۔",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "نہ اشتہارات، نہ ٹریکنگ",
       "f4_desc": "کوئی اشتہاری نیٹ ورک نہیں، کوئی اینالیٹکس SDK نہیں، کوئی فریب دینے والے پے وال نہیں۔ بس ایپ۔",
       "f5_title": "آڈیو ایکسٹریکشن",
-      "f5_desc": "تقریباً کسی بھی ویڈیو سے صرف آڈیو ٹریک نکالیں اور اسے MP3 کے طور پر محفوظ کریں۔",
-      "f6_title": "ایپ اسٹور کی ضرورت نہیں",
-      "f6_desc": "اینڈرائیڈ ورژن براہ راست انسٹال کریں۔ نہ اکاؤنٹ، نہ پلے اسٹور کا جائزہ عمل، نہ علاقائی پابندیاں۔",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "بیچ ڈاؤن لوڈز",
       "feature_priority_updates": "ترجیحی اپ ڈیٹس",
       "feature_all_updates": "تمام مستقبل کی اپ ڈیٹس شامل",
-      "cta_lifetime": "لائسنس خریدیں",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "کوئی سبسکرپشن نہیں"
     },
     "faq": {
       "h2": "اکثر پوچھے جانے والے سوالات",
       "q1_title": "کیا ایپ استعمال کرنے کے لیے پرو ضروری ہے؟",
       "q1_body": "نہیں۔ ایپ مفت اور مکمل طور پر قابلِ استعمال ہے۔ پرو حدود ختم کرتا ہے اور ڈویلپمنٹ کی حمایت کرتا ہے۔",
-      "q2_title": "کیا یہ گوگل پلے کے بغیر کام کرتا ہے؟",
-      "q2_body": "جی ہاں — یہ ایک اسٹینڈ اَلون اینڈرائیڈ ورژن ہے جسے آپ براہ راست انسٹال کرتے ہیں۔ کسی پلے اسٹور اکاؤنٹ یا منظوری کی ضرورت نہیں۔",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "میں اپنی لائسنس کلید کہاں درج کروں؟",
-      "q3_body": "خریداری کے فوراً بعد آپ کو تصدیقی صفحے پر اپنی لائسنس کلید نظر آئے گی — اسے ایپ کی ترتیبات میں درج کریں۔",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "کیا مجھے رقم واپس مل سکتی ہے؟",
-      "q4_body": "اگر خریداری کے وقت آپ اپنا 14 دن کا دستبرداری کا حق برقرار رکھیں تو لائسنس کی فراہمی سے پہلے کسی بھی وقت منسوخ کر کے پیسے واپس لے سکتے ہیں۔ فوری فراہمی چننے پر آپ یہ حق چھوڑ دیتے ہیں — اس کے بعد رقم کی واپسی رضاکارانہ ہے۔ غیر یقینی ہوں تو پہلے مفت ورژن استعمال کریں۔",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "کیا یہ قانونی ہے؟",
       "q5_body": "ڈاؤن لوڈ کردہ مواد کو استعمال کرنے کی ذمہ داری آپ کی ہے۔ براہ کرم کاپی رائٹ اور ان سائٹس کی شرائط کا احترام کریں جن سے آپ ڈاؤن لوڈ کرتے ہیں۔",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

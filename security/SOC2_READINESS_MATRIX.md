@@ -1,5 +1,9 @@
 # SOC 2 Readiness Matrix — Affiliate Program
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 **Wichtig:** Dies ist eine interne Readiness-Bewertung gegen die AICPA Trust Services Criteria. Sie stellt
 **keinen SOC-2-Bericht** dar und begründet **keine** Aussage „SOC-2-zertifiziert“. Eine formelle Type I/II-
 Attestierung erfordert eine unabhängige CPA-Prüfung, für Type II zusätzlich einen beobachteten

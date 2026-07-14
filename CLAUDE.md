@@ -51,7 +51,8 @@ Linux/Termux, which works but is ugly. Set it explicitly in non-Windows deployme
 
 ## Standalone Android app (`android/`)
 
-A real sideloadable APK (no Play Store) is being built via Chaquopy — embeds CPython
+A Google-Play-first app with a signed direct APK as a secondary channel is built via
+Chaquopy — it embeds CPython
 in a native Android app, wrapping `video_downloader.web.server` unmodified behind a
 WebView. Full plan and phase status: `docs/ANDROID_APP_PLAN.md`. Key things to know
 before touching `android/`:
@@ -79,20 +80,12 @@ before touching `android/`:
   exercises this path, which is exactly how this bug was caught (three phases
   after it was introduced).
 
-## Influencer-/Affiliate-Creator-Kit (`creator_tools/`)
+## Stillgelegtes Affiliate-/Creator-System
 
-Marketing-Templates und Render-Pipeline (HTML→PNG/PDF via lokales Chromium, MP4 via
-ffmpeg). Fertige Renders liegen unter `pro/website/assets/influencer/` und werden vom
-Partner-Portal `pro/website/creator-kit.html` verlinkt. Wichtig:
-
-- **Preise/Limits/Provisionen nur in `creator_tools/config/product_facts.json` ändern**
-  (einzige Faktenquelle; `tests/test_creator_tools.py` prüft Konsistenz mit
-  `licensing.py`), danach `uv run python creator_tools/build_kit.py all` + `build_previews.py`.
-- Personalisierte Kits: `uv run python creator_tools/generate_creator_kit.py <config.json>`.
-- Erlaubte/verbotene Werbeaussagen: `docs/INFLUENCER_CREATIVE_AUDIT.md`. Kein Rabatt
-  existiert — `{{discount_text}}` darf nie erfunden befüllt werden.
-- Das ist ein reines Desktop-/CI-Werkzeug; nichts davon läuft auf Termux/Android oder
-  wird von der App importiert (Termux-Wheels-Regel bleibt unberührt).
+Das Affiliate-Programm, seine Generatoren und erzeugten Werbemittel wurden am
+2026-07-14 aus dem aktiven Arbeitsstand entfernt. Git-Historie und Security-Audit
+bleiben als Nachweis. Neue öffentliche Texte müssen
+`security/PUBLIC_CLAIMS_POLICY.md` entsprechen und den Claims-Scanner bestehen.
 
 ## Testing
 

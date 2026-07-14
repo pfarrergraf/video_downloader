@@ -1,5 +1,9 @@
 # Android beta distribution, Play Protect mitigation, Cloudflare/Stripe readiness plan
 
+> **HISTORISCH / ABGELÖST.** Stripe, Affiliate-Programm und Sideload-only-
+> Positionierung sind eingestellt. Nicht als aktuelle Betriebs- oder Copy-Quelle
+> verwenden. Siehe `security/GOOGLE_PLAY_SECURITY_ARCHITECTURE.md`.
+
 Date: 2026-07-03
 Branch of record: `claude/gothic-downloader-website-bp7r2u`
 Repository: `pfarrergraf/video_downloader`

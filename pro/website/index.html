@@ -4,14 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title data-i18n="website.meta.title">DownloadThat — Video, Audio & Image Downloader for Android</title>
-<meta name="description" data-i18n-attr="content:website.meta.description" content="Download videos, audio and images straight to your Android phone. No Play Store, no ads, no lock-in. Free core, Pro for €12 one-time — no subscription." />
+<meta name="description" data-i18n-attr="content:website.meta.description" content="Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription." />
+<link rel="canonical" href="https://downloadthat.app/" />
 <link rel="stylesheet" href="assets/home/hero-product-cinema.css" />
 <style>
   :root {
-    /* Creator Energy palette — same tokens as the app's own UI and the
-       creator-kit templates (creator_tools/templates/partials/base_head.html
-       .theme-ce), so the marketing site, the real app screenshots and the
-       influencer kit all read as one brand instead of three. */
+    /* Creator Energy palette shared with the app UI and current store assets. */
     --bg: #12101f;
     --bg-elevated: #181530;
     --card: #1c1a2e;
@@ -82,34 +80,6 @@
   .btn-primary:hover { filter: saturate(1.15) brightness(1.06); text-decoration: none; }
   .btn-ghost { border-color: var(--border); color: var(--text); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
-
-  /* The withdrawal choice lives in this checkout dialog, NOT on the pricing
-     section itself - the legal text only appears once someone actually
-     starts buying. Both options proceed to the same Stripe Payment Link;
-     they differ only in the client_reference_id the webhook reads to decide
-     whether the license key is delivered immediately (right waived) or
-     sealed until the 14-day period has passed (right kept). */
-  #withdrawal-modal {
-    position: fixed; inset: 0; background: rgba(8, 6, 12, 0.78); z-index: 40;
-    display: flex; align-items: center; justify-content: center; padding: 20px;
-  }
-  #withdrawal-modal.hidden { display: none; }
-  #withdrawal-modal .modal-card {
-    background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 16px;
-    max-width: 520px; width: 100%; padding: 28px 26px; max-height: 90vh; overflow-y: auto;
-  }
-  #withdrawal-modal h3 { margin: 0 0 10px; font-size: 1.2rem; }
-  #withdrawal-modal p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.6; margin: 0 0 18px; }
-  #withdrawal-modal .choice {
-    display: block; width: 100%; text-align: left; margin-bottom: 12px; padding: 14px 16px;
-    border-radius: 12px; font-size: 0.95rem; line-height: 1.5; text-decoration: none;
-  }
-  #withdrawal-modal .choice small { display: block; font-weight: 400; opacity: 0.85; margin-top: 4px; }
-  #withdrawal-modal .modal-cancel {
-    background: none; border: none; color: var(--text-dim); font-size: 0.9rem;
-    cursor: pointer; padding: 10px; width: 100%; font-family: inherit;
-  }
-  #withdrawal-modal .modal-cancel:hover { color: var(--text); }
 
   section { padding: 44px 24px; }
   section h2 { font-size: 1.9rem; text-align: center; margin: 0 0 12px; }
@@ -426,7 +396,7 @@
       </div>
       <div class="feature-tile">
         <div class="icon">📲</div>
-        <h3 data-i18n="website.features.f6_title">No app store needed</h3>
+        <h3 data-i18n="website.features.f6_title">Flexible installation</h3>
       </div>
     </div>
   </div>
@@ -447,31 +417,11 @@
           <li data-i18n="website.pricing.feature_batch">Playlist downloads</li>
           <li data-i18n="website.pricing.feature_all_updates">All future updates included</li>
         </ul>
-        <a class="btn btn-primary" id="buy-license-btn" data-i18n="website.pricing.cta_lifetime" href="#">Buy license</a>
+        <a class="btn btn-primary" id="buy-license-btn" data-i18n="website.pricing.cta_lifetime" href="/download/android">Get Pro on Google Play</a>
       </div>
     </div>
   </div>
 </section>
-
-<!-- Withdrawal choice: shown when the buy button is clicked, never on the
-     page itself. Statutory background: the 14-day withdrawal right for
-     digital content either runs its course before delivery, or lapses with
-     the buyer's express request for immediate delivery (§356 (5) BGB). -->
-<div id="withdrawal-modal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="withdrawal-modal-title">
-  <div class="modal-card">
-    <h3 id="withdrawal-modal-title" data-i18n="website.checkout.title">Your 14-day right of withdrawal</h3>
-    <p data-i18n-html="website.checkout.body">The license is a digital product. By law you may withdraw from the purchase within 14 days — but the license key may then only be handed over after that period has ended ({refund_start}withdrawal notice{refund_end}). You pay now either way; choose when you receive your license:</p>
-    <a class="btn btn-primary choice" id="checkout-waive-btn" data-stripe-link="https://buy.stripe.com/5kQ00j6do03FflOffbgrS03" data-withdrawal-choice="waived" href="https://buy.stripe.com/5kQ00j6do03FflOffbgrS03?client_reference_id=waived">
-      <span data-i18n="website.checkout.waive_btn">Get the license immediately</span>
-      <small data-i18n="website.checkout.waive_note">I hereby expressly request immediate delivery and confirm that I thereby waive my right of withdrawal.</small>
-    </a>
-    <a class="btn btn-ghost choice" id="checkout-wait-btn" data-stripe-link="https://buy.stripe.com/5kQ00j6do03FflOffbgrS03" data-withdrawal-choice="wait14" href="https://buy.stripe.com/5kQ00j6do03FflOffbgrS03?client_reference_id=wait14">
-      <span data-i18n="website.checkout.wait_btn">I'll wait 14 days</span>
-      <small data-i18n="website.checkout.wait_note">My license key is delivered once the 14-day withdrawal period has ended. Until then I can withdraw for a full refund.</small>
-    </a>
-    <button class="modal-cancel" id="checkout-cancel-btn" data-i18n="website.checkout.cancel_btn">Cancel</button>
-  </div>
-</div>
 
 <section id="faq">
   <div class="wrap">
@@ -482,16 +432,16 @@
         <p data-i18n="website.faq.q1_body">No. The app is free and fully usable. Pro removes limits and supports development.</p>
       </details>
       <details class="faq-item">
-        <summary data-i18n="website.faq.q2_title">Does this work without Google Play?</summary>
-        <p data-i18n="website.faq.q2_body">Yes — it's a standalone Android version you install directly. No Play Store account or approval needed.</p>
+        <summary data-i18n="website.faq.q2_title">Where can I install DownloadThat?</summary>
+        <p data-i18n="website.faq.q2_body">Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.</p>
       </details>
       <details class="faq-item">
         <summary data-i18n="website.faq.q3_title">Where do I enter my license key?</summary>
-        <p data-i18n="website.faq.q3_body">Right after purchase you'll see your license key on the confirmation page — enter it in the app's settings.</p>
+        <p data-i18n="website.faq.q3_body">After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.</p>
       </details>
       <details class="faq-item">
         <summary data-i18n="website.faq.q4_title">Can I get a refund?</summary>
-        <p data-i18n="website.faq.q4_body">If you keep your 14-day right of withdrawal at checkout, you can cancel any time before your license is delivered and get your money back. If you choose immediate delivery, you waive that right — refunds after that are voluntary. If you're unsure, just use the free version first.</p>
+        <p data-i18n="website.faq.q4_body">Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.</p>
       </details>
       <details class="faq-item">
         <summary data-i18n="website.faq.q5_title">Is this legal?</summary>
@@ -516,35 +466,8 @@
   <div data-i18n="website.footer.copyright">© 2026 DownloadThat. All rights reserved.</div>
 </footer>
 
-<script src="/i18n.js"></script>
+<script src="/i18n.js" defer></script>
 <script src="assets/home/hero-product-cinema.js" defer></script>
-<script>
-  dtInitI18n();
-  // The buy button opens the withdrawal-choice dialog; the two choices are
-  // plain links to the same Stripe Payment Link, differing only in
-  // client_reference_id (read by the webhook - see functions/_lib.js).
-  const modal = document.getElementById('withdrawal-modal');
-  document.getElementById('buy-license-btn').addEventListener('click', (e) => {
-    e.preventDefault();
-    modal.classList.remove('hidden');
-    document.getElementById('checkout-waive-btn').focus();
-  });
-  // Re-stamp the waiver evidence timestamp at the actual moment of consent
-  // (the click), not whenever translations last re-rendered the links.
-  document.getElementById('checkout-waive-btn').addEventListener('click', function () {
-    const url = new URL(this.href);
-    url.searchParams.set('client_reference_id', 'waived-' + Date.now());
-    this.href = url.toString();
-  });
-  document.getElementById('checkout-cancel-btn').addEventListener('click', () => {
-    modal.classList.add('hidden');
-  });
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.classList.add('hidden');
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') modal.classList.add('hidden');
-  });
-</script>
+<script src="/assets/init-i18n.js" defer></script>
 </body>
 </html>

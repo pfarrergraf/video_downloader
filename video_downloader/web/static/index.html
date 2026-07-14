@@ -803,9 +803,9 @@
       you download.
     </p>
     <div class="row" style="margin-top:0.4rem;">
-      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/agb.html" target="_blank" rel="noopener" data-i18n="app.terms.link_terms">Terms of use</a>
-      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/datenschutz.html" target="_blank" rel="noopener" data-i18n="app.terms.link_privacy">Privacy policy</a>
-      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/impressum.html" target="_blank" rel="noopener" data-i18n="app.terms.link_imprint">Imprint</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.app/agb.html" target="_blank" rel="noopener" data-i18n="app.terms.link_terms">Terms of use</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.app/datenschutz.html" target="_blank" rel="noopener" data-i18n="app.terms.link_privacy">Privacy policy</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.app/impressum.html" target="_blank" rel="noopener" data-i18n="app.terms.link_imprint">Imprint</a>
     </div>
     <div class="checkbox-row">
       <input type="checkbox" id="terms-checkbox" />
@@ -864,7 +864,9 @@
         <input type="text" id="license-key-input" data-i18n-placeholder="app.license.placeholder" placeholder="DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
         <button class="secondary" id="license-save-btn"><span aria-hidden="true">💾</span> <span data-i18n="app.license.save_btn">Save</span></button>
       </div>
-      <a class="btn primary hidden" id="license-buy-link" href="https://downloadthat.pages.dev/#pricing" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;"><span aria-hidden="true">✨</span> <span data-i18n="app.license.buy_btn">Get Pro</span></a>
+      <a class="btn primary hidden" id="license-buy-link" href="https://downloadthat.app/download/android" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;"><span aria-hidden="true">✨</span> <span data-i18n="app.license.buy_btn">Get Pro</span></a>
+      <button class="secondary hidden" id="license-restore-btn" type="button" style="margin-top:0.5rem;">Restore purchase / Käufe wiederherstellen</button>
+      <p class="muted" data-i18n="app.license.purchase_hint">Buy Pro in the Google Play version, then use the same license key here or in Windows.</p>
     </div>
 
     <label data-i18n="app.about.title">About</label>
@@ -873,9 +875,9 @@
       <span id="settings-app-version"></span>
     </p>
     <div class="row" style="margin-top:0;">
-      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/agb.html" target="_blank" rel="noopener" data-i18n="app.terms.link_terms">Terms of use</a>
-      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/datenschutz.html" target="_blank" rel="noopener" data-i18n="app.terms.link_privacy">Privacy policy</a>
-      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.pages.dev/impressum.html" target="_blank" rel="noopener" data-i18n="app.terms.link_imprint">Imprint</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.app/agb.html" target="_blank" rel="noopener" data-i18n="app.terms.link_terms">Terms of use</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.app/datenschutz.html" target="_blank" rel="noopener" data-i18n="app.terms.link_privacy">Privacy policy</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.app/impressum.html" target="_blank" rel="noopener" data-i18n="app.terms.link_imprint">Imprint</a>
     </div>
     <p class="muted" style="font-size:0.75rem; margin-top:0.6rem;" data-i18n="app.about.licenses">
       Uses yt-dlp (Unlicense), FFmpeg &amp; LAME (LGPL), Chaquopy (MIT), requests &amp;
@@ -899,7 +901,8 @@
       <input type="text" id="limit-license-key-input" data-i18n-placeholder="app.license.placeholder" placeholder="DLT-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
       <button class="secondary" id="limit-license-save-btn"><span aria-hidden="true">💾</span> <span data-i18n="app.license.save_btn">Save</span></button>
     </div>
-    <a class="btn primary" id="limit-buy-link" href="https://downloadthat.pages.dev/#pricing" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;"><span aria-hidden="true">✨</span> <span data-i18n="app.license.buy_btn">Get Pro</span></a>
+    <a class="btn primary" id="limit-buy-link" href="https://downloadthat.app/download/android" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;"><span aria-hidden="true">✨</span> <span data-i18n="app.license.buy_btn">Get Pro</span></a>
+    <p class="muted" data-i18n="app.license.purchase_hint">Buy Pro in the Google Play version, then use the same license key here or in Windows.</p>
     <div class="row">
       <button class="primary" id="limit-close-btn"><span aria-hidden="true">✔️</span> <span data-i18n="app.settings.close_btn">Close</span></button>
     </div>
@@ -1137,7 +1140,7 @@
   <header>
     <div class="header-titles">
       <h1>DownloadThat</h1>
-      <p data-i18n="app.tagline">Download media from most sites, on any device</p>
+      <p data-i18n="app.tagline">Only download media you have the rights to.</p>
     </div>
     <div class="header-actions">
       <button class="icon-btn" id="help-open-btn" aria-label="Help" data-i18n-aria="app.help.button_label">❓</button>
@@ -1441,6 +1444,47 @@ async function activateLicenseFromInput(inputId) {
 $('license-save-btn').addEventListener('click', () => activateLicenseFromInput('license-key-input'));
 $('limit-license-save-btn').addEventListener('click', () => activateLicenseFromInput('limit-license-key-input'));
 $('limit-close-btn').addEventListener('click', () => $('limit-overlay').classList.add('hidden'));
+
+function nativePurchaseStatus() {
+  if (!(window.AndroidBridge && window.AndroidBridge.getPurchaseStatus)) return null;
+  try { return JSON.parse(window.AndroidBridge.getPurchaseStatus()); } catch (e) { return null; }
+}
+
+async function activateNativeLicense(key) {
+  if (!key) return;
+  try {
+    await api('/api/license', { method: 'POST', body: { key } });
+    $('license-key-input').value = key;
+    $('limit-license-key-input').value = key;
+    $('limit-overlay').classList.add('hidden');
+    await refreshLicense();
+    toast(t('app.license.activated_toast'));
+  } catch (e) {
+    toast(e.message || t('app.license.invalid_toast'));
+  }
+}
+
+window.onNativeEntitlementResult = function(result) {
+  if (result && result.licenseKey && result.pro) activateNativeLicense(result.licenseKey);
+  else if (result && result.error === 'purchase_pending') toast('Google Play purchase pending / Kauf ausstehend');
+  else if (result && result.error && result.error !== 'billing_unavailable') toast(result.error);
+};
+
+function handleNativePurchase(event) {
+  const status = nativePurchaseStatus();
+  if (!status) return;
+  event.preventDefault();
+  if (status.billingAvailable && window.AndroidBridge.purchasePro) window.AndroidBridge.purchasePro();
+  else if (window.AndroidBridge.openPlayStore) window.AndroidBridge.openPlayStore();
+}
+
+$('license-buy-link').addEventListener('click', handleNativePurchase);
+$('limit-buy-link').addEventListener('click', handleNativePurchase);
+const purchaseStatus = nativePurchaseStatus();
+if (purchaseStatus && purchaseStatus.billingAvailable && window.AndroidBridge.restorePurchases) {
+  $('license-restore-btn').classList.remove('hidden');
+  $('license-restore-btn').addEventListener('click', () => window.AndroidBridge.restorePurchases());
+}
 
 $('login-btn').addEventListener('click', async () => {
   const password = $('login-password').value;

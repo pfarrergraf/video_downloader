@@ -28,7 +28,7 @@
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.ClassyDL"
         android:networkSecurityConfig="@xml/network_security_config">
-        <!-- singleTask: a "Share -> DownloadThat" or verified /claim/ App Link
+        <!-- singleTask: a "Share -> DownloadThat"
              while the app is already running must route into the existing
              instance via onNewIntent() instead of stacking a second Activity. -->
         <activity
@@ -49,29 +49,6 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
 
-            <!-- Narrow verified App Links only for DownloadThat's referral claim
-                 path. There is intentionally no general ACTION_VIEW filter for
-                 ordinary web or media URLs, and an intent-filter adds no runtime
-                 permission. Separate filters avoid Android's cross-product
-                 matching behavior when multiple <data> elements are combined. -->
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:scheme="https"
-                    android:host="downloadthat.pages.dev"
-                    android:pathPrefix="/claim/" />
-            </intent-filter>
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:scheme="https"
-                    android:host="downloadthat.gaistreich.com"
-                    android:pathPrefix="/claim/" />
-            </intent-filter>
         </activity>
 
         <!-- Hosts the Python server + downloads outside the Activity

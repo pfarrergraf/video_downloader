@@ -1,4 +1,21 @@
-# Evidence Index — Affiliate Program Security Assessment
+# Evidence Index — Security Assessments
+
+Current architecture evidence:
+
+- `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md` — current implementation status,
+  closed findings and remaining production gates.
+- `PUBLIC_CLAIMS_POLICY.md`, `scripts/check_public_claims.py` and
+  `tests/test_public_claims_policy.py` — canonical wording and fail-closed guard.
+- `GOOGLE_PLAY_SECURITY_ARCHITECTURE.md` — Play purchase, RTDN, license and
+  finance trust boundaries and mandatory release controls.
+- `docs/GOOGLE_PLAY_OWNER_CHECKLIST.md` — non-delegable console and production gates.
+- `scripts/google_play_finance.py` and `tests/test_google_play_finance.py` —
+  reproducible finance summary, warning and hash-manifest evidence.
+- `tests/test_ci_supply_chain.py` — immutable GitHub Action reference guard.
+- `pro/website/tests/play_first_website.test.mjs` — Play-first copy and CSP guard.
+
+The following affiliate assessment remains historical evidence for the removed
+system and for secure-development traceability.
 
 Zentrale Übersicht, welche Evidenz zu welchem Finding/welcher Kontrolle gehört. Enthält bewusst **keine**
 Secrets, Zugangsdaten oder personenbezogenen Daten — ausschließlich Verweise auf Code, Tests und

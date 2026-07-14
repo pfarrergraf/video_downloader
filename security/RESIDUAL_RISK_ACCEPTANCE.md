@@ -1,5 +1,9 @@
 # Residual Risk Acceptance — Affiliate Program
 
+> **HISTORICAL EVIDENCE:** Das Affiliate-System wurde entfernt. AFF-005 und
+> AFF-010 sind keine aktuellen Restrisiken mehr; siehe
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 Diese Datei dokumentiert Risiken, die nach dieser Prüfung **bewusst nicht durch einen Code-Fix** geschlossen
 wurden, mit Begründung, kompensierenden Kontrollen und Verantwortlichkeit. Sie ersetzt keine förmliche
 Risikoakzeptanz durch den Repository-Inhaber — diese Sitzung **dokumentiert** die Empfehlung, **akzeptiert**

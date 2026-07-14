@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Lejupielādē saturu no lielākās daļas vietņu, jebkurā ierīcē",
+    "tagline": "lejupielādējiet tikai to saturu, uz kuru jums ir tiesības.",
     "login": {
       "title": "Pieteikties",
       "password_label": "Parole",
@@ -19,7 +19,8 @@
       "status_free": "Bezmaksas — {limit} lejupielādes dienā. Pro: neierobežoti.",
       "need_key_toast": "Vispirms ievadiet licences atslēgu.",
       "activated_toast": "Licence aktivizēta.",
-      "invalid_toast": "Nederīga licences atslēga."
+      "invalid_toast": "Nederīga licences atslēga.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Rinda",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — video, audio un attēlu lejupielādētājs Android ierīcēm",
-      "description": "Lejupielādējiet video, audio un attēlus tieši savā Android tālrunī. Bez Play veikala, bez reklāmām, bez piesaistes. Bezmaksas pamatfunkcijas, Pro no €1/mēnesī."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Iespējas",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Lejupielādē {emphasis}.<br/>Tieši savā tālrunī.",
       "title_emphasis": "gandrīz visu",
-      "lead": "Video, audio un attēli gandrīz no jebkuras vietnes — lejupielādēti tieši jūsu Android tālrunī. Bez augšupielādes mākonī, dati nekad nepamet jūsu ierīci, Play veikals nav nepieciešams.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Lejupielādēt bezmaksas Android versiju",
       "cta_secondary": "Skatīt Pro cenas",
       "windows_link": "Pieejams arī Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Viss, kas nepieciešams, nekā liekā",
       "lead": "Ātrs, privāts lejupielādētājs, kas vienkārši darbojas — ar Pro versiju tiem, kas vēlas vairāk.",
       "f1_title": "Lielākā daļa video vai audio",
-      "f1_desc": "Ielīmējiet saiti, izvēlieties kvalitāti, lejupielādējiet. Darbojas ar lielāko daļu video, audio un attēlu vietņu — nedarbojas ar DRM aizsargātiem pakalpojumiem, piemēram, Spotify vai Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Lejupielāde partijās",
       "f2_desc": "Skenējiet lapu, lai atrastu visus multivides failus, un lejupielādējiet tos kopā, atlasot vai noņemot atlasi.",
       "f3_title": "Privāts pēc dizaina",
-      "f3_desc": "Viss darbojas lokāli jūsu tālrunī. Nekas netiek augšupielādēts serverī, kuru jūs nekontrolējat.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Bez reklāmām, bez izsekošanas",
       "f4_desc": "Bez reklāmu tīkliem, bez analītikas rīkiem, bez maldinošiem maksas apjomiem. Tikai lietotne.",
       "f5_title": "Audio izvilkšana",
-      "f5_desc": "Izvelciet audio celiņu no gandrīz jebkura video un saglabājiet to kā MP3.",
-      "f6_title": "Lietotņu veikals nav nepieciešams",
-      "f6_desc": "Instalējiet Android versiju tieši. Bez konta, bez Play veikala pārbaudes procesa, bez reģionāliem ierobežojumiem.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Lejupielāde partijās",
       "feature_priority_updates": "Prioritāri atjauninājumi",
       "feature_all_updates": "Iekļauti visi turpmākie atjauninājumi",
-      "cta_lifetime": "Pirkt licenci",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Bez abonementa"
     },
     "faq": {
       "h2": "Biežāk uzdotie jautājumi",
       "q1_title": "Vai man ir nepieciešams Pro, lai lietotu lietotni?",
       "q1_body": "Nē. Lietotne ir bezmaksas un pilnībā lietojama. Pro noņem ierobežojumus un atbalsta izstrādi.",
-      "q2_title": "Vai tas darbojas bez Google Play?",
-      "q2_body": "Jā — tā ir patstāvīga Android versija, ko instalējat tieši. Play veikala konts vai apstiprinājums nav nepieciešams.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Kur man ievadīt savu licences atslēgu?",
-      "q3_body": "Uzreiz pēc pirkuma jūs redzēsiet savu licences atslēgu apstiprinājuma lapā — ievadiet to lietotnes iestatījumos.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Vai varu saņemt naudas atmaksu?",
-      "q4_body": "Ja pirkuma brīdī saglabā savas 14 dienu atteikuma tiesības, vari atteikties jebkurā brīdī pirms licences piegādes un saņemt naudu atpakaļ. Ja izvēlies tūlītēju piegādi, tu atsakies no šīm tiesībām — vēlāka atmaksa ir brīvprātīga. Ja šaubies, vispirms izmanto bezmaksas versiju.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Vai tas ir likumīgi?",
       "q5_body": "Jūs esat atbildīgs par to, kā izmantojat lejupielādēto saturu. Lūdzu, ievērojiet autortiesības un to vietņu noteikumus, no kurām lejupielādējat.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

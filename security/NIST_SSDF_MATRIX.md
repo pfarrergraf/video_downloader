@@ -1,5 +1,9 @@
 # NIST SP 800-218 (SSDF 1.1) Mapping — Affiliate Program
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 Interne Readiness-Bewertung, keine formelle Attestierung.
 
 ## PO — Prepare the Organization

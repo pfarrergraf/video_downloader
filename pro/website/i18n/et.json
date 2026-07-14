@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Laadi meediat alla enamikust saitidest, ükskõik millises seadmes",
+    "tagline": "laadi alla ainult meediat, mille kasutamiseks on sul õigus.",
     "login": {
       "title": "Logi sisse",
       "password_label": "Parool",
@@ -19,7 +19,8 @@
       "status_free": "Tasuta — {limit} allalaadimist päevas. Pro: piiramatult.",
       "need_key_toast": "Sisesta esmalt litsentsivõti.",
       "activated_toast": "Litsents aktiveeritud.",
-      "invalid_toast": "Vigane litsentsivõti."
+      "invalid_toast": "Vigane litsentsivõti.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Järjekord",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — video-, heli- ja pildiallalaadija Androidile",
-      "description": "Laadi videoid, heli ja pilte otse oma Androidi telefoni. Ilma Play Store'ita, reklaamideta ja kohustusteta. Põhifunktsioonid tasuta, Pro alates 1 €/kuus."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Funktsioonid",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Laadi alla {emphasis}.<br/>Otse oma telefoni.",
       "title_emphasis": "peaaegu kõik",
-      "lead": "Video, heli ja pildid peaaegu igalt saidilt — laaditud otse sinu Androidi telefoni. Pilve üleslaadimist pole, andmed ei lahku kunagi sinu seadmest ja Play Store'i pole vaja.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Laadi alla tasuta Androidi versioon",
       "cta_secondary": "Vaata Pro hindu",
       "windows_link": "Saadaval ka Windowsile →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Kõik, mida vaja, mitte midagi liigset",
       "lead": "Kiire ja privaatne allalaadija, mis lihtsalt töötab — ning Pro tase neile, kes soovivad rohkem.",
       "f1_title": "Enamik videoid või helisid",
-      "f1_desc": "Kleebi link, vali kvaliteet, laadi alla. Töötab enamiku video-, heli- ja pildisaitidega — mitte DRM-kaitstud teenustega nagu Spotify või Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Kogumina allalaadimine",
       "f2_desc": "Skaneeri leht kõigi meediafailide leidmiseks ja laadi need korraga alla, valides või tühistades valiku.",
       "f3_title": "Privaatne juba disainilt",
-      "f3_desc": "Kõik töötab kohalikult sinu telefonis. Midagi ei laadita üles serverisse, mida sa ei kontrolli.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Reklaamideta ja jälgimiseta",
       "f4_desc": "Ei reklaamivõrke, analüütika SDK-sid ega petlikke tasumüüre. Ainult rakendus.",
       "f5_title": "Heli eraldamine",
-      "f5_desc": "Eralda peaaegu mis tahes videost ainult helirada ja salvesta see MP3-na.",
-      "f6_title": "Rakenduste poodi pole vaja",
-      "f6_desc": "Paigalda Androidi versioon otse. Kontot pole vaja, Play Store'i ülevaatusprotsessi pole ja regioonipiiranguid pole.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Kogumina allalaadimine",
       "feature_priority_updates": "Prioriteetsed uuendused",
       "feature_all_updates": "Kõik tulevased uuendused sisalduvad",
-      "cta_lifetime": "Osta litsents",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Ilma tellimuseta"
     },
     "faq": {
       "h2": "Korduma kippuvad küsimused",
       "q1_title": "Kas rakenduse kasutamiseks on vaja Pro't?",
       "q1_body": "Ei. Rakendus on tasuta ja täielikult kasutatav. Pro eemaldab piirangud ja toetab arendust.",
-      "q2_title": "Kas see töötab ilma Google Play'ta?",
-      "q2_body": "Jah — see on iseseisev Androidi versioon, mille paigaldad otse. Play Store'i kontot ega heakskiitu pole vaja.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Kuhu sisestan oma litsentsivõtme?",
-      "q3_body": "Kohe pärast ostu näed litsentsivõtit kinnituslehel — sisesta see rakenduse seadetes.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Kas saan raha tagasi?",
-      "q4_body": "Kui jätad ostul alles oma 14-päevase taganemisõiguse, saad enne litsentsi üleandmist igal ajal loobuda ja raha tagasi. Kui valid kohese üleandmise, loobud sellest õigusest — hilisemad tagasimaksed on vabatahtlikud. Kahtluse korral kasuta esmalt tasuta versiooni.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Kas see on seaduslik?",
       "q5_body": "Sina vastutad allalaaditud sisu kasutamise eest. Palun austa autoriõigusi ja nende saitide kasutustingimusi, millelt alla laadid.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

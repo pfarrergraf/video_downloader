@@ -14,7 +14,7 @@ if getattr(sys, "frozen", False):
         os.environ["PATH"] = _bundled + os.pathsep + os.environ.get("PATH", "")
 
 
-LICENSE_API_BASE = os.environ.get("CLASSYDL_LICENSE_API_BASE", "https://downloadthat.pages.dev")
+LICENSE_API_BASE = os.environ.get("CLASSYDL_LICENSE_API_BASE", "https://downloadthat.app")
 
 
 def _show_crash_dialog() -> None:

@@ -1,5 +1,9 @@
 # Business Logic & Fraud Abuse Cases — Affiliate Program
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 Für jeden Fall: Mechanismus, geprüfter Code, Ergebnis.
 
 ## Eigenkäufe (Self-Referral)

@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Lataa mediaa useimmilta sivustoilta, millä tahansa laitteella",
+    "tagline": "lataa vain mediaa, johon sinulla on oikeudet.",
     "login": {
       "title": "Kirjaudu sisään",
       "password_label": "Salasana",
@@ -19,7 +19,8 @@
       "status_free": "Ilmainen — {limit} latausta päivässä. Pro: rajoittamaton.",
       "need_key_toast": "Anna lisenssiavain ensin.",
       "activated_toast": "Lisenssi aktivoitu.",
-      "invalid_toast": "Virheellinen lisenssiavain."
+      "invalid_toast": "Virheellinen lisenssiavain.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Jono",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — video-, ääni- ja kuvalatausohjelma Androidille",
-      "description": "Lataa videoita, ääntä ja kuvia suoraan Android-puhelimeesi. Ei Play Kauppaa, ei mainoksia, ei sitoutumista. Ilmainen perusversio, Pro alkaen 1 €/kk."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Ominaisuudet",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Lataa {emphasis}.<br/>Suoraan puhelimeesi.",
       "title_emphasis": "melkein kaiken",
-      "lead": "Videot, äänet ja kuvat lähes miltä tahansa sivustolta — ladattuna suoraan Android-puhelimeesi. Ei pilveen lähetystä, tietosi eivät koskaan poistu laitteeltasi, eikä Play Kauppaa tarvita.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Lataa ilmainen Android-versio",
       "cta_secondary": "Katso Pro-hinnoittelu",
       "windows_link": "Saatavilla myös Windowsille →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Kaikki mitä tarvitset, ei mitään ylimääräistä",
       "lead": "Nopea ja yksityinen lataussovellus, joka vain toimii — Pro-tasolla niille, jotka haluavat enemmän.",
       "f1_title": "Useimmat videot tai äänet",
-      "f1_desc": "Liitä linkki, valitse laatu, lataa. Toimii useimpien video-, ääni- ja kuvasivustojen kanssa — ei DRM-suojattujen palveluiden, kuten Spotifyn tai Netflixin, kanssa.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Erälataukset",
       "f2_desc": "Skannaa sivu kaikkien mediatiedostojen varalta ja lataa ne yhdessä, valiten ja poistaen valintoja.",
       "f3_title": "Yksityisyys suunnittelun lähtökohtana",
-      "f3_desc": "Kaikki toimii paikallisesti puhelimessasi. Mitään ei lähetetä palvelimelle, jota et hallitse.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Ei mainoksia, ei seurantaa",
       "f4_desc": "Ei mainosverkkoja, ei analytiikka-SDK:ita, ei harhaanjohtavia maksumuureja. Vain sovellus.",
       "f5_title": "Äänen erottelu",
-      "f5_desc": "Poimi pelkkä ääniraita lähes mistä tahansa videosta ja tallenna se MP3-muodossa.",
-      "f6_title": "Ei sovelluskauppaa tarvita",
-      "f6_desc": "Asenna Android-versio suoraan. Ei tiliä, ei Play Kaupan arviointiprosessia, ei aluelukituksia.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Erälataukset",
       "feature_priority_updates": "Ensisijaiset päivitykset",
       "feature_all_updates": "Kaikki tulevat päivitykset sisältyvät hintaan",
-      "cta_lifetime": "Osta lisenssi",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Ei tilausta"
     },
     "faq": {
       "h2": "Usein kysytyt kysymykset",
       "q1_title": "Tarvitsenko Pro-version käyttääkseni sovellusta?",
       "q1_body": "Et. Sovellus on ilmainen ja täysin käyttökelpoinen. Pro poistaa rajoitukset ja tukee kehitystä.",
-      "q2_title": "Toimiiko tämä ilman Google Playta?",
-      "q2_body": "Kyllä — se on itsenäinen Android-versio, jonka asennat suoraan. Play Kaupan tiliä tai hyväksyntää ei tarvita.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Mistä syötän lisenssiavaimeni?",
-      "q3_body": "Heti ostoksen jälkeen näet lisenssiavaimesi vahvistussivulla — syötä se sovelluksen asetuksiin.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Voinko saada rahat takaisin?",
-      "q4_body": "Jos säilytät 14 päivän peruuttamisoikeutesi ostohetkellä, voit perua milloin tahansa ennen lisenssin toimitusta ja saat rahasi takaisin. Jos valitset välittömän toimituksen, luovut tästä oikeudesta — myöhemmät hyvitykset ovat vapaaehtoisia. Jos epäröit, käytä ensin ilmaisversiota.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Onko tämä laillista?",
       "q5_body": "Olet itse vastuussa siitä, miten käytät ladattua sisältöä. Kunnioita tekijänoikeuksia ja lataamiesi sivustojen käyttöehtoja.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Peruuttaminen ja hyvitys",
-      "body": "Syötä lisenssiavain ja ostoksesi sähköpostiosoite. Jos ostoksesi tehtiin viimeisten 14 päivän aikana, hyvitämme sen kokonaan Stripen kautta ja deaktivoimme lisenssin välittömästi — syytä ei tarvita.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "Lisenssiavain",
       "email_label": "Ostossa käytetty sähköpostiosoite",
       "submit_btn": "Pyydä hyvitystä",

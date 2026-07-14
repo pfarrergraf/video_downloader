@@ -1,11 +1,8 @@
-name: Deploy Pro website to Cloudflare Pages
+name: Deploy Play-first website and entitlement backend
 
-# Pushes to master deploy the public site. Affiliate registration is enabled only
-# when all required non-payment secrets are present. Checkout remains explicitly
-# disabled until the owner changes AFFILIATE_CHECKOUT_ENABLED in a separate step.
 on:
   push:
-    branches: ["claude/gothic-downloader-website-bp7r2u", "master"]
+    branches: ["master"]
     paths:
       - "pro/website/**"
       - ".github/workflows/deploy-pro-website.yml"
@@ -17,138 +14,80 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: play-production
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-      STRIPE_PRICE_ID: ${{ secrets.STRIPE_PRICE_ID }}
-      TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
-      TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
-      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-      PARTNER_FROM_EMAIL: ${{ secrets.PARTNER_FROM_EMAIL }}
-      REFERRAL_HASH_SALT: ${{ secrets.REFERRAL_HASH_SALT }}
-      AFFILIATE_ADMIN_EMAIL: ${{ secrets.AFFILIATE_ADMIN_EMAIL }}
-      RETENTION_CLEANUP_TOKEN: ${{ secrets.RETENTION_CLEANUP_TOKEN }}
-      ANDROID_CERT_SHA256: ${{ secrets.ANDROID_CERT_SHA256 }}
+      PLAY_DECOMMISSION_APPROVED: ${{ vars.PLAY_DECOMMISSION_APPROVED }}
+      PLAY_STORE_URL: ${{ vars.PLAY_STORE_URL }}
+      PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL || 'https://downloadthat.app' }}
+      CANONICAL_REDIRECT_ENABLED: ${{ vars.CANONICAL_REDIRECT_ENABLED || 'false' }}
+      GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL }}
+      GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY }}
+      PLAY_TOKEN_ENCRYPTION_KEY: ${{ secrets.PLAY_TOKEN_ENCRYPTION_KEY }}
+      PLAY_RTDN_AUDIENCE: ${{ secrets.PLAY_RTDN_AUDIENCE }}
+      PLAY_RTDN_SERVICE_ACCOUNT_EMAIL: ${{ secrets.PLAY_RTDN_SERVICE_ACCOUNT_EMAIL }}
+      PLAY_RECONCILIATION_SECRET: ${{ secrets.PLAY_RECONCILIATION_SECRET }}
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Require Cloudflare deployment credentials
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Enforce public claims policy before deployment
+        run: python scripts/check_public_claims.py
+      - name: Require explicit decommission and Play configuration
         shell: bash
         run: |
-          test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN is missing"; exit 1; }
-          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "CLOUDFLARE_ACCOUNT_ID is missing"; exit 1; }
+          test "$PLAY_DECOMMISSION_APPROVED" = "true" || { echo "Run the decommission preflight and set PLAY_DECOMMISSION_APPROVED=true"; exit 1; }
+          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID PLAY_STORE_URL GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY PLAY_TOKEN_ENCRYPTION_KEY PLAY_RTDN_AUDIENCE PLAY_RTDN_SERVICE_ACCOUNT_EMAIL PLAY_RECONCILIATION_SECRET; do
+            test -n "${!name}" || { echo "$name is missing"; exit 1; }
+          done
 
-      - name: Ensure Cloudflare Pages project exists
-        continue-on-error: true
+      - name: Export D1 backup before migration
         working-directory: pro/website
-        run: npx -y wrangler@3 pages project create downloadthat --production-branch=master
-
-      - name: Export D1 backup before affiliate migrations
-        working-directory: pro/website
-        run: npx -y wrangler@3 d1 export downloadthat-licenses --remote --output=../../downloadthat-licenses-before-affiliate.sql
-
-      - name: Upload pre-migration D1 backup
-        uses: actions/upload-artifact@v4
+        run: npx -y wrangler@3.114.15 d1 export downloadthat-licenses --remote --output=../../downloadthat-licenses-before-play.sql
+      - name: Hash backup
+        run: sha256sum downloadthat-licenses-before-play.sql > downloadthat-licenses-before-play.sql.sha256
+      - name: Upload pre-migration evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: downloadthat-licenses-before-affiliate-${{ github.run_id }}
-          path: downloadthat-licenses-before-affiliate.sql
-          if-no-files-found: error
-          retention-days: 30
+          name: downloadthat-licenses-before-play-${{ github.run_id }}
+          path: |
+            downloadthat-licenses-before-play.sql
+            downloadthat-licenses-before-play.sql.sha256
+          retention-days: 90
 
-      - name: Apply tested D1 migrations
+      - name: Apply D1 migrations
         working-directory: pro/website
-        run: npx -y wrangler@3 d1 migrations apply downloadthat-licenses --remote
+        run: npx -y wrangler@3.114.15 d1 migrations apply downloadthat-licenses --remote
 
-      - name: Set safe affiliate rollout flags
-        working-directory: pro/website
-        shell: bash
-        run: |
-          printf '%s' 'true' | npx -y wrangler@3 pages secret put AFFILIATE_PROGRAM_ENABLED --project-name=downloadthat
-          printf '%s' 'true' | npx -y wrangler@3 pages secret put AFFILIATE_REGISTRATION_ENABLED --project-name=downloadthat
-          printf '%s' 'false' | npx -y wrangler@3 pages secret put AFFILIATE_CHECKOUT_ENABLED --project-name=downloadthat
-          printf '%s' 'production' | npx -y wrangler@3 pages secret put ENVIRONMENT --project-name=downloadthat
-          printf '%s' 'https://downloadthat.gaistreich.com' | npx -y wrangler@3 pages secret put PUBLIC_BASE_URL --project-name=downloadthat
-
-      - name: Set optional partner registration secrets
-        if: ${{ env.TURNSTILE_SECRET_KEY != '' && env.TURNSTILE_SITE_KEY != '' && env.RESEND_API_KEY != '' && env.PARTNER_FROM_EMAIL != '' && env.REFERRAL_HASH_SALT != '' }}
+      - name: Set Google Play runtime secrets
         working-directory: pro/website
         shell: bash
         run: |
-          printf '%s' "$TURNSTILE_SECRET_KEY" | npx -y wrangler@3 pages secret put TURNSTILE_SECRET_KEY --project-name=downloadthat
-          printf '%s' "$TURNSTILE_SITE_KEY" | npx -y wrangler@3 pages secret put TURNSTILE_SITE_KEY --project-name=downloadthat
-          printf '%s' "$RESEND_API_KEY" | npx -y wrangler@3 pages secret put RESEND_API_KEY --project-name=downloadthat
-          printf '%s' "$PARTNER_FROM_EMAIL" | npx -y wrangler@3 pages secret put PARTNER_FROM_EMAIL --project-name=downloadthat
-          printf '%s' "$REFERRAL_HASH_SALT" | npx -y wrangler@3 pages secret put REFERRAL_HASH_SALT --project-name=downloadthat
+          put() { printf '%s' "$2" | npx -y wrangler@3.114.15 pages secret put "$1" --project-name=downloadthat; }
+          put GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL "$GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL"
+          put GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY "$GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY"
+          put PLAY_TOKEN_ENCRYPTION_KEY "$PLAY_TOKEN_ENCRYPTION_KEY"
+          put PLAY_RTDN_AUDIENCE "$PLAY_RTDN_AUDIENCE"
+          put PLAY_RTDN_SERVICE_ACCOUNT_EMAIL "$PLAY_RTDN_SERVICE_ACCOUNT_EMAIL"
+          put PLAY_RECONCILIATION_SECRET "$PLAY_RECONCILIATION_SECRET"
+          put PLAY_STORE_URL "$PLAY_STORE_URL"
+          put PUBLIC_BASE_URL "$PUBLIC_BASE_URL"
+          put CANONICAL_REDIRECT_ENABLED "$CANONICAL_REDIRECT_ENABLED"
+          put PLAY_PACKAGE_NAME "de.classydl.app"
+          put PLAY_PRODUCT_ID "pro"
 
-      - name: Report missing registration prerequisites
-        if: ${{ env.TURNSTILE_SECRET_KEY == '' || env.TURNSTILE_SITE_KEY == '' || env.RESEND_API_KEY == '' || env.PARTNER_FROM_EMAIL == '' || env.REFERRAL_HASH_SALT == '' }}
-        shell: bash
-        run: |
-          echo "::warning::Partner pages will be public, but registration remains fail-closed until TURNSTILE_SECRET_KEY, TURNSTILE_SITE_KEY, RESEND_API_KEY, PARTNER_FROM_EMAIL, and REFERRAL_HASH_SALT are configured as GitHub Actions secrets and this workflow is rerun."
-
-      - name: Set optional affiliate administration and Android values
-        if: ${{ env.AFFILIATE_ADMIN_EMAIL != '' || env.ANDROID_CERT_SHA256 != '' }}
-        working-directory: pro/website
-        shell: bash
-        run: |
-          if [ -n "$AFFILIATE_ADMIN_EMAIL" ]; then
-            printf '%s' "$AFFILIATE_ADMIN_EMAIL" | npx -y wrangler@3 pages secret put AFFILIATE_ADMIN_EMAIL --project-name=downloadthat
-          fi
-          if [ -n "$ANDROID_CERT_SHA256" ]; then
-            printf '%s' "$ANDROID_CERT_SHA256" | npx -y wrangler@3 pages secret put ANDROID_CERT_SHA256 --project-name=downloadthat
-          fi
-
-      - name: Set retention cleanup scheduler token
-        if: ${{ env.RETENTION_CLEANUP_TOKEN != '' }}
-        working-directory: pro/website
-        shell: bash
-        run: printf '%s' "$RETENTION_CLEANUP_TOKEN" | npx -y wrangler@3 pages secret put RETENTION_CLEANUP_TOKEN --project-name=downloadthat
-
-      - name: Report missing retention cleanup scheduler token
-        if: ${{ env.RETENTION_CLEANUP_TOKEN == '' }}
-        shell: bash
-        run: echo "::warning::Scheduled retention cleanup remains disabled until RETENTION_CLEANUP_TOKEN is configured as a GitHub Actions secret and this workflow is rerun."
-
-      - name: Preserve existing Stripe configuration without enabling checkout
-        if: ${{ env.STRIPE_SECRET_KEY != '' || env.STRIPE_WEBHOOK_SECRET != '' || env.STRIPE_PRICE_ID != '' }}
-        working-directory: pro/website
-        shell: bash
-        run: |
-          if [ -n "$STRIPE_SECRET_KEY" ]; then
-            printf '%s' "$STRIPE_SECRET_KEY" | npx -y wrangler@3 pages secret put STRIPE_SECRET_KEY --project-name=downloadthat
-          fi
-          if [ -n "$STRIPE_WEBHOOK_SECRET" ]; then
-            printf '%s' "$STRIPE_WEBHOOK_SECRET" | npx -y wrangler@3 pages secret put STRIPE_WEBHOOK_SECRET --project-name=downloadthat
-          fi
-          if [ -n "$STRIPE_PRICE_ID" ]; then
-            printf '%s' "$STRIPE_PRICE_ID" | npx -y wrangler@3 pages secret put STRIPE_PRICE_ID --project-name=downloadthat
-          fi
-
-      - name: Deploy static site and Functions to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+      - name: Deploy static site and Functions
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: pro/website
           command: pages deploy . --project-name=downloadthat
 
-      - name: Verify public registration mode and payment lock
+      - name: Verify Play-first deployment
         shell: bash
         run: |
-          for attempt in 1 2 3 4 5 6; do
-            response="$(curl --fail --silent --show-error https://downloadthat.pages.dev/api/partner/config || true)"
-            if [ -n "$response" ]; then
-              echo "$response"
-              RESPONSE="$response" node -e '
-                const config = JSON.parse(process.env.RESPONSE);
-                if (config.checkout_enabled !== false) throw new Error("checkout must remain disabled");
-                if (config.registration_enabled !== true) throw new Error("registration flag was not enabled");
-              '
-              exit 0
-            fi
-            sleep 10
-          done
-          echo "Public config endpoint did not become reachable" >&2
-          exit 1
+          curl --fail --retry 5 --retry-all-errors https://downloadthat.app/download >/dev/null
+          curl --fail --retry 5 --retry-all-errors https://downloadthat.app/api/health | tee health.json
+          node -e 'const h=require("./health.json"); if(!h.ok) process.exit(1)'
+          test "$(curl -s -o /dev/null -w '%{http_code}' https://downloadthat.app/api/create-checkout)" = "404"
+          test "$(curl -s -o /dev/null -w '%{http_code}' https://downloadthat.app/api/partner/config)" = "404"

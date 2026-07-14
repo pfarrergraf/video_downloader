@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "在任何设备上，从大多数网站下载媒体",
+    "tagline": "请仅下载您拥有权利的媒体内容。",
     "login": {
       "title": "登录",
       "password_label": "密码",
@@ -19,7 +19,8 @@
       "status_free": "免费版 — 每天可下载 {limit} 次。专业版：无限制。",
       "need_key_toast": "请先输入许可证密钥。",
       "activated_toast": "许可证已激活。",
-      "invalid_toast": "许可证密钥无效。"
+      "invalid_toast": "许可证密钥无效。",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "队列",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Android 视频、音频与图片下载器",
-      "description": "直接将视频、音频和图片下载到您的 Android 手机。无需 Play 商店，无广告，无捆绑限制。核心功能免费，专业版每月低至 €1。"
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "功能",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "下载{emphasis}。<br/>直接传到您的手机。",
       "title_emphasis": "几乎一切",
-      "lead": "几乎任何网站的视频、音频和图片 — 直接下载到您的 Android 手机。无需上传云端，数据绝不离开您的设备，也无需 Play 商店。",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "下载免费的 Android 版本",
       "cta_secondary": "查看专业版价格",
       "windows_link": "同样支持 Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "您需要的一切，没有多余的东西",
       "lead": "快速、私密、开箱即用的下载工具 — 想要更多功能的用户还可选择专业版。",
       "f1_title": "大多数视频或音频",
-      "f1_desc": "粘贴链接，选择画质，下载即可。支持大多数视频、音频和图片网站——不支持 Spotify、Netflix 等有 DRM 保护的服务。",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "批量下载",
       "f2_desc": "扫描页面中的所有媒体文件，可自由勾选后一并下载。",
       "f3_title": "隐私优先设计",
-      "f3_desc": "一切均在您的手机本地运行，不会上传到您无法掌控的服务器。",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "无广告，无追踪",
       "f4_desc": "没有广告网络，没有分析 SDK，没有暗黑模式付费墙。只有这一个应用。",
       "f5_title": "音频提取",
-      "f5_desc": "从几乎任何视频中提取音轨，并保存为 MP3。",
-      "f6_title": "无需应用商店",
-      "f6_desc": "直接安装 Android 版本。无需账号，无需 Play 商店审核流程，也没有地区限制。",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "批量下载",
       "feature_priority_updates": "优先获取更新",
       "feature_all_updates": "包含未来所有更新",
-      "cta_lifetime": "购买许可证",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "无订阅"
     },
     "faq": {
       "h2": "常见问题",
       "q1_title": "使用该应用需要专业版吗？",
       "q1_body": "不需要。该应用免费且功能完整可用。专业版可解除限制，并支持我们的开发工作。",
-      "q2_title": "不使用 Google Play 也能用吗？",
-      "q2_body": "可以 — 这是一个可直接安装的独立 Android 版本，无需 Play 商店账号或审核。",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "在哪里输入许可证密钥？",
-      "q3_body": "购买成功后，您会在确认页面上看到许可证密钥 — 在应用的设置中输入即可。",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "我可以退款吗？",
-      "q4_body": "如果购买时保留14天撤回权，你可以在许可证交付前随时取消并拿回款项。如果选择立即交付，则放弃该权利 — 之后的退款属自愿性质。不确定的话，请先使用免费版。",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "这样做合法吗？",
       "q5_body": "您需要对下载内容的使用方式负责。请尊重版权，并遵守所下载网站的相关条款。",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

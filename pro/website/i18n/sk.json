@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Sťahuj médiá z väčšiny stránok, na akomkoľvek zariadení",
+    "tagline": "sťahuj iba médiá, na ktoré máš práva.",
     "login": {
       "title": "Prihlásiť sa",
       "password_label": "Heslo",
@@ -19,7 +19,8 @@
       "status_free": "Free — {limit} stiahnutia denne. Pro: neobmedzene.",
       "need_key_toast": "Najprv zadaj licenčný kľúč.",
       "activated_toast": "Licencia aktivovaná.",
-      "invalid_toast": "Neplatný licenčný kľúč."
+      "invalid_toast": "Neplatný licenčný kľúč.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "Fronta",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Sťahovač videí, zvuku a obrázkov pre Android",
-      "description": "Sťahuj videá, zvuk a obrázky priamo do svojho telefónu s Androidom. Bez Play Store, bez reklám, bez záväzkov. Základ zadarmo, Pro už od 1 €/mesiac."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "Funkcie",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "Stiahni si {emphasis}.<br/>Priamo do telefónu.",
       "title_emphasis": "takmer všetko",
-      "lead": "Video, zvuk a obrázky takmer z akejkoľvek stránky — stiahnuté priamo do tvojho telefónu s Androidom. Žiadne nahrávanie do cloudu, žiadne dáta neopustia tvoje zariadenie, Play Store nepotrebuješ.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "Stiahnuť bezplatnú verziu pre Android",
       "cta_secondary": "Pozrieť ceny Pro",
       "windows_link": "Dostupné aj pre Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "Všetko, čo potrebuješ, nič navyše",
       "lead": "Rýchly a súkromný sťahovač, ktorý jednoducho funguje — s úrovňou Pro pre každého, kto chce viac.",
       "f1_title": "Väčšina videí alebo zvuku",
-      "f1_desc": "Vlož odkaz, vyber kvalitu, stiahni. Funguje s väčšinou stránok s videom, zvukom a obrázkami — nie so službami chránenými DRM, ako Spotify alebo Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Hromadné sťahovanie",
       "f2_desc": "Prehľadaj stránku a nájdi všetky mediálne súbory, ktoré potom stiahneš spolu, s možnosťou výberu.",
       "f3_title": "Súkromné už z princípu",
-      "f3_desc": "Všetko beží lokálne v tvojom telefóne. Nič sa nenahráva na server, ktorý nemáš pod kontrolou.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "Bez reklám, bez sledovania",
       "f4_desc": "Žiadne reklamné siete, žiadne analytické SDK, žiadne klamlivé platobné bariéry. Len aplikácia.",
       "f5_title": "Extrakcia zvuku",
-      "f5_desc": "Vytiahni z takmer akéhokoľvek videa len zvukovú stopu a ulož ju ako MP3.",
-      "f6_title": "Bez potreby obchodu s aplikáciami",
-      "f6_desc": "Nainštaluj verziu pre Android priamo. Bez účtu, bez schvaľovacieho procesu Play Store, bez regionálnych obmedzení.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Hromadné sťahovanie",
       "feature_priority_updates": "Prioritné aktualizácie",
       "feature_all_updates": "Všetky budúce aktualizácie v cene",
-      "cta_lifetime": "Kúpiť licenciu",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "Žiadne predplatné"
     },
     "faq": {
       "h2": "Časté otázky",
       "q1_title": "Potrebujem Pro na používanie aplikácie?",
       "q1_body": "Nie. Aplikácia je zadarmo a plne funkčná. Pro odstraňuje limity a podporuje vývoj.",
-      "q2_title": "Funguje to bez Google Play?",
-      "q2_body": "Áno — je to samostatná verzia pre Android, ktorú si nainštaluješ priamo. Nepotrebuješ účet ani schválenie Play Store.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Kam mám zadať svoj licenčný kľúč?",
-      "q3_body": "Hneď po nákupe uvidíš svoj licenčný kľúč na potvrdzovacej stránke — zadaj ho v nastaveniach aplikácie.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "Môžem dostať vrátenie peňazí?",
-      "q4_body": "Ak si pri nákupe ponecháš 14-dňové právo na odstúpenie, môžeš kedykoľvek pred dodaním licencie zrušiť nákup a dostaneš peniaze späť. Ak zvolíš okamžité dodanie, tohto práva sa vzdávaš — neskoršie vrátenie peňazí je dobrovoľné. Ak si nie si istý, použi najprv bezplatnú verziu.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "Je to legálne?",
       "q5_body": "Za spôsob použitia stiahnutého obsahu zodpovedáš ty. Rešpektuj prosím autorské práva a podmienky stránok, z ktorých sťahuješ.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",

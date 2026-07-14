@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "Lade Medien von den meisten Seiten herunter, auf jedem Gerät",
+    "tagline": "lade nur Medien herunter, an denen du die Rechte besitzt.",
     "login": {
       "title": "Anmelden",
       "password_label": "Passwort",
@@ -19,7 +19,8 @@
       "status_free": "Kostenlos — {limit} Downloads pro Tag. Pro: unbegrenzt.",
       "need_key_toast": "Gib zuerst einen Lizenzschlüssel ein.",
       "activated_toast": "Lizenz aktiviert.",
-      "invalid_toast": "Ungültiger Lizenzschlüssel."
+      "invalid_toast": "Ungültiger Lizenzschlüssel.",
+      "purchase_hint": "Kaufe Pro in der Google-Play-Version und nutze denselben Lizenzschlüssel hier oder unter Windows."
     },
     "batch": {
       "label": "Füge einen Link, mehrere Links (einer pro Zeile) oder einen Playlist-Link ein",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Video-, Audio- & Bilder-Downloader für Android",
-      "description": "Lade Videos, Audio und Bilder direkt auf dein Android-Handy herunter. Kein Play Store, keine Werbung, keine Bindung. Kostenloser Kern, Pro für 12 € einmalig — kein Abo."
+      "description": "Lade Videos, Audio und Bilder direkt auf dein Android-Handy herunter. Kostenloser Kern, Pro für 12 € einmalig — kein Abo."
     },
     "nav": {
       "features": "Funktionen",
@@ -178,8 +179,8 @@
     "hero": {
       "title_html": "Teilen. {emphasis}. Fertig.",
       "title_emphasis": "Speichern",
-      "lead": "Video, Audio und Bilder von fast jeder Seite — direkt auf dein Handy.",
-      "trust_chip": "🔒 100 % auf deinem Gerät — keine Cloud",
+      "lead": "Video, Audio und Bilder mit wenigen Schritten direkt auf deinem Android-Gerät speichern.",
+      "trust_chip": "🔒 Medienverarbeitung auf deinem Gerät",
       "cta_primary": "Kostenlos herunterladen",
       "cta_secondary": "Pro-Preise ansehen",
       "windows_link": "Auch für Windows verfügbar →"
@@ -190,7 +191,7 @@
       "title_line_2": "AUSWÄHLEN.",
       "title_line_3": "SPEICHERN.",
       "lead": "Video, Audio und Bilder mit wenigen Schritten direkt auf deinem Android-Gerät speichern.",
-      "trust_local": "100 % auf dem Gerät",
+      "trust_local": "Medienverarbeitung auf dem Gerät",
       "trust_cloud": "Keine unnötige Cloud",
       "legal": "Nur Inhalte speichern, für die du die erforderlichen Rechte oder eine Erlaubnis besitzt.",
       "step_source": "Medienlink öffnen und teilen.",
@@ -219,17 +220,17 @@
       "h2": "Alles, was du brauchst, nichts, was du nicht brauchst",
       "lead": "Ein schneller, privater Downloader, der einfach funktioniert — mit einer Pro-Stufe für alle, die mehr wollen.",
       "f1_title": "Video, Audio & Bilder",
-      "f1_desc": "Link einfügen, Qualität bis 4K wählen, herunterladen. Funktioniert mit den meisten Video-, Audio- und Bilderseiten — nur nicht mit Streaming-Diensten wie Spotify oder Netflix.",
+      "f1_desc": "Video, Audio und Bilder mit wenigen Schritten direkt auf deinem Android-Gerät speichern. Nur Inhalte speichern, für die du die erforderlichen Rechte oder eine Erlaubnis besitzt.",
       "f2_title": "Ganze Playlists herunterladen",
       "f2_desc": "Playlist-Link einfügen und alle Videos daraus auf einmal herunterladen.",
       "f3_title": "Privat von Grund auf",
-      "f3_desc": "Alles läuft lokal auf deinem Handy. Nichts wird auf einen Server hochgeladen, den du nicht kontrollierst.",
+      "f3_desc": "Medien werden auf deinem Gerät verarbeitet. Lizenzprüfungen und Updates nutzen begrenzte Netzwerkdienste.",
       "f4_title": "Keine Werbung, kein Tracking",
       "f4_desc": "Keine Werbenetzwerke, kein verstecktes Tracking, keine verwirrenden Bezahlschranken. Nur die App.",
       "f5_title": "Audio-Extraktion",
-      "f5_desc": "Extrahiere einfach die Audiospur aus jedem Video und speichere sie als MP3.",
-      "f6_title": "Kein App Store nötig",
-      "f6_desc": "Installiere die Android-Version direkt. Kein Konto, kein Play-Store-Prüfprozess, keine Regionssperren.",
+      "f5_desc": "Nur Inhalte speichern, für die du die erforderlichen Rechte oder eine Erlaubnis besitzt.",
+      "f6_title": "Flexible Installation",
+      "f6_desc": "Installiere die App über Google Play oder nutze die signierte direkte APK als zweite Option.",
       "f7_title": "Bis zu 4K-Qualität"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "Playlist-Downloads",
       "feature_priority_updates": "Bevorzugte Updates",
       "feature_all_updates": "Alle zukünftigen Updates inklusive",
-      "cta_lifetime": "Lizenz kaufen",
+      "cta_lifetime": "Pro bei Google Play holen",
       "license_flag": "Kein Abo"
     },
     "faq": {
       "h2": "Häufig gestellte Fragen",
       "q1_title": "Brauche ich Pro, um die App zu nutzen?",
       "q1_body": "Nein. Die App ist kostenlos und voll nutzbar. Pro entfernt Limits und unterstützt die Entwicklung.",
-      "q2_title": "Funktioniert das ohne Google Play?",
-      "q2_body": "Ja — es ist eine eigenständige Android-Version, die du direkt installierst. Kein Play-Store-Konto oder -Freigabe nötig.",
+      "q2_title": "Wo kann ich DownloadThat installieren?",
+      "q2_body": "Google Play ist die empfohlene Android-Installation. Eine signierte direkte APK bleibt als zweite Option verfügbar.",
       "q3_title": "Wo gebe ich meinen Lizenzschlüssel ein?",
-      "q3_body": "Direkt nach dem Kauf siehst du deinen Lizenzschlüssel auf der Bestätigungsseite — gib ihn in den Einstellungen der App ein.",
+      "q3_body": "Nach einem bestätigten Google-Play-Kauf zeigt die App deinen Lizenzschlüssel. Derselbe Schlüssel funktioniert in der direkten APK und unter Windows.",
       "q4_title": "Kann ich eine Rückerstattung bekommen?",
-      "q4_body": "Behältst du beim Kauf dein 14-tägiges Widerrufsrecht, kannst du bis zur Bereitstellung der Lizenz jederzeit widerrufen und erhältst dein Geld zurück. Wählst du die sofortige Bereitstellung, verzichtest du auf dieses Recht — Rückerstattungen danach sind freiwillig. Bist du unsicher, nutze einfach zuerst die kostenlose Version.",
+      "q4_body": "Google Play verwaltet Zahlungen und zulässige Erstattungen. Wird ein Kauf erstattet oder widerrufen, wird die verknüpfte Pro-Lizenz automatisch deaktiviert.",
       "q5_title": "Ist das legal?",
       "q5_body": "DownloadThat ist ein neutrales Werkzeug — ob ein Download erlaubt ist, hängt davon ab, welche Rechte du an dem Inhalt hast. Lade nur Inhalte herunter, die dir gehören, die unter einer Creative-Commons- oder Public-Domain-Lizenz stehen oder für die du anderweitig eine Erlaubnis hast.",
       "q5_more": "Mehr dazu: Was darf ich herunterladen?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Widerruf & Rückerstattung",
-      "body": "Gib den Lizenzschlüssel und die beim Kauf verwendete E-Mail-Adresse ein. Liegt dein Kauf nicht länger als 14 Tage zurück, erstatten wir ihn vollständig über Stripe und deaktivieren die Lizenz sofort — ganz ohne Angabe von Gründen.",
+      "body": "Käufe und zulässige Erstattungen werden von Google Play verwaltet. Ein erstatteter oder widerrufener Kauf deaktiviert die verknüpfte Lizenz.",
       "license_label": "Lizenzschlüssel",
       "email_label": "Beim Kauf verwendete E-Mail-Adresse",
       "submit_btn": "Rückerstattung anfordern",

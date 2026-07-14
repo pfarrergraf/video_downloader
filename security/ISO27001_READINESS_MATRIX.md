@@ -1,5 +1,9 @@
 # ISO/IEC 27001:2022 Readiness Matrix — Affiliate Program
 
+> **HISTORICAL EVIDENCE:** Bewertet das inzwischen entfernte Affiliate-/Stripe-System.
+> Nicht als aktuellen Produktionsstatus verwenden; maßgeblich ist
+> `CURRENT_SECURITY_IMPLEMENTATION_STATUS.md`.
+
 Interne Gap-Analyse, **keine Zertifizierung**. Eine Zertifizierung darf ausschließlich durch eine
 akkreditierte, unabhängige Zertifizierungsstelle erfolgen.
 

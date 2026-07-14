@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "نزّل الوسائط من معظم المواقع، على أي جهاز",
+    "tagline": "نزّل فقط الوسائط التي تملك الحق في تنزيلها.",
     "login": {
       "title": "تسجيل الدخول",
       "password_label": "كلمة المرور",
@@ -19,7 +19,8 @@
       "status_free": "مجانية — {limit} تنزيلات يوميًا. مع Pro: بلا حدود.",
       "need_key_toast": "أدخل مفتاح الترخيص أولاً.",
       "activated_toast": "تم تفعيل الترخيص.",
-      "invalid_toast": "مفتاح الترخيص غير صالح."
+      "invalid_toast": "مفتاح الترخيص غير صالح.",
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
     },
     "queue": {
       "title": "قائمة الانتظار",
@@ -167,7 +168,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — أداة تنزيل الفيديو والصوت والصور لأندرويد",
-      "description": "نزّل الفيديوهات والصوتيات والصور مباشرة إلى هاتفك الأندرويد. بلا متجر بلاي، بلا إعلانات، وبلا قيود. النسخة الأساسية مجانية، وPro تبدأ من €1 شهريًا."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
     },
     "nav": {
       "features": "المزايا",
@@ -178,11 +179,11 @@
     "hero": {
       "title_html": "نزّل {emphasis}.<br/>مباشرة إلى هاتفك.",
       "title_emphasis": "كل شيء تقريبًا",
-      "lead": "فيديو وصوت وصور من أي موقع تقريبًا — تُنزَّل مباشرة إلى هاتفك الأندرويد. بلا رفع إلى السحابة، بياناتك لا تغادر جهازك أبدًا، وبلا حاجة لمتجر بلاي.",
+      "lead": "Save video, audio and images straight to your Android device in a few steps.",
       "cta_primary": "نزّل نسخة أندرويد المجانية",
       "cta_secondary": "شاهد أسعار Pro",
       "windows_link": "متوفر أيضًا لنظام Windows →",
-      "trust_chip": "🔒 100% on your device — no cloud"
+      "trust_chip": "🔒 Media processing on your device"
     },
     "hero_cinema": {
       "eyebrow": "ANDROID · LOCAL · DIRECT",
@@ -190,7 +191,7 @@
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
       "lead": "Save video, audio and images straight to your Android device in a few steps.",
-      "trust_local": "100% on your device",
+      "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
@@ -219,17 +220,17 @@
       "h2": "كل ما تحتاجه، ولا شيء زائد",
       "lead": "أداة تنزيل سريعة وخاصة تعمل ببساطة — مع فئة Pro لمن يريد المزيد.",
       "f1_title": "معظم الفيديوهات أو الصوتيات",
-      "f1_desc": "الصق رابطًا، اختر الجودة، ونزّل. يعمل مع معظم مواقع الفيديو والصوت والصور — ولا يعمل مع الخدمات المحمية بتقنية DRM مثل Spotify أو Netflix.",
+      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "تنزيل دفعي",
       "f2_desc": "امسح صفحة بحثًا عن كل ملفات الوسائط ونزّلها معًا، مع إمكانية التحديد وإلغائه.",
       "f3_title": "خصوصية بالتصميم",
-      "f3_desc": "كل شيء يعمل محليًا على هاتفك. لا شيء يُرفع إلى خادم لا تتحكم فيه.",
+      "f3_desc": "Media is processed on your device. License checks and updates use limited network services.",
       "f4_title": "بلا إعلانات، بلا تتبّع",
       "f4_desc": "بلا شبكات إعلانية، بلا أدوات تحليل، وبلا حواجز دفع خادعة. التطبيق فقط.",
       "f5_title": "استخراج الصوت",
-      "f5_desc": "استخرج مسار الصوت فقط من أي فيديو تقريبًا واحفظه كملف MP3.",
-      "f6_title": "بلا حاجة لمتجر تطبيقات",
-      "f6_desc": "ثبّت نسخة أندرويد مباشرة. بلا حساب، بلا عملية مراجعة من متجر بلاي، وبلا قيود إقليمية.",
+      "f5_desc": "Only save content you have the necessary rights or permission to use.",
+      "f6_title": "Flexible installation",
+      "f6_desc": "Install from Google Play or use the signed direct APK as a secondary option.",
       "f7_title": "Up to 4K quality"
     },
     "pricing": {
@@ -242,19 +243,19 @@
       "feature_batch": "تنزيل دفعي",
       "feature_priority_updates": "تحديثات ذات أولوية",
       "feature_all_updates": "شامل جميع التحديثات المستقبلية",
-      "cta_lifetime": "شراء الترخيص",
+      "cta_lifetime": "Get Pro on Google Play",
       "license_flag": "بدون اشتراك"
     },
     "faq": {
       "h2": "الأسئلة الشائعة",
       "q1_title": "هل أحتاج إلى Pro لاستخدام التطبيق؟",
       "q1_body": "لا. التطبيق مجاني وقابل للاستخدام الكامل. نسخة Pro تزيل الحدود وتدعم تطوير التطبيق.",
-      "q2_title": "هل يعمل هذا بدون متجر Google Play؟",
-      "q2_body": "نعم — إنها نسخة أندرويد مستقلة تثبّتها مباشرة. بلا حاجة لحساب أو موافقة من متجر بلاي.",
+      "q2_title": "Where can I install DownloadThat?",
+      "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "أين أدخل مفتاح الترخيص الخاص بي؟",
-      "q3_body": "بعد الشراء مباشرة، سترى مفتاح الترخيص في صفحة التأكيد — أدخله في إعدادات التطبيق.",
+      "q3_body": "After a verified Google Play purchase, the app shows your license key. Enter the same key in the direct APK or Windows app.",
       "q4_title": "هل يمكنني الحصول على استرداد؟",
-      "q4_body": "إذا احتفظت بحقك في الانسحاب خلال 14 يومًا عند الشراء، يمكنك الإلغاء في أي وقت قبل تسليم الترخيص واسترداد أموالك. إذا اخترت التسليم الفوري فأنت تتنازل عن هذا الحق — وعمليات الاسترداد بعد ذلك طوعية. إذا كنت مترددًا فاستخدم النسخة المجانية أولًا.",
+      "q4_body": "Google Play manages payments and eligible refunds. If a purchase is refunded or revoked, the linked Pro license is deactivated automatically.",
       "q5_title": "هل هذا قانوني؟",
       "q5_body": "أنت المسؤول عن كيفية استخدام المحتوى الذي تنزّله. يُرجى احترام حقوق النشر وشروط المواقع التي تنزّل منها.",
       "q5_more": "Learn more: what am I allowed to download?",
@@ -290,7 +291,7 @@
     },
     "refund": {
       "title": "Withdrawal & refund",
-      "body": "Enter the license key and the email address from your purchase. If your purchase was made within the last 14 days, we'll refund it in full via Stripe and deactivate the license immediately — no reason needed.",
+      "body": "Purchases and eligible refunds are managed by Google Play. A refunded or revoked purchase deactivates the linked license.",
       "license_label": "License key",
       "email_label": "Email address used at purchase",
       "submit_btn": "Request refund",
