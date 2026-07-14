@@ -1,6 +1,7 @@
 import { jsonResponse } from "../_lib.js";
 
 export async function onRequestGet({ env }) {
+  const playBackendConfigured = env.PLAY_BACKEND_CONFIGURED === "true";
   const checks = {
     dbBindingPresent: Boolean(env.DB),
     playServiceAccountConfigured: Boolean(
@@ -9,5 +10,14 @@ export async function onRequestGet({ env }) {
     tokenEncryptionConfigured: Boolean(env.PLAY_TOKEN_ENCRYPTION_KEY),
     rtdnConfigured: Boolean(env.PLAY_RTDN_AUDIENCE && env.PLAY_RTDN_SERVICE_ACCOUNT_EMAIL),
   };
-  return jsonResponse({ ok: Object.values(checks).every(Boolean), checks }, Object.values(checks).every(Boolean) ? 200 : 503);
+  const backendChecks = [
+    checks.playServiceAccountConfigured,
+    checks.tokenEncryptionConfigured,
+    checks.rtdnConfigured,
+  ];
+  const ok = checks.dbBindingPresent && (!playBackendConfigured || backendChecks.every(Boolean));
+  return jsonResponse(
+    { ok, mode: playBackendConfigured ? "play_backend" : "website_only", checks },
+    ok ? 200 : 503,
+  );
 }

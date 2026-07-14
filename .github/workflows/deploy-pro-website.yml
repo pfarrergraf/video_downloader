@@ -71,6 +71,7 @@ jobs:
           put() { printf '%s' "$2" | npx -y wrangler@3.114.15 pages secret put "$1" --project-name=downloadthat; }
           put PUBLIC_BASE_URL "$PUBLIC_BASE_URL"
           put CANONICAL_REDIRECT_ENABLED "$CANONICAL_REDIRECT_ENABLED"
+          put PLAY_BACKEND_CONFIGURED "$PLAY_BACKEND_CONFIGURED"
           put PLAY_PACKAGE_NAME "de.classydl.app"
           put PLAY_PRODUCT_ID "pro"
           if [ -n "$PLAY_STORE_URL" ]; then
@@ -94,6 +95,7 @@ jobs:
           fi
 
       - name: Deploy static site and Functions
+        id: pages-deploy
         uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -105,31 +107,44 @@ jobs:
         shell: bash
         run: |
           auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json")
-
-          zone_json=$(curl --fail --silent --show-error "https://api.cloudflare.com/client/v4/zones?name=downloadthat.app" "${auth[@]}")
-          zone_id=$(jq -r '.result[0].id // empty' <<<"$zone_json")
-          if [ -n "$zone_id" ]; then
-            routes_json=$(curl --fail --silent --show-error "https://api.cloudflare.com/client/v4/zones/$zone_id/workers/routes" "${auth[@]}")
-            jq -r '.result[] | select(.pattern == "downloadthat.app/*" or .pattern == "www.downloadthat.app/*") | .id' <<<"$routes_json" |
-              while read -r route_id; do
-                [ -n "$route_id" ] || continue
-                curl --fail --silent --show-error -X DELETE "https://api.cloudflare.com/client/v4/zones/$zone_id/workers/routes/$route_id" "${auth[@]}" >/dev/null
-              done
-          fi
-
           domains_url="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/downloadthat/domains"
           for domain in downloadthat.app www.downloadthat.app; do
-            domains_json=$(curl --fail --silent --show-error "$domains_url" "${auth[@]}")
+            domains_json=$(curl --fail --silent --show-error "$domains_url" "${auth[@]}") || {
+              echo "::warning::Could not list Pages custom domains; attach $domain in the Cloudflare dashboard."
+              continue
+            }
             if ! jq -e --arg domain "$domain" '.result[] | select(.name == $domain)' <<<"$domains_json" >/dev/null; then
-              curl --fail --silent --show-error -X POST "$domains_url" "${auth[@]}" --data "{\"name\":\"$domain\"}" >/dev/null
+              curl --fail --silent --show-error -X POST "$domains_url" "${auth[@]}" --data "{\"name\":\"$domain\"}" >/dev/null ||
+                echo "::warning::Could not attach $domain automatically; attach it in the Cloudflare dashboard."
             fi
           done
 
+          zone_json=$(curl --fail --silent --show-error "https://api.cloudflare.com/client/v4/zones?name=downloadthat.app" "${auth[@]}") || {
+            echo "::warning::Token cannot inspect the downloadthat.app zone; remove the legacy Hello World Worker route in the dashboard."
+            exit 0
+          }
+          zone_id=$(jq -r '.result[0].id // empty' <<<"$zone_json")
+          [ -n "$zone_id" ] || exit 0
+          routes_json=$(curl --fail --silent --show-error "https://api.cloudflare.com/client/v4/zones/$zone_id/workers/routes" "${auth[@]}") || {
+            echo "::warning::Token cannot list Worker routes; remove the legacy Hello World route in the dashboard."
+            exit 0
+          }
+          jq -r '.result[] | select(.pattern == "downloadthat.app/*" or .pattern == "www.downloadthat.app/*") | .id' <<<"$routes_json" |
+            while read -r route_id; do
+              [ -n "$route_id" ] || continue
+              curl --fail --silent --show-error -X DELETE "https://api.cloudflare.com/client/v4/zones/$zone_id/workers/routes/$route_id" "${auth[@]}" >/dev/null ||
+                echo "::warning::Could not remove legacy Worker route $route_id; remove it in the dashboard."
+            done
+
       - name: Verify Play-first deployment
         shell: bash
+        env:
+          DEPLOYMENT_URL: ${{ steps.pages-deploy.outputs.deployment-url }}
         run: |
-          curl --fail --retry 5 --retry-all-errors https://downloadthat.app/download >/dev/null
-          curl --fail --retry 5 --retry-all-errors https://downloadthat.app/api/health | tee health.json
+          test -n "$DEPLOYMENT_URL" || { echo "Cloudflare deployment URL is missing"; exit 1; }
+          base_url="${DEPLOYMENT_URL%/}"
+          curl --fail --location --retry 5 --retry-all-errors "$base_url/download" >/dev/null
+          curl --fail --retry 5 --retry-all-errors "$base_url/api/health" | tee health.json
           node -e 'const h=require("./health.json"); if(!h.ok) process.exit(1)'
-          test "$(curl -s -o /dev/null -w '%{http_code}' https://downloadthat.app/api/create-checkout)" = "404"
-          test "$(curl -s -o /dev/null -w '%{http_code}' https://downloadthat.app/api/partner/config)" = "404"
+          test "$(curl -s -o /dev/null -w '%{http_code}' "$base_url/api/create-checkout")" = "404"
+          test "$(curl -s -o /dev/null -w '%{http_code}' "$base_url/api/partner/config")" = "404"
