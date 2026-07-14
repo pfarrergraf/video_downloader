@@ -256,7 +256,9 @@
       "q4_title": "ฉันขอเงินคืนได้ไหม?",
       "q4_body": "หากคุณคงสิทธิ์ถอนตัว 14 วันไว้ตอนซื้อ คุณยกเลิกได้ทุกเมื่อก่อนได้รับไลเซนส์และรับเงินคืน หากเลือกรับทันที คุณสละสิทธิ์นั้น — การคืนเงินหลังจากนั้นเป็นไปโดยสมัครใจ หากไม่แน่ใจ ให้ใช้เวอร์ชันฟรีก่อน",
       "q5_title": "Is this legal?",
-      "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from."
+      "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Download",

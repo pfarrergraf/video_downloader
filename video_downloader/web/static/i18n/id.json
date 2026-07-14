@@ -256,7 +256,9 @@
       "q4_title": "Bisakah saya mendapatkan pengembalian dana?",
       "q4_body": "Jika kamu mempertahankan hak penarikan 14 hari saat membeli, kamu bisa membatalkan kapan saja sebelum lisensi diserahkan dan uangmu kembali. Jika memilih penyerahan langsung, kamu melepaskan hak itu — pengembalian dana setelahnya bersifat sukarela. Jika ragu, gunakan dulu versi gratis.",
       "q5_title": "Is this legal?",
-      "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from."
+      "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Download",

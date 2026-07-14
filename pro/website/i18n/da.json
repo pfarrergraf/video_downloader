@@ -256,7 +256,9 @@
       "q4_title": "Kan jeg få pengene tilbage?",
       "q4_body": "Hvis du beholder din 14-dages fortrydelsesret ved købet, kan du fortryde når som helst før licensen leveres og få pengene tilbage. Vælger du øjeblikkelig levering, giver du afkald på den ret — senere refusion er frivillig. Er du i tvivl, så brug først gratisversionen.",
       "q5_title": "Er det lovligt?",
-      "q5_body": "Du er selv ansvarlig for, hvordan du bruger downloadet indhold. Respekter venligst ophavsret og vilkårene for de sider, du downloader fra."
+      "q5_body": "Du er selv ansvarlig for, hvordan du bruger downloadet indhold. Respekter venligst ophavsret og vilkårene for de sider, du downloader fra.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Download",

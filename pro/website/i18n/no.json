@@ -256,7 +256,9 @@
       "q4_title": "Kan jeg få pengene tilbake?",
       "q4_body": "Hvis du beholder din 14-dagers angrerett ved kjøpet, kan du angre når som helst før lisensen leveres og få pengene tilbake. Velger du umiddelbar levering, gir du avkall på den retten — senere refusjoner er frivillige. Er du usikker, bruk gratisversjonen først.",
       "q5_title": "Er dette lovlig?",
-      "q5_body": "Du er selv ansvarlig for hvordan du bruker innhold du laster ned. Vennligst respekter opphavsrett og vilkårene til sidene du laster ned fra."
+      "q5_body": "Du er selv ansvarlig for hvordan du bruker innhold du laster ned. Vennligst respekter opphavsrett og vilkårene til sidene du laster ned fra.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Last ned",

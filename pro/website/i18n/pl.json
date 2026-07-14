@@ -256,7 +256,9 @@
       "q4_title": "Czy mogę otrzymać zwrot pieniędzy?",
       "q4_body": "Jeśli przy zakupie zachowasz 14-dniowe prawo odstąpienia, możesz zrezygnować w każdej chwili przed dostarczeniem licencji i odzyskać pieniądze. Jeśli wybierzesz natychmiastowe dostarczenie, zrzekasz się tego prawa — późniejsze zwroty są dobrowolne. W razie wątpliwości najpierw skorzystaj z wersji darmowej.",
       "q5_title": "Czy to legalne?",
-      "q5_body": "Odpowiadasz za sposób, w jaki korzystasz z pobranych treści. Szanuj prawa autorskie i regulaminy stron, z których pobierasz materiały."
+      "q5_body": "Odpowiadasz za sposób, w jaki korzystasz z pobranych treści. Szanuj prawa autorskie i regulaminy stron, z których pobierasz materiały.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Pobierz",

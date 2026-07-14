@@ -256,7 +256,9 @@
       "q4_title": "ገንዘብ ተመላሽ ማግኘት እችላለሁ?",
       "q4_body": "በግዢ ጊዜ የ14 ቀን የመውጣት መብትዎን ከያዙ፣ ፈቃዱ ከመሰጠቱ በፊት በማንኛውም ጊዜ ሰርዘው ገንዘብዎን መመለስ ይችላሉ። ወዲያውኑ መስጠትን ከመረጡ ይህን መብት ይተዋሉ — ከዚያ በኋላ ተመላሽ ገንዘብ በፈቃደኝነት ነው። እርግጠኛ ካልሆኑ መጀመሪያ ነፃውን ስሪት ይጠቀሙ።",
       "q5_title": "Is this legal?",
-      "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from."
+      "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Download",

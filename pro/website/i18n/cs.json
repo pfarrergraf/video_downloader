@@ -256,7 +256,9 @@
       "q4_title": "Můžu dostat vrácení peněz?",
       "q4_body": "Pokud si při nákupu ponecháš 14denní právo na odstoupení, můžeš kdykoli před dodáním licence zrušit nákup a dostaneš peníze zpět. Zvolíš-li okamžité dodání, tohoto práva se vzdáváš — pozdější vrácení peněz je dobrovolné. Nejsi-li si jistý, použij nejdřív bezplatnou verzi.",
       "q5_title": "Je to legální?",
-      "q5_body": "Za způsob, jakým stažený obsah používáte, odpovídáte vy. Respektujte prosím autorská práva a podmínky webů, ze kterých stahujete."
+      "q5_body": "Za způsob, jakým stažený obsah používáte, odpovídáte vy. Respektujte prosím autorská práva a podmínky webů, ze kterých stahujete.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Stáhnout",

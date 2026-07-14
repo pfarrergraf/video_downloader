@@ -256,7 +256,9 @@
       "q4_title": "Kan jag få pengarna tillbaka?",
       "q4_body": "Om du behåller din 14 dagars ångerrätt vid köpet kan du ångra dig när som helst innan licensen levereras och få pengarna tillbaka. Väljer du omedelbar leverans avstår du från den rätten — senare återbetalningar är frivilliga. Är du osäker, använd gratisversionen först.",
       "q5_title": "Är det här lagligt?",
-      "q5_body": "Du ansvarar själv för hur du använder nedladdat innehåll. Respektera upphovsrätten och villkoren för de sajter du laddar ner från."
+      "q5_body": "Du ansvarar själv för hur du använder nedladdat innehåll. Respektera upphovsrätten och villkoren för de sajter du laddar ner från.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Ladda ner",

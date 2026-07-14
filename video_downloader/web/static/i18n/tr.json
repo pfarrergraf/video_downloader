@@ -256,7 +256,9 @@
       "q4_title": "Para iadesi alabilir miyim?",
       "q4_body": "Satın alırken 14 günlük cayma hakkını korursan, lisans teslim edilmeden önce istediğin zaman vazgeçebilir ve paranı geri alabilirsin. Anında teslimi seçersen bu haktan feragat edersin — sonrasındaki iadeler gönüllüdür. Emin değilsen önce ücretsiz sürümü kullan.",
       "q5_title": "Bu yasal mı?",
-      "q5_body": "İndirilen içeriği nasıl kullandığınızdan siz sorumlusunuz. Lütfen telif haklarına ve indirdiğiniz sitelerin koşullarına saygı gösterin."
+      "q5_body": "İndirilen içeriği nasıl kullandığınızdan siz sorumlusunuz. Lütfen telif haklarına ve indirdiğiniz sitelerin koşullarına saygı gösterin.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "İndir",

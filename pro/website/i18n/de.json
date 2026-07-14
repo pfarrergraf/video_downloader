@@ -256,7 +256,9 @@
       "q4_title": "Kann ich eine Rückerstattung bekommen?",
       "q4_body": "Behältst du beim Kauf dein 14-tägiges Widerrufsrecht, kannst du bis zur Bereitstellung der Lizenz jederzeit widerrufen und erhältst dein Geld zurück. Wählst du die sofortige Bereitstellung, verzichtest du auf dieses Recht — Rückerstattungen danach sind freiwillig. Bist du unsicher, nutze einfach zuerst die kostenlose Version.",
       "q5_title": "Ist das legal?",
-      "q5_body": "Du bist selbst dafür verantwortlich, wie du heruntergeladene Inhalte nutzt. Bitte respektiere das Urheberrecht und die Nutzungsbedingungen der Seiten, von denen du herunterlädst."
+      "q5_body": "DownloadThat ist ein neutrales Werkzeug — ob ein Download erlaubt ist, hängt davon ab, welche Rechte du an dem Inhalt hast. Lade nur Inhalte herunter, die dir gehören, die unter einer Creative-Commons- oder Public-Domain-Lizenz stehen oder für die du anderweitig eine Erlaubnis hast.",
+      "q5_more": "Mehr dazu: Was darf ich herunterladen?",
+      "q5_more_href": "rechtliches.html"
     },
     "footer": {
       "download": "Download (Android)",

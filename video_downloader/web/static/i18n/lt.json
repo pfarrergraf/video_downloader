@@ -256,7 +256,9 @@
       "q4_title": "Ar galiu susigrąžinti pinigus?",
       "q4_body": "Jei pirkdamas išsaugai 14 dienų teisę atsisakyti sutarties, gali bet kada iki licencijos pateikimo atsisakyti ir atgauti pinigus. Jei pasirenki neatidėliotiną pateikimą, šios teisės atsisakai — vėlesni grąžinimai yra savanoriški. Jei abejoji, pirmiausia naudok nemokamą versiją.",
       "q5_title": "Ar tai teisėta?",
-      "q5_body": "Tu pats atsakai už tai, kaip naudoji atsisiųstą turinį. Prašome gerbti autorių teises ir svetainių, iš kurių atsisiunčiate, taisykles."
+      "q5_body": "Tu pats atsakai už tai, kaip naudoji atsisiųstą turinį. Prašome gerbti autorių teises ir svetainių, iš kurių atsisiunčiate, taisykles.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Atsisiųsti",

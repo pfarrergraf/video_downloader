@@ -256,7 +256,9 @@
       "q4_title": "Kas saan raha tagasi?",
       "q4_body": "Kui jätad ostul alles oma 14-päevase taganemisõiguse, saad enne litsentsi üleandmist igal ajal loobuda ja raha tagasi. Kui valid kohese üleandmise, loobud sellest õigusest — hilisemad tagasimaksed on vabatahtlikud. Kahtluse korral kasuta esmalt tasuta versiooni.",
       "q5_title": "Kas see on seaduslik?",
-      "q5_body": "Sina vastutad allalaaditud sisu kasutamise eest. Palun austa autoriõigusi ja nende saitide kasutustingimusi, millelt alla laadid."
+      "q5_body": "Sina vastutad allalaaditud sisu kasutamise eest. Palun austa autoriõigusi ja nende saitide kasutustingimusi, millelt alla laadid.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Laadi alla",

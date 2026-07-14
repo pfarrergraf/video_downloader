@@ -256,7 +256,9 @@
       "q4_title": "Mogu li dobiti povrat novca?",
       "q4_body": "Ako pri kupnji zadržiš svoje 14-dnevno pravo na odustajanje, možeš odustati u bilo kojem trenutku prije isporuke licence i dobiti novac natrag. Odabereš li trenutačnu isporuku, odričeš se tog prava — kasniji povrati su dobrovoljni. Ako nisi siguran, prvo koristi besplatnu verziju.",
       "q5_title": "Je li ovo zakonito?",
-      "q5_body": "Vi ste odgovorni za način na koji koristite preuzeti sadržaj. Poštujte autorska prava i uvjete korištenja stranica s kojih preuzimate."
+      "q5_body": "Vi ste odgovorni za način na koji koristite preuzeti sadržaj. Poštujte autorska prava i uvjete korištenja stranica s kojih preuzimate.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Preuzimanje",

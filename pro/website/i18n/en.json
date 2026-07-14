@@ -256,7 +256,9 @@
       "q4_title": "Can I get a refund?",
       "q4_body": "If you keep your 14-day right of withdrawal at checkout, you can cancel any time before your license is delivered and get your money back. If you choose immediate delivery, you waive that right — refunds after that are voluntary. If you're unsure, just use the free version first.",
       "q5_title": "Is this legal?",
-      "q5_body": "You're responsible for how you use downloaded content. Please respect copyright and the terms of the sites you download from."
+      "q5_body": "DownloadThat is a neutral tool — whether a download is allowed depends on the rights you hold in the content. Download only content you own, that is under a Creative Commons or public-domain license, or that you are otherwise permitted to download.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Download (Android)",

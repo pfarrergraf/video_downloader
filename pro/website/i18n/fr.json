@@ -256,7 +256,9 @@
       "q4_title": "Puis-je obtenir un remboursement ?",
       "q4_body": "Si tu conserves ton droit de rétractation de 14 jours lors de l'achat, tu peux annuler à tout moment avant la remise de ta licence et être remboursé. Si tu choisis la remise immédiate, tu renonces à ce droit — les remboursements ultérieurs sont volontaires. En cas de doute, utilise d'abord la version gratuite.",
       "q5_title": "Est-ce légal ?",
-      "q5_body": "Vous êtes responsable de l'usage que vous faites des contenus téléchargés. Merci de respecter le droit d'auteur et les conditions d'utilisation des sites depuis lesquels vous téléchargez."
+      "q5_body": "Vous êtes responsable de l'usage que vous faites des contenus téléchargés. Merci de respecter le droit d'auteur et les conditions d'utilisation des sites depuis lesquels vous téléchargez.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Télécharger",

@@ -256,7 +256,9 @@
       "q4_title": "¿Puedo obtener un reembolso?",
       "q4_body": "Si conservas tu derecho de desistimiento de 14 días al comprar, puedes cancelar en cualquier momento antes de recibir tu licencia y recuperar tu dinero. Si eliges la entrega inmediata, renuncias a ese derecho — los reembolsos posteriores son voluntarios. Si tienes dudas, usa primero la versión gratuita.",
       "q5_title": "¿Esto es legal?",
-      "q5_body": "Tú eres responsable del uso que hagas del contenido descargado. Por favor, respeta los derechos de autor y las condiciones de los sitios de los que descargas."
+      "q5_body": "Tú eres responsable del uso que hagas del contenido descargado. Por favor, respeta los derechos de autor y las condiciones de los sitios de los que descargas.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Descargar",

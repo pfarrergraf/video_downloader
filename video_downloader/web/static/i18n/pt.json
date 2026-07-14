@@ -256,7 +256,9 @@
       "q4_title": "Posso obter um reembolso?",
       "q4_body": "Se você mantiver seu direito de arrependimento de 14 dias na compra, pode cancelar a qualquer momento antes da entrega da licença e receber seu dinheiro de volta. Se escolher a entrega imediata, você renuncia a esse direito — reembolsos depois disso são voluntários. Em dúvida, use primeiro a versão gratuita.",
       "q5_title": "Isso é legal?",
-      "q5_body": "Você é responsável pelo uso que faz do conteúdo baixado. Respeite os direitos autorais e os termos dos sites de onde você baixa."
+      "q5_body": "Você é responsável pelo uso que faz do conteúdo baixado. Respeite os direitos autorais e os termos dos sites de onde você baixa.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Baixar",

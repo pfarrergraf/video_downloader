@@ -256,7 +256,9 @@
       "q4_title": "Posso ottenere un rimborso?",
       "q4_body": "Se mantieni il diritto di recesso di 14 giorni al momento dell'acquisto, puoi annullare in qualsiasi momento prima della consegna della licenza e riavere i tuoi soldi. Se scegli la consegna immediata, rinunci a tale diritto — i rimborsi successivi sono volontari. Se sei indeciso, usa prima la versione gratuita.",
       "q5_title": "È legale?",
-      "q5_body": "Sei responsabile di come utilizzi i contenuti scaricati. Rispetta il copyright e i termini dei siti da cui scarichi."
+      "q5_body": "Sei responsabile di come utilizzi i contenuti scaricati. Rispetta il copyright e i termini dei siti da cui scarichi.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Download",

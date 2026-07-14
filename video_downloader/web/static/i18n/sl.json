@@ -256,7 +256,9 @@
       "q4_title": "Ali lahko dobim povračilo?",
       "q4_body": "Če ob nakupu obdržiš svojo 14-dnevno pravico do odstopa, lahko kadar koli pred izročitvijo licence odstopiš in dobiš denar nazaj. Če izbereš takojšnjo izročitev, se tej pravici odpoveš — kasnejša vračila so prostovoljna. Če si negotov, najprej uporabi brezplačno različico.",
       "q5_title": "Ali je to zakonito?",
-      "q5_body": "Sam si odgovoren za način uporabe prenesene vsebine. Prosimo, spoštuj avtorske pravice in pogoje strani, s katerih prenašaš."
+      "q5_body": "Sam si odgovoren za način uporabe prenesene vsebine. Prosimo, spoštuj avtorske pravice in pogoje strani, s katerih prenašaš.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Prenos",

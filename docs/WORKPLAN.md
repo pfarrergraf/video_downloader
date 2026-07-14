@@ -41,20 +41,28 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
 ## Aufgaben-Board
 
 ### T1 — Rechtliche Deep-Dive-Unterseite + FAQ-Verlinkung
-- [ ] `rechtliches.html` (DE, Original) + `rechtliches.en.html` (EN): tiefergehende
+- [x] `rechtliches.html` (DE, Original) + `rechtliches.en.html` (EN): tiefergehende
   Erläuterung der Rechtslage (Creative Commons, Public Domain, eigene Inhalte, Lizenzen,
   was erlaubt/nicht erlaubt ist, DRM-Verzicht, Verantwortung des Nutzers, YouTube/Play-Bezug)
   — eigenständig formuliert, **nicht** von Dritten kopiert. Hülle/Style wie `datenschutz.html`
   (self-contained `<style>`, `legal-lang.js` mit `data-doc="rechtliches"`).
-- [ ] FAQ-Antwort „Ist das legal?" auf der Startseite (`index.html`) um einen
+- [x] FAQ-Antwort „Ist das legal?" auf der Startseite (`index.html`) um einen
   **Hyperlink** zur Unterseite ergänzen (eigenes `<a>`-Element, da i18n `textContent`
   setzt; Link locale-abhängig via `data-i18n-attr="href:…"`).
-- [ ] i18n-Keys `website.faq.q5_more` (+ `q5_more_href`) in `i18n/en.json` (Fallback) und
-  `i18n/de.json`. Auch im In-App-Spiegel `video_downloader/web/static/i18n/` prüfen, falls
-  dort dieselbe FAQ existiert.
+- [x] i18n-Keys `website.faq.q5_more` (+ `q5_more_href`) in allen Locales beider
+  i18n-Verzeichnisse (Key-Parität wird von `tests/test_i18n.py` erzwungen).
 
 **Log T1:**
-- (hier eintragen)
+- 2026-07-14 — Claude/opus — **erledigt.** Neu: `pro/website/rechtliches.html` (DE) +
+  `rechtliches.en.html` (EN), self-contained im datenschutz-Stil, mit `legal-lang.js`
+  (`data-doc="rechtliches"`); Inhalt: CC-Lizenzbausteine, Public Domain, eigene Inhalte,
+  Download-Erlaubnis, DRM/§ 95a, Plattform-ToS, Nutzerverantwortung. FAQ-Antwort q5 in
+  `index.html` neu formuliert + „Mehr dazu"-Link (`<a data-i18n data-i18n-attr="href:…">`,
+  locale-abhängig: DE→`rechtliches.html`, sonst→`rechtliches.en.html`). Keys `q5_more`/
+  `q5_more_href` + neuer `q5_body`-Text in en/de gesetzt; Keys per Skript in alle 100
+  i18n-Dateien (Website + App) eingefügt (Round-Trip formattreu). Verifiziert: alle Seiten
+  liefern 200, HTML parst, `test_i18n.py` 7/7, JS 18/18, Python 278/278. Offen bleibt die
+  Übersetzung der Unterseite selbst in weitere Sprachen → T2.
 
 ### T2 — `rechtliches.*` in weitere Locales übersetzen
 - [ ] Analog zu `datenschutz.*.html` die Rechtsseite in weitere Sprachen übersetzen

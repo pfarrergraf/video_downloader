@@ -256,7 +256,9 @@
       "q4_title": "Kaphatok visszatérítést?",
       "q4_body": "Ha a vásárláskor megtartod a 14 napos elállási jogodat, a licenc átadása előtt bármikor elállhatsz, és visszakapod a pénzed. Ha az azonnali átadást választod, lemondasz erről a jogról — a későbbi visszatérítés önkéntes. Ha bizonytalan vagy, előbb használd az ingyenes verziót.",
       "q5_title": "Ez legális?",
-      "q5_body": "Te vagy felelős azért, hogyan használod a letöltött tartalmat. Kérjük, tartsd tiszteletben a szerzői jogokat és azon oldalak feltételeit, amelyekről letöltesz."
+      "q5_body": "Te vagy felelős azért, hogyan használod a letöltött tartalmat. Kérjük, tartsd tiszteletben a szerzői jogokat és azon oldalak feltételeit, amelyekről letöltesz.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Letöltés",

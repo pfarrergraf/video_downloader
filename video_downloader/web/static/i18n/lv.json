@@ -256,7 +256,9 @@
       "q4_title": "Vai varu saņemt naudas atmaksu?",
       "q4_body": "Ja pirkuma brīdī saglabā savas 14 dienu atteikuma tiesības, vari atteikties jebkurā brīdī pirms licences piegādes un saņemt naudu atpakaļ. Ja izvēlies tūlītēju piegādi, tu atsakies no šīm tiesībām — vēlāka atmaksa ir brīvprātīga. Ja šaubies, vispirms izmanto bezmaksas versiju.",
       "q5_title": "Vai tas ir likumīgi?",
-      "q5_body": "Jūs esat atbildīgs par to, kā izmantojat lejupielādēto saturu. Lūdzu, ievērojiet autortiesības un to vietņu noteikumus, no kurām lejupielādējat."
+      "q5_body": "Jūs esat atbildīgs par to, kā izmantojat lejupielādēto saturu. Lūdzu, ievērojiet autortiesības un to vietņu noteikumus, no kurām lejupielādējat.",
+      "q5_more": "Learn more: what am I allowed to download?",
+      "q5_more_href": "rechtliches.en.html"
     },
     "footer": {
       "download": "Lejupielādēt",
