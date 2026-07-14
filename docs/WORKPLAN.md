@@ -69,16 +69,23 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
   Übersetzung der Unterseite selbst in weitere Sprachen → T2.
 
 ### T2 — `rechtliches.*` in weitere Locales übersetzen
-- [ ] Analog zu `datenschutz.*.html` die Rechtsseite in weitere Sprachen übersetzen
+- [x] Analog zu `datenschutz.*.html` die Rechtsseite in weitere Sprachen übersetzen
   (mind. die 16, die bei `datenschutz` existieren). Dateien: `rechtliches.<lang>.html`.
   Der Sprachumschalter (`legal-lang.js`) listet bereits alle Sprachen; fehlende Dateien
   führen zu 404 (bekanntes, bestehendes Verhalten).
 
 **Log T2:**
-- 2026-07-14 — Claude/opus — **in Arbeit** auf `agent/claude/t2-t4`: Rechtsseite wird in die
-  13 Sprachen übersetzt, für die `datenschutz.<lang>.html` existiert (cs, da, el, es, fi, fr,
-  it, nl, no, pl, pt, ro, sv) — je als `rechtliches.<lang>.html`, gleiche Hülle/Style,
-  `legal-lang.js data-doc="rechtliches"`. Kein Zugriff auf i18n/*.json.
+- 2026-07-14 — Claude/opus — **erledigt.** 13 neue `rechtliches.<lang>.html` erstellt —
+  genau die Sprachen mit vorhandener `datenschutz.<lang>.html` (cs, da, el, es, fi, fr, it,
+  nl, no, pl, pt, ro, sv). Gleiche self-contained Hülle/Style wie das DE-Original (Style-Block
+  identisch), `legal-lang.js data-doc="rechtliches"`, Footer verlinkt lokalisierte Geschwister
+  (`impressum/datenschutz/agb.<lang>.html`), Register je Sprache wie beim `datenschutz`-Pendant
+  (cs/el/fr/pt formell, Rest informell). Inhalt sinngemäß eigenständig übersetzt (CC-Bausteine,
+  Public Domain, DRM/Umgehungsverbot mit EU-Bezug Art. 6 RL 2001/29/EG, Plattform-ToS,
+  Nutzerverantwortung) — nicht von Dritten kopiert. Validiert: HTML wohlgeformt, `<html lang>`
+  korrekt, 1×h1/6×h2/13×li je Datei, Links erhalten. Kein Zugriff auf i18n/*.json. Damit
+  liefert der Sprachumschalter für diese 13 Sprachen keine 404 mehr; verbleibende Sprachen der
+  `LEGAL_LANGUAGES`-Liste (ohne `datenschutz`-Pendant) bleiben bewusst offen.
 
 ### T3 — „almost any" konsistent über alle i18n-Locales
 - [ ] `f5_desc` (und ähnliche absolute „any"/„jede") in den übrigen ~48

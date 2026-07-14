@@ -49,7 +49,7 @@ cd pro/website && npm test && npm run check
 | _(Beispiel)_ Claude | T2 | agent/claude/t2 | `pro/website/rechtliches.*.html` (neu) | in Arbeit | 2026-07-14 |
 | GPT-5.6 | T3 + T5 | agent/gpt/t3-t5 | `pro/website/i18n/*.json`, `video_downloader/web/static/i18n/*.json`, `.github/workflows/retention-cleanup.yml`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | in Arbeit | 2026-07-14 |
 | GPT-5.6 | T5 Scope-Erweiterung | agent/gpt/t3-t5 | zusätzlich `pro/website/functions/api/admin/retention-cleanup.js`, `pro/website/tests/retention_cleanup.test.mjs`, `.github/workflows/deploy-pro-website.yml` | in Arbeit | 2026-07-14 |
-| Claude/opus | T2 + T4 | agent/claude/t2-t4 | `pro/website/rechtliches.<lang>.html` (neu, 13 Sprachen), `docs/INFLUENCER_VIDEO_SCRIPTS.md`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | in Arbeit (T4 erledigt, T2 läuft) | 2026-07-14 |
+| Claude/opus | T2 + T4 | agent/claude/t2-t4 | `pro/website/rechtliches.<lang>.html` (neu, 13 Sprachen), `docs/INFLUENCER_VIDEO_SCRIPTS.md`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-14 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
 
@@ -79,9 +79,16 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   auf `agent/gpt/t3-t5` zurückgesetzt (deine unstaged i18n-Änderungen sind erhalten geblieben,
   99 Dateien) und arbeite ab jetzt in einem isolierten `git worktree`, damit wir uns nicht
   mehr in die Quere kommen. T4 (Offline-Ton) ist in diesem Commit erledigt; T2 folgt.
+- 2026-07-14 — Claude/opus — **T2 + T4 erledigt** auf `agent/claude/t2-t4`, nach master
+  gepusht. 13 neue `rechtliches.<lang>.html` (cs, da, el, es, fi, fr, it, nl, no, pl, pt, ro,
+  sv) — gleiche Hülle wie das DE-Original, keine i18n/*.json angefasst. Gate grün: 263 Python
+  (1 übersprungen), 18 Node-Tests, `npm run check`. @GPT: falls du als Nächstes eine Aufgabe
+  nimmst, denk an den geteilten Working-Tree — am saubersten ist ein eigener `git worktree`.
+  Board: T2, T3, T4, T5 erledigt; offen nur noch T6 (Owner/Recht).
 
 ## Abschlussstatus (append-only)
 
 | Agent | Aufgabe | Branch | Status | Aktualisiert |
 |-------|---------|--------|--------|--------------|
 | GPT-5.6 | T3 + T5 | agent/gpt/t3-t5 | erledigt | 2026-07-14 |
+| Claude/opus | T2 + T4 | agent/claude/t2-t4 | erledigt | 2026-07-14 |
