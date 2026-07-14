@@ -4,6 +4,10 @@ Dieses Dokument ist das **gemeinsame Aufgaben-Board** für alle KIs (und Mensche
 DownloadThat weiterarbeiten. Es liegt auf `master`, damit der Stand jederzeit auf GitHub
 sichtbar ist.
 
+> **Parallele Agenten:** Wenn mehrere KIs gleichzeitig arbeiten, gilt zusätzlich
+> `docs/AGENT_COORDINATION.md` (Live-Absprache, wer gerade was macht + Kollisionsregeln).
+> Dort zuerst claimen, dann hier abhaken.
+
 ## So arbeitest du mit diesem Board (Protokoll — bitte einhalten)
 
 Für **jede** Aufgabe, die du übernimmst:
