@@ -25,10 +25,10 @@ jobs:
     env:
       RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@v7
 
       # classydl_web.spec bundles the same Gothic web UI (video_downloader/web)
       # used by Android/Termux/desktop, packaged as a single windowless .exe
@@ -79,7 +79,7 @@ jobs:
             Set-Content "release-out\DownloadThat-latest.exe.sha256"
 
       - name: Attach EXE to GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           name: ${{ env.RELEASE_TAG }}

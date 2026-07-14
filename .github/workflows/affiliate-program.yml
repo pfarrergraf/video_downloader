@@ -17,8 +17,8 @@ jobs:
   finance-and-schema:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
       - name: Create development environment with uv
@@ -32,8 +32,8 @@ jobs:
       run:
         working-directory: pro/website
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
       - name: Parse every Cloudflare Function and browser module
@@ -44,16 +44,16 @@ jobs:
   android-referral-compile:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
-      - uses: android-actions/setup-android@v3
-      - uses: actions/setup-python@v5
+      - uses: android-actions/setup-android@v4
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
         with:
           gradle-version: "8.13"
       - name: Compile Android referral integration
@@ -73,7 +73,7 @@ jobs:
           tail -n 40 affiliate-android-build.log
       - name: Upload Android compile log
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: affiliate-android-build-log
           path: android/affiliate-android-build.log
