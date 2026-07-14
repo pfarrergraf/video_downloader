@@ -10,16 +10,30 @@
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, sans-serif; }
 a { color: var(--accent); }
-.wrap { width: min(900px, calc(100% - 32px)); margin: 0 auto; }
+.wrap { width: min(1060px, calc(100% - 32px)); margin: 0 auto; }
 header { padding: 20px 0; border-bottom: 1px solid var(--border); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
 .brand { color: var(--text); text-decoration: none; font-weight: 800; }
 main { padding: 64px 0 80px; }
 h1 { font-size: clamp(2rem, 6vw, 3.6rem); line-height: 1.08; margin: 0 0 16px; }
 h2 { margin-top: 0; }
 .lead { color: var(--muted); max-width: 680px; font-size: 1.1rem; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin: 36px 0; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 24px 0 36px; }
 .card { border: 1px solid var(--border); border-radius: 18px; padding: 26px; background: var(--card); }
 .card.primary { border-color: #ff8d68; }
+.play-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 28px; margin-top: 34px; }
+.platform-card { display: flex; flex-direction: column; min-height: 290px; }
+.platform-card .btn { margin-top: auto; align-self: flex-start; }
+.platform-icon { width: 58px; height: 58px; display: grid; place-items: center; margin-bottom: 20px; border: 1px solid var(--border); border-radius: 15px; color: var(--accent); background: #151326; }
+.platform-icon svg { width: 34px; height: 34px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.apk-mark { color: #12101f; background: var(--gradient); font-size: .78rem; font-weight: 900; letter-spacing: .06em; }
+.store-badge-link { display: inline-flex; border-radius: 9px; transition: transform .18s ease, opacity .18s ease; }
+.store-badge-link:hover { transform: translateY(-2px); }
+.store-badge { display: block; width: min(238px, 62vw); height: auto; }
+.store-badge-link[aria-disabled="true"] { opacity: .56; pointer-events: none; filter: grayscale(.25); }
+.availability { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: .9rem; }
+.availability::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #ffb26b; }
+.lang-switcher { background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; }
 .btn { display: inline-block; margin-top: 12px; padding: 12px 20px; border: 1px solid var(--border); border-radius: 10px; color: var(--text); text-decoration: none; font-weight: 700; }
 .btn.primary { color: #12101f; border: 0; background: var(--gradient); }
 .btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
@@ -30,3 +44,11 @@ footer { padding: 30px 0; border-top: 1px solid var(--border); color: var(--mute
 [lang="de"] { display: none; }
 html[lang="de"] [lang="de"] { display: block; }
 html[lang="de"] [lang="en"] { display: none; }
+html[dir="rtl"] { direction: rtl; }
+
+@media (max-width: 760px) {
+  main { padding-top: 44px; }
+  .play-card { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr; }
+  .platform-card { min-height: 0; }
+}

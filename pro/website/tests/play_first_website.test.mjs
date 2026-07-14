@@ -9,6 +9,9 @@ const read = (relative) => readFileSync(new URL(relative, root), "utf8");
 test("homepage sends purchases to the Play-first Android page", () => {
   const html = read("index.html");
   assert.match(html, /id="buy-license-btn"[^>]+href="\/download\/android"/);
+  assert.match(html, /data-google-play-badge/);
+  assert.match(html, /data-play-store-link/);
+  assert.match(html, /href="\/download"[^>]*>Alternative Downloads</);
   assert.doesNotMatch(html, /buy\.stripe\.com|data-stripe-link|withdrawal-modal/);
   assert.doesNotMatch(html, /No Play Store|No app store needed|no region locks/i);
 });
@@ -30,7 +33,12 @@ test("download routes expose Play first, signed APK second, and planned iOS", ()
   const ios = read("download/ios/index.html");
 
   assert.ok(landing.indexOf("Google Play") < landing.indexOf("signed APK"));
+  assert.match(landing, /data-google-play-badge/);
+  assert.match(landing, /Android Direct Installation \(APK\)/);
+  assert.match(landing, /href="\/download\/windows"/);
+  assert.match(landing, /iPhone &amp; iPad/);
   assert.match(android, /data-play-store-link/);
+  assert.match(android, /data-google-play-badge/);
   assert.match(android, /href="\/download\/direct"/);
   assert.match(direct, /SHA-256 checksum/);
   assert.match(direct, /data-direct-apk-link/);
@@ -49,6 +57,17 @@ test("Play URL is configured centrally and fails closed while unset", () => {
   assert.match(config, /PLAY_STORE_URL:\s*playStoreUrl/);
   assert.match(script, /!playUrl\.includes\("__PLAY_STORE_URL__"\)/);
   assert.match(script, /aria-disabled/);
+});
+
+test("localized Google Play badges cover website languages with an explicit fallback", () => {
+  const badges = new Set(readdirSync(new URL("assets/google-play-badges/", root)).filter((name) => name.endsWith(".svg")));
+  const aliases = { ar: "ar-SA", ms: "ms-MY", no: "nb-NO", pt: "pt-PT", zh: "zh-CN" };
+  for (const file of readdirSync(new URL("i18n/", root)).filter((name) => name.endsWith(".json"))) {
+    const code = file.replace(/\.json$/, "");
+    const badge = `${aliases[code] || code}.svg`;
+    assert.ok(badges.has(badge) || code === "am", `${code} has no localized badge or documented English fallback`);
+  }
+  assert.match(read("assets/store-badges.js"), /return aliases\[short\].*"en"/s);
 });
 
 test("all locale files use store-neutral distribution copy", () => {

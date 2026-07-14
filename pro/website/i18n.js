@@ -115,8 +115,11 @@ async function dtSetLanguage(pref) {
     EN_STRINGS_CACHE = EN_STRINGS_CACHE || (await dtLoadStrings('en')) || {};
     FALLBACK_STRINGS = EN_STRINGS_CACHE;
   }
+  document.documentElement.lang = effective;
+  document.documentElement.dir = ['ar', 'fa', 'he', 'ur'].includes(effective) ? 'rtl' : 'ltr';
   dtApplyTranslations();
   document.querySelectorAll('.lang-switcher').forEach((sel) => { sel.value = pref; });
+  window.dispatchEvent(new CustomEvent('downloadthat:languagechange', { detail: { language: effective } }));
 }
 
 function dtPopulateLanguageSwitchers() {

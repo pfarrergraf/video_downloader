@@ -1,15 +1,61 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Download DownloadThat</title><meta name="description" content="Get DownloadThat from Google Play or download the signed Android APK.">
+<title>Download DownloadThat</title><meta name="description" content="Get DownloadThat from Google Play or choose an alternative download.">
 <link rel="canonical" href="https://downloadthat.app/download" />
 <link rel="stylesheet" href="/assets/download-pages.css"></head><body>
-<header><div class="wrap"><a class="brand" href="/">DownloadThat</a></div></header>
+<header><div class="wrap"><a class="brand" href="/">DownloadThat</a><select class="lang-switcher" aria-label="Language"></select></div></header>
 <main class="wrap">
-<section lang="en"><h1>Choose your platform</h1><p class="lead">Google Play is the recommended Android install and the only place to buy Pro. The signed APK remains available for free use and license activation.</p></section>
-<section lang="de"><h1>Wähle deine Plattform</h1><p class="lead">Google Play ist die empfohlene Android-Installation und die einzige Verkaufsstelle für Pro. Die signierte APK bleibt für die kostenlose Nutzung und Lizenzaktivierung verfügbar.</p></section>
-<div class="grid">
-<article class="card primary"><h2>Android</h2><p lang="en">Google Play first, signed APK second.</p><p lang="de">Google Play zuerst, signierte APK als Alternative.</p><a class="btn primary" href="/download/android">Android options</a></article>
-<article class="card"><h2>Windows</h2><p lang="en">Use a Pro key bought on Android in the Windows app.</p><p lang="de">Nutze einen unter Android gekauften Pro-Schlüssel auch in der Windows-App.</p><a class="btn" href="/download-windows">Windows download</a></article>
-<article class="card"><h2>iPhone &amp; iPad</h2><p lang="en">An iOS version is planned.</p><p lang="de">Eine iOS-Version ist geplant.</p><a class="btn" href="/download/ios">iOS status</a></article>
-</div></main><footer><div class="wrap"><a href="/">DownloadThat home</a></div></footer>
-<script src="/assets/runtime-config"></script><script src="/assets/download-pages.js"></script></body></html>
+  <section lang="en"><h1>Download DownloadThat</h1><p class="lead">Google Play is the recommended Android installation and the only place to buy Pro. You can also choose a signed APK or see the status of other platforms.</p></section>
+  <section lang="de"><h1>DownloadThat herunterladen</h1><p class="lead">Google Play ist die empfohlene Android-Installation und die einzige Verkaufsstelle für Pro. Alternativ stehen die signierte APK und weitere Plattformen zur Auswahl.</p></section>
+
+  <article class="card primary play-card">
+    <div>
+      <h2>Google Play</h2>
+      <p lang="en">Recommended for automatic updates, secure billing and restoring DownloadThat Pro.</p>
+      <p lang="de">Empfohlen für automatische Updates, sichere Bezahlung und die Wiederherstellung von DownloadThat Pro.</p>
+      <p class="availability" data-play-status>The Google Play link will be enabled for launch.</p>
+    </div>
+    <a class="store-badge-link" data-play-store-link aria-disabled="true">
+      <img class="store-badge" data-google-play-badge src="/assets/google-play-badges/en.svg" alt="Get it on Google Play" />
+    </a>
+  </article>
+
+  <h2 lang="en">Alternative downloads</h2>
+  <h2 lang="de">Alternative Downloads</h2>
+  <div class="grid">
+    <article class="card platform-card">
+      <div class="platform-icon apk-mark" aria-hidden="true">APK</div>
+      <h2>Android Direct Installation (APK)</h2>
+      <p lang="en">Signed direct installation for the Free tier or activation of an existing Pro license. No purchase inside this build.</p>
+      <p lang="de">Signierte Direktinstallation für die kostenlose Version oder zur Aktivierung einer vorhandenen Pro-Lizenz. Kein Kauf in diesem Build.</p>
+      <a class="btn" href="/download/direct">APK options</a>
+    </article>
+
+    <article class="card platform-card">
+      <div class="platform-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48"><rect x="6" y="8" width="36" height="25" rx="3"/><path d="M18 40h12M24 33v7"/></svg>
+      </div>
+      <h2>Windows</h2>
+      <p lang="en">The Windows app can use a Pro key bought through Google Play. A verified Windows release download is being prepared.</p>
+      <p lang="de">Die Windows-App kann einen über Google Play gekauften Pro-Schlüssel verwenden. Ein verifizierter Windows-Release-Download wird vorbereitet.</p>
+      <a class="btn" href="/download/windows">Windows status</a>
+    </article>
+
+    <article class="card platform-card">
+      <div class="platform-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48"><rect x="8" y="5" width="20" height="38" rx="4"/><rect x="31" y="11" width="11" height="29" rx="3"/><path d="M16 9h4M35 15h3"/></svg>
+      </div>
+      <h2>iPhone &amp; iPad</h2>
+      <p lang="en">A version for iPhone and iPad is planned. No App Store download is available yet.</p>
+      <p lang="de">Eine Version für iPhone und iPad ist geplant. Der Download im App Store ist noch nicht verfügbar.</p>
+      <a class="btn" href="/download/ios">iPhone &amp; iPad status</a>
+    </article>
+  </div>
+</main>
+<footer><div class="wrap"><a href="/">DownloadThat home</a></div></footer>
+<script src="/assets/runtime-config"></script>
+<script src="/i18n.js"></script>
+<script src="/assets/store-badges.js"></script>
+<script src="/assets/download-pages.js"></script>
+<script src="/assets/init-i18n.js"></script>
+</body></html>

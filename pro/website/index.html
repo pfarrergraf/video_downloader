@@ -80,6 +80,11 @@
   .btn-primary:hover { filter: saturate(1.15) brightness(1.06); text-decoration: none; }
   .btn-ghost { border-color: var(--border); color: var(--text); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+  .home-store-badge-link { display: inline-flex; border-radius: 9px; transition: transform .18s ease, opacity .18s ease; }
+  .home-store-badge-link:hover { transform: translateY(-2px); text-decoration: none; }
+  .home-store-badge-link[aria-disabled="true"] { opacity: .56; pointer-events: none; filter: grayscale(.25); }
+  .home-store-badge { display: block; width: 205px; max-width: 56vw; height: auto; }
+  .pc3-play-status { flex-basis: 100%; margin: 0; color: var(--text-dim); font-size: .78rem; }
 
   section { padding: 44px 24px; }
   section h2 { font-size: 1.9rem; text-align: center; margin: 0 0 12px; }
@@ -188,7 +193,11 @@
       </h1>
       <p class="pc3-sr-only" data-i18n="website.hero_cinema.lead">Save video, audio and images straight to your Android device in a few steps.</p>
       <div class="pc3-actions pc3-actions--primary">
-        <a class="btn btn-primary" data-i18n="website.hero.cta_primary" href="/download">Download for free</a>
+        <a class="home-store-badge-link" data-play-store-link aria-disabled="true">
+          <img class="home-store-badge" data-google-play-badge src="/assets/google-play-badges/en.svg" alt="Get it on Google Play" />
+        </a>
+        <a class="btn btn-ghost" href="/download">Alternative Downloads</a>
+        <p class="pc3-play-status" data-play-status>The Google Play link will be enabled for launch.</p>
       </div>
     </div>
 
@@ -456,7 +465,7 @@
   <select class="lang-switcher" aria-label="Language"></select>
   <div class="foot-links">
     <a href="/download" data-i18n="website.footer.download">Download (Android)</a>
-    <a href="/download-windows">Download (Windows)</a>
+    <a href="/download/windows">Download (Windows)</a>
     <a href="#pricing" data-i18n="website.footer.pricing">Pricing</a>
     <a href="impressum.html" data-i18n="website.footer.imprint">Imprint</a>
     <a href="datenschutz.html" data-i18n="website.footer.privacy">Privacy</a>
@@ -466,7 +475,10 @@
   <div data-i18n="website.footer.copyright">© 2026 DownloadThat. All rights reserved.</div>
 </footer>
 
+<script src="/assets/runtime-config"></script>
 <script src="/i18n.js" defer></script>
+<script src="/assets/store-badges.js" defer></script>
+<script src="/assets/download-pages.js" defer></script>
 <script src="assets/home/hero-product-cinema.js" defer></script>
 <script src="/assets/init-i18n.js" defer></script>
 </body>

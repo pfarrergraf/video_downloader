@@ -108,3 +108,10 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `agent/codex/google-play-first`; kein Push/Deployment. Lokale Gates: 258 Python
   bestanden (1 übersprungen), 13 Node bestanden, Android-Variantenscan 10/10.
   Externe Produktionsfreigaben bleiben in `docs/GOOGLE_PLAY_OWNER_CHECKLIST.md` offen.
+- 2026-07-14 — Codex — Claim: T8 lokalisierte Store-Badges und Download-Navigation
+  auf `agent/codex/localized-store-badges`. Scope: `pro/website` (Startseite,
+  Downloadseiten, Badge-Assets, Website-Tests) sowie dieser append-only Logeintrag.
+- 2026-07-14 — Codex — T8 **erledigt** auf
+  `agent/codex/localized-store-badges`. Gates grün: 264 Python-Tests,
+  19 Node-Tests, JavaScript-Syntax und Public-Claims-Policy; Start- und
+  Downloadseite zusätzlich mit Playwright in Desktop- und Mobilansicht geprüft.
