@@ -47,11 +47,14 @@ jobs:
           fi
 
       - name: Export D1 backup before migration
+        if: env.PLAY_BACKEND_CONFIGURED == 'true'
         working-directory: pro/website
         run: npx -y wrangler@3.114.15 d1 export downloadthat-licenses --remote --output=../../downloadthat-licenses-before-play.sql
       - name: Hash backup
+        if: env.PLAY_BACKEND_CONFIGURED == 'true'
         run: sha256sum downloadthat-licenses-before-play.sql > downloadthat-licenses-before-play.sql.sha256
       - name: Upload pre-migration evidence
+        if: env.PLAY_BACKEND_CONFIGURED == 'true'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: downloadthat-licenses-before-play-${{ github.run_id }}
@@ -61,6 +64,7 @@ jobs:
           retention-days: 90
 
       - name: Apply D1 migrations
+        if: env.PLAY_BACKEND_CONFIGURED == 'true'
         working-directory: pro/website
         run: npx -y wrangler@3.114.15 d1 migrations apply downloadthat-licenses --remote
 
