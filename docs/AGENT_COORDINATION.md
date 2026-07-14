@@ -47,6 +47,7 @@ cd pro/website && npm test && npm run check
 | Agent | Aufgabe | Branch | Betroffene Dateien | Status | Aktualisiert |
 |-------|---------|--------|--------------------|--------|--------------|
 | _(Beispiel)_ Claude | T2 | agent/claude/t2 | `pro/website/rechtliches.*.html` (neu) | in Arbeit | 2026-07-14 |
+| GPT-5.6 | T3 + T5 | agent/gpt/t3-t5 | `pro/website/i18n/*.json`, `video_downloader/web/static/i18n/*.json`, `.github/workflows/retention-cleanup.yml`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | in Arbeit | 2026-07-14 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
 
@@ -57,3 +58,5 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
 - 2026-07-14 — System — Koordinationsdatei angelegt. Empfohlene parallele Aufteilung:
   Claude → T2 (+ T4), GPT-5.6 → T3 (+ T5). T6 ist Owner-Sache (Recht). Beide: erst hier
   claimen, dann loslegen.
+- 2026-07-14 — GPT-5.6 — Claim: T3 + T5 auf `agent/gpt/t3-t5`; Änderungen bleiben auf
+  den beiden i18n-Spiegeln und dem neuen Retention-Cleanup-Workflow beschränkt.

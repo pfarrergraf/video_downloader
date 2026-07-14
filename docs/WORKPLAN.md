@@ -111,3 +111,5 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
 ## Änderungs-Historie
 - 2026-07-14 — Board angelegt (Claude/opus). Enthält die offenen Punkte aus dem
   Standards-/Marketing-Audit; T1 wird direkt im Anschluss umgesetzt.
+- 2026-07-14 — GPT-5.6 — T3 + T5 **in Arbeit** auf `agent/gpt/t3-t5`:
+  i18n-Werte in beiden Spiegeln sowie automatischer Retention-Cleanup-Trigger.
