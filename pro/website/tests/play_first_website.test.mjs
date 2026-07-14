@@ -41,6 +41,10 @@ test("download routes expose Play first, signed APK second, and planned iOS", ()
 test("Play URL is configured centrally and fails closed while unset", () => {
   const config = read("functions/assets/runtime-config.js");
   const script = read("assets/download-pages.js");
+  for (const page of ["download/index.html", "download/android/index.html", "download/direct/index.html"]) {
+    assert.match(read(page), /src="\/assets\/runtime-config"/);
+    assert.doesNotMatch(read(page), /runtime-config\.js/);
+  }
   assert.match(config, /env\.PLAY_STORE_URL/);
   assert.match(config, /PLAY_STORE_URL:\s*playStoreUrl/);
   assert.match(script, /!playUrl\.includes\("__PLAY_STORE_URL__"\)/);
