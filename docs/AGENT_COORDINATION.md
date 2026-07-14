@@ -48,6 +48,7 @@ cd pro/website && npm test && npm run check
 |-------|---------|--------|--------------------|--------|--------------|
 | _(Beispiel)_ Claude | T2 | agent/claude/t2 | `pro/website/rechtliches.*.html` (neu) | in Arbeit | 2026-07-14 |
 | GPT-5.6 | T3 + T5 | agent/gpt/t3-t5 | `pro/website/i18n/*.json`, `video_downloader/web/static/i18n/*.json`, `.github/workflows/retention-cleanup.yml`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | in Arbeit | 2026-07-14 |
+| GPT-5.6 | T5 Scope-Erweiterung | agent/gpt/t3-t5 | zusätzlich `pro/website/functions/api/admin/retention-cleanup.js`, `pro/website/tests/retention_cleanup.test.mjs`, `.github/workflows/deploy-pro-website.yml` | in Arbeit | 2026-07-14 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
 
@@ -60,3 +61,6 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   claimen, dann loslegen.
 - 2026-07-14 — GPT-5.6 — Claim: T3 + T5 auf `agent/gpt/t3-t5`; Änderungen bleiben auf
   den beiden i18n-Spiegeln und dem neuen Retention-Cleanup-Workflow beschränkt.
+- 2026-07-14 — GPT-5.6 — T5-Scope erweitert: Ein 30 Tage ablaufender Admin-Cookie ist
+  kein dauerhafter Cron-Zugang. Daher zusätzlich eigener rotierbarer Bearer-Token am
+  Endpoint, Endpoint-Test und Secret-Synchronisierung im Deploy-Workflow.

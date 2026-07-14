@@ -29,6 +29,7 @@ jobs:
       PARTNER_FROM_EMAIL: ${{ secrets.PARTNER_FROM_EMAIL }}
       REFERRAL_HASH_SALT: ${{ secrets.REFERRAL_HASH_SALT }}
       AFFILIATE_ADMIN_EMAIL: ${{ secrets.AFFILIATE_ADMIN_EMAIL }}
+      RETENTION_CLEANUP_TOKEN: ${{ secrets.RETENTION_CLEANUP_TOKEN }}
       ANDROID_CERT_SHA256: ${{ secrets.ANDROID_CERT_SHA256 }}
     steps:
       - uses: actions/checkout@v4
@@ -98,6 +99,17 @@ jobs:
           if [ -n "$ANDROID_CERT_SHA256" ]; then
             printf '%s' "$ANDROID_CERT_SHA256" | npx -y wrangler@3 pages secret put ANDROID_CERT_SHA256 --project-name=downloadthat
           fi
+
+      - name: Set retention cleanup scheduler token
+        if: ${{ env.RETENTION_CLEANUP_TOKEN != '' }}
+        working-directory: pro/website
+        shell: bash
+        run: printf '%s' "$RETENTION_CLEANUP_TOKEN" | npx -y wrangler@3 pages secret put RETENTION_CLEANUP_TOKEN --project-name=downloadthat
+
+      - name: Report missing retention cleanup scheduler token
+        if: ${{ env.RETENTION_CLEANUP_TOKEN == '' }}
+        shell: bash
+        run: echo "::warning::Scheduled retention cleanup remains disabled until RETENTION_CLEANUP_TOKEN is configured as a GitHub Actions secret and this workflow is rerun."
 
       - name: Preserve existing Stripe configuration without enabling checkout
         if: ${{ env.STRIPE_SECRET_KEY != '' || env.STRIPE_WEBHOOK_SECRET != '' || env.STRIPE_PRICE_ID != '' }}

@@ -1,0 +1,38 @@
+name: Retention cleanup
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: retention-cleanup
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    env:
+      RETENTION_CLEANUP_TOKEN: ${{ secrets.RETENTION_CLEANUP_TOKEN }}
+      RETENTION_CLEANUP_URL: ${{ vars.RETENTION_CLEANUP_URL || 'https://downloadthat.pages.dev/api/admin/retention-cleanup' }}
+    steps:
+      - name: Require scheduler credentials
+        shell: bash
+        run: test -n "$RETENTION_CLEANUP_TOKEN" || { echo "::error::RETENTION_CLEANUP_TOKEN is not configured"; exit 1; }
+
+      - name: Purge expired retention data
+        shell: bash
+        run: |
+          response="$(curl --fail-with-body --silent --show-error \
+            --retry 3 --retry-all-errors --max-time 60 \
+            --request POST \
+            --header "Authorization: Bearer $RETENTION_CLEANUP_TOKEN" \
+            "$RETENTION_CLEANUP_URL")"
+          printf '%s\n' "$response"
+          RESPONSE="$response" node -e '
+            const result = JSON.parse(process.env.RESPONSE);
+            if (result.ok !== true) throw new Error("Retention cleanup did not report success");
+          '
