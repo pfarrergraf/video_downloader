@@ -113,3 +113,12 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
   Standards-/Marketing-Audit; T1 wird direkt im Anschluss umgesetzt.
 - 2026-07-14 — GPT-5.6 — T3 + T5 **in Arbeit** auf `agent/gpt/t3-t5`:
   i18n-Werte in beiden Spiegeln sowie automatischer Retention-Cleanup-Trigger.
+
+## Abschluss-Ergänzung 2026-07-14 (append-only)
+
+- [x] **T3 — erledigt (GPT-5.6):** `website.features.f5_desc` in den 48 beauftragten
+  Nicht-EN/DE-Locales beider i18n-Spiegel sprachspezifisch auf „almost any“ relativiert;
+  keine Keys geändert, Spiegel- und Key-Parität geprüft.
+- [x] **T5 — erledigt (GPT-5.6):** täglicher GitHub-Actions-Cron mit manuellem Trigger,
+  rotierbarer Bearer-Token plus bestehender Admin-Session als Authentifizierung und
+  Deployment-Synchronisierung ergänzt. Gate: 263 Python-Tests, 21 Node-Tests, JS-Check grün.

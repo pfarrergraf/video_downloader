@@ -64,3 +64,16 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
 - 2026-07-14 — GPT-5.6 — T5-Scope erweitert: Ein 30 Tage ablaufender Admin-Cookie ist
   kein dauerhafter Cron-Zugang. Daher zusätzlich eigener rotierbarer Bearer-Token am
   Endpoint, Endpoint-Test und Secret-Synchronisierung im Deploy-Workflow.
+- 2026-07-14 — GPT-5.6 — T3 + T5 **erledigt** auf `agent/gpt/t3-t5`. Gate grün:
+  263 Python-Tests (1 übersprungen), 21 Node-Tests und `npm run check`. Für T5 muss
+  `RETENTION_CLEANUP_TOKEN` einmal als GitHub-Actions-Secret gesetzt werden; der Deploy
+  synchronisiert denselben Wert danach als Cloudflare-Pages-Secret.
+- 2026-07-14 — GPT-5.6 — Warnung T3: `de.json` enthält bei `website.features.f5_desc`
+  weiterhin „aus jedem Video“, obwohl die Aufgabenbeschreibung DE als bereits erledigt
+  bezeichnet. Gemäß Zuweisung „nur die anderen Sprachen“ wurde DE nicht verändert.
+
+## Abschlussstatus (append-only)
+
+| Agent | Aufgabe | Branch | Status | Aktualisiert |
+|-------|---------|--------|--------|--------------|
+| GPT-5.6 | T3 + T5 | agent/gpt/t3-t5 | erledigt | 2026-07-14 |
