@@ -93,9 +93,23 @@ sleep 5
 
 # Fresh login: the in-memory session store died with the process (same
 # reason kill_resilience_test.sh re-logs in after its own force-stop).
-curl -sf -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
-  -H "Content-Type: application/json" \
-  -d "{\"password\": \"$PASSWORD\"}" >/dev/null
+# Retried: right after a force-stop/relaunch the socket can accept a
+# connection before the app is ready and reply empty (curl exit 52), which
+# under `set -e` killed the whole script (seen in CI attempt #1 of run 138).
+LOGGED_IN=""
+for i in $(seq 1 15); do
+  if curl -sf --max-time 5 -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
+    -H "Content-Type: application/json" \
+    -d "{\"password\": \"$PASSWORD\"}" >/dev/null 2>&1; then
+    LOGGED_IN=1
+    break
+  fi
+  sleep 2
+done
+if [ -z "$LOGGED_IN" ]; then
+  echo "Could not log in after relaunch - server never became ready" >&2
+  exit 1
+fi
 
 # Share the URL into the app exactly the way another app would - embedded in
 # prose, because YouTube etc. share "title + URL", not a bare URL. The
@@ -114,7 +128,17 @@ echo "Sent ACTION_SEND intent with $TEST_URL"
 # centered modal, so its buttons land further down than the home screen's
 # row, which sits right under the URL field near the top.
 TAP_XY=""
-for i in $(seq 1 15); do
+for i in $(seq 1 25); do
+  # The post-force-stop activity can drop out of the foreground on slow CI
+  # emulators (attempt #2 of run 138: the final UI dump showed the launcher,
+  # right after WebView cache-init errors). A plain `am start` on the
+  # singleTop activity only brings it back to the front (onNewIntent, no
+  # extras), so it can't clobber the pending picker state.
+  if ! adb shell dumpsys window 2>/dev/null | grep -q "mCurrentFocus.*de.classydl.app"; then
+    echo "App not in foreground (iteration $i) - bringing it back"
+    adb shell am start -n de.classydl.app/.MainActivity >/dev/null 2>&1 || true
+    sleep 2
+  fi
   adb shell uiautomator dump /sdcard/window_dump.xml >/dev/null 2>&1 || true
   adb pull /sdcard/window_dump.xml "$TEST_DIR/window_dump.xml" >/dev/null 2>&1 || true
   if [ -s "$TEST_DIR/window_dump.xml" ]; then
