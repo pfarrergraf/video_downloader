@@ -67,7 +67,7 @@ jobs:
       # manual workflow_dispatch run, ref_name would be the branch name
       # instead, so the tag to release has to come from the input.
       RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
-      PLAY_STORE_URL: ${{ vars.PLAY_STORE_URL }}
+      PLAY_STORE_URL: ${{ vars.PLAY_STORE_URL || 'https://play.google.com/store/apps/details?id=de.classydl.app' }}
       LICENSE_API_BASE_URL: ${{ vars.LICENSE_API_BASE_URL || 'https://downloadthat.app' }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
