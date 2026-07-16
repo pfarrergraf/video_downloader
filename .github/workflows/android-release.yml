@@ -106,7 +106,12 @@ jobs:
       - name: Verify app-signing and upload-key secrets are configured
         env:
           ANDROID_APP_SIGNING_KEYSTORE_BASE64: ${{ secrets.ANDROID_APP_SIGNING_KEYSTORE_BASE64 }}
-          ANDROID_UPLOAD_KEYSTORE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_BASE64 }}
+          # Falls back to the pre-key-split legacy secret name so a diagnostic
+          # build can run before ANDROID_UPLOAD_KEYSTORE_BASE64 exists. The
+          # later "Verify flavor separation, signatures..." step still checks
+          # the resulting cert against ANDROID_UPLOAD_CERT_SHA256, so a wrong
+          # key here fails loudly instead of producing a bad artifact.
+          ANDROID_UPLOAD_KEYSTORE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_BASE64 || secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
           if [ -z "$ANDROID_APP_SIGNING_KEYSTORE_BASE64" ] || [ -z "$ANDROID_UPLOAD_KEYSTORE_BASE64" ] || [ -z "$PLAY_STORE_URL" ]; then
             echo "::error::Both the transferred app-signing key (Direct APK) and separate Play upload key are required."
@@ -155,10 +160,12 @@ jobs:
       # Play Console during testing-track setup.
       - name: Build signed Play App Bundle (arm64-v8a only)
         env:
-          ANDROID_UPLOAD_KEYSTORE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_BASE64 }}
-          ANDROID_UPLOAD_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}
-          ANDROID_UPLOAD_KEY_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
-          ANDROID_UPLOAD_KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}
+          # See the fallback note on the secrets-verification step above -
+          # same diagnostic reasoning applies to all four upload-key values.
+          ANDROID_UPLOAD_KEYSTORE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_BASE64 || secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_UPLOAD_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD || secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_UPLOAD_KEY_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS || secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_UPLOAD_KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD || secrets.ANDROID_KEY_PASSWORD }}
         run: |
           gradle :app:bundlePlayRelease -PabiFilters=arm64-v8a -PplayStoreUrl="$PLAY_STORE_URL" -PlicenseApiBaseUrl="$LICENSE_API_BASE_URL" \
             -PversionNameOverride="$VERSION_NAME" -PversionCodeOverride="$VERSION_CODE" --stacktrace
