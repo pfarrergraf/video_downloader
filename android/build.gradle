@@ -5,6 +5,10 @@ plugins {
     // compileSdk/targetSdk and .github/scripts/build_ffmpeg_android.sh.
     // Chaquopy 17.0 (pinned below) supports AGP 8.9 through 8.13.
     id 'com.android.application' version '8.13.0' apply false
-    id 'org.jetbrains.kotlin.android' version '1.9.24' apply false
+    // Bumped from 1.9.24: com.android.billingclient:billing-ktx:9.1.0 (playRelease
+    // only) transitively pulls kotlin-stdlib 2.2.10, which a 1.9.x compiler can't
+    // read ("Class 'kotlin.Unit' was compiled with an incompatible version of
+    // Kotlin"). directRelease has no Billing dependency, so it never hit this.
+    id 'org.jetbrains.kotlin.android' version '2.2.10' apply false
     id 'com.chaquo.python' version '17.0.0' apply false
 }
