@@ -148,3 +148,8 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `compilePlayDebugKotlin`-Gate und Emulator-Smoke-Test. Lokal: 269 Python-,
   19 Website-Tests, JS-Syntax, Android-Varianten 12/12 und Workflow-Audit ohne
   mittlere/hohe Befunde.
+- 2026-07-23 — Codex — T11-Nachprüfung: `master`-Run `30002609754` bestätigte
+  den App-/Play-Build, traf aber einen fremden „Pixel Launcher isn't
+  responding“-Dialog über dem Share-Picker. Der UI-Test erkennt und schließt
+  jetzt ausschließlich diesen Launcher-ANR; DownloadThat-ANRs bleiben
+  absichtlich fatal. Parser-Regressionstests und 271 Python-Tests sind grün.

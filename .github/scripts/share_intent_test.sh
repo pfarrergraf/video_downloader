@@ -118,22 +118,16 @@ for i in $(seq 1 15); do
   adb shell uiautomator dump /sdcard/window_dump.xml >/dev/null 2>&1 || true
   adb pull /sdcard/window_dump.xml "$TEST_DIR/window_dump.xml" >/dev/null 2>&1 || true
   if [ -s "$TEST_DIR/window_dump.xml" ]; then
-    TAP_XY="$(python3 -c "
-import re
-with open('$TEST_DIR/window_dump.xml', encoding='utf-8') as f:
-    xml = f.read()
-nodes = re.findall(r'<node[^>]*text=\"Video\"[^>]*bounds=\"\[(\d+),(\d+)\]\[(\d+),(\d+)\]\"', xml)
-if not nodes:
-    nodes = re.findall(r'<node[^>]*text=\"[^\"]*Video[^\"]*\"[^>]*bounds=\"\[(\d+),(\d+)\]\[(\d+),(\d+)\]\"', xml)
-# The home screen's persistent kind-toggle is ALWAYS present, so a single
-# match means only that toggle has rendered yet and the picker itself
-# hasn't shown up - require both (home toggle + picker button) before
-# trusting the 'lowest on screen' pick, or an early dump could tap the
-# wrong one and the retry loop would stop looking.
-if len(nodes) >= 2:
-    x1, y1, x2, y2 = max(nodes, key=lambda n: int(n[1]))
-    print(f'{(int(x1) + int(x2)) // 2} {(int(y1) + int(y2)) // 2}')
-" || true)"
+    TAP_XY="$(python3 "$(dirname "$0")/find_android_ui_target.py" \
+      "$TEST_DIR/window_dump.xml" || true)"
+  fi
+  if [[ "$TAP_XY" == DISMISS\ * ]]; then
+    read -r _ DISMISS_X DISMISS_Y <<< "$TAP_XY"
+    echo "Dismissing unrelated Pixel Launcher ANR dialog at: $DISMISS_X $DISMISS_Y"
+    adb shell input tap "$DISMISS_X" "$DISMISS_Y"
+    TAP_XY=""
+    sleep 2
+    continue
   fi
   if [ -n "$TAP_XY" ]; then
     break

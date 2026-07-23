@@ -1,5 +1,6 @@
 """Regression guards for release-critical GitHub Actions behavior."""
 
+import importlib.util
 from pathlib import Path
 
 
@@ -57,3 +58,32 @@ def test_checkout_credentials_are_not_persisted() -> None:
         workflow = path.read_text(encoding="utf-8")
         checkout_count = workflow.count("uses: actions/checkout@")
         assert workflow.count("persist-credentials: false") == checkout_count, path.name
+
+
+def _load_ui_target_module():
+    path = ROOT / ".github" / "scripts" / "find_android_ui_target.py"
+    spec = importlib.util.spec_from_file_location("find_android_ui_target", path)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_share_intent_smoke_test_ignores_unrelated_launcher_anr() -> None:
+    module = _load_ui_target_module()
+    xml = """<hierarchy>
+      <node text="Pixel Launcher isn't responding"
+            resource-id="android:id/alertTitle" bounds="[0,0][1,1]" />
+      <node text="Close app" resource-id="android:id/aerr_close"
+            bounds="[70,1170][1010,1296]" />
+    </hierarchy>"""
+    assert module.find_target(xml) == "DISMISS 540 1233"
+
+
+def test_share_intent_smoke_test_selects_lower_video_picker_button() -> None:
+    module = _load_ui_target_module()
+    xml = """<hierarchy>
+      <node text="Video" bounds="[10,100][110,200]" />
+      <node text="Video format" bounds="[20,800][220,1000]" />
+    </hierarchy>"""
+    assert module.find_target(xml) == "120 900"
