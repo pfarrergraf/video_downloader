@@ -1,0 +1,3826 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "ASVS_5_MATRIX.md",
+      "file_type": "document",
+      "source_file": "ASVS_5_MATRIX.md",
+      "source_location": "L1",
+      "id": "asvs_5_matrix_md",
+      "community": 24,
+      "norm_label": "asvs_5_matrix.md"
+    },
+    {
+      "label": "OWASP ASVS 5.0.0 Mapping \u2014 Affiliate Program",
+      "file_type": "document",
+      "source_file": "ASVS_5_MATRIX.md",
+      "source_location": "L1",
+      "id": "security_asvs_5_matrix_owasp_asvs_5_0_0_mapping_affiliate_program",
+      "community": 24,
+      "norm_label": "owasp asvs 5.0.0 mapping \u2014 affiliate program"
+    },
+    {
+      "label": "Level-3-relevante Vertiefung (Zahlungs-/Finanz-/Admin-/Integrit\u00e4tsbereich)",
+      "file_type": "document",
+      "source_file": "ASVS_5_MATRIX.md",
+      "source_location": "L27",
+      "id": "security_asvs_5_matrix_level_3_relevante_vertiefung_zahlungs_finanz_admin_integrit\u00e4tsbereich",
+      "community": 24,
+      "norm_label": "level-3-relevante vertiefung (zahlungs-/finanz-/admin-/integritatsbereich)"
+    },
+    {
+      "label": "Zusammenfassung",
+      "file_type": "document",
+      "source_file": "ASVS_5_MATRIX.md",
+      "source_location": "L38",
+      "id": "security_asvs_5_matrix_zusammenfassung",
+      "community": 24,
+      "norm_label": "zusammenfassung"
+    },
+    {
+      "label": "ASVS_CORE_APP_ADDENDUM.md",
+      "file_type": "document",
+      "source_file": "ASVS_CORE_APP_ADDENDUM.md",
+      "source_location": "L1",
+      "id": "asvs_core_app_addendum_md",
+      "community": 25,
+      "norm_label": "asvs_core_app_addendum.md"
+    },
+    {
+      "label": "OWASP ASVS 5.0.0 \u2014 Addendum: Downloader-Kern & On-Device-Server",
+      "file_type": "document",
+      "source_file": "ASVS_CORE_APP_ADDENDUM.md",
+      "source_location": "L1",
+      "id": "security_asvs_core_app_addendum_owasp_asvs_5_0_0_addendum_downloader_kern_on_device_server",
+      "community": 25,
+      "norm_label": "owasp asvs 5.0.0 \u2014 addendum: downloader-kern & on-device-server"
+    },
+    {
+      "label": "Zusammenfassung",
+      "file_type": "document",
+      "source_file": "ASVS_CORE_APP_ADDENDUM.md",
+      "source_location": "L27",
+      "id": "security_asvs_core_app_addendum_zusammenfassung",
+      "community": 25,
+      "norm_label": "zusammenfassung"
+    },
+    {
+      "label": "ATTACK_SURFACE.md",
+      "file_type": "document",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L1",
+      "id": "attack_surface_md",
+      "community": 9,
+      "norm_label": "attack_surface.md"
+    },
+    {
+      "label": "Attack Surface Map \u2014 Affiliate Program",
+      "file_type": "document",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L1",
+      "id": "security_attack_surface_attack_surface_map_affiliate_program",
+      "community": 9,
+      "norm_label": "attack surface map \u2014 affiliate program"
+    },
+    {
+      "label": "\u00d6ffentlich erreichbare HTTP-Endpunkte (kein Auth erforderlich)",
+      "file_type": "document",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L3",
+      "id": "security_attack_surface_\u00f6ffentlich_erreichbare_http_endpunkte_kein_auth_erforderlich",
+      "community": 9,
+      "norm_label": "offentlich erreichbare http-endpunkte (kein auth erforderlich)"
+    },
+    {
+      "label": "Session-gesch\u00fctzte Endpunkte (Partner-Rolle)",
+      "file_type": "document",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L19",
+      "id": "security_attack_surface_session_gesch\u00fctzte_endpunkte_partner_rolle",
+      "community": 9,
+      "norm_label": "session-geschutzte endpunkte (partner-rolle)"
+    },
+    {
+      "label": "Session-gesch\u00fctzte Endpunkte (Admin-Rolle)",
+      "file_type": "document",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L27",
+      "id": "security_attack_surface_session_gesch\u00fctzte_endpunkte_admin_rolle",
+      "community": 9,
+      "norm_label": "session-geschutzte endpunkte (admin-rolle)"
+    },
+    {
+      "label": "Android-Angriffsfl\u00e4che",
+      "file_type": "document",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L41",
+      "id": "security_attack_surface_android_angriffsfl\u00e4che",
+      "community": 9,
+      "norm_label": "android-angriffsflache"
+    },
+    {
+      "label": "Cloudflare/Plattform-Angriffsfl\u00e4che",
+      "file_type": "document",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L49",
+      "id": "security_attack_surface_cloudflare_plattform_angriffsfl\u00e4che",
+      "community": 9,
+      "norm_label": "cloudflare/plattform-angriffsflache"
+    },
+    {
+      "label": "Externe Abh\u00e4ngigkeiten als indirekte Angriffsfl\u00e4che",
+      "file_type": "document",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L59",
+      "id": "security_attack_surface_externe_abh\u00e4ngigkeiten_als_indirekte_angriffsfl\u00e4che",
+      "community": 9,
+      "norm_label": "externe abhangigkeiten als indirekte angriffsflache"
+    },
+    {
+      "label": "BACKUP_RESTORE_TEST.md",
+      "file_type": "document",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L1",
+      "id": "backup_restore_test_md",
+      "community": 10,
+      "norm_label": "backup_restore_test.md"
+    },
+    {
+      "label": "Backup & Restore \u2014 Plan und lokale Verifikation",
+      "file_type": "document",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L1",
+      "id": "security_backup_restore_test_backup_restore_plan_und_lokale_verifikation",
+      "community": 10,
+      "norm_label": "backup & restore \u2014 plan und lokale verifikation"
+    },
+    {
+      "label": "Was in dieser Sitzung gepr\u00fcft werden konnte",
+      "file_type": "document",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L3",
+      "id": "security_backup_restore_test_was_in_dieser_sitzung_gepr\u00fcft_werden_konnte",
+      "community": 10,
+      "norm_label": "was in dieser sitzung gepruft werden konnte"
+    },
+    {
+      "label": "1. Migrationen sind idempotent-additiv und reproduzierbar",
+      "file_type": "document",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L10",
+      "id": "security_backup_restore_test_1_migrationen_sind_idempotent_additiv_und_reproduzierbar",
+      "community": 10,
+      "norm_label": "1. migrationen sind idempotent-additiv und reproduzierbar"
+    },
+    {
+      "label": "2. Datenintegrit\u00e4t nach (simuliertem) Restore ist \u00fcber die Hash-Ketten nachweisbar",
+      "file_type": "document",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L17",
+      "id": "security_backup_restore_test_2_datenintegrit\u00e4t_nach_simuliertem_restore_ist_\u00fcber_die_hash_ketten_nachweisbar",
+      "community": 10,
+      "norm_label": "2. datenintegritat nach (simuliertem) restore ist uber die hash-ketten nachweisbar"
+    },
+    {
+      "label": "3. Reconciliation nach Restore erkennt Drift gegen\u00fcber Stripe",
+      "file_type": "document",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L28",
+      "id": "security_backup_restore_test_3_reconciliation_nach_restore_erkennt_drift_gegen\u00fcber_stripe",
+      "community": 10,
+      "norm_label": "3. reconciliation nach restore erkennt drift gegenuber stripe"
+    },
+    {
+      "label": "Was NICHT gepr\u00fcft werden konnte (erfordert Produktionszugriff)",
+      "file_type": "document",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L35",
+      "id": "security_backup_restore_test_was_nicht_gepr\u00fcft_werden_konnte_erfordert_produktionszugriff",
+      "community": 10,
+      "norm_label": "was nicht gepruft werden konnte (erfordert produktionszugriff)"
+    },
+    {
+      "label": "Empfohlener Praxistest vor Produktionsfreigabe (aus HANDOVER \u00a76.5, weiterhin verbindlich)",
+      "file_type": "document",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L42",
+      "id": "security_backup_restore_test_empfohlener_praxistest_vor_produktionsfreigabe_aus_handover_6_5_weiterhin_verbindlich",
+      "community": 10,
+      "norm_label": "empfohlener praxistest vor produktionsfreigabe (aus handover \u00a76.5, weiterhin verbindlich)"
+    },
+    {
+      "label": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L1",
+      "id": "business_logic_abuse_cases_md",
+      "community": 1,
+      "norm_label": "business_logic_abuse_cases.md"
+    },
+    {
+      "label": "Business Logic & Fraud Abuse Cases \u2014 Affiliate Program",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L1",
+      "id": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "community": 1,
+      "norm_label": "business logic & fraud abuse cases \u2014 affiliate program"
+    },
+    {
+      "label": "Eigenk\u00e4ufe (Self-Referral)",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L5",
+      "id": "security_business_logic_abuse_cases_eigenk\u00e4ufe_self_referral",
+      "community": 1,
+      "norm_label": "eigenkaufe (self-referral)"
+    },
+    {
+      "label": "K\u00e4ufer-Partner-Absprache",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L16",
+      "id": "security_business_logic_abuse_cases_k\u00e4ufer_partner_absprache",
+      "community": 1,
+      "norm_label": "kaufer-partner-absprache"
+    },
+    {
+      "label": "Cookie Stuffing (Web)",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L24",
+      "id": "security_business_logic_abuse_cases_cookie_stuffing_web",
+      "community": 1,
+      "norm_label": "cookie stuffing (web)"
+    },
+    {
+      "label": "Cookie Stuffing (Android) \u2014 siehe AFF-002",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L34",
+      "id": "security_business_logic_abuse_cases_cookie_stuffing_android_siehe_aff_002",
+      "community": 1,
+      "norm_label": "cookie stuffing (android) \u2014 siehe aff-002"
+    },
+    {
+      "label": "Partnercode Guessing / Hijacking",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L38",
+      "id": "security_business_logic_abuse_cases_partnercode_guessing_hijacking",
+      "community": 1,
+      "norm_label": "partnercode guessing / hijacking"
+    },
+    {
+      "label": "Nachtr\u00e4gliche Attribution",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L46",
+      "id": "security_business_logic_abuse_cases_nachtr\u00e4gliche_attribution",
+      "community": 1,
+      "norm_label": "nachtragliche attribution"
+    },
+    {
+      "label": "Doppelte Conversions / Webhook-Replay",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L53",
+      "id": "security_business_logic_abuse_cases_doppelte_conversions_webhook_replay",
+      "community": 1,
+      "norm_label": "doppelte conversions / webhook-replay"
+    },
+    {
+      "label": "Webhook Out-of-Order Delivery",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L59",
+      "id": "security_business_logic_abuse_cases_webhook_out_of_order_delivery",
+      "community": 1,
+      "norm_label": "webhook out-of-order delivery"
+    },
+    {
+      "label": "Parallele Checkouts / parallele Refunds",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L67",
+      "id": "security_business_logic_abuse_cases_parallele_checkouts_parallele_refunds",
+      "community": 1,
+      "norm_label": "parallele checkouts / parallele refunds"
+    },
+    {
+      "label": "Tier-Manipulation / Umgehung des 50-EUR-Limits",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L74",
+      "id": "security_business_logic_abuse_cases_tier_manipulation_umgehung_des_50_eur_limits",
+      "community": 1,
+      "norm_label": "tier-manipulation / umgehung des 50-eur-limits"
+    },
+    {
+      "label": "Manipulation negativer Salden / Teil-Refund-Missbrauch / Dispute-Restore-Missbrauch",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L81",
+      "id": "security_business_logic_abuse_cases_manipulation_negativer_salden_teil_refund_missbrauch_dispute_restore_missbrauch",
+      "community": 1,
+      "norm_label": "manipulation negativer salden / teil-refund-missbrauch / dispute-restore-missbrauch"
+    },
+    {
+      "label": "Auszahlung nach Partnersperre",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L87",
+      "id": "security_business_logic_abuse_cases_auszahlung_nach_partnersperre",
+      "community": 1,
+      "norm_label": "auszahlung nach partnersperre"
+    },
+    {
+      "label": "Integer-, Rundungs- und Extremwertfehler",
+      "file_type": "document",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L97",
+      "id": "security_business_logic_abuse_cases_integer_rundungs_und_extremwertfehler",
+      "community": 1,
+      "norm_label": "integer-, rundungs- und extremwertfehler"
+    },
+    {
+      "label": "CERTIFICATION_LADDER.md",
+      "file_type": "document",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L1",
+      "id": "certification_ladder_md",
+      "community": 11,
+      "norm_label": "certification_ladder.md"
+    },
+    {
+      "label": "Pr\u00fcf- & Zertifizierungs-Leiter \u2014 DownloadThat / ClassyDL",
+      "file_type": "document",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L1",
+      "id": "security_certification_ladder_pr\u00fcf_zertifizierungs_leiter_downloadthat_classydl",
+      "community": 11,
+      "norm_label": "pruf- & zertifizierungs-leiter \u2014 downloadthat / classydl"
+    },
+    {
+      "label": "L0 \u2014 Selbst-Assessment & Transparenz \u2705 *(kostenlos, Basis)*",
+      "file_type": "document",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L13",
+      "id": "security_certification_ladder_l0_selbst_assessment_transparenz_kostenlos_basis",
+      "community": 11,
+      "norm_label": "l0 \u2014 selbst-assessment & transparenz \u2705 *(kostenlos, basis)*"
+    },
+    {
+      "label": "L1 \u2014 Automatisierte Verifikation in CI \u2705 *(hoher Nutzen/Kosten)*",
+      "file_type": "document",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L32",
+      "id": "security_certification_ladder_l1_automatisierte_verifikation_in_ci_hoher_nutzen_kosten",
+      "community": 11,
+      "norm_label": "l1 \u2014 automatisierte verifikation in ci \u2705 *(hoher nutzen/kosten)*"
+    },
+    {
+      "label": "L2 \u2014 Unabh\u00e4ngige Pr\u00fcfung \u25d0 *(einmalig, mittlere Kosten: ~ mid 4-stellig \u20ac)*",
+      "file_type": "document",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L51",
+      "id": "security_certification_ladder_l2_unabh\u00e4ngige_pr\u00fcfung_einmalig_mittlere_kosten_mid_4_stellig",
+      "community": 11,
+      "norm_label": "l2 \u2014 unabhangige prufung \u25d0 *(einmalig, mittlere kosten: ~ mid 4-stellig \u20ac)*"
+    },
+    {
+      "label": "L3 \u2014 Formale Siegel \u25d0/\u2717 *(teuer, org-/prozessgebunden \u2014 Realit\u00e4ts-Check)*",
+      "file_type": "document",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L66",
+      "id": "security_certification_ladder_l3_formale_siegel_teuer_org_prozessgebunden_realit\u00e4ts_check",
+      "community": 11,
+      "norm_label": "l3 \u2014 formale siegel \u25d0/\u2717 *(teuer, org-/prozessgebunden \u2014 realitats-check)*"
+    },
+    {
+      "label": "Rolle B \u2014 Zertifizierer: was verlangt welcher Standard?",
+      "file_type": "document",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L82",
+      "id": "security_certification_ladder_rolle_b_zertifizierer_was_verlangt_welcher_standard",
+      "community": 11,
+      "norm_label": "rolle b \u2014 zertifizierer: was verlangt welcher standard?"
+    },
+    {
+      "label": "Empfohlene Reihenfolge",
+      "file_type": "document",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L99",
+      "id": "security_certification_ladder_empfohlene_reihenfolge",
+      "community": 11,
+      "norm_label": "empfohlene reihenfolge"
+    },
+    {
+      "label": "CRA_GAP_ANALYSIS.md",
+      "file_type": "document",
+      "source_file": "CRA_GAP_ANALYSIS.md",
+      "source_location": "L1",
+      "id": "cra_gap_analysis_md",
+      "community": 23,
+      "norm_label": "cra_gap_analysis.md"
+    },
+    {
+      "label": "EU Cyber Resilience Act (CRA) \u2014 Gap-Analyse",
+      "file_type": "document",
+      "source_file": "CRA_GAP_ANALYSIS.md",
+      "source_location": "L1",
+      "id": "security_cra_gap_analysis_eu_cyber_resilience_act_cra_gap_analyse",
+      "community": 23,
+      "norm_label": "eu cyber resilience act (cra) \u2014 gap-analyse"
+    },
+    {
+      "label": "Priorisierte L\u00fccken (bis 2027)",
+      "file_type": "document",
+      "source_file": "CRA_GAP_ANALYSIS.md",
+      "source_location": "L27",
+      "id": "security_cra_gap_analysis_priorisierte_l\u00fccken_bis_2027",
+      "community": 23,
+      "norm_label": "priorisierte lucken (bis 2027)"
+    },
+    {
+      "label": "Einordnung",
+      "file_type": "document",
+      "source_file": "CRA_GAP_ANALYSIS.md",
+      "source_location": "L35",
+      "id": "security_cra_gap_analysis_einordnung",
+      "community": 23,
+      "norm_label": "einordnung"
+    },
+    {
+      "label": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L1",
+      "id": "data_flow_and_trust_boundaries_md",
+      "community": 0,
+      "norm_label": "data_flow_and_trust_boundaries.md"
+    },
+    {
+      "label": "Data Flow and Trust Boundaries \u2014 Historical Affiliate Program",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L1",
+      "id": "security_data_flow_and_trust_boundaries_data_flow_and_trust_boundaries_historical_affiliate_program",
+      "community": 0,
+      "norm_label": "data flow and trust boundaries \u2014 historical affiliate program"
+    },
+    {
+      "label": "1. Klick \u2192 Attribution",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L7",
+      "id": "security_data_flow_and_trust_boundaries_1_klick_attribution",
+      "community": 0,
+      "norm_label": "1. klick \u2192 attribution"
+    },
+    {
+      "label": "code:block1 (Partner-Link (Browser/App) \u2192 GET /p/<slug> \u2192 recordAffiliate)",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L9",
+      "id": "security_data_flow_and_trust_boundaries_codeblock_1",
+      "community": 0,
+      "norm_label": "code:block1 (partner-link (browser/app) \u2192 get /p/<slug> \u2192 recordaffiliate)"
+    },
+    {
+      "label": "2. Checkout \u2192 Provisions-Draft",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L17",
+      "id": "security_data_flow_and_trust_boundaries_2_checkout_provisions_draft",
+      "community": 0,
+      "norm_label": "2. checkout \u2192 provisions-draft"
+    },
+    {
+      "label": "code:block2 (Buyer klickt \"Kaufen\" \u2192 POST /api/create-checkout)",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L19",
+      "id": "security_data_flow_and_trust_boundaries_codeblock_2",
+      "community": 0,
+      "norm_label": "code:block2 (buyer klickt \"kaufen\" \u2192 post /api/create-checkout)"
+    },
+    {
+      "label": "3. Stripe-Webhook \u2192 Provisions-Zeile",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L32",
+      "id": "security_data_flow_and_trust_boundaries_3_stripe_webhook_provisions_zeile",
+      "community": 0,
+      "norm_label": "3. stripe-webhook \u2192 provisions-zeile"
+    },
+    {
+      "label": "code:block3 (Stripe \u2192 POST /api/webhook (Stripe-Signature Header))",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L34",
+      "id": "security_data_flow_and_trust_boundaries_codeblock_3",
+      "community": 0,
+      "norm_label": "code:block3 (stripe \u2192 post /api/webhook (stripe-signature header))"
+    },
+    {
+      "label": "4. Reconciliation (30 Tage sp\u00e4ter) \u2192 Provisions-Freigabe",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L44",
+      "id": "security_data_flow_and_trust_boundaries_4_reconciliation_30_tage_sp\u00e4ter_provisions_freigabe",
+      "community": 0,
+      "norm_label": "4. reconciliation (30 tage spater) \u2192 provisions-freigabe"
+    },
+    {
+      "label": "code:block4 (Admin/Cron \u2192 runReconciliation())",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L46",
+      "id": "security_data_flow_and_trust_boundaries_codeblock_4",
+      "community": 0,
+      "norm_label": "code:block4 (admin/cron \u2192 runreconciliation())"
+    },
+    {
+      "label": "5. Auszahlung (Maker-Checker)",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L55",
+      "id": "security_data_flow_and_trust_boundaries_5_auszahlung_maker_checker",
+      "community": 0,
+      "norm_label": "5. auszahlung (maker-checker)"
+    },
+    {
+      "label": "code:block5 (System (actor=\"system-payout-engine\") \u2192 prepareAffiliatePayo)",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L57",
+      "id": "security_data_flow_and_trust_boundaries_codeblock_5",
+      "community": 0,
+      "norm_label": "code:block5 (system (actor=\"system-payout-engine\") \u2192 prepareaffiliatepayo)"
+    },
+    {
+      "label": "6. Partner-/Admin-Dashboard-Anzeige",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L67",
+      "id": "security_data_flow_and_trust_boundaries_6_partner_admin_dashboard_anzeige",
+      "community": 0,
+      "norm_label": "6. partner-/admin-dashboard-anzeige"
+    },
+    {
+      "label": "code:block6 (Partner-Session \u2192 GET /api/partner/me \u2192 partnerDashboardData)",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L69",
+      "id": "security_data_flow_and_trust_boundaries_codeblock_6",
+      "community": 0,
+      "norm_label": "code:block6 (partner-session \u2192 get /api/partner/me \u2192 partnerdashboarddata)"
+    },
+    {
+      "label": "7. Android \u2192 Website",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L78",
+      "id": "security_data_flow_and_trust_boundaries_7_android_website",
+      "community": 0,
+      "norm_label": "7. android \u2192 website"
+    },
+    {
+      "label": "code:block7 (Android App Link /claim/<slug> \u2192 AffiliateReferral.capture())",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L80",
+      "id": "security_data_flow_and_trust_boundaries_codeblock_7",
+      "community": 0,
+      "norm_label": "code:block7 (android app link /claim/<slug> \u2192 affiliatereferral.capture())"
+    },
+    {
+      "label": "Zusammenfassung der Trust Boundaries",
+      "file_type": "document",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L88",
+      "id": "security_data_flow_and_trust_boundaries_zusammenfassung_der_trust_boundaries",
+      "community": 0,
+      "norm_label": "zusammenfassung der trust boundaries"
+    },
+    {
+      "label": "DRM_CIRCUMVENTION_AUDIT.md",
+      "file_type": "document",
+      "source_file": "DRM_CIRCUMVENTION_AUDIT.md",
+      "source_location": "L1",
+      "id": "drm_circumvention_audit_md",
+      "community": 20,
+      "norm_label": "drm_circumvention_audit.md"
+    },
+    {
+      "label": "DRM / Technical-Protection-Measure Circumvention Audit",
+      "file_type": "document",
+      "source_file": "DRM_CIRCUMVENTION_AUDIT.md",
+      "source_location": "L1",
+      "id": "security_drm_circumvention_audit_drm_technical_protection_measure_circumvention_audit",
+      "community": 20,
+      "norm_label": "drm / technical-protection-measure circumvention audit"
+    },
+    {
+      "label": "Ergebnis: KEINE DRM-/TPM-Umgehung im Code",
+      "file_type": "document",
+      "source_file": "DRM_CIRCUMVENTION_AUDIT.md",
+      "source_location": "L11",
+      "id": "security_drm_circumvention_audit_ergebnis_keine_drm_tpm_umgehung_im_code",
+      "community": 20,
+      "norm_label": "ergebnis: keine drm-/tpm-umgehung im code"
+    },
+    {
+      "label": "Wichtige Nuance (f\u00fcr die anwaltliche Bewertung)",
+      "file_type": "document",
+      "source_file": "DRM_CIRCUMVENTION_AUDIT.md",
+      "source_location": "L31",
+      "id": "security_drm_circumvention_audit_wichtige_nuance_f\u00fcr_die_anwaltliche_bewertung",
+      "community": 20,
+      "norm_label": "wichtige nuance (fur die anwaltliche bewertung)"
+    },
+    {
+      "label": "Erhaltungsauflage",
+      "file_type": "document",
+      "source_file": "DRM_CIRCUMVENTION_AUDIT.md",
+      "source_location": "L43",
+      "id": "security_drm_circumvention_audit_erhaltungsauflage",
+      "community": 20,
+      "norm_label": "erhaltungsauflage"
+    },
+    {
+      "label": "EVIDENCE_INDEX.md",
+      "file_type": "document",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L1",
+      "id": "evidence_index_md",
+      "community": 14,
+      "norm_label": "evidence_index.md"
+    },
+    {
+      "label": "Evidence Index \u2014 Security Assessments",
+      "file_type": "document",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L1",
+      "id": "security_evidence_index_evidence_index_security_assessments",
+      "community": 14,
+      "norm_label": "evidence index \u2014 security assessments"
+    },
+    {
+      "label": "Code-\u00c4nderungen (Diff dieser Pr\u00fcfung)",
+      "file_type": "document",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L18",
+      "id": "security_evidence_index_code_\u00e4nderungen_diff_dieser_pr\u00fcfung",
+      "community": 14,
+      "norm_label": "code-anderungen (diff dieser prufung)"
+    },
+    {
+      "label": "Testnachweise (mit Ausf\u00fchrungsergebnis am Ende dieser Pr\u00fcfung)",
+      "file_type": "document",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L38",
+      "id": "security_evidence_index_testnachweise_mit_ausf\u00fchrungsergebnis_am_ende_dieser_pr\u00fcfung",
+      "community": 14,
+      "norm_label": "testnachweise (mit ausfuhrungsergebnis am ende dieser prufung)"
+    },
+    {
+      "label": "SBOM",
+      "file_type": "document",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L47",
+      "id": "security_evidence_index_sbom",
+      "community": 14,
+      "norm_label": "sbom"
+    },
+    {
+      "label": "Sub-Agent-Reviews (Rohbefunde, in die obigen Dokumente konsolidiert)",
+      "file_type": "document",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L55",
+      "id": "security_evidence_index_sub_agent_reviews_rohbefunde_in_die_obigen_dokumente_konsolidiert",
+      "community": 14,
+      "norm_label": "sub-agent-reviews (rohbefunde, in die obigen dokumente konsolidiert)"
+    },
+    {
+      "label": "Nicht-Code-Referenzen",
+      "file_type": "document",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L62",
+      "id": "security_evidence_index_nicht_code_referenzen",
+      "community": 14,
+      "norm_label": "nicht-code-referenzen"
+    },
+    {
+      "label": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "file_type": "document",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L1",
+      "id": "executive_security_summary_md",
+      "community": 5,
+      "norm_label": "executive_security_summary.md"
+    },
+    {
+      "label": "Executive Security Summary \u2014 DownloadThat Creator/Affiliate Program",
+      "file_type": "document",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L1",
+      "id": "security_executive_security_summary_executive_security_summary_downloadthat_creator_affiliate_program",
+      "community": 5,
+      "norm_label": "executive security summary \u2014 downloadthat creator/affiliate program"
+    },
+    {
+      "label": "Kurzfassung",
+      "file_type": "document",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L7",
+      "id": "security_executive_security_summary_kurzfassung",
+      "community": 5,
+      "norm_label": "kurzfassung"
+    },
+    {
+      "label": "Ergebnis in einem Satz",
+      "file_type": "document",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L15",
+      "id": "security_executive_security_summary_ergebnis_in_einem_satz",
+      "community": 5,
+      "norm_label": "ergebnis in einem satz"
+    },
+    {
+      "label": "Wichtigste Befunde",
+      "file_type": "document",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L26",
+      "id": "security_executive_security_summary_wichtigste_befunde",
+      "community": 5,
+      "norm_label": "wichtigste befunde"
+    },
+    {
+      "label": "Was mathematisch verifiziert wurde",
+      "file_type": "document",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L40",
+      "id": "security_executive_security_summary_was_mathematisch_verifiziert_wurde",
+      "community": 5,
+      "norm_label": "was mathematisch verifiziert wurde"
+    },
+    {
+      "label": "Was nicht in dieser Sitzung geleistet werden konnte (und warum)",
+      "file_type": "document",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L53",
+      "id": "security_executive_security_summary_was_nicht_in_dieser_sitzung_geleistet_werden_konnte_und_warum",
+      "community": 5,
+      "norm_label": "was nicht in dieser sitzung geleistet werden konnte (und warum)"
+    },
+    {
+      "label": "Go/No-Go-Einsch\u00e4tzung dieser Pr\u00fcfung",
+      "file_type": "document",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L71",
+      "id": "security_executive_security_summary_go_no_go_einsch\u00e4tzung_dieser_pr\u00fcfung",
+      "community": 5,
+      "norm_label": "go/no-go-einschatzung dieser prufung"
+    },
+    {
+      "label": "Zul\u00e4ssige Formulierungen (siehe HANDOVER.md \u00a713)",
+      "file_type": "document",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L81",
+      "id": "security_executive_security_summary_zul\u00e4ssige_formulierungen_siehe_handover_md_13",
+      "community": 5,
+      "norm_label": "zulassige formulierungen (siehe handover.md \u00a713)"
+    },
+    {
+      "label": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "file_type": "document",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L1",
+      "id": "google_play_security_architecture_md",
+      "community": 15,
+      "norm_label": "google_play_security_architecture.md"
+    },
+    {
+      "label": "Google Play Security Architecture",
+      "file_type": "document",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L1",
+      "id": "security_google_play_security_architecture_google_play_security_architecture",
+      "community": 15,
+      "norm_label": "google play security architecture"
+    },
+    {
+      "label": "Vertrauensgrenzen und Assets",
+      "file_type": "document",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L7",
+      "id": "security_google_play_security_architecture_vertrauensgrenzen_und_assets",
+      "community": 15,
+      "norm_label": "vertrauensgrenzen und assets"
+    },
+    {
+      "label": "code:text (Play-App -> Google Play Billing -> Play Developer API)",
+      "file_type": "document",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L9",
+      "id": "security_google_play_security_architecture_codeblock_1",
+      "community": 15,
+      "norm_label": "code:text (play-app -> google play billing -> play developer api)"
+    },
+    {
+      "label": "Verbindliche Kontrollen",
+      "file_type": "document",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L25",
+      "id": "security_google_play_security_architecture_verbindliche_kontrollen",
+      "community": 15,
+      "norm_label": "verbindliche kontrollen"
+    },
+    {
+      "label": "Release- und Betriebs-Gates",
+      "file_type": "document",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L45",
+      "id": "security_google_play_security_architecture_release_und_betriebs_gates",
+      "community": 15,
+      "norm_label": "release- und betriebs-gates"
+    },
+    {
+      "label": "Bewusst verbleibende Risiken",
+      "file_type": "document",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L58",
+      "id": "security_google_play_security_architecture_bewusst_verbleibende_risiken",
+      "community": 15,
+      "norm_label": "bewusst verbleibende risiken"
+    },
+    {
+      "label": "INCIDENT_RESPONSE_PLAN.md",
+      "file_type": "document",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L1",
+      "id": "incident_response_plan_md",
+      "community": 6,
+      "norm_label": "incident_response_plan.md"
+    },
+    {
+      "label": "Incident Response Plan (Draft) \u2014 Affiliate Program",
+      "file_type": "document",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L1",
+      "id": "security_incident_response_plan_incident_response_plan_draft_affiliate_program",
+      "community": 6,
+      "norm_label": "incident response plan (draft) \u2014 affiliate program"
+    },
+    {
+      "label": "Ausl\u00f6ser / Erkennungssignale",
+      "file_type": "document",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L6",
+      "id": "security_incident_response_plan_ausl\u00f6ser_erkennungssignale",
+      "community": 6,
+      "norm_label": "ausloser / erkennungssignale"
+    },
+    {
+      "label": "Runbook 1 \u2014 Auszahlungssperre (payout_frozen)",
+      "file_type": "document",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L15",
+      "id": "security_incident_response_plan_runbook_1_auszahlungssperre_payout_frozen",
+      "community": 6,
+      "norm_label": "runbook 1 \u2014 auszahlungssperre (payout_frozen)"
+    },
+    {
+      "label": "Runbook 2 \u2014 Kompromittiertes Partnerkonto",
+      "file_type": "document",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L26",
+      "id": "security_incident_response_plan_runbook_2_kompromittiertes_partnerkonto",
+      "community": 6,
+      "norm_label": "runbook 2 \u2014 kompromittiertes partnerkonto"
+    },
+    {
+      "label": "Runbook 3 \u2014 Kompromittierte Admin-E-Mail",
+      "file_type": "document",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L35",
+      "id": "security_incident_response_plan_runbook_3_kompromittierte_admin_e_mail",
+      "community": 6,
+      "norm_label": "runbook 3 \u2014 kompromittierte admin-e-mail"
+    },
+    {
+      "label": "Runbook 4 \u2014 Stripe-/Cloudflare-/Resend-Ausfall",
+      "file_type": "document",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L44",
+      "id": "security_incident_response_plan_runbook_4_stripe_cloudflare_resend_ausfall",
+      "community": 6,
+      "norm_label": "runbook 4 \u2014 stripe-/cloudflare-/resend-ausfall"
+    },
+    {
+      "label": "Notfallabschaltung (Kill Switch)",
+      "file_type": "document",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L54",
+      "id": "security_incident_response_plan_notfallabschaltung_kill_switch",
+      "community": 6,
+      "norm_label": "notfallabschaltung (kill switch)"
+    },
+    {
+      "label": "Offene organisatorische Punkte (nicht durch Code l\u00f6sbar)",
+      "file_type": "document",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L61",
+      "id": "security_incident_response_plan_offene_organisatorische_punkte_nicht_durch_code_l\u00f6sbar",
+      "community": 6,
+      "norm_label": "offene organisatorische punkte (nicht durch code losbar)"
+    },
+    {
+      "label": "ISO27001_READINESS_MATRIX.md",
+      "file_type": "document",
+      "source_file": "ISO27001_READINESS_MATRIX.md",
+      "source_location": "L1",
+      "id": "iso27001_readiness_matrix_md",
+      "community": 26,
+      "norm_label": "iso27001_readiness_matrix.md"
+    },
+    {
+      "label": "ISO/IEC 27001:2022 Readiness Matrix \u2014 Affiliate Program",
+      "file_type": "document",
+      "source_file": "ISO27001_READINESS_MATRIX.md",
+      "source_location": "L1",
+      "id": "security_iso27001_readiness_matrix_iso_iec_27001_2022_readiness_matrix_affiliate_program",
+      "community": 26,
+      "norm_label": "iso/iec 27001:2022 readiness matrix \u2014 affiliate program"
+    },
+    {
+      "label": "Gesamteinsch\u00e4tzung",
+      "file_type": "document",
+      "source_file": "ISO27001_READINESS_MATRIX.md",
+      "source_location": "L21",
+      "id": "security_iso27001_readiness_matrix_gesamteinsch\u00e4tzung",
+      "community": 26,
+      "norm_label": "gesamteinschatzung"
+    },
+    {
+      "label": "MASVS_MATRIX.md",
+      "file_type": "document",
+      "source_file": "MASVS_MATRIX.md",
+      "source_location": "L1",
+      "id": "masvs_matrix_md",
+      "community": 27,
+      "norm_label": "masvs_matrix.md"
+    },
+    {
+      "label": "OWASP MASVS Mapping \u2014 Android-App (`de.classydl.app`)",
+      "file_type": "document",
+      "source_file": "MASVS_MATRIX.md",
+      "source_location": "L1",
+      "id": "security_masvs_matrix_owasp_masvs_mapping_android_app_de_classydl_app",
+      "community": 27,
+      "norm_label": "owasp masvs mapping \u2014 android-app (`de.classydl.app`)"
+    },
+    {
+      "label": "Zusammenfassung",
+      "file_type": "document",
+      "source_file": "MASVS_MATRIX.md",
+      "source_location": "L26",
+      "id": "security_masvs_matrix_zusammenfassung",
+      "community": 27,
+      "norm_label": "zusammenfassung"
+    },
+    {
+      "label": "NIST_SSDF_MATRIX.md",
+      "file_type": "document",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L1",
+      "id": "nist_ssdf_matrix_md",
+      "community": 16,
+      "norm_label": "nist_ssdf_matrix.md"
+    },
+    {
+      "label": "NIST SP 800-218 (SSDF 1.1) Mapping \u2014 Affiliate Program",
+      "file_type": "document",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L1",
+      "id": "security_nist_ssdf_matrix_nist_sp_800_218_ssdf_1_1_mapping_affiliate_program",
+      "community": 16,
+      "norm_label": "nist sp 800-218 (ssdf 1.1) mapping \u2014 affiliate program"
+    },
+    {
+      "label": "PO \u2014 Prepare the Organization",
+      "file_type": "document",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L5",
+      "id": "security_nist_ssdf_matrix_po_prepare_the_organization",
+      "community": 16,
+      "norm_label": "po \u2014 prepare the organization"
+    },
+    {
+      "label": "PS \u2014 Protect Software",
+      "file_type": "document",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L13",
+      "id": "security_nist_ssdf_matrix_ps_protect_software",
+      "community": 16,
+      "norm_label": "ps \u2014 protect software"
+    },
+    {
+      "label": "PW \u2014 Produce Well-Secured Software",
+      "file_type": "document",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L21",
+      "id": "security_nist_ssdf_matrix_pw_produce_well_secured_software",
+      "community": 16,
+      "norm_label": "pw \u2014 produce well-secured software"
+    },
+    {
+      "label": "RV \u2014 Respond to Vulnerabilities",
+      "file_type": "document",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L33",
+      "id": "security_nist_ssdf_matrix_rv_respond_to_vulnerabilities",
+      "community": 16,
+      "norm_label": "rv \u2014 respond to vulnerabilities"
+    },
+    {
+      "label": "L\u00fccken / Folgearbeiten",
+      "file_type": "document",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L41",
+      "id": "security_nist_ssdf_matrix_l\u00fccken_folgearbeiten",
+      "community": 16,
+      "norm_label": "lucken / folgearbeiten"
+    },
+    {
+      "label": "PCI_SCOPE_ASSESSMENT.md",
+      "file_type": "document",
+      "source_file": "PCI_SCOPE_ASSESSMENT.md",
+      "source_location": "L1",
+      "id": "pci_scope_assessment_md",
+      "community": 18,
+      "norm_label": "pci_scope_assessment.md"
+    },
+    {
+      "label": "PCI DSS Scope Assessment \u2014 Affiliate Program",
+      "file_type": "document",
+      "source_file": "PCI_SCOPE_ASSESSMENT.md",
+      "source_location": "L1",
+      "id": "security_pci_scope_assessment_pci_dss_scope_assessment_affiliate_program",
+      "community": 18,
+      "norm_label": "pci dss scope assessment \u2014 affiliate program"
+    },
+    {
+      "label": "Kartendaten-Fluss (tats\u00e4chlicher Code-Nachweis)",
+      "file_type": "document",
+      "source_file": "PCI_SCOPE_ASSESSMENT.md",
+      "source_location": "L7",
+      "id": "security_pci_scope_assessment_kartendaten_fluss_tats\u00e4chlicher_code_nachweis",
+      "community": 18,
+      "norm_label": "kartendaten-fluss (tatsachlicher code-nachweis)"
+    },
+    {
+      "label": "Vorl\u00e4ufige Einsch\u00e4tzung (nicht verbindlich)",
+      "file_type": "document",
+      "source_file": "PCI_SCOPE_ASSESSMENT.md",
+      "source_location": "L21",
+      "id": "security_pci_scope_assessment_vorl\u00e4ufige_einsch\u00e4tzung_nicht_verbindlich",
+      "community": 18,
+      "norm_label": "vorlaufige einschatzung (nicht verbindlich)"
+    },
+    {
+      "label": "Was diese Pr\u00fcfung NICHT leisten kann",
+      "file_type": "document",
+      "source_file": "PCI_SCOPE_ASSESSMENT.md",
+      "source_location": "L29",
+      "id": "security_pci_scope_assessment_was_diese_pr\u00fcfung_nicht_leisten_kann",
+      "community": 18,
+      "norm_label": "was diese prufung nicht leisten kann"
+    },
+    {
+      "label": "Empfehlung vor Produktionsfreigabe",
+      "file_type": "document",
+      "source_file": "PCI_SCOPE_ASSESSMENT.md",
+      "source_location": "L35",
+      "id": "security_pci_scope_assessment_empfehlung_vor_produktionsfreigabe",
+      "community": 18,
+      "norm_label": "empfehlung vor produktionsfreigabe"
+    },
+    {
+      "label": "PENETRATION_TEST_PLAN.md",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_PLAN.md",
+      "source_location": "L1",
+      "id": "penetration_test_plan_md",
+      "community": 17,
+      "norm_label": "penetration_test_plan.md"
+    },
+    {
+      "label": "Penetration Test Plan \u2014 Affiliate Program",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_PLAN.md",
+      "source_location": "L1",
+      "id": "security_penetration_test_plan_penetration_test_plan_affiliate_program",
+      "community": 17,
+      "norm_label": "penetration test plan \u2014 affiliate program"
+    },
+    {
+      "label": "Scope",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_PLAN.md",
+      "source_location": "L3",
+      "id": "security_penetration_test_plan_scope",
+      "community": 17,
+      "norm_label": "scope"
+    },
+    {
+      "label": "Methodik",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_PLAN.md",
+      "source_location": "L22",
+      "id": "security_penetration_test_plan_methodik",
+      "community": 17,
+      "norm_label": "methodik"
+    },
+    {
+      "label": "Gepr\u00fcfte Kategorien (Mapping auf HANDOVER \u00a78.2/\u00a78.3)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_PLAN.md",
+      "source_location": "L38",
+      "id": "security_penetration_test_plan_gepr\u00fcfte_kategorien_mapping_auf_handover_8_2_8_3",
+      "community": 17,
+      "norm_label": "geprufte kategorien (mapping auf handover \u00a78.2/\u00a78.3)"
+    },
+    {
+      "label": "Werkzeuge",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_PLAN.md",
+      "source_location": "L64",
+      "id": "security_penetration_test_plan_werkzeuge",
+      "community": 17,
+      "norm_label": "werkzeuge"
+    },
+    {
+      "label": "PENETRATION_TEST_RESULTS.md",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L1",
+      "id": "penetration_test_results_md",
+      "community": 2,
+      "norm_label": "penetration_test_results.md"
+    },
+    {
+      "label": "Affiliate Program \u2013 Penetration Test Results (Internal Assessment)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L1",
+      "id": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "community": 2,
+      "norm_label": "affiliate program \u2013 penetration test results (internal assessment)"
+    },
+    {
+      "label": "AFF-001 \u2014 Stored XSS im Partner-Admin-Dashboard (P1 / High)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L10",
+      "id": "security_penetration_test_results_aff_001_stored_xss_im_partner_admin_dashboard_p1_high",
+      "community": 2,
+      "norm_label": "aff-001 \u2014 stored xss im partner-admin-dashboard (p1 / high)"
+    },
+    {
+      "label": "AFF-002 \u2014 Android: Explicit-Intent umgeht App-Link-Verifikation (P2, dokumentiertes Restrisiko)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L47",
+      "id": "security_penetration_test_results_aff_002_android_explicit_intent_umgeht_app_link_verifikation_p2_dokumentiertes_restrisiko",
+      "community": 2,
+      "norm_label": "aff-002 \u2014 android: explicit-intent umgeht app-link-verifikation (p2, dokumentiertes restrisiko)"
+    },
+    {
+      "label": "code:kotlin (val i = Intent(Intent.ACTION_VIEW, Uri.parse(\"https://downlo)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L56",
+      "id": "security_penetration_test_results_codeblock_1",
+      "community": 2,
+      "norm_label": "code:kotlin (val i = intent(intent.action_view, uri.parse(\"https://downlo)"
+    },
+    {
+      "label": "AFF-003 \u2014 Race Condition: doppelte Clawback-Anwendung bei parallelen Webhook-Zustellungen (P2 / Medium)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L79",
+      "id": "security_penetration_test_results_aff_003_race_condition_doppelte_clawback_anwendung_bei_parallelen_webhook_zustellungen_p2_medium",
+      "community": 2,
+      "norm_label": "aff-003 \u2014 race condition: doppelte clawback-anwendung bei parallelen webhook-zustellungen (p2 / medium)"
+    },
+    {
+      "label": "AFF-004 \u2014 Kein Rate Limiting auf Auth-/Registrierungs-Endpunkten (P2 / Medium)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L133",
+      "id": "security_penetration_test_results_aff_004_kein_rate_limiting_auf_auth_registrierungs_endpunkten_p2_medium",
+      "community": 2,
+      "norm_label": "aff-004 \u2014 kein rate limiting auf auth-/registrierungs-endpunkten (p2 / medium)"
+    },
+    {
+      "label": "AFF-005 \u2014 GitHub Actions nicht SHA-gepinnt; ungepinnter `wrangler`-Download mit Secrets im Scope (P2 / Medium)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L171",
+      "id": "security_penetration_test_results_aff_005_github_actions_nicht_sha_gepinnt_ungepinnter_wrangler_download_mit_secrets_im_scope_p2_medium",
+      "community": 2,
+      "norm_label": "aff-005 \u2014 github actions nicht sha-gepinnt; ungepinnter `wrangler`-download mit secrets im scope (p2 / medium)"
+    },
+    {
+      "label": "code:yaml (- uses: actions/checkout@<verify-current-sha> # v4.x.x)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L200",
+      "id": "security_penetration_test_results_codeblock_2",
+      "community": 2,
+      "norm_label": "code:yaml (- uses: actions/checkout@<verify-current-sha> # v4.x.x)"
+    },
+    {
+      "label": "AFF-006 \u2014 Secret-Scan-Test: blinder Fleck bei Turnstile, regexbasiert umgehbar (P2 / Medium)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L214",
+      "id": "security_penetration_test_results_aff_006_secret_scan_test_blinder_fleck_bei_turnstile_regexbasiert_umgehbar_p2_medium",
+      "community": 2,
+      "norm_label": "aff-006 \u2014 secret-scan-test: blinder fleck bei turnstile, regexbasiert umgehbar (p2 / medium)"
+    },
+    {
+      "label": "AFF-007 \u2014 Totes Code-Duplikat mit latentem Bug (P3 / Low)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L243",
+      "id": "security_penetration_test_results_aff_007_totes_code_duplikat_mit_latentem_bug_p3_low",
+      "community": 2,
+      "norm_label": "aff-007 \u2014 totes code-duplikat mit latentem bug (p3 / low)"
+    },
+    {
+      "label": "AFF-008 \u2014 Android: Case-sensitive Host-Vergleich (P3 / Low)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L271",
+      "id": "security_penetration_test_results_aff_008_android_case_sensitive_host_vergleich_p3_low",
+      "community": 2,
+      "norm_label": "aff-008 \u2014 android: case-sensitive host-vergleich (p3 / low)"
+    },
+    {
+      "label": "AFF-012 \u2014 Stacktrace-Leak in Webhook-Fehlerantwort (P3 / Low)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L293",
+      "id": "security_penetration_test_results_aff_012_stacktrace_leak_in_webhook_fehlerantwort_p3_low",
+      "community": 2,
+      "norm_label": "aff-012 \u2014 stacktrace-leak in webhook-fehlerantwort (p3 / low)"
+    },
+    {
+      "label": "AFF-009, AFF-010, AFF-011",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L315",
+      "id": "security_penetration_test_results_aff_009_aff_010_aff_011",
+      "community": 2,
+      "norm_label": "aff-009, aff-010, aff-011"
+    },
+    {
+      "label": "Was gepr\u00fcft und f\u00fcr unauff\u00e4llig befunden wurde (kein Finding)",
+      "file_type": "document",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L323",
+      "id": "security_penetration_test_results_was_gepr\u00fcft_und_f\u00fcr_unauff\u00e4llig_befunden_wurde_kein_finding",
+      "community": 2,
+      "norm_label": "was gepruft und fur unauffallig befunden wurde (kein finding)"
+    },
+    {
+      "label": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "file_type": "document",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L1",
+      "id": "privacy_and_data_retention_review_md",
+      "community": 12,
+      "norm_label": "privacy_and_data_retention_review.md"
+    },
+    {
+      "label": "Privacy & Data Retention Review \u2014 Historical Affiliate Program",
+      "file_type": "document",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L1",
+      "id": "security_privacy_and_data_retention_review_privacy_data_retention_review_historical_affiliate_program",
+      "community": 12,
+      "norm_label": "privacy & data retention review \u2014 historical affiliate program"
+    },
+    {
+      "label": "Dateninventar",
+      "file_type": "document",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L11",
+      "id": "security_privacy_and_data_retention_review_dateninventar",
+      "community": 12,
+      "norm_label": "dateninventar"
+    },
+    {
+      "label": "Zweckbindung",
+      "file_type": "document",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L21",
+      "id": "security_privacy_and_data_retention_review_zweckbindung",
+      "community": 12,
+      "norm_label": "zweckbindung"
+    },
+    {
+      "label": "L\u00f6schfristen",
+      "file_type": "document",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L26",
+      "id": "security_privacy_and_data_retention_review_l\u00f6schfristen",
+      "community": 12,
+      "norm_label": "loschfristen"
+    },
+    {
+      "label": "Betroffenenrechte",
+      "file_type": "document",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L35",
+      "id": "security_privacy_and_data_retention_review_betroffenenrechte",
+      "community": 12,
+      "norm_label": "betroffenenrechte"
+    },
+    {
+      "label": "Drittlandtransfer / Auftragsverarbeiter",
+      "file_type": "document",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L40",
+      "id": "security_privacy_and_data_retention_review_drittlandtransfer_auftragsverarbeiter",
+      "community": 12,
+      "norm_label": "drittlandtransfer / auftragsverarbeiter"
+    },
+    {
+      "label": "Pseudonymisierung/Hashing \u2014 best\u00e4tigt korrekt umgesetzt",
+      "file_type": "document",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L45",
+      "id": "security_privacy_and_data_retention_review_pseudonymisierung_hashing_best\u00e4tigt_korrekt_umgesetzt",
+      "community": 12,
+      "norm_label": "pseudonymisierung/hashing \u2014 bestatigt korrekt umgesetzt"
+    },
+    {
+      "label": "PRODUCTION_SECURITY_CHECKLIST.md",
+      "file_type": "document",
+      "source_file": "PRODUCTION_SECURITY_CHECKLIST.md",
+      "source_location": "L1",
+      "id": "production_security_checklist_md",
+      "community": 21,
+      "norm_label": "production_security_checklist.md"
+    },
+    {
+      "label": "Production Security Checklist \u2014 Historical Affiliate Program",
+      "file_type": "document",
+      "source_file": "PRODUCTION_SECURITY_CHECKLIST.md",
+      "source_location": "L1",
+      "id": "security_production_security_checklist_production_security_checklist_historical_affiliate_program",
+      "community": 21,
+      "norm_label": "production security checklist \u2014 historical affiliate program"
+    },
+    {
+      "label": "Durch diese Pr\u00fcfung erledigt / verifiziert",
+      "file_type": "document",
+      "source_file": "PRODUCTION_SECURITY_CHECKLIST.md",
+      "source_location": "L10",
+      "id": "security_production_security_checklist_durch_diese_pr\u00fcfung_erledigt_verifiziert",
+      "community": 21,
+      "norm_label": "durch diese prufung erledigt / verifiziert"
+    },
+    {
+      "label": "Vor Produktionsaktivierung weiterhin zwingend erforderlich (nicht durch diese Sitzung leistbar)",
+      "file_type": "document",
+      "source_file": "PRODUCTION_SECURITY_CHECKLIST.md",
+      "source_location": "L25",
+      "id": "security_production_security_checklist_vor_produktionsaktivierung_weiterhin_zwingend_erforderlich_nicht_durch_diese_sitzung_leistbar",
+      "community": 21,
+      "norm_label": "vor produktionsaktivierung weiterhin zwingend erforderlich (nicht durch diese sitzung leistbar)"
+    },
+    {
+      "label": "Automatisches No-Go (aus HANDOVER \u00a712, unver\u00e4ndert g\u00fcltig)",
+      "file_type": "document",
+      "source_file": "PRODUCTION_SECURITY_CHECKLIST.md",
+      "source_location": "L48",
+      "id": "security_production_security_checklist_automatisches_no_go_aus_handover_12_unver\u00e4ndert_g\u00fcltig",
+      "community": 21,
+      "norm_label": "automatisches no-go (aus handover \u00a712, unverandert gultig)"
+    },
+    {
+      "label": "RED_TEAM_REPORT_CORE_APP.md",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L1",
+      "id": "red_team_report_core_app_md",
+      "community": 4,
+      "norm_label": "red_team_report_core_app.md"
+    },
+    {
+      "label": "Red-Team-Report \u2014 Downloader-Kern, On-Device-Server & Android-App",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L1",
+      "id": "security_red_team_report_core_app_red_team_report_downloader_kern_on_device_server_android_app",
+      "community": 4,
+      "norm_label": "red-team-report \u2014 downloader-kern, on-device-server & android-app"
+    },
+    {
+      "label": "Auftrag (bewusst gegnerisch formuliert)",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L8",
+      "id": "security_red_team_report_core_app_auftrag_bewusst_gegnerisch_formuliert",
+      "community": 4,
+      "norm_label": "auftrag (bewusst gegnerisch formuliert)"
+    },
+    {
+      "label": "Ergebnis auf einen Blick",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L16",
+      "id": "security_red_team_report_core_app_ergebnis_auf_einen_blick",
+      "community": 4,
+      "norm_label": "ergebnis auf einen blick"
+    },
+    {
+      "label": "Reproduzierbares PoC-Harness",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L38",
+      "id": "security_red_team_report_core_app_reproduzierbares_poc_harness",
+      "community": 4,
+      "norm_label": "reproduzierbares poc-harness"
+    },
+    {
+      "label": "Vorher (Ist-Zustand)",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L44",
+      "id": "security_red_team_report_core_app_vorher_ist_zustand",
+      "community": 4,
+      "norm_label": "vorher (ist-zustand)"
+    },
+    {
+      "label": "code:json ({)",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L45",
+      "id": "security_red_team_report_core_app_codeblock_1",
+      "community": 4,
+      "norm_label": "code:json ({)"
+    },
+    {
+      "label": "Nachher (nach H\u00e4rtung)",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L55",
+      "id": "security_red_team_report_core_app_nachher_nach_h\u00e4rtung",
+      "community": 4,
+      "norm_label": "nachher (nach hartung)"
+    },
+    {
+      "label": "code:json ({)",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L56",
+      "id": "security_red_team_report_core_app_codeblock_2",
+      "community": 4,
+      "norm_label": "code:json ({)"
+    },
+    {
+      "label": "Detail-Findings",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L68",
+      "id": "security_red_team_report_core_app_detail_findings",
+      "community": 3,
+      "norm_label": "detail-findings"
+    },
+    {
+      "label": "A1 \u2014 Lizenzschl\u00fcssel von au\u00dfen generierbar? \u274c WIDERLEGT",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L70",
+      "id": "security_red_team_report_core_app_a1_lizenzschl\u00fcssel_von_aussen_generierbar_widerlegt",
+      "community": 3,
+      "norm_label": "a1 \u2014 lizenzschlussel von au\u00dfen generierbar? \u274c widerlegt"
+    },
+    {
+      "label": "A2 \u2014 Pro-Freischaltung lokal umgehbar? \u2705 BEST\u00c4TIGT (Design-Trade-off)",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L81",
+      "id": "security_red_team_report_core_app_a2_pro_freischaltung_lokal_umgehbar_best\u00e4tigt_design_trade_off",
+      "community": 3,
+      "norm_label": "a2 \u2014 pro-freischaltung lokal umgehbar? \u2705 bestatigt (design-trade-off)"
+    },
+    {
+      "label": "A3 \u2014 SSRF \u00fcber `/api/scrape`? \u2705 BEST\u00c4TIGT \u2192 BEHOBEN",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L92",
+      "id": "security_red_team_report_core_app_a3_ssrf_\u00fcber_api_scrape_best\u00e4tigt_behoben",
+      "community": 3,
+      "norm_label": "a3 \u2014 ssrf uber `/api/scrape`? \u2705 bestatigt \u2192 behoben"
+    },
+    {
+      "label": "A4 \u2014 Lokale Daten f\u00fcr Co-Tenant lesbar? \u2705 BEST\u00c4TIGT \u2192 BEHOBEN",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L106",
+      "id": "security_red_team_report_core_app_a4_lokale_daten_f\u00fcr_co_tenant_lesbar_best\u00e4tigt_behoben",
+      "community": 3,
+      "norm_label": "a4 \u2014 lokale daten fur co-tenant lesbar? \u2705 bestatigt \u2192 behoben"
+    },
+    {
+      "label": "A5 \u2014 Passwort-Leak \u00fcber Auto-Login-URL? \u2705 BEST\u00c4TIGT \u2192 BEHOBEN",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L114",
+      "id": "security_red_team_report_core_app_a5_passwort_leak_\u00fcber_auto_login_url_best\u00e4tigt_behoben",
+      "community": 3,
+      "norm_label": "a5 \u2014 passwort-leak uber auto-login-url? \u2705 bestatigt \u2192 behoben"
+    },
+    {
+      "label": "A6 \u2014 Login brute-force-bar? \u274c WIDERLEGT",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L123",
+      "id": "security_red_team_report_core_app_a6_login_brute_force_bar_widerlegt",
+      "community": 3,
+      "norm_label": "a6 \u2014 login brute-force-bar? \u274c widerlegt"
+    },
+    {
+      "label": "A7 \u2014 Clickjacking / fehlende Header? \u2705 BEST\u00c4TIGT \u2192 BEHOBEN",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L129",
+      "id": "security_red_team_report_core_app_a7_clickjacking_fehlende_header_best\u00e4tigt_behoben",
+      "community": 3,
+      "norm_label": "a7 \u2014 clickjacking / fehlende header? \u2705 bestatigt \u2192 behoben"
+    },
+    {
+      "label": "A8 \u2014 Path-Traversal (Download/Static)? \u274c WIDERLEGT",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L135",
+      "id": "security_red_team_report_core_app_a8_path_traversal_download_static_widerlegt",
+      "community": 3,
+      "norm_label": "a8 \u2014 path-traversal (download/static)? \u274c widerlegt"
+    },
+    {
+      "label": "A9 \u2014 Supply-Chain \u00fcber yt-dlp-Self-Update? \u274c WIDERLEGT (in-scope)",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L140",
+      "id": "security_red_team_report_core_app_a9_supply_chain_\u00fcber_yt_dlp_self_update_widerlegt_in_scope",
+      "community": 3,
+      "norm_label": "a9 \u2014 supply-chain uber yt-dlp-self-update? \u274c widerlegt (in-scope)"
+    },
+    {
+      "label": "A10 \u2014 Stripe-Webhook f\u00e4lschbar? \u274c WIDERLEGT",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L145",
+      "id": "security_red_team_report_core_app_a10_stripe_webhook_f\u00e4lschbar_widerlegt",
+      "community": 3,
+      "norm_label": "a10 \u2014 stripe-webhook falschbar? \u274c widerlegt"
+    },
+    {
+      "label": "Fazit des Red Teams",
+      "file_type": "document",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L152",
+      "id": "security_red_team_report_core_app_fazit_des_red_teams",
+      "community": 4,
+      "norm_label": "fazit des red teams"
+    },
+    {
+      "label": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "file_type": "document",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L1",
+      "id": "residual_risk_acceptance_md",
+      "community": 7,
+      "norm_label": "residual_risk_acceptance.md"
+    },
+    {
+      "label": "Residual Risk Acceptance \u2014 Affiliate Program",
+      "file_type": "document",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L1",
+      "id": "security_residual_risk_acceptance_residual_risk_acceptance_affiliate_program",
+      "community": 7,
+      "norm_label": "residual risk acceptance \u2014 affiliate program"
+    },
+    {
+      "label": "AFF-002 \u2014 Android App-Link-Attribution via Explicit Intent f\u00e4lschbar",
+      "file_type": "document",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L8",
+      "id": "security_residual_risk_acceptance_aff_002_android_app_link_attribution_via_explicit_intent_f\u00e4lschbar",
+      "community": 7,
+      "norm_label": "aff-002 \u2014 android app-link-attribution via explicit intent falschbar"
+    },
+    {
+      "label": "AFF-005 \u2014 GitHub Actions nicht SHA-gepinnt",
+      "file_type": "document",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L21",
+      "id": "security_residual_risk_acceptance_aff_005_github_actions_nicht_sha_gepinnt",
+      "community": 7,
+      "norm_label": "aff-005 \u2014 github actions nicht sha-gepinnt"
+    },
+    {
+      "label": "AFF-009 \u2014 App-Links-Zertifikatsverifikation abh\u00e4ngig von Produktionsvariable",
+      "file_type": "document",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L31",
+      "id": "security_residual_risk_acceptance_aff_009_app_links_zertifikatsverifikation_abh\u00e4ngig_von_produktionsvariable",
+      "community": 7,
+      "norm_label": "aff-009 \u2014 app-links-zertifikatsverifikation abhangig von produktionsvariable"
+    },
+    {
+      "label": "AFF-010 \u2014 CSP erlaubt `'unsafe-inline'` f\u00fcr script-src",
+      "file_type": "document",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L40",
+      "id": "security_residual_risk_acceptance_aff_010_csp_erlaubt_unsafe_inline_f\u00fcr_script_src",
+      "community": 7,
+      "norm_label": "aff-010 \u2014 csp erlaubt `'unsafe-inline'` fur script-src"
+    },
+    {
+      "label": "AFF-011 \u2014 Login-CSRF (Magic-Link-Phishing)",
+      "file_type": "document",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L51",
+      "id": "security_residual_risk_acceptance_aff_011_login_csrf_magic_link_phishing",
+      "community": 7,
+      "norm_label": "aff-011 \u2014 login-csrf (magic-link-phishing)"
+    },
+    {
+      "label": "CORE-001 \u2014 Pro-Freischaltung client-seitig durchgesetzt",
+      "file_type": "document",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L60",
+      "id": "security_residual_risk_acceptance_core_001_pro_freischaltung_client_seitig_durchgesetzt",
+      "community": 7,
+      "norm_label": "core-001 \u2014 pro-freischaltung client-seitig durchgesetzt"
+    },
+    {
+      "label": "CORE-002 \u2014 Keine Verschl\u00fcsselung lokaler Daten \u201eat rest\"; HTTP auf Loopback",
+      "file_type": "document",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L71",
+      "id": "security_residual_risk_acceptance_core_002_keine_verschl\u00fcsselung_lokaler_daten_at_rest_http_auf_loopback",
+      "community": 7,
+      "norm_label": "core-002 \u2014 keine verschlusselung lokaler daten \u201eat rest\"; http auf loopback"
+    },
+    {
+      "label": "RISK_REGISTER.md",
+      "file_type": "document",
+      "source_file": "RISK_REGISTER.md",
+      "source_location": "L1",
+      "id": "risk_register_md",
+      "community": 22,
+      "norm_label": "risk_register.md"
+    },
+    {
+      "label": "Affiliate Program \u2013 Risk / Findings Register",
+      "file_type": "document",
+      "source_file": "RISK_REGISTER.md",
+      "source_location": "L1",
+      "id": "security_risk_register_affiliate_program_risk_findings_register",
+      "community": 22,
+      "norm_label": "affiliate program \u2013 risk / findings register"
+    },
+    {
+      "label": "Einordnung nach HANDOVER.md-Schweregradskala",
+      "file_type": "document",
+      "source_file": "RISK_REGISTER.md",
+      "source_location": "L23",
+      "id": "security_risk_register_einordnung_nach_handover_md_schweregradskala",
+      "community": 22,
+      "norm_label": "einordnung nach handover.md-schweregradskala"
+    },
+    {
+      "label": "Gesamtstatus (kanonisch \u2014 ma\u00dfgeblich f\u00fcr jede Zusammenfassung dieser Pr\u00fcfung)",
+      "file_type": "document",
+      "source_file": "RISK_REGISTER.md",
+      "source_location": "L30",
+      "id": "security_risk_register_gesamtstatus_kanonisch_massgeblich_f\u00fcr_jede_zusammenfassung_dieser_pr\u00fcfung",
+      "community": 22,
+      "norm_label": "gesamtstatus (kanonisch \u2014 ma\u00dfgeblich fur jede zusammenfassung dieser prufung)"
+    },
+    {
+      "label": "Warum AFF-002 nicht als blockierendes P1 eingestuft wird",
+      "file_type": "document",
+      "source_file": "RISK_REGISTER.md",
+      "source_location": "L39",
+      "id": "security_risk_register_warum_aff_002_nicht_als_blockierendes_p1_eingestuft_wird",
+      "community": 22,
+      "norm_label": "warum aff-002 nicht als blockierendes p1 eingestuft wird"
+    },
+    {
+      "label": "SECURITY_ASSESSMENT_REPORT.md",
+      "file_type": "document",
+      "source_file": "SECURITY_ASSESSMENT_REPORT.md",
+      "source_location": "L1",
+      "id": "security_assessment_report_md",
+      "community": 19,
+      "norm_label": "security_assessment_report.md"
+    },
+    {
+      "label": "Security Assessment Report \u2014 DownloadThat Creator/Affiliate Program",
+      "file_type": "document",
+      "source_file": "SECURITY_ASSESSMENT_REPORT.md",
+      "source_location": "L1",
+      "id": "security_security_assessment_report_security_assessment_report_downloadthat_creator_affiliate_program",
+      "community": 19,
+      "norm_label": "security assessment report \u2014 downloadthat creator/affiliate program"
+    },
+    {
+      "label": "Vorgehen",
+      "file_type": "document",
+      "source_file": "SECURITY_ASSESSMENT_REPORT.md",
+      "source_location": "L21",
+      "id": "security_security_assessment_report_vorgehen",
+      "community": 19,
+      "norm_label": "vorgehen"
+    },
+    {
+      "label": "Ergebnis",
+      "file_type": "document",
+      "source_file": "SECURITY_ASSESSMENT_REPORT.md",
+      "source_location": "L34",
+      "id": "security_security_assessment_report_ergebnis",
+      "community": 19,
+      "norm_label": "ergebnis"
+    },
+    {
+      "label": "Was diese Pr\u00fcfung ausdr\u00fccklich nicht ist",
+      "file_type": "document",
+      "source_file": "SECURITY_ASSESSMENT_REPORT.md",
+      "source_location": "L69",
+      "id": "security_security_assessment_report_was_diese_pr\u00fcfung_ausdr\u00fccklich_nicht_ist",
+      "community": 19,
+      "norm_label": "was diese prufung ausdrucklich nicht ist"
+    },
+    {
+      "label": "Definition-of-Done-Abgleich",
+      "file_type": "document",
+      "source_file": "SECURITY_ASSESSMENT_REPORT.md",
+      "source_location": "L75",
+      "id": "security_security_assessment_report_definition_of_done_abgleich",
+      "community": 19,
+      "norm_label": "definition-of-done-abgleich"
+    },
+    {
+      "label": "SOC2_READINESS_MATRIX.md",
+      "file_type": "document",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L1",
+      "id": "soc2_readiness_matrix_md",
+      "community": 13,
+      "norm_label": "soc2_readiness_matrix.md"
+    },
+    {
+      "label": "SOC 2 Readiness Matrix \u2014 Affiliate Program",
+      "file_type": "document",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L1",
+      "id": "security_soc2_readiness_matrix_soc_2_readiness_matrix_affiliate_program",
+      "community": 13,
+      "norm_label": "soc 2 readiness matrix \u2014 affiliate program"
+    },
+    {
+      "label": "Security (Common Criteria)",
+      "file_type": "document",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L8",
+      "id": "security_soc2_readiness_matrix_security_common_criteria",
+      "community": 13,
+      "norm_label": "security (common criteria)"
+    },
+    {
+      "label": "Availability",
+      "file_type": "document",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L19",
+      "id": "security_soc2_readiness_matrix_availability",
+      "community": 13,
+      "norm_label": "availability"
+    },
+    {
+      "label": "Processing Integrity",
+      "file_type": "document",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L24",
+      "id": "security_soc2_readiness_matrix_processing_integrity",
+      "community": 13,
+      "norm_label": "processing integrity"
+    },
+    {
+      "label": "Confidentiality",
+      "file_type": "document",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L32",
+      "id": "security_soc2_readiness_matrix_confidentiality",
+      "community": 13,
+      "norm_label": "confidentiality"
+    },
+    {
+      "label": "Privacy",
+      "file_type": "document",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L40",
+      "id": "security_soc2_readiness_matrix_privacy",
+      "community": 13,
+      "norm_label": "privacy"
+    },
+    {
+      "label": "Gesamteinsch\u00e4tzung",
+      "file_type": "document",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L46",
+      "id": "security_soc2_readiness_matrix_gesamteinsch\u00e4tzung",
+      "community": 13,
+      "norm_label": "gesamteinschatzung"
+    },
+    {
+      "label": "THREAT_MODEL.md",
+      "file_type": "document",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L1",
+      "id": "threat_model_md",
+      "community": 8,
+      "norm_label": "threat_model.md"
+    },
+    {
+      "label": "Threat Model \u2014 Historical Affiliate Program (STRIDE)",
+      "file_type": "document",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L1",
+      "id": "security_threat_model_threat_model_historical_affiliate_program_stride",
+      "community": 8,
+      "norm_label": "threat model \u2014 historical affiliate program (stride)"
+    },
+    {
+      "label": "1. System Context",
+      "file_type": "document",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L6",
+      "id": "security_threat_model_1_system_context",
+      "community": 8,
+      "norm_label": "1. system context"
+    },
+    {
+      "label": "code:block1 (\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510)",
+      "file_type": "document",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L8",
+      "id": "security_threat_model_codeblock_1",
+      "community": 8,
+      "norm_label": "code:block1 (\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510)"
+    },
+    {
+      "label": "2. Assets & Schutzbedarf",
+      "file_type": "document",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L24",
+      "id": "security_threat_model_2_assets_schutzbedarf",
+      "community": 8,
+      "norm_label": "2. assets & schutzbedarf"
+    },
+    {
+      "label": "3. Trust Boundaries",
+      "file_type": "document",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L37",
+      "id": "security_threat_model_3_trust_boundaries",
+      "community": 8,
+      "norm_label": "3. trust boundaries"
+    },
+    {
+      "label": "4. STRIDE",
+      "file_type": "document",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L57",
+      "id": "security_threat_model_4_stride",
+      "community": 8,
+      "norm_label": "4. stride"
+    },
+    {
+      "label": "5. Abuse & Fraud Cases",
+      "file_type": "document",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L75",
+      "id": "security_threat_model_5_abuse_fraud_cases",
+      "community": 8,
+      "norm_label": "5. abuse & fraud cases"
+    },
+    {
+      "label": "6. Single Points of Failure / kritische Abh\u00e4ngigkeiten",
+      "file_type": "document",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L79",
+      "id": "security_threat_model_6_single_points_of_failure_kritische_abh\u00e4ngigkeiten",
+      "community": 8,
+      "norm_label": "6. single points of failure / kritische abhangigkeiten"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ASVS_5_MATRIX.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "asvs_5_matrix_md",
+      "target": "security_asvs_5_matrix_owasp_asvs_5_0_0_mapping_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ASVS_5_MATRIX.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "security_asvs_5_matrix_owasp_asvs_5_0_0_mapping_affiliate_program",
+      "target": "security_asvs_5_matrix_level_3_relevante_vertiefung_zahlungs_finanz_admin_integrit\u00e4tsbereich",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ASVS_5_MATRIX.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "security_asvs_5_matrix_owasp_asvs_5_0_0_mapping_affiliate_program",
+      "target": "security_asvs_5_matrix_zusammenfassung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ASVS_CORE_APP_ADDENDUM.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "asvs_core_app_addendum_md",
+      "target": "security_asvs_core_app_addendum_owasp_asvs_5_0_0_addendum_downloader_kern_on_device_server",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ASVS_CORE_APP_ADDENDUM.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "security_asvs_core_app_addendum_owasp_asvs_5_0_0_addendum_downloader_kern_on_device_server",
+      "target": "security_asvs_core_app_addendum_zusammenfassung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "attack_surface_md",
+      "target": "security_attack_surface_attack_surface_map_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "security_attack_surface_attack_surface_map_affiliate_program",
+      "target": "security_attack_surface_\u00f6ffentlich_erreichbare_http_endpunkte_kein_auth_erforderlich",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "security_attack_surface_attack_surface_map_affiliate_program",
+      "target": "security_attack_surface_session_gesch\u00fctzte_endpunkte_partner_rolle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "security_attack_surface_attack_surface_map_affiliate_program",
+      "target": "security_attack_surface_session_gesch\u00fctzte_endpunkte_admin_rolle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "security_attack_surface_attack_surface_map_affiliate_program",
+      "target": "security_attack_surface_android_angriffsfl\u00e4che",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "security_attack_surface_attack_surface_map_affiliate_program",
+      "target": "security_attack_surface_cloudflare_plattform_angriffsfl\u00e4che",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ATTACK_SURFACE.md",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "security_attack_surface_attack_surface_map_affiliate_program",
+      "target": "security_attack_surface_externe_abh\u00e4ngigkeiten_als_indirekte_angriffsfl\u00e4che",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "backup_restore_test_md",
+      "target": "security_backup_restore_test_backup_restore_plan_und_lokale_verifikation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "security_backup_restore_test_backup_restore_plan_und_lokale_verifikation",
+      "target": "security_backup_restore_test_was_in_dieser_sitzung_gepr\u00fcft_werden_konnte",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "security_backup_restore_test_backup_restore_plan_und_lokale_verifikation",
+      "target": "security_backup_restore_test_was_nicht_gepr\u00fcft_werden_konnte_erfordert_produktionszugriff",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "security_backup_restore_test_backup_restore_plan_und_lokale_verifikation",
+      "target": "security_backup_restore_test_empfohlener_praxistest_vor_produktionsfreigabe_aus_handover_6_5_weiterhin_verbindlich",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "security_backup_restore_test_was_in_dieser_sitzung_gepr\u00fcft_werden_konnte",
+      "target": "security_backup_restore_test_1_migrationen_sind_idempotent_additiv_und_reproduzierbar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "security_backup_restore_test_was_in_dieser_sitzung_gepr\u00fcft_werden_konnte",
+      "target": "security_backup_restore_test_2_datenintegrit\u00e4t_nach_simuliertem_restore_ist_\u00fcber_die_hash_ketten_nachweisbar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BACKUP_RESTORE_TEST.md",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "security_backup_restore_test_was_in_dieser_sitzung_gepr\u00fcft_werden_konnte",
+      "target": "security_backup_restore_test_3_reconciliation_nach_restore_erkennt_drift_gegen\u00fcber_stripe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "business_logic_abuse_cases_md",
+      "target": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_eigenk\u00e4ufe_self_referral",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_k\u00e4ufer_partner_absprache",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_cookie_stuffing_web",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_cookie_stuffing_android_siehe_aff_002",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_partnercode_guessing_hijacking",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_nachtr\u00e4gliche_attribution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_doppelte_conversions_webhook_replay",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_webhook_out_of_order_delivery",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_parallele_checkouts_parallele_refunds",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_tier_manipulation_umgehung_des_50_eur_limits",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_manipulation_negativer_salden_teil_refund_missbrauch_dispute_restore_missbrauch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_auszahlung_nach_partnersperre",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "BUSINESS_LOGIC_ABUSE_CASES.md",
+      "source_location": "L97",
+      "weight": 1.0,
+      "source": "security_business_logic_abuse_cases_business_logic_fraud_abuse_cases_affiliate_program",
+      "target": "security_business_logic_abuse_cases_integer_rundungs_und_extremwertfehler",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "certification_ladder_md",
+      "target": "security_certification_ladder_pr\u00fcf_zertifizierungs_leiter_downloadthat_classydl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "security_certification_ladder_pr\u00fcf_zertifizierungs_leiter_downloadthat_classydl",
+      "target": "security_certification_ladder_l0_selbst_assessment_transparenz_kostenlos_basis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "security_certification_ladder_pr\u00fcf_zertifizierungs_leiter_downloadthat_classydl",
+      "target": "security_certification_ladder_l1_automatisierte_verifikation_in_ci_hoher_nutzen_kosten",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "security_certification_ladder_pr\u00fcf_zertifizierungs_leiter_downloadthat_classydl",
+      "target": "security_certification_ladder_l2_unabh\u00e4ngige_pr\u00fcfung_einmalig_mittlere_kosten_mid_4_stellig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "security_certification_ladder_pr\u00fcf_zertifizierungs_leiter_downloadthat_classydl",
+      "target": "security_certification_ladder_l3_formale_siegel_teuer_org_prozessgebunden_realit\u00e4ts_check",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "security_certification_ladder_pr\u00fcf_zertifizierungs_leiter_downloadthat_classydl",
+      "target": "security_certification_ladder_rolle_b_zertifizierer_was_verlangt_welcher_standard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CERTIFICATION_LADDER.md",
+      "source_location": "L99",
+      "weight": 1.0,
+      "source": "security_certification_ladder_pr\u00fcf_zertifizierungs_leiter_downloadthat_classydl",
+      "target": "security_certification_ladder_empfohlene_reihenfolge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CRA_GAP_ANALYSIS.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "cra_gap_analysis_md",
+      "target": "security_cra_gap_analysis_eu_cyber_resilience_act_cra_gap_analyse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CRA_GAP_ANALYSIS.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "security_cra_gap_analysis_eu_cyber_resilience_act_cra_gap_analyse",
+      "target": "security_cra_gap_analysis_priorisierte_l\u00fccken_bis_2027",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CRA_GAP_ANALYSIS.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "security_cra_gap_analysis_eu_cyber_resilience_act_cra_gap_analyse",
+      "target": "security_cra_gap_analysis_einordnung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "data_flow_and_trust_boundaries_md",
+      "target": "security_data_flow_and_trust_boundaries_data_flow_and_trust_boundaries_historical_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_data_flow_and_trust_boundaries_historical_affiliate_program",
+      "target": "security_data_flow_and_trust_boundaries_1_klick_attribution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_data_flow_and_trust_boundaries_historical_affiliate_program",
+      "target": "security_data_flow_and_trust_boundaries_2_checkout_provisions_draft",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_data_flow_and_trust_boundaries_historical_affiliate_program",
+      "target": "security_data_flow_and_trust_boundaries_3_stripe_webhook_provisions_zeile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_data_flow_and_trust_boundaries_historical_affiliate_program",
+      "target": "security_data_flow_and_trust_boundaries_4_reconciliation_30_tage_sp\u00e4ter_provisions_freigabe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_data_flow_and_trust_boundaries_historical_affiliate_program",
+      "target": "security_data_flow_and_trust_boundaries_5_auszahlung_maker_checker",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_data_flow_and_trust_boundaries_historical_affiliate_program",
+      "target": "security_data_flow_and_trust_boundaries_6_partner_admin_dashboard_anzeige",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L78",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_data_flow_and_trust_boundaries_historical_affiliate_program",
+      "target": "security_data_flow_and_trust_boundaries_7_android_website",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_data_flow_and_trust_boundaries_historical_affiliate_program",
+      "target": "security_data_flow_and_trust_boundaries_zusammenfassung_der_trust_boundaries",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_1_klick_attribution",
+      "target": "security_data_flow_and_trust_boundaries_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_2_checkout_provisions_draft",
+      "target": "security_data_flow_and_trust_boundaries_codeblock_2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_3_stripe_webhook_provisions_zeile",
+      "target": "security_data_flow_and_trust_boundaries_codeblock_3",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_4_reconciliation_30_tage_sp\u00e4ter_provisions_freigabe",
+      "target": "security_data_flow_and_trust_boundaries_codeblock_4",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_5_auszahlung_maker_checker",
+      "target": "security_data_flow_and_trust_boundaries_codeblock_5",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_6_partner_admin_dashboard_anzeige",
+      "target": "security_data_flow_and_trust_boundaries_codeblock_6",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DATA_FLOW_AND_TRUST_BOUNDARIES.md",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "security_data_flow_and_trust_boundaries_7_android_website",
+      "target": "security_data_flow_and_trust_boundaries_codeblock_7",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DRM_CIRCUMVENTION_AUDIT.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "drm_circumvention_audit_md",
+      "target": "security_drm_circumvention_audit_drm_technical_protection_measure_circumvention_audit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DRM_CIRCUMVENTION_AUDIT.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "security_drm_circumvention_audit_drm_technical_protection_measure_circumvention_audit",
+      "target": "security_drm_circumvention_audit_ergebnis_keine_drm_tpm_umgehung_im_code",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DRM_CIRCUMVENTION_AUDIT.md",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "security_drm_circumvention_audit_drm_technical_protection_measure_circumvention_audit",
+      "target": "security_drm_circumvention_audit_wichtige_nuance_f\u00fcr_die_anwaltliche_bewertung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "DRM_CIRCUMVENTION_AUDIT.md",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "security_drm_circumvention_audit_drm_technical_protection_measure_circumvention_audit",
+      "target": "security_drm_circumvention_audit_erhaltungsauflage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "evidence_index_md",
+      "target": "security_evidence_index_evidence_index_security_assessments",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "security_evidence_index_evidence_index_security_assessments",
+      "target": "security_evidence_index_code_\u00e4nderungen_diff_dieser_pr\u00fcfung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "security_evidence_index_evidence_index_security_assessments",
+      "target": "security_evidence_index_testnachweise_mit_ausf\u00fchrungsergebnis_am_ende_dieser_pr\u00fcfung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "security_evidence_index_evidence_index_security_assessments",
+      "target": "security_evidence_index_sbom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "security_evidence_index_evidence_index_security_assessments",
+      "target": "security_evidence_index_sub_agent_reviews_rohbefunde_in_die_obigen_dokumente_konsolidiert",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EVIDENCE_INDEX.md",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "security_evidence_index_evidence_index_security_assessments",
+      "target": "security_evidence_index_nicht_code_referenzen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "executive_security_summary_md",
+      "target": "security_executive_security_summary_executive_security_summary_downloadthat_creator_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "security_executive_security_summary_executive_security_summary_downloadthat_creator_affiliate_program",
+      "target": "security_executive_security_summary_kurzfassung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "security_executive_security_summary_executive_security_summary_downloadthat_creator_affiliate_program",
+      "target": "security_executive_security_summary_ergebnis_in_einem_satz",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "security_executive_security_summary_executive_security_summary_downloadthat_creator_affiliate_program",
+      "target": "security_executive_security_summary_wichtigste_befunde",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "security_executive_security_summary_executive_security_summary_downloadthat_creator_affiliate_program",
+      "target": "security_executive_security_summary_was_mathematisch_verifiziert_wurde",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "security_executive_security_summary_executive_security_summary_downloadthat_creator_affiliate_program",
+      "target": "security_executive_security_summary_was_nicht_in_dieser_sitzung_geleistet_werden_konnte_und_warum",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "security_executive_security_summary_executive_security_summary_downloadthat_creator_affiliate_program",
+      "target": "security_executive_security_summary_go_no_go_einsch\u00e4tzung_dieser_pr\u00fcfung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "EXECUTIVE_SECURITY_SUMMARY.md",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "security_executive_security_summary_executive_security_summary_downloadthat_creator_affiliate_program",
+      "target": "security_executive_security_summary_zul\u00e4ssige_formulierungen_siehe_handover_md_13",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "google_play_security_architecture_md",
+      "target": "security_google_play_security_architecture_google_play_security_architecture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "security_google_play_security_architecture_google_play_security_architecture",
+      "target": "security_google_play_security_architecture_vertrauensgrenzen_und_assets",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "security_google_play_security_architecture_google_play_security_architecture",
+      "target": "security_google_play_security_architecture_verbindliche_kontrollen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "security_google_play_security_architecture_google_play_security_architecture",
+      "target": "security_google_play_security_architecture_release_und_betriebs_gates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "security_google_play_security_architecture_google_play_security_architecture",
+      "target": "security_google_play_security_architecture_bewusst_verbleibende_risiken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "GOOGLE_PLAY_SECURITY_ARCHITECTURE.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "security_google_play_security_architecture_vertrauensgrenzen_und_assets",
+      "target": "security_google_play_security_architecture_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "incident_response_plan_md",
+      "target": "security_incident_response_plan_incident_response_plan_draft_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "security_incident_response_plan_incident_response_plan_draft_affiliate_program",
+      "target": "security_incident_response_plan_ausl\u00f6ser_erkennungssignale",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "security_incident_response_plan_incident_response_plan_draft_affiliate_program",
+      "target": "security_incident_response_plan_runbook_1_auszahlungssperre_payout_frozen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "security_incident_response_plan_incident_response_plan_draft_affiliate_program",
+      "target": "security_incident_response_plan_runbook_2_kompromittiertes_partnerkonto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "security_incident_response_plan_incident_response_plan_draft_affiliate_program",
+      "target": "security_incident_response_plan_runbook_3_kompromittierte_admin_e_mail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "security_incident_response_plan_incident_response_plan_draft_affiliate_program",
+      "target": "security_incident_response_plan_runbook_4_stripe_cloudflare_resend_ausfall",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "security_incident_response_plan_incident_response_plan_draft_affiliate_program",
+      "target": "security_incident_response_plan_notfallabschaltung_kill_switch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "INCIDENT_RESPONSE_PLAN.md",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "security_incident_response_plan_incident_response_plan_draft_affiliate_program",
+      "target": "security_incident_response_plan_offene_organisatorische_punkte_nicht_durch_code_l\u00f6sbar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ISO27001_READINESS_MATRIX.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "iso27001_readiness_matrix_md",
+      "target": "security_iso27001_readiness_matrix_iso_iec_27001_2022_readiness_matrix_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ISO27001_READINESS_MATRIX.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "security_iso27001_readiness_matrix_iso_iec_27001_2022_readiness_matrix_affiliate_program",
+      "target": "security_iso27001_readiness_matrix_gesamteinsch\u00e4tzung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "MASVS_MATRIX.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "masvs_matrix_md",
+      "target": "security_masvs_matrix_owasp_masvs_mapping_android_app_de_classydl_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "MASVS_MATRIX.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "security_masvs_matrix_owasp_masvs_mapping_android_app_de_classydl_app",
+      "target": "security_masvs_matrix_zusammenfassung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "nist_ssdf_matrix_md",
+      "target": "security_nist_ssdf_matrix_nist_sp_800_218_ssdf_1_1_mapping_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "security_nist_ssdf_matrix_nist_sp_800_218_ssdf_1_1_mapping_affiliate_program",
+      "target": "security_nist_ssdf_matrix_po_prepare_the_organization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "security_nist_ssdf_matrix_nist_sp_800_218_ssdf_1_1_mapping_affiliate_program",
+      "target": "security_nist_ssdf_matrix_ps_protect_software",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "security_nist_ssdf_matrix_nist_sp_800_218_ssdf_1_1_mapping_affiliate_program",
+      "target": "security_nist_ssdf_matrix_pw_produce_well_secured_software",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "security_nist_ssdf_matrix_nist_sp_800_218_ssdf_1_1_mapping_affiliate_program",
+      "target": "security_nist_ssdf_matrix_rv_respond_to_vulnerabilities",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NIST_SSDF_MATRIX.md",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "security_nist_ssdf_matrix_nist_sp_800_218_ssdf_1_1_mapping_affiliate_program",
+      "target": "security_nist_ssdf_matrix_l\u00fccken_folgearbeiten",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PCI_SCOPE_ASSESSMENT.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "pci_scope_assessment_md",
+      "target": "security_pci_scope_assessment_pci_dss_scope_assessment_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PCI_SCOPE_ASSESSMENT.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "security_pci_scope_assessment_pci_dss_scope_assessment_affiliate_program",
+      "target": "security_pci_scope_assessment_kartendaten_fluss_tats\u00e4chlicher_code_nachweis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PCI_SCOPE_ASSESSMENT.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "security_pci_scope_assessment_pci_dss_scope_assessment_affiliate_program",
+      "target": "security_pci_scope_assessment_vorl\u00e4ufige_einsch\u00e4tzung_nicht_verbindlich",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PCI_SCOPE_ASSESSMENT.md",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "security_pci_scope_assessment_pci_dss_scope_assessment_affiliate_program",
+      "target": "security_pci_scope_assessment_was_diese_pr\u00fcfung_nicht_leisten_kann",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PCI_SCOPE_ASSESSMENT.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "security_pci_scope_assessment_pci_dss_scope_assessment_affiliate_program",
+      "target": "security_pci_scope_assessment_empfehlung_vor_produktionsfreigabe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_PLAN.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "penetration_test_plan_md",
+      "target": "security_penetration_test_plan_penetration_test_plan_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_PLAN.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "security_penetration_test_plan_penetration_test_plan_affiliate_program",
+      "target": "security_penetration_test_plan_scope",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_PLAN.md",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "security_penetration_test_plan_penetration_test_plan_affiliate_program",
+      "target": "security_penetration_test_plan_methodik",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_PLAN.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "security_penetration_test_plan_penetration_test_plan_affiliate_program",
+      "target": "security_penetration_test_plan_gepr\u00fcfte_kategorien_mapping_auf_handover_8_2_8_3",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_PLAN.md",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "security_penetration_test_plan_penetration_test_plan_affiliate_program",
+      "target": "security_penetration_test_plan_werkzeuge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "penetration_test_results_md",
+      "target": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "target": "security_penetration_test_results_aff_001_stored_xss_im_partner_admin_dashboard_p1_high",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "target": "security_penetration_test_results_aff_002_android_explicit_intent_umgeht_app_link_verifikation_p2_dokumentiertes_restrisiko",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "target": "security_penetration_test_results_aff_003_race_condition_doppelte_clawback_anwendung_bei_parallelen_webhook_zustellungen_p2_medium",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L133",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "target": "security_penetration_test_results_aff_004_kein_rate_limiting_auf_auth_registrierungs_endpunkten_p2_medium",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L171",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "target": "security_penetration_test_results_aff_005_github_actions_nicht_sha_gepinnt_ungepinnter_wrangler_download_mit_secrets_im_scope_p2_medium",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L214",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "target": "security_penetration_test_results_aff_006_secret_scan_test_blinder_fleck_bei_turnstile_regexbasiert_umgehbar_p2_medium",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L243",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "target": "security_penetration_test_results_aff_007_totes_code_duplikat_mit_latentem_bug_p3_low",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L271",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "target": "security_penetration_test_results_aff_008_android_case_sensitive_host_vergleich_p3_low",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L293",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "target": "security_penetration_test_results_aff_012_stacktrace_leak_in_webhook_fehlerantwort_p3_low",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L315",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "target": "security_penetration_test_results_aff_009_aff_010_aff_011",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L323",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_affiliate_program_penetration_test_results_internal_assessment",
+      "target": "security_penetration_test_results_was_gepr\u00fcft_und_f\u00fcr_unauff\u00e4llig_befunden_wurde_kein_finding",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_aff_002_android_explicit_intent_umgeht_app_link_verifikation_p2_dokumentiertes_restrisiko",
+      "target": "security_penetration_test_results_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PENETRATION_TEST_RESULTS.md",
+      "source_location": "L200",
+      "weight": 1.0,
+      "source": "security_penetration_test_results_aff_005_github_actions_nicht_sha_gepinnt_ungepinnter_wrangler_download_mit_secrets_im_scope_p2_medium",
+      "target": "security_penetration_test_results_codeblock_2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "privacy_and_data_retention_review_md",
+      "target": "security_privacy_and_data_retention_review_privacy_data_retention_review_historical_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "security_privacy_and_data_retention_review_privacy_data_retention_review_historical_affiliate_program",
+      "target": "security_privacy_and_data_retention_review_dateninventar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "security_privacy_and_data_retention_review_privacy_data_retention_review_historical_affiliate_program",
+      "target": "security_privacy_and_data_retention_review_zweckbindung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "security_privacy_and_data_retention_review_privacy_data_retention_review_historical_affiliate_program",
+      "target": "security_privacy_and_data_retention_review_l\u00f6schfristen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "security_privacy_and_data_retention_review_privacy_data_retention_review_historical_affiliate_program",
+      "target": "security_privacy_and_data_retention_review_betroffenenrechte",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "security_privacy_and_data_retention_review_privacy_data_retention_review_historical_affiliate_program",
+      "target": "security_privacy_and_data_retention_review_drittlandtransfer_auftragsverarbeiter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PRIVACY_AND_DATA_RETENTION_REVIEW.md",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "security_privacy_and_data_retention_review_privacy_data_retention_review_historical_affiliate_program",
+      "target": "security_privacy_and_data_retention_review_pseudonymisierung_hashing_best\u00e4tigt_korrekt_umgesetzt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PRODUCTION_SECURITY_CHECKLIST.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "production_security_checklist_md",
+      "target": "security_production_security_checklist_production_security_checklist_historical_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PRODUCTION_SECURITY_CHECKLIST.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "security_production_security_checklist_production_security_checklist_historical_affiliate_program",
+      "target": "security_production_security_checklist_durch_diese_pr\u00fcfung_erledigt_verifiziert",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PRODUCTION_SECURITY_CHECKLIST.md",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "security_production_security_checklist_production_security_checklist_historical_affiliate_program",
+      "target": "security_production_security_checklist_vor_produktionsaktivierung_weiterhin_zwingend_erforderlich_nicht_durch_diese_sitzung_leistbar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PRODUCTION_SECURITY_CHECKLIST.md",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "security_production_security_checklist_production_security_checklist_historical_affiliate_program",
+      "target": "security_production_security_checklist_automatisches_no_go_aus_handover_12_unver\u00e4ndert_g\u00fcltig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "red_team_report_core_app_md",
+      "target": "security_red_team_report_core_app_red_team_report_downloader_kern_on_device_server_android_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_red_team_report_downloader_kern_on_device_server_android_app",
+      "target": "security_red_team_report_core_app_auftrag_bewusst_gegnerisch_formuliert",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_red_team_report_downloader_kern_on_device_server_android_app",
+      "target": "security_red_team_report_core_app_ergebnis_auf_einen_blick",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_red_team_report_downloader_kern_on_device_server_android_app",
+      "target": "security_red_team_report_core_app_reproduzierbares_poc_harness",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_red_team_report_downloader_kern_on_device_server_android_app",
+      "target": "security_red_team_report_core_app_detail_findings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L152",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_red_team_report_downloader_kern_on_device_server_android_app",
+      "target": "security_red_team_report_core_app_fazit_des_red_teams",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_reproduzierbares_poc_harness",
+      "target": "security_red_team_report_core_app_vorher_ist_zustand",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_reproduzierbares_poc_harness",
+      "target": "security_red_team_report_core_app_nachher_nach_h\u00e4rtung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_vorher_ist_zustand",
+      "target": "security_red_team_report_core_app_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_nachher_nach_h\u00e4rtung",
+      "target": "security_red_team_report_core_app_codeblock_2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L70",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_detail_findings",
+      "target": "security_red_team_report_core_app_a1_lizenzschl\u00fcssel_von_aussen_generierbar_widerlegt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_detail_findings",
+      "target": "security_red_team_report_core_app_a2_pro_freischaltung_lokal_umgehbar_best\u00e4tigt_design_trade_off",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L92",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_detail_findings",
+      "target": "security_red_team_report_core_app_a3_ssrf_\u00fcber_api_scrape_best\u00e4tigt_behoben",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L106",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_detail_findings",
+      "target": "security_red_team_report_core_app_a4_lokale_daten_f\u00fcr_co_tenant_lesbar_best\u00e4tigt_behoben",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_detail_findings",
+      "target": "security_red_team_report_core_app_a5_passwort_leak_\u00fcber_auto_login_url_best\u00e4tigt_behoben",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_detail_findings",
+      "target": "security_red_team_report_core_app_a6_login_brute_force_bar_widerlegt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L129",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_detail_findings",
+      "target": "security_red_team_report_core_app_a7_clickjacking_fehlende_header_best\u00e4tigt_behoben",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L135",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_detail_findings",
+      "target": "security_red_team_report_core_app_a8_path_traversal_download_static_widerlegt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L140",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_detail_findings",
+      "target": "security_red_team_report_core_app_a9_supply_chain_\u00fcber_yt_dlp_self_update_widerlegt_in_scope",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RED_TEAM_REPORT_CORE_APP.md",
+      "source_location": "L145",
+      "weight": 1.0,
+      "source": "security_red_team_report_core_app_detail_findings",
+      "target": "security_red_team_report_core_app_a10_stripe_webhook_f\u00e4lschbar_widerlegt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "residual_risk_acceptance_md",
+      "target": "security_residual_risk_acceptance_residual_risk_acceptance_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "security_residual_risk_acceptance_residual_risk_acceptance_affiliate_program",
+      "target": "security_residual_risk_acceptance_aff_002_android_app_link_attribution_via_explicit_intent_f\u00e4lschbar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "security_residual_risk_acceptance_residual_risk_acceptance_affiliate_program",
+      "target": "security_residual_risk_acceptance_aff_005_github_actions_nicht_sha_gepinnt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "security_residual_risk_acceptance_residual_risk_acceptance_affiliate_program",
+      "target": "security_residual_risk_acceptance_aff_009_app_links_zertifikatsverifikation_abh\u00e4ngig_von_produktionsvariable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "security_residual_risk_acceptance_residual_risk_acceptance_affiliate_program",
+      "target": "security_residual_risk_acceptance_aff_010_csp_erlaubt_unsafe_inline_f\u00fcr_script_src",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "security_residual_risk_acceptance_residual_risk_acceptance_affiliate_program",
+      "target": "security_residual_risk_acceptance_aff_011_login_csrf_magic_link_phishing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "security_residual_risk_acceptance_residual_risk_acceptance_affiliate_program",
+      "target": "security_residual_risk_acceptance_core_001_pro_freischaltung_client_seitig_durchgesetzt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RESIDUAL_RISK_ACCEPTANCE.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "security_residual_risk_acceptance_residual_risk_acceptance_affiliate_program",
+      "target": "security_residual_risk_acceptance_core_002_keine_verschl\u00fcsselung_lokaler_daten_at_rest_http_auf_loopback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RISK_REGISTER.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "risk_register_md",
+      "target": "security_risk_register_affiliate_program_risk_findings_register",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RISK_REGISTER.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "security_risk_register_affiliate_program_risk_findings_register",
+      "target": "security_risk_register_einordnung_nach_handover_md_schweregradskala",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RISK_REGISTER.md",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "security_risk_register_affiliate_program_risk_findings_register",
+      "target": "security_risk_register_gesamtstatus_kanonisch_massgeblich_f\u00fcr_jede_zusammenfassung_dieser_pr\u00fcfung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RISK_REGISTER.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "security_risk_register_affiliate_program_risk_findings_register",
+      "target": "security_risk_register_warum_aff_002_nicht_als_blockierendes_p1_eingestuft_wird",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SECURITY_ASSESSMENT_REPORT.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "security_assessment_report_md",
+      "target": "security_security_assessment_report_security_assessment_report_downloadthat_creator_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SECURITY_ASSESSMENT_REPORT.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "security_security_assessment_report_security_assessment_report_downloadthat_creator_affiliate_program",
+      "target": "security_security_assessment_report_vorgehen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SECURITY_ASSESSMENT_REPORT.md",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "security_security_assessment_report_security_assessment_report_downloadthat_creator_affiliate_program",
+      "target": "security_security_assessment_report_ergebnis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SECURITY_ASSESSMENT_REPORT.md",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "security_security_assessment_report_security_assessment_report_downloadthat_creator_affiliate_program",
+      "target": "security_security_assessment_report_was_diese_pr\u00fcfung_ausdr\u00fccklich_nicht_ist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SECURITY_ASSESSMENT_REPORT.md",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "security_security_assessment_report_security_assessment_report_downloadthat_creator_affiliate_program",
+      "target": "security_security_assessment_report_definition_of_done_abgleich",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "soc2_readiness_matrix_md",
+      "target": "security_soc2_readiness_matrix_soc_2_readiness_matrix_affiliate_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "security_soc2_readiness_matrix_soc_2_readiness_matrix_affiliate_program",
+      "target": "security_soc2_readiness_matrix_security_common_criteria",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "security_soc2_readiness_matrix_soc_2_readiness_matrix_affiliate_program",
+      "target": "security_soc2_readiness_matrix_availability",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "security_soc2_readiness_matrix_soc_2_readiness_matrix_affiliate_program",
+      "target": "security_soc2_readiness_matrix_processing_integrity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "security_soc2_readiness_matrix_soc_2_readiness_matrix_affiliate_program",
+      "target": "security_soc2_readiness_matrix_confidentiality",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "security_soc2_readiness_matrix_soc_2_readiness_matrix_affiliate_program",
+      "target": "security_soc2_readiness_matrix_privacy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOC2_READINESS_MATRIX.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "security_soc2_readiness_matrix_soc_2_readiness_matrix_affiliate_program",
+      "target": "security_soc2_readiness_matrix_gesamteinsch\u00e4tzung",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "threat_model_md",
+      "target": "security_threat_model_threat_model_historical_affiliate_program_stride",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "security_threat_model_threat_model_historical_affiliate_program_stride",
+      "target": "security_threat_model_1_system_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "security_threat_model_threat_model_historical_affiliate_program_stride",
+      "target": "security_threat_model_2_assets_schutzbedarf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "security_threat_model_threat_model_historical_affiliate_program_stride",
+      "target": "security_threat_model_3_trust_boundaries",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "security_threat_model_threat_model_historical_affiliate_program_stride",
+      "target": "security_threat_model_4_stride",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "security_threat_model_threat_model_historical_affiliate_program_stride",
+      "target": "security_threat_model_5_abuse_fraud_cases",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "security_threat_model_threat_model_historical_affiliate_program_stride",
+      "target": "security_threat_model_6_single_points_of_failure_kritische_abh\u00e4ngigkeiten",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "THREAT_MODEL.md",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "security_threat_model_1_system_context",
+      "target": "security_threat_model_codeblock_1",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "6a8e0b8841dbdbdb492a5008818696bdeca8b65f"
+}

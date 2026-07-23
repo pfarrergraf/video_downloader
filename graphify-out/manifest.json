@@ -1,0 +1,110 @@
+{
+  "C:\\ai\\video_downloader\\security\\ASVS_5_MATRIX.md": {
+    "mtime": 1783969761.2131317,
+    "hash": "2cf3595da8aa810b5a282ff15353184e"
+  },
+  "C:\\ai\\video_downloader\\security\\ASVS_CORE_APP_ADDENDUM.md": {
+    "mtime": 1784022282.0658996,
+    "hash": "944e4618d4f5b53644fc685b30a1da67"
+  },
+  "C:\\ai\\video_downloader\\security\\ATTACK_SURFACE.md": {
+    "mtime": 1783969761.214139,
+    "hash": "dcdda7057e823d631271b4537cdfbc5d"
+  },
+  "C:\\ai\\video_downloader\\security\\BACKUP_RESTORE_TEST.md": {
+    "mtime": 1783969761.2151515,
+    "hash": "2b8c5cd3fbf9933f75894b8795374e6b"
+  },
+  "C:\\ai\\video_downloader\\security\\BUSINESS_LOGIC_ABUSE_CASES.md": {
+    "mtime": 1783969761.2151515,
+    "hash": "bb33674a559d4f28ac63178bfae5224f"
+  },
+  "C:\\ai\\video_downloader\\security\\CERTIFICATION_LADDER.md": {
+    "mtime": 1784022282.0658996,
+    "hash": "79715350665ddebecc3dd8c7e18019d4"
+  },
+  "C:\\ai\\video_downloader\\security\\CRA_GAP_ANALYSIS.md": {
+    "mtime": 1784022282.0658996,
+    "hash": "48d82ab11d8660ff6dc87d972523fad6"
+  },
+  "C:\\ai\\video_downloader\\security\\DATA_FLOW_AND_TRUST_BOUNDARIES.md": {
+    "mtime": 1784027970.2060168,
+    "hash": "96934192648ab89c89588e2a62dd12af"
+  },
+  "C:\\ai\\video_downloader\\security\\DRM_CIRCUMVENTION_AUDIT.md": {
+    "mtime": 1784022282.066912,
+    "hash": "47e6b81e5e6bab3528d994116cd384e2"
+  },
+  "C:\\ai\\video_downloader\\security\\EVIDENCE_INDEX.md": {
+    "mtime": 1784027970.2090156,
+    "hash": "ceb7ce089192f08354fad39abba0d6fb"
+  },
+  "C:\\ai\\video_downloader\\security\\EXECUTIVE_SECURITY_SUMMARY.md": {
+    "mtime": 1783969761.2171826,
+    "hash": "3c62207f325364c23b09c2a20126129e"
+  },
+  "C:\\ai\\video_downloader\\security\\GOOGLE_PLAY_SECURITY_ARCHITECTURE.md": {
+    "mtime": 1784027925.2642865,
+    "hash": "ba8749330a4070b5754fc35fdd57f7a4"
+  },
+  "C:\\ai\\video_downloader\\security\\INCIDENT_RESPONSE_PLAN.md": {
+    "mtime": 1783969761.2176864,
+    "hash": "7a31aef786e2b00b66687b2638d274bf"
+  },
+  "C:\\ai\\video_downloader\\security\\ISO27001_READINESS_MATRIX.md": {
+    "mtime": 1783969761.2181861,
+    "hash": "1750e58c60c0d06692a87504ba91d34d"
+  },
+  "C:\\ai\\video_downloader\\security\\MASVS_MATRIX.md": {
+    "mtime": 1784022282.066912,
+    "hash": "5a818716022f01af40c47cf9cb30c857"
+  },
+  "C:\\ai\\video_downloader\\security\\NIST_SSDF_MATRIX.md": {
+    "mtime": 1783969761.218686,
+    "hash": "c616139b39b6d00769cfceed43eace3c"
+  },
+  "C:\\ai\\video_downloader\\security\\PCI_SCOPE_ASSESSMENT.md": {
+    "mtime": 1783969761.2191885,
+    "hash": "a700f03e5c20063cbe6b70b3cb457fd5"
+  },
+  "C:\\ai\\video_downloader\\security\\PENETRATION_TEST_PLAN.md": {
+    "mtime": 1783969761.2191885,
+    "hash": "f744bd6b72e5586e4b373e3718570ef8"
+  },
+  "C:\\ai\\video_downloader\\security\\PENETRATION_TEST_RESULTS.md": {
+    "mtime": 1783969761.220196,
+    "hash": "80a7c278cb46d44e08129764fbbdfe22"
+  },
+  "C:\\ai\\video_downloader\\security\\PRIVACY_AND_DATA_RETENTION_REVIEW.md": {
+    "mtime": 1784027970.2075171,
+    "hash": "8ed9e8c1bcb6721236d54e10e432a2e4"
+  },
+  "C:\\ai\\video_downloader\\security\\PRODUCTION_SECURITY_CHECKLIST.md": {
+    "mtime": 1784027970.2080183,
+    "hash": "5e2bcb80a139eac3b77b62817753bbb8"
+  },
+  "C:\\ai\\video_downloader\\security\\RED_TEAM_REPORT_CORE_APP.md": {
+    "mtime": 1784022282.066912,
+    "hash": "399a73cd7bfc0c6ac22cc4b92477c157"
+  },
+  "C:\\ai\\video_downloader\\security\\RESIDUAL_RISK_ACCEPTANCE.md": {
+    "mtime": 1784022282.0679219,
+    "hash": "46649103b4508763ad848628babd016e"
+  },
+  "C:\\ai\\video_downloader\\security\\RISK_REGISTER.md": {
+    "mtime": 1783969761.2222116,
+    "hash": "41cf48897c3901233f8fe70a05426de8"
+  },
+  "C:\\ai\\video_downloader\\security\\SECURITY_ASSESSMENT_REPORT.md": {
+    "mtime": 1783969761.2222116,
+    "hash": "84c982fcffe5b7835a20588d10d0b83a"
+  },
+  "C:\\ai\\video_downloader\\security\\SOC2_READINESS_MATRIX.md": {
+    "mtime": 1783969761.2232246,
+    "hash": "aa78cbe60fb86172330990d81495e32e"
+  },
+  "C:\\ai\\video_downloader\\security\\THREAT_MODEL.md": {
+    "mtime": 1784027970.2065153,
+    "hash": "64744414d09be585f1e92b246165060c"
+  }
+}
