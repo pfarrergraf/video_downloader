@@ -157,3 +157,6 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   alle Builds, traf nach dem absichtlichen App-Neustart aber eine transiente
   leere Serverantwort (`curl` 52). Health-Recovery wird nun explizit verlangt;
   Login-/Settings-Aufrufe haben begrenzte Retries für Transportfehler.
+- 2026-07-23 — Codex — T11 final verifiziert: Android-Run `30004089473`
+  vollständig grün nach den Emulator-Härtungen (native Builds, Direct-APK,
+  Play-Billing-Compile und sämtliche Emulator-Endtests).
