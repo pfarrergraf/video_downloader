@@ -165,3 +165,7 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `MainActivity`, gezielte Tests und dieser Log. Ziel: niemals einen weißen
   localhost-/WebView-Zwischenschirm zeigen; App-UI erst nach Serverbereitschaft
   sichtbar machen.
+- 2026-07-23 — Codex — T12 abgeschlossen. Native DownloadThat-Startansicht
+  bleibt sichtbar, bis `/api/health` antwortet und WebView die echte Seite
+  gerendert hat; localhost-/Chromium-Fehler bleiben verdeckt. Android-Run
+  `30005180513` vollständig grün, lokal 275 Python- und 19 Website-Tests.
