@@ -7,16 +7,23 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.webkit.JavascriptInterface
+import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import com.chaquo.python.Python
+import java.net.HttpURLConnection
+import java.net.URL
 import org.json.JSONObject
+import kotlin.concurrent.thread
 
 /**
  * Hosts the Gothic UI in a WebView, backed by the same Python web server used on
@@ -28,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "ClassyDL"
         private const val SERVER_URL = ServerRuntime.SERVER_URL
         private const val MAX_LOAD_RETRIES = 20
+        private const val MAX_SERVER_READY_ATTEMPTS = 60
+        private const val SERVER_READY_RETRY_MS = 250L
         private const val PREFS_NAME = "classydl_prefs"
 
         // First http(s) URL in a shared text - YouTube and most apps share
@@ -39,8 +48,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var loadRetries = 0
+    private var mainFrameLoadFailed = false
+    @Volatile private var startupCancelled = false
     private lateinit var password: String
     private lateinit var webView: WebView
+    private lateinit var startupOverlay: View
+    private lateinit var startupStatus: TextView
     private lateinit var folderPickerLauncher: ActivityResultLauncher<Uri?>
     private lateinit var notificationPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var purchaseController: PurchaseController
@@ -75,6 +88,8 @@ class MainActivity : AppCompatActivity() {
         handleShareIntent(intent)
 
         webView = findViewById(R.id.webview)
+        startupOverlay = findViewById(R.id.startup_overlay)
+        startupStatus = findViewById(R.id.startup_status)
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
         webView.addJavascriptInterface(WebAppBridge(), "AndroidBridge")
@@ -109,24 +124,31 @@ class MainActivity : AppCompatActivity() {
 
             override fun onReceivedError(
                 view: WebView?,
-                errorCode: Int,
-                description: String?,
-                failingUrl: String?,
+                request: WebResourceRequest?,
+                error: WebResourceError?,
             ) {
+                if (request?.isForMainFrame != true) return
                 // The server thread may still be starting up when the first load
-                // happens; retry with a short delay instead of showing a dead page.
-                if (loadRetries < MAX_LOAD_RETRIES) {
-                    loadRetries++
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        view?.loadUrl(SERVER_URL)
-                    }, 500)
-                } else {
-                    Log.e(TAG, "Giving up loading $failingUrl: $description")
-                }
+                // happens. Never reveal Chromium's localhost error page.
+                handleMainFrameLoadFailure(
+                    "Error loading ${request.url}: ${error?.description}",
+                )
+            }
+
+            override fun onReceivedHttpError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                errorResponse: WebResourceResponse?,
+            ) {
+                if (request?.isForMainFrame != true) return
+                handleMainFrameLoadFailure(
+                    "HTTP ${errorResponse?.statusCode} loading ${request.url}",
+                )
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
+                if (mainFrameLoadFailed || url?.startsWith(SERVER_URL) != true) return
                 // The server-side password gate exists to stop other apps on
                 // the same device from hitting the loopback port, not to
                 // challenge the user of this app — so log in automatically
@@ -145,9 +167,12 @@ class MainActivity : AppCompatActivity() {
                     """.trimIndent(),
                     null,
                 )
+                loadRetries = 0
+                webView.visibility = View.VISIBLE
+                startupOverlay.visibility = View.GONE
             }
         }
-        webView.loadUrl(SERVER_URL)
+        waitForServerThenLoad()
     }
 
     override fun onResume() {
@@ -176,9 +201,80 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        startupCancelled = true
         if (::purchaseController.isInitialized) purchaseController.close()
         if (::entitlementApi.isInitialized) entitlementApi.close()
         super.onDestroy()
+    }
+
+    /**
+     * Probe the embedded server outside WebView. A cold Chaquopy/Python start
+     * can take a few seconds; loading the URL before it listens makes Chromium
+     * briefly render a white localhost error page. Keep the native branded
+     * startup screen visible until the health endpoint really answers.
+     */
+    private fun waitForServerThenLoad() {
+        showStartupOverlay()
+        thread(name = "downloadthat-startup-probe", isDaemon = true) {
+            repeat(MAX_SERVER_READY_ATTEMPTS) {
+                if (startupCancelled) return@thread
+                if (isServerReady()) {
+                    runOnUiThread {
+                        if (!startupCancelled && !isFinishing && !isDestroyed) {
+                            loadLocalUi()
+                        }
+                    }
+                    return@thread
+                }
+                Thread.sleep(SERVER_READY_RETRY_MS)
+            }
+            runOnUiThread {
+                if (!startupCancelled && !isFinishing && !isDestroyed) {
+                    startupStatus.setText(R.string.startup_failed)
+                }
+            }
+        }
+    }
+
+    private fun isServerReady(): Boolean {
+        var connection: HttpURLConnection? = null
+        return try {
+            connection = URL("$SERVER_URL/api/health").openConnection() as HttpURLConnection
+            connection.connectTimeout = 500
+            connection.readTimeout = 500
+            connection.requestMethod = "GET"
+            connection.responseCode in 200..299
+        } catch (_: Exception) {
+            false
+        } finally {
+            connection?.disconnect()
+        }
+    }
+
+    private fun loadLocalUi() {
+        mainFrameLoadFailed = false
+        showStartupOverlay()
+        webView.loadUrl(SERVER_URL)
+    }
+
+    private fun handleMainFrameLoadFailure(message: String) {
+        mainFrameLoadFailed = true
+        showStartupOverlay()
+        if (loadRetries < MAX_LOAD_RETRIES) {
+            loadRetries++
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (!startupCancelled) loadLocalUi()
+            }, 500)
+        } else {
+            startupStatus.setText(R.string.startup_failed)
+            Log.e(TAG, "Giving up: $message")
+        }
+    }
+
+    private fun showStartupOverlay() {
+        if (!::startupOverlay.isInitialized || !::webView.isInitialized) return
+        webView.visibility = View.INVISIBLE
+        startupOverlay.visibility = View.VISIBLE
     }
 
     private fun handleShareIntent(intent: Intent?) {

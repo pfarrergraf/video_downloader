@@ -160,3 +160,8 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
 - 2026-07-23 — Codex — T11 final verifiziert: Android-Run `30004089473`
   vollständig grün nach den Emulator-Härtungen (native Builds, Direct-APK,
   Play-Billing-Compile und sämtliche Emulator-Endtests).
+- 2026-07-23 — Codex — Claim: T12 gebrandeter Android-Start auf
+  `agent/codex/branded-android-startup`. Scope: Android-Startlayout/-Theme,
+  `MainActivity`, gezielte Tests und dieser Log. Ziel: niemals einen weißen
+  localhost-/WebView-Zwischenschirm zeigen; App-UI erst nach Serverbereitschaft
+  sichtbar machen.

@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WebView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/webview"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:background="#0b0710">
+
+    <!-- Kept invisible until the loopback server has answered and WebView has
+         rendered the real page. This prevents Chromium's white localhost
+         error page from flashing during a cold Python-server start. -->
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0b0710"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/startup_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0b0710"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <ImageView
+            android:layout_width="108dp"
+            android:layout_height="108dp"
+            android:contentDescription="@null"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_launcher_foreground" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/app_name"
+            android:textColor="#fff7fb"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="28dp"
+            android:indeterminate="true"
+            android:indeterminateTint="#ff7a6a" />
+
+        <TextView
+            android:id="@+id/startup_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:accessibilityLiveRegion="polite"
+            android:gravity="center"
+            android:text="@string/startup_preparing"
+            android:textColor="#c9c2d0"
+            android:textSize="15sp" />
+    </LinearLayout>
+</FrameLayout>
