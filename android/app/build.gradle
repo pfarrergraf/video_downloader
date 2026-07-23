@@ -201,7 +201,7 @@ chaquopy {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.webkit:webkit:1.12.1'
+    implementation 'androidx.webkit:webkit:1.16.0'
     // DocumentFile wraps the SAF (Storage Access Framework) tree-Uri APIs used
     // by android_bridge.export_file() to copy finished downloads into a
     // user-chosen folder (see MainActivity's folder picker).
