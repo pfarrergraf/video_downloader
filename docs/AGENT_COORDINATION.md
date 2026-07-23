@@ -132,3 +132,8 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `android/scripts/check_distribution_variants.ps1` und dieser append-only
   Logeintrag. Ziel ist die Kompatibilität mit dem aktuellen Einmalkaufmodell
   aus Kaufoption und Angebot vor dem ersten echten Lizenztest.
+- 2026-07-23 — Codex — T10 **erledigt**. Billing 9.1.0 wählt nun eine
+  verfügbare Einmalkaufoption und übergibt deren Offer-Token an den Kaufdialog.
+  GitHub Actions Run `29999415393` hat `v0.8.4` vollständig signiert gebaut;
+  Release-, Signatur-, 16-KB- und Flavor-Prüfungen sind grün. Zusätzlich:
+  264 Python-Tests, 19 Node-Tests, JS-Syntax und Android-Variantencheck 12/12.
