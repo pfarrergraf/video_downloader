@@ -59,6 +59,7 @@ cd pro/website && npm test && npm run check
 | Codex | T17 | agent/codex/host-demo-video | `pro/website/demo/**`, `pro/website/tests/demo_video.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
 | Codex | T18 | agent/codex/update-demo-video-link | `pro/website/index.html`, `pro/website/demo/downloadthat-foreground-service.mp4`, `pro/website/tests/play_first_website.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
 | Codex | T19 | agent/codex/publish-exact-screenrecording | `pro/website/demo/downloadthat-foreground-service.mp4`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
+| Codex | T20 | agent/codex/release-0-8-4-3 | `docs/AGENT_COORDINATION.md`, release tag `v0.8.4.3`, Play-AAB artifact | in Arbeit | 2026-07-23 |
 | Claude/opus | T2 + T4 | agent/claude/t2-t4 | `pro/website/rechtliches.<lang>.html` (neu, 13 Sprachen), `docs/INFLUENCER_VIDEO_SCRIPTS.md`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-14 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
@@ -219,3 +220,4 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
 - 2026-07-23 — Codex — T18 erledigt. Korrektes Hochformat-Demo (68 Sekunden) produktiv veröffentlicht; Startseite verlinkt `/demo/`. Deployment `30024728596` und Produktionsprüfungen für HTML/MP4 sind grün.
 - 2026-07-23 — Codex — Claim: T19 Exact owner-supplied screen recording must replace the prior web-optimized video at the existing demo URL.
 - 2026-07-23 — Codex — T19 erledigt. Die ausgelieferte MP4 entspricht bytegenau der lokalen Quelldatei (10,350,634 Bytes; SHA-256 `9172ED821648133E8A8E57774B09BE564F0DE4D0EBE18F0659E7A4E364CA97BE`). Deployment `30024994594` und Produktions-Hashprüfung sind grün.
+- 2026-07-23 — Codex — Claim: T20 Fresh Play release `v0.8.4.3` with monotone `versionCode 80403` for a new testing track.
