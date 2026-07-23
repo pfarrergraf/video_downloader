@@ -180,3 +180,7 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `C:\ai\playstore_console\releases\0.8.4.1\DownloadThat-0.8.4.1-play.aab`;
   SHA-256:
   `537c4a09b21612b5cc9b79a0a3c77027d6fc04001ad66f592a6d7315e32eb436`.
+- 2026-07-23 — Codex — Claim: T14 Play-AAB `0.8.4.2` auf
+  `agent/codex/release-0-8-4-2`. Scope: korrigierte Download-Anleitung in
+  App-/Website-i18n, Regressionstest, signierter Android-Release-Workflow,
+  lokales Play-Upload-Artefakt und dieser Log.
