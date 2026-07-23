@@ -194,3 +194,8 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   kontrolliert auf Englisch zurück. Datenschutz Deutsch/Englisch erhielt den
   fehlenden Umschalter. JavaScript-Syntax und 29 relevante Website-/i18n-Tests
   sind grün.
+- 2026-07-23 — Codex — T14 abgeschlossen. Release `v0.8.4.2` verwendet
+  `versionName 0.8.4.2` und `versionCode 80402`. GitHub-Run `30018954948`
+  vollständig grün; das Play-AAB liegt unter
+  `C:\ai\playstore_console\releases\0.8.4.2\DownloadThat-0.8.4.2-play.aab`.
+  SHA-256: `FE7990598687844E90D47C177A961FDBAA597599E7262693E71621C49AF39BD8`.
