@@ -4,7 +4,7 @@ plugins {
     // native libraries to 16 KB page alignment - see app/build.gradle's
     // compileSdk/targetSdk and .github/scripts/build_ffmpeg_android.sh.
     // Chaquopy 17.0 (pinned below) supports AGP 8.9 through 8.13.
-    id 'com.android.application' version '8.13.0' apply false
+    id 'com.android.application' version '9.3.0' apply false
     // Bumped from 1.9.24: com.android.billingclient:billing-ktx:9.1.0 (playRelease
     // only) transitively pulls kotlin-stdlib 2.2.10, which a 1.9.x compiler can't
     // read ("Class 'kotlin.Unit' was compiled with an incompatible version of
