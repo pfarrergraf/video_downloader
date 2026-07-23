@@ -188,3 +188,9 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `agent/codex/legal-page-language-routing`. Scope: Sprache von der Startseite
   an Unterseiten weiterreichen, Sprachumschalter auf jeder vorhandenen
   Rechtsseite und sichere Fallbacks für noch nicht übersetzte Dokumente.
+- 2026-07-23 — Codex — T15 abgeschlossen. Homepage-Links berücksichtigen nun
+  `dt_lang`; vorhandene AGB-, Datenschutz-, Impressum- und Rechtliches-Seiten
+  zeigen einen Sprachumschalter. Nicht vorhandene Dokumentübersetzungen fallen
+  kontrolliert auf Englisch zurück. Datenschutz Deutsch/Englisch erhielt den
+  fehlenden Umschalter. JavaScript-Syntax und 29 relevante Website-/i18n-Tests
+  sind grün.
