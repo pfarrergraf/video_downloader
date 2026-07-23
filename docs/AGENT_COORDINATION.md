@@ -120,3 +120,9 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `android/build.gradle`, `docs/GOOGLE_PLAY_OWNER_CHECKLIST.md` und dieser
   append-only Logeintrag; Ziel ist ein verifiziertes Internal-Track-AAB mit dem
   von Play bestätigten separaten Upload-Key.
+- 2026-07-23 — Codex — T9 **erledigt**. GitHub Actions Run `29997294563`
+  vollständig grün; Artefakt `DownloadThat-v0.8.3-play.aab` separat geladen und
+  geprüft. AAB-SHA-256 `58CD03380B2D533D89C131F400C4D31C7AD7F7B9D0926F4A159351A5D8E2E780`,
+  Signatur SHA-256 `5F:BD:61:BC:C8:B2:36:76:E8:E9:CE:33:7C:51:F7:24:34:61:CB:9C:31:C8:19:00:69:32:50:99:35:37:03:CE`.
+  Gates: 264 Python-Tests, 19 Node-Tests, JS-Syntax, Android-Varianten und CI-
+  Signatur-/16-KB-/Flavor-Prüfung grün.
