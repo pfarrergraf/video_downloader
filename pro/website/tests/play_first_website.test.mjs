@@ -12,6 +12,7 @@ test("homepage sends purchases to the Play-first Android page", () => {
   assert.match(html, /data-google-play-badge/);
   assert.match(html, /data-play-store-link/);
   assert.match(html, /href="\/download"[^>]*>Alternative Downloads</);
+  assert.match(html, /href="\/demo\/"[^>]*>Watch demo</);
   assert.doesNotMatch(html, /buy\.stripe\.com|data-stripe-link|withdrawal-modal/);
   assert.doesNotMatch(html, /No Play Store|No app store needed|no region locks/i);
 });
