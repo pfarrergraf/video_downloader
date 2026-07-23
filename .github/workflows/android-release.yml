@@ -23,13 +23,19 @@ on:
         type: string
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: android-release-${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref }}
+  cancel-in-progress: false
 
 jobs:
   build-ffmpeg:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
@@ -55,10 +61,13 @@ jobs:
         with:
           name: ffmpeg-arm64-v8a
           path: ffmpeg-out/bin/ffmpeg
+          retention-days: 1
 
   build-signed-release:
     needs: build-ffmpeg
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     defaults:
       run:
         working-directory: android
@@ -71,6 +80,8 @@ jobs:
       LICENSE_API_BASE_URL: ${{ vars.LICENSE_API_BASE_URL || 'https://downloadthat.app' }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
 
       - name: Set up JDK 17
         uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4
@@ -102,6 +113,9 @@ jobs:
         uses: gradle/actions/setup-gradle@0b6dd653ba04f4f93bf581ec31e66cbd7dcb644d # v4
         with:
           gradle-version: "8.13"
+          # Published APK/AAB artifacts must not depend on a writable cache
+          # that an untrusted branch could have populated.
+          cache-disabled: true
 
       - name: Download ffmpeg binary
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
@@ -118,10 +132,32 @@ jobs:
       - name: Verify app-signing and upload-key secrets are configured
         env:
           ANDROID_APP_SIGNING_KEYSTORE_BASE64: ${{ secrets.ANDROID_APP_SIGNING_KEYSTORE_BASE64 }}
+          ANDROID_APP_SIGNING_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_APP_SIGNING_KEYSTORE_PASSWORD }}
+          ANDROID_APP_SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_APP_SIGNING_KEY_ALIAS }}
+          ANDROID_APP_SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_APP_SIGNING_KEY_PASSWORD }}
+          ANDROID_APP_SIGNING_CERT_SHA256: ${{ secrets.ANDROID_APP_SIGNING_CERT_SHA256 }}
           ANDROID_UPLOAD_KEYSTORE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_BASE64 }}
+          ANDROID_UPLOAD_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}
+          ANDROID_UPLOAD_KEY_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
+          ANDROID_UPLOAD_KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}
+          ANDROID_UPLOAD_CERT_SHA256: ${{ secrets.ANDROID_UPLOAD_CERT_SHA256 }}
         run: |
-          if [ -z "$ANDROID_APP_SIGNING_KEYSTORE_BASE64" ] || [ -z "$ANDROID_UPLOAD_KEYSTORE_BASE64" ] || [ -z "$PLAY_STORE_URL" ]; then
-            echo "::error::Both the transferred app-signing key (Direct APK) and separate Play upload key are required."
+          missing=()
+          for name in \
+            ANDROID_APP_SIGNING_KEYSTORE_BASE64 \
+            ANDROID_APP_SIGNING_KEYSTORE_PASSWORD \
+            ANDROID_APP_SIGNING_KEY_ALIAS \
+            ANDROID_APP_SIGNING_KEY_PASSWORD \
+            ANDROID_APP_SIGNING_CERT_SHA256 \
+            ANDROID_UPLOAD_KEYSTORE_BASE64 \
+            ANDROID_UPLOAD_KEYSTORE_PASSWORD \
+            ANDROID_UPLOAD_KEY_ALIAS \
+            ANDROID_UPLOAD_KEY_PASSWORD \
+            ANDROID_UPLOAD_CERT_SHA256; do
+            [ -n "${!name}" ] || missing+=("$name")
+          done
+          if [ "${#missing[@]}" -ne 0 ]; then
+            printf '::error::Missing required Android release secret: %s\n' "${missing[@]}"
             exit 1
           fi
 
@@ -133,6 +169,10 @@ jobs:
       # release for Android to treat an install as an update.
       - name: Derive version code/name from tag
         run: |
+          if [[ ! "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Release version must match vMAJOR.MINOR.PATCH (received: $RELEASE_TAG)"
+            exit 1
+          fi
           VERSION_NAME="${RELEASE_TAG#v}"
           IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION_NAME"
           VERSION_CODE=$((MAJOR * 10000 + MINOR * 100 + PATCH))
@@ -191,12 +231,14 @@ jobs:
         with:
           name: DownloadThat-${{ env.RELEASE_TAG }}-android-sbom
           path: android/DownloadThat-android-sbom.cdx.json
+          retention-days: 30
 
       - name: Upload App Bundle artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: DownloadThat-${{ env.RELEASE_TAG }}-play.aab
           path: android/app/build/outputs/bundle/playRelease/app-play-release.aab
+          retention-days: 30
 
       # Two copies: the versioned name is what shows up on the release page;
       # the "-latest" name is a stable filename so the website's download

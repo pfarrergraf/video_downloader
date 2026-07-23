@@ -137,3 +137,8 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   GitHub Actions Run `29999415393` hat `v0.8.4` vollständig signiert gebaut;
   Release-, Signatur-, 16-KB- und Flavor-Prüfungen sind grün. Zusätzlich:
   264 Python-Tests, 19 Node-Tests, JS-Syntax und Android-Variantencheck 12/12.
+- 2026-07-23 — Codex — Claim: T11 CodeQL- und AAB-CI-Härtung auf
+  `agent/codex/codeql-aab-hardening`. Scope: `.github/workflows/*.yml`,
+  Android-Build-/Release-Infrastruktur, gezielte CI-Tests/Dokumentation und
+  dieser append-only Logeintrag. Ziel: CodeQL v4 korrekt ausführen und weitere
+  konkrete Workflow-/AAB-Risiken vor dem nächsten Store-Upload beseitigen.

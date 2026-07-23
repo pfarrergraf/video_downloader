@@ -14,6 +14,10 @@ concurrency:
 
 jobs:
   reconcile:
+    # The endpoint and production secret do not exist until the Play backend is
+    # provisioned. Keep schedules quiet until the same explicit production
+    # switch used by website deployment is enabled.
+    if: vars.PLAY_BACKEND_CONFIGURED == 'true'
     runs-on: ubuntu-latest
     environment: play-production
     steps:

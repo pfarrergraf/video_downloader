@@ -26,9 +26,20 @@ jobs:
       RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
 
       - name: Install uv
         uses: astral-sh/setup-uv@8d55fbecc275b1c35dbe060458839f8d30439ccf # v3
+        with:
+          enable-cache: false
+
+      - name: Validate release version
+        shell: pwsh
+        run: |
+          if ($env:RELEASE_TAG -notmatch '^v[0-9]+\.[0-9]+\.[0-9]+$') {
+            throw "Release version must match vMAJOR.MINOR.PATCH (received: $env:RELEASE_TAG)"
+          }
 
       # classydl_web.spec bundles the same Gothic web UI (video_downloader/web)
       # used by Android/Termux/desktop, packaged as a single windowless .exe
