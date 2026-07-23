@@ -20,6 +20,16 @@ const LEGAL_LANGUAGES = [
   ['id', 'Bahasa Indonesia'], ['ms', 'Bahasa Melayu'], ['fil', 'Filipino'], ['sw', 'Kiswahili'], ['am', 'አማርኛ'],
 ];
 
+// A legal page is offered only when its translated HTML file exists. Keeping
+// this explicit prevents a language selected on the homepage from producing a
+// broken link to a document that has not been translated yet.
+const LEGAL_DOCUMENT_LANGUAGES = {
+  agb: ['de', 'en', 'es', 'fr', 'pt', 'it', 'nl', 'pl', 'ro', 'el', 'cs', 'sv', 'da', 'fi', 'no'],
+  datenschutz: ['de', 'en', 'es', 'fr', 'pt', 'it', 'nl', 'pl', 'ro', 'el', 'cs', 'sv', 'da', 'fi', 'no'],
+  impressum: ['de', 'en', 'es', 'fr', 'pt', 'it', 'nl', 'pl', 'ro', 'el', 'cs', 'sv', 'da', 'fi', 'no'],
+  rechtliches: ['de', 'en', 'es', 'fr', 'pt', 'it', 'nl', 'pl', 'ro', 'el', 'cs', 'sv', 'da'],
+};
+
 (function () {
   const scriptTag = document.currentScript;
   const doc = scriptTag.dataset.doc; // "agb" | "datenschutz" | "impressum"
@@ -27,18 +37,23 @@ const LEGAL_LANGUAGES = [
   const container = document.getElementById('legal-lang-switcher');
   if (!container || !doc) return;
 
+  const available = LEGAL_DOCUMENT_LANGUAGES[doc] || ['de', 'en'];
+  const preferred = localStorage.getItem('dt_lang');
+  const selectedCode = available.includes(preferred) ? preferred : (available.includes(current) ? current : 'en');
+
   const select = document.createElement('select');
   select.className = 'lang-switcher';
   select.setAttribute('aria-label', 'Language');
-  for (const [code, name] of LEGAL_LANGUAGES) {
+  for (const [code, name] of LEGAL_LANGUAGES.filter(([code]) => available.includes(code))) {
     const opt = document.createElement('option');
     opt.value = code;
     opt.textContent = name;
-    if (code === current) opt.selected = true;
+    if (code === selectedCode) opt.selected = true;
     select.appendChild(opt);
   }
   select.addEventListener('change', (e) => {
     const lang = e.target.value;
+    localStorage.setItem('dt_lang', lang);
     location.href = lang === 'de' ? `${doc}.html` : `${doc}.${lang}.html`;
   });
   container.appendChild(select);

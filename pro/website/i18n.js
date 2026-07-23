@@ -81,6 +81,30 @@ function dtApplyTranslations() {
     el.setAttribute(attr, dtT(key));
   });
   dtUpdateStripeLinks();
+  dtUpdateLegalLinks();
+}
+
+// Keep legal links aligned with the language selected on the homepage. If a
+// document has no translation yet, use its English version (or German source
+// where no English file exists) instead of linking to a missing file.
+const LEGAL_LINK_LANGUAGES = {
+  agb: ['de', 'en', 'es', 'fr', 'pt', 'it', 'nl', 'pl', 'ro', 'el', 'cs', 'sv', 'da', 'fi', 'no'],
+  datenschutz: ['de', 'en', 'es', 'fr', 'pt', 'it', 'nl', 'pl', 'ro', 'el', 'cs', 'sv', 'da', 'fi', 'no'],
+  impressum: ['de', 'en', 'es', 'fr', 'pt', 'it', 'nl', 'pl', 'ro', 'el', 'cs', 'sv', 'da', 'fi', 'no'],
+  rechtliches: ['de', 'en', 'es', 'fr', 'pt', 'nl', 'pl', 'ro', 'el', 'cs', 'sv', 'da'],
+};
+
+function dtUpdateLegalLinks() {
+  const pref = localStorage.getItem('dt_lang') || 'auto';
+  const lang = pref === 'auto' ? dtDetectLang() : pref;
+  document.querySelectorAll('a[href]').forEach((link) => {
+    const match = link.getAttribute('href').match(/^(agb|datenschutz|impressum|rechtliches)(?:\.[a-z-]+)?\.html$/);
+    if (!match) return;
+    const doc = match[1];
+    const available = LEGAL_LINK_LANGUAGES[doc] || ['de', 'en'];
+    const target = available.includes(lang) ? lang : (available.includes('en') ? 'en' : 'de');
+    link.setAttribute('href', target === 'de' ? `${doc}.html` : `${doc}.${target}.html`);
+  });
 }
 
 // Both checkout-dialog choices point at the same Stripe Payment Link; the

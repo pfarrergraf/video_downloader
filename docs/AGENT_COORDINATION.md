@@ -184,3 +184,7 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `agent/codex/release-0-8-4-2`. Scope: korrigierte Download-Anleitung in
   App-/Website-i18n, Regressionstest, signierter Android-Release-Workflow,
   lokales Play-Upload-Artefakt und dieser Log.
+- 2026-07-23 — Codex — Claim: T15 Website-Rechtsseiten-Sprachführung auf
+  `agent/codex/legal-page-language-routing`. Scope: Sprache von der Startseite
+  an Unterseiten weiterreichen, Sprachumschalter auf jeder vorhandenen
+  Rechtsseite und sichere Fallbacks für noch nicht übersetzte Dokumente.
