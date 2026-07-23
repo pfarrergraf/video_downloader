@@ -169,3 +169,7 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   bleibt sichtbar, bis `/api/health` antwortet und WebView die echte Seite
   gerendert hat; localhost-/Chromium-Fehler bleiben verdeckt. Android-Run
   `30005180513` vollständig grün, lokal 275 Python- und 19 Website-Tests.
+- 2026-07-23 — Codex — Claim: T13 Play-AAB `0.8.4.1` auf
+  `agent/codex/release-0-8-4-1`. Scope: Release-Versionierung/Guards,
+  Regressionstests, signierter Android-Release-Workflow, lokales
+  Play-Upload-Artefakt und dieser Log.

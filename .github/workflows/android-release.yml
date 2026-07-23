@@ -168,16 +168,7 @@ jobs:
       # from the previous one. versionCode must strictly increase release over
       # release for Android to treat an install as an update.
       - name: Derive version code/name from tag
-        run: |
-          if [[ ! "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "::error::Release version must match vMAJOR.MINOR.PATCH (received: $RELEASE_TAG)"
-            exit 1
-          fi
-          VERSION_NAME="${RELEASE_TAG#v}"
-          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION_NAME"
-          VERSION_CODE=$((MAJOR * 10000 + MINOR * 100 + PATCH))
-          echo "VERSION_NAME=$VERSION_NAME" >> "$GITHUB_ENV"
-          echo "VERSION_CODE=$VERSION_CODE" >> "$GITHUB_ENV"
+        run: python ../scripts/android_version_from_tag.py "$RELEASE_TAG" --github-env "$GITHUB_ENV"
 
       - name: Reject a non-monotone versionCode
         shell: bash

@@ -44,7 +44,7 @@ def test_android_release_checks_complete_signing_configuration() -> None:
     )
     for name in required_names:
         assert workflow.count(name) >= 2, name
-    assert r"^v[0-9]+\.[0-9]+\.[0-9]+$" in workflow
+    assert "android_version_from_tag.py" in workflow
     assert "cache-disabled: true" in workflow
 
 
