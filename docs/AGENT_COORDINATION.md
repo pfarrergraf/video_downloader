@@ -56,7 +56,7 @@ cd pro/website && npm test && npm run check
 | GPT-5.6 | T3 + T5 | agent/gpt/t3-t5 | `pro/website/i18n/*.json`, `video_downloader/web/static/i18n/*.json`, `.github/workflows/retention-cleanup.yml`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | in Arbeit | 2026-07-14 |
 | GPT-5.6 | T5 Scope-Erweiterung | agent/gpt/t3-t5 | zusätzlich `pro/website/functions/api/admin/retention-cleanup.js`, `pro/website/tests/retention_cleanup.test.mjs`, `.github/workflows/deploy-pro-website.yml` | in Arbeit | 2026-07-14 |
 | Codex | T16 | agent/codex/legal-language-switcher | `pro/website/legal-lang.js`, `pro/website/tests/legal_language_switcher.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
-| Codex | T17 | agent/codex/host-demo-video | `pro/website/demo/**`, `pro/website/tests/demo_video.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | in Arbeit | 2026-07-23 |
+| Codex | T17 | agent/codex/host-demo-video | `pro/website/demo/**`, `pro/website/tests/demo_video.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
 | Claude/opus | T2 + T4 | agent/claude/t2-t4 | `pro/website/rechtliches.<lang>.html` (neu, 13 Sprachen), `docs/INFLUENCER_VIDEO_SCRIPTS.md`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-14 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
@@ -212,3 +212,4 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   gezielte Python-Tests sind grün.
 
 - 2026-07-23 — Codex — Claim: T17 Self-hosted Play review demo video on downloadthat.app; Pages-compatible encoded asset, review page, and size regression test.
+- 2026-07-23 — Codex — T17 erledigt. Demo-Seite und selbst gehostete MP4 sind produktiv unter `https://downloadthat.app/demo/` erreichbar; Website-Gate (22 Tests plus JS-Syntax) und Cloudflare-Deployment `30024259354` sind grün.
