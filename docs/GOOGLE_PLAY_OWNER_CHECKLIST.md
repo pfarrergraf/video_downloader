@@ -26,11 +26,12 @@ Details: `docs/CLOUDFLARE_DOWNLOADTHAT_APP_SETUP.md`.
 - [x] App mit sichtbarem Namen `DownloadThat` anlegen und das bestehende
       Release-Zertifikat als App-Signing-Key übertragen (SHA-256
       `A4:B5:DB:BA:CE:D2:AD:0B:91:06:BD:D4:65:EC:48:1C:1F:F2:03:FD:77:85:82:2E:1A:F6:E0:7E:C9:74:C9:E4`).
-- [ ] Separaten CI-Upload-Key registrieren. Google hat den Reset angenommen; der
-      neue Upload-Key wird am `2026-07-16 13:23 UTC` (`15:23 CEST`) aktiv. SHA-1
+- [x] Separaten CI-Upload-Key registriert und am `2026-07-23` in Play Console
+      sowie lokal erneut abgeglichen. SHA-1
       `CD:DB:E2:9F:73:92:7E:9F:10:A8:08:55:39:E5:21:D2:2C:23:25:96`, SHA-256
       `5F:BD:61:BC:C8:B2:36:76:E8:E9:CE:33:7C:51:F7:24:34:61:CB:9C:31:C8:19:00:69:32:50:99:35:37:03:CE`
-      (lokales Zertifikat abgeglichen). Erst nach Aktivierung abhaken.
+      Die dedizierten `ANDROID_UPLOAD_*`-Secrets wurden verschlüsselt in GitHub
+      Actions hinterlegt; der alte App-Signing-Key wird nicht als Fallback genutzt.
 - [ ] Beim ersten akzeptierten AAB bestätigen, dass die technische Paket-ID
       `de.classydl.app` gebunden wurde.
 - [ ] Produkt-ID `pro` mit sichtbarem Namen `DownloadThat Pro` als nicht

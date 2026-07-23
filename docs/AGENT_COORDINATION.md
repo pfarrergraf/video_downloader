@@ -115,3 +115,8 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `agent/codex/localized-store-badges`. Gates grün: 264 Python-Tests,
   19 Node-Tests, JavaScript-Syntax und Public-Claims-Policy; Start- und
   Downloadseite zusätzlich mit Playwright in Desktop- und Mobilansicht geprüft.
+- 2026-07-23 — Codex — Claim: T9 Play-Upload-Key-/AAB-CI-Fix auf
+  `agent/codex/upload-key-ci-fix`. Scope: `.github/workflows/android-release.yml`,
+  `android/build.gradle`, `docs/GOOGLE_PLAY_OWNER_CHECKLIST.md` und dieser
+  append-only Logeintrag; Ziel ist ein verifiziertes Internal-Track-AAB mit dem
+  von Play bestätigten separaten Upload-Key.
