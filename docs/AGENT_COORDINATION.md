@@ -55,6 +55,7 @@ cd pro/website && npm test && npm run check
 | _(Beispiel)_ Claude | T2 | agent/claude/t2 | `pro/website/rechtliches.*.html` (neu) | in Arbeit | 2026-07-14 |
 | GPT-5.6 | T3 + T5 | agent/gpt/t3-t5 | `pro/website/i18n/*.json`, `video_downloader/web/static/i18n/*.json`, `.github/workflows/retention-cleanup.yml`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | in Arbeit | 2026-07-14 |
 | GPT-5.6 | T5 Scope-Erweiterung | agent/gpt/t3-t5 | zusätzlich `pro/website/functions/api/admin/retention-cleanup.js`, `pro/website/tests/retention_cleanup.test.mjs`, `.github/workflows/deploy-pro-website.yml` | in Arbeit | 2026-07-14 |
+| Codex | T16 | agent/codex/legal-language-switcher | `pro/website/legal-lang.js`, `pro/website/tests/legal_language_switcher.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | in Arbeit | 2026-07-23 |
 | Claude/opus | T2 + T4 | agent/claude/t2-t4 | `pro/website/rechtliches.<lang>.html` (neu, 13 Sprachen), `docs/INFLUENCER_VIDEO_SCRIPTS.md`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-14 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
@@ -199,3 +200,7 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   vollständig grün; das Play-AAB liegt unter
   `C:\ai\playstore_console\releases\0.8.4.2\DownloadThat-0.8.4.2-play.aab`.
   SHA-256: `FE7990598687844E90D47C177A961FDBAA597599E7262693E71621C49AF39BD8`.
+- 2026-07-23 — Codex — Claim: T16 verlässlicher Rechtsseiten-Sprachumschalter
+  auf `agent/codex/legal-language-switcher`. Scope: Sprachauswahl muss die
+  aktuell geladene Übersetzung anzeigen und beim Wechsel zu der passenden
+  Sprachseite navigieren; dazu ein gezielter Regressionstest.

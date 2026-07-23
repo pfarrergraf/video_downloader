@@ -38,8 +38,11 @@ const LEGAL_DOCUMENT_LANGUAGES = {
   if (!container || !doc) return;
 
   const available = LEGAL_DOCUMENT_LANGUAGES[doc] || ['de', 'en'];
-  const preferred = localStorage.getItem('dt_lang');
-  const selectedCode = available.includes(preferred) ? preferred : (available.includes(current) ? current : 'en');
+  // The language shown in the selector must describe the document on screen.
+  // `dt_lang` is a homepage preference, not evidence that this particular
+  // static document is already translated. Using it here previously created
+  // the misleading state "English" + German text after a direct page visit.
+  const selectedCode = available.includes(current) ? current : (available.includes('en') ? 'en' : 'de');
 
   const select = document.createElement('select');
   select.className = 'lang-switcher';
