@@ -126,3 +126,9 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   Signatur SHA-256 `5F:BD:61:BC:C8:B2:36:76:E8:E9:CE:33:7C:51:F7:24:34:61:CB:9C:31:C8:19:00:69:32:50:99:35:37:03:CE`.
   Gates: 264 Python-Tests, 19 Node-Tests, JS-Syntax, Android-Varianten und CI-
   Signatur-/16-KB-/Flavor-Prüfung grün.
+- 2026-07-23 — Codex — Claim: T10 Billing-9-Angebotstoken auf
+  `agent/codex/play-offer-token`. Scope:
+  `android/app/src/play/java/de/classydl/app/PurchaseControllerFactory.kt`,
+  `android/scripts/check_distribution_variants.ps1` und dieser append-only
+  Logeintrag. Ziel ist die Kompatibilität mit dem aktuellen Einmalkaufmodell
+  aus Kaufoption und Angebot vor dem ersten echten Lizenztest.

@@ -24,6 +24,7 @@ private class PlayPurchaseController(
     private val entitlement = EntitlementStore(context)
     private val api = EntitlementApi(context, ::onServerResult)
     private var productDetails: ProductDetails? = null
+    private var offerToken: String? = null
     private var reconnecting = false
     private val pendingReadyActions = mutableListOf<() -> Unit>()
 
@@ -50,7 +51,8 @@ private class PlayPurchaseController(
 
     override fun purchase(activity: Activity) {
         val details = productDetails
-        if (details == null) {
+        val token = offerToken
+        if (details == null || token == null) {
             connect {
                 loadProduct { purchase(activity) }
             }
@@ -58,6 +60,7 @@ private class PlayPurchaseController(
         }
         val params = BillingFlowParams.ProductDetailsParams.newBuilder()
             .setProductDetails(details)
+            .setOfferToken(token)
             .build()
         val result = billingClient.launchBillingFlow(
             activity,
@@ -131,8 +134,18 @@ private class PlayPurchaseController(
         billingClient.queryProductDetailsAsync(
             QueryProductDetailsParams.newBuilder().setProductList(listOf(product)).build(),
         ) { result, detailsResult ->
-            productDetails = detailsResult.productDetailsList.firstOrNull()
-            if (result.responseCode != BillingClient.BillingResponseCode.OK || productDetails == null) {
+            val details = detailsResult.productDetailsList.firstOrNull()
+            val availableOfferToken = details
+                ?.oneTimePurchaseOfferDetailsList
+                ?.firstOrNull()
+                ?.offerToken
+            productDetails = details
+            offerToken = availableOfferToken
+            if (
+                result.responseCode != BillingClient.BillingResponseCode.OK ||
+                details == null ||
+                availableOfferToken == null
+            ) {
                 deliver(errorJson("product_unavailable", result.debugMessage))
             } else {
                 after?.invoke()
