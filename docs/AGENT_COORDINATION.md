@@ -173,3 +173,10 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `agent/codex/release-0-8-4-1`. Scope: Release-Versionierung/Guards,
   Regressionstests, signierter Android-Release-Workflow, lokales
   Play-Upload-Artefakt und dieser Log.
+- 2026-07-23 — Codex — T13 abgeschlossen. Release `v0.8.4.1` verwendet
+  `versionName 0.8.4.1` und den monotonen `versionCode 80401`. GitHub-Run
+  `30006891115` vollständig grün (Direct-APK, Play-AAB, Signaturen,
+  16-KB-Prüfung, Flavor-Trennung und SBOM). Das fertige Play-Bundle liegt unter
+  `C:\ai\playstore_console\releases\0.8.4.1\DownloadThat-0.8.4.1-play.aab`;
+  SHA-256:
+  `537c4a09b21612b5cc9b79a0a3c77027d6fc04001ad66f592a6d7315e32eb436`.
