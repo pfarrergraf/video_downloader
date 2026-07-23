@@ -153,3 +153,7 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   responding“-Dialog über dem Share-Picker. Der UI-Test erkennt und schließt
   jetzt ausschließlich diesen Launcher-ANR; DownloadThat-ANRs bleiben
   absichtlich fatal. Parser-Regressionstests und 271 Python-Tests sind grün.
+- 2026-07-23 — Codex — T11-Nachprüfung 2: Run `30003466074` bestätigte erneut
+  alle Builds, traf nach dem absichtlichen App-Neustart aber eine transiente
+  leere Serverantwort (`curl` 52). Health-Recovery wird nun explizit verlangt;
+  Login-/Settings-Aufrufe haben begrenzte Retries für Transportfehler.

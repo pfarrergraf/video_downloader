@@ -87,3 +87,12 @@ def test_share_intent_smoke_test_selects_lower_video_picker_button() -> None:
       <node text="Video format" bounds="[20,800][220,1000]" />
     </hierarchy>"""
     assert module.find_target(xml) == "120 900"
+
+
+def test_share_intent_smoke_test_retries_transient_restart_responses() -> None:
+    script = (ROOT / ".github" / "scripts" / "share_intent_test.sh").read_text(
+        encoding="utf-8"
+    )
+    assert "--retry-all-errors" in script
+    assert "HEALTH_READY=false" in script
+    assert 'if [ "$HEALTH_READY" != "true" ]' in script

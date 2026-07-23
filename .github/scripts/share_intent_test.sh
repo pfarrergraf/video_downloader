@@ -28,6 +28,16 @@ set -euo pipefail
 BASE="http://127.0.0.1:8420"
 PASSWORD="classydl"  # matches MainActivity.kt's DEBUG_PASSWORD
 FILE_PORT=8422
+CURL_RETRY=(
+  --fail
+  --silent
+  --show-error
+  --retry 10
+  --retry-all-errors
+  --retry-delay 1
+  --connect-timeout 2
+  --max-time 5
+)
 
 TEST_DIR="$(mktemp -d)"
 COOKIE_JAR="$(mktemp)"
@@ -67,11 +77,11 @@ adb reverse "tcp:$FILE_PORT" "tcp:$FILE_PORT"
 
 TEST_URL="http://127.0.0.1:$FILE_PORT/shared.wav"
 
-curl -sf -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
+curl "${CURL_RETRY[@]}" -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
   -H "Content-Type: application/json" \
   -d "{\"password\": \"$PASSWORD\"}" >/dev/null
 
-curl -sf -b "$COOKIE_JAR" -X POST "$BASE/api/settings" \
+curl "${CURL_RETRY[@]}" -b "$COOKIE_JAR" -X POST "$BASE/api/settings" \
   -H "Content-Type: application/json" \
   -d '{"accept_terms": true}' >/dev/null
 
@@ -80,12 +90,19 @@ adb shell am force-stop de.classydl.app
 sleep 2
 adb shell am start -n de.classydl.app/.MainActivity
 
+HEALTH_READY=false
 for i in $(seq 1 40); do
   if curl -sf --max-time 2 "$BASE/api/health" >/dev/null 2>&1; then
+    HEALTH_READY=true
     break
   fi
   sleep 1
 done
+if [ "$HEALTH_READY" != "true" ]; then
+  echo "App server did not recover after force-stop/relaunch" >&2
+  adb logcat -d -s python.stdout python.stderr ClassyDL chromium 2>/dev/null | tail -n 100 || true
+  exit 1
+fi
 # Give the WebView a moment past the server-health point to finish loading
 # and run its own auto-login + setAuthed(true) before the share intent
 # arrives - it needs its own login, not just a server that's up.
@@ -93,7 +110,7 @@ sleep 5
 
 # Fresh login: the in-memory session store died with the process (same
 # reason kill_resilience_test.sh re-logs in after its own force-stop).
-curl -sf -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
+curl "${CURL_RETRY[@]}" -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
   -H "Content-Type: application/json" \
   -d "{\"password\": \"$PASSWORD\"}" >/dev/null
 
