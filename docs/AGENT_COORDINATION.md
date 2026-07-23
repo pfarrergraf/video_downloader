@@ -58,6 +58,7 @@ cd pro/website && npm test && npm run check
 | Codex | T16 | agent/codex/legal-language-switcher | `pro/website/legal-lang.js`, `pro/website/tests/legal_language_switcher.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
 | Codex | T17 | agent/codex/host-demo-video | `pro/website/demo/**`, `pro/website/tests/demo_video.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
 | Codex | T18 | agent/codex/update-demo-video-link | `pro/website/index.html`, `pro/website/demo/downloadthat-foreground-service.mp4`, `pro/website/tests/play_first_website.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
+| Codex | T19 | agent/codex/publish-exact-screenrecording | `pro/website/demo/downloadthat-foreground-service.mp4`, append-only: `docs/AGENT_COORDINATION.md` | in Arbeit | 2026-07-23 |
 | Claude/opus | T2 + T4 | agent/claude/t2-t4 | `pro/website/rechtliches.<lang>.html` (neu, 13 Sprachen), `docs/INFLUENCER_VIDEO_SCRIPTS.md`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-14 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
@@ -216,3 +217,4 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
 - 2026-07-23 — Codex — T17 erledigt. Demo-Seite und selbst gehostete MP4 sind produktiv unter `https://downloadthat.app/demo/` erreichbar; Website-Gate (22 Tests plus JS-Syntax) und Cloudflare-Deployment `30024259354` sind grün.
 - 2026-07-23 — Codex — Claim: T18 Corrected demo video supplied by owner and homepage link to the demo page.
 - 2026-07-23 — Codex — T18 erledigt. Korrektes Hochformat-Demo (68 Sekunden) produktiv veröffentlicht; Startseite verlinkt `/demo/`. Deployment `30024728596` und Produktionsprüfungen für HTML/MP4 sind grün.
+- 2026-07-23 — Codex — Claim: T19 Exact owner-supplied screen recording must replace the prior web-optimized video at the existing demo URL.
