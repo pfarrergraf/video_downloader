@@ -142,3 +142,9 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   Android-Build-/Release-Infrastruktur, gezielte CI-Tests/Dokumentation und
   dieser append-only Logeintrag. Ziel: CodeQL v4 korrekt ausführen und weitere
   konkrete Workflow-/AAB-Risiken vor dem nächsten Store-Upload beseitigen.
+- 2026-07-23 — Codex — T11 abgeschlossen. CodeQL-Run `30001944695` analysiert
+  Python und JavaScript/TypeScript erfolgreich; 0 offene CodeQL-Funde.
+  Android-Run `30001931554` ist vollständig grün, einschließlich neuem
+  `compilePlayDebugKotlin`-Gate und Emulator-Smoke-Test. Lokal: 269 Python-,
+  19 Website-Tests, JS-Syntax, Android-Varianten 12/12 und Workflow-Audit ohne
+  mittlere/hohe Befunde.
