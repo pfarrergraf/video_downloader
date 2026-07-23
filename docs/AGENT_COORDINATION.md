@@ -57,7 +57,7 @@ cd pro/website && npm test && npm run check
 | GPT-5.6 | T5 Scope-Erweiterung | agent/gpt/t3-t5 | zusätzlich `pro/website/functions/api/admin/retention-cleanup.js`, `pro/website/tests/retention_cleanup.test.mjs`, `.github/workflows/deploy-pro-website.yml` | in Arbeit | 2026-07-14 |
 | Codex | T16 | agent/codex/legal-language-switcher | `pro/website/legal-lang.js`, `pro/website/tests/legal_language_switcher.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
 | Codex | T17 | agent/codex/host-demo-video | `pro/website/demo/**`, `pro/website/tests/demo_video.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
-| Codex | T18 | agent/codex/update-demo-video-link | `pro/website/index.html`, `pro/website/demo/downloadthat-foreground-service.mp4`, `pro/website/tests/play_first_website.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | in Arbeit | 2026-07-23 |
+| Codex | T18 | agent/codex/update-demo-video-link | `pro/website/index.html`, `pro/website/demo/downloadthat-foreground-service.mp4`, `pro/website/tests/play_first_website.test.mjs`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
 | Claude/opus | T2 + T4 | agent/claude/t2-t4 | `pro/website/rechtliches.<lang>.html` (neu, 13 Sprachen), `docs/INFLUENCER_VIDEO_SCRIPTS.md`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-14 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
@@ -215,3 +215,4 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
 - 2026-07-23 — Codex — Claim: T17 Self-hosted Play review demo video on downloadthat.app; Pages-compatible encoded asset, review page, and size regression test.
 - 2026-07-23 — Codex — T17 erledigt. Demo-Seite und selbst gehostete MP4 sind produktiv unter `https://downloadthat.app/demo/` erreichbar; Website-Gate (22 Tests plus JS-Syntax) und Cloudflare-Deployment `30024259354` sind grün.
 - 2026-07-23 — Codex — Claim: T18 Corrected demo video supplied by owner and homepage link to the demo page.
+- 2026-07-23 — Codex — T18 erledigt. Korrektes Hochformat-Demo (68 Sekunden) produktiv veröffentlicht; Startseite verlinkt `/demo/`. Deployment `30024728596` und Produktionsprüfungen für HTML/MP4 sind grün.
