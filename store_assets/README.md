@@ -8,12 +8,20 @@ Prepared ahead of time so registration + submission (see
 - `icon-512.png` — hi-res icon (512×512, rendered from `video_downloader/web/static/icon.svg`).
 - `feature_graphic-1024x500.png` — feature graphic (source: `feature_graphic.svg`, edit and
   re-render with `cairosvg` if the wording/branding changes).
+- `feature_graphic-zh-CN-1024x500.png`, `feature_graphic-ja-1024x500.png`, and
+  `feature_graphic-ru-1024x500.png` — localized feature graphics for Simplified
+  Chinese, Japanese, and Russian. Their editable SVG sources are beside them.
 - `screenshot_main.png`, `screenshot_queue.png`, `screenshot_settings.png` — real phone-sized
   (412×915 @2x) screenshots of the actual running app (captured via Playwright against a local
   `classydl web` instance, not mockups). `screenshot_queue.png` has synthetic job rows (one
   completed, one in-progress, one pending) inserted directly into the queue store to show all
   three states in one shot — no real network download happened.
 - This README.
+
+The icon is language-neutral and is reused for every translation. The existing
+phone screenshots are English UI captures; Play Console may reuse the default
+listing graphics for localized listings when no localized screenshots are
+provided.
 
 These assets are release candidates, but must still pass the policy-copy checks below and
 be recaptured after material UI changes. Store screenshots must use neutral example URLs;

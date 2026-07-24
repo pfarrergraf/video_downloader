@@ -1,0 +1,253 @@
+Google Play additional store listing translations
+
+============================================================
+FRANÇAIS (fr)
+============================================================
+
+APP NAME
+DownloadThat!
+
+SHORT DESCRIPTION
+Téléchargez vidéos, audio et images que vous avez le droit d’enregistrer.
+
+FULL DESCRIPTION
+DownloadThat enregistre des vidéos, de l’audio et des images à partir de liens dont l’enregistrement est légalement autorisé, directement sur votre appareil.
+
+FONCTIONNALITÉS PRINCIPALES
+• Un champ pour un lien, plusieurs liens ou une playlist entière
+• Télécharger séparément une vidéo ou un fichier audio (MP3)
+• Choisir la qualité de 240p jusqu’à 4K
+• Barre de progression automatique pour les téléchargements en cours
+• Choisir son dossier de téléchargement, ouvrir ou partager les fichiers directement
+• Fonctionne sur votre appareil, sans publicité ni suivi
+• Disponible dans de nombreuses langues
+
+UTILISATION GRATUITE
+La version gratuite offre la qualité maximale jusqu’à 4K, avec une limite quotidienne de téléchargements. DownloadThat Pro supprime cette limite.
+
+IMPORTANT
+DownloadThat est un outil technique. Vous êtes responsable de vérifier que vous disposez des droits nécessaires sur les contenus. L’application ne contourne ni les DRM ni les paywalls. Téléchargez uniquement vos propres contenus, des contenus du domaine public, correctement licenciés ou pour lesquels vous disposez d’une autorisation explicite.
+
+============================================================
+ESPAÑOL (es)
+============================================================
+
+APP NAME
+DownloadThat!
+
+SHORT DESCRIPTION
+Descarga vídeos, audio e imágenes que tienes derecho a guardar.
+
+FULL DESCRIPTION
+DownloadThat guarda vídeos, audio e imágenes de enlaces cuyo contenido puedes guardar legalmente, directamente en tu dispositivo.
+
+CARACTERÍSTICAS PRINCIPALES
+• Un campo para un enlace, varios enlaces o una lista de reproducción completa
+• Descargar vídeo o audio (MP3) por separado
+• Selección de calidad de 240p hasta 4K
+• Barra de progreso automática para las descargas activas
+• Elegir la carpeta de descarga, abrir o compartir archivos directamente
+• Funciona en tu dispositivo, sin anuncios ni seguimiento
+• Disponible en muchos idiomas
+
+USO GRATUITO
+La versión gratuita ofrece la máxima calidad hasta 4K, con un límite diario de descargas. DownloadThat Pro elimina este límite.
+
+IMPORTANTE
+DownloadThat es una herramienta técnica. Eres responsable de comprobar que tienes los derechos necesarios sobre el contenido. La aplicación no evade DRM ni paywalls. Descarga únicamente contenido propio, de dominio público, con la licencia adecuada o para el que tengas permiso explícito.
+
+============================================================
+ITALIANO (it)
+============================================================
+
+APP NAME
+DownloadThat!
+
+SHORT DESCRIPTION
+Scarica video, audio e immagini che hai il diritto di salvare.
+
+FULL DESCRIPTION
+DownloadThat salva video, audio e immagini da link i cui contenuti possono essere salvati legalmente, direttamente sul tuo dispositivo.
+
+CARATTERISTICHE PRINCIPALI
+• Un campo per un link, più link o un’intera playlist
+• Scarica separatamente video o audio (MP3)
+• Selezione della qualità da 240p fino a 4K
+• Barra di avanzamento automatica per i download attivi
+• Scegli la cartella di download, apri o condividi i file direttamente
+• Funziona sul tuo dispositivo, senza pubblicità né tracciamento
+• Disponibile in molte lingue
+
+UTILIZZO GRATUITO
+La versione gratuita offre la qualità massima fino a 4K, con un limite giornaliero di download. DownloadThat Pro elimina questo limite.
+
+IMPORTANTE
+DownloadThat è uno strumento tecnico. Sei responsabile di verificare di avere i diritti necessari sui contenuti. L’app non aggira DRM né paywall. Scarica solo contenuti tuoi, di pubblico dominio, adeguatamente concessi in licenza o per i quali disponi di un’autorizzazione esplicita.
+
+============================================================
+NEDERLANDS (nl)
+============================================================
+
+APP NAME
+DownloadThat!
+
+SHORT DESCRIPTION
+Download video, audio en afbeeldingen die je mag opslaan.
+
+FULL DESCRIPTION
+DownloadThat slaat video, audio en afbeeldingen op van links waarvan je de inhoud wettelijk mag opslaan, rechtstreeks op je apparaat.
+
+BELANGRIJKSTE FUNCTIES
+• Eén veld voor één link, meerdere links of een volledige playlist
+• Video of audio (MP3) afzonderlijk downloaden
+• Kwaliteit kiezen van 240p tot 4K
+• Automatische voortgangsbalk voor actieve downloads
+• Kies je downloadmap en open of deel bestanden rechtstreeks
+• Werkt op je apparaat, zonder advertenties of tracking
+• Beschikbaar in veel talen
+
+GRATIS TE GEBRUIKEN
+De gratis versie biedt de volledige kwaliteit tot 4K, met een dagelijks downloadlimiet. DownloadThat Pro verwijdert deze limiet.
+
+BELANGRIJK
+DownloadThat is een technisch hulpmiddel. Je bent zelf verantwoordelijk voor het controleren van je rechten op de inhoud. De app omzeilt geen DRM of betaalmuren. Download alleen eigen inhoud, inhoud uit het publieke domein, correct gelicentieerde inhoud of inhoud waarvoor je uitdrukkelijk toestemming hebt.
+
+============================================================
+POLSKI (pl)
+============================================================
+
+APP NAME
+DownloadThat!
+
+SHORT DESCRIPTION
+Pobieraj wideo, dźwięk i obrazy, które możesz legalnie zapisać.
+
+FULL DESCRIPTION
+DownloadThat zapisuje filmy, dźwięk i obrazy z linków, których treści możesz legalnie zapisywać, bezpośrednio na urządzeniu.
+
+NAJWAŻNIEJSZE FUNKCJE
+• Jedno pole na pojedynczy link, wiele linków lub całą playlistę
+• Oddzielne pobieranie wideo lub dźwięku (MP3)
+• Wybór jakości od 240p do 4K
+• Automatyczny pasek postępu aktywnych pobrań
+• Wybór folderu pobierania oraz bezpośrednie otwieranie i udostępnianie plików
+• Działa na urządzeniu, bez reklam i śledzenia
+• Dostępna w wielu językach
+
+BEZPŁATNE KORZYSTANIE
+Wersja bezpłatna oferuje pełną jakość do 4K z dziennym limitem pobrań. DownloadThat Pro usuwa ten limit.
+
+WAŻNE
+DownloadThat jest narzędziem technicznym. Odpowiadasz za upewnienie się, że masz wymagane prawa do treści. Aplikacja nie omija DRM ani płatnych zapór. Pobieraj wyłącznie własne treści, treści z domeny publicznej, odpowiednio licencjonowane lub takie, na które masz wyraźną zgodę.
+
+============================================================
+简体中文 (zh-CN)
+============================================================
+
+APP NAME
+DownloadThat!
+
+SHORT DESCRIPTION
+下载你有权保存的视频、音频和图片。
+
+FULL DESCRIPTION
+DownloadThat 可将你依法有权保存的链接中的视频、音频和图片直接保存到设备上。
+
+主要功能
+• 一个输入框，支持单个链接、多个链接或完整播放列表
+• 分别下载视频或音频（MP3）
+• 支持从 240p 到 4K 的质量选择
+• 为进行中的下载显示自动进度条
+• 选择下载文件夹，直接打开或分享文件
+• 在设备上运行，无广告、无跟踪
+• 支持多种语言
+
+免费使用
+免费版本支持最高 4K 的完整质量，但有每日下载数量限制。DownloadThat Pro 可移除此限制。
+
+重要提示
+DownloadThat 是一款技术工具。你有责任确认自己拥有相关内容所需的权利。本应用不会绕过 DRM 或付费墙。请仅下载你自己的内容、公共领域内容、获得适当许可的内容，或你明确获准下载的内容。
+
+============================================================
+日本語 (ja)
+============================================================
+
+APP NAME
+DownloadThat!
+
+SHORT DESCRIPTION
+保存する権利のある動画、音声、画像をダウンロード。
+
+FULL DESCRIPTION
+DownloadThat は、法律上保存が許可されているリンクから動画、音声、画像を端末に直接保存します。
+
+主な機能
+• 1つのリンク、複数のリンク、またはプレイリスト全体に対応
+• 動画または音声（MP3）を個別にダウンロード
+• 240p から 4K まで画質を選択
+• 実行中のダウンロードを自動進捗バーで表示
+• 保存先フォルダーを選択し、ファイルを直接開く、共有する
+• 広告やトラッキングなしで端末上で動作
+• 多言語に対応
+
+無料で利用可能
+無料版では最大 4K の画質を利用できますが、1日のダウンロード数に上限があります。DownloadThat Pro ではこの上限がなくなります。
+
+重要
+DownloadThat は技術ツールです。コンテンツに必要な権利を持っていることを確認する責任は利用者にあります。本アプリは DRM やペイウォールを回避しません。自分で所有するコンテンツ、パブリックドメインのコンテンツ、適切なライセンスを得たコンテンツ、または明示的な許可を得たコンテンツのみをダウンロードしてください。
+
+============================================================
+РУССКИЙ (ru)
+============================================================
+
+APP NAME
+DownloadThat!
+
+SHORT DESCRIPTION
+Скачивайте видео, аудио и изображения, которые разрешено сохранять.
+
+FULL DESCRIPTION
+DownloadThat сохраняет видео, аудио и изображения из ссылок, содержимое которых разрешено сохранять по закону, прямо на вашем устройстве.
+
+ВОЗМОЖНОСТИ
+• Одно поле для одной ссылки, нескольких ссылок или целого плейлиста
+• Отдельное скачивание видео или аудио (MP3)
+• Выбор качества от 240p до 4K
+• Автоматическая полоса прогресса для активных загрузок
+• Выбор папки загрузки, открытие и отправка файлов напрямую
+• Работает на устройстве без рекламы и отслеживания
+• Поддержка многих языков
+
+БЕСПЛАТНОЕ ИСПОЛЬЗОВАНИЕ
+Бесплатная версия поддерживает полное качество до 4K, но имеет дневной лимит загрузок. DownloadThat Pro снимает этот лимит.
+
+ВАЖНО
+DownloadThat — технический инструмент. Вы несёте ответственность за наличие необходимых прав на содержимое. Приложение не обходит DRM и платный доступ. Скачивайте только собственные материалы, материалы из общественного достояния, надлежащим образом лицензированные материалы или материалы, на загрузку которых у вас есть явное разрешение.
+
+============================================================
+العربية (ar)
+============================================================
+
+APP NAME
+DownloadThat!
+
+SHORT DESCRIPTION
+نزّل الفيديو والصوت والصور التي يحق لك حفظها.
+
+FULL DESCRIPTION
+يحفظ DownloadThat مقاطع الفيديو والصوت والصور من الروابط التي يُسمح لك قانونيًا بحفظ محتواها، مباشرةً على جهازك.
+
+الميزات الرئيسية
+• حقل واحد لرابط واحد أو عدة روابط أو قائمة تشغيل كاملة
+• تنزيل الفيديو أو الصوت (MP3) بشكل منفصل
+• اختيار الجودة من 240p حتى 4K
+• شريط تقدم تلقائي للتنزيلات النشطة
+• اختيار مجلد التنزيل وفتح الملفات أو مشاركتها مباشرةً
+• يعمل على جهازك بدون إعلانات أو تتبع
+• متوفر بلغات عديدة
+
+استخدام مجاني
+يوفر الإصدار المجاني الجودة الكاملة حتى 4K، مع حد يومي لعدد التنزيلات. يزيل DownloadThat Pro هذا الحد.
+
+مهم
+DownloadThat أداة تقنية. تقع على عاتقك مسؤولية التأكد من امتلاكك للحقوق اللازمة للمحتوى. لا يتجاوز التطبيق أنظمة DRM أو الجدران المدفوعة. نزّل فقط المحتوى الذي تملكه، أو المحتوى المتاح للملك العام، أو المحتوى المرخص بشكل مناسب، أو المحتوى الذي لديك إذن صريح لتنزيله.

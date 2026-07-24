@@ -1,0 +1,23 @@
+APP NAME
+DownloadThat!
+
+SHORT DESCRIPTION
+Download video, audio and images from links you are allowed to save.
+
+FULL DESCRIPTION
+DownloadThat saves video, audio and images from links you are legally allowed to save — directly on your device.
+
+KEY FEATURES
+• One field for a link, multiple links, or an entire playlist
+• Download video or audio (MP3) separately
+• Quality selection from 240p up to 4K
+• Automatic progress bar for active downloads
+• Choose your own download folder, open or share files directly
+• Runs on your device — no ads, no tracking
+• Available in many languages
+
+FREE TO USE
+The free version offers full quality up to 4K, limited by a daily download quota. DownloadThat Pro removes this limit.
+
+IMPORTANT NOTICE
+DownloadThat is a technical tool. You are responsible for ensuring that you have the necessary rights to the content. The app does not bypass DRM or paywalls. Please download only your own content, public-domain or appropriately licensed content, or content you have explicit permission to download.
