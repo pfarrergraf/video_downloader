@@ -1,0 +1,45 @@
+name: Playlist canary
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - ".github/workflows/playlist-canary.yml"
+      - "scripts/playlist_canary.py"
+      - "video_downloader/playlist_urls.py"
+      - "pyproject.toml"
+      - "uv.lock"
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: "Optional newline-separated playlist URLs"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: playlist-canary
+  cancel-in-progress: true
+
+jobs:
+  extract-metadata:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CLASSYDL_CANARY_URLS: ${{ inputs.urls }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff # v6
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Install Python dependencies
+        run: uv sync --extra dev
+      - name: Run non-destructive playlist canary
+        run: uv run python scripts/playlist_canary.py --playlist-end 10 --min-items 1

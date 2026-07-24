@@ -264,11 +264,14 @@ def start(
     license_api_base: str = "",
     app_version: str = "",
     notifier=None,
+    js_runtime_binary: str = "",
 ) -> None:
     global _current_store
     store = QueueStore(Path(data_dir) / "state.db")
     store.init()
     _current_store = store
+    if js_runtime_binary:
+        os.environ["CLASSYDL_JS_RUNTIME"] = js_runtime_binary
 
     # Empty string (not None — Chaquopy's Kotlin->Python call is simpler with
     # plain str args, see the module docstring) means licensing is off:

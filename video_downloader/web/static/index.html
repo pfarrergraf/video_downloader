@@ -312,6 +312,7 @@
     font-weight: 500;
   }
   .job-error { flex-basis: 100%; color: var(--danger); font-size: 0.9rem; }
+  .job-warning { flex-basis: 100%; color: #b7791f; font-size: 0.9rem; }
   .job-error details { margin-top: 0.2rem; }
   .job-error summary { cursor: pointer; color: var(--text-dim); font-size: 0.8rem; min-height: 44px; display: flex; align-items: center; }
   .job-error .raw { color: var(--text-dim); font-size: 0.78rem; word-break: break-word; }
@@ -1639,7 +1640,18 @@ async function queueSource(source, audioOnly, allowPlaylist) {
 }
 
 function isPlaylistUrl(url) {
-  return /[?&]list=/.test(url) || /\/playlist(\?|$)/.test(url) || /\/sets\//.test(url);
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase().replace(/\.$/, '');
+    const youtubeHosts = new Set([
+      'youtube.com', 'www.youtube.com', 'm.youtube.com', 'music.youtube.com',
+      'youtube-nocookie.com', 'www.youtube-nocookie.com', 'youtu.be', 'www.youtu.be',
+    ]);
+    return (youtubeHosts.has(host) && !!parsed.searchParams.get('list'))
+      || /\/sets(?:\/|$)/i.test(parsed.pathname);
+  } catch (_) {
+    return false;
+  }
 }
 
 // The server answers a free-tier quota rejection with 402 - surface it as the
@@ -1670,7 +1682,7 @@ async function startDownload() {
       await queueSource(lines[0], audioOnly, isPlaylistUrl(lines[0]));
     } else {
       for (const line of lines) {
-        await queueSource(line, audioOnly, false);
+        await queueSource(line, audioOnly, isPlaylistUrl(line));
       }
     }
     toast(t('app.batch.queued_toast', { count: lines.length }));
@@ -1842,34 +1854,37 @@ function jobRow(job) {
   name.textContent = jobTitle(job);
   li.appendChild(name);
 
-  if (job.status === 'failed' && job.error) {
+  if (job.error) {
     const err = document.createElement('div');
-    err.className = 'job-error';
+    err.className = job.status === 'failed' ? 'job-error' : 'job-warning';
     const msg = document.createElement('div');
-    msg.textContent = friendlyError(job);
+    msg.textContent = job.status === 'failed' ? friendlyError(job) : job.error;
     err.appendChild(msg);
-    // Raw error behind a "details" expander: useful in support screenshots,
-    // never forced on the user.
-    const details = document.createElement('details');
-    const summary = document.createElement('summary');
-    summary.textContent = t('app.queue.details_toggle');
-    const raw = document.createElement('div');
-    raw.className = 'raw';
-    raw.textContent = job.error;
-    details.appendChild(summary);
-    details.appendChild(raw);
-    err.appendChild(details);
+    if (job.status === 'failed') {
+      // Raw error behind a "details" expander: useful in support screenshots.
+      const details = document.createElement('details');
+      const summary = document.createElement('summary');
+      summary.textContent = t('app.queue.details_toggle');
+      const raw = document.createElement('div');
+      raw.className = 'raw';
+      raw.textContent = job.error;
+      details.appendChild(summary);
+      details.appendChild(raw);
+      err.appendChild(details);
+    }
     li.appendChild(err);
 
     // One-tap retry: requeues in place, resuming from partial data.
-    const retryBtn = document.createElement('button');
-    retryBtn.className = 'secondary';
-    retryBtn.textContent = t('app.queue.retry_btn');
-    retryBtn.addEventListener('click', async () => {
-      try { await api(`/api/queue/${job.id}/retry`, { method: 'POST' }); refreshQueue(); }
-      catch (e) { toast(e.message || ''); }
-    });
-    li.appendChild(retryBtn);
+    if (job.status === 'failed') {
+      const retryBtn = document.createElement('button');
+      retryBtn.className = 'secondary';
+      retryBtn.textContent = t('app.queue.retry_btn');
+      retryBtn.addEventListener('click', async () => {
+        try { await api(`/api/queue/${job.id}/retry`, { method: 'POST' }); refreshQueue(); }
+        catch (e) { toast(e.message || ''); }
+      });
+      li.appendChild(retryBtn);
+    }
   }
 
   if (job.status === 'in_progress' && job.total_bytes) {

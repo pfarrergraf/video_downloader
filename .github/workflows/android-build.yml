@@ -51,8 +51,37 @@ jobs:
           path: ffmpeg-out/bin/ffmpeg
           retention-days: 1
 
+  build-quickjs:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        abi: [arm64-v8a, x86_64]
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+      - name: Install NDK
+        run: |
+          SDKMANAGER="$(command -v sdkmanager || true)"
+          if [ -z "$SDKMANAGER" ]; then
+            SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -1)"
+          fi
+          "$SDKMANAGER" --install "ndk;27.0.12077973"
+      - name: Build QuickJS for ${{ matrix.abi }}
+        env:
+          ANDROID_NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/27.0.12077973
+        run: bash .github/scripts/build_quickjs_android.sh "${{ matrix.abi }}" "$PWD/quickjs-out"
+      - name: Upload QuickJS binary
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: quickjs-${{ matrix.abi }}
+          path: quickjs-out/bin/qjs
+          retention-days: 1
+
   build:
-    needs: build-ffmpeg
+    needs: [build-ffmpeg, build-quickjs]
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -86,6 +115,11 @@ jobs:
         with:
           pattern: ffmpeg-*
           path: android/ffmpeg-artifacts
+      - name: Download QuickJS binaries
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: quickjs-*
+          path: android/quickjs-artifacts
 
       - name: Place ffmpeg binaries into jniLibs
         run: |
@@ -94,6 +128,12 @@ jobs:
             mkdir -p "app/src/main/jniLibs/${abi_name}"
             cp "${abi_dir}ffmpeg" "app/src/main/jniLibs/${abi_name}/libffmpeg.so"
             chmod +x "app/src/main/jniLibs/${abi_name}/libffmpeg.so"
+          done
+          for abi_dir in quickjs-artifacts/*/; do
+            abi_name="$(basename "$abi_dir" | sed 's/^quickjs-//')"
+            mkdir -p "app/src/main/jniLibs/${abi_name}"
+            cp "${abi_dir}qjs" "app/src/main/jniLibs/${abi_name}/libqjs.so"
+            chmod +x "app/src/main/jniLibs/${abi_name}/libqjs.so"
           done
           find app/src/main/jniLibs -type f
 
@@ -129,6 +169,11 @@ jobs:
         with:
           name: ffmpeg-x86_64
           path: ffmpeg-x86_64
+      - name: Download x86_64 QuickJS binary
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: quickjs-x86_64
+          path: quickjs-x86_64
 
       - name: Enable KVM for hardware-accelerated emulation
         run: |
@@ -150,6 +195,7 @@ jobs:
             adb forward tcp:8420 tcp:8420
             bash ${{ github.workspace }}/.github/scripts/smoke_test.sh
             bash ${{ github.workspace }}/.github/scripts/ffmpeg_exec_test.sh ${{ github.workspace }}/ffmpeg-x86_64/ffmpeg
+            bash ${{ github.workspace }}/.github/scripts/quickjs_exec_test.sh ${{ github.workspace }}/quickjs-x86_64/qjs
             bash ${{ github.workspace }}/.github/scripts/download_pipeline_test.sh
             bash ${{ github.workspace }}/.github/scripts/share_intent_test.sh
             bash ${{ github.workspace }}/.github/scripts/background_survival_test.sh

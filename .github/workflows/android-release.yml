@@ -63,8 +63,34 @@ jobs:
           path: ffmpeg-out/bin/ffmpeg
           retention-days: 1
 
+  build-quickjs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+      - name: Install NDK
+        run: |
+          SDKMANAGER="$(command -v sdkmanager || true)"
+          if [ -z "$SDKMANAGER" ]; then
+            SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -1)"
+          fi
+          "$SDKMANAGER" --install "ndk;27.0.12077973"
+      - name: Build QuickJS for arm64-v8a
+        env:
+          ANDROID_NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/27.0.12077973
+        run: bash .github/scripts/build_quickjs_android.sh "arm64-v8a" "$PWD/quickjs-out"
+      - name: Upload QuickJS binary
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: quickjs-arm64-v8a
+          path: quickjs-out/bin/qjs
+          retention-days: 1
+
   build-signed-release:
-    needs: build-ffmpeg
+    needs: [build-ffmpeg, build-quickjs]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -122,12 +148,19 @@ jobs:
         with:
           name: ffmpeg-arm64-v8a
           path: android/ffmpeg-artifacts/ffmpeg-arm64-v8a
+      - name: Download QuickJS binary
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: quickjs-arm64-v8a
+          path: android/quickjs-artifacts/quickjs-arm64-v8a
 
-      - name: Place ffmpeg binary into jniLibs
+      - name: Place runtime binaries into jniLibs
         run: |
           mkdir -p app/src/main/jniLibs/arm64-v8a
           cp ffmpeg-artifacts/ffmpeg-arm64-v8a/ffmpeg app/src/main/jniLibs/arm64-v8a/libffmpeg.so
+          cp quickjs-artifacts/quickjs-arm64-v8a/qjs app/src/main/jniLibs/arm64-v8a/libqjs.so
           chmod +x app/src/main/jniLibs/arm64-v8a/libffmpeg.so
+          chmod +x app/src/main/jniLibs/arm64-v8a/libqjs.so
 
       - name: Verify app-signing and upload-key secrets are configured
         env:

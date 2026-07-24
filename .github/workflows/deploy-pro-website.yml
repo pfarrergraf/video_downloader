@@ -29,6 +29,7 @@ jobs:
       PLAY_RTDN_AUDIENCE: ${{ secrets.PLAY_RTDN_AUDIENCE }}
       PLAY_RTDN_SERVICE_ACCOUNT_EMAIL: ${{ secrets.PLAY_RTDN_SERVICE_ACCOUNT_EMAIL }}
       PLAY_RECONCILIATION_SECRET: ${{ secrets.PLAY_RECONCILIATION_SECRET }}
+      TESTER_GRANTS_ADMIN_TOKEN: ${{ secrets.TESTER_GRANTS_ADMIN_TOKEN }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
@@ -82,6 +83,9 @@ jobs:
           put PLAY_PRODUCT_ID "pro"
           if [ -n "$PLAY_STORE_URL" ]; then
             put PLAY_STORE_URL "$PLAY_STORE_URL"
+          fi
+          if [ -n "$TESTER_GRANTS_ADMIN_TOKEN" ]; then
+            put TESTER_GRANTS_ADMIN_TOKEN "$TESTER_GRANTS_ADMIN_TOKEN"
           fi
 
       - name: Set Google Play backend secrets

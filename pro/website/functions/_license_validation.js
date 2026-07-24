@@ -4,6 +4,29 @@ const STALE_SLOT_SECONDS = 90 * 24 * 3600;
 const PLAY_OFFLINE_GRACE_SECONDS = 72 * 3600;
 
 export async function validateLicense(env, { key, platform, deviceId, appVersion }) {
+  const grant = await env.DB.prepare(
+    `SELECT id, label, grant_type, status, expires_at
+     FROM tester_grants WHERE key_hash = ?`,
+  ).bind(await sha256Hex(key)).first();
+  if (grant) {
+    const now = Math.floor(Date.now() / 1000);
+    const expired = grant.status !== "active" || (grant.expires_at != null && grant.expires_at <= now);
+    const valid = !expired;
+    let deviceAllowed = true;
+    if (valid && platform && deviceId) {
+      deviceAllowed = await checkDeviceSlot(env, key, platform, deviceId, appVersion || null, now);
+    }
+    return {
+      valid,
+      tier: grant.grant_type,
+      status: expired ? (grant.status === "revoked" ? "revoked" : "expired") : "active",
+      provider: "manual",
+      grant_id: grant.id,
+      label: grant.label,
+      expires_at: grant.expires_at,
+      device_allowed: deviceAllowed,
+    };
+  }
   const row = await env.DB.prepare(
     `SELECT l.tier, l.status, l.current_period_end, l.deliver_at,
             p.verified_at AS play_verified_at, p.purchase_state AS play_purchase_state

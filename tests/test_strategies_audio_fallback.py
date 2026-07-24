@@ -2,8 +2,16 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from video_downloader.models import DownloadRequest
-from video_downloader.strategies import YtDlpStrategy, _audio_format_selector, _video_format_selector
+from video_downloader.strategies import (
+    YtDlpStrategy,
+    StrategyError,
+    _audio_format_selector,
+    _available_js_runtimes,
+    _video_format_selector,
+)
 
 
 def _make_request(
@@ -147,6 +155,72 @@ def test_video_format_selector_applies_quality_cap_without_ffmpeg() -> None:
 
 def test_video_format_selector_ignores_cap_when_none() -> None:
     assert _video_format_selector("bv*+ba/b", ffmpeg_available=True, quality_height=None) == "bv*+ba/b"
+
+
+def test_playlist_options_skip_bad_entries_and_limit_playlist(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
+    request = _make_request(tmp_path, audio_only=False)
+    request.allow_playlist = True
+    request.max_items = 12
+
+    opts = _run_and_capture_opts(monkeypatch, tmp_path, request)
+
+    assert opts["noplaylist"] is False
+    assert opts["ignoreerrors"] is True
+    assert opts["playlistend"] == 12
+    assert "max_downloads" not in opts
+
+
+def test_playlist_partial_success_reports_skipped_entries(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
+    request = _make_request(tmp_path, audio_only=False)
+    request.allow_playlist = True
+
+    class FakeYoutubeDL:
+        def __init__(self, opts):
+            self.logger = opts["logger"]
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *exc_info):
+            return False
+
+        def download(self, urls):
+            self.logger.error("Video unavailable")
+            (tmp_path / "downloaded.webm").write_bytes(b"data")
+
+    import types
+
+    fake_module = types.SimpleNamespace(YoutubeDL=FakeYoutubeDL)
+    monkeypatch.setattr("video_downloader.strategies.engine_update.get_yt_dlp", lambda: fake_module)
+
+    result = YtDlpStrategy().download(request, request.source_url)
+
+    assert result.file_path.name == "downloaded.webm"
+    assert "1 skipped item" in result.details
+    assert "Video unavailable" in result.details
+
+
+def test_available_js_runtimes_prefers_bundled_android_quickjs(
+    monkeypatch, tmp_path: Path
+) -> None:
+    qjs = tmp_path / "libqjs.so"
+    qjs.write_bytes(b"binary")
+    monkeypatch.setenv("CLASSYDL_JS_RUNTIME", str(qjs))
+    monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
+
+    assert _available_js_runtimes() == {"quickjs": {"path": str(qjs)}}
+
+
+def test_youtube_fails_clearly_without_javascript_runtime(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.delenv("CLASSYDL_JS_RUNTIME", raising=False)
+    monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
+    request = _make_request(tmp_path, audio_only=False)
+    request.source_url = "https://www.youtube.com/watch?v=abc"
+
+    with pytest.raises(StrategyError, match="JavaScript runtime"):
+        YtDlpStrategy().download(request, request.source_url)
 
 
 def test_video_without_ffmpeg_falls_back_to_single_stream_format(tmp_path: Path, monkeypatch) -> None:

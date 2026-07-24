@@ -45,6 +45,7 @@ from contextlib import contextmanager
 from pathlib import Path
 
 PYPI_JSON_URL = "https://pypi.org/pypi/yt-dlp/json"  # hardcoded project, never configurable
+EJS_PYPI_JSON_URL = "https://pypi.org/pypi/yt-dlp-ejs/{version}/json"
 HTTP_TIMEOUT_SECONDS = 30
 CHECK_THROTTLE_SECONDS = 3600  # at most one PyPI check per hour (stampede guard)
 APPLY_WAIT_SECONDS = 30.0
@@ -274,6 +275,7 @@ def download_and_install(version: str, url: str, sha256: str) -> Path:
     shutil.rmtree(staging, ignore_errors=True)
     try:
         with zipfile.ZipFile(tmp_path) as wheel:
+            ejs_version = _required_ejs_version(wheel)
             for entry in wheel.namelist():
                 # Only the package itself; wheels also carry *.dist-info.
                 if not entry.startswith("yt_dlp/"):
@@ -282,6 +284,8 @@ def download_and_install(version: str, url: str, sha256: str) -> Path:
                 if entry_path.is_absolute() or ".." in entry_path.parts:
                     raise RuntimeError(f"Wheel contains a suspicious path: {entry!r}")
                 wheel.extract(entry, staging)
+        if ejs_version:
+            _install_ejs_companion(ejs_version, staging)
         if _read_version_from_package_dir(staging) != version:
             raise RuntimeError("Extracted wheel's version.py does not match the advertised version")
         shutil.rmtree(target, ignore_errors=True)
@@ -296,6 +300,70 @@ def download_and_install(version: str, url: str, sha256: str) -> Path:
     tmp_json.replace(_engine_base / "current.json")
     _prune_old_engines(keep=target.name)
     return target
+
+
+def _required_ejs_version(wheel) -> str | None:
+    metadata_name = next(
+        (name for name in wheel.namelist() if name.endswith(".dist-info/METADATA")),
+        None,
+    )
+    if not metadata_name:
+        return None
+    metadata = wheel.read(metadata_name).decode("utf-8", errors="replace")
+    match = re.search(
+        r"^Requires-Dist:\s*yt-dlp-ejs\s*==\s*([0-9.]+)\s*;\s*extra\s*==\s*['\"]default['\"]",
+        metadata,
+        flags=re.MULTILINE | re.IGNORECASE,
+    )
+    return match.group(1) if match else None
+
+
+def _install_ejs_companion(version: str, staging: Path) -> None:
+    """Install the exact EJS package required by the candidate yt-dlp wheel."""
+    index_url = EJS_PYPI_JSON_URL.format(version=version)
+    with urllib.request.urlopen(index_url, timeout=HTTP_TIMEOUT_SECONDS) as response:
+        data = json.loads(response.read().decode("utf-8"))
+    candidate = next(
+        (
+            item
+            for item in data.get("urls", [])
+            if str(item.get("filename", "")).endswith("py3-none-any.whl")
+        ),
+        None,
+    )
+    if not candidate:
+        raise RuntimeError(f"No compatible yt-dlp-ejs wheel found for {version}")
+    url = str(candidate.get("url", ""))
+    sha256 = str(candidate.get("digests", {}).get("sha256", ""))
+    if not url.startswith("https://") or not sha256:
+        raise RuntimeError("Invalid yt-dlp-ejs package metadata")
+
+    tmp_path = staging.parent / f"yt_dlp_ejs-{version}.whl.tmp"
+    digest = hashlib.sha256()
+    try:
+        with urllib.request.urlopen(url, timeout=HTTP_TIMEOUT_SECONDS) as response, tmp_path.open(
+            "wb"
+        ) as out:
+            while chunk := response.read(1024 * 256):
+                digest.update(chunk)
+                out.write(chunk)
+        if digest.hexdigest() != sha256.lower():
+            raise RuntimeError("yt-dlp-ejs checksum mismatch - refusing to install")
+
+        import zipfile
+
+        with zipfile.ZipFile(tmp_path) as wheel:
+            for entry in wheel.namelist():
+                if not entry.startswith("yt_dlp_ejs/"):
+                    continue
+                entry_path = Path(entry)
+                if entry_path.is_absolute() or ".." in entry_path.parts:
+                    raise RuntimeError(f"yt-dlp-ejs wheel contains a suspicious path: {entry!r}")
+                wheel.extract(entry, staging)
+        if not (staging / "yt_dlp_ejs" / "__init__.py").is_file():
+            raise RuntimeError("yt-dlp-ejs wheel did not contain the expected package")
+    finally:
+        tmp_path.unlink(missing_ok=True)
 
 
 def apply_update() -> bool:
@@ -393,7 +461,13 @@ def ensure_latest(force: bool = False) -> tuple[bool, str | None]:
 
 
 def _purge_yt_dlp_modules() -> None:
-    for name in [m for m in sys.modules if m == "yt_dlp" or m.startswith("yt_dlp.")]:
+    for name in [
+        m
+        for m in sys.modules
+        if m in {"yt_dlp", "yt_dlp_ejs"}
+        or m.startswith("yt_dlp.")
+        or m.startswith("yt_dlp_ejs.")
+    ]:
         sys.modules.pop(name, None)
 
 

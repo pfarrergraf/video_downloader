@@ -119,6 +119,8 @@ _PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
             "nsig extraction failed",
             "player = ",
             "some formats may be missing",
+            "javascript runtime",
+            "yt-dlp-ejs",
             "confirm you are human",
         ),
     ),

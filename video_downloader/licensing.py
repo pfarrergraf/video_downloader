@@ -61,10 +61,17 @@ class LicenseState:
     # for this key. Defaults True so installs that predate this field (or a
     # manager constructed without a platform) are never held back by it.
     device_allowed: bool = True
+    # Server-issued tester grants expire locally too, so an offline device
+    # cannot extend a temporary grant beyond its intended end time.
+    expires_at: float | None = None
 
     @property
     def is_pro(self) -> bool:
-        return self.valid and self.device_allowed
+        return (
+            self.valid
+            and self.device_allowed
+            and (self.expires_at is None or self.expires_at > time.time())
+        )
 
 
 class LicenseManager:
@@ -149,6 +156,7 @@ class LicenseManager:
             checked_at=time.time(),
             device_id=self._state.device_id,
             device_allowed=bool(data.get("device_allowed", True)),
+            expires_at=data.get("expires_at"),
         )
         self._save()
         return self._state

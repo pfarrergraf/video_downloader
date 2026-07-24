@@ -126,9 +126,9 @@ android {
 
     packagingOptions {
         jniLibs {
-            // libffmpeg.so isn't a real JNI library - it's the ffmpeg CLI
-            // binary, given a .so name/location purely so the installer
-            // extracts it with execute permission. AGP's modern default
+            // libffmpeg.so and libqjs.so are CLI binaries rather than JNI
+            // libraries, given .so names purely so the installer extracts
+            // them with execute permission. AGP's modern default
             // (useLegacyPackaging=false, the default for minSdk >= 23) keeps
             // native libs compressed inside the APK and dlopen()s them
             // directly without ever writing a standalone file, which left
@@ -160,7 +160,10 @@ chaquopy {
             // are CLI/TUI-only and intentionally excluded to keep the APK smaller.
             install "beautifulsoup4>=4.12.0"
             install "requests>=2.32.0"
-            install "yt-dlp>=2024.12.13"
+            // Keep yt-dlp and its external challenge scripts aligned. The
+            // runtime updater applies future pairs atomically.
+            install "yt-dlp==2026.7.4"
+            install "yt-dlp-ejs==0.8.0"
             // Explicit, not just relying on it coming in transitively via requests:
             // Android has no OpenSSL system cert store at the paths Python's ssl
             // module checks by default, so HTTPS fails outright unless something

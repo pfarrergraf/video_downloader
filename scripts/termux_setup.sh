@@ -6,8 +6,8 @@ set -euo pipefail
 echo "==> Updating Termux packages"
 pkg update -y && pkg upgrade -y
 
-echo "==> Installing python, git, ffmpeg"
-pkg install -y python git ffmpeg
+echo "==> Installing python, git, ffmpeg, Node.js"
+pkg install -y python git ffmpeg nodejs-lts
 
 echo "==> Requesting shared storage access (lets downloads show up in the Files app)"
 termux-setup-storage || true
