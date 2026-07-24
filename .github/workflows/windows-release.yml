@@ -34,6 +34,10 @@ jobs:
         with:
           enable-cache: false
 
+      - name: Install FFmpeg
+        shell: pwsh
+        run: choco install ffmpeg -y --no-progress
+
       - name: Validate release version
         shell: pwsh
         run: |
@@ -47,13 +51,19 @@ jobs:
       # Windows equivalent to what the Android app already does, rather than
       # the older Tkinter-based classydl.exe.
       #
-      # No bundled ffmpeg/aria2c (-BundleAll) for this first pass - out of
-      # scope here, same as iOS shipping without ffmpeg. strategies.py already
-      # falls back to progressive/pre-muxed formats when ffmpeg isn't found,
-      # so this still produces real, working downloads without it.
+      # Bundle FFmpeg so audio-only downloads are always converted to MP3 and
+      # video downloads can merge the best separate streams. Without this,
+      # yt-dlp leaves low-bitrate WebM/Opus files when post-processing fails.
       - name: Build classydl-web.exe
         shell: pwsh
-        run: pwsh -File scripts/build_windows.ps1 -Target web
+        run: pwsh -File scripts/build_windows.ps1 -Target web -BundleAll
+
+      - name: Verify bundled FFmpeg
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "bundled_bins\ffmpeg.exe")) {
+            throw "The Windows release must contain bundled_bins\ffmpeg.exe"
+          }
 
       # No code-signing certificate configured yet (unlike Android's
       # ANDROID_KEYSTORE_BASE64 secret) - ships unsigned for now, which means
