@@ -58,11 +58,23 @@ jobs:
         shell: pwsh
         run: pwsh -File scripts/build_windows.ps1 -Target web -BundleAll
 
+      # Both binaries must exist AND run: choco exposes ffmpeg via shimgen
+      # shims whose target path is relative to the shim location, so a copied
+      # shim passes a Test-Path check but is a broken exe on every user's
+      # machine. ffprobe is required too - yt-dlp postprocessing refuses to
+      # work with ffmpeg alone.
       - name: Verify bundled FFmpeg
         shell: pwsh
         run: |
-          if (-not (Test-Path "bundled_bins\ffmpeg.exe")) {
-            throw "The Windows release must contain bundled_bins\ffmpeg.exe"
+          foreach ($tool in @("ffmpeg.exe", "ffprobe.exe")) {
+            $path = "bundled_bins\$tool"
+            if (-not (Test-Path $path)) {
+              throw "The Windows release must contain $path"
+            }
+            & $path -version | Select-Object -First 1
+            if ($LASTEXITCODE -ne 0) {
+              throw "$path exists but does not execute (broken Chocolatey shim?)"
+            }
           }
 
       # No code-signing certificate configured yet (unlike Android's

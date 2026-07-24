@@ -79,7 +79,10 @@ def test_audio_only_with_ffmpeg_extracts_mp3(tmp_path: Path, monkeypatch) -> Non
     assert opts["postprocessors"] == [
         {"key": "FFmpegExtractAudio", "preferredcodec": "mp3", "preferredquality": "0"}
     ]
-    assert opts["ffmpeg_location"] == "ffmpeg"
+    # Must be the which()-resolved absolute path, not the bare command name:
+    # yt-dlp treats a non-existent ffmpeg_location as "no ffmpeg" without
+    # falling back to PATH.
+    assert opts["ffmpeg_location"] == "/usr/bin/ffmpeg"
 
 
 def test_audio_only_flags_when_mp3_conversion_silently_fails(tmp_path: Path, monkeypatch) -> None:
@@ -228,5 +231,5 @@ def test_video_with_ffmpeg_keeps_the_configured_selector(tmp_path: Path, monkeyp
 
     opts = _run_and_capture_opts(monkeypatch, tmp_path, request)
 
-    assert opts["ffmpeg_location"] == "ffmpeg"
+    assert opts["ffmpeg_location"] == "/usr/bin/ffmpeg"
     assert opts["format"] == "bv*+ba/b"

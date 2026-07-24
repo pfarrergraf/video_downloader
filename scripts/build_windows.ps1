@@ -4,6 +4,7 @@ param(
 	[switch]$Windowed,
 	[switch]$BundleAll,
 	[string]$FfmpegPath,
+	[string]$FfprobePath,
 	[string]$Aria2Path,
 	[string]$QuickJsPath,
 	[string]$SignCert,      # path to .pfx for signing (optional)
@@ -23,26 +24,54 @@ $BundledDir = Join-Path (Get-Location) 'bundled_bins'
 if (Test-Path $BundledDir) { Remove-Item -Recurse -Force $BundledDir }
 New-Item -ItemType Directory -Path $BundledDir | Out-Null
 
+# Resolve a command to a binary that still works when copied elsewhere.
+# Chocolatey exposes tools via shimgen shims in <choco>\bin whose target path
+# is relative to the shim's own location - a shim copied into bundled_bins is
+# a broken exe on every machine. Follow it to the real binary in <choco>\lib.
+function Resolve-RealBinary {
+	param([string]$Name)
+	$cmd = Get-Command $Name -ErrorAction SilentlyContinue
+	if (-not $cmd) { return $null }
+	$path = $cmd.Path
+	$chocoRoot = $env:ChocolateyInstall
+	if (-not $chocoRoot) { $chocoRoot = 'C:\ProgramData\chocolatey' }
+	$chocoBin = Join-Path $chocoRoot 'bin'
+	if ($path -like "$chocoBin\*") {
+		$real = Get-ChildItem -Path (Join-Path $chocoRoot 'lib') -Recurse -Filter "$Name.exe" -ErrorAction SilentlyContinue |
+			Select-Object -First 1
+		if ($real) { return $real.FullName }
+		Write-Warning "$Name resolves to a Chocolatey shim ($path) and no real binary was found under $chocoRoot\lib - not bundling it."
+		return $null
+	}
+	return $path
+}
+
 if ($BundleAll) {
-	# Try to pick up ffmpeg and aria2c from PATH if available. For audio-only
+	# Pick up ffmpeg AND ffprobe from PATH: yt-dlp needs both for merging
+	# best-video+best-audio streams and for MP3 extraction. For audio-only
 	# MP3 output, use an ffmpeg build with libmp3lame support.
-	try {
-		$ff = Get-Command ffmpeg -ErrorAction SilentlyContinue
-		if ($ff) { Copy-Item $ff.Path -Destination $BundledDir }
-	} catch {}
-	try {
-		$a2 = Get-Command aria2c -ErrorAction SilentlyContinue
-		if ($a2) { Copy-Item $a2.Path -Destination $BundledDir }
-	} catch {}
-	try {
-		$qjs = Get-Command qjs -ErrorAction SilentlyContinue
-		if ($qjs) { Copy-Item $qjs.Path -Destination $BundledDir }
-	} catch {}
+	$ff = Resolve-RealBinary 'ffmpeg'
+	if ($ff) { Copy-Item $ff -Destination $BundledDir }
+	$fp = Resolve-RealBinary 'ffprobe'
+	if ($fp) { Copy-Item $fp -Destination $BundledDir }
+	if ($ff -and -not $fp) {
+		Write-Error "ffmpeg was bundled but ffprobe was not found. yt-dlp postprocessing requires both; install a full FFmpeg build."
+		exit 7
+	}
+	$a2 = Resolve-RealBinary 'aria2c'
+	if ($a2) { Copy-Item $a2 -Destination $BundledDir }
+	$qjs = Resolve-RealBinary 'qjs'
+	if ($qjs) { Copy-Item $qjs -Destination $BundledDir }
 }
 
 if ($FfmpegPath) {
 	if (Test-Path $FfmpegPath) { Copy-Item $FfmpegPath -Destination $BundledDir -ErrorAction Stop }
 	else { Write-Error "FFmpeg path not found: $FfmpegPath"; exit 3 }
+}
+
+if ($FfprobePath) {
+	if (Test-Path $FfprobePath) { Copy-Item $FfprobePath -Destination $BundledDir -ErrorAction Stop }
+	else { Write-Error "ffprobe path not found: $FfprobePath"; exit 3 }
 }
 
 if ($Aria2Path) {
@@ -53,6 +82,22 @@ if ($Aria2Path) {
 if ($QuickJsPath) {
 	if (Test-Path $QuickJsPath) { Copy-Item $QuickJsPath -Destination (Join-Path $BundledDir 'qjs.exe') -ErrorAction Stop }
 	else { Write-Error "QuickJS path not found: $QuickJsPath"; exit 6 }
+}
+
+# Validate that every bundled ffmpeg/ffprobe actually executes from its new
+# location. A Chocolatey shim copied here "exists" but cannot run - exactly
+# the failure mode that shipped a release where every audio download died
+# with "ffprobe and ffmpeg not found".
+foreach ($tool in @('ffmpeg.exe', 'ffprobe.exe')) {
+	$toolPath = Join-Path $BundledDir $tool
+	if (Test-Path $toolPath) {
+		& $toolPath -version *> $null
+		if ($LASTEXITCODE -ne 0) {
+			Write-Error "Bundled $tool does not run from $BundledDir (broken shim or wrong architecture?)."
+			exit 8
+		}
+		Write-Host "Validated bundled $tool"
+	}
 }
 
 function Invoke-ClassyBuild {

@@ -97,7 +97,8 @@ class YtDlpStrategy(Strategy):
     def download(self, request: DownloadRequest, source_url: str) -> DownloadResult:
         ensure_output_dir(request.output_dir)
         before_files = _snapshot_files(request.output_dir)
-        ffmpeg_available = shutil.which(request.ffmpeg_binary) is not None
+        ffmpeg_path = shutil.which(request.ffmpeg_binary)
+        ffmpeg_available = ffmpeg_path is not None
         if request.audio_only and not ffmpeg_available:
             raise StrategyError(
                 "MP3 audio downloads require FFmpeg. Install the bundled Windows release "
@@ -177,7 +178,15 @@ class YtDlpStrategy(Strategy):
         if request.cookies_from_browser:
             ydl_opts["cookiesfrombrowser"] = (request.cookies_from_browser, None, None, None)
         if ffmpeg_available:
-            ydl_opts["ffmpeg_location"] = request.ffmpeg_binary
+            # yt-dlp requires ffmpeg_location to be an existing file or
+            # directory - it does NOT fall back to PATH lookup. Passing the
+            # bare command name ("ffmpeg") makes it warn "ffmpeg-location
+            # ffmpeg does not exist! Continuing without ffmpeg" and disable
+            # all merging/extraction even though ffmpeg is on PATH, which
+            # surfaced as "ffprobe and ffmpeg not found" on every desktop
+            # audio download. Pass the resolved absolute path instead;
+            # yt-dlp derives the ffprobe path from the same directory.
+            ydl_opts["ffmpeg_location"] = ffmpeg_path
         if request.subtitle_langs:
             ydl_opts["writesubtitles"] = True
             ydl_opts["subtitleslangs"] = request.subtitle_langs.split(",")
