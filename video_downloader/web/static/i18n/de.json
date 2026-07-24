@@ -36,7 +36,7 @@
       "cancel_btn": "Abbrechen",
       "cancel_failed_toast": "Abbrechen fehlgeschlagen.",
       "queued_toast": "Zur Warteschlange hinzugefügt.",
-      "open_btn": "Ansehen",
+      "open_btn": "Abspielen",
       "open_failed_toast": "Diese Datei konnte nicht geöffnet werden — versuche stattdessen den Link.",
       "open_unsupported_toast": "Das Öffnen von Dateien funktioniert nur in der Android-App.",
       "open_folder_btn": "Ordner öffnen",

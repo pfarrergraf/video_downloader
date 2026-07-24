@@ -346,6 +346,15 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 1rem;
   }
+  /* Keep the four finished-file actions compact and icon-only. The title and
+     aria-label preserve hover/screen-reader help without consuming row width. */
+  button.folder-btn { color: #ffcb3d; }
+  button.trash-btn { background: transparent; border-color: transparent; }
+  button.share-btn img { filter: none; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) button.share-btn img { filter: invert(1); }
+  }
+  :root[data-theme="dark"] button.share-btn img { filter: invert(1); }
 
   #login-overlay {
     position: fixed; inset: 0; background: var(--overlay-strong);
@@ -1915,17 +1924,21 @@ function jobRow(job) {
         fileRow.appendChild(link);
       }
 
-      // Big labelled buttons, not icon puzzles: "View" plays the file,
-      // "Share" opens the system share sheet.
+      // Icon-only actions keep play/share/folder/delete on one row. Titles and
+      // aria-labels retain the full action names for accessibility.
       const openBtn = document.createElement('button');
-      openBtn.className = 'primary';
-      openBtn.innerHTML = `${iconSvg('open')} <span>${t('app.queue.open_btn')}</span>`;
+      openBtn.className = 'primary file-icon-btn';
+      openBtn.innerHTML = iconSvg('open');
+      openBtn.title = t('app.queue.open_btn');
+      openBtn.setAttribute('aria-label', t('app.queue.open_btn'));
       openBtn.addEventListener('click', () => openFile(job.id, f.filename));
       fileRow.appendChild(openBtn);
 
       const shareBtn = document.createElement('button');
-      shareBtn.className = 'secondary';
-      shareBtn.innerHTML = `${iconSvg('share')} <span>${t('app.queue.share_btn')}</span>`;
+      shareBtn.className = 'secondary file-icon-btn share-btn';
+      shareBtn.innerHTML = '<img src="/icons/share.png" alt="" width="24" height="24">';
+      shareBtn.title = t('app.queue.share_btn');
+      shareBtn.setAttribute('aria-label', t('app.queue.share_btn'));
       shareBtn.addEventListener('click', () => shareFile(job.id, f.filename));
       fileRow.appendChild(shareBtn);
 

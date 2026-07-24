@@ -36,7 +36,7 @@
       "cancel_btn": "Cancel",
       "cancel_failed_toast": "Failed to cancel.",
       "queued_toast": "Queued.",
-      "open_btn": "View",
+      "open_btn": "Play",
       "open_failed_toast": "Couldn't open this file — try the link instead.",
       "open_unsupported_toast": "Opening files only works in the Android app.",
       "open_folder_btn": "Open folder",
