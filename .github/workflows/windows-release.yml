@@ -71,10 +71,14 @@ jobs:
             if (-not (Test-Path $path)) {
               throw "The Windows release must contain $path"
             }
-            & $path -version | Select-Object -First 1
+            # Capture output fully before trimming: piping a native command
+            # straight into Select-Object -First 1 terminates it early and
+            # poisons $LASTEXITCODE with the kill status.
+            $versionOutput = & $path -version 2>&1
             if ($LASTEXITCODE -ne 0) {
               throw "$path exists but does not execute (broken Chocolatey shim?)"
             }
+            Write-Host ($versionOutput | Select-Object -First 1)
           }
 
       # No code-signing certificate configured yet (unlike Android's
