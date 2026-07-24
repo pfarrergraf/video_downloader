@@ -32,6 +32,11 @@ Thumbs.db
 # OS
 .DS_Store
 
+# Local secrets and environment overrides
+.env
+.env.*
+!.env.example
+
 # Test artifacts
 output/playwright/
 **/.playwright-cli/
