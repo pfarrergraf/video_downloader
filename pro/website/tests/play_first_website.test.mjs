@@ -32,6 +32,7 @@ test("download routes expose Play first, signed APK second, and planned iOS", ()
   const android = read("download/android/index.html");
   const direct = read("download/direct/index.html");
   const ios = read("download/ios/index.html");
+  const windows = read("download/windows/index.html");
 
   assert.ok(landing.indexOf("Google Play") < landing.indexOf("signed APK"));
   assert.match(landing, /data-google-play-badge/);
@@ -45,6 +46,8 @@ test("download routes expose Play first, signed APK second, and planned iOS", ()
   assert.match(direct, /data-direct-apk-link/);
   assert.match(direct, /Pro cannot be purchased|no billing/i);
   assert.match(ios, /planned/i);
+  assert.match(windows, /v0\.8\.4\.4\/DownloadThat-v0\.8\.4\.4\.exe/);
+  assert.match(windows, /SHA-256 checksum/);
 });
 
 test("Play URL is configured centrally and fails closed while unset", () => {
