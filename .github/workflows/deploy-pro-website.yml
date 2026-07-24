@@ -67,7 +67,6 @@ jobs:
           retention-days: 90
 
       - name: Apply D1 migrations
-        if: env.PLAY_BACKEND_CONFIGURED == 'true'
         working-directory: pro/website
         run: npx -y wrangler@3.114.15 d1 migrations apply downloadthat-licenses --remote
 
