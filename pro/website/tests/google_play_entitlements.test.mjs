@@ -10,6 +10,8 @@ import {
 } from "../functions/_google_play.js";
 import { validateLicense } from "../functions/_license_validation.js";
 import { onRequestPost as postValidate } from "../functions/api/license/validate.js";
+import { onRequestGet as listGrants, onRequestPost as manageGrants } from "../functions/api/admin/tester-grants.js";
+import { createTesterGrant } from "../functions/_tester_grants.js";
 
 const TOKEN_KEY = Buffer.alloc(32, 7).toString("base64");
 
@@ -94,6 +96,63 @@ test("POST license validation avoids query strings and returns 72-hour Play grac
   assert.equal(body.valid, true);
   assert.equal(body.provider, "google_play");
   assert.equal(body.offline_grace_until - body.verified_at, 72 * 3600);
+});
+
+test("owner and expiring tester grants validate without storing raw keys", async () => {
+  const { env } = playEnv(() => purchase());
+  const owner = await createTesterGrant(env, { label: "Owner", grantType: "owner", expiresAt: null });
+  const tester = await createTesterGrant(env, {
+    label: "Beta Alice",
+    grantType: "tester",
+    expiresAt: Math.floor(Date.now() / 1000) + 3600,
+  });
+  assert.equal((await validateLicense(env, { key: owner.key })).tier, "owner");
+  const valid = await validateLicense(env, { key: tester.key, platform: "windows", deviceId: "tester-a" });
+  assert.equal(valid.valid, true);
+  assert.equal(valid.provider, "manual");
+  assert.equal(valid.label, "Beta Alice");
+  const raw = await env.DB.prepare("SELECT key_hash FROM tester_grants WHERE id = ?").bind(tester.id).first();
+  assert.notEqual(raw.key_hash, tester.key);
+});
+
+test("tester grant admin API creates, lists and revokes bearer keys", async () => {
+  const { env } = playEnv(() => purchase());
+  env.TESTER_GRANTS_ADMIN_TOKEN = "admin-secret";
+  const unauthorized = await manageGrants({
+    request: new Request("https://example.test/api/admin/tester-grants", { method: "POST", body: "{}" }),
+    env,
+  });
+  assert.equal(unauthorized.status, 401);
+  const created = await manageGrants({
+    request: new Request("https://example.test/api/admin/tester-grants", {
+      method: "POST",
+      headers: { Authorization: "Bearer admin-secret", "Content-Type": "application/json" },
+      body: JSON.stringify({ label: "Beta Bob", grant_type: "tester", expires_in_days: 7 }),
+    }),
+    env,
+  });
+  assert.equal(created.status, 201);
+  const createdBody = await created.json();
+  assert.match(createdBody.key, /^DT-TEST-/);
+  const listed = await listGrants({
+    request: new Request("https://example.test/api/admin/tester-grants", {
+      headers: { Authorization: "Bearer admin-secret" },
+    }),
+    env,
+  });
+  const listedBody = await listed.json();
+  assert.equal(listedBody.grants.length, 1);
+  assert.equal("key" in listedBody.grants[0], false);
+  const revoked = await manageGrants({
+    request: new Request("https://example.test/api/admin/tester-grants", {
+      method: "POST",
+      headers: { Authorization: "Bearer admin-secret", "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "revoke", id: createdBody.id }),
+    }),
+    env,
+  });
+  assert.equal(revoked.status, 200);
+  assert.equal((await validateLicense(env, { key: createdBody.key })).valid, false);
 });
 
 test("daily reconciliation decrypts tokens and applies a later cancellation", async () => {

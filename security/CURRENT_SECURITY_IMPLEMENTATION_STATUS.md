@@ -23,6 +23,7 @@ abgesichert. Eine formale Zertifizierung oder externe Prüfung ist damit nicht b
 | Android-Härtung | Minimale Berechtigungen, Backup aus, nicht exportierte Komponenten, Cleartext nur Loopback und externe WebView-Navigation außerhalb der App. | umgesetzt |
 | Play Billing | Server prüft Paket, Produkt und `PURCHASED`; Token verschlüsselt und gehasht; idempotente Lizenz, Acknowledgement, OIDC-geprüfte RTDN, Refund/Revoke und Reconciliation in `pro/website/functions/_google_play.js`. | umgesetzt, Produktionstest offen |
 | Lizenzprüfung | Neue POST-Prüfung und maximal 72 Stunden Offline-Grace in `pro/website/functions/_license_validation.js`. | umgesetzt |
+| Owner-/Tester-Grants | Servervalidierte, hash-only Schlüssel mit Ablaufdatum, Widerruf und Admin-Bearer-Token in `pro/website/functions/api/admin/tester-grants.js`; Client berücksichtigt Ablauf auch offline. | umgesetzt; Secret-Konfiguration offen |
 | CI/Supply Chain | SAST, Tests, Secret-Scan und CodeQL; alle Drittanbieter-Actions auf Commit-SHA gepinnt, geschützt durch `tests/test_ci_supply_chain.py`. | umgesetzt |
 | Website-CSP | `script-src 'self'`; aktive Inline-Skripte entfernt und durch Website-Test geschützt. Inline-Styles bleiben vorerst erlaubt. | umgesetzt mit Einschränkung |
 | Öffentliche Aussagen | Kanonische Policy `security/PUBLIC_CLAIMS_POLICY.md`, Scanner `scripts/check_public_claims.py`, CI- und Deployment-Gate; alte Creator-/Affiliate-Quellen entfernt. | umgesetzt |

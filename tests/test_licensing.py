@@ -159,3 +159,18 @@ def test_device_id_survives_set_key_and_reload(tmp_path: Path, monkeypatch) -> N
 
     reloaded = LicenseManager(state_file, "https://license.example.com", platform="android")
     assert reloaded.status().device_id == device_id
+
+
+def test_expired_tester_grant_is_not_pro_even_during_offline_grace(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(
+        requests,
+        "post",
+        lambda *a, **k: FakeResponse(
+            {"valid": True, "tier": "tester", "expires_at": time.time() - 1}
+        ),
+    )
+    manager = LicenseManager(tmp_path / "license.json", "https://license.example.com")
+    manager.set_key("DT-TEST-expired")
+    assert manager.status().valid is True
+    assert manager.status().is_pro is False
+    assert manager.is_pro() is False

@@ -86,3 +86,19 @@ CREATE TABLE play_purchases (
 
 CREATE UNIQUE INDEX idx_play_purchases_license ON play_purchases(license_key) WHERE license_key IS NOT NULL;
 CREATE INDEX idx_play_purchases_reconciliation ON play_purchases(verified_at, purchase_state);
+
+-- Server-issued owner/tester grants. Raw bearer keys are returned once at
+-- creation and only their SHA-256 hashes are stored here.
+CREATE TABLE tester_grants (
+  id TEXT PRIMARY KEY,
+  key_hash TEXT NOT NULL UNIQUE,
+  label TEXT NOT NULL,
+  grant_type TEXT NOT NULL CHECK (grant_type IN ('owner', 'tester')),
+  status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'revoked')),
+  expires_at INTEGER,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
+  revoked_at INTEGER
+);
+
+CREATE INDEX idx_tester_grants_status_expiry ON tester_grants(status, expires_at);
