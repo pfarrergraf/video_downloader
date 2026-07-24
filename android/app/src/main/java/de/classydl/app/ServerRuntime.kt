@@ -74,6 +74,12 @@ object ServerRuntime {
         return if (bundled.exists()) bundled.absolutePath else "ffmpeg"
     }
 
+    /** QuickJS executes yt-dlp's packaged YouTube challenge solver scripts. */
+    private fun resolveJsRuntimeBinary(context: Context): String {
+        val bundled = java.io.File(context.applicationInfo.nativeLibraryDir, "libqjs.so")
+        return if (bundled.exists()) bundled.absolutePath else ""
+    }
+
     /**
      * Starts Python + the web server on a background thread (idempotent).
      * [notifier] is handed through to android_entry.start() — the Python
@@ -104,6 +110,7 @@ object ServerRuntime {
                         "start", dataDir, outputDir, password, PORT,
                         resolveFfmpegBinary(appContext),
                         resolveLicenseApiBase(), BuildConfig.VERSION_NAME, notifier,
+                        resolveJsRuntimeBinary(appContext),
                     )
             } catch (e: Throwable) {
                 android.util.Log.e("ClassyDL", "Server thread crashed", e)

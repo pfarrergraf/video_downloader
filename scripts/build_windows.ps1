@@ -5,6 +5,7 @@ param(
 	[switch]$BundleAll,
 	[string]$FfmpegPath,
 	[string]$Aria2Path,
+	[string]$QuickJsPath,
 	[string]$SignCert,      # path to .pfx for signing (optional)
 	[string]$SignPassword,  # password for .pfx (optional)
 	[string]$SignToolPath = "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe"
@@ -33,6 +34,10 @@ if ($BundleAll) {
 		$a2 = Get-Command aria2c -ErrorAction SilentlyContinue
 		if ($a2) { Copy-Item $a2.Path -Destination $BundledDir }
 	} catch {}
+	try {
+		$qjs = Get-Command qjs -ErrorAction SilentlyContinue
+		if ($qjs) { Copy-Item $qjs.Path -Destination $BundledDir }
+	} catch {}
 }
 
 if ($FfmpegPath) {
@@ -43,6 +48,11 @@ if ($FfmpegPath) {
 if ($Aria2Path) {
 	if (Test-Path $Aria2Path) { Copy-Item $Aria2Path -Destination $BundledDir -ErrorAction Stop }
 	else { Write-Error "aria2c path not found: $Aria2Path"; exit 4 }
+}
+
+if ($QuickJsPath) {
+	if (Test-Path $QuickJsPath) { Copy-Item $QuickJsPath -Destination (Join-Path $BundledDir 'qjs.exe') -ErrorAction Stop }
+	else { Write-Error "QuickJS path not found: $QuickJsPath"; exit 6 }
 }
 
 function Invoke-ClassyBuild {
@@ -88,4 +98,4 @@ if ($Target -eq 'web' -or $Target -eq 'all') {
 	Invoke-ClassyBuild -SpecFile 'classydl_web.spec' -ExeName 'classydl-web.exe'
 }
 
-Write-Host "Done. If you included ffmpeg/aria2c they are embedded under bundled_bins inside the packaged app."
+Write-Host "Done. Included ffmpeg/aria2c/qjs binaries are embedded under bundled_bins."

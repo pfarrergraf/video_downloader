@@ -21,6 +21,7 @@ if __package__ in {None, ""}:
     from video_downloader.conversion import CONVERTIBLE_VIDEO_EXTENSIONS, convert_file_to_mp4
     from video_downloader.core import DownloadManager
     from video_downloader.models import DownloadRequest, DownloadWorkflowError
+    from video_downloader.playlist_urls import inspect_playlist_url
     from video_downloader.scraper import SiteScraper, ScrapedMedia, classify_url
     from video_downloader.utils import (
         ensure_output_dir,
@@ -33,6 +34,7 @@ else:
     from .conversion import CONVERTIBLE_VIDEO_EXTENSIONS, convert_file_to_mp4
     from .core import DownloadManager
     from .models import DownloadRequest, DownloadWorkflowError
+    from .playlist_urls import inspect_playlist_url
     from .scraper import SiteScraper, ScrapedMedia, classify_url
     from .utils import ensure_output_dir, extract_media_candidates, is_direct_media_url, is_manifest_url
 
@@ -311,9 +313,13 @@ class EasyUiApp:
         if not text:
             self._log("Clipboard is empty.")
             return
-        self.url_var.set(text)
+        playlist = inspect_playlist_url(text)
+        self.url_var.set(playlist.normalized)
+        if playlist.is_playlist:
+            self.playlist_var.set("1")
+            self._log("Playlist detected; playlist mode enabled.")
         if not self.site_var.get().strip():
-            self.site_var.set(text)
+            self.site_var.set(playlist.normalized)
         self._log("Pasted clipboard into link input.")
 
     def _copy_link_to_site(self) -> None:
@@ -510,6 +516,9 @@ class EasyUiApp:
         if self.busy:
             self._log("Download is already running.")
             return
+        if any(inspect_playlist_url(entry.url).is_playlist for entry in entries):
+            self.playlist_var.set("1")
+            self._log("Playlist detected; playlist mode enabled.")
         try:
             output_dir = ensure_output_dir(Path(self.output_var.get().strip()).expanduser().resolve())
         except Exception as exc:
@@ -556,14 +565,15 @@ class EasyUiApp:
         conversion_failures: list[str] = []
 
         for i, entry in enumerate(entries, start=1):
+            playlist = inspect_playlist_url(entry.url)
             label = "audio" if audio_only else "media"
-            self._log_threadsafe(f"[{i}/{len(entries)}] Downloading {label}: {entry.url}")
+            self._log_threadsafe(f"[{i}/{len(entries)}] Downloading {label}: {playlist.normalized}")
             request = DownloadRequest(
-                source_url=entry.url,
+                source_url=playlist.normalized,
                 output_dir=output_dir,
                 method=method,
                 format_selector="ba/b" if audio_only else "bv*+ba/b",
-                allow_playlist=allow_playlist,
+                allow_playlist=allow_playlist or playlist.is_playlist,
                 max_items=max_items,
                 cookies_from_browser=cookies_from_browser,
                 referer=entry.referer,

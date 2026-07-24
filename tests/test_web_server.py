@@ -118,6 +118,24 @@ def test_queue_accepts_allow_playlist_flag(server: ClassyDLServer) -> None:
     job = server.store.get_job(body["job_id"])
     assert job is not None
     assert job.allow_playlist is True
+    assert job.source == "https://www.youtube.com/playlist?list=abc123"
+
+
+def test_queue_auto_detects_watch_url_playlist(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, body, _ = _request(
+        server,
+        "POST",
+        "/api/queue",
+        {"source": "https://www.youtube.com/watch?v=7N0Q_0R85jI&list=PLJU5GH-NqTMY"},
+        cookie=cookie,
+    )
+
+    assert status == 200
+    job = server.store.get_job(body["job_id"])
+    assert job is not None
+    assert job.allow_playlist is True
+    assert job.source == "https://www.youtube.com/playlist?list=PLJU5GH-NqTMY"
 
 
 def test_queue_defaults_allow_playlist_to_false(server: ClassyDLServer) -> None:
@@ -405,7 +423,7 @@ def test_free_and_pro_tiers_use_the_same_unrestricted_profile(tmp_path: Path) ->
         _teardown(srv)
 
 
-def test_free_tier_cannot_use_allow_playlist_to_bypass_the_quota(tmp_path: Path) -> None:
+def test_free_tier_gets_explicit_playlist_upgrade_response(tmp_path: Path) -> None:
     srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False))
     try:
         _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
@@ -418,10 +436,9 @@ def test_free_tier_cannot_use_allow_playlist_to_bypass_the_quota(tmp_path: Path)
             {"source": "https://youtube.com/playlist?list=abc123", "allow_playlist": True},
             cookie=cookie,
         )
-        assert status == 200
-        job = srv.store.get_job(body["job_id"])
-        assert job is not None
-        assert job.allow_playlist is False
+        assert status == 402
+        assert "recognized as a playlist" in body["detail"]
+        assert srv.store.list_jobs() == []
     finally:
         _teardown(srv)
 

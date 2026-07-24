@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.util
+import os
 import shutil
 import subprocess
+import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -54,6 +57,20 @@ class DownloadCancelled(RuntimeError):
     strategy/URL candidate, and a cancellation must abort the whole job
     instead of triggering a pointless attempt with ffmpeg/direct-download.
     """
+
+
+class _YtDlpLogger:
+    def __init__(self, errors: list[str]) -> None:
+        self.errors = errors
+
+    def debug(self, _message: str) -> None:
+        pass
+
+    def warning(self, _message: str) -> None:
+        pass
+
+    def error(self, message: str) -> None:
+        self.errors.append(str(message))
 
 
 @dataclass(slots=True)
@@ -109,6 +126,17 @@ class YtDlpStrategy(Strategy):
         if request.embed_subs:
             postprocessors.append({"key": "FFmpegEmbedSubtitle"})
 
+        playlist_errors: list[str] = []
+        js_runtimes = _available_js_runtimes()
+        if _is_youtube_url(source_url):
+            if not js_runtimes:
+                raise StrategyError(
+                    "No supported JavaScript runtime is available for reliable YouTube extraction."
+                )
+            if importlib.util.find_spec("yt_dlp_ejs") is None:
+                raise StrategyError(
+                    "The yt-dlp-ejs challenge solver package is missing from this installation."
+                )
         ydl_opts: dict[str, object] = {
             "outtmpl": {"default": str(request.output_dir / template)},
             "format": (
@@ -119,6 +147,9 @@ class YtDlpStrategy(Strategy):
                 )
             ),
             "noplaylist": not request.allow_playlist,
+            # One removed/private/age-restricted entry must not discard every
+            # other playable item in the playlist.
+            "ignoreerrors": request.allow_playlist,
             "restrictfilenames": True,
             "continuedl": True,
             "quiet": True,
@@ -126,13 +157,18 @@ class YtDlpStrategy(Strategy):
             "noprogress": True,
             "socket_timeout": request.timeout_seconds,
             "http_headers": http_headers,
+            "logger": _YtDlpLogger(playlist_errors),
+            "js_runtimes": js_runtimes,
             # Parallel fragment fetches for HLS/DASH - the single biggest
             # speed lever for segmented streams (YouTube throttles per
             # connection). Ignored for plain progressive downloads.
             "concurrent_fragment_downloads": max(1, int(request.concurrent_fragments or 1)),
         }
         if request.max_items is not None:
-            ydl_opts["max_downloads"] = request.max_items
+            if request.allow_playlist:
+                ydl_opts["playlistend"] = request.max_items
+            else:
+                ydl_opts["max_downloads"] = request.max_items
         if request.cookies_from_browser:
             ydl_opts["cookiesfrombrowser"] = (request.cookies_from_browser, None, None, None)
         if ffmpeg_available:
@@ -175,6 +211,11 @@ class YtDlpStrategy(Strategy):
         new_files = _find_new_files(request.output_dir, before_files)
         if new_files:
             result_file = new_files[-1]
+            if request.allow_playlist and playlist_errors and not error_message:
+                error_message = (
+                    f"Playlist completed with {len(playlist_errors)} skipped item(s). "
+                    f"First error: {playlist_errors[0]}"
+                )
             # yt-dlp downloads the raw source stream first, then runs
             # FFmpegExtractAudio as a separate step - if that postprocessing
             # step itself fails (e.g. the bundled ffmpeg binary can't encode
@@ -202,7 +243,44 @@ class YtDlpStrategy(Strategy):
                 downloaded_files=new_files,
             )
 
+        if request.allow_playlist and playlist_errors and not error_message:
+            error_message = (
+                f"Playlist contained no downloadable items. First error: {playlist_errors[0]}"
+            )
         raise StrategyError(error_message or "yt-dlp reported success but output file could not be located.")
+
+
+def _available_js_runtimes() -> dict[str, dict[str, str | None]]:
+    """Return only executable runtimes; Android supplies its bundled qjs path."""
+    explicit = os.environ.get("CLASSYDL_JS_RUNTIME", "").strip()
+    runtimes: dict[str, dict[str, str | None]] = {}
+    if explicit and Path(explicit).is_file():
+        runtimes["quickjs"] = {"path": explicit}
+    bundle_roots = [
+        Path(getattr(sys, "_MEIPASS", Path(sys.executable).parent)),
+        Path(sys.executable).parent,
+    ]
+    for root in bundle_roots:
+        bundled = root / "bundled_bins" / ("qjs.exe" if os.name == "nt" else "qjs")
+        if bundled.is_file():
+            runtimes.setdefault("quickjs", {"path": str(bundled)})
+    for name, executable in (("deno", "deno"), ("node", "node"), ("quickjs", "qjs")):
+        path = shutil.which(executable)
+        if path and name not in runtimes:
+            runtimes[name] = {"path": path}
+    return runtimes
+
+
+def _is_youtube_url(source_url: str) -> bool:
+    host = (urlparse(source_url).hostname or "").lower().rstrip(".")
+    return host in {
+        "youtube.com",
+        "www.youtube.com",
+        "m.youtube.com",
+        "music.youtube.com",
+        "youtu.be",
+        "www.youtu.be",
+    }
 
 
 def _yt_dlp_progress_hook(callback, cancel_check=None):

@@ -16,7 +16,9 @@ from video_downloader import engine_update
 FAKE_VERSION = "9999.1.1"  # newer than any real bundled yt-dlp
 
 
-def build_fake_wheel(version: str = FAKE_VERSION, traversal: bool = False) -> bytes:
+def build_fake_wheel(
+    version: str = FAKE_VERSION, traversal: bool = False, ejs_version: str | None = None
+) -> bytes:
     buffer = io.BytesIO()
     with zipfile.ZipFile(buffer, "w") as wheel:
         wheel.writestr(
@@ -24,7 +26,10 @@ def build_fake_wheel(version: str = FAKE_VERSION, traversal: bool = False) -> by
             "from . import version\n__version__ = version.__version__\n",
         )
         wheel.writestr("yt_dlp/version.py", f"__version__ = '{version}'\n")
-        wheel.writestr("yt_dlp-%s.dist-info/METADATA" % version, "Name: yt-dlp\n")
+        metadata = "Name: yt-dlp\n"
+        if ejs_version:
+            metadata += f'Requires-Dist: yt-dlp-ejs=={ejs_version}; extra == "default"\n'
+        wheel.writestr("yt_dlp-%s.dist-info/METADATA" % version, metadata)
         if traversal:
             wheel.writestr("yt_dlp/../evil.py", "print('escaped')\n")
     return buffer.getvalue()
@@ -157,6 +162,23 @@ def test_install_apply_and_reactivate(tmp_path: Path) -> None:
     engine_update._reset_for_tests()
     assert engine_update.activate(tmp_path) == FAKE_VERSION
     assert engine_update.get_yt_dlp().version.__version__ == FAKE_VERSION
+
+
+def test_engine_update_installs_required_ejs_atomically(tmp_path: Path, monkeypatch) -> None:
+    installed: list[str] = []
+
+    def fake_install(version: str, staging: Path) -> None:
+        installed.append(version)
+        package = staging / "yt_dlp_ejs"
+        package.mkdir(parents=True)
+        (package / "__init__.py").write_text("", encoding="utf-8")
+
+    monkeypatch.setattr(engine_update, "_install_ejs_companion", fake_install)
+    engine_update.activate(tmp_path)
+    _install_direct(tmp_path, build_fake_wheel(ejs_version="0.8.0"))
+
+    assert installed == ["0.8.0"]
+    assert (tmp_path / "engine" / f"yt_dlp-{FAKE_VERSION}" / "yt_dlp_ejs" / "__init__.py").is_file()
 
 
 def test_checksum_mismatch_is_rejected(tmp_path: Path) -> None:

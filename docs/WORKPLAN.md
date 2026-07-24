@@ -158,3 +158,23 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
   Ein echter AAB-/APK-Build, 16-KiB-Binärprüfung, License-Tester-Kauf/Restore/Refund,
   RTDN, GCS-Restore und Secret-Widerruf bleiben externe Produktions-Gates gemäß
   `GOOGLE_PLAY_OWNER_CHECKLIST.md`.
+
+## T21 — Zuverlässige Playlist-Erkennung und -Downloads
+
+- [x] Playlist-URLs serverseitig erkennen und kanonisch normalisieren.
+- [x] Web- und Easy-UI automatisch in den Playlistmodus schalten.
+- [x] Einzelne nicht verfügbare Playlist-Einträge überspringen, ohne den
+  gesamten Download abzubrechen.
+- [x] Die für aktuelle YouTube-Extraktion erforderliche EJS-/JavaScript-
+  Laufzeit korrekt anbinden und gemeinsam mit dem Enginepfad absichern.
+- [x] Regressionstests sowie reale, nicht speichernde Playlist-Proben für die
+  gemeldete Beispielplaylist und wechselnde Chartlisten ausführen.
+
+**Log T21:**
+- 2026-07-24 — Codex — **in Arbeit** auf
+  `agent/codex/playlist-reliability`.
+- 2026-07-24 — Codex — **erledigt**. Die gemeldete 21er-Playlist wurde
+  vollständig und ohne Mediendownload extrahiert; Deutschland-/USA-Chartlisten
+  wurden stichprobenartig geprüft. Alle 302 Python-Tests, 22 Website-Tests,
+  JavaScript-Syntax, Ruff, 16 Distributionsprüfungen sowie ein echter
+  arm64-v8a-QuickJS-Crossbuild mit 16-KiB-Ausrichtung sind grün.

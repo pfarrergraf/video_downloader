@@ -37,6 +37,7 @@ from ..models import (
     DownloadProfile,
     JobRecord,
 )
+from ..playlist_urls import inspect_playlist_url
 from ..queue_runner import QueueRunner
 from ..queue_store import QueueStore
 from ..scraper import SiteScraper, SsrfBlockedError
@@ -924,14 +925,24 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 self._send_json(400, {"detail": "source is required"})
                 return
 
+            playlist = inspect_playlist_url(source)
+            source = playlist.normalized
             manager = self.server.license_manager
             is_pro = manager is None or manager.is_pro()
             audio_only = bool(body.get("audio_only", False))
+            requested_playlist = bool(body.get("allow_playlist", False)) or playlist.is_playlist
             # Playlists are effectively unlimited downloads in a single job -
             # counting them as "1" against the free-tier quota would let a
-            # free-tier user bypass the limit entirely by always using
-            # playlist URLs, so only Pro accounts get to request one.
-            allow_playlist = bool(body.get("allow_playlist", False)) and is_pro
+            # free-tier user bypass the limit entirely. Never silently turn a
+            # recognized playlist into one video: return the same explicit
+            # upgrade response the UI already knows how to surface.
+            if requested_playlist and not is_pro:
+                self._send_json(
+                    402,
+                    {"detail": "Playlist downloads require Pro. The link was recognized as a playlist."},
+                )
+                return
+            allow_playlist = requested_playlist
 
             if not is_pro:
                 # Holds the lock across the whole check-then-add sequence, not

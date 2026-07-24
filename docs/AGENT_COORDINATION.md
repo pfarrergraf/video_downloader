@@ -222,3 +222,13 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
 - 2026-07-23 — Codex — T19 erledigt. Die ausgelieferte MP4 entspricht bytegenau der lokalen Quelldatei (10,350,634 Bytes; SHA-256 `9172ED821648133E8A8E57774B09BE564F0DE4D0EBE18F0659E7A4E364CA97BE`). Deployment `30024994594` und Produktions-Hashprüfung sind grün.
 - 2026-07-23 — Codex — Claim: T20 Fresh Play release `v0.8.4.3` with monotone `versionCode 80403` for a new testing track.
 - 2026-07-23 — Codex — T20 erledigt. Android release #41 (Run `30034123676`) ist grün; AAB und SBOM wurden nach `C:\ai\playstore_console\releases\0.8.4.3` geladen. AAB-SHA-256: `F4A05773462BECD4A89A00F52A7051BE0888AF6F8A6E9E631330B71B179755CA`.
+- 2026-07-24 — Codex — Claim: T21 zuverlässige Playlist-Downloads auf
+  `agent/codex/playlist-reliability`. Scope: serverseitige URL-Erkennung und
+  Normalisierung, Web-/Easy-UI-Automatik, fehlertolerante yt-dlp-Verarbeitung,
+  EJS-/JavaScript-Runtime-Verkabelung, gezielte Tests sowie dieser Log und
+  `docs/WORKPLAN.md`.
+- 2026-07-24 — Codex — T21 erledigt. Playlist-Links werden serverseitig
+  kanonisiert, beide UIs aktivieren den Playlistmodus automatisch, einzelne
+  fehlerhafte Videos werden sichtbar übersprungen, und yt-dlp/EJS/QuickJS sind
+  für Desktop und Android verpackt. Die vollständigen lokalen Gates sowie die
+  21/21-Live-Metadatenprobe sind grün.
