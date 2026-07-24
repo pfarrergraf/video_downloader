@@ -62,15 +62,12 @@ def test_audio_format_selector_falls_back_to_audio_only_format() -> None:
     assert _audio_format_selector(ffmpeg_available=False) == "bestaudio"
 
 
-def test_audio_only_without_ffmpeg_skips_extraction_flags(tmp_path: Path, monkeypatch) -> None:
+def test_audio_only_without_ffmpeg_fails_clearly(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
     request = _make_request(tmp_path, audio_only=True, ffmpeg_binary="/no/such/ffmpeg")
 
-    opts = _run_and_capture_opts(monkeypatch, tmp_path, request)
-
-    assert "postprocessors" not in opts
-    assert "ffmpeg_location" not in opts
-    assert opts["format"] == "bestaudio"
+    with pytest.raises(StrategyError, match="require FFmpeg"):
+        YtDlpStrategy().download(request, request.source_url)
 
 
 def test_audio_only_with_ffmpeg_extracts_mp3(tmp_path: Path, monkeypatch) -> None:
@@ -86,13 +83,7 @@ def test_audio_only_with_ffmpeg_extracts_mp3(tmp_path: Path, monkeypatch) -> Non
 
 
 def test_audio_only_flags_when_mp3_conversion_silently_fails(tmp_path: Path, monkeypatch) -> None:
-    # Regression test: yt-dlp downloads the raw source stream, then runs
-    # FFmpegExtractAudio as a separate postprocessing step. If that step
-    # fails on-device (e.g. the bundled ffmpeg can't encode mp3), the raw
-    # un-converted file (e.g. .opus/.webm) is still on disk. It's still a
-    # real, playable download - just not the requested format - so this
-    # stays a success, but must carry a clear note rather than silently
-    # pretending the MP3 conversion happened.
+    # Never report an audio job as successful when yt-dlp leaves raw WebM/Opus.
     monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: "/usr/bin/ffmpeg")
     request = _make_request(tmp_path, audio_only=True)
 
@@ -113,10 +104,8 @@ def test_audio_only_flags_when_mp3_conversion_silently_fails(tmp_path: Path, mon
 
     fake_module = types.SimpleNamespace(YoutubeDL=FakeYoutubeDL)
     monkeypatch.setattr("video_downloader.strategies.engine_update.get_yt_dlp", lambda: fake_module)
-    result = YtDlpStrategy().download(request, request.source_url)
-
-    assert result.file_path.suffix == ".opus"
-    assert "MP3" in result.details
+    with pytest.raises(StrategyError, match="MP3 conversion failed"):
+        YtDlpStrategy().download(request, request.source_url)
 
 
 def test_video_format_selector_keeps_configured_value_when_ffmpeg_available() -> None:

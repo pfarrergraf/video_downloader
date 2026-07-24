@@ -98,6 +98,11 @@ class YtDlpStrategy(Strategy):
         ensure_output_dir(request.output_dir)
         before_files = _snapshot_files(request.output_dir)
         ffmpeg_available = shutil.which(request.ffmpeg_binary) is not None
+        if request.audio_only and not ffmpeg_available:
+            raise StrategyError(
+                "MP3 audio downloads require FFmpeg. Install the bundled Windows release "
+                "or configure an FFmpeg path before retrying."
+            )
 
         if request.output_template:
             template = request.output_template
@@ -225,16 +230,13 @@ class YtDlpStrategy(Strategy):
             # just not one every device/car stereo can open - so this stays a
             # success, but surfaces a clear note instead of pretending the
             # requested MP3 conversion actually happened.
-            if (
-                request.audio_only
-                and ffmpeg_available
-                and result_file.suffix.lower() != ".mp3"
-                and not error_message
-            ):
-                error_message = (
-                    f"MP3 conversion failed; saved as {result_file.suffix} instead. "
-                    "This plays fine on this device but may not on others (e.g. a car stereo)."
-                )
+            if request.audio_only and ffmpeg_available:
+                non_mp3 = [path for path in new_files if path.suffix.lower() != ".mp3"]
+                if non_mp3:
+                    raise StrategyError(
+                        "MP3 conversion failed; no WebM/Opus fallback was accepted. "
+                        "Please retry after checking the bundled FFmpeg installation."
+                    )
             return DownloadResult(
                 file_path=result_file,
                 method=self.name,
