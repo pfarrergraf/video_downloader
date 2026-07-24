@@ -169,6 +169,8 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
   Laufzeit korrekt anbinden und gemeinsam mit dem Enginepfad absichern.
 - [x] Regressionstests sowie reale, nicht speichernde Playlist-Proben für die
   gemeldete Beispielplaylist und wechselnde Chartlisten ausführen.
+- [x] Täglichen und manuell startbaren, nicht-speichernden Playlist-Canary in
+  `.github/workflows/playlist-canary.yml` bereitstellen.
 
 **Log T21:**
 - 2026-07-24 — Codex — **in Arbeit** auf
@@ -178,3 +180,6 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
   wurden stichprobenartig geprüft. Alle 302 Python-Tests, 22 Website-Tests,
   JavaScript-Syntax, Ruff, 16 Distributionsprüfungen sowie ein echter
   arm64-v8a-QuickJS-Crossbuild mit 16-KiB-Ausrichtung sind grün.
+- 2026-07-24 — Codex — Der Canary wurde lokal mit zehn Metadaten-Einträgen
+  erfolgreich ausgeführt; er nutzt `extract_flat`, `skip_download` und Node/EJS
+  und erzeugt keine Mediendateien.

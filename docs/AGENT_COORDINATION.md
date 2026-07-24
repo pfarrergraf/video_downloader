@@ -232,3 +232,6 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   fehlerhafte Videos werden sichtbar übersprungen, und yt-dlp/EJS/QuickJS sind
   für Desktop und Android verpackt. Die vollständigen lokalen Gates sowie die
   21/21-Live-Metadatenprobe sind grün.
+- 2026-07-24 — Codex — T21-Canary ergänzt: `.github/workflows/playlist-canary.yml`
+  läuft täglich und manuell, prüft flache Playlist-Metadaten ohne Download und
+  akzeptiert zusätzliche newline-separierte URLs über den Dispatch-Input.
