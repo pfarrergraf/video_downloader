@@ -1,6 +1,14 @@
 name: Playlist canary
 
 on:
+  push:
+    branches: ["**"]
+    paths:
+      - ".github/workflows/playlist-canary.yml"
+      - "scripts/playlist_canary.py"
+      - "video_downloader/playlist_urls.py"
+      - "pyproject.toml"
+      - "uv.lock"
   schedule:
     - cron: "17 6 * * *"
   workflow_dispatch:
