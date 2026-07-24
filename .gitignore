@@ -37,6 +37,9 @@ Thumbs.db
 .env.*
 !.env.example
 
+# Local owner-only helper scripts
+tools/*.local.ps1
+
 # Test artifacts
 output/playwright/
 **/.playwright-cli/
