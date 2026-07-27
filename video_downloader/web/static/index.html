@@ -1935,6 +1935,14 @@ function jobRow(job) {
       openBtn.addEventListener('click', () => openFile(job.id, f.filename));
       fileRow.appendChild(openBtn);
 
+      const shareBtn = document.createElement('button');
+      shareBtn.className = 'secondary file-icon-btn share-btn';
+      shareBtn.innerHTML = iconSvg('share');
+      shareBtn.title = t('app.queue.share_btn');
+      shareBtn.setAttribute('aria-label', t('app.queue.share_btn'));
+      shareBtn.addEventListener('click', () => shareFile(job.id, f.filename));
+      fileRow.appendChild(shareBtn);
+
       const folderBtn = document.createElement('button');
       folderBtn.className = 'secondary file-icon-btn folder-btn';
       folderBtn.innerHTML = iconSvg('folder');
@@ -1942,15 +1950,6 @@ function jobRow(job) {
       folderBtn.setAttribute('aria-label', t('app.queue.open_folder_btn'));
       folderBtn.addEventListener('click', () => openFolder(job.id, f.filename));
       fileRow.appendChild(folderBtn);
-
-      const shareBtn = document.createElement('button');
-      shareBtn.className = 'ghost file-icon-btn share-btn';
-      shareBtn.innerHTML = iconSvg('share');
-      shareBtn.title = t('app.queue.share_btn');
-      shareBtn.setAttribute('aria-label', t('app.queue.share_btn'));
-      shareBtn.style.display = isAndroid ? 'flex' : 'none';
-      shareBtn.addEventListener('click', () => shareFile(job.id, f.filename));
-      fileRow.appendChild(shareBtn);
 
       const delBtn = document.createElement('button');
       delBtn.className = 'secondary file-icon-btn trash-btn';
