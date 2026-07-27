@@ -109,9 +109,16 @@ class EasyUiApp:
         self.download_button_refs: list[ttk.Button] = []
 
         self._build_ui()
+        self.root.protocol("WM_DELETE_WINDOW", self._on_closing)
 
     def run(self) -> None:
         self.root.mainloop()
+
+    def _on_closing(self) -> None:
+        if self.busy:
+            if not messagebox.askyesno("Download in progress", "A download is in progress. Really quit?"):
+                return
+        self.root.destroy()
 
     def _build_ui(self) -> None:
         root = self.root
@@ -564,47 +571,48 @@ class EasyUiApp:
         converted_count = 0
         conversion_failures: list[str] = []
 
-        for i, entry in enumerate(entries, start=1):
-            playlist = inspect_playlist_url(entry.url)
-            label = "audio" if audio_only else "media"
-            self._log_threadsafe(f"[{i}/{len(entries)}] Downloading {label}: {playlist.normalized}")
-            request = DownloadRequest(
-                source_url=playlist.normalized,
-                output_dir=output_dir,
-                method=method,
-                format_selector="ba/b" if audio_only else "bv*+ba/b",
-                allow_playlist=allow_playlist or playlist.is_playlist,
-                max_items=max_items,
-                cookies_from_browser=cookies_from_browser,
-                referer=entry.referer,
-                audio_only=audio_only,
+        try:
+            for i, entry in enumerate(entries, start=1):
+                try:
+                    playlist = inspect_playlist_url(entry.url)
+                    label = "audio" if audio_only else "media"
+                    self._log_threadsafe(f"[{i}/{len(entries)}] Downloading {label}: {playlist.normalized}")
+                    request = DownloadRequest(
+                        source_url=playlist.normalized,
+                        output_dir=output_dir,
+                        method=method,
+                        format_selector="ba/b" if audio_only else "bv*+ba/b",
+                        allow_playlist=allow_playlist or playlist.is_playlist,
+                        max_items=max_items,
+                        cookies_from_browser=cookies_from_browser,
+                        referer=entry.referer,
+                        audio_only=audio_only,
+                    )
+                    result = self.manager.download(request)
+                    files = result.downloaded_files or [result.file_path]
+                    if auto_convert and not audio_only:
+                        converted, conversion_errors = self._convert_files_to_mp4(files)
+                        converted_count += converted
+                        conversion_failures.extend(conversion_errors)
+                    self._log_threadsafe(f"Success: {entry.url} ({len(files)} file(s))")
+                    ok_count += 1
+                except DownloadWorkflowError as exc:
+                    self._log_threadsafe(f"Failed: {entry.url} :: {exc}")
+                    failed.append(entry.url)
+                except Exception as exc:
+                    self._log_threadsafe(f"Failed: {entry.url} :: {exc}")
+                    failed.append(entry.url)
+        finally:
+            self.root.after(
+                0,
+                lambda ok=ok_count, f=failed, c=converted_count, cf=conversion_failures: self._finish_download_batch(
+                    ok,
+                    f,
+                    len(entries),
+                    c,
+                    cf,
+                ),
             )
-            try:
-                result = self.manager.download(request)
-                files = result.downloaded_files or [result.file_path]
-                if auto_convert and not audio_only:
-                    converted, conversion_errors = self._convert_files_to_mp4(files)
-                    converted_count += converted
-                    conversion_failures.extend(conversion_errors)
-                self._log_threadsafe(f"Success: {entry.url} ({len(files)} file(s))")
-                ok_count += 1
-            except DownloadWorkflowError as exc:
-                self._log_threadsafe(f"Failed: {entry.url} :: {exc}")
-                failed.append(entry.url)
-            except Exception as exc:
-                self._log_threadsafe(f"Failed: {entry.url} :: {exc}")
-                failed.append(entry.url)
-
-        self.root.after(
-            0,
-            lambda: self._finish_download_batch(
-                ok_count,
-                failed,
-                len(entries),
-                converted_count,
-                conversion_failures,
-            ),
-        )
 
     def _convert_files_to_mp4(self, files: list[Path]) -> tuple[int, list[str]]:
         converted = 0

@@ -316,8 +316,9 @@
   .job-error details { margin-top: 0.2rem; }
   .job-error summary { cursor: pointer; color: var(--text-dim); font-size: 0.8rem; min-height: 44px; display: flex; align-items: center; }
   .job-error .raw { color: var(--text-dim); font-size: 0.78rem; word-break: break-word; }
-  .file-row { flex-basis: 100%; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.2rem; }
-  .file-row button { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .file-row { flex-basis: 100%; display: flex; align-items: center; gap: 0.5rem; flex-wrap: nowrap; margin-top: 0.2rem; min-width: 0; }
+  .file-row button { display: inline-flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
+  .file-row .dl-link { flex-shrink: 1; min-width: 0; }
   .progress-track {
     flex-basis: 100%;
     height: 10px;
@@ -349,7 +350,7 @@
   /* Keep the four finished-file actions compact and icon-only. The title and
      aria-label preserve hover/screen-reader help without consuming row width. */
   button.folder-btn { color: #ffcb3d; }
-  button.trash-btn { background: transparent; border-color: transparent; }
+  button.trash-btn { color: var(--danger); background: transparent; border-color: transparent; }
   button.share-btn img { filter: none; }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) button.share-btn img { filter: invert(1); }
@@ -1924,7 +1925,7 @@ function jobRow(job) {
         fileRow.appendChild(link);
       }
 
-      // Icon-only actions keep play/share/folder/delete on one row. Titles and
+      // Icon-only actions keep play/folder/delete on one row. Titles and
       // aria-labels retain the full action names for accessibility.
       const openBtn = document.createElement('button');
       openBtn.className = 'primary file-icon-btn';
@@ -1934,21 +1935,30 @@ function jobRow(job) {
       openBtn.addEventListener('click', () => openFile(job.id, f.filename));
       fileRow.appendChild(openBtn);
 
-      const shareBtn = document.createElement('button');
-      shareBtn.className = 'secondary file-icon-btn share-btn';
-      shareBtn.innerHTML = '<img src="/icons/share.png" alt="" width="24" height="24">';
-      shareBtn.title = t('app.queue.share_btn');
-      shareBtn.setAttribute('aria-label', t('app.queue.share_btn'));
-      shareBtn.addEventListener('click', () => shareFile(job.id, f.filename));
-      fileRow.appendChild(shareBtn);
-
       const folderBtn = document.createElement('button');
-      folderBtn.className = 'secondary file-icon-btn';
+      folderBtn.className = 'secondary file-icon-btn folder-btn';
       folderBtn.innerHTML = iconSvg('folder');
       folderBtn.title = t('app.queue.open_folder_btn');
       folderBtn.setAttribute('aria-label', t('app.queue.open_folder_btn'));
       folderBtn.addEventListener('click', () => openFolder(job.id, f.filename));
       fileRow.appendChild(folderBtn);
+
+      const shareBtn = document.createElement('button');
+      shareBtn.className = 'ghost file-icon-btn share-btn';
+      shareBtn.innerHTML = iconSvg('share');
+      shareBtn.title = t('app.queue.share_btn');
+      shareBtn.setAttribute('aria-label', t('app.queue.share_btn'));
+      shareBtn.style.display = isAndroid ? 'flex' : 'none';
+      shareBtn.addEventListener('click', () => shareFile(job.id, f.filename));
+      fileRow.appendChild(shareBtn);
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'secondary file-icon-btn trash-btn';
+      delBtn.innerHTML = iconSvg('trash');
+      delBtn.title = t('app.queue.delete_btn');
+      delBtn.setAttribute('aria-label', t('app.queue.delete_btn'));
+      delBtn.addEventListener('click', () => openDeleteDialog(job.id));
+      fileRow.appendChild(delBtn);
     });
     li.appendChild(fileRow);
   }
@@ -1964,16 +1974,6 @@ function jobRow(job) {
       catch (e) { toast(e.message || t('app.queue.cancel_failed_toast')); }
     });
     li.appendChild(btn);
-  }
-
-  if (FINISHED_STATUSES.includes(job.status)) {
-    const del = document.createElement('button');
-    del.className = 'secondary file-icon-btn';
-    del.innerHTML = iconSvg('trash');
-    del.title = t('app.queue.delete_btn');
-    del.setAttribute('aria-label', t('app.queue.delete_btn'));
-    del.addEventListener('click', () => openDeleteDialog(job.id));
-    li.appendChild(del);
   }
   return li;
 }
