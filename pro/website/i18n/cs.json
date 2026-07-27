@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Smazat",
+      "delete_all_btn": "Smazat vše",
       "clear_btn": "Vymazat historii",
       "delete_failed_toast": "Smazání se nezdařilo."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Smazat toto stažení?",
+      "title_file": "Smazat tento soubor?",
       "title_all": "Vymazat celou historii?",
       "body": "Stažený soubor můžeš na zařízení ponechat, nebo ho smazat spolu se záznamem.",
       "entry_only_btn": "Odebrat jen ze seznamu",

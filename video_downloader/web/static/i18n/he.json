@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "מחיקה",
+      "delete_all_btn": "מחק הכול",
       "clear_btn": "ניקוי היסטוריה",
       "delete_failed_toast": "המחיקה נכשלה."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "למחוק את ההורדה הזו?",
+      "title_file": "למחוק את הקובץ הזה?",
       "title_all": "לנקות את כל ההיסטוריה?",
       "body": "אפשר להשאיר את הקובץ שהורד במכשיר, או למחוק אותו יחד עם הרשומה.",
       "entry_only_btn": "הסרה מהרשימה בלבד",

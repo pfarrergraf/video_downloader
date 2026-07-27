@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Izbriši",
+      "delete_all_btn": "Izbriši sve",
       "clear_btn": "Očisti povijest",
       "delete_failed_toast": "Brisanje nije uspjelo."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Izbrisati ovo preuzimanje?",
+      "title_file": "Izbrisati ovu datoteku?",
       "title_all": "Očistiti cijelu povijest?",
       "body": "Preuzetu datoteku možeš zadržati na uređaju ili je izbrisati zajedno sa zapisom.",
       "entry_only_btn": "Ukloni samo s popisa",

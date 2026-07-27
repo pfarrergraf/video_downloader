@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Ta bort",
+      "delete_all_btn": "Ta bort alla",
       "clear_btn": "Rensa historik",
       "delete_failed_toast": "Kunde inte ta bort."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Ta bort den här nedladdningen?",
+      "title_file": "Ta bort den här filen?",
       "title_all": "Rensa hela historiken?",
       "body": "Du kan behålla den nedladdade filen på enheten eller ta bort den tillsammans med posten.",
       "entry_only_btn": "Ta bara bort från listan",

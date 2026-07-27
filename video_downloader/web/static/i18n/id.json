@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Hapus",
+      "delete_all_btn": "Hapus semua",
       "clear_btn": "Bersihkan riwayat",
       "delete_failed_toast": "Gagal menghapus."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Hapus unduhan ini?",
+      "title_file": "Hapus file ini?",
       "title_all": "Bersihkan seluruh riwayat?",
       "body": "Kamu bisa menyimpan file yang diunduh di perangkat ini, atau menghapusnya bersama entri.",
       "entry_only_btn": "Hapus dari daftar saja",

@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Izbriši",
+      "delete_all_btn": "Izbriši vse",
       "clear_btn": "Počisti zgodovino",
       "delete_failed_toast": "Brisanje ni uspelo."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Izbrišem ta prenos?",
+      "title_file": "Izbrišem to datoteko?",
       "title_all": "Počistim celotno zgodovino?",
       "body": "Preneseno datoteko lahko obdržiš na napravi ali jo izbrišeš skupaj z vnosom.",
       "entry_only_btn": "Odstrani samo s seznama",

@@ -41,6 +41,7 @@
       "details_toggle": "Details tonen",
       "retry_btn": "Opnieuw proberen",
       "delete_btn": "Verwijderen",
+      "delete_all_btn": "Alles verwijderen",
       "clear_btn": "Geschiedenis wissen",
       "delete_failed_toast": "Verwijderen mislukt."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Deze download verwijderen?",
+      "title_file": "Dit bestand verwijderen?",
       "title_all": "De hele geschiedenis wissen?",
       "body": "Je kunt het gedownloade bestand op dit apparaat bewaren of het samen met het item verwijderen.",
       "entry_only_btn": "Alleen uit de lijst halen",

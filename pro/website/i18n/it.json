@@ -41,6 +41,7 @@
       "details_toggle": "Mostra dettagli",
       "retry_btn": "Riprova",
       "delete_btn": "Elimina",
+      "delete_all_btn": "Elimina tutto",
       "clear_btn": "Cancella cronologia",
       "delete_failed_toast": "Impossibile eliminare."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Eliminare questo download?",
+      "title_file": "Eliminare questo file?",
       "title_all": "Cancellare tutta la cronologia?",
       "body": "Puoi tenere il file scaricato sul dispositivo o eliminarlo insieme alla voce.",
       "entry_only_btn": "Rimuovi solo dall'elenco",

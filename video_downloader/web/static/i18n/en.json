@@ -48,6 +48,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Delete",
+      "delete_all_btn": "Delete all",
       "clear_btn": "Clear history",
       "delete_failed_toast": "Couldn't delete."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Delete this download?",
+      "title_file": "Delete this file?",
       "title_all": "Clear the whole history?",
       "body": "You can keep the downloaded file on this device, or delete it together with the entry.",
       "entry_only_btn": "Remove from list only",

@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "删除",
+      "delete_all_btn": "全部删除",
       "clear_btn": "清除历史记录",
       "delete_failed_toast": "无法删除。"
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "删除此下载？",
+      "title_file": "删除此文件？",
       "title_all": "清除全部历史记录？",
       "body": "你可以将已下载的文件保留在设备上，也可以连同记录一起删除。",
       "entry_only_btn": "仅从列表中移除",

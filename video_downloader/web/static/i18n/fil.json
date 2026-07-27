@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Burahin",
+      "delete_all_btn": "Burahin lahat",
       "clear_btn": "I-clear ang history",
       "delete_failed_toast": "Hindi ma-delete."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Burahin ang download na ito?",
+      "title_file": "Burahin ang file na ito?",
       "title_all": "I-clear ang buong history?",
       "body": "Puwede mong itago ang na-download na file sa device, o burahin ito kasama ng entry.",
       "entry_only_btn": "Alisin lang sa listahan",

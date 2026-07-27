@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Kustuta",
+      "delete_all_btn": "Kustuta kõik",
       "clear_btn": "Tühjenda ajalugu",
       "delete_failed_toast": "Kustutamine ebaõnnestus."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Kas kustutada see allalaadimine?",
+      "title_file": "Kustutada see fail?",
       "title_all": "Kas tühjendada kogu ajalugu?",
       "body": "Võid allalaaditud faili seadmesse alles jätta või koos kirjega kustutada.",
       "entry_only_btn": "Eemalda ainult loendist",

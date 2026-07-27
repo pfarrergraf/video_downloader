@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "हटवा",
+      "delete_all_btn": "सर्व हटवा",
       "clear_btn": "इतिहास साफ करा",
       "delete_failed_toast": "हटवता आले नाही."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "हे डाउनलोड हटवायचे?",
+      "title_file": "ही फाइल हटवायची?",
       "title_all": "संपूर्ण इतिहास साफ करायचा?",
       "body": "डाउनलोड केलेली फाइल डिव्हाइसवर ठेवू शकता किंवा नोंदीसह हटवू शकता.",
       "entry_only_btn": "फक्त यादीतून काढा",

@@ -635,6 +635,36 @@ class QueueStore:
         self._notify_change()
         return True
 
+    def delete_job_file(self, job_id: int, filename: str) -> str | None:
+        """Forget ONE recorded file of a finished job; return its path.
+
+        Playlist jobs produce many files under a single job, and "delete this
+        one track" must not take the other 99 with it. The job row itself
+        stays - even when this was its last file - so the history entry (and
+        its error text) remains until the user deletes the job. Removal from
+        disk is the caller's job, exactly as in delete_job.
+        """
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT jobs.status AS status, job_files.id AS file_id,"
+                " job_files.path AS path"
+                " FROM job_files JOIN jobs ON jobs.id = job_files.job_id"
+                " WHERE job_files.job_id = ?",
+                (job_id,),
+            ).fetchall()
+            match = next((r for r in row if Path(r["path"]).name == filename), None)
+            if match is None:
+                return None
+            if match["status"] not in (
+                JOB_STATUS_COMPLETED,
+                JOB_STATUS_FAILED,
+                JOB_STATUS_CANCELLED,
+            ):
+                return None
+            conn.execute("DELETE FROM job_files WHERE id = ?", (match["file_id"],))
+        self._notify_change()
+        return str(match["path"])
+
     def list_history(self, status: str | None = None, limit: int = 200) -> list[JobRecord]:
         final_statuses = (JOB_STATUS_COMPLETED, JOB_STATUS_FAILED, JOB_STATUS_CANCELLED)
         params: list[object] = []

@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Ištrinti",
+      "delete_all_btn": "Ištrinti viską",
       "clear_btn": "Išvalyti istoriją",
       "delete_failed_toast": "Nepavyko ištrinti."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Ištrinti šį atsisiuntimą?",
+      "title_file": "Ištrinti šį failą?",
       "title_all": "Išvalyti visą istoriją?",
       "body": "Atsisiųstą failą gali palikti įrenginyje arba ištrinti kartu su įrašu.",
       "entry_only_btn": "Pašalinti tik iš sąrašo",

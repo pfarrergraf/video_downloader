@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "કાઢી નાખો",
+      "delete_all_btn": "બધું ડિલીટ કરો",
       "clear_btn": "ઇતિહાસ સાફ કરો",
       "delete_failed_toast": "કાઢી શકાયું નહીં."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "આ ડાઉનલોડ કાઢી નાખવું છે?",
+      "title_file": "આ ફાઇલ ડિલીટ કરવી છે?",
       "title_all": "આખો ઇતિહાસ સાફ કરવો છે?",
       "body": "તમે ડાઉનલોડ કરેલી ફાઇલ ડિવાઇસ પર રાખી શકો છો, અથવા એન્ટ્રી સાથે કાઢી શકો છો.",
       "entry_only_btn": "ફક્ત યાદીમાંથી દૂર કરો",

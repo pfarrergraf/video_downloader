@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Vymazať",
+      "delete_all_btn": "Odstrániť všetko",
       "clear_btn": "Vymazať históriu",
       "delete_failed_toast": "Vymazanie zlyhalo."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Vymazať toto stiahnutie?",
+      "title_file": "Odstrániť tento súbor?",
       "title_all": "Vymazať celú históriu?",
       "body": "Stiahnutý súbor môžeš na zariadení ponechať, alebo ho vymazať spolu so záznamom.",
       "entry_only_btn": "Odstrániť len zo zoznamu",

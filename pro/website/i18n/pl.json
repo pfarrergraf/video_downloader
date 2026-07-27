@@ -41,6 +41,7 @@
       "details_toggle": "Pokaż szczegóły",
       "retry_btn": "Spróbuj ponownie",
       "delete_btn": "Usuń",
+      "delete_all_btn": "Usuń wszystko",
       "clear_btn": "Wyczyść historię",
       "delete_failed_toast": "Nie udało się usunąć."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Usunąć to pobranie?",
+      "title_file": "Usunąć ten plik?",
       "title_all": "Wyczyścić całą historię?",
       "body": "Możesz zachować pobrany plik na urządzeniu albo usunąć go razem z wpisem.",
       "entry_only_btn": "Usuń tylko z listy",

@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Futa",
+      "delete_all_btn": "Futa vyote",
       "clear_btn": "Futa historia",
       "delete_failed_toast": "Imeshindwa kufuta."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Ufute upakuaji huu?",
+      "title_file": "Futa faili hii?",
       "title_all": "Ufute historia yote?",
       "body": "Unaweza kuhifadhi faili iliyopakuliwa kwenye kifaa, au kuifuta pamoja na ingizo.",
       "entry_only_btn": "Ondoa kwenye orodha tu",

@@ -41,6 +41,7 @@
       "details_toggle": "Mostrar detalhes",
       "retry_btn": "Tentar novamente",
       "delete_btn": "Excluir",
+      "delete_all_btn": "Excluir tudo",
       "clear_btn": "Limpar histórico",
       "delete_failed_toast": "Não foi possível excluir."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Excluir este download?",
+      "title_file": "Excluir este arquivo?",
       "title_all": "Limpar todo o histórico?",
       "body": "Você pode manter o arquivo baixado neste dispositivo ou excluí-lo junto com a entrada.",
       "entry_only_btn": "Remover apenas da lista",

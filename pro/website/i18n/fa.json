@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "حذف",
+      "delete_all_btn": "حذف همه",
       "clear_btn": "پاک کردن تاریخچه",
       "delete_failed_toast": "حذف انجام نشد."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "این دانلود حذف شود؟",
+      "title_file": "این فایل حذف شود؟",
       "title_all": "کل تاریخچه پاک شود؟",
       "body": "می‌توانید فایل دانلودشده را روی دستگاه نگه دارید یا همراه با ورودی حذف کنید.",
       "entry_only_btn": "فقط از فهرست حذف شود",

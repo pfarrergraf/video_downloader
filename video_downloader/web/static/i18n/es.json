@@ -41,6 +41,7 @@
       "details_toggle": "Mostrar detalles",
       "retry_btn": "Reintentar",
       "delete_btn": "Eliminar",
+      "delete_all_btn": "Eliminar todo",
       "clear_btn": "Borrar historial",
       "delete_failed_toast": "No se pudo eliminar."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "¿Eliminar esta descarga?",
+      "title_file": "¿Eliminar este archivo?",
       "title_all": "¿Borrar todo el historial?",
       "body": "Puedes conservar el archivo descargado en este dispositivo o eliminarlo junto con la entrada.",
       "entry_only_btn": "Quitar solo de la lista",

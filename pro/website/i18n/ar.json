@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "حذف",
+      "delete_all_btn": "حذف الكل",
       "clear_btn": "مسح السجل",
       "delete_failed_toast": "تعذّر الحذف."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "حذف هذا التنزيل؟",
+      "title_file": "حذف هذا الملف؟",
       "title_all": "مسح السجل بالكامل؟",
       "body": "يمكنك الاحتفاظ بالملف الذي نزّلته على هذا الجهاز، أو حذفه مع الإدخال.",
       "entry_only_btn": "إزالة من القائمة فقط",

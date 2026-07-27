@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "ลบ",
+      "delete_all_btn": "ลบทั้งหมด",
       "clear_btn": "ล้างประวัติ",
       "delete_failed_toast": "ลบไม่สำเร็จ"
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "ลบการดาวน์โหลดนี้ไหม",
+      "title_file": "ลบไฟล์นี้ไหม?",
       "title_all": "ล้างประวัติทั้งหมดไหม",
       "body": "คุณสามารถเก็บไฟล์ที่ดาวน์โหลดไว้ในเครื่อง หรือลบพร้อมกับรายการก็ได้",
       "entry_only_btn": "นำออกจากรายการเท่านั้น",

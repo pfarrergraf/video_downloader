@@ -825,6 +825,126 @@ def test_delete_endpoint_with_files_removes_job_dir_and_published_copy(server: C
     assert removed == ["secret.mp4"]
 
 
+def _make_completed_playlist_job(
+    server: ClassyDLServer, cookie: str, names: tuple[str, ...]
+) -> tuple[int, list[Path]]:
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/playlist"}, cookie=cookie
+    )
+    job_id = body["job_id"]
+    job_dir = server.output_dir / f"job-{job_id}"
+    job_dir.mkdir(parents=True, exist_ok=True)
+    paths = []
+    for name in names:
+        path = job_dir / name
+        path.write_bytes(b"fake bytes")
+        paths.append(path)
+    server.store.mark_job_completed(job_id, paths)
+    return job_id, paths
+
+
+def test_delete_file_endpoint_removes_one_track_of_a_playlist(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    removed: list[str] = []
+    server.published_file_remover = removed.append
+    job_id, paths = _make_completed_playlist_job(server, cookie, ("a.mp3", "b.mp3", "c.mp3"))
+
+    status, body, _ = _request(
+        server,
+        "POST",
+        f"/api/queue/{job_id}/delete-file",
+        {"filename": "b.mp3", "delete_files": True},
+        cookie=cookie,
+    )
+    assert status == 200
+    assert body == {"deleted": True}
+    # Only the requested track goes - on disk and in the history entry.
+    assert not paths[1].exists()
+    assert paths[0].exists() and paths[2].exists()
+    assert removed == ["b.mp3"]
+    remaining = [Path(p).name for p in server.store.list_job_files(job_id)]
+    assert remaining == ["a.mp3", "c.mp3"]
+    # The job itself survives, so the history entry stays until it's deleted.
+    assert server.store.get_job(job_id) is not None
+
+
+def test_delete_file_endpoint_entry_only_keeps_the_file_on_disk(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    job_id, paths = _make_completed_playlist_job(server, cookie, ("keep.mp4", "other.mp4"))
+
+    status, _, _ = _request(
+        server,
+        "POST",
+        f"/api/queue/{job_id}/delete-file",
+        {"filename": "keep.mp4", "delete_files": False},
+        cookie=cookie,
+    )
+    assert status == 200
+    assert paths[0].exists()
+    assert [Path(p).name for p in server.store.list_job_files(job_id)] == ["other.mp4"]
+
+
+def test_delete_file_endpoint_validates_filename_job_state_and_auth(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    job_id, _ = _make_completed_playlist_job(server, cookie, ("only.mp4",))
+
+    status, _, _ = _request(
+        server, "POST", f"/api/queue/{job_id}/delete-file", {"delete_files": True}, cookie=cookie
+    )
+    assert status == 400  # no filename
+
+    status, _, _ = _request(
+        server,
+        "POST",
+        f"/api/queue/{job_id}/delete-file",
+        {"filename": "nope.mp4", "delete_files": True},
+        cookie=cookie,
+    )
+    assert status == 404
+
+    # Path traversal can't reach outside the job's own recorded files.
+    status, _, _ = _request(
+        server,
+        "POST",
+        f"/api/queue/{job_id}/delete-file",
+        {"filename": "../../only.mp4", "delete_files": True},
+        cookie=cookie,
+    )
+    assert status == 404
+
+    status, _, _ = _request(
+        server,
+        "POST",
+        f"/api/queue/{job_id}/delete-file",
+        {"filename": "only.mp4", "delete_files": True},
+    )
+    assert status == 401
+
+    # A still-running job is refused: cancel it first, like the job-level delete.
+    _, body, _ = _request(
+        server, "POST", "/api/queue", {"source": "https://example.com/busy"}, cookie=cookie
+    )
+    pending_id = body["job_id"]
+    pending_dir = server.output_dir / f"job-{pending_id}"
+    pending_dir.mkdir(parents=True, exist_ok=True)
+    partial = pending_dir / "partial.mp4"
+    partial.write_bytes(b"x")
+    with sqlite3.connect(server.store.db_path) as conn:
+        conn.execute(
+            "INSERT INTO job_files (job_id, path, size_bytes, created_at)"
+            " VALUES (?, ?, 1, '2026-01-01T00:00:00Z')",
+            (pending_id, str(partial)),
+        )
+    status, _, _ = _request(
+        server,
+        "POST",
+        f"/api/queue/{pending_id}/delete-file",
+        {"filename": "partial.mp4", "delete_files": True},
+        cookie=cookie,
+    )
+    assert status == 404
+
+
 def test_delete_endpoint_refuses_running_jobs_and_requires_auth(server: ClassyDLServer) -> None:
     cookie = _login(server)
     _, body, _ = _request(

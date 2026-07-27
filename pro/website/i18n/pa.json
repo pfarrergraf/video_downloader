@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "ਮਿਟਾਓ",
+      "delete_all_btn": "ਸਭ ਮਿਟਾਓ",
       "clear_btn": "ਇਤਿਹਾਸ ਸਾਫ਼ ਕਰੋ",
       "delete_failed_toast": "ਮਿਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ।"
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "ਇਹ ਡਾਊਨਲੋਡ ਮਿਟਾਉਣਾ ਹੈ?",
+      "title_file": "ਇਹ ਫਾਈਲ ਮਿਟਾਉਣੀ ਹੈ?",
       "title_all": "ਪੂਰਾ ਇਤਿਹਾਸ ਸਾਫ਼ ਕਰਨਾ ਹੈ?",
       "body": "ਤੁਸੀਂ ਡਾਊਨਲੋਡ ਕੀਤੀ ਫ਼ਾਈਲ ਡਿਵਾਈਸ 'ਤੇ ਰੱਖ ਸਕਦੇ ਹੋ, ਜਾਂ ਐਂਟਰੀ ਨਾਲ ਮਿਟਾ ਸਕਦੇ ਹੋ।",
       "entry_only_btn": "ਸਿਰਫ਼ ਸੂਚੀ ਵਿੱਚੋਂ ਹਟਾਓ",

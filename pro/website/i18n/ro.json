@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Șterge",
+      "delete_all_btn": "Șterge tot",
       "clear_btn": "Golește istoricul",
       "delete_failed_toast": "Ștergerea a eșuat."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Ștergi această descărcare?",
+      "title_file": "Ștergeți acest fișier?",
       "title_all": "Golești tot istoricul?",
       "body": "Poți păstra fișierul descărcat pe dispozitiv sau îl poți șterge împreună cu intrarea.",
       "entry_only_btn": "Elimină doar din listă",

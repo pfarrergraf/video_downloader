@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Padam",
+      "delete_all_btn": "Hapus semua",
       "clear_btn": "Kosongkan sejarah",
       "delete_failed_toast": "Tidak dapat memadam."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Padam muat turun ini?",
+      "title_file": "Hapus fail ini?",
       "title_all": "Kosongkan seluruh sejarah?",
       "body": "Anda boleh simpan fail yang dimuat turun pada peranti ini, atau padamkannya bersama entri.",
       "entry_only_btn": "Alih keluar daripada senarai sahaja",

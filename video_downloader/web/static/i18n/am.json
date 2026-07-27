@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "ሰርዝ",
+      "delete_all_btn": "ሁሉንም ሰርዝ",
       "clear_btn": "ታሪክን አጽዳ",
       "delete_failed_toast": "መሰረዝ አልተቻለም።"
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "ይህን ውርድ መሰረዝ ይፈልጋሉ?",
+      "title_file": "ይህ ፋይል ይሰረዝ?",
       "title_all": "ሙሉውን ታሪክ ማጽዳት ይፈልጋሉ?",
       "body": "የወረደውን ፋይል በመሣሪያው ላይ ማቆየት ወይም ከመዝገቡ ጋር አብሮ መሰረዝ ይችላሉ።",
       "entry_only_btn": "ከዝርዝሩ ብቻ አስወግድ",

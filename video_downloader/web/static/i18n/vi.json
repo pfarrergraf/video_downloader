@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Xóa",
+      "delete_all_btn": "Xóa tất cả",
       "clear_btn": "Xóa lịch sử",
       "delete_failed_toast": "Không xóa được."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Xóa lượt tải này?",
+      "title_file": "Xóa tệp này?",
       "title_all": "Xóa toàn bộ lịch sử?",
       "body": "Bạn có thể giữ tệp đã tải trên thiết bị, hoặc xóa nó cùng với mục này.",
       "entry_only_btn": "Chỉ xóa khỏi danh sách",

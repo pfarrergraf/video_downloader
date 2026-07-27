@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Dzēst",
+      "delete_all_btn": "Dzēst visu",
       "clear_btn": "Notīrīt vēsturi",
       "delete_failed_toast": "Neizdevās izdzēst."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Dzēst šo lejupielādi?",
+      "title_file": "Dzēst šo failu?",
       "title_all": "Notīrīt visu vēsturi?",
       "body": "Lejupielādēto failu vari paturēt ierīcē vai izdzēst kopā ar ierakstu.",
       "entry_only_btn": "Noņemt tikai no saraksta",

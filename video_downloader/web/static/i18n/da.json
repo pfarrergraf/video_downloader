@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Slet",
+      "delete_all_btn": "Slet alle",
       "clear_btn": "Ryd historik",
       "delete_failed_toast": "Kunne ikke slette."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Slet denne download?",
+      "title_file": "Slet denne fil?",
       "title_all": "Ryd hele historikken?",
       "body": "Du kan beholde den downloadede fil på enheden eller slette den sammen med posten.",
       "entry_only_btn": "Fjern kun fra listen",

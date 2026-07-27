@@ -48,6 +48,7 @@
       "details_toggle": "Details anzeigen",
       "retry_btn": "Erneut versuchen",
       "delete_btn": "Löschen",
+      "delete_all_btn": "Alle löschen",
       "clear_btn": "Verlauf löschen",
       "delete_failed_toast": "Löschen fehlgeschlagen."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Diesen Download löschen?",
+      "title_file": "Diese Datei löschen?",
       "title_all": "Ganzen Verlauf löschen?",
       "body": "Du kannst die heruntergeladene Datei auf dem Gerät behalten oder sie zusammen mit dem Eintrag löschen.",
       "entry_only_btn": "Nur aus der Liste entfernen",

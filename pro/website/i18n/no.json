@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Slett",
+      "delete_all_btn": "Slett alle",
       "clear_btn": "Tøm historikk",
       "delete_failed_toast": "Kunne ikke slette."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Slette denne nedlastingen?",
+      "title_file": "Slette denne filen?",
       "title_all": "Tømme hele historikken?",
       "body": "Du kan beholde den nedlastede filen på enheten eller slette den sammen med oppføringen.",
       "entry_only_btn": "Fjern bare fra listen",

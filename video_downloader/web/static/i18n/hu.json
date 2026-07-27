@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Törlés",
+      "delete_all_btn": "Összes törlése",
       "clear_btn": "Előzmények törlése",
       "delete_failed_toast": "A törlés nem sikerült."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Törlöd ezt a letöltést?",
+      "title_file": "Törli ezt a fájlt?",
       "title_all": "Törlöd a teljes előzményt?",
       "body": "A letöltött fájlt megtarthatod az eszközön, vagy törölheted a bejegyzéssel együtt.",
       "entry_only_btn": "Csak a listáról távolítsd el",

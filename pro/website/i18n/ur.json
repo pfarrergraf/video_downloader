@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "حذف کریں",
+      "delete_all_btn": "سب حذف کریں",
       "clear_btn": "ہسٹری صاف کریں",
       "delete_failed_toast": "حذف نہیں ہو سکا۔"
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "یہ ڈاؤن لوڈ حذف کریں؟",
+      "title_file": "یہ فائل حذف کریں؟",
       "title_all": "پوری ہسٹری صاف کریں؟",
       "body": "آپ ڈاؤن لوڈ کی گئی فائل ڈیوائس پر رکھ سکتے ہیں، یا اسے اندراج کے ساتھ حذف کر سکتے ہیں۔",
       "entry_only_btn": "صرف فہرست سے ہٹائیں",

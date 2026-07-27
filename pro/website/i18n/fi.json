@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "Poista",
+      "delete_all_btn": "Poista kaikki",
       "clear_btn": "Tyhjennä historia",
       "delete_failed_toast": "Poistaminen epäonnistui."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Poistetaanko tämä lataus?",
+      "title_file": "Poistetaanko tämä tiedosto?",
       "title_all": "Tyhjennetäänkö koko historia?",
       "body": "Voit pitää ladatun tiedoston laitteella tai poistaa sen yhdessä merkinnän kanssa.",
       "entry_only_btn": "Poista vain luettelosta",

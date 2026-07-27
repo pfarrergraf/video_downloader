@@ -65,6 +65,7 @@ FREE_TIER_COUNTED_STATUSES = (JOB_STATUS_PENDING, JOB_STATUS_IN_PROGRESS, JOB_ST
 QUEUE_CANCEL_RE = re.compile(r"^/api/queue/(\d+)/cancel$")
 QUEUE_RETRY_RE = re.compile(r"^/api/queue/(\d+)/retry$")
 QUEUE_DELETE_RE = re.compile(r"^/api/queue/(\d+)/delete$")
+QUEUE_DELETE_FILE_RE = re.compile(r"^/api/queue/(\d+)/delete-file$")
 DOWNLOAD_RE = re.compile(r"^/api/download/(\d+)/([^/]+)$")
 
 mimetypes.add_type("application/manifest+json", ".webmanifest")
@@ -1022,6 +1023,22 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             self._send_json(200, {"deleted": True})
             return
 
+        match = QUEUE_DELETE_FILE_RE.match(path)
+        if match:
+            if not self._require_auth():
+                return
+            body = self._read_json()
+            filename = str(body.get("filename", ""))
+            delete_files = bool(body.get("delete_files", False))
+            if not filename:
+                self._send_json(400, {"detail": "filename is required"})
+                return
+            if not self._delete_job_file(int(match.group(1)), filename, delete_files):
+                self._send_json(404, {"detail": "File not found or job still running"})
+                return
+            self._send_json(200, {"deleted": True})
+            return
+
         if path == "/api/queue/clear":
             if not self._require_auth():
                 return
@@ -1077,6 +1094,31 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                         remover(name)
                     except Exception:  # noqa: BLE001 - best-effort, never blocks the delete
                         pass
+        return True
+
+    def _delete_job_file(self, job_id: int, filename: str, delete_files: bool) -> bool:
+        """Drop ONE file of a finished job, optionally from disk as well.
+
+        The per-file counterpart of _delete_history_entry: a 100-track playlist
+        is a single job, so the row-level delete is far too blunt for "remove
+        this one track". Same disk semantics - "entry only" leaves every copy
+        alone, "delete file" removes our own copy plus the published Downloads
+        copy via the Android hook, and never touches a user-picked SAF folder.
+        """
+        path_str = self.server.store.delete_job_file(job_id, filename)
+        if path_str is None:
+            return False
+        if delete_files:
+            try:
+                Path(path_str).unlink(missing_ok=True)
+            except OSError:  # noqa: PERF203 - a locked/vanished file must not fail the delete
+                pass
+            remover = self.server.published_file_remover
+            if remover is not None:
+                try:
+                    remover(Path(path_str).name)
+                except Exception:  # noqa: BLE001 - best-effort, never blocks the delete
+                    pass
         return True
 
 

@@ -41,6 +41,7 @@
       "details_toggle": "Afficher les détails",
       "retry_btn": "Réessayer",
       "delete_btn": "Supprimer",
+      "delete_all_btn": "Tout supprimer",
       "clear_btn": "Effacer l'historique",
       "delete_failed_toast": "Impossible de supprimer."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Supprimer ce téléchargement ?",
+      "title_file": "Supprimer ce fichier ?",
       "title_all": "Effacer tout l'historique ?",
       "body": "Tu peux garder le fichier téléchargé sur cet appareil, ou le supprimer avec l'entrée.",
       "entry_only_btn": "Retirer de la liste uniquement",

@@ -41,6 +41,7 @@
       "details_toggle": "Ayrıntıları göster",
       "retry_btn": "Tekrar dene",
       "delete_btn": "Sil",
+      "delete_all_btn": "Tümünü sil",
       "clear_btn": "Geçmişi temizle",
       "delete_failed_toast": "Silinemedi."
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "Bu indirme silinsin mi?",
+      "title_file": "Bu dosya silinsin mi?",
       "title_all": "Tüm geçmiş temizlensin mi?",
       "body": "İndirilen dosyayı cihazda tutabilir veya girişle birlikte silebilirsin.",
       "entry_only_btn": "Yalnızca listeden kaldır",

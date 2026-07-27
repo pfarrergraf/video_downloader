@@ -316,9 +316,10 @@
   .job-error details { margin-top: 0.2rem; }
   .job-error summary { cursor: pointer; color: var(--text-dim); font-size: 0.8rem; min-height: 44px; display: flex; align-items: center; }
   .job-error .raw { color: var(--text-dim); font-size: 0.78rem; word-break: break-word; }
-  .file-row { flex-basis: 100%; display: flex; align-items: center; gap: 0.5rem; flex-wrap: nowrap; margin-top: 0.2rem; min-width: 0; }
+  .file-list { flex-basis: 100%; display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+  .file-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: nowrap; margin-top: 0.2rem; min-width: 0; max-width: 100%; }
   .file-row button { display: inline-flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
-  .file-row .dl-link { flex-shrink: 1; min-width: 0; }
+  .file-row .dl-link { flex: 1 1 auto; min-width: 0; }
   .progress-track {
     flex-basis: 100%;
     height: 10px;
@@ -340,7 +341,7 @@
     margin-top: 0.15rem;
   }
   .muted { color: var(--text-dim); font-size: 0.85rem; }
-  a.dl-link { color: var(--accent-2); text-decoration: none; font-weight: 500; font-size: 0.85rem; flex-basis: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  a.dl-link { color: var(--accent-2); text-decoration: none; font-weight: 500; font-size: 0.85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   button.file-icon-btn {
     width: 48px; height: 48px; min-height: unset;
     padding: 0; flex-shrink: 0;
@@ -351,6 +352,14 @@
      aria-label preserve hover/screen-reader help without consuming row width. */
   button.folder-btn { color: #ffcb3d; }
   button.trash-btn { color: var(--danger); background: transparent; border-color: transparent; }
+  /* Job-level "delete all" sits at the top right of the card and is bigger than
+     the per-file trash cans so the two can't be confused at a glance. */
+  button.delete-all-btn {
+    width: 56px; height: 56px;
+    margin-left: auto; align-self: flex-start;
+    border-color: var(--danger);
+  }
+  button.delete-all-btn svg { width: 24px; height: 24px; }
   button.share-btn img { filter: none; }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) button.share-btn img { filter: invert(1); }
@@ -1864,6 +1873,19 @@ function jobRow(job) {
   name.textContent = jobTitle(job);
   li.appendChild(name);
 
+  // A playlist is ONE job with many files, so per-file trash cans alone would
+  // mean 100 taps to clear it. This is the job-level escape hatch; a job with a
+  // single file doesn't need it (its file's own trash can does the same thing).
+  if (job.files && job.files.length > 1) {
+    const deleteAllBtn = document.createElement('button');
+    deleteAllBtn.className = 'secondary file-icon-btn trash-btn delete-all-btn';
+    deleteAllBtn.innerHTML = iconSvg('trash');
+    deleteAllBtn.title = t('app.queue.delete_all_btn');
+    deleteAllBtn.setAttribute('aria-label', t('app.queue.delete_all_btn'));
+    deleteAllBtn.addEventListener('click', () => openDeleteDialog(job.id));
+    li.appendChild(deleteAllBtn);
+  }
+
   if (job.error) {
     const err = document.createElement('div');
     err.className = job.status === 'failed' ? 'job-error' : 'job-warning';
@@ -1910,10 +1932,14 @@ function jobRow(job) {
   }
 
   if (job.files && job.files.length) {
-    const fileRow = document.createElement('div');
-    fileRow.className = 'file-row';
+    const fileList = document.createElement('div');
+    fileList.className = 'file-list';
     const isAndroid = !!(window.AndroidBridge && window.AndroidBridge.isAvailable && window.AndroidBridge.isAvailable());
     job.files.forEach((f) => {
+      // One row per file: a shared row would put 4 buttons x N files on a
+      // single nowrap line, overflowing the card and collapsing the links.
+      const fileRow = document.createElement('div');
+      fileRow.className = 'file-row';
       // On Android the row title already shows the filename and View/Share
       // cover every use - a second filename-as-link is just visual noise.
       // On desktop/Termux the link IS how you get the file, so it stays.
@@ -1956,10 +1982,11 @@ function jobRow(job) {
       delBtn.innerHTML = iconSvg('trash');
       delBtn.title = t('app.queue.delete_btn');
       delBtn.setAttribute('aria-label', t('app.queue.delete_btn'));
-      delBtn.addEventListener('click', () => openDeleteDialog(job.id));
+      delBtn.addEventListener('click', () => openDeleteDialog(job.id, f.filename));
       fileRow.appendChild(delBtn);
+      fileList.appendChild(fileRow);
     });
-    li.appendChild(fileRow);
+    li.appendChild(fileList);
   }
 
   if (job.status === 'pending' || job.status === 'in_progress') {
@@ -1984,17 +2011,28 @@ const FINISHED_STATUSES = ['completed', 'failed', 'cancelled'];
 // choice being made here ("keep the file or delete it too?") genuinely has
 // three answers, which a yes/no box can't ask.
 let deleteTargetJobId = null; // null = clear the whole history
-function openDeleteDialog(jobId) {
+let deleteTargetFilename = null; // null = the whole job, not a single file
+function openDeleteDialog(jobId, filename) {
   deleteTargetJobId = jobId;
-  $('delete-title').textContent = jobId === null ? t('app.delete.title_all') : t('app.delete.title_one');
+  deleteTargetFilename = filename || null;
+  const titleKey = jobId === null
+    ? 'app.delete.title_all'
+    : (deleteTargetFilename ? 'app.delete.title_file' : 'app.delete.title_one');
+  $('delete-title').textContent = t(titleKey);
   $('delete-overlay').classList.remove('hidden');
 }
 async function performDelete(deleteFiles) {
   const target = deleteTargetJobId;
+  const filename = deleteTargetFilename;
   $('delete-overlay').classList.add('hidden');
   try {
     if (target === null) {
       await api('/api/queue/clear', { method: 'POST', body: { delete_files: deleteFiles } });
+    } else if (filename) {
+      await api(`/api/queue/${target}/delete-file`, {
+        method: 'POST',
+        body: { filename, delete_files: deleteFiles },
+      });
     } else {
       await api(`/api/queue/${target}/delete`, { method: 'POST', body: { delete_files: deleteFiles } });
     }

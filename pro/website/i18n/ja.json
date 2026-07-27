@@ -41,6 +41,7 @@
       "details_toggle": "Show details",
       "retry_btn": "Try again",
       "delete_btn": "削除",
+      "delete_all_btn": "すべて削除",
       "clear_btn": "履歴を消去",
       "delete_failed_toast": "削除できませんでした。"
     },
@@ -159,6 +160,7 @@
     },
     "delete": {
       "title_one": "このダウンロードを削除しますか？",
+      "title_file": "このファイルを削除しますか？",
       "title_all": "履歴をすべて消去しますか？",
       "body": "ダウンロードしたファイルを端末に残すことも、エントリと一緒に削除することもできます。",
       "entry_only_btn": "リストからのみ削除",
