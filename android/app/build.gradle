@@ -104,6 +104,25 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+
+            ndk {
+                // Lets Play symbolize native crashes instead of showing raw
+                // addresses. Currently collects nothing: every .so in the
+                // bundle is already stripped (verified against the shipped
+                // 0.8.4.10 AAB - no .symtab, no .debug_info in any of them).
+                // Chaquopy's libpython3.11.so / libssl_python.so and friends
+                // arrive stripped from upstream, and build_ffmpeg_android.sh
+                // and build_quickjs_android.sh run llvm-strip themselves. This
+                // is declared so that the moment any of those inputs keeps its
+                // symbols, they reach Play automatically rather than needing
+                // this to be remembered.
+                //
+                // SYMBOL_TABLE, not FULL: FULL packages .debug_info, which for
+                // an unstripped ffmpeg would add hundreds of MB to the upload
+                // for line numbers nobody reads here. Function names are
+                // enough to make a native stack trace legible.
+                debugSymbolLevel 'SYMBOL_TABLE'
+            }
         }
     }
 
