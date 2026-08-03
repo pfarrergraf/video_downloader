@@ -17,6 +17,16 @@ Everything below is developer documentation for building and running ClassyDL's 
 from source (Windows CLI/TUI/desktop GUI, Termux, Docker) — skip it if you just want the
 app.
 
+## Support the project
+
+If DownloadThat or ClassyDL saves you time, you can support continued development:
+
+<a href="https://buymeacoffee.com/gptassistb0">
+  <img src="assets/buy-me-a-coffee-qr.png" alt="Support DownloadThat on Buy Me a Coffee" width="220">
+</a>
+
+**[Buy me a coffee →](https://buymeacoffee.com/gptassistb0)**
+
 ## Features
 
 - **Site scraper** — discover videos, audio, and images on any web page
