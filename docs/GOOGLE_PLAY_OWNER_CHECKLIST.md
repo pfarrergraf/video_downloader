@@ -34,9 +34,9 @@ Details: `docs/CLOUDFLARE_DOWNLOADTHAT_APP_SETUP.md`.
       Actions hinterlegt; der alte App-Signing-Key wird nicht als Fallback genutzt.
 - [ ] Beim ersten akzeptierten AAB bestätigen, dass die technische Paket-ID
       `de.classydl.app` gebunden wurde.
-- [ ] Produkt-ID `pro` mit sichtbarem Namen `DownloadThat Pro` als nicht
-      konsumierbaren Einmalkauf anlegen; Preis
-      für EU/EWR auf 12 EUR setzen und länderspezifische Google-Preise prüfen.
+- [x] Produkt-ID `pro` mit sichtbarem Namen `DownloadThat Pro` als nicht
+      konsumierbaren Einmalkauf anlegen; Bulk-Preisgrundlage 9,99 EUR, lokale
+      Google-Play-Preise geprüft (Deutschland aktuell 11,99 EUR Endpreis).
 - [ ] License Tester und Internal-Track-Tester eintragen.
 - [ ] Pub/Sub-Thema, Push-Service-Account und RTDN in Play Console verbinden.
 - [ ] GitHub/Cloudflare-Secrets aus `docs/GOOGLE_PLAY_OPERATIONS.md` setzen.
@@ -53,7 +53,8 @@ Details: `docs/CLOUDFLARE_DOWNLOADTHAT_APP_SETUP.md`.
 - [ ] Zielgruppe, Content Rating, App Access und Werbeangaben bestätigen.
 - [ ] Datenschutz-/AGB-Texte rechtlich prüfen lassen; keine automatische
       Rechtsfreigabe aus Code oder Dokumentation ableiten.
-- [ ] EU/EWR-Länderliste und 12-EUR-Preisvorschau bestätigen.
+- [x] EU/EWR-Länderliste und lokale Preisvorschau bestätigen; Deutschland zeigt
+      aktuell 11,99 EUR, weitere Länder erhalten lokale Preisstufen und Steuern.
 
 ## Produktions-Gate
 

@@ -20,7 +20,12 @@
       "need_key_toast": "ముందుగా లైసెన్స్ కీని నమోదు చేయండి.",
       "activated_toast": "లైసెన్స్ యాక్టివేట్ చేయబడింది.",
       "invalid_toast": "చెల్లని లైసెన్స్ కీ.",
-      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows.",
+      "purchase_pending_toast": "Your Google Play purchase is still pending.",
+      "product_unavailable_toast": "DownloadThat Pro is not available for this Google Play account right now. Try again later or contact support.",
+      "billing_unavailable_toast": "Google Play Billing is not available right now. Check your connection and Play account, then try again.",
+      "no_purchase_found_toast": "No Pro purchase was found for this Google Play account.",
+      "purchase_failed_toast": "The Google Play purchase could not be completed. Try again or contact support."
     },
     "queue": {
       "title": "క్యూ",
@@ -88,6 +93,7 @@
     "about": {
       "title": "About",
       "developed_by": "Developed by",
+      "rate_btn": "Rate on Google Play",
       "licenses": "Uses yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0), and AndroidX (Apache-2.0)."
     },
     "limit": {
@@ -170,7 +176,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Android కోసం వీడియో, ఆడియో & ఇమేజ్ డౌన్‌లోడర్",
-      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
     },
     "nav": {
       "features": "ఫీచర్లు",

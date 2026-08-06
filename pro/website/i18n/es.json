@@ -20,7 +20,12 @@
       "need_key_toast": "Introduce primero una clave de licencia.",
       "activated_toast": "Licencia activada.",
       "invalid_toast": "Clave de licencia no válida.",
-      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows."
+      "purchase_hint": "Buy Pro in the Google Play version, then use the same license key here or in Windows.",
+      "purchase_pending_toast": "Your Google Play purchase is still pending.",
+      "product_unavailable_toast": "DownloadThat Pro is not available for this Google Play account right now. Try again later or contact support.",
+      "billing_unavailable_toast": "Google Play Billing is not available right now. Check your connection and Play account, then try again.",
+      "no_purchase_found_toast": "No Pro purchase was found for this Google Play account.",
+      "purchase_failed_toast": "The Google Play purchase could not be completed. Try again or contact support."
     },
     "queue": {
       "title": "Mis descargas",
@@ -88,6 +93,7 @@
     "about": {
       "title": "Acerca de",
       "developed_by": "Desarrollado por",
+      "rate_btn": "Rate on Google Play",
       "licenses": "Utiliza yt-dlp (Unlicense), FFmpeg y LAME (LGPL), Chaquopy (MIT), requests y Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) y AndroidX (Apache-2.0)."
     },
     "limit": {
@@ -170,7 +176,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat: descargador de vídeo, audio e imágenes para Android",
-      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro for €12 one-time — no subscription."
+      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
     },
     "nav": {
       "features": "Funciones",

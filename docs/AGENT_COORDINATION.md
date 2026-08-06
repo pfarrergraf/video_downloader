@@ -61,6 +61,9 @@ cd pro/website && npm test && npm run check
 | Codex | T19 | agent/codex/publish-exact-screenrecording | `pro/website/demo/downloadthat-foreground-service.mp4`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-23 |
 | Codex | T20 | agent/codex/release-0-8-4-3 | `docs/AGENT_COORDINATION.md`, release tag `v0.8.4.3`, Play-AAB artifact | erledigt | 2026-07-23 |
 | Claude/opus | T2 + T4 | agent/claude/t2-t4 | `pro/website/rechtliches.<lang>.html` (neu, 13 Sprachen), `docs/INFLUENCER_VIDEO_SCRIPTS.md`, append-only: `docs/WORKPLAN.md`, `docs/AGENT_COORDINATION.md` | erledigt | 2026-07-14 |
+| Codex | T22 Tester-Feedback | agent/codex/tester-feedback-improvements | `video_downloader/web/static/index.html`, beide `i18n/*.json`-Spiegel, gezielte Tests/Doku, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-08-03 |
+| Codex | T23 Play-Preistext-Aktualisierung | agent/codex/tester-feedback-improvements | Website-/Play-Dokumentation von 12-EUR-Claim auf lokale Google-Play-Preise umstellen, Tests und Public-Claims prüfen, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-08-03 |
+| Claude | T24 Tutorial-Nacharbeit | agent/claude/help-tutorial-fixes | `video_downloader/web/static/index.html`, `tests/test_help_popup.py`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-08-06 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
 
@@ -235,3 +238,50 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
 - 2026-07-24 — Codex — T21-Canary ergänzt: `.github/workflows/playlist-canary.yml`
   läuft täglich und manuell, prüft flache Playlist-Metadaten ohne Download und
   akzeptiert zusätzliche newline-separierte URLs über den Dispatch-Input.
+- 2026-08-03 — Codex — Claim: T22 Tester-Feedback auf
+  `agent/codex/tester-feedback-improvements`. Scope: die zwei PDF-Berichte gegen
+  Code und Play-Owner-Gates prüfen; native Erststart-Hilfe sichtbarer machen,
+  Support-/Bewertungswege ergänzen und rohe Billing-Fehler nutzerverständlich
+  anzeigen. Play-Console-Produktaktivierung bleibt ein Owner-Gate.
+- 2026-08-03 — Codex — T22 erledigt. Die Berichte sind in
+  `docs/TESTER_REPORT_ASSESSMENT_2026-08-03.md` evidenzbasiert bewertet. Native
+  Erststart-Hilfe, Support-/Bewertungswege und lokalisierte Billing-Rückmeldungen
+  sind implementiert. 303 Python-Tests, 24 Website-Tests, JavaScript-Syntax,
+  Ruff, Public-Claims-Guard und ein mobiler Browserdurchlauf sind grün. Die
+  Aktivierung und reale Lifecycle-Prüfung des Play-Produkts `pro` bleiben
+  dokumentierte Owner-Gates.
+- 2026-08-03 — Codex — Claim: T23 Play-Preistext-Aktualisierung auf
+  `agent/codex/tester-feedback-improvements`. Scope: Nach Aktivierung des
+  Play-Produkts `pro` alle aktiven Website-, Listing- und Owner-Dokumenttexte
+  von der alten 12-EUR-Angabe auf die lokale Play-Preislogik umstellen.
+- 2026-08-03 — Codex — T23 erledigt: Aktives Play-Produkt `pro` mit aktiver
+  Standard-Kaufoption und 173 Ländern/Regionen bestätigt. Website-Locale,
+  Android-Downloadseite und aktive Play-/Marketing-Dokumente verwenden nun
+  lokale Google-Play-Preise; Deutschland zeigt aktuell 11,99 EUR Endpreis.
+  Geprüft mit 20 gezielten Python-Tests, 24 Website-Tests, JavaScript-Syntax,
+  100 JSON-Locale-Dateien, Public-Claims-Guard und `git diff --check`.
+  Historische Stripe-Unterlagen wurden bewusst nicht geändert.
+- 2026-08-06 — Claude — Fund beim Prüfen des Release-APKs: T22 und T23 waren
+  laut diesem Log "erledigt" (inkl. grüner Gates), aber nie eingecheckt — die
+  Änderungen lagen nur unstaged im geteilten Arbeitsverzeichnis. Committe sie
+  hiermit unverändert nach, in einem isolierten `git worktree` auf
+  `agent/claude/help-tutorial-fixes` (Basis `origin/master`, nicht der
+  laufende Codex-Branch), FF-Merge nach `master` folgt.
+- 2026-08-06 — Claude — Claim: T24 Tutorial-Nacharbeit auf
+  `agent/claude/help-tutorial-fixes`. Scope: Tester-Feedback zum in T22 gebauten
+  Erststart-Tutorial. Bug: ein Tap auf die Video/Audio-Buttons im Tutorial
+  (`data-pc3-next`) killte den Auto-Loop dauerhaft (`clearTimers()` ohne
+  Wiederanlauf) — reproduziert als "Animation hängt auf Schritt 4". Schließen+
+  erneutes Öffnen setzte die Animation außerdem nicht zurück. UX: ✕- und
+  📖-Icons im Tutorial-Overlay waren nicht in ihrem Kreis zentriert; das
+  📖-Icon (Textanleitung) hatte keinen Hinweisreiz.
+- 2026-08-06 — Claude — T24 erledigt. `[data-pc3-next]` ist im Tutorial jetzt
+  `pointer-events: none` (dort nur Deko, echte Controls nur auf der
+  Marketing-Website) statt anklickbar+loop-tötend. `openHelp()` ruft neu
+  `restartHelpAnimation()` bei jedem Öffnen auf (nicht nur beim ersten Mal),
+  Schließen ruft `stopHelpAnimation()` — Tutorial startet bei jedem Öffnen
+  wieder bei Szene 1. ✕/📖 sind jetzt flex-zentriert wie `.icon-btn`; 📖
+  pulsiert durchgehend, während das Tutorial offen ist; ❓ im Header pulsiert
+  einmalig (3×), nachdem das automatisch geöffnete Erststart-Tutorial
+  geschlossen wird. 6 neue Regressionstests in `tests/test_help_popup.py`
+  (16/16 grün), volles Python-Gate 309/309 grün.

@@ -155,6 +155,17 @@
     cursor: pointer;
   }
   .icon-btn:active { transform: scale(0.93); }
+  /* Brief attention cue for help-open-btn right after the auto-shown
+     first-run tutorial (see maybeShowFirstRunHelp()) closes - the modal
+     covered the header while it was open, so this is the first moment the
+     button is actually visible again. Finite (3 pulses via iteration
+     count, not an infinite blink) so it settles back to normal instead of
+     nagging forever; JS removes the class on animationend. */
+  @keyframes icon-btn-glow-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 173, 101, 0); }
+    50% { box-shadow: 0 0 0 8px rgba(255, 173, 101, 0.45); }
+  }
+  .icon-btn.glow-pulse { animation: icon-btn-glow-pulse 1.1s ease-in-out 3; }
   main { max-width: 640px; margin: 0 auto; padding: 0 1.1rem; }
   .card {
     background: var(--bg-panel);
@@ -418,6 +429,10 @@
     width: 40px; height: 40px; border-radius: 50%;
     background: var(--bg-panel); border: 1px solid var(--border); color: var(--text);
     font-size: 1.1rem; cursor: pointer;
+    /* Without this, the "✕" glyph sits off-center inside the circle: the
+       global `button` rule's asymmetric default padding (0.7rem/1.3rem)
+       only self-cancels under flex centering, same as .icon-btn below. */
+    display: flex; align-items: center; justify-content: center;
   }
   .help-steps { display: flex; flex-direction: column; gap: 1.4rem; margin-top: 1.6rem; }
   .help-step {
@@ -769,11 +784,26 @@
   .help-anim { position: relative; }
   .help-anim .pc3 { min-height: 0; padding: 4px; justify-content: center; border-radius: 20px; }
   .help-anim .pc3-cinema { --pc3-device-w: clamp(220px, 68vw, 320px); }
+  /* The device mockup replays a demo where the same buttons are real,
+     tappable controls on the marketing homepage's interactive hero - here
+     they're just part of a looping animation, so taps must not reach them
+     (a stray tap used to derail/freeze the loop, see the comment in
+     initHelpAnimation()). */
+  #help-overlay [data-pc3-next] { pointer-events: none; }
   .help-guide-btn {
     position: absolute; top: 0.6rem; left: 0.6rem; z-index: 2;
     width: 40px; height: 40px; border-radius: 50%;
     background: var(--bg-panel); border: 1px solid var(--border); color: var(--text);
     font-size: 1.1rem; cursor: pointer;
+    /* Same off-center glyph issue as #help-close-btn - see its comment. */
+    display: flex; align-items: center; justify-content: center;
+    /* The book icon is the only sign that a written guide exists behind
+       the animation, so it pulses the whole time the animation is on
+       screen (not just once) - a plain CSS animation rather than JS
+       start/stop, since #help-overlay's own .hidden rule (display: none)
+       already stops it being rendered (and resets it) once the overlay
+       closes. */
+    animation: icon-btn-glow-pulse 1.8s ease-in-out infinite;
   }
   #help-guide-overlay .card { max-width: 460px; }
   .help-guide-steps { list-style: decimal; margin: 1rem 0 0; padding-left: 1.4rem; display: flex; flex-direction: column; gap: 0.7rem; }
@@ -898,6 +928,10 @@
       <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.app/agb.html" target="_blank" rel="noopener" data-i18n="app.terms.link_terms">Terms of use</a>
       <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.app/datenschutz.html" target="_blank" rel="noopener" data-i18n="app.terms.link_privacy">Privacy policy</a>
       <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="https://downloadthat.app/impressum.html" target="_blank" rel="noopener" data-i18n="app.terms.link_imprint">Imprint</a>
+      <a class="btn ghost" style="text-decoration:underline; padding:0.2rem 0;" href="mailto:gpt.assist.benjamin@gmail.com" data-i18n="website.footer.support">Support</a>
+    </div>
+    <div class="row" style="margin-top:0.4rem;">
+      <a class="btn secondary" id="rate-app-btn" href="https://play.google.com/store/apps/details?id=de.classydl.app" target="_blank" rel="noopener"><span aria-hidden="true">⭐</span> <span data-i18n="app.about.rate_btn">Rate on Google Play</span></a>
     </div>
     <p class="muted" style="font-size:0.75rem; margin-top:0.6rem;" data-i18n="app.about.licenses">
       Uses yt-dlp (Unlicense), FFmpeg &amp; LAME (LGPL), Chaquopy (MIT), requests &amp;
@@ -1150,6 +1184,9 @@
       <li data-i18n="app.help.guide_step5">The file is saved locally on your device.</li>
       <li data-i18n="app.help.guide_step6">Done — find it any time in "My downloads".</li>
     </ol>
+    <div class="row" style="margin-top:1rem;">
+      <a class="btn secondary" href="mailto:gpt.assist.benjamin@gmail.com" data-i18n="website.footer.support">Support</a>
+    </div>
   </div>
 </div>
 
@@ -1406,6 +1443,7 @@ async function setAuthed(authed) {
   startEventStream();
   hideSplash();
   deliverPendingSharedUrl();
+  maybeShowFirstRunHelp();
 }
 
 $('terms-checkbox').addEventListener('change', (e) => {
@@ -1486,8 +1524,15 @@ async function activateNativeLicense(key) {
 
 window.onNativeEntitlementResult = function(result) {
   if (result && result.licenseKey && result.pro) activateNativeLicense(result.licenseKey);
-  else if (result && result.error === 'purchase_pending') toast('Google Play purchase pending / Kauf ausstehend');
-  else if (result && result.error && result.error !== 'billing_unavailable') toast(result.error);
+  else if (result && result.error) {
+    const purchaseErrorKeys = {
+      purchase_pending: 'app.license.purchase_pending_toast',
+      product_unavailable: 'app.license.product_unavailable_toast',
+      billing_unavailable: 'app.license.billing_unavailable_toast',
+      no_purchase_found: 'app.license.no_purchase_found_toast',
+    };
+    toast(t(purchaseErrorKeys[result.error] || 'app.license.purchase_failed_toast'));
+  }
 };
 
 function handleNativePurchase(event) {
@@ -1500,6 +1545,12 @@ function handleNativePurchase(event) {
 
 $('license-buy-link').addEventListener('click', handleNativePurchase);
 $('limit-buy-link').addEventListener('click', handleNativePurchase);
+$('rate-app-btn').addEventListener('click', (event) => {
+  if (window.AndroidBridge && window.AndroidBridge.openPlayStore) {
+    event.preventDefault();
+    window.AndroidBridge.openPlayStore();
+  }
+});
 const purchaseStatus = nativePurchaseStatus();
 if (purchaseStatus && purchaseStatus.billingAvailable && window.AndroidBridge.restorePurchases) {
   $('license-restore-btn').classList.remove('hidden');
@@ -1601,19 +1652,52 @@ $('engine-update-btn').addEventListener('click', async () => {
   }
 });
 
-$('help-open-btn').addEventListener('click', () => {
+const FIRST_RUN_HELP_KEY = 'downloadthat:first-run-help:v1';
+function markFirstRunHelpSeen() {
+  try { localStorage.setItem(FIRST_RUN_HELP_KEY, '1'); } catch (e) { /* storage unavailable */ }
+}
+function openHelp() {
   $('help-overlay').classList.remove('hidden');
   initHelpAnimation();
-});
+  restartHelpAnimation();
+}
+// Set only while the tutorial was opened automatically (not by someone
+// tapping the ? themselves) - it drives the one-off glow on help-open-btn
+// below, so we remind people where to find it again without pulsing the
+// button every time they close a help screen they opened on purpose.
+let firstRunAutoOpened = false;
+function maybeShowFirstRunHelp() {
+  const androidAvailable = !!(window.AndroidBridge && window.AndroidBridge.isAvailable && window.AndroidBridge.isAvailable());
+  if (!androidAvailable || !$('share-format-overlay').classList.contains('hidden')) return;
+  try {
+    if (localStorage.getItem(FIRST_RUN_HELP_KEY)) return;
+  } catch (e) { return; }
+  firstRunAutoOpened = true;
+  requestAnimationFrame(openHelp);
+}
+function glowHelpButtonOnce() {
+  if (!firstRunAutoOpened) return;
+  firstRunAutoOpened = false;
+  const btn = $('help-open-btn');
+  btn.classList.add('glow-pulse');
+  btn.addEventListener('animationend', () => btn.classList.remove('glow-pulse'), { once: true });
+}
+$('help-open-btn').addEventListener('click', openHelp);
 $('help-close-btn').addEventListener('click', () => {
   $('help-overlay').classList.add('hidden');
+  stopHelpAnimation();
+  markFirstRunHelpSeen();
+  glowHelpButtonOnce();
 });
 $('help-guide-btn').addEventListener('click', () => {
   $('help-overlay').classList.add('hidden');
+  stopHelpAnimation();
   $('help-guide-overlay').classList.remove('hidden');
 });
 $('help-guide-close-btn').addEventListener('click', () => {
   $('help-guide-overlay').classList.add('hidden');
+  markFirstRunHelpSeen();
+  glowHelpButtonOnce();
 });
 
 $('settings-open-btn').addEventListener('click', () => {
@@ -2117,6 +2201,14 @@ setLanguage('auto', { skipPersist: true }).then(checkAuth);
 // system and infinite auto-loop timers would run in the background for the
 // entire time the app is open, for an overlay most visits never look at.
 let helpAnimationStarted = false;
+// Filled in once initHelpAnimation() has wired everything up; openHelp()
+// calls restartHelpAnimation() on every open (not just the first) so
+// closing and reopening the tutorial always starts over at scene 1 rather
+// than resuming wherever the last run left off. stopHelpAnimation() is
+// called whenever the overlay is hidden so its timers don't keep firing
+// (and advancing pc3Phase) in the background while nobody is watching.
+let stopHelpAnimation = () => {};
+let restartHelpAnimation = () => {};
 function initHelpAnimation() {
   if (helpAnimationStarted) return;
   helpAnimationStarted = true;
@@ -2315,13 +2407,17 @@ function initHelpAnimation() {
     }, RUN_DURATION));
   }
 
-  root.addEventListener('click', (e) => {
-    const next = e.target.closest('[data-pc3-next]');
-    if (next) {
-      clearTimers();
-      show(next.dataset.pc3Next);
-    }
-  });
+  // Unlike the marketing website's copy of this animation (where
+  // data-pc3-next buttons are real controls for a live visitor to click
+  // through), this in-app tutorial is meant to be a hands-off, looping
+  // demo - there is no "you drive it yourself" mode here. A prior version
+  // still wired these buttons up, so tapping the phone mockup mid-loop
+  // (e.g. the Video/Audio buttons in the "format" scene) called
+  // clearTimers() and jumped to that scene, but nothing ever rescheduled
+  // play() afterwards - the loop died there permanently (reported: stuck
+  // on scene 04 "stream" after tapping trying to rewind to the start).
+  // pointer-events: none on [data-pc3-next] (see the .help-anim CSS block)
+  // makes these buttons inert here, so there is no click to wire up.
 
   document.addEventListener('pointerdown', () => {
     if (soundOn) return;
@@ -2471,8 +2567,11 @@ function initHelpAnimation() {
   }
 
   initStream();
-  show(reduced ? 'success' : 'source');
-  setTimeout(play, reduced ? 0 : 850);
+  stopHelpAnimation = clearTimers;
+  restartHelpAnimation = () => {
+    show(reduced ? 'success' : 'source');
+    timers.push(setTimeout(play, reduced ? 0 : 850));
+  };
 }
 </script>
 </body>

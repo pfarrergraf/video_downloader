@@ -20,7 +20,12 @@
       "need_key_toast": "Gib zuerst einen Lizenzschlüssel ein.",
       "activated_toast": "Lizenz aktiviert.",
       "invalid_toast": "Ungültiger Lizenzschlüssel.",
-      "purchase_hint": "Kaufe Pro in der Google-Play-Version und nutze denselben Lizenzschlüssel hier oder unter Windows."
+      "purchase_hint": "Kaufe Pro in der Google-Play-Version und nutze denselben Lizenzschlüssel hier oder unter Windows.",
+      "purchase_pending_toast": "Der Google-Play-Kauf wartet noch auf Bestätigung.",
+      "product_unavailable_toast": "DownloadThat Pro ist für dieses Google-Play-Konto derzeit nicht verfügbar. Versuche es später erneut oder kontaktiere den Support.",
+      "billing_unavailable_toast": "Google Play Billing ist derzeit nicht verfügbar. Prüfe deine Verbindung und dein Play-Konto und versuche es erneut.",
+      "no_purchase_found_toast": "Für dieses Google-Play-Konto wurde kein Pro-Kauf gefunden.",
+      "purchase_failed_toast": "Der Google-Play-Kauf konnte nicht abgeschlossen werden. Versuche es erneut oder kontaktiere den Support."
     },
     "batch": {
       "label": "Füge einen Link, mehrere Links (einer pro Zeile) oder einen Playlist-Link ein",
@@ -88,6 +93,7 @@
     "about": {
       "title": "Über diese App",
       "developed_by": "Entwickelt von",
+      "rate_btn": "Bei Google Play bewerten",
       "licenses": "Verwendet yt-dlp (Unlicense), FFmpeg & LAME (LGPL), Chaquopy (MIT), requests & Beautiful Soup (Apache-2.0/MIT), certifi (MPL-2.0) und AndroidX (Apache-2.0)."
     },
     "limit": {
@@ -170,7 +176,7 @@
   "website": {
     "meta": {
       "title": "DownloadThat — Video-, Audio- & Bilder-Downloader für Android",
-      "description": "Lade Videos, Audio und Bilder direkt auf dein Android-Handy herunter. Kostenloser Kern, Pro für 12 € einmalig — kein Abo."
+      "description": "Lade Videos, Audio und Bilder direkt auf dein Android-Handy herunter. Kostenloser Kern, Pro zum lokalen Google-Play-Preis — kein Abo."
     },
     "nav": {
       "features": "Funktionen",

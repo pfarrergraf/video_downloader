@@ -44,18 +44,120 @@ def test_help_animation_is_lazily_initialized() -> None:
     assert "function initHelpAnimation()" in html
     assert "let helpAnimationStarted = false;" in html
     assert html.count("initHelpAnimation();") == 1  # exactly one call site
-    open_handler = html.split("$('help-open-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
-    assert "initHelpAnimation()" in open_handler
+    open_helper = html.split("function openHelp() {", 1)[1].split("}\n", 1)[0]
+    assert "initHelpAnimation()" in open_helper
+    assert "$('help-open-btn').addEventListener('click', openHelp);" in html
 
 
 def test_help_open_and_close_are_wired() -> None:
     html = _html()
-    assert "$('help-open-btn').addEventListener('click', () => {" in html
-    open_handler = html.split("$('help-open-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
-    assert "help-overlay" in open_handler and "remove('hidden')" in open_handler
+    assert "$('help-open-btn').addEventListener('click', openHelp);" in html
+    open_helper = html.split("function openHelp() {", 1)[1].split("}\n", 1)[0]
+    assert "help-overlay" in open_helper and "remove('hidden')" in open_helper
 
     close_handler = html.split("$('help-close-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
     assert "help-overlay" in close_handler and "add('hidden')" in close_handler
+
+
+def test_reopening_help_animation_always_restarts_from_scene_one() -> None:
+    # Bug report: closing the tutorial and reopening it must start over at
+    # scene 1 - it must not resume wherever a previous run (or a stray tap,
+    # see test_help_animation_taps_cannot_freeze_the_loop below) left off.
+    # initHelpAnimation() only wires things up once (guarded by
+    # helpAnimationStarted), so the actual restart has to be a separate
+    # function openHelp() calls every time, not just on the first open.
+    html = _html()
+    assert "let stopHelpAnimation = () => {};" in html
+    assert "let restartHelpAnimation = () => {};" in html
+    init_body = html.split("function initHelpAnimation() {", 1)[1].split("\n}\n", 1)[0]
+    assert "stopHelpAnimation = clearTimers;" in init_body
+    assert "restartHelpAnimation = () => {" in init_body
+
+    open_helper = html.split("function openHelp() {", 1)[1].split("}\n", 1)[0]
+    assert "initHelpAnimation()" in open_helper
+    assert "restartHelpAnimation()" in open_helper
+
+    close_handler = html.split("$('help-close-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
+    assert "stopHelpAnimation()" in close_handler
+    guide_open = html.split("$('help-guide-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
+    assert "stopHelpAnimation()" in guide_open
+
+
+def test_help_animation_taps_cannot_freeze_the_loop() -> None:
+    # Bug report: tapping inside the phone mockup mid-animation (the
+    # Video/Audio buttons in the "format" scene, the share CTA, ...) used to
+    # call clearTimers() and jump scenes with nothing ever rescheduling
+    # play() afterwards, leaving the loop stuck forever on whatever scene it
+    # jumped to. Those buttons are only meant to be real controls on the
+    # marketing site's interactive hero, not in this passive in-app replay -
+    # pointer-events: none makes them inert here instead of wiring up a
+    # click handler that can kill the loop.
+    html = _html()
+    assert "#help-overlay [data-pc3-next] { pointer-events: none; }" in html
+    assert "e.target.closest('[data-pc3-next]')" not in html
+
+
+def test_help_close_and_guide_icons_are_flex_centered() -> None:
+    # Both the "✕" and the "📖" glyphs sat off-center in their circles - the
+    # global `button` rule's default padding only self-cancels under flex
+    # centering (same as .icon-btn, which was already fine for this reason).
+    close_rule = _html().split("#help-close-btn {", 1)[1].split("}", 1)[0]
+    assert "display: flex" in close_rule and "align-items: center" in close_rule and "justify-content: center" in close_rule
+    guide_rule = _html().split(".help-guide-btn {", 1)[1].split("}", 1)[0]
+    assert "display: flex" in guide_rule and "align-items: center" in guide_rule and "justify-content: center" in guide_rule
+
+
+def test_help_guide_btn_pulses_continuously_while_animation_is_open() -> None:
+    # The book icon is the only hint that a written guide exists behind the
+    # animation - it should keep drawing the eye the whole time the
+    # animation overlay is open, not just once. A plain infinite CSS
+    # animation is enough: #help-overlay's own display:none when hidden
+    # already stops (and resets) it, no JS start/stop needed.
+    html = _html()
+    guide_rule = html[html.index(".help-guide-btn {"):html.index(".help-guide-btn {") + 900]
+    assert "animation: icon-btn-glow-pulse 1.8s ease-in-out infinite;" in guide_rule
+
+
+def test_help_open_btn_glows_once_after_the_auto_shown_tutorial_closes() -> None:
+    # Per product feedback: some testers never noticed the manual ? button,
+    # so the tutorial now auto-opens once on first run (see the test above).
+    # When that auto-shown tutorial is dismissed, the header (and its ?
+    # button) becomes visible again for the first time - glow it briefly so
+    # people know how to reopen it, without nagging on every manual open/close.
+    html = _html()
+    assert "let firstRunAutoOpened = false;" in html
+    auto_show = html.split("function maybeShowFirstRunHelp() {", 1)[1].split(
+        "function glowHelpButtonOnce", 1
+    )[0]
+    assert "firstRunAutoOpened = true;" in auto_show
+    glow_fn = html.split("function glowHelpButtonOnce() {", 1)[1].split("}\n", 1)[0]
+    assert "if (!firstRunAutoOpened) return;" in glow_fn
+    assert "firstRunAutoOpened = false;" in glow_fn
+    assert "classList.add('glow-pulse')" in glow_fn
+
+    close_handler = html.split("$('help-close-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
+    assert "glowHelpButtonOnce()" in close_handler
+    guide_close = html.split("$('help-guide-close-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
+    assert "glowHelpButtonOnce()" in guide_close
+    assert "@keyframes icon-btn-glow-pulse" in html
+    assert ".icon-btn.glow-pulse { animation: icon-btn-glow-pulse 1.1s ease-in-out 3; }" in html
+
+
+def test_native_first_run_help_is_one_time_and_does_not_cover_shared_link_picker() -> None:
+    html = _html()
+    assert "const FIRST_RUN_HELP_KEY = 'downloadthat:first-run-help:v1';" in html
+    helper = html.split("function maybeShowFirstRunHelp() {", 1)[1].split(
+        "$('help-open-btn').addEventListener", 1
+    )[0]
+    assert "window.AndroidBridge" in helper
+    assert "share-format-overlay" in helper
+    assert "localStorage.getItem(FIRST_RUN_HELP_KEY)" in helper
+    assert "requestAnimationFrame(openHelp)" in helper
+    assert "localStorage.setItem(FIRST_RUN_HELP_KEY, '1')" in html
+    authenticated = html.split("async function setAuthed(authed) {", 1)[1].split(
+        "$('terms-checkbox').addEventListener", 1
+    )[0]
+    assert authenticated.index("deliverPendingSharedUrl();") < authenticated.index("maybeShowFirstRunHelp();")
 
 
 def test_help_guide_button_switches_to_written_steps() -> None:
@@ -77,6 +179,32 @@ def test_help_guide_has_six_visible_written_steps() -> None:
     steps = re.findall(r'data-i18n="app\.help\.guide_step(\d)"', guide_block)
     assert steps == [str(n) for n in range(1, 7)]
     assert "sr-only" not in guide_block
+    assert 'href="mailto:gpt.assist.benjamin@gmail.com"' in guide_block
+
+
+def test_settings_expose_support_and_google_play_rating_actions() -> None:
+    html = _html()
+    settings = html.split('id="settings-overlay"', 1)[1].split('id="limit-overlay"', 1)[0]
+    assert 'href="mailto:gpt.assist.benjamin@gmail.com"' in settings
+    assert 'id="rate-app-btn"' in settings
+    assert 'href="https://play.google.com/store/apps/details?id=de.classydl.app"' in settings
+    assert "window.AndroidBridge.openPlayStore();" in html
+
+
+def test_native_purchase_errors_are_localized_instead_of_showing_raw_codes() -> None:
+    html = _html()
+    callback = html.split("window.onNativeEntitlementResult = function(result) {", 1)[1].split(
+        "function handleNativePurchase", 1
+    )[0]
+    for code in (
+        "purchase_pending",
+        "product_unavailable",
+        "billing_unavailable",
+        "no_purchase_found",
+    ):
+        assert code in callback
+    assert "toast(result.error)" not in callback
+    assert "app.license.purchase_failed_toast" in callback
 
 
 def test_i18n_help_keys_present_in_both_locale_trees() -> None:
@@ -94,3 +222,24 @@ def test_i18n_help_keys_present_in_both_locale_trees() -> None:
                 "guide_step4", "guide_step5", "guide_step6",
             ):
                 assert help_strings.get(key), f"missing app.help.{key} in {path}"
+
+
+def test_i18n_purchase_feedback_and_rating_keys_present_in_both_locale_trees() -> None:
+    for tree in [
+        ROOT / "video_downloader" / "web" / "static" / "i18n",
+        ROOT / "pro" / "website" / "i18n",
+    ]:
+        for path in sorted(tree.glob("*.json")):
+            data = json.loads(path.read_text(encoding="utf-8"))
+            license_strings = data.get("app", {}).get("license", {})
+            for key in (
+                "purchase_pending_toast",
+                "product_unavailable_toast",
+                "billing_unavailable_toast",
+                "no_purchase_found_toast",
+                "purchase_failed_toast",
+            ):
+                assert license_strings.get(key), f"missing app.license.{key} in {path}"
+            assert data.get("app", {}).get("about", {}).get("rate_btn"), (
+                f"missing app.about.rate_btn in {path}"
+            )

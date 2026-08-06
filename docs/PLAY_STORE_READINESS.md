@@ -116,7 +116,8 @@ Permission, kein `MANAGE_EXTERNAL_STORAGE`).
 - [ ] Data-Safety-Form exakt nach Abschnitt 2 ausfüllen (NICHT „no data").
 - [ ] Datenlöschungsweg ohne Nutzerkonto dokumentieren; auf `SECURITY.md`-Kontakt und
       die Ausnahmen für gesetzlich aufzubewahrende Finanzbelege verweisen.
-- [ ] Store-Listing-Fakten = `product_facts.json` (3/Tag, 12 € einmalig).
+- [ ] Store-Listing-Fakten = `product_facts.json` (3/Tag, einmaliger Pro-Kauf zum
+      lokalen Google-Play-Preis; Deutschland aktuell 11,99 € Endpreis).
 
 ---
 

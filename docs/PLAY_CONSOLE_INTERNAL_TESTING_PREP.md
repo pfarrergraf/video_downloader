@@ -2,7 +2,9 @@
 
 Package: `de.classydl.app`
 
-Product ID: `pro`; visible name: `DownloadThat Pro` — non-consumable, one-time, target price 12 EUR
+Product ID: `pro`; visible name: `DownloadThat Pro` — non-consumable, one-time.
+The current bulk price basis is 9.99 EUR; Google Play applies local currency,
+price-tier and tax rules (Germany currently shows 11.99 EUR to the customer).
 
 Distribution start: EU/EEA
 
@@ -17,7 +19,8 @@ Kurzbeschreibung (DE):
 > Video, Audio und Bilder aus Links laden, die du rechtmäßig speichern darfst.
 
 The full description must use verified product facts and follow `security/PUBLIC_CLAIMS_POLICY.md`:
-three free downloads per 24 hours; Pro is a 12 EUR one-time purchase; no subscription,
+three free downloads per 24 hours; Pro is a one-time Google Play purchase at the
+local price shown before checkout; no subscription,
 ads or tracking SDK. It must also state that DownloadThat does not bypass DRM or
 paywalls and that users need the relevant rights or permission.
 

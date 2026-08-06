@@ -16,8 +16,9 @@ Sideload-Dokumente sind historische Evidenz und keine Textquelle.
   Netzwerkdienste.
 - Google Play ist der primäre Android-Kanal; die signierte direkte APK ist eine
   sekundäre Installationsoption.
-- Free: drei Downloads pro 24 Stunden ohne Benutzerkonto. Pro: einmalig 12 EUR,
-  kein Abo.
+- Free: drei Downloads pro 24 Stunden ohne Benutzerkonto. Pro: einmaliger Kauf zum
+  lokalen Google-Play-Preis, kein Abo. Die Website nennt keinen einheitlichen
+  EU-Preis, weil Google Währung, Preisstufen und Steuern je Land anwendet.
 - Keine Werbe-SDKs und kein Analytics-Tracking, solange dies im Code verifiziert
   bleibt.
 
