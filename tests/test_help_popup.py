@@ -70,7 +70,7 @@ def test_reopening_help_animation_always_restarts_from_scene_one() -> None:
     assert "let stopHelpAnimation = () => {};" in html
     assert "let restartHelpAnimation = () => {};" in html
     init_body = html.split("function initHelpAnimation() {", 1)[1].split("\n}\n", 1)[0]
-    assert "stopHelpAnimation = clearTimers;" in init_body
+    assert "stopHelpAnimation = () => {" in init_body
     assert "restartHelpAnimation = () => {" in init_body
 
     open_helper = html.split("function openHelp() {", 1)[1].split("}\n", 1)[0]
@@ -81,6 +81,50 @@ def test_reopening_help_animation_always_restarts_from_scene_one() -> None:
     assert "stopHelpAnimation()" in close_handler
     guide_open = html.split("$('help-guide-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
     assert "stopHelpAnimation()" in guide_open
+
+
+def test_closing_the_tutorial_silences_already_scheduled_audio() -> None:
+    # Bug report: the tutorial kept playing its sound after being closed.
+    # Its sounds are not driven by setTimeout - playDownloadWhirr() books a
+    # 2s hum plus ~18 tick oscillators onto the WebAudio timeline in one go,
+    # with absolute start/stop times, so clearTimers() (which only cancels
+    # pending JS timers) cannot stop them. Everything therefore has to route
+    # through one swappable gain node that closing can cut, rather than
+    # connecting to audioCtx.destination directly.
+    html = _html()
+    assert "let audioBus = null;" in html
+    assert "function silenceAudio() {" in html
+    assert "function resumeAudio() {" in html
+
+    # No sound may bypass the bus by connecting straight to the destination.
+    # Only the bus itself legitimately reaches audioCtx.destination.
+    init_body = html.split("function initHelpAnimation() {", 1)[1].split("\n}\n", 1)[0]
+    assert "audioBus.connect(audioCtx.destination)" in init_body
+    assert init_body.replace("audioBus.connect(audioCtx.destination)", "").count(
+        "connect(audioCtx.destination)"
+    ) == 0
+    assert init_body.count("connect(audioBus)") >= 4  # click, swipe, whirr hum + ticks
+
+    silence = html.split("function silenceAudio() {", 1)[1].split("\n  }", 1)[0]
+    assert "audioBus.disconnect()" in silence
+    assert "audioCtx.suspend()" in silence
+
+    # The real assignments live inside initHelpAnimation(); the module-level
+    # "let stopHelpAnimation = () => {};" placeholders are empty by design.
+    stop_body = init_body.split("stopHelpAnimation = () => {", 1)[1].split("};", 1)[0]
+    assert "clearTimers()" in stop_body and "silenceAudio()" in stop_body
+    restart_body = init_body.split("restartHelpAnimation = () => {", 1)[1].split("};", 1)[0]
+    assert "resumeAudio()" in restart_body
+
+
+def test_backgrounding_the_app_also_silences_the_tutorial() -> None:
+    # Swiping the app away mid-scene must not leave the whirr playing out.
+    html = _html()
+    handler = html.split("document.addEventListener('visibilitychange', () => {", 1)[1].split(
+        "\n  });", 1
+    )[0]
+    assert "clearTimers()" in handler and "silenceAudio()" in handler
+    assert "resumeAudio()" in handler
 
 
 def test_help_animation_taps_cannot_freeze_the_loop() -> None:

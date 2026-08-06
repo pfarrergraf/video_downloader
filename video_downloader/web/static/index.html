@@ -2227,14 +2227,41 @@ function initHelpAnimation() {
 
   let soundOn = false;
   let audioCtx = null;
+  // Every sound below routes through this one node instead of connecting to
+  // audioCtx.destination directly, so closing the tutorial can silence the
+  // whole thing in one move. That matters because these sounds are NOT
+  // driven by setTimeout: playDownloadWhirr() books a 2s hum plus ~18 tick
+  // oscillators onto the WebAudio timeline in a single call, with absolute
+  // start/stop times. clearTimers() cannot touch those - it only cancels
+  // pending JS timers - so closing mid-scene used to leave the audio
+  // playing to its scheduled end with the overlay already gone.
+  let audioBus = null;
   function ensureAudioCtx() {
     if (audioCtx) return audioCtx;
     const Ctx = window.AudioContext || window.webkitAudioContext;
     audioCtx = Ctx ? new Ctx() : null;
+    if (audioCtx) {
+      audioBus = audioCtx.createGain();
+      audioBus.gain.value = 1;
+      audioBus.connect(audioCtx.destination);
+    }
     return audioCtx;
   }
+  // Cuts everything already booked onto the timeline, then parks the context
+  // so it isn't left running for an overlay nobody is looking at.
+  function silenceAudio() {
+    if (!audioCtx || !audioBus) return;
+    audioBus.disconnect();
+    audioBus = audioCtx.createGain();
+    audioBus.gain.value = 1;
+    audioBus.connect(audioCtx.destination);
+    if (audioCtx.state === 'running') audioCtx.suspend();
+  }
+  function resumeAudio() {
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  }
   function playClick() {
-    if (!soundOn || !audioCtx) return;
+    if (!soundOn || !audioCtx || !audioBus) return;
     const now = audioCtx.currentTime;
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
@@ -2244,12 +2271,12 @@ function initHelpAnimation() {
     gain.gain.setValueAtTime(0.0001, now);
     gain.gain.exponentialRampToValueAtTime(0.22, now + 0.006);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.07);
-    osc.connect(gain).connect(audioCtx.destination);
+    osc.connect(gain).connect(audioBus);
     osc.start(now);
     osc.stop(now + 0.08);
   }
   function playSwipe() {
-    if (!soundOn || !audioCtx) return;
+    if (!soundOn || !audioCtx || !audioBus) return;
     const now = audioCtx.currentTime;
     const duration = 0.3;
     const buffer = audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate * duration), audioCtx.sampleRate);
@@ -2266,12 +2293,12 @@ function initHelpAnimation() {
     gain.gain.setValueAtTime(0.0001, now);
     gain.gain.exponentialRampToValueAtTime(0.24, now + 0.04);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-    noise.connect(filter).connect(gain).connect(audioCtx.destination);
+    noise.connect(filter).connect(gain).connect(audioBus);
     noise.start(now);
     noise.stop(now + duration);
   }
   function playDownloadWhirr() {
-    if (!soundOn || !audioCtx) return;
+    if (!soundOn || !audioCtx || !audioBus) return;
     const now = audioCtx.currentTime;
     const duration = 2.0;
     const hum = audioCtx.createOscillator();
@@ -2285,7 +2312,7 @@ function initHelpAnimation() {
     humGain.gain.exponentialRampToValueAtTime(0.05, now + 0.15);
     humGain.gain.setValueAtTime(0.05, now + duration - 0.2);
     humGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-    hum.connect(humFilter).connect(humGain).connect(audioCtx.destination);
+    hum.connect(humFilter).connect(humGain).connect(audioBus);
     hum.start(now);
     hum.stop(now + duration + 0.05);
     const tickCount = Math.floor(duration / 0.11);
@@ -2298,7 +2325,7 @@ function initHelpAnimation() {
       g.gain.setValueAtTime(0.0001, t);
       g.gain.exponentialRampToValueAtTime(0.05, t + 0.004);
       g.gain.exponentialRampToValueAtTime(0.0001, t + 0.03);
-      osc.connect(g).connect(audioCtx.destination);
+      osc.connect(g).connect(audioBus);
       osc.start(t);
       osc.stop(t + 0.04);
     }
@@ -2441,8 +2468,16 @@ function initHelpAnimation() {
   // the tab is visible - the website's version only checks tab visibility
   // since it has no modal to also be closed.
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) clearTimers();
-    else if (!reduced && !$('help-overlay').classList.contains('hidden')) play();
+    if (document.hidden) {
+      // Backgrounding the app has to kill the sound too, not just the
+      // timers - otherwise swiping away mid-scene leaves the whirr playing
+      // out of a phone whose screen has already moved on.
+      clearTimers();
+      silenceAudio();
+    } else if (!reduced && !$('help-overlay').classList.contains('hidden')) {
+      resumeAudio();
+      play();
+    }
   });
 
   function initStream() {
@@ -2567,8 +2602,12 @@ function initHelpAnimation() {
   }
 
   initStream();
-  stopHelpAnimation = clearTimers;
+  stopHelpAnimation = () => {
+    clearTimers();
+    silenceAudio();
+  };
   restartHelpAnimation = () => {
+    resumeAudio();
     show(reduced ? 'success' : 'source');
     timers.push(setTimeout(play, reduced ? 0 : 850));
   };
