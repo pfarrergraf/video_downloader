@@ -23,10 +23,10 @@ import java.io.File
  * .onJobsChanged(json) about once per second (android_entry._jobs_snapshot).
  * Active jobs drive the ongoing progress notification; completions get a
  * one-shot notification whose tap opens the file (same FileProvider path as
- * android_bridge.open_file). When the queue has been idle for a while the
- * service takes itself out of the foreground and stops — the Python server
- * keeps running in-process while Android keeps the process alive, and any
- * new download restarts the service (see MainActivity/AndroidBridge).
+ * android_bridge.open_file). As soon as the queue is empty the service leaves
+ * foreground mode and removes its progress notification. The started service
+ * keeps the existing Python notifier connection for the next user-initiated
+ * queue item (see MainActivity/AndroidBridge).
  */
 class DownloadService : Service() {
 
@@ -34,14 +34,9 @@ class DownloadService : Service() {
         private const val CHANNEL_ID = "downloads"
         private const val ONGOING_NOTIFICATION_ID = 1
         private const val COMPLETED_NOTIFICATION_BASE = 1000
-        // ~30s of consecutive idle snapshots (1s cadence) before leaving the
-        // foreground: long enough that back-to-back queue additions don't
-        // flap the notification, short enough not to camp in the tray.
-        private const val IDLE_TICKS_BEFORE_STOP = 30
     }
 
     private val notifiedCompletions = mutableSetOf<Int>()
-    private var idleTicks = 0
     @Volatile private var inForeground = false
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -53,7 +48,6 @@ class DownloadService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         goForeground(getString(R.string.notif_downloads_running))
-        idleTicks = 0
         ServerRuntime.ensureStarted(applicationContext, NotifierBridge())
         // STICKY: if Android reclaims the process mid-download, the service
         // (and with it the server + queue recovery) is restarted.
@@ -101,7 +95,6 @@ class DownloadService : Service() {
 
         val activeCount = active?.length() ?: 0
         if (activeCount > 0) {
-            idleTicks = 0
             var downloaded = 0L
             var total = 0L
             var totalsKnown = true
@@ -116,12 +109,13 @@ class DownloadService : Service() {
             if (!inForeground) goForeground(text)
             notificationManager().notify(ONGOING_NOTIFICATION_ID, buildOngoing(text, pct))
         } else if (inForeground) {
-            idleTicks++
-            if (idleTicks >= IDLE_TICKS_BEFORE_STOP) {
-                inForeground = false
-                stopForeground(STOP_FOREGROUND_REMOVE)
-                stopSelf()
-            }
+            // Do not leave a stale "Downloads running" notification behind
+            // once the last transfer (including any conversion) is done.
+            // Keep this started Service alive without foreground state so its
+            // already-connected Python notifier can promote it again for the
+            // next user-initiated queue item.
+            inForeground = false
+            stopForeground(STOP_FOREGROUND_REMOVE)
         }
     }
 

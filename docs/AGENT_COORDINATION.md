@@ -285,3 +285,15 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   einmalig (3×), nachdem das automatisch geöffnete Erststart-Tutorial
   geschlossen wird. 6 neue Regressionstests in `tests/test_help_popup.py`
   (16/16 grün), volles Python-Gate 309/309 grün.
+- 2026-08-06 — Codex — Claim: Android-Benachrichtigung bei leerer
+  Downloadwarteschlange entfernen. Scope: `DownloadService.kt`, gezielte
+  Android-Regressionstests und dieser append-only Logeintrag.
+- 2026-08-06 — Codex — Erledigt: Die laufende Vordergrundbenachrichtigung wird
+  beim ersten leeren Queue-Snapshot sofort entfernt, statt 30 Sekunden
+  sichtbar zu bleiben; die Abschlussmeldung bleibt erhalten. Geprüft mit 10
+  gezielten Python-Tests und `git diff --check`. Ein lokaler Kotlin-Compile war
+  nicht verfügbar, weil diese Checkout weder Gradle Wrapper noch Gradle-CLI
+  enthält.
+- 2026-08-06 — Claude — Ebenfalls nachträglich committet (gleicher Fund wie
+  oben: fertig laut Log, aber unstaged liegen geblieben) — unverändert, keine
+  eigene Prüfung über die bereits dokumentierten Gates hinaus.
