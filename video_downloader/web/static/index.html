@@ -805,7 +805,32 @@
        closes. */
     animation: icon-btn-glow-pulse 1.8s ease-in-out infinite;
   }
-  #help-guide-overlay .card { max-width: 460px; }
+  /* This one was missing its overlay rules entirely (it only ever had the
+     .card width below), so removing .hidden did not produce a modal - the
+     guide rendered as a plain block in document flow, at its DOM position
+     just above #app, with the whole app still visible and scrolling beneath
+     it and the close button pushed under the status bar. Same shape as
+     every other overlay above; z-index 58 puts it over #help-overlay (57),
+     which is what opens it. */
+  #help-guide-overlay {
+    position: fixed; inset: 0; background: var(--overlay-strong);
+    display: flex; align-items: center; justify-content: center; z-index: 58; padding: 1rem;
+  }
+  #help-guide-overlay .card {
+    max-width: 460px; width: 100%; position: relative;
+    max-height: 85vh; overflow-y: auto;
+  }
+  /* Matches #help-close-btn - without it the guide's "✕" fell back to the
+     generic pill-shaped button style and sat inline above the heading. */
+  #help-guide-close-btn {
+    position: absolute; top: 0.6rem; right: 0.6rem; z-index: 2;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--bg-panel); border: 1px solid var(--border); color: var(--text);
+    font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* The heading must not run under the absolutely-positioned close button. */
+  #help-guide-overlay .card h2 { padding-right: 3rem; }
   .help-guide-steps { list-style: decimal; margin: 1rem 0 0; padding-left: 1.4rem; display: flex; flex-direction: column; gap: 0.7rem; }
   .help-guide-steps li { line-height: 1.4; }
 </style>
@@ -1657,21 +1682,36 @@ function markFirstRunHelpSeen() {
   try { localStorage.setItem(FIRST_RUN_HELP_KEY, '1'); } catch (e) { /* storage unavailable */ }
 }
 function openHelp() {
-  $('help-overlay').classList.remove('hidden');
+  const overlay = $('help-overlay');
+  // Reopening a closed tutorial must start over at scene 1, but a trigger
+  // that arrives while it is already open must NOT - otherwise every repeat
+  // yanks the viewer back to the first scene mid-run.
+  const wasOpen = !overlay.classList.contains('hidden');
+  overlay.classList.remove('hidden');
   initHelpAnimation();
-  restartHelpAnimation();
+  if (!wasOpen) restartHelpAnimation();
 }
 // Set only while the tutorial was opened automatically (not by someone
 // tapping the ? themselves) - it drives the one-off glow on help-open-btn
 // below, so we remind people where to find it again without pulsing the
 // button every time they close a help screen they opened on purpose.
 let firstRunAutoOpened = false;
+// setAuthed(true) is not a once-per-launch event: checkAuth() and
+// MainActivity's injected auto-login can both reach it (and the terms gate
+// runs it again after acceptance). FIRST_RUN_HELP_KEY alone does not stop a
+// repeat, because it is only written when the tutorial is *closed* - which
+// is deliberate, so a first run interrupted by a kill still gets shown
+// again next launch. That leaves a window where every extra setAuthed(true)
+// re-opened the tutorial. This page-scoped flag closes it.
+let firstRunHelpTriggered = false;
 function maybeShowFirstRunHelp() {
+  if (firstRunHelpTriggered) return;
   const androidAvailable = !!(window.AndroidBridge && window.AndroidBridge.isAvailable && window.AndroidBridge.isAvailable());
   if (!androidAvailable || !$('share-format-overlay').classList.contains('hidden')) return;
   try {
     if (localStorage.getItem(FIRST_RUN_HELP_KEY)) return;
   } catch (e) { return; }
+  firstRunHelpTriggered = true;
   firstRunAutoOpened = true;
   requestAnimationFrame(openHelp);
 }
@@ -2359,9 +2399,19 @@ function initHelpAnimation() {
     { value: 'tap', at: 4000, sounds: [{ delay: 0, type: 'click' }] },
   ];
 
+  // Tracks whether a full six-scene run is currently scheduled. play() always
+  // restarts from scene 1, so anything that calls it while a run is already
+  // in flight throws the viewer back to the beginning. visibilitychange fires
+  // more often than "the user left and came back" on an Android WebView, and
+  // every one of those used to call play() unconditionally - which is how the
+  // tutorial could sit on scene 1 forever, restarting before it ever reached
+  // scene 2. Callers now ask for a run only when none is active.
+  let loopRunning = false;
+
   function clearTimers() {
     timers.forEach(clearTimeout);
     timers = [];
+    loopRunning = false;
     root.classList.remove('is-running');
   }
 
@@ -2422,6 +2472,7 @@ function initHelpAnimation() {
 
   function play() {
     clearTimers();
+    loopRunning = true;
     root.classList.add('is-running');
     if (reduced) {
       show('success');
@@ -2432,6 +2483,12 @@ function initHelpAnimation() {
       root.classList.remove('is-running');
       play();
     }, RUN_DURATION));
+  }
+
+  // Starts a run only if none is in flight, so a repeated trigger lets the
+  // current run continue instead of yanking it back to scene 1.
+  function playIfIdle() {
+    if (!loopRunning) play();
   }
 
   // Unlike the marketing website's copy of this animation (where
@@ -2476,7 +2533,7 @@ function initHelpAnimation() {
       silenceAudio();
     } else if (!reduced && !$('help-overlay').classList.contains('hidden')) {
       resumeAudio();
-      play();
+      playIfIdle();
     }
   });
 
@@ -2608,7 +2665,12 @@ function initHelpAnimation() {
   };
   restartHelpAnimation = () => {
     resumeAudio();
+    clearTimers();
     show(reduced ? 'success' : 'source');
+    // loopRunning covers the 850ms lead-in too: without it a second trigger
+    // arriving inside that window would queue a second play(), and from then
+    // on two runs would fight over the same scene machine.
+    loopRunning = true;
     timers.push(setTimeout(play, reduced ? 0 : 850));
   };
 }

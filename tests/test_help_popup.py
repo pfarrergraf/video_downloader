@@ -127,6 +127,77 @@ def test_backgrounding_the_app_also_silences_the_tutorial() -> None:
     assert "resumeAudio()" in handler
 
 
+def test_written_guide_is_a_real_fullscreen_modal() -> None:
+    # Reported from a device screenshot: opening the written guide showed it
+    # as a block at the top of the page with the whole app still visible and
+    # scrolling underneath, and its close button pushed under the status bar.
+    # Cause: #help-guide-overlay had no overlay rules at all - only a .card
+    # width - so removing .hidden just put it back in document flow. Every
+    # other overlay in this file carries the same fixed/inset/flex shape.
+    html = _html()
+    rule = html.split("#help-guide-overlay {", 1)[1].split("}", 1)[0]
+    assert "position: fixed" in rule
+    assert "inset: 0" in rule
+    assert "display: flex" in rule
+    # Must sit above #help-overlay (z-index 57), which is what opens it.
+    assert "z-index: 58" in rule
+
+    close_rule = html.split("#help-guide-close-btn {", 1)[1].split("}", 1)[0]
+    assert "position: absolute" in close_rule
+    assert "border-radius: 50%" in close_rule
+    assert "display: flex" in close_rule and "justify-content: center" in close_rule
+
+
+def test_a_repeated_trigger_does_not_restart_the_tutorial_from_scene_one() -> None:
+    # Reported: after reinstalling, the tutorial sat on scene 1 in a loop,
+    # never reaching scene 2. play() always restarts from the first scene, so
+    # anything calling it again mid-run resets the viewer. Two paths could do
+    # that repeatedly: visibilitychange (an Android WebView fires it for more
+    # than just "user left and came back") and maybeShowFirstRunHelp(), which
+    # setAuthed(true) reaches - and setAuthed(true) is not once-per-launch.
+    html = _html()
+    assert "let loopRunning = false;" in html
+    assert "function playIfIdle() {" in html
+    idle = html.split("function playIfIdle() {", 1)[1].split("}", 1)[0]
+    assert "if (!loopRunning) play();" in idle
+
+    # clearTimers must clear the flag, play() must set it - otherwise the
+    # guard either sticks on or never engages.
+    clear_body = html.split("function clearTimers() {", 1)[1].split("\n  }", 1)[0]
+    assert "loopRunning = false;" in clear_body
+    play_body = html.split("function play() {", 1)[1].split("\n  }", 1)[0]
+    assert "loopRunning = true;" in play_body
+
+    # visibilitychange must go through the guard, never call play() directly.
+    handler = html.split("document.addEventListener('visibilitychange', () => {", 1)[1].split(
+        "\n  });", 1
+    )[0]
+    assert "playIfIdle()" in handler
+    assert "play();" not in handler
+
+
+def test_first_run_help_cannot_fire_twice_in_one_page_load() -> None:
+    # setAuthed(true) is reachable from checkAuth(), MainActivity's injected
+    # auto-login and the terms-accept handler. FIRST_RUN_HELP_KEY alone does
+    # not stop a repeat because it is only written on close (deliberately, so
+    # an interrupted first run is shown again next launch), so a page-scoped
+    # flag is needed as well.
+    html = _html()
+    assert "let firstRunHelpTriggered = false;" in html
+    helper = html.split("function maybeShowFirstRunHelp() {", 1)[1].split("\n}", 1)[0]
+    assert "if (firstRunHelpTriggered) return;" in helper
+    assert "firstRunHelpTriggered = true;" in helper
+
+
+def test_opening_an_already_open_tutorial_does_not_restart_it() -> None:
+    # Reopening a *closed* tutorial must start at scene 1 (see
+    # test_reopening_help_animation_always_restarts_from_scene_one), but a
+    # trigger arriving while it is already open must leave the run alone.
+    open_helper = _html().split("function openHelp() {", 1)[1].split("\n}", 1)[0]
+    assert "const wasOpen = !overlay.classList.contains('hidden');" in open_helper
+    assert "if (!wasOpen) restartHelpAnimation();" in open_helper
+
+
 def test_help_animation_taps_cannot_freeze_the_loop() -> None:
     # Bug report: tapping inside the phone mockup mid-animation (the
     # Video/Audio buttons in the "format" scene, the share CTA, ...) used to
