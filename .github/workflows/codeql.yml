@@ -17,6 +17,11 @@ on:
 permissions:
   contents: read
   security-events: write
+  # codeql-action/analyze calls the workflow-runs API while uploading its
+  # SARIF; without this it dies with "Resource not accessible by integration"
+  # *after* a complete, successful analysis. Was masked until 8978d640,
+  # because checkout aborted long before the upload step ran.
+  actions: read
 
 jobs:
   analyze:
