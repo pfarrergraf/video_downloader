@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version tag to release, e.g. v0.2.0"
+        description: "Version tag to release, e.g. v0.2.0 (leading 'v' optional)"
         required: true
         type: string
 
@@ -29,8 +29,51 @@ concurrency:
   group: android-release-${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref }}
   cancel-in-progress: false
 
+env:
+  # On a tag push, github.ref_name is already the tag (e.g. v0.2.0). On a
+  # manual workflow_dispatch run, ref_name would be the branch name instead,
+  # so the tag to release has to come from the input — and that input is
+  # hand-typed on a phone, so a missing leading "v" is normalised here rather
+  # than failing the run (android_version_from_tag.py stays strict, since a
+  # real pushed tag has no excuse for the wrong shape).
+  RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && (startsWith(inputs.version, 'v') && inputs.version || format('v{0}', inputs.version)) || github.ref_name }}
+
 jobs:
+  # Both the tag shape and the versionCode monotonicity used to be checked
+  # inside build-signed-release, i.e. only after build-ffmpeg and build-quickjs
+  # had cross-compiled for four minutes. A typo'd version therefore cost a full
+  # NDK build before erroring out (run #49). Everything that can be decided
+  # from the tag alone happens here first instead.
+  validate-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up build-time Python 3.11
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.11"
+
+      - name: Derive version code/name from tag
+        run: python scripts/android_version_from_tag.py "$RELEASE_TAG" --github-env "$GITHUB_ENV"
+
+      - name: Reject a non-monotone versionCode
+        shell: bash
+        run: |
+          metadata="$(curl --fail --silent --location https://github.com/pfarrergraf/video_downloader/releases/latest/download/DownloadThat-release.json || true)"
+          if [ -n "$metadata" ]; then
+            previous="$(printf '%s' "$metadata" | python -c 'import json,sys; print(json.load(sys.stdin)["versionCode"])')"
+            if ! (( VERSION_CODE > previous )); then
+              echo "::error::versionCode $VERSION_CODE (from $RELEASE_TAG) must exceed the released $previous — pick a higher version; an already-released tag cannot be rebuilt."
+              exit 1
+            fi
+          fi
+          echo "$RELEASE_TAG -> versionName=$VERSION_NAME versionCode=$VERSION_CODE" >> "$GITHUB_STEP_SUMMARY"
+
   build-ffmpeg:
+    needs: validate-version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
@@ -64,6 +107,7 @@ jobs:
           retention-days: 1
 
   build-quickjs:
+    needs: validate-version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
@@ -90,7 +134,7 @@ jobs:
           retention-days: 1
 
   build-signed-release:
-    needs: [build-ffmpeg, build-quickjs]
+    needs: [validate-version, build-ffmpeg, build-quickjs]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -98,10 +142,7 @@ jobs:
       run:
         working-directory: android
     env:
-      # On a tag push, github.ref_name is already the tag (e.g. v0.2.0). On a
-      # manual workflow_dispatch run, ref_name would be the branch name
-      # instead, so the tag to release has to come from the input.
-      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
+      # RELEASE_TAG comes from the workflow-level env (normalised there).
       PLAY_STORE_URL: ${{ vars.PLAY_STORE_URL || 'https://play.google.com/store/apps/details?id=de.classydl.app' }}
       LICENSE_API_BASE_URL: ${{ vars.LICENSE_API_BASE_URL || 'https://downloadthat.app' }}
     steps:
@@ -203,6 +244,9 @@ jobs:
       - name: Derive version code/name from tag
         run: python ../scripts/android_version_from_tag.py "$RELEASE_TAG" --github-env "$GITHUB_ENV"
 
+      # Second gate: validate-version already rejected a non-monotone code
+      # before anything was built, but another release can land in between, and
+      # this is the last point before artifacts get signed and published.
       - name: Reject a non-monotone versionCode
         shell: bash
         run: |
