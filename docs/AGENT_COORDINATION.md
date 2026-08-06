@@ -297,3 +297,11 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
 - 2026-08-06 — Claude — Ebenfalls nachträglich committet (gleicher Fund wie
   oben: fertig laut Log, aber unstaged liegen geblieben) — unverändert, keine
   eigene Prüfung über die bereits dokumentierten Gates hinaus.
+- 2026-08-06 — Claude — `docs/WORKPLAN.md` war nicht mit diesem Log
+  synchron: T22, T23, T24 und der Notification-Fix fehlten komplett; T5 hatte
+  eine unangehakte Checkbox trotz "erledigt" in der Abschluss-Ergänzung.
+  Board nachgezogen (reine Doku, keine Codeänderung) und die verbleibenden
+  Owner-Gates aus `TESTER_REPORT_ASSESSMENT_2026-08-03.md` +
+  `GOOGLE_PLAY_OWNER_CHECKLIST.md` dort gebündelt aufgelistet, inklusive der
+  zwei unversionierten `store_assets/icon-pro-*.png`-Kandidaten ohne
+  README-Eintrag oder Verwendung.

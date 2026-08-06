@@ -107,11 +107,15 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
   „ohne Abo schauen"/„lädt alles"). Rest des Skripts (Rechte-Hinweis on-screen) unverändert.
 
 ### T5 — Retention-Cleanup automatisch triggern
-- [ ] `POST /api/admin/retention-cleanup` regelmäßig auslösen (z. B. GitHub-Actions-Cron
+- [x] `POST /api/admin/retention-cleanup` regelmäßig auslösen (z. B. GitHub-Actions-Cron
   gegen den Endpoint mit Admin-Session), da Cloudflare Pages Functions keinen Cron haben.
 
 **Log T5:**
-- (offen)
+- 2026-07-14 — GPT-5.6 — **erledigt** (siehe „Abschluss-Ergänzung 2026-07-14" unten):
+  täglicher GitHub-Actions-Cron mit manuellem Trigger, rotierbarer Bearer-Token plus
+  bestehender Admin-Session als Authentifizierung, Secret-Sync im Deploy-Workflow.
+  Checkbox oben war stehen geblieben, obwohl die Aufgabe bereits erledigt war —
+  jetzt nachgezogen.
 
 ### T6 — Externe Beauftragungen (Owner-Aufgabe, hier nur getrackt)
 - [ ] Anwaltliches Gutachten Urheberrecht/DRM/YouTube-ToS **vor** dem großen Marketing-Push
@@ -183,3 +187,110 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
 - 2026-07-24 — Codex — Der Canary wurde lokal mit zehn Metadaten-Einträgen
   erfolgreich ausgeführt; er nutzt `extract_flat`, `skip_download` und Node/EJS
   und erzeugt keine Mediendateien.
+
+## T22 — Tester-Feedback: Erststart-Hilfe, Support/Bewertung, Billing-Fehlertexte
+
+- [x] Die zwei Tester-PDF-Berichte gegen Code und Play-Owner-Gates prüfen und
+  eine belastbare Einschätzung dokumentieren.
+- [x] Natives Erststart-Tutorial einmalig automatisch zeigen (Android, nach
+  Terms-Akzeptanz, ohne den Share-Intent-Picker zu verdecken).
+- [x] Support-Mail-Link und "Bei Google Play bewerten"-Button in den
+  Einstellungen ergänzen.
+- [x] Rohe Play-Billing-Fehlercodes durch lokalisierte, verständliche
+  Toast-Texte ersetzen.
+
+**Log T22:**
+- 2026-08-03 — Codex — **erledigt.** Bewertung in
+  `docs/TESTER_REPORT_ASSESSMENT_2026-08-03.md`. Erststart-Hilfe,
+  Support-/Bewertungswege und lokalisierte Billing-Rückmeldungen implementiert.
+  303 Python-Tests, 24 Website-Tests, JS-Syntax, Ruff, Public-Claims-Guard und
+  ein mobiler Browserdurchlauf grün. Play-Console-Produktaktivierung und die
+  reale Kauf-Lifecycle-Prüfung bleiben Owner-Gates.
+- 2026-08-06 — Claude — Beim Prüfen des Release-APKs festgestellt: T22 war
+  laut `AGENT_COORDINATION.md` erledigt, aber nie eingecheckt. Unverändert
+  nachcommittet (`agent/claude/help-tutorial-fixes`, FF nach `master`).
+
+### T22-Nacharbeit — Tutorial-Bugfix + Icon-Politur (T24)
+- [x] Bug: Ein Tap auf die Video/Audio-Buttons im Tutorial fror den Auto-Loop
+  dauerhaft ein ("Animation hängt auf Schritt 4").
+- [x] Schließen + erneutes Öffnen des Tutorials startet wieder zuverlässig bei
+  Szene 1.
+- [x] ✕- und 📖-Icons im Tutorial-Overlay in ihrem Kreis zentriert.
+- [x] 📖-Icon (Textanleitung) pulsiert durchgehend, solange das Tutorial offen
+  ist; ❓ im Header pulsiert einmalig nach dem automatischen Erststart-Tutorial.
+
+**Log T24:**
+- 2026-08-06 — Claude — **erledigt** auf `agent/claude/help-tutorial-fixes`.
+  `[data-pc3-next]` ist im App-Tutorial jetzt `pointer-events: none` statt
+  anklickbar+loop-tötend (diese Controls sind nur auf der Marketing-Website
+  echt interaktiv). `openHelp()`/`stopHelpAnimation()`/`restartHelpAnimation()`
+  garantieren Neustart bei jedem Öffnen. Icon-Zentrierung wie `.icon-btn`
+  (flex). 6 neue Regressionstests in `tests/test_help_popup.py` (16/16 grün),
+  volles Python-Gate 309/309 grün.
+
+## T23 — Play-Preistext-Aktualisierung (12-EUR-Claim → lokaler Preis)
+
+- [x] Nach Aktivierung des Play-Produkts `pro` alle aktiven Website-,
+  Listing- und Owner-Dokumenttexte von der alten 12-EUR-Angabe auf die
+  lokale Play-Preislogik umstellen.
+
+**Log T23:**
+- 2026-08-03 — Codex — **erledigt.** Aktives Play-Produkt `pro` mit 173
+  Ländern/Regionen bestätigt; Website-Locale (beide i18n-Spiegel, alle 50
+  Dateien je Baum), Android-Downloadseite und aktive Play-/Marketing-Dokumente
+  verwenden nun lokale Google-Play-Preise (Deutschland aktuell 11,99 EUR
+  Endpreis). 20 gezielte Python-Tests, 24 Website-Tests, JS-Syntax, 100
+  JSON-Locale-Dateien, Public-Claims-Guard, `git diff --check`. Historische
+  Stripe-Unterlagen (`pro/README.md`, `docs/ANDROID_APP_PLAN.md`,
+  `docs/product_cinema_v3_homepage_integration_audit.md`) bewusst nicht
+  geändert — dokumentieren das stillgelegte alte Preismodell, keine aktiven
+  Claims.
+- 2026-08-06 — Claude — Wie T22: laut Log erledigt, aber nie eingecheckt.
+  Unverändert nachcommittet (`agent/claude/help-tutorial-fixes`, FF nach
+  `master`). Stichprobe nach "12 €"/"12 EUR"-Resten über den aktiven Code
+  durchgeführt — keine gefunden außer den oben genannten, bewusst
+  unveränderten historischen Stripe-Dokumenten.
+
+## Notification-Fix — Download-Benachrichtigung bei leerer Warteschlange
+
+- [x] Die laufende Vordergrund-Benachrichtigung sofort entfernen, sobald die
+  Warteschlange leer ist, statt bis zu 30s sichtbar zu bleiben.
+
+**Log:**
+- 2026-08-06 — Codex — **erledigt.** `DownloadService.kt` verlässt den
+  Vordergrund und entfernt die Benachrichtigung beim ersten leeren
+  Queue-Snapshot; die Abschlussmeldung bleibt erhalten. 10 gezielte
+  Python-Tests grün; lokaler Kotlin-Compile nicht verfügbar (kein Gradle
+  Wrapper/CLI in diesem Checkout).
+- 2026-08-06 — Claude — Wie T22/T23: laut Log erledigt, aber nie eingecheckt.
+  Unverändert nachcommittet (`agent/claude/help-tutorial-fixes`, FF nach
+  `master`).
+
+## Offen — Owner-Gates (nicht code-seitig lösbar)
+
+Aus `docs/TESTER_REPORT_ASSESSMENT_2026-08-03.md` und
+`docs/GOOGLE_PLAY_OWNER_CHECKLIST.md`, für den Repository-Inhaber:
+
+- **Play-Produkt `pro` real verifizieren:** License-Tester-Kauf, Restore nach
+  Neuinstallation, Refund/Void über RTDN, Reconciliation — mit Beleg
+  (Build/Version, Konto-Rolle, Ergebnis, Zeitstempel, Screenshots ohne
+  personenbezogene/Zahlungsdaten).
+- **Eigene Produktionsdomain:** `downloadthat.app`/`www` als Custom Domain im
+  Pages-Projekt verbinden, DNSSEC/SSL prüfen, danach erst
+  `CANONICAL_REDIRECT_ENABLED=true` setzen.
+- **Play-Konto/Payments:** Identität, Organisation/Privatstatus,
+  Bankkonto/Steuerprofil, Play-Verträge.
+- **RTDN/Secrets:** Pub/Sub-Thema + Push-Service-Account verbinden,
+  GitHub/Cloudflare-Secrets aus `docs/GOOGLE_PLAY_OPERATIONS.md` setzen,
+  Rate-Limiting für `POST /api/play/purchases/verify` aktivieren.
+- **Data Safety / Zielgruppe / Content Rating / Werbeangaben** in Play Console
+  anhand der tatsächlichen Datenflüsse absenden.
+- **Rechtliche Prüfung:** Datenschutz-/AGB-Texte anwaltlich prüfen lassen —
+  keine automatische Rechtsfreigabe aus Code/Doku ableiten (siehe auch T6).
+- **Store-Screenshots erneuern:** `store_assets/screenshot_*.png` sind laut
+  `TESTER_REPORT_ASSESSMENT` "raw UI captures without benefit captions" —
+  neue, beschriftete, lokalisierte Screenshots vom Release-Build erstellen und
+  in Play Console verifizieren. Zwei unversionierte Kandidaten-Assets liegen
+  bereits in `store_assets/` (`icon-pro-1024.png`, `icon-pro-badge-1024.png`,
+  seit 2026-08-03), aber ohne README-Eintrag oder Verwendung irgendwo — vor
+  Verwendung mit dem Owner abstimmen.
