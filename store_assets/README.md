@@ -16,6 +16,18 @@ Prepared ahead of time so registration + submission (see
   `classydl web` instance, not mockups). `screenshot_queue.png` has synthetic job rows (one
   completed, one in-progress, one pending) inserted directly into the queue store to show all
   three states in one shot — no real network download happened.
+- `icon-pro-1024.png`, `icon-pro-badge-1024.png` — **not committed to git yet, unclear
+  status, needs owner review before use.** Appeared as untracked files in the working
+  tree on 2026-08-03 (same day as the T22/T23 tester-feedback work) with no
+  accompanying task claim, log entry, README update, or reference anywhere in
+  code/docs/CI — so they won't be present in a fresh clone. Likely an exploratory
+  "Pro" app-icon variant (an infinity/download-arrow mark) and a badge overlay of the
+  same mark with a "PRO" pill, possibly scoped toward the tester-report's "better
+  screenshots/store visuals" suggestion (see
+  `docs/TESTER_REPORT_ASSESSMENT_2026-08-03.md`). Do not wire these into the Play
+  listing, the app icon, or any store asset — and don't `git add` them — without
+  confirming they're the intended final design first; nothing currently depends on
+  them.
 - This README.
 
 The icon is language-neutral and is reused for every translation. The existing
