@@ -19,8 +19,10 @@ requires real Play purchase, restore, void/refund, RTDN and reconciliation evide
 | 3 | Bind an already server-verified `play_purchases` record to immutable attribution; create pending commission. | Implemented and locally tested; existing Play lifecycle evidence remains required. |
 | 4 | Inbox dedupe, RTDN commission reaction, voided-purchases cursor reconciliation, hold-release worker. | Implemented and locally tested; manual real refund/void evidence remains open. |
 | 5 | Minimal authenticated admin controls, manual payout recording and audit export. | Admin/payout API implemented; maker/checker and privacy review remain open. |
-| 6 | Affiliate dashboard with aggregate-only views. | BOLA/privacy tests and pilot data review. |
-| 7 | 3–5 partner pilot, all payouts manual. | 60 days of reconciled pilot data and owner review. |
+| 6 | Affiliate dashboard with aggregate-only views. | Implemented behind dashboard/admin flags; BOLA/privacy review remains open. |
+| 7 | 3–5 partner pilot, all payouts manual. | Pilot runbook/checklist implemented; real partner pilot and 60-day evidence remain external. |
+| 8 | Pilot evaluation and unit economics. | Aggregate report/calculator implemented; requires real pilot data. |
+| 9 | Public self-service affiliate registration. | Explicitly deferred; onboarding remains admin-approved and manual. |
 
 ## Exact files to change
 
@@ -44,13 +46,14 @@ requires real Play purchase, restore, void/refund, RTDN and reconciliation evide
 ## Exact files to create
 
 - `android/app/src/play/java/de/classydl/app/InstallReferrerRepository.kt`
-- `pro/website/migrations/0014_affiliate_play_attribution.sql` (number verify at implementation time)
-- `pro/website/functions/_affiliate_attribution.js`
+- `pro/website/migrations/0014_affiliate_attribution.sql`, `0015_affiliate_dashboard_access.sql`
+- `pro/website/functions/_affiliate.js`, `_affiliate_retention.js`
 - `pro/website/functions/_affiliate_commissions.js`
 - `pro/website/functions/api/affiliate/attributions.js`
-- `pro/website/functions/r/[affiliateCode]/[[campaignSlug]].js` or the Pages
-  routing equivalent validated by a local Pages test
-- `pro/website/functions/api/admin/affiliates/*.js`
+- `pro/website/functions/r/[affiliateCode].js` and
+  `pro/website/functions/r/[affiliateCode]/[campaignSlug].js`
+- `pro/website/functions/api/admin/affiliates.js`,
+  `api/admin/affiliates/dashboard.js`, and `api/affiliate/dashboard.js`
 - `pro/website/tests/affiliate_*.test.mjs`
 - `tests/test_android_install_referrer_contract.py` (source/contract guard)
 - `scripts/setup_google_affiliate.sh`, `scripts/audit_google_access.sh`, and
@@ -66,6 +69,8 @@ AFFILIATE_REDIRECT_ENABLED=false
 AFFILIATE_ATTRIBUTION_ENABLED=false
 AFFILIATE_COMMISSION_ENABLED=false
 AFFILIATE_DASHBOARD_ENABLED=false
+AFFILIATE_ADMIN_ENABLED=false
+AFFILIATE_PRODUCTION_APPROVED=false
 ```
 
 `AFFILIATE_ENABLED` gates all public affiliate behaviour. Billing must not read any

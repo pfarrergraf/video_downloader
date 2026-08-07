@@ -1,6 +1,7 @@
 # Play-first Affiliate Architecture
 
-Status: proposed; `AFFILIATE_ENABLED=false` by default. This design deliberately
+Status: implemented behind flags; `AFFILIATE_ENABLED=false` and
+`AFFILIATE_PRODUCTION_APPROVED=false` by default. This design deliberately
 uses the existing Cloudflare Pages Functions + D1 + Android Play flavour rather
 than reintroducing Stripe, Firebase, a new database, or microservices.
 
@@ -95,6 +96,7 @@ raw ID, and uses `UNIQUE(install_id_hash)` to make the winning attribution immut
 | `commissions` | `UNIQUE(affiliate_purchase_id)`, monetary cents, policy version, status and scheduled `available_at`. |
 | `affiliate_event_inbox` | `UNIQUE(source, external_event_id)` for RTDN `messageId`, reconciliation page cursor and admin actions. |
 | `affiliate_audit_events` | append-only actor/action/object/result/reason; no raw token/order value. |
+| `affiliate_access_tokens` | hashed, revocable partner bearer tokens scoped to one affiliate; raw token returned once only. |
 | `affiliate_payouts` / `affiliate_payout_items` | manual payout proposal and allocation; no automatic bank transfer. |
 
 Indexes: clicks by `(affiliate_id, created_at)`, commissions by `(status,

@@ -2,6 +2,8 @@ import { jsonResponse, sha256Hex } from "./_lib.js";
 
 const DAY = 24 * 60 * 60;
 const CLICK_WINDOW = 30 * DAY;
+const CLICK_RATE_WINDOW = 60 * 60;
+const DEFAULT_CLICK_RATE_LIMIT = 120;
 const CLAIM_PREFIX = "dt_v1=";
 
 function base64Url(bytes) {
@@ -38,13 +40,15 @@ function decodeBase64Url(value) {
 }
 
 export function affiliateFlags(env) {
+  const productionApproved = env.AFFILIATE_PRODUCTION_APPROVED === "true";
   return {
-    enabled: env.AFFILIATE_ENABLED === "true",
+    enabled: env.AFFILIATE_ENABLED === "true" && productionApproved,
     redirect: env.AFFILIATE_REDIRECT_ENABLED === "true",
     attribution: env.AFFILIATE_ATTRIBUTION_ENABLED === "true",
     commission: env.AFFILIATE_COMMISSION_ENABLED === "true",
     dashboard: env.AFFILIATE_DASHBOARD_ENABLED === "true",
     admin: env.AFFILIATE_ADMIN_ENABLED === "true",
+    productionApproved,
   };
 }
 
@@ -77,7 +81,9 @@ export async function createReferralClaim(env, clickId, expiresAt) {
   if (!env.AFFILIATE_SIGNING_SECRET) throw new Error("affiliate signing secret is not configured");
   const payload = JSON.stringify({ v: 1, click_id: clickId, exp: expiresAt });
   const encoded = base64Url(bytes(payload));
-  return `${CLAIM_PREFIX}${encoded}.${await hmacBase64Url(env.AFFILIATE_SIGNING_SECRET, encoded)}`;
+  const claim = `${CLAIM_PREFIX}${encoded}.${await hmacBase64Url(env.AFFILIATE_SIGNING_SECRET, encoded)}`;
+  if (claim.length > 512) throw new Error("affiliate referral claim exceeds size limit");
+  return claim;
 }
 
 export async function verifyReferralClaim(env, referrer, now = nowSeconds(env)) {
@@ -115,6 +121,15 @@ export async function recordReferralClick(env, affiliateCode, campaignSlug = nul
     if (!campaign) return null;
   }
   const createdAt = nowSeconds(env);
+  const rateLimit = Math.min(Math.max(Number(env.AFFILIATE_CLICK_RATE_LIMIT_PER_HOUR) || DEFAULT_CLICK_RATE_LIMIT, 1), 10000);
+  const recent = await env.DB.prepare(
+    `SELECT COUNT(*) AS count FROM referral_clicks
+     WHERE affiliate_id = ? AND created_at > ? AND rejected_reason IS NULL`,
+  ).bind(affiliate.id, createdAt - CLICK_RATE_WINDOW).first();
+  if (Number(recent?.count || 0) >= rateLimit) {
+    await audit(env, "affiliate.click.rate_limited", "affiliate", affiliate.id, "hourly redirect limit", "system");
+    throw Object.assign(new Error("referral rate limit exceeded"), { status: 429 });
+  }
   const clickId = crypto.randomUUID();
   const expiresAt = createdAt + CLICK_WINDOW;
   await env.DB.prepare(
@@ -233,4 +248,4 @@ export async function isAffiliateAdmin(request, env) {
   return safeEqual(left, right);
 }
 
-export { audit, nowSeconds, CLICK_WINDOW };
+export { audit, nowSeconds, CLICK_WINDOW, CLICK_RATE_WINDOW, DEFAULT_CLICK_RATE_LIMIT };

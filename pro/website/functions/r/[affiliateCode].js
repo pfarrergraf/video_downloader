@@ -3,7 +3,12 @@ import { affiliateDisabledResponse, affiliateFlags, createReferralClaim, recordR
 export async function onRequestGet({ params, env }) {
   const flags = affiliateFlags(env);
   if (!flags.enabled || !flags.redirect || !env.DB) return affiliateDisabledResponse();
-  const click = await recordReferralClick(env, params?.affiliateCode);
+  let click;
+  try { click = await recordReferralClick(env, params?.affiliateCode); }
+  catch (error) {
+    const status = Number(error?.status) || 503;
+    return new Response(status === 429 ? "Referral link rate limited" : "Referral service unavailable", { status, headers: { "Cache-Control": "no-store" } });
+  }
   if (!click) return new Response("Referral link not found", { status: 404, headers: { "Cache-Control": "no-store" } });
   let claim;
   try { claim = await createReferralClaim(env, click.clickId, click.expiresAt); }

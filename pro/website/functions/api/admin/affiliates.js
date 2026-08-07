@@ -1,6 +1,7 @@
-import { jsonResponse } from "../../_lib.js";
+import { jsonResponse, sha256Hex } from "../../_lib.js";
 import { affiliateFlags, audit, isAffiliateAdmin, normalizeAffiliateCode, normalizeCampaignSlug } from "../../_affiliate.js";
 import { markCommissionPaid, releaseMatureCommissions } from "../../_affiliate_commissions.js";
+import { cleanupAffiliateRetention } from "../../_affiliate_retention.js";
 
 function unauthorized() {
   return jsonResponse({ error: "unauthorized" }, 401, { "WWW-Authenticate": "Bearer" });
@@ -32,6 +33,33 @@ export async function onRequestPost({ request, env }) {
   try { body = await request.json(); } catch { return jsonResponse({ error: "invalid JSON" }, 400); }
   const now = Math.floor(Date.now() / 1000);
   if (body?.action === "release") return jsonResponse(await releaseMatureCommissions(env, body.limit));
+  if (body?.action === "retention") {
+    return jsonResponse(await cleanupAffiliateRetention(env, { dryRun: body.dry_run !== false }));
+  }
+  if (body?.action === "create_access_token") {
+    const affiliateId = typeof body.affiliate_id === "string" ? body.affiliate_id.trim() : "";
+    const affiliate = await env.DB.prepare(`SELECT id, status FROM affiliates WHERE id = ?`).bind(affiliateId).first();
+    if (!affiliate || affiliate.status !== "active") return jsonResponse({ error: "active affiliate not found" }, 404);
+    const token = `afp_${crypto.randomUUID()}_${crypto.randomUUID()}`;
+    const id = crypto.randomUUID();
+    const now = Math.floor(Date.now() / 1000);
+    await env.DB.prepare(
+      `INSERT INTO affiliate_access_tokens (id, affiliate_id, token_hash, label, status, created_at)
+       VALUES (?, ?, ?, ?, 'active', ?)`,
+    ).bind(id, affiliateId, await sha256Hex(token), typeof body.label === "string" ? body.label.trim().slice(0, 120) : null, now).run();
+    await audit(env, "affiliate.access_token.created", "affiliate", affiliateId, "token returned once", "admin");
+    return jsonResponse({ id, affiliate_id: affiliateId, token }, 201);
+  }
+  if (body?.action === "revoke_access_token") {
+    const id = typeof body.id === "string" ? body.id.trim() : "";
+    const now = Math.floor(Date.now() / 1000);
+    const result = await env.DB.prepare(
+      `UPDATE affiliate_access_tokens SET status = 'revoked', revoked_at = ? WHERE id = ? AND status = 'active'`,
+    ).bind(now, id).run();
+    if (!result.meta?.changes) return jsonResponse({ error: "active token not found" }, 404);
+    await audit(env, "affiliate.access_token.revoked", "affiliate_access_token", id, "manual revoke", "admin");
+    return jsonResponse({ id, revoked: true });
+  }
   if (body?.action === "mark_paid") {
     const paid = await markCommissionPaid(env, { id: body.id, paymentReference: body.payment_reference });
     return paid ? jsonResponse({ paid: true }) : jsonResponse({ error: "commission not payable or not found" }, 409);
@@ -47,6 +75,7 @@ export async function onRequestPost({ request, env }) {
     ).bind(target, target, typeof body.reason === "string" ? body.reason.trim().slice(0, 240) : "manual review", now, id).run();
     if (!result.meta?.changes) return jsonResponse({ error: "commission not found or already paid/voided" }, 409);
     await audit(env, `affiliate.commission.${body.action}`, "commission", id, body.reason || "manual review", "admin");
+    if (body.action === "hold") await audit(env, "affiliate.fraud.flagged", "commission", id, body.reason || "manual review", "admin");
     return jsonResponse({ id, status: target });
   }
   if (body?.action === "set_status") {

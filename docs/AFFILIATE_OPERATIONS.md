@@ -59,7 +59,14 @@ Run daily and on demand, with a locked cursor/checkpoint:
 
 ## Dashboard boundary
 
-Affiliate dashboard: own code/links, clicks, attributed installs, verified purchases,
+The current Phase 6 dashboard is an authenticated JSON endpoint rather than a
+hosted public HTML login. This avoids inventing an account system before legal and
+identity requirements are approved. The affiliate dashboard exposes own
+code/links, clicks, attributed installs, verified purchases,
 pending/payable/paid/voided aggregate amounts and date range. Admin dashboard adds
 status, commission policy, campaign management, fraud flags, payout references and
 audit trail. Neither receives raw purchase tokens or buyer details.
+
+Partner access tokens are created/revoked by the authenticated admin endpoint and
+returned only once. Rotate/revoke them after a suspected disclosure; never paste
+them into tickets, screenshots or repository files.

@@ -6,9 +6,14 @@ import { attributeVerifiedPurchase, releaseMatureCommissions, voidAffiliatePurch
 import { onRequestGet as referralGet } from "../functions/r/[affiliateCode].js";
 import { onRequestPost as attributionPost } from "../functions/api/affiliate/attributions.js";
 import { onRequestPost as adminPost } from "../functions/api/admin/affiliates.js";
+import { onRequestPost as rtdnPost } from "../functions/api/play/rtdn.js";
+import { onRequestGet as dashboardGet } from "../functions/api/admin/affiliates/dashboard.js";
+import { onRequestGet as affiliateDashboardGet } from "../functions/api/affiliate/dashboard.js";
+import { cleanupAffiliateRetention } from "../functions/_affiliate_retention.js";
 
 const FLAGS = {
   AFFILIATE_ENABLED: "true",
+  AFFILIATE_PRODUCTION_APPROVED: "true",
   AFFILIATE_REDIRECT_ENABLED: "true",
   AFFILIATE_ATTRIBUTION_ENABLED: "true",
   AFFILIATE_COMMISSION_ENABLED: "true",
@@ -19,6 +24,36 @@ const FLAGS = {
   AFFILIATE_NOW_SECONDS: "1730000000",
   PLAY_STORE_URL: "https://play.google.com/store/apps/details?id=de.classydl.app",
 };
+
+function base64Url(value) {
+  return Buffer.from(value).toString("base64url");
+}
+
+async function rtdnAuth() {
+  const pair = await crypto.subtle.generateKey(
+    { name: "RSASSA-PKCS1-v1_5", modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: "SHA-256" },
+    true,
+    ["sign", "verify"],
+  );
+  const jwk = await crypto.subtle.exportKey("jwk", pair.publicKey);
+  Object.assign(jwk, { kid: "affiliate-test", alg: "RS256", use: "sig" });
+  const now = Math.floor(Date.now() / 1000);
+  const header = base64Url(JSON.stringify({ alg: "RS256", typ: "JWT", kid: "affiliate-test" }));
+  const payload = base64Url(JSON.stringify({
+    iss: "https://accounts.google.com",
+    aud: "https://example.test/api/play/rtdn",
+    email: "pubsub@example.iam.gserviceaccount.com",
+    email_verified: true,
+    iat: now - 10,
+    exp: now + 600,
+  }));
+  const input = `${header}.${payload}`;
+  const signature = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", pair.privateKey, Buffer.from(input));
+  return {
+    jwt: `${input}.${Buffer.from(signature).toString("base64url")}`,
+    fetchJwks: async () => Response.json({ keys: [jwk] }),
+  };
+}
 
 async function seedAffiliate(env, commissionValue = 250) {
   await env.DB.prepare(
@@ -32,6 +67,23 @@ test("feature flags keep referral route closed", async () => {
   const env = makeEnv({ ...FLAGS, AFFILIATE_ENABLED: "false" });
   const response = await referralGet({ params: { affiliateCode: "creator" }, env });
   assert.equal(response.status, 404);
+});
+
+test("runtime owner gate keeps affiliate disabled without explicit approval", async () => {
+  const env = makeEnv({ ...FLAGS, AFFILIATE_PRODUCTION_APPROVED: "false" });
+  const response = await referralGet({ params: { affiliateCode: "creator" }, env });
+  assert.equal(response.status, 404);
+});
+
+test("redirect rate limit is per affiliate and produces only redacted audit data", async () => {
+  const env = makeEnv({ ...FLAGS, AFFILIATE_CLICK_RATE_LIMIT_PER_HOUR: "1" });
+  await seedAffiliate(env);
+  assert.equal((await referralGet({ params: { affiliateCode: "creator" }, env })).status, 302);
+  const limited = await referralGet({ params: { affiliateCode: "creator" }, env });
+  assert.equal(limited.status, 429);
+  const audit = await env.DB.prepare("SELECT event_type, reason FROM affiliate_audit_events WHERE event_type = 'affiliate.click.rate_limited' LIMIT 1").first();
+  assert.equal(audit.event_type, "affiliate.click.rate_limited");
+  assert.equal(audit.reason, "hourly redirect limit");
 });
 
 test("referral redirect is Play-fixed and attribution is immutable/idempotent", async () => {
@@ -107,4 +159,80 @@ test("admin lifecycle and fixed commission release/void are idempotent", async (
   assert.equal(await voidAffiliatePurchase(env, { purchaseTokenHash: tokenHash, reason: "refund" }), true);
   assert.equal((await env.DB.prepare("SELECT status FROM affiliate_commissions").first()).status, "voided");
   assert.equal(await voidAffiliatePurchase(env, { purchaseTokenHash: tokenHash, reason: "refund" }), true);
+});
+
+test("dashboard is separately gated, aggregate-only, and retention defaults to dry-run", async () => {
+  const env = makeEnv({ ...FLAGS, AFFILIATE_DASHBOARD_ENABLED: "true" });
+  await seedAffiliate(env);
+  const dashboard = await dashboardGet({
+    request: new Request("https://downloadthat.app/api/admin/affiliates/dashboard", { headers: { Authorization: "Bearer admin-secret" } }),
+    env,
+  });
+  assert.equal(dashboard.status, 200);
+  const dashboardBody = await dashboard.json();
+  assert.equal(dashboardBody.privacy.raw_tokens, false);
+  assert.equal("purchase_token" in dashboardBody, false);
+  assert.equal("buyer" in dashboardBody, false);
+  const dryRun = await cleanupAffiliateRetention(env, { now: 1730000000 });
+  assert.equal(dryRun.dry_run, true);
+  assert.equal(dryRun.deleted_clicks, 0);
+  env.AFFILIATE_NOW_SECONDS = "1730000000";
+  const oldClick = await recordReferralClick(env, "creator");
+  const oldClaim = await createReferralClaim(env, oldClick.clickId, oldClick.expiresAt);
+  await attributionPost({
+    request: new Request("https://downloadthat.app/api/affiliate/attributions", { method: "POST", body: JSON.stringify({ install_id: "old-install-device-0001", referrer: oldClaim }) }),
+    env,
+  });
+  const cleaned = await cleanupAffiliateRetention(env, { now: 1730000000 + 200 * 24 * 60 * 60, dryRun: false });
+  assert.equal(cleaned.deleted_attributions, 1);
+  assert.equal(cleaned.deleted_clicks, 1);
+});
+
+test("affiliate dashboard access is scoped to its own hashed bearer token", async () => {
+  const env = makeEnv({ ...FLAGS, AFFILIATE_DASHBOARD_ENABLED: "true" });
+  await seedAffiliate(env);
+  const created = await adminPost({
+    request: new Request("https://downloadthat.app/api/admin/affiliates", {
+      method: "POST", headers: { Authorization: "Bearer admin-secret" },
+      body: JSON.stringify({ action: "create_access_token", affiliate_id: "aff-1", label: "pilot" }),
+    }), env,
+  });
+  assert.equal(created.status, 201);
+  const tokenBody = await created.json();
+  assert.match(tokenBody.token, /^afp_/);
+  const dashboard = await affiliateDashboardGet({
+    request: new Request("https://downloadthat.app/api/affiliate/dashboard", { headers: { Authorization: `Bearer ${tokenBody.token}` } }),
+    env,
+  });
+  assert.equal(dashboard.status, 200);
+  const body = await dashboard.json();
+  assert.equal(body.affiliate.code, "creator");
+  assert.equal(body.totals.clicks, 0);
+  assert.equal(body.privacy.order_ids, false);
+  assert.equal("token_hash" in body, false);
+  assert.equal((await affiliateDashboardGet({ request: new Request("https://downloadthat.app/api/affiliate/dashboard", { headers: { Authorization: "Bearer wrong" } }), env })).status, 401);
+  const revoked = await adminPost({
+    request: new Request("https://downloadthat.app/api/admin/affiliates", {
+      method: "POST", headers: { Authorization: "Bearer admin-secret" },
+      body: JSON.stringify({ action: "revoke_access_token", id: tokenBody.id }),
+    }), env,
+  });
+  assert.equal(revoked.status, 200);
+  assert.equal((await affiliateDashboardGet({ request: new Request("https://downloadthat.app/api/affiliate/dashboard", { headers: { Authorization: `Bearer ${tokenBody.token}` } }), env })).status, 401);
+});
+
+test("RTDN message ID is durably deduplicated before affiliate side effects", async () => {
+  const auth = await rtdnAuth();
+  const env = makeEnv({ ...FLAGS,
+    PLAY_RTDN_AUDIENCE: "https://example.test/api/play/rtdn",
+    PLAY_RTDN_SERVICE_ACCOUNT_EMAIL: "pubsub@example.iam.gserviceaccount.com",
+    OIDC_FETCH: auth.fetchJwks,
+  });
+  const body = { message: { messageId: "message-1", data: Buffer.from(JSON.stringify({ packageName: "de.classydl.app", testNotification: {} })).toString("base64") } };
+  const first = await rtdnPost({ request: new Request("https://example.test/api/play/rtdn", { method: "POST", headers: { Authorization: `Bearer ${auth.jwt}` }, body: JSON.stringify(body) }), env });
+  const second = await rtdnPost({ request: new Request("https://example.test/api/play/rtdn", { method: "POST", headers: { Authorization: `Bearer ${auth.jwt}` }, body: JSON.stringify(body) }), env });
+  assert.equal(first.status, 200);
+  assert.equal(second.status, 200);
+  assert.equal((await second.json()).duplicate, true);
+  assert.equal((await env.DB.prepare("SELECT COUNT(*) AS count FROM affiliate_event_inbox WHERE external_event_id = 'message-1'").first()).count, 1);
 });

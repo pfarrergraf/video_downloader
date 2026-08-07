@@ -38,6 +38,8 @@ rate limit is later necessary, retain only a rotating salted hash and short wind
 - Pages Function secrets are server-only. Android and the affiliate dashboard never
   receive Play API credentials or signing/pepper material.
 - Admin views use role checks and query only the fields necessary for each action.
+- Partner dashboard bearer tokens are stored only as hashes, are scoped to one
+  active affiliate, and expose aggregate campaign/commission counters only.
 - Deletion must erase non-financial click/attribution data on schedule, then replace
   retained financial personal links with an irreversible reference where legally
   permitted. It must not destroy records required for bookkeeping or dispute defence.

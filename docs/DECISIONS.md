@@ -2,7 +2,7 @@
 
 ## ADR-001 — Play-first affiliate attribution
 
-**Status:** proposed, not enabled.
+**Status:** accepted for feature-gated implementation, not enabled in production.
 
 **Decision:** Affiliate links lead exclusively to the fixed official Google Play
 listing. Google Play Billing remains the payment channel for the Play flavour. The

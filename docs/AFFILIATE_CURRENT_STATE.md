@@ -47,6 +47,11 @@ database, Play Console resource, secret, billing path, or redirect was changed.
 | Pages/D1 deployment | `pro/website/wrangler.toml`, deploy workflow | One Cloudflare Pages project and D1 binding already exist. |
 | Security controls | `_middleware.js`, `security/CURRENT_SECURITY_IMPLEMENTATION_STATUS.md` | HSTS, referrer policy, token hashing/encryption and source-level tests. |
 
+> **Snapshot note:** Sections A–E record the pre-implementation Phase 0 snapshot.
+> The feature branch now contains the disabled Phase 1–7 preparation described in
+> the post-snapshot section below; the historical gap statements are intentionally
+> retained as evidence of what was absent before implementation.
+
 ## B. Partly present and safe to extend
 
 | Component | Current limit | Extension direction |
@@ -112,3 +117,24 @@ Searched active code, workflows, tests, docs and security material for `affiliat
 Historical hits refer to removed functions/migrations and are labelled historical in
 current security documentation. Active hits are limited to the Play billing,
 verification, RTDN, reconciliation and refund components named above.
+
+## F. Post-Phase-0 implementation status
+
+The current branch adds, behind independently evaluated flags and the deployment
+gate `AFFILIATE_PRODUCTION_APPROVED`, the following safe preparation:
+
+- D1 migrations `0014_affiliate_attribution.sql` and `0015_affiliate_dashboard_access.sql` with affiliate/campaign/click,
+  immutable install, purchase, commission, inbox, audit and cursor tables.
+- Fixed Play redirect routes, signed `dt_v1` claims, per-affiliate hourly rate
+  limiting and privacy-minimal rejection auditing.
+- Play-flavour-only Install Referrer repository with bounded retry states and
+  `/api/affiliate/attributions`.
+- Server-verified purchase binding, 30-day hold/release, RTDN and voided-purchase
+  reconciliation, clawback/fraud-hold controls and manual payout recording.
+- Authenticated aggregate-only admin and partner dashboards with hashed scoped
+  access tokens, retention dry-run/cleanup and a reproducible unit-economics
+  calculator.
+
+These changes are locally tested but not deployed or enabled. The Internal Track
+referrer test, real Play purchase/refund/RTDN evidence, legal/privacy/BOLA review,
+maker/checker approval and the 3–5 partner pilot remain external owner gates.

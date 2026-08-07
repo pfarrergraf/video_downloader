@@ -321,3 +321,12 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   Prüfung: 34 Website-Tests, 2 Android-Vertragstests, Public-Claims-Guard,
   YAML-Parse, Shell-Syntax und `git diff --check` grün; Android-Build mangels
   Gradle Wrapper/CLI nicht lokal ausführbar.
+- 2026-08-07 — Codex — Affiliate Phasen 6–8 auf `feature/affiliate-system`
+  ergänzt: per-Affiliate-Rate-Limit, Ablehnungsaudit, Retention-Dry-Run/Cleanup,
+  gehashte scoped Partner-Dashboard-Tokens mit BOLA-Tests, Admin-/Aggregate-
+  Dashboard, Pilot-Runbook, Funnel-Rechner und redigierten Phase-8-Auswertungs-
+  report. Die alte Decommission-Prüfung wurde auf „legacy Stripe“ präzisiert;
+  neue Affiliate-Funktion bleibt hinter `AFFILIATE_PRODUCTION_APPROVED` und
+  allen Laufzeitflags. Prüfung: 39 Website-Tests, 359 Python-Tests,
+  6 gezielte Affiliate-/Android-Tests, JS-Syntax, Public-Claims und Shell-Syntax
+  grün. Play-/Cloudflare-/Partner-Gates bleiben extern offen.

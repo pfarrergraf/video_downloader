@@ -31,6 +31,11 @@
 - [x] Add audit events and conservative manual fraud-state foundation.
 - [x] Add admin MVP and aggregate-only affiliate counters.
 - [x] Add unit/integration and Android contract tests.
+- [x] Add aggregate-only dashboard, rate-limit, rejection-audit and retention foundation.
+- [x] Add scoped hashed partner dashboard access with BOLA regression coverage.
+- [x] Add Phase 7 pilot runbook with stop criteria and redacted evidence rules.
+- [x] Add reproducible affiliate funnel/unit-economics calculator without embedded price claims.
+- [x] Add aggregate-only Phase 8 pilot evaluation report with stop thresholds.
 - [x] Add dry-run setup, access audit and narrow teardown scripts.
 
 ## Remaining owner/external gates

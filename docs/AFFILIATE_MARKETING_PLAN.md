@@ -29,12 +29,24 @@ plain statement that purchases/refunds are handled through Google Play.
 | C. hybrid | protects a small partner minimum | complexity | defer. |
 | D. tiered monthly revenue/sales | rewards scale | incentives/edge cases | defer until pilot reconciliation is stable. |
 
-Recommendation: use **B** for the pilot: `commission = floor(NET_REVENUE_MINOR *
-COMMISSION_RATE)`, computed only after a purchase passes the 30-day hold. Store the
-policy version with each commission; never recompute historical earnings from a new
-rate.
+Recommendation: use a documented **fixed minor-unit policy** for the first pilot
+unless a trusted net-revenue field is added to server-verified Play purchase data.
+The backend supports percentage policy only when `amount_minor` is present; it
+otherwise creates no percentage commission rather than guessing a regional price.
+If percentage data is approved later, use
+`commission = floor(NET_REVENUE_MINOR * COMMISSION_RATE)` only after the 30-day
+hold. Store the policy version with each commission; never recompute historical
+earnings from a new rate.
 
 Illustrative calculator (not a price or fee claim):
+
+The reproducible CLI calculator is `uv run python scripts/affiliate_funnel.py`.
+It accepts all rates as decimals from `0` to `1` and never embeds a current Play
+price. Example:
+
+```powershell
+uv run python scripts/affiliate_funnel.py --clicks 1000 --play-store-conversion 0.70 --install-rate 1 --pro-conversion 0.04 --price 11.99 --google-fee 0.15 --refund-rate 0.05 --commission-rate 0.30
+```
 
 ```text
 gross = clicks * play_store_conversion * install_rate * pro_conversion * PRO_PRICE
@@ -48,9 +60,10 @@ break_even_pro_conversion = fixed_campaign_cost /
 
 Example inputs: 1,000 clicks, 70% store-to-install, 4% install-to-Pro,
 `PRO_PRICE=11.99`, `GOOGLE_FEE=0.15`, `REFUND_RATE=0.05`, `COMMISSION_RATE=0.30`.
-That yields 28 expected Pro sales, gross EUR335.72, estimated net EUR271.00,
-affiliate cost EUR81.30 and contribution EUR189.70. Replace every input from real
-Play/finance data before making a commercial decision.
+That yields 28 expected Pro sales, gross EUR335.72, estimated net EUR271.09,
+affiliate cost EUR81.33 and contribution EUR189.77 when rounded only at the final
+display step. Replace every input from real Play/finance data before making a
+commercial decision.
 
 ## Funnel metrics and pilot rules
 

@@ -110,6 +110,8 @@ export async function voidAffiliatePurchase(env, { purchaseTokenHash, reason = "
     ).bind(now, reason, now, row.id),
   ]);
   await audit(env, "affiliate.commission.voided", "affiliate_purchase", row.id, reason);
+  await audit(env, "affiliate.purchase.voided", "affiliate_purchase", row.id, reason);
+  if (/refund/i.test(reason)) await audit(env, "affiliate.purchase.refunded", "affiliate_purchase", row.id, reason);
   return true;
 }
 

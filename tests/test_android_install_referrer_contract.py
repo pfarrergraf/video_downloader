@@ -12,5 +12,7 @@ def test_repository_closes_connection_and_never_logs_referrer():
     source = (ROOT / "android/app/src/play/java/de/classydl/app/PlayInstallReferrerRepository.kt").read_text(encoding="utf-8")
     assert "endConnection()" in source
     assert "details.installReferrer" in source
+    for state in ("not_started", "retryable", "unavailable", "submitted", "final"):
+        assert state in source
     assert "Log.d" not in source
     assert "Log.i" not in source

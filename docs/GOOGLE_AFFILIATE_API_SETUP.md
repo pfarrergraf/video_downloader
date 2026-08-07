@@ -1,7 +1,8 @@
 # Google Affiliate API Setup and Access Plan
 
-Status: plan only. No API, project, IAM binding, Pub/Sub resource, credential, or
-Play Console setting has been changed by this document.
+Status: plan plus local safe scripts. No API, project, IAM binding, Pub/Sub
+resource, credential, or Play Console setting has been changed by this repository
+work.
 
 ## Required APIs and access
 
@@ -68,10 +69,11 @@ broker before changing a working Play backend. See [Workload Identity Federation
 
 ## Planned safe scripts
 
-`scripts/setup_google_affiliate.sh --dry-run` must require explicit `--project-id`,
-never infer a production target, print account/project/API deltas, and refuse to
-grant Owner, edit unrelated IAM, delete resources or create keys. With `--apply`, it
-can enable explicitly listed APIs and create only declared topic/subscription names.
+`scripts/setup_google_affiliate.sh --dry-run` requires explicit `--project-id`,
+never infers a production target, prints account/project/API/resource deltas, and
+refuses to grant Owner, edit unrelated IAM, delete resources or create keys. With
+`--apply`, it can enable the two required APIs and create only explicitly declared
+topic/subscription names.
 
 `scripts/audit_google_access.sh` is read-only. It lists enabled APIs, service
 accounts, relevant IAM bindings, Pub/Sub resources and *names* of matching local
