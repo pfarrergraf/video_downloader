@@ -1,5 +1,7 @@
 import { jsonResponse, sha256Hex } from "../../../_lib.js";
 import { verifyAndApplyPlayPurchase } from "../../../_google_play.js";
+import { affiliateFlags } from "../../../_affiliate.js";
+import { attributeVerifiedPurchase } from "../../../_affiliate_commissions.js";
 
 export async function onRequestPost({ request, env }) {
   let body;
@@ -23,6 +25,18 @@ export async function onRequestPost({ request, env }) {
         `UPDATE play_purchases SET purchase_device_id_hash = COALESCE(purchase_device_id_hash, ?)
          WHERE token_hash = ? AND purchase_state = 'purchased'`,
       ).bind(deviceHash, tokenHash).run();
+      if (affiliateFlags(env).commission) {
+        try {
+          await attributeVerifiedPurchase(env, { deviceId: body.device_id, purchaseToken: body.purchase_token });
+        } catch (affiliateError) {
+          // Attribution must never turn a successful Play verification into an
+          // entitlement failure. The next first-start/resume or reconciliation
+          // pass can retry it; logs contain no token or device value.
+          console.error("Affiliate purchase attribution deferred", {
+            message: String(affiliateError?.message || affiliateError),
+          });
+        }
+      }
     }
     return jsonResponse({
       entitled: result.entitled,

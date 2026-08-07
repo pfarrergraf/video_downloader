@@ -311,3 +311,13 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `docs/AFFILIATE_*.md`-Dokumenten, Google-Access-Plan, ADR, Tasks und Roadmap.
   Keine Produktionslogik, Secrets, Play- oder Cloud-Ressourcen geändert. Prüfung:
   `git diff --check` und `uv run python scripts/check_public_claims.py` grün.
+- 2026-08-07 — Codex — Affiliate Phasen 1–5 auf `feature/affiliate-system`
+  umgesetzt: additive D1-Attributionstabellen, signierte Play-Redirects,
+  Play-only Install-Referrer (standardmäßig aus), immutable Attribution,
+  server-verifizierte Purchase-Verknüpfung, Hold-/Void-/Payout-State-Machine,
+  RTDN-Inbox-Dedupe, Voided-Purchases-Cursor, Admin-Status/Fraud-Hold und
+  sichere Setup-/Audit-/Teardown-Dry-Runs. Flags bleiben aus; Internal-Track-,
+  echte Play-Lifecycle-, Privacy/BOLA- und Maker/Checker-Gates bleiben offen.
+  Prüfung: 34 Website-Tests, 2 Android-Vertragstests, Public-Claims-Guard,
+  YAML-Parse, Shell-Syntax und `git diff --check` grün; Android-Build mangels
+  Gradle Wrapper/CLI nicht lokal ausführbar.

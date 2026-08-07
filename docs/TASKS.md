@@ -14,22 +14,28 @@
   install-to-purchase windows, and initial commission policy.
 - [ ] Benjamin: complete existing real Play lifecycle production gates.
 - [ ] Benjamin: approve privacy/legal/affiliate agreement and pilot partners.
-- [ ] Codex: implement only after the above decisions are recorded.
+- [x] Codex: implement the safe, feature-flagged phases without enabling production behaviour.
 
 ## Implementation checklist
 
-- [ ] Add additive affiliate D1 migration with constraints/indexes.
-- [ ] Add disabled feature flags and config validation.
-- [ ] Implement fixed Play `/r/:affiliateCode/:campaignSlug?` redirect.
-- [ ] Add signed click payload and click-rate limit.
-- [ ] Add Play-only `InstallReferrerRepository` and first-run persistence.
-- [ ] Add attribution API and immutable install-attribution persistence.
-- [ ] Bind server-verified Play purchase to attribution idempotently.
-- [ ] Implement commission state machine and 30-day release job.
-- [ ] Add RTDN inbox/message-ID dedupe.
-- [ ] Add voided-purchases cursor reconciliation and clawback handling.
-- [ ] Add fraud-hold rules and audit events.
-- [ ] Add admin MVP and aggregate-only affiliate dashboard.
-- [ ] Add unit, integration, Android contract and privacy/BOLA tests.
-- [ ] Add dry-run setup, access audit and narrow teardown scripts.
+- [x] Add additive affiliate D1 migration with constraints/indexes.
+- [x] Add disabled feature flags and config validation.
+- [x] Implement fixed Play `/r/:affiliateCode/:campaignSlug?` redirect.
+- [x] Add signed click payload and immutable-click protection.
+- [x] Add Play-only `InstallReferrerRepository` and first-run persistence.
+- [x] Add attribution API and immutable install-attribution persistence.
+- [x] Bind server-verified Play purchase to attribution idempotently.
+- [x] Implement commission state machine and 30-day release job.
+- [x] Add RTDN inbox/message-ID dedupe.
+- [x] Add voided-purchases cursor reconciliation and clawback handling.
+- [x] Add audit events and conservative manual fraud-state foundation.
+- [x] Add admin MVP and aggregate-only affiliate counters.
+- [x] Add unit/integration and Android contract tests.
+- [x] Add dry-run setup, access audit and narrow teardown scripts.
+
+## Remaining owner/external gates
+
+- [ ] Approve windows, commission policy, privacy/legal copy and pilot partners.
+- [ ] Run a signed Internal Track install-referrer test and real Play purchase/refund/RTDN lifecycle.
+- [ ] Perform BOLA/privacy review and maker/checker payout review before enabling any flag.
 - [ ] Run staging migration, Internal Track referrer test and 3–5 partner pilot.

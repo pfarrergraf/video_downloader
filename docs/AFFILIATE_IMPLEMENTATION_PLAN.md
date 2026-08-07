@@ -13,12 +13,12 @@ requires real Play purchase, restore, void/refund, RTDN and reconciliation evide
 
 | Phase | Scope | Release condition |
 |---|---|---|
-| 0 | This forensic record, ADR, privacy/operations plan and tests design. | No code or external state change. |
-| 1 | Add additive D1 migration, disabled flags, affiliate/campaign CRUD only for admin seeding, and `/r` redirect. | Staging migration/redirect tests; flags remain false. |
-| 2 | Play-only `InstallReferrerRepository` plus attribution endpoint. | Real Internal Track referrer test; no commission creation. |
-| 3 | Bind an already server-verified `play_purchases` record to immutable attribution; create pending commission. | Existing Play lifecycle tests complete. |
-| 4 | Inbox dedupe, RTDN commission reaction, voided-purchases cursor reconciliation, hold-release worker. | Duplicate/missing-event tests; manual real refund/void evidence. |
-| 5 | Minimal authenticated admin controls, manual payout recording and audit export. | Maker/checker review and privacy/legal approval. |
+| 0 | This forensic record, ADR, privacy/operations plan and tests design. | Complete; no production activation. |
+| 1 | Add additive D1 migration, disabled flags, affiliate/campaign CRUD only for admin seeding, and `/r` redirect. | Implemented and locally tested; flags remain false. |
+| 2 | Play-only `InstallReferrerRepository` plus attribution endpoint. | Implemented behind client/server flags; real Internal Track test remains open. |
+| 3 | Bind an already server-verified `play_purchases` record to immutable attribution; create pending commission. | Implemented and locally tested; existing Play lifecycle evidence remains required. |
+| 4 | Inbox dedupe, RTDN commission reaction, voided-purchases cursor reconciliation, hold-release worker. | Implemented and locally tested; manual real refund/void evidence remains open. |
+| 5 | Minimal authenticated admin controls, manual payout recording and audit export. | Admin/payout API implemented; maker/checker and privacy review remain open. |
 | 6 | Affiliate dashboard with aggregate-only views. | BOLA/privacy tests and pilot data review. |
 | 7 | 3–5 partner pilot, all payouts manual. | 60 days of reconciled pilot data and owner review. |
 
@@ -71,6 +71,9 @@ AFFILIATE_DASHBOARD_ENABLED=false
 `AFFILIATE_ENABLED` gates all public affiliate behaviour. Billing must not read any
 affiliate flag to decide entitlement; an outage in affiliate code must never affect
 a legitimate Play purchase.
+
+Deployment additionally requires the non-runtime owner gate
+`AFFILIATE_PRODUCTION_APPROVED=true` before `AFFILIATE_ENABLED=true` is accepted.
 
 ## Attribution rules
 

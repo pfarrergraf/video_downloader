@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var purchaseController: PurchaseController
     private lateinit var entitlementStore: EntitlementStore
     private lateinit var entitlementApi: EntitlementApi
+    private lateinit var installReferrerRepository: InstallReferrerRepository
 
     // A URL shared into the app, waiting for the web UI to be ready.
     // @Volatile: written on the UI thread, read by the WebView's JS-bridge
@@ -100,6 +101,8 @@ class MainActivity : AppCompatActivity() {
         webView.addJavascriptInterface(WebAppBridge(), "AndroidBridge")
         entitlementStore = EntitlementStore(this)
         entitlementApi = EntitlementApi(this, ::onLicenseValidationResult)
+        installReferrerRepository = InstallReferrerRepositoryFactory.create(this, entitlementApi)
+        installReferrerRepository.start()
         purchaseController = PurchaseControllerFactory.create(this, ::deliverEntitlementResult)
         purchaseController.start()
         // Refresh on every foreground launch. Network failure leaves only the
@@ -210,9 +213,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        if (::installReferrerRepository.isInitialized) installReferrerRepository.close()
+        if (::entitlementApi.isInitialized) entitlementApi.close()
         startupCancelled = true
         if (::purchaseController.isInitialized) purchaseController.close()
-        if (::entitlementApi.isInitialized) entitlementApi.close()
         super.onDestroy()
     }
 

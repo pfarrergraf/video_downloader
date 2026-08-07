@@ -205,6 +205,22 @@ export async function acknowledgePlayPurchase(env, purchaseToken, productId) {
   if (!response.ok) throw new Error(`Google Play acknowledgement failed: ${response.status}`);
 }
 
+export async function fetchVoidedPurchases(env, { startTime, endTime, token, maxResults = 1000 } = {}) {
+  const { packageName } = expectedConfig(env);
+  const url = new URL(`${PLAY_API}/applications/${encodeURIComponent(packageName)}/purchases/voidedpurchases`);
+  if (Number.isFinite(startTime)) url.searchParams.set("startTime", String(Math.floor(startTime)));
+  if (Number.isFinite(endTime)) url.searchParams.set("endTime", String(Math.floor(endTime)));
+  if (token) url.searchParams.set("token", token);
+  url.searchParams.set("maxResults", String(Math.min(Math.max(Number(maxResults) || 1000, 1), 1000)));
+  const response = await authorizedPlayFetch(env, url.toString());
+  if (!response.ok) {
+    const error = new Error(`Google Play voided purchases failed: ${response.status}`);
+    error.status = response.status;
+    throw error;
+  }
+  return response.json();
+}
+
 export async function refundPlayOrder(env, orderId) {
   if (typeof orderId !== "string" || !orderId.trim()) throw new Error("Google Play order id is required");
   const { packageName } = expectedConfig(env);

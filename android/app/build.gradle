@@ -85,6 +85,7 @@ android {
             buildConfigField "String", "PLAY_PRODUCT_ID", '"pro"'
             buildConfigField "String", "PLAY_STORE_URL", groovy.json.JsonOutput.toJson(playStoreUrl)
             buildConfigField "String", "LICENSE_API_BASE_URL", groovy.json.JsonOutput.toJson(licenseApiBaseUrl)
+            buildConfigField "boolean", "AFFILIATE_ATTRIBUTION_CLIENT_ENABLED", "false"
             if (System.getenv("ANDROID_UPLOAD_KEYSTORE_BASE64")) {
                 signingConfig signingConfigs.upload
             }
@@ -95,6 +96,7 @@ android {
             buildConfigField "String", "PLAY_PRODUCT_ID", '"pro"'
             buildConfigField "String", "PLAY_STORE_URL", groovy.json.JsonOutput.toJson(playStoreUrl)
             buildConfigField "String", "LICENSE_API_BASE_URL", groovy.json.JsonOutput.toJson(licenseApiBaseUrl)
+            buildConfigField "boolean", "AFFILIATE_ATTRIBUTION_CLIENT_ENABLED", "false"
             if (System.getenv("ANDROID_APP_SIGNING_KEYSTORE_BASE64") || System.getenv("ANDROID_KEYSTORE_BASE64")) {
                 signingConfig signingConfigs.appSigning
             }
@@ -232,5 +234,7 @@ dependencies {
     // sideloaded APK a Free/activation client and prevents accidental use of
     // an alternative in-app checkout.
     playImplementation 'com.android.billingclient:billing-ktx:9.1.0'
+    // Install Referrer is Play-only; direct builds must not depend on Play services.
+    playImplementation 'com.android.installreferrer:installreferrer:2.2'
     testImplementation 'junit:junit:4.13.2'
 }
