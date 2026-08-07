@@ -64,6 +64,7 @@ cd pro/website && npm test && npm run check
 | Codex | T22 Tester-Feedback | agent/codex/tester-feedback-improvements | `video_downloader/web/static/index.html`, beide `i18n/*.json`-Spiegel, gezielte Tests/Doku, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-08-03 |
 | Codex | T23 Play-Preistext-Aktualisierung | agent/codex/tester-feedback-improvements | Website-/Play-Dokumentation von 12-EUR-Claim auf lokale Google-Play-Preise umstellen, Tests und Public-Claims prüfen, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-08-03 |
 | Claude | T24 Tutorial-Nacharbeit | agent/claude/help-tutorial-fixes | `video_downloader/web/static/index.html`, `tests/test_help_popup.py`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-08-06 |
+| Codex | Affiliate Phase 0 Forensik und Implementierungsplan | feature/affiliate-system | `docs/AFFILIATE_*.md`, `docs/GOOGLE_AFFILIATE_API_SETUP.md`, `docs/DECISIONS.md`, `docs/TASKS.md`, `docs/ROADMAP.md`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-08-07 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
 
@@ -305,3 +306,8 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   `GOOGLE_PLAY_OWNER_CHECKLIST.md` dort gebündelt aufgelistet, inklusive der
   zwei unversionierten `store_assets/icon-pro-*.png`-Kandidaten ohne
   README-Eintrag oder Verwendung.
+- 2026-08-07 — Codex — Affiliate Phase 0 auf `feature/affiliate-system`
+  erledigt: Forensik und Play-first-Implementierungsplan in neuen
+  `docs/AFFILIATE_*.md`-Dokumenten, Google-Access-Plan, ADR, Tasks und Roadmap.
+  Keine Produktionslogik, Secrets, Play- oder Cloud-Ressourcen geändert. Prüfung:
+  `git diff --check` und `uv run python scripts/check_public_claims.py` grün.
