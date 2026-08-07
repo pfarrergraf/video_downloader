@@ -75,7 +75,15 @@ class LicenseState:
 
 
 class LicenseManager:
-    def __init__(self, state_file: Path, api_base: str, *, platform: str = "", app_version: str = "") -> None:
+    def __init__(
+        self,
+        state_file: Path,
+        api_base: str,
+        *,
+        platform: str = "",
+        app_version: str = "",
+        device_id: str | None = None,
+    ) -> None:
         # Empty platform (the default, used by Termux/desktop-CLI callers that
         # never wire this up) means the device-limit check below is skipped
         # entirely - only shipped Android/desktop builds should pass this.
@@ -84,7 +92,10 @@ class LicenseManager:
         self._platform = platform
         self._app_version = app_version
         self._state = self._load()
-        if self._platform and not self._state.device_id:
+        if self._platform and device_id and self._state.device_id != device_id:
+            self._state.device_id = device_id
+            self._save()
+        elif self._platform and not self._state.device_id:
             self._state.device_id = secrets.token_hex(16)
             self._save()
 
@@ -118,6 +129,12 @@ class LicenseManager:
     def set_key(self, key: str) -> LicenseState:
         self._state = LicenseState(key=key, device_id=self._state.device_id)
         self.refresh(force=True)
+        return self._state
+
+    def clear_key(self) -> LicenseState:
+        """Remove local entitlement while preserving this install's device identity."""
+        self._state = LicenseState(device_id=self._state.device_id)
+        self._save()
         return self._state
 
     def refresh(self, *, force: bool = False) -> LicenseState:

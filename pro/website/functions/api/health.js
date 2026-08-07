@@ -9,6 +9,8 @@ export async function onRequestGet({ env }) {
     ),
     tokenEncryptionConfigured: Boolean(env.PLAY_TOKEN_ENCRYPTION_KEY),
     rtdnConfigured: Boolean(env.PLAY_RTDN_AUDIENCE && env.PLAY_RTDN_SERVICE_ACCOUNT_EMAIL),
+    refundAdminConfigured: Boolean(env.PLAY_REFUND_ADMIN_TOKEN),
+    automatedRefundsEnabled: env.PLAY_AUTOMATED_REFUNDS_ENABLED === "true",
   };
   const backendChecks = [
     checks.playServiceAccountConfigured,

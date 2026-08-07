@@ -1,4 +1,4 @@
-import { jsonResponse } from "../../../_lib.js";
+import { jsonResponse, sha256Hex } from "../../../_lib.js";
 import { verifyAndApplyPlayPurchase } from "../../../_google_play.js";
 
 export async function onRequestPost({ request, env }) {
@@ -12,10 +12,22 @@ export async function onRequestPost({ request, env }) {
     const result = await verifyAndApplyPlayPurchase(env, body?.purchase_token, {
       packageName: body?.package_name,
       productId: body?.product_id,
+      deviceId: body?.device_id,
     });
+    if (result.entitled && typeof body?.device_id === "string" && body.device_id.length >= 16 && body.device_id.length <= 256) {
+      const [tokenHash, deviceHash] = await Promise.all([
+        sha256Hex(body.purchase_token),
+        sha256Hex(body.device_id),
+      ]);
+      await env.DB.prepare(
+        `UPDATE play_purchases SET purchase_device_id_hash = COALESCE(purchase_device_id_hash, ?)
+         WHERE token_hash = ? AND purchase_state = 'purchased'`,
+      ).bind(deviceHash, tokenHash).run();
+    }
     return jsonResponse({
       entitled: result.entitled,
       purchase_state: result.state,
+      revoked: result.state === "revoked",
       license_key: result.licenseKey,
       acknowledged: result.acknowledged,
       verified_at: result.verifiedAt,

@@ -64,6 +64,11 @@ class MainActivity : AppCompatActivity() {
     // @Volatile: written on the UI thread, read by the WebView's JS-bridge
     // thread (consumePendingSharedUrl).
     @Volatile private var pendingSharedUrl: String? = null
+    // Billing can finish before the local page has installed its JS callback.
+    // Keep the latest result until the page explicitly confirms delivery.
+    @Volatile private var pendingEntitlementResult: String? = null
+    @Volatile private var webEntitlementReady = false
+    @Volatile private var entitlementDeliveryInFlight = false
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -177,6 +182,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        // Play can complete a purchase after its sheet was dismissed or while
+        // this Activity was paused. Re-query owned purchases so an already
+        // charged buyer is granted Pro without having to discover Restore.
+        if (::purchaseController.isInitialized) purchaseController.refreshPurchases()
         // The SAF folder picker (and any other system UI) pauses this Activity
         // while it's open — refresh the settings panel on return so a newly
         // picked folder's label shows up without the user reloading manually.
@@ -253,6 +262,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadLocalUi() {
         mainFrameLoadFailed = false
+        webEntitlementReady = false
         showStartupOverlay()
         webView.loadUrl(SERVER_URL)
     }
@@ -414,7 +424,19 @@ class MainActivity : AppCompatActivity() {
 
         @JavascriptInterface
         fun restorePurchases() {
-            purchaseController.restore()
+            runOnUiThread { purchaseController.restore() }
+        }
+
+        @JavascriptInterface
+        fun requestPlayRefund(reason: String) {
+            runOnUiThread { purchaseController.requestRefund(reason) }
+        }
+
+        /** Called after the local UI has authenticated to its loopback API. */
+        @JavascriptInterface
+        fun onEntitlementUiReady() {
+            webEntitlementReady = true
+            deliverPendingEntitlementResult()
         }
 
         /** Both distributions can activate the stable cross-platform key. */
@@ -442,6 +464,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onLicenseValidationResult(result: JSONObject) {
+        val previousKey = entitlementStore.licenseKey()
         val key = result.optString("license_key", result.optString("licenseKey"))
         val active = result.optBoolean(
             "valid",
@@ -451,9 +474,10 @@ class MainActivity : AppCompatActivity() {
             entitlementStore.recordVerified(key)
         } else if (
             result.optBoolean("ok") && !active &&
-            result.optString("requested_license_key") == entitlementStore.licenseKey()
+            result.optString("requested_license_key") == previousKey
         ) {
             entitlementStore.clear()
+            result.put("revoked", true)
         }
         result.put("pro", entitlementStore.isPro())
         result.put("licenseKey", entitlementStore.licenseKey() ?: JSONObject.NULL)
@@ -461,13 +485,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deliverEntitlementResult(json: String) {
-        if (!::webView.isInitialized) return
+        pendingEntitlementResult = json
+        deliverPendingEntitlementResult()
+    }
+
+    private fun deliverPendingEntitlementResult() {
+        val json = pendingEntitlementResult ?: return
+        if (!webEntitlementReady || entitlementDeliveryInFlight || !::webView.isInitialized) return
+        entitlementDeliveryInFlight = true
         val quoted = JSONObject.quote(json)
         runOnUiThread {
             webView.evaluateJavascript(
-                "window.onNativeEntitlementResult && window.onNativeEntitlementResult(JSON.parse($quoted));",
-                null,
-            )
+                """
+                (function() {
+                    if (!window.onNativeEntitlementResult) return 'no-handler';
+                    window.onNativeEntitlementResult(JSON.parse($quoted));
+                    return 'delivered';
+                })();
+                """.trimIndent(),
+            ) { result ->
+                entitlementDeliveryInFlight = false
+                if (result?.contains("delivered") == true && pendingEntitlementResult == json) {
+                    pendingEntitlementResult = null
+                }
+                // A newer result may have arrived while this one was in flight.
+                deliverPendingEntitlementResult()
+            }
         }
     }
 

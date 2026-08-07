@@ -40,6 +40,11 @@ Details: `docs/CLOUDFLARE_DOWNLOADTHAT_APP_SETUP.md`.
 - [ ] License Tester und Internal-Track-Tester eintragen.
 - [ ] Pub/Sub-Thema, Push-Service-Account und RTDN in Play Console verbinden.
 - [ ] GitHub/Cloudflare-Secrets aus `docs/GOOGLE_PLAY_OPERATIONS.md` setzen.
+- [ ] Service-Account-E-Mail in Play Console unter Nutzer/Berechtigungen mit
+      Leserecht für Kaufstatus und Recht zum Verwalten/Erstatten von Bestellungen
+      abgleichen; keine darüber hinausgehenden Rechte vergeben.
+- [ ] D1-Migration `0013_google_play_refunds.sql` anwenden, Refund-Admin-Token
+      setzen und `PLAY_AUTOMATED_REFUNDS_ENABLED=false` belassen.
 - [ ] Cloudflare Rate-Limiting-Regel für `POST /api/play/purchases/verify`
       aktivieren, damit anonyme Requests keine Google-API-Quota erschöpfen.
 - [ ] `Commerce decommission preflight` ausführen, Exporthash prüfen und nur bei
@@ -58,9 +63,18 @@ Details: `docs/CLOUDFLARE_DOWNLOADTHAT_APP_SETUP.md`.
 
 ## Produktions-Gate
 
+- [ ] Vollständige Incident-Matrix aus
+      `docs/GOOGLE_PLAY_BILLING_REVIEW_2026-08-07.md` mit der korrigierten
+      `playRelease`-Version im Internal Track protokolliert bestanden.
+- [ ] Play-Console-Order des gemeldeten Falls geprüft (Status, Zeit, GPA-Order,
+      Refund falls erforderlich); Cart Abandonment/Merchandising bewusst geprüft.
 - [ ] Echter License-Tester-Kauf, Neuinstallation/Restore und identischer Schlüssel.
 - [ ] Schlüssel in Play-App, Direct APK und Windows erfolgreich validiert.
 - [ ] Echter Refund/Void deaktiviert die Lizenz über RTDN; Reconciliation ebenfalls getestet.
+- [ ] Refund-Matrix mit echten Testorders: <48h automatisch genau einmal;
+      Tag 3–14 technische Nichtlieferung automatisch; gelieferter Kauf,
+      Wiederholung und >14 Tage ausschließlich manuell. Erst danach
+      `PLAY_AUTOMATED_REFUNDS_ENABLED=true` setzen.
 - [ ] Pre-launch Report ohne blockierende Befunde; Closed Test abgeschlossen.
 - [ ] Monatsarchiv aus Muster-/Testbericht erstellt, Hash geprüft, mit Offline-Key
       entschlüsselt und lokaler Spiegel wiederhergestellt.

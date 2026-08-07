@@ -19,6 +19,9 @@ Exakte Cloudflare/GitHub-Namen:
 - `PLAY_TOKEN_ENCRYPTION_KEY` (Base64 von exakt 32 Zufallsbytes)
 - `PLAY_RTDN_AUDIENCE`, `PLAY_RTDN_SERVICE_ACCOUNT_EMAIL`
 - `PLAY_RECONCILIATION_SECRET`
+- `PLAY_REFUND_ADMIN_TOKEN` (separater, zufälliger Bearer-Token für die manuelle Queue)
+- `PLAY_AUTOMATED_REFUNDS_ENABLED=false` bis Migration, Berechtigungen und echter
+  Internal-Track-Test vollständig bestanden sind; erst danach `true`
 - Variablen `PLAY_STORE_URL`, `LICENSE_API_BASE_URL`
 - `PUBLIC_BASE_URL=https://downloadthat.app`
 - `CANONICAL_REDIRECT_ENABLED` bleibt bis zur verifizierten Custom Domain `false`
@@ -29,6 +32,53 @@ Produktionsendpunkte:
 - Lizenz/API-Basis: `https://downloadthat.app`
 - RTDN Audience und Pub/Sub Push: `https://downloadthat.app/api/play/rtdn`
 - Reconciliation: `https://downloadthat.app/api/play/reconcile`
+- Refund-Anfrage (nur aus der Play-App, mit live verifiziertem Purchase-Token):
+  `https://downloadthat.app/api/play/refunds/request`
+- Manuelle Queue (Bearer-geschützt):
+  `https://downloadthat.app/api/admin/play-refunds`
+
+## Service-Account-Identität und Refund-Recht prüfen
+
+Stand 2026-08-07 zeigt `wrangler pages secret list --project-name downloadthat`
+im Produktionsprojekt **keine** der drei zwingenden Bindings
+`GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY`
+und `PLAY_TOKEN_ENCRYPTION_KEY`. GitHub Actions enthält sie ebenfalls nicht.
+`PLAY_BACKEND_CONFIGURED` allein ist deshalb kein Funktionsnachweis.
+
+1. Google Play Console öffnen und `DownloadThat` wählen.
+2. **Nutzer und Berechtigungen** öffnen. Falls die Console stattdessen auf die
+   Google Cloud Console verweist, dort unter **IAM und Verwaltung →
+   Dienstkonten** die E-Mail des vorgesehenen Kontos kopieren.
+3. In Play Console muss genau diese E-Mail als Nutzer/Service-Account für
+   `DownloadThat` sichtbar sein. Notwendig sind nur die Kauf-/Bestellrechte:
+   Kaufstatus lesen sowie Bestellungen verwalten bzw. erstatten. Keine
+   Release-, Finanzbericht- oder Kontoadministratorrechte hinzufügen.
+4. Die E-Mail als `GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL`, den zugehörigen privaten
+   PKCS#8-Schlüssel als verschlüsseltes
+   `GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY` und einen unabhängigen
+   32-Byte-Schlüssel als `PLAY_TOKEN_ENCRYPTION_KEY` in Cloudflare Pages unter
+   **Workers & Pages → downloadthat → Settings → Variables and Secrets** setzen.
+5. Migration `0013_google_play_refunds.sql` zuerst auf Staging/lokal und danach
+   kontrolliert auf D1 anwenden. `PLAY_AUTOMATED_REFUNDS_ENABLED` bleibt `false`.
+6. Mit einem echten License-Tester-Kauf Kauf, Lieferung, manuelle Queue und
+   genau eine Erstattung prüfen. Erst dann den Schalter auf `true` setzen.
+
+Die App akzeptiert weder eine frei eingegebene GPA-Bestellnummer noch eine
+behauptete Zahlung. Vor jedem neuen Refund prüft der Server den geheimen
+Purchase-Token live bei Google, Produkt `pro`, Paket `de.classydl.app`, Status
+`PURCHASED` und die gespeicherte Order. Derselbe Kauf kann nur einen Datensatz
+erzeugen. Ein zweiter bereits erstatteter Kauf desselben Installationsgeräts,
+ein Gerätewechsel, fehlende Kaufzeit und jede Google-API-Abweichung gehen immer
+in die manuelle Prüfung.
+
+Regelwerk:
+
+- bis 48 Stunden: automatisch, sofern der Sicherheitsschalter aktiv ist und
+  kein Wiederholungsmuster vorliegt;
+- Tag 3 bis 14: nur bei Grund `technical_failure` und fehlender bestätigter
+  Pro-Lieferung automatisch; sonst manuell;
+- nach 14 Tagen: immer manuell;
+- jede Erstattung ruft Google mit `revoke=true` auf und deaktiviert die Lizenz.
 
 Der Finanzworkflow verwendet `GCP_WORKLOAD_IDENTITY_PROVIDER`,
 `GCP_FINANCE_ARCHIVER_SERVICE_ACCOUNT`, `PLAY_REPORTS_SOURCE_URI`,

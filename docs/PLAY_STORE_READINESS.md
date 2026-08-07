@@ -64,7 +64,7 @@ Zuordnung, hergeleitet aus dem aktuellen Play-Backend
 |---|---|---|---|
 | **Device or other IDs** | Ja | Per-Install-`device_id` an Lizenzserver (Ein-Gerät-pro-Plattform-Slot); serverseitig **gehasht** gespeichert | Nein |
 | **Email address** | Nein | Weder App noch Lizenz-Backend verlangen ein Nutzerkonto oder eine E-Mail-Adresse | Nein |
-| **Purchase history** | Ja (nur Pro) | Purchase-Token, Order-Referenz, Produkt und Status zur Google-Verifikation, Wiederherstellung, Erstattung und Buchhaltung | Google verarbeitet den Kauf; keine Weitergabe an Werbe- oder Datenhändler |
+| **Purchase history** | Ja (nur Pro) | Purchase-Token, Order-Referenz, Produkt, Lieferstatus, Erstattungsgrund und Entscheidungsstatus zur Google-Verifikation, Wiederherstellung, Erstattung, Missbrauchsbegrenzung und Buchhaltung | Google verarbeitet den Kauf; keine Weitergabe an Werbe- oder Datenhändler |
 | **App activity / Downloads / URLs** | Nein (bleibt on-device) | Download-/Scrape-Historie nur lokal (SQLite) | Nein |
 | **Location, Contacts, Photos, SMS, …** | Nein | — | — |
 | **Crash logs / Diagnostics** | Nein | Kein Analytics-/Crash-SDK | Nein |

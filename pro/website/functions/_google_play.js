@@ -137,12 +137,15 @@ export async function fetchPlayPurchase(env, purchaseToken) {
   return response.json();
 }
 
-function normalizePurchase(purchase) {
+export function normalizePurchase(purchase) {
   const lineItem = purchase.productLineItem?.[0] || purchase.productLineItems?.[0] || purchase.lineItems?.[0] || {};
   return {
     state: purchase.purchaseStateContext?.purchaseState || purchase.purchaseState || "UNKNOWN",
     productId: lineItem.productId || purchase.productId || null,
     orderId: lineItem.latestSuccessfulOrderId || purchase.orderId || null,
+    purchaseCompletedAt: Number.isFinite(Date.parse(purchase.purchaseCompletionTime || ""))
+      ? Math.floor(Date.parse(purchase.purchaseCompletionTime) / 1000)
+      : null,
     acknowledged:
       purchase.acknowledgementState === "ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED" ||
       purchase.acknowledgementState === 1,
@@ -152,7 +155,8 @@ function normalizePurchase(purchase) {
 function stateKind(state) {
   if (state === "PURCHASED" || state === "PURCHASE_STATE_PURCHASED") return "purchased";
   if (state === "PENDING" || state === "PURCHASE_STATE_PENDING") return "pending";
-  return "revoked";
+  if (state === "CANCELLED" || state === "PURCHASE_STATE_CANCELLED") return "revoked";
+  return "unknown";
 }
 
 function encryptionKeyBytes(env) {
@@ -201,17 +205,36 @@ export async function acknowledgePlayPurchase(env, purchaseToken, productId) {
   if (!response.ok) throw new Error(`Google Play acknowledgement failed: ${response.status}`);
 }
 
+export async function refundPlayOrder(env, orderId) {
+  if (typeof orderId !== "string" || !orderId.trim()) throw new Error("Google Play order id is required");
+  const { packageName } = expectedConfig(env);
+  const url = `${PLAY_API}/applications/${encodeURIComponent(packageName)}/orders/${encodeURIComponent(orderId)}:refund?revoke=true`;
+  const response = await authorizedPlayFetch(env, url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({}),
+  });
+  if (!response.ok) {
+    const error = new Error(`Google Play refund failed: ${response.status}`);
+    error.status = response.status;
+    throw error;
+  }
+}
+
 async function storeUnentitledPurchase(env, tokenHash, encrypted, normalized, now) {
   const { packageName, productId } = expectedConfig(env);
   const status = stateKind(normalized.state);
   await env.DB.prepare(
     `INSERT INTO play_purchases
        (token_hash, purchase_token_ciphertext, purchase_token_iv, order_id, package_name,
-        product_id, purchase_state, license_key, verified_at, acknowledged_at, revoked_at, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, NULL, ?, NULL, ?, ?, ?)
+         product_id, purchase_state, license_key, verified_at, acknowledged_at, revoked_at,
+         purchase_completed_at, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, NULL, ?, NULL, ?, ?, ?, ?)
      ON CONFLICT(token_hash) DO UPDATE SET
        order_id = excluded.order_id, purchase_state = excluded.purchase_state,
-       verified_at = excluded.verified_at, revoked_at = excluded.revoked_at, updated_at = excluded.updated_at`,
+       verified_at = excluded.verified_at, revoked_at = excluded.revoked_at,
+       purchase_completed_at = COALESCE(play_purchases.purchase_completed_at, excluded.purchase_completed_at),
+       updated_at = excluded.updated_at`,
   )
     .bind(
       tokenHash,
@@ -223,6 +246,7 @@ async function storeUnentitledPurchase(env, tokenHash, encrypted, normalized, no
       status,
       now,
       status === "revoked" ? now : null,
+      normalized.purchaseCompletedAt,
       now,
       now,
     )
@@ -258,12 +282,15 @@ async function grantPurchasedEntitlement(env, purchaseToken, tokenHash, encrypte
         env.DB.prepare(
           `INSERT INTO play_purchases
              (token_hash, purchase_token_ciphertext, purchase_token_iv, order_id, package_name,
-              product_id, purchase_state, license_key, verified_at, acknowledged_at, revoked_at, created_at, updated_at)
-           VALUES (?, ?, ?, ?, ?, ?, 'purchased', ?, ?, NULL, NULL, ?, ?)
+               product_id, purchase_state, license_key, verified_at, acknowledged_at, revoked_at,
+               purchase_completed_at, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, 'purchased', ?, ?, NULL, NULL, ?, ?, ?)
            ON CONFLICT(token_hash) DO UPDATE SET
              order_id = excluded.order_id, purchase_state = 'purchased',
              license_key = COALESCE(play_purchases.license_key, excluded.license_key),
-             verified_at = excluded.verified_at, revoked_at = NULL, updated_at = excluded.updated_at`,
+              verified_at = excluded.verified_at, revoked_at = NULL,
+              purchase_completed_at = COALESCE(play_purchases.purchase_completed_at, excluded.purchase_completed_at),
+              updated_at = excluded.updated_at`,
         ).bind(
           tokenHash,
           encrypted.ciphertext,
@@ -273,6 +300,7 @@ async function grantPurchasedEntitlement(env, purchaseToken, tokenHash, encrypte
           config.productId,
           licenseKey,
           now,
+          normalized.purchaseCompletedAt,
           now,
           now,
         ),
@@ -290,8 +318,9 @@ async function grantPurchasedEntitlement(env, purchaseToken, tokenHash, encrypte
     await env.DB.batch([
       env.DB.prepare(
         `UPDATE play_purchases SET order_id = ?, purchase_state = 'purchased', verified_at = ?,
-         revoked_at = NULL, updated_at = ? WHERE token_hash = ?`,
-      ).bind(normalized.orderId, now, now, tokenHash),
+         revoked_at = NULL, purchase_completed_at = COALESCE(purchase_completed_at, ?),
+         updated_at = ? WHERE token_hash = ?`,
+      ).bind(normalized.orderId, now, normalized.purchaseCompletedAt, now, tokenHash),
       env.DB.prepare(`UPDATE licenses SET status = 'active', updated_at = ? WHERE license_key = ?`)
         .bind(now, mapping.license_key),
     ]);
@@ -345,7 +374,15 @@ export async function verifyAndApplyPlayPurchase(env, purchaseToken, supplied = 
   const tokenHash = await sha256Hex(purchaseToken);
   const encrypted = await encryptPurchaseToken(env, purchaseToken);
   const now = Math.floor(Date.now() / 1000);
-  if (stateKind(normalized.state) !== "purchased") {
+  const purchaseState = stateKind(normalized.state);
+  // A new/unspecified Google enum must fail closed for granting, but must not
+  // be treated as a refund and destructively revoke an existing license.
+  if (purchaseState === "unknown") {
+    const error = new Error(`unsupported Google Play purchase state: ${normalized.state}`);
+    error.status = 502;
+    throw error;
+  }
+  if (purchaseState !== "purchased") {
     return storeUnentitledPurchase(env, tokenHash, encrypted, normalized, now);
   }
   return grantPurchasedEntitlement(env, purchaseToken, tokenHash, encrypted, normalized, now);

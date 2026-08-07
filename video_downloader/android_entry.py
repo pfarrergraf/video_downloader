@@ -265,6 +265,7 @@ def start(
     app_version: str = "",
     notifier=None,
     js_runtime_binary: str = "",
+    license_device_id: str = "",
 ) -> None:
     global _current_store
     store = QueueStore(Path(data_dir) / "state.db")
@@ -280,7 +281,11 @@ def start(
     # _resolve_profile.
     license_manager = (
         LicenseManager(
-            Path(data_dir) / "license.json", license_api_base, platform="android", app_version=app_version
+            Path(data_dir) / "license.json",
+            license_api_base,
+            platform="android",
+            app_version=app_version,
+            device_id=license_device_id or None,
         )
         if license_api_base
         else None

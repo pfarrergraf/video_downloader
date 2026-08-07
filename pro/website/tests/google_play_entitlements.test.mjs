@@ -57,11 +57,51 @@ test("PURCHASED grants one stable license, encrypts the token and acknowledges",
   assert.equal(calls.filter((call) => call.url.endsWith(":acknowledge")).length, 1);
 });
 
+test("a transient acknowledgement failure is retried without minting another license", async () => {
+  let acknowledgementAttempts = 0;
+  const env = makeEnv({
+    PLAY_PACKAGE_NAME: "de.classydl.app",
+    PLAY_PRODUCT_ID: "pro",
+    PLAY_TOKEN_ENCRYPTION_KEY: TOKEN_KEY,
+    PLAY_ACCESS_TOKEN_FOR_TESTS: "test-access-token",
+    PLAY_FETCH: async (url) => {
+      if (String(url).endsWith(":acknowledge")) {
+        acknowledgementAttempts++;
+        return new Response(null, { status: acknowledgementAttempts === 1 ? 503 : 200 });
+      }
+      return Response.json(purchase());
+    },
+  });
+
+  const first = await verifyAndApplyPlayPurchase(env, "ack-retry-purchase-token");
+  const second = await verifyAndApplyPlayPurchase(env, "ack-retry-purchase-token");
+
+  assert.equal(first.entitled, true);
+  assert.equal(first.acknowledged, false);
+  assert.equal(second.acknowledged, true);
+  assert.equal(second.licenseKey, first.licenseKey);
+  assert.equal(acknowledgementAttempts, 2);
+  assert.equal((await env.DB.prepare("SELECT COUNT(*) AS count FROM licenses").first()).count, 1);
+});
+
 test("PENDING is recorded but never grants Pro", async () => {
   const { env } = playEnv(() => purchase("PENDING"));
   const result = await verifyAndApplyPlayPurchase(env, "pending-purchase-token");
   assert.deepEqual(result, { entitled: false, state: "pending" });
   assert.equal((await env.DB.prepare("SELECT COUNT(*) AS count FROM licenses").first()).count, 0);
+});
+
+test("unknown Google purchase state neither grants nor revokes", async () => {
+  let state = "PURCHASED";
+  const { env } = playEnv(() => purchase(state));
+  const granted = await verifyAndApplyPlayPurchase(env, "unknown-state-purchase-token");
+  state = "PURCHASE_STATE_UNSPECIFIED";
+
+  await assert.rejects(
+    () => verifyAndApplyPlayPurchase(env, "unknown-state-purchase-token"),
+    /unsupported Google Play purchase state/,
+  );
+  assert.equal((await validateLicense(env, { key: granted.licenseKey })).valid, true);
 });
 
 test("wrong verified product and caller-supplied package fail closed", async () => {

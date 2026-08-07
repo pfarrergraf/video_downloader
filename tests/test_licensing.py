@@ -161,6 +161,34 @@ def test_device_id_survives_set_key_and_reload(tmp_path: Path, monkeypatch) -> N
     assert reloaded.status().device_id == device_id
 
 
+def test_explicit_android_device_id_is_shared_and_persisted(tmp_path: Path) -> None:
+    state_file = tmp_path / "license.json"
+    manager = LicenseManager(
+        state_file,
+        "https://license.example.com",
+        platform="android",
+        device_id="canonical-install-id",
+    )
+
+    assert manager.status().device_id == "canonical-install-id"
+    reloaded = LicenseManager(state_file, "https://license.example.com", platform="android")
+    assert reloaded.status().device_id == "canonical-install-id"
+
+
+def test_clear_key_preserves_device_identity(tmp_path: Path) -> None:
+    manager = LicenseManager(
+        tmp_path / "license.json",
+        "https://license.example.com",
+        platform="android",
+        device_id="canonical-install-id",
+    )
+    manager.clear_key()
+
+    assert manager.status().key is None
+    assert manager.status().is_pro is False
+    assert manager.status().device_id == "canonical-install-id"
+
+
 def test_expired_tester_grant_is_not_pro_even_during_offline_grace(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr(
         requests,

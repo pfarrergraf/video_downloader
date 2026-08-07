@@ -309,18 +309,26 @@ def test_settings_expose_support_and_google_play_rating_actions() -> None:
 
 def test_native_purchase_errors_are_localized_instead_of_showing_raw_codes() -> None:
     html = _html()
-    callback = html.split("window.onNativeEntitlementResult = function(result) {", 1)[1].split(
+    callback = html.split("window.onNativeEntitlementResult = async function(result) {", 1)[1].split(
         "function handleNativePurchase", 1
     )[0]
     for code in (
         "purchase_pending",
+        "purchase_in_progress",
+        "restoring_purchase",
+        "purchase_cancelled",
         "product_unavailable",
         "billing_unavailable",
+        "billing_temporary_error",
+        "purchase_check_failed",
+        "restore_failed",
         "no_purchase_found",
     ):
         assert code in callback
     assert "toast(result.error)" not in callback
     assert "app.license.purchase_failed_toast" in callback
+    assert "result.revoked" in callback
+    assert "/api/license/clear" in html
 
 
 def test_i18n_help_keys_present_in_both_locale_trees() -> None:

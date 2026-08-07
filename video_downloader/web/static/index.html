@@ -402,6 +402,45 @@
     display: flex; align-items: center; justify-content: center; z-index: 54; padding: 1rem;
   }
   #delete-overlay .card { max-width: 380px; width: 100%; }
+  #play-refund-overlay {
+    position: fixed; inset: 0; background: var(--overlay-strong);
+    display: flex; align-items: center; justify-content: center; z-index: 58; padding: 1rem;
+  }
+  #play-refund-overlay .card { max-width: 390px; width: 100%; }
+  #review-prompt-overlay {
+    position: fixed; inset: 0; background: var(--overlay-strong);
+    display: flex; align-items: center; justify-content: center; z-index: 59; padding: 1rem;
+  }
+  #review-prompt-overlay .card {
+    max-width: 390px; width: 100%; position: relative; overflow: hidden;
+    text-align: center; border-color: var(--accent);
+    animation: review-prompt-arrive 0.55s cubic-bezier(.2, .9, .25, 1.15) both;
+  }
+  .review-prompt-stars {
+    display: flex; justify-content: center; gap: 0.25rem;
+    margin: 0.25rem 0 0.85rem; font-size: 1.55rem;
+  }
+  .review-prompt-stars span {
+    display: inline-block;
+    animation: review-star-rise 0.65s cubic-bezier(.2, .9, .25, 1.2) both;
+    animation-delay: calc(var(--star-index) * 70ms);
+  }
+  .review-prompt-success-mark {
+    width: 64px; height: 64px; margin: 0 auto 0.7rem;
+    border-radius: 50%; display: grid; place-items: center;
+    color: var(--btn-primary-text); background: var(--btn-primary-bg);
+    font-size: 1.8rem; box-shadow: 0 12px 28px -12px rgba(173, 20, 87, 0.7);
+  }
+  #review-prompt-overlay h2 { border: 0; margin: 0; padding: 0; font-size: 1.2rem; }
+  #review-prompt-overlay .row { justify-content: center; }
+  @keyframes review-prompt-arrive {
+    from { opacity: 0; transform: translateY(18px) scale(0.94); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes review-star-rise {
+    from { opacity: 0; transform: translateY(10px) rotate(-12deg) scale(0.65); }
+    to { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
+  }
   /* Explicit third step of the 2-tap share flow: Share -> pick DownloadThat
      -> pick a format (this), instead of silently reusing whatever kind was
      last set. Same kind-toggle look as the home screen for one visual
@@ -459,6 +498,10 @@
     display: none; z-index: 60;
   }
   .hidden { display: none !important; }
+  @media (prefers-reduced-motion: reduce) {
+    #review-prompt-overlay .card,
+    .review-prompt-stars span { animation: none; }
+  }
   footer { text-align: center; color: var(--text-dim); font-size: 0.8rem; padding: 1.5rem 1rem; }
 
   #splash {
@@ -941,6 +984,15 @@
       </div>
       <a class="btn primary hidden" id="license-buy-link" href="https://downloadthat.app/download/android" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:0.7rem; text-decoration:none;"><span aria-hidden="true">✨</span> <span data-i18n="app.license.buy_btn">Get Pro</span></a>
       <button class="secondary hidden" id="license-restore-btn" type="button" style="margin-top:0.5rem;">Restore purchase / Käufe wiederherstellen</button>
+      <div class="hidden" id="play-refund-controls" style="margin-top:0.7rem;">
+        <select id="play-refund-reason" aria-label="Refund reason">
+          <option value="technical_failure" data-i18n="app.license.refund_reason_technical">Pro was not delivered or does not work</option>
+          <option value="accidental_purchase" data-i18n="app.license.refund_reason_accidental">Purchased by mistake</option>
+          <option value="other" data-i18n="app.license.refund_reason_other">Other reason</option>
+        </select>
+        <button class="secondary" id="play-refund-btn" type="button" style="margin-top:0.5rem;" data-i18n="app.license.refund_btn">Request refund</button>
+        <p class="muted" id="play-refund-hint" data-i18n="app.license.refund_hint">Refunds within 48 hours may be processed automatically. Later requests are reviewed; Pro is revoked when refunded.</p>
+      </div>
       <p class="muted" data-i18n="app.license.purchase_hint">Buy Pro in the Google Play version, then use the same license key here or in Windows.</p>
     </div>
 
@@ -997,6 +1049,34 @@
     <!-- Reuses app.queue.cancel_btn - "Cancel" is already translated in all
          languages there; a new key would just duplicate it. -->
     <button class="secondary" id="delete-cancel-btn"><span aria-hidden="true">↩️</span> <span data-i18n="app.queue.cancel_btn">Cancel</span></button>
+  </div>
+</div>
+
+<div id="review-prompt-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="review-prompt-title">
+  <div class="card">
+    <div class="review-prompt-success-mark" aria-hidden="true">✓</div>
+    <div class="review-prompt-stars" aria-hidden="true">
+      <span style="--star-index:0">✦</span><span style="--star-index:1">✧</span>
+      <span style="--star-index:2">✦</span><span style="--star-index:3">✧</span>
+      <span style="--star-index:4">✦</span>
+    </div>
+    <h2 id="review-prompt-title" data-i18n="app.about.review_prompt_title">Enjoying DownloadThat?</h2>
+    <p class="muted" id="review-prompt-body" data-i18n="app.about.review_prompt_body">Rate the app on Google Play and feel free to recommend it.</p>
+    <div class="row">
+      <a class="btn primary" id="review-prompt-rate-btn" href="https://play.google.com/store/apps/details?id=de.classydl.app" target="_blank" rel="noopener"><span aria-hidden="true">⭐</span> <span data-i18n="app.about.rate_btn">Rate on Google Play</span></a>
+      <button class="ghost" id="review-prompt-dismiss-btn" type="button" data-i18n="app.settings.close_btn">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="play-refund-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="play-refund-title">
+  <div class="card">
+    <h2 id="play-refund-title" data-i18n="app.license.refund_btn">Request refund</h2>
+    <p id="play-refund-confirm-text">If approved, Pro access is revoked immediately. This action cannot be undone.</p>
+    <div class="row">
+      <button class="danger-outline" id="play-refund-confirm-btn" type="button" data-i18n="app.license.refund_btn">Request refund</button>
+      <button class="secondary" id="play-refund-cancel-btn" type="button" data-i18n="app.queue.cancel_btn">Cancel</button>
+    </div>
   </div>
 </div>
 
@@ -1302,6 +1382,23 @@ const LANGUAGES = [
 const SUPPORTED_CODES = LANGUAGES.map((l) => l[0]);
 let STRINGS = {};
 let languagePref = 'auto';
+let activeLanguage = 'en';
+const LOCAL_UI_COPY = {
+  de: {
+    'app.about.review_prompt_title': 'Du bist zufrieden mit DownloadThat?',
+    'app.about.review_prompt_body': 'Dann bewerte die App bei Google Play und empfehle sie gern weiter.',
+    'app.license.refund_btn': 'Rückerstattung anfordern',
+    'app.license.refund_hint': 'Anfragen innerhalb von 48 Stunden können automatisch bearbeitet werden. Spätere Anfragen werden geprüft; bei Erstattung wird Pro entzogen.',
+    'app.license.refund_reason_technical': 'Pro wurde nicht freigeschaltet oder funktioniert nicht',
+    'app.license.refund_reason_accidental': 'Versehentlich gekauft',
+    'app.license.refund_reason_other': 'Anderer Grund',
+    'app.license.refund_confirm': 'Bei Genehmigung wird Pro sofort entzogen. Dieser Vorgang kann nicht rückgängig gemacht werden.',
+    'app.license.refund_complete_toast': 'Rückerstattung abgeschlossen. Pro wurde deaktiviert.',
+    'app.license.refund_review_toast': 'Deine Anfrage wurde zur manuellen Prüfung gespeichert.',
+    'app.license.refund_processing_toast': 'Deine Rückerstattung wird bearbeitet.',
+    'app.license.refund_failed_toast': 'Die Rückerstattung konnte nicht angefordert werden. Versuche es erneut oder kontaktiere den Support.',
+  },
+};
 
 function detectDeviceLang() {
   const raw = (navigator.language || 'en').toLowerCase();
@@ -1332,12 +1429,23 @@ function applyStaticTranslations() {
   document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
   document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => { el.placeholder = t(el.dataset.i18nPlaceholder); });
   document.querySelectorAll('[data-i18n-aria]').forEach((el) => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+  $('review-prompt-title').textContent = translationOr('app.about.review_prompt_title', 'Enjoying DownloadThat?');
+  $('review-prompt-body').textContent = translationOr('app.about.review_prompt_body', 'Rate the app on Google Play and feel free to recommend it.');
+  $('play-refund-btn').textContent = translationOr('app.license.refund_btn', 'Request refund');
+  $('play-refund-hint').textContent = translationOr('app.license.refund_hint', 'Refunds within 48 hours may be processed automatically. Later requests are reviewed; Pro is revoked when refunded.');
+  $('play-refund-reason').querySelector('[value="technical_failure"]').textContent = translationOr('app.license.refund_reason_technical', 'Pro was not delivered or does not work');
+  $('play-refund-reason').querySelector('[value="accidental_purchase"]').textContent = translationOr('app.license.refund_reason_accidental', 'Purchased by mistake');
+  $('play-refund-reason').querySelector('[value="other"]').textContent = translationOr('app.license.refund_reason_other', 'Other reason');
+  $('play-refund-title').textContent = translationOr('app.license.refund_btn', 'Request refund');
+  $('play-refund-confirm-btn').textContent = translationOr('app.license.refund_btn', 'Request refund');
+  $('play-refund-confirm-text').textContent = translationOr('app.license.refund_confirm', 'If approved, Pro access is revoked immediately. This action cannot be undone.');
   renderLimitBody();
 }
 
 async function setLanguage(pref, opts = {}) {
   languagePref = pref;
   const effective = pref === 'auto' ? detectDeviceLang() : pref;
+  activeLanguage = effective;
   STRINGS = (await loadStrings(effective)) || (await loadStrings('en')) || {};
   applyStaticTranslations();
   if ($('settings-language')) $('settings-language').value = pref;
@@ -1446,6 +1554,13 @@ async function setAuthed(authed) {
     return;
   }
 
+  // Native billing may finish while the loopback login or WebView script is
+  // still starting. Confirm that both the callback and authenticated API are
+  // ready so MainActivity can deliver its buffered result exactly once.
+  if (window.AndroidBridge && window.AndroidBridge.onEntitlementUiReady) {
+    window.AndroidBridge.onEntitlementUiReady();
+  }
+
   let termsAccepted = true;
   try {
     const settings = await api('/api/settings');
@@ -1544,19 +1659,83 @@ async function activateNativeLicense(key) {
     toast(t('app.license.activated_toast'));
   } catch (e) {
     toast(e.message || t('app.license.invalid_toast'));
+  } finally {
+    setNativePurchaseBusy(false);
   }
 }
 
-window.onNativeEntitlementResult = function(result) {
-  if (result && result.licenseKey && result.pro) activateNativeLicense(result.licenseKey);
-  else if (result && result.error) {
+let nativePurchaseBusy = false;
+
+function setNativePurchaseBusy(busy) {
+  nativePurchaseBusy = !!busy;
+  ['license-buy-link', 'limit-buy-link'].forEach((id) => {
+    $(id).setAttribute('aria-disabled', String(nativePurchaseBusy));
+  });
+  $('license-restore-btn').disabled = nativePurchaseBusy;
+  $('play-refund-btn').disabled = nativePurchaseBusy;
+}
+
+function translationOr(key, fallback) {
+  const value = t(key);
+  return value === key ? (LOCAL_UI_COPY[activeLanguage]?.[key] || fallback) : value;
+}
+
+function updateRefundControls(status) {
+  const available = !!(status && status.billingAvailable && status.pro && window.AndroidBridge?.requestPlayRefund);
+  $('play-refund-controls').classList.toggle('hidden', !available);
+}
+
+async function clearRevokedNativeLicense() {
+  try {
+    await api('/api/license/clear', { method: 'POST' });
+    $('license-key-input').value = '';
+    $('limit-license-key-input').value = '';
+    await refreshLicense();
+  } catch (e) {
+    // The native cache is already cleared. A later license refresh will make
+    // the loopback state converge if this request raced with authentication.
+  } finally {
+    setNativePurchaseBusy(false);
+  }
+}
+
+window.onNativeEntitlementResult = async function(result) {
+  if (result && result.revoked) {
+    await clearRevokedNativeLicense();
+    updateRefundControls(result);
+    toast(translationOr('app.license.refund_complete_toast', 'Refund completed. Pro has been deactivated.'));
+  } else if (result && result.status === 'manual_review') {
+    setNativePurchaseBusy(false);
+    toast(translationOr('app.license.refund_review_toast', 'Your request was saved for manual review.'));
+  } else if (result && result.status === 'processing') {
+    setNativePurchaseBusy(false);
+    toast(translationOr('app.license.refund_processing_toast', 'Your refund is being processed.'));
+  } else if (result && result.licenseKey && result.pro) {
+    await activateNativeLicense(result.licenseKey);
+    updateRefundControls(result);
+  } else if (result && result.error) {
     const purchaseErrorKeys = {
       purchase_pending: 'app.license.purchase_pending_toast',
+      purchase_in_progress: 'app.license.purchase_pending_toast',
+      restoring_purchase: 'app.license.purchase_pending_toast',
       product_unavailable: 'app.license.product_unavailable_toast',
       billing_unavailable: 'app.license.billing_unavailable_toast',
+      billing_temporary_error: 'app.license.billing_unavailable_toast',
+      purchase_check_failed: 'app.license.billing_unavailable_toast',
+      restore_failed: 'app.license.billing_unavailable_toast',
       no_purchase_found: 'app.license.no_purchase_found_toast',
+      purchase_cancelled: 'app.status.cancelled',
+      refund_request_failed: 'app.license.refund_failed_toast',
+      invalid_refund_reason: 'app.license.refund_failed_toast',
     };
-    toast(t(purchaseErrorKeys[result.error] || 'app.license.purchase_failed_toast'));
+    const errorKey = purchaseErrorKeys[result.error] || 'app.license.purchase_failed_toast';
+    const fallback = String(result.error).startsWith('refund_') || result.error === 'invalid_refund_reason'
+      ? 'The refund request could not be submitted. Try again or contact support.'
+      : t('app.license.purchase_failed_toast');
+    toast(translationOr(errorKey, fallback));
+    if (!['purchase_in_progress', 'restoring_purchase'].includes(result.error)) {
+      setNativePurchaseBusy(false);
+    }
   }
 };
 
@@ -1564,7 +1743,14 @@ function handleNativePurchase(event) {
   const status = nativePurchaseStatus();
   if (!status) return;
   event.preventDefault();
-  if (status.billingAvailable && window.AndroidBridge.purchasePro) window.AndroidBridge.purchasePro();
+  if (nativePurchaseBusy) {
+    toast(t('app.license.purchase_pending_toast'));
+    return;
+  }
+  if (status.billingAvailable && window.AndroidBridge.purchasePro) {
+    setNativePurchaseBusy(true);
+    window.AndroidBridge.purchasePro();
+  }
   else if (window.AndroidBridge.openPlayStore) window.AndroidBridge.openPlayStore();
 }
 
@@ -1577,10 +1763,27 @@ $('rate-app-btn').addEventListener('click', (event) => {
   }
 });
 const purchaseStatus = nativePurchaseStatus();
+updateRefundControls(purchaseStatus);
 if (purchaseStatus && purchaseStatus.billingAvailable && window.AndroidBridge.restorePurchases) {
   $('license-restore-btn').classList.remove('hidden');
-  $('license-restore-btn').addEventListener('click', () => window.AndroidBridge.restorePurchases());
+  $('license-restore-btn').addEventListener('click', () => {
+    if (nativePurchaseBusy) return;
+    setNativePurchaseBusy(true);
+    window.AndroidBridge.restorePurchases();
+  });
 }
+$('play-refund-btn').addEventListener('click', () => {
+  if (nativePurchaseBusy || !window.AndroidBridge?.requestPlayRefund) return;
+  $('play-refund-overlay').classList.remove('hidden');
+  $('play-refund-confirm-btn').focus();
+});
+$('play-refund-cancel-btn').addEventListener('click', () => $('play-refund-overlay').classList.add('hidden'));
+$('play-refund-confirm-btn').addEventListener('click', () => {
+  if (nativePurchaseBusy || !window.AndroidBridge?.requestPlayRefund) return;
+  $('play-refund-overlay').classList.add('hidden');
+  setNativePurchaseBusy(true);
+  window.AndroidBridge.requestPlayRefund($('play-refund-reason').value);
+});
 
 $('login-btn').addEventListener('click', async () => {
   const password = $('login-password').value;
@@ -1643,6 +1846,7 @@ async function refreshSettings() {
     $('settings-folder-reset-btn').classList.toggle('hidden', !androidAvailable || !settings.export_folder_label);
     $('settings-folder-unsupported').classList.toggle('hidden', androidAvailable);
     $('settings-app-version').textContent = settings.app_version ? `· v${settings.app_version}` : '';
+    setReviewPromptVersion(settings.app_version);
   } catch (e) {
     // Not authenticated yet — settings will refresh once login succeeds.
   }
@@ -2145,6 +2349,192 @@ function jobRow(job) {
 
 const FINISHED_STATUSES = ['completed', 'failed', 'cancelled'];
 
+// -- considerate Google Play rating prompt --------------------------------
+// Count only terminal transitions observed after the first queue snapshot.
+// The initial snapshot is history, not evidence that a download just worked:
+// replaying it on every app launch used to be the easiest way to create a
+// nagging prompt. A completed job is positive only when it produced a file
+// and carries no warning; QueueStore deliberately permits completed jobs with
+// caveats (for example failed MP3 conversion), which is not a good moment to
+// ask for a rating.
+const REVIEW_PROMPT_STORAGE_KEY = 'downloadthat:review-prompt:v1';
+const REVIEW_PROMPT_SUCCESS_THRESHOLD = 2;
+const REVIEW_PROMPT_COOLDOWN_MS = 180 * 24 * 60 * 60 * 1000;
+const REVIEW_ACTIVE_STATUSES = new Set(['pending', 'in_progress', 'paused']);
+let reviewPromptVersion = '';
+let reviewQueueBaselineReady = false;
+let reviewHasActiveDownloads = false;
+let reviewPromptQueued = false;
+let pendingReviewSuccesses = 0;
+let pendingReviewFailures = 0;
+const observedReviewJobs = new Map();
+const countedReviewJobs = new Set();
+
+function readReviewPromptState() {
+  try {
+    const raw = localStorage.getItem(REVIEW_PROMPT_STORAGE_KEY);
+    if (!raw) return { version: '', successes: 0, failures: 0, decision: '', last_shown_at: 0 };
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') throw new Error('invalid state');
+    return {
+      version: typeof parsed.version === 'string' ? parsed.version : '',
+      successes: Number.isFinite(parsed.successes) ? Math.max(0, Math.floor(parsed.successes)) : 0,
+      failures: Number.isFinite(parsed.failures) ? Math.max(0, Math.floor(parsed.failures)) : 0,
+      decision: ['shown', 'opened', 'dismissed'].includes(parsed.decision) ? parsed.decision : '',
+      last_shown_at: Number.isFinite(parsed.last_shown_at) ? Math.max(0, parsed.last_shown_at) : 0,
+    };
+  } catch (e) {
+    // A half-written/corrupt JSON value should self-heal. If storage itself
+    // is unavailable, removeItem throws too and null keeps the prompt off.
+    try {
+      localStorage.removeItem(REVIEW_PROMPT_STORAGE_KEY);
+      return { version: '', successes: 0, failures: 0, decision: '', last_shown_at: 0 };
+    } catch (_) {
+      return null;
+    }
+  }
+}
+
+function writeReviewPromptState(state) {
+  try {
+    localStorage.setItem(REVIEW_PROMPT_STORAGE_KEY, JSON.stringify(state));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function currentReviewPromptState() {
+  const stored = readReviewPromptState();
+  if (!stored || !reviewPromptVersion) return null;
+  if (stored.version === reviewPromptVersion) return stored;
+  return {
+    version: reviewPromptVersion,
+    successes: 0,
+    failures: 0,
+    decision: '',
+    // Keep the cross-version cooldown so a frequent updater is not asked
+    // again with every release even though the decision is version-scoped.
+    last_shown_at: stored.last_shown_at,
+  };
+}
+
+function setReviewPromptVersion(version) {
+  reviewPromptVersion = typeof version === 'string' ? version.trim() : '';
+  const state = currentReviewPromptState();
+  if (!state) return;
+  if (pendingReviewSuccesses || pendingReviewFailures) {
+    state.successes += pendingReviewSuccesses;
+    state.failures += pendingReviewFailures;
+    pendingReviewSuccesses = 0;
+    pendingReviewFailures = 0;
+  }
+  if (writeReviewPromptState(state)) maybeShowReviewPrompt(reviewPromptQueued);
+}
+
+function reviewPromptHasBlockingOverlay() {
+  return [
+    'login-overlay', 'terms-overlay', 'settings-overlay', 'limit-overlay',
+    'delete-overlay', 'share-format-overlay', 'help-overlay', 'help-guide-overlay',
+  ].some((id) => !$(id).classList.contains('hidden'));
+}
+
+function maybeShowReviewPrompt(triggeredBySuccess) {
+  if (triggeredBySuccess) reviewPromptQueued = true;
+  if (!reviewPromptQueued || reviewHasActiveDownloads || reviewPromptHasBlockingOverlay()) return;
+  if (!(window.AndroidBridge && window.AndroidBridge.isAvailable && window.AndroidBridge.isAvailable())) return;
+  const state = currentReviewPromptState();
+  if (!state || state.decision || state.failures > 0 || state.successes < REVIEW_PROMPT_SUCCESS_THRESHOLD) {
+    reviewPromptQueued = false;
+    return;
+  }
+  if (state.last_shown_at && Date.now() - state.last_shown_at < REVIEW_PROMPT_COOLDOWN_MS) {
+    reviewPromptQueued = false;
+    return;
+  }
+  state.decision = 'shown';
+  state.last_shown_at = Date.now();
+  // If persistence is unavailable, do not show: we could not enforce the
+  // no-spam promise across a WebView reload.
+  if (!writeReviewPromptState(state)) return;
+  reviewPromptQueued = false;
+  $('review-prompt-overlay').classList.remove('hidden');
+  $('review-prompt-rate-btn').focus();
+}
+
+function finishReviewPrompt(decision) {
+  $('review-prompt-overlay').classList.add('hidden');
+  const state = currentReviewPromptState();
+  if (!state) return;
+  state.decision = decision === 'opened' ? 'opened' : 'dismissed';
+  writeReviewPromptState(state);
+}
+
+$('review-prompt-rate-btn').addEventListener('click', (event) => {
+  finishReviewPrompt('opened');
+  if (window.AndroidBridge && window.AndroidBridge.openPlayStore) {
+    event.preventDefault();
+    window.AndroidBridge.openPlayStore();
+  }
+});
+$('review-prompt-dismiss-btn').addEventListener('click', () => finishReviewPrompt('dismissed'));
+const reviewPromptOverlayObserver = new MutationObserver(() => {
+  if (reviewPromptQueued) maybeShowReviewPrompt(false);
+});
+[
+  'login-overlay', 'terms-overlay', 'settings-overlay', 'limit-overlay',
+  'delete-overlay', 'play-refund-overlay', 'share-format-overlay', 'help-overlay', 'help-guide-overlay',
+].forEach((id) => reviewPromptOverlayObserver.observe($(id), { attributes: true, attributeFilter: ['class'] }));
+
+function trackReviewDownloadOutcomes(jobs) {
+  reviewHasActiveDownloads = jobs.some((job) => REVIEW_ACTIVE_STATUSES.has(job.status));
+  if (reviewHasActiveDownloads && !$('review-prompt-overlay').classList.contains('hidden')) {
+    finishReviewPrompt('dismissed');
+  }
+  if (!reviewQueueBaselineReady) {
+    jobs.forEach((job) => {
+      const identity = `${job.id}:${job.created_at || ''}`;
+      observedReviewJobs.set(identity, job.status);
+      if (FINISHED_STATUSES.includes(job.status)) countedReviewJobs.add(identity);
+    });
+    reviewQueueBaselineReady = true;
+    return;
+  }
+
+  let newSuccesses = 0;
+  let newFailures = 0;
+  jobs.forEach((job) => {
+    const identity = `${job.id}:${job.created_at || ''}`;
+    const previous = observedReviewJobs.get(identity);
+    observedReviewJobs.set(identity, job.status);
+    if (countedReviewJobs.has(identity) || previous === job.status) return;
+    if (job.status === 'failed') {
+      countedReviewJobs.add(identity);
+      newFailures++;
+    } else if (job.status === 'completed') {
+      countedReviewJobs.add(identity);
+      if (!job.error && Array.isArray(job.files) && job.files.length > 0) newSuccesses++;
+      else newFailures++;
+    }
+  });
+
+  if (newSuccesses || newFailures) {
+    const state = currentReviewPromptState();
+    if (state) {
+      state.successes += newSuccesses;
+      state.failures += newFailures;
+      writeReviewPromptState(state);
+    } else {
+      pendingReviewSuccesses += newSuccesses;
+      pendingReviewFailures += newFailures;
+    }
+  }
+  if (newFailures > 0 && !$('review-prompt-overlay').classList.contains('hidden')) {
+    finishReviewPrompt('dismissed');
+  }
+  maybeShowReviewPrompt(newSuccesses > 0);
+}
+
 // Deleting is a real dialog, not a confirm(): window.confirm silently
 // returns false inside a WebView without an onJsConfirm handler, and the
 // choice being made here ("keep the file or delete it too?") genuinely has
@@ -2186,6 +2576,7 @@ $('delete-cancel-btn').addEventListener('click', () => $('delete-overlay').class
 $('clear-history-btn').addEventListener('click', () => openDeleteDialog(null));
 
 function renderJobs(jobs) {
+  trackReviewDownloadOutcomes(jobs);
   const list = $('job-list');
   list.innerHTML = '';
   const hasFinished = jobs.some((j) => FINISHED_STATUSES.includes(j.status));

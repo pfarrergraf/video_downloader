@@ -104,13 +104,14 @@ object ServerRuntime {
                 // case external storage isn't currently available.
                 val outputDir = (appContext.getExternalFilesDir(null) ?: appContext.filesDir)
                     .resolve("classydl-downloads").absolutePath
+                val licenseDeviceId = InstallIdentity.getOrCreate(appContext)
                 Python.getInstance()
                     .getModule("video_downloader.android_entry")
                     .callAttr(
                         "start", dataDir, outputDir, password, PORT,
                         resolveFfmpegBinary(appContext),
                         resolveLicenseApiBase(), BuildConfig.VERSION_NAME, notifier,
-                        resolveJsRuntimeBinary(appContext),
+                        resolveJsRuntimeBinary(appContext), licenseDeviceId,
                     )
             } catch (e: Throwable) {
                 android.util.Log.e("ClassyDL", "Server thread crashed", e)

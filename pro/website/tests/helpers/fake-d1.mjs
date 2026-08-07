@@ -50,7 +50,24 @@ export class FakeD1 {
     this.db.exec(readFileSync(path.join(WEBSITE, "schema.sql"), "utf8"));
     const migrationsDir = path.join(WEBSITE, "migrations");
     for (const file of readdirSync(migrationsDir).filter((f) => f.endsWith(".sql")).sort()) {
-      this.db.exec(readFileSync(path.join(migrationsDir, file), "utf8"));
+      try {
+        this.db.exec(readFileSync(path.join(migrationsDir, file), "utf8"));
+      } catch (error) {
+        // schema.sql mirrors production's latest shape, while migrations are
+        // also loaded to prove they remain compatible. SQLite has no portable
+        // ALTER TABLE ... ADD COLUMN IF NOT EXISTS form.
+        if (!String(error?.message || error).includes("duplicate column name")) throw error;
+        const migration = readFileSync(path.join(migrationsDir, file), "utf8");
+        for (const statement of migration.split(";").map((part) => part.trim()).filter(Boolean)) {
+          try {
+            this.db.exec(`${statement};`);
+          } catch (statementError) {
+            if (!String(statementError?.message || statementError).includes("duplicate column name")) {
+              throw statementError;
+            }
+          }
+        }
+      }
     }
   }
 

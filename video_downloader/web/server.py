@@ -771,6 +771,17 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             self._send_json(200, {"valid": True, "tier": state.tier})
             return
 
+        if path == "/api/license/clear":
+            if not self._require_auth():
+                return
+            manager = self.server.license_manager
+            if manager is None:
+                self._send_json(400, {"detail": "Licensing is not enabled on this platform."})
+                return
+            manager.clear_key()
+            self._send_json(200, {"cleared": True})
+            return
+
         if path == "/api/engine/update":
             if not self._require_auth():
                 return

@@ -10,19 +10,9 @@ import java.util.concurrent.Executors
 
 /** POST-only license and Play-token API client; secrets never enter a URL. */
 class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Unit) {
-    companion object {
-        private const val PREFS_NAME = "classydl_entitlement"
-        private const val KEY_DEVICE_ID = "device_id"
-    }
-
     private val executor = Executors.newSingleThreadExecutor()
     private val mainHandler = Handler(Looper.getMainLooper())
-    private val deviceId = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        .let { prefs ->
-            prefs.getString(KEY_DEVICE_ID, null) ?: java.util.UUID.randomUUID().toString().also {
-                prefs.edit().putString(KEY_DEVICE_ID, it).apply()
-            }
-        }
+    private val deviceId = InstallIdentity.getOrCreate(context)
 
     fun verifyPurchase(token: String, productId: String) {
         post(
@@ -30,7 +20,28 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
             JSONObject()
                 .put("purchase_token", token)
                 .put("product_id", productId)
-                .put("package_name", "de.classydl.app"),
+                .put("package_name", "de.classydl.app")
+                .put("device_id", deviceId),
+        )
+    }
+
+    fun confirmPurchaseDelivered(token: String) {
+        post(
+            "/api/play/purchases/delivered",
+            JSONObject()
+                .put("purchase_token", token)
+                .put("device_id", deviceId),
+            reportResult = false,
+        )
+    }
+
+    fun requestRefund(token: String, reason: String) {
+        post(
+            "/api/play/refunds/request",
+            JSONObject()
+                .put("purchase_token", token)
+                .put("device_id", deviceId)
+                .put("reason", reason),
         )
     }
 
@@ -50,7 +61,12 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
         executor.shutdownNow()
     }
 
-    private fun post(path: String, body: JSONObject, validatedLicenseKey: String? = null) {
+    private fun post(
+        path: String,
+        body: JSONObject,
+        validatedLicenseKey: String? = null,
+        reportResult: Boolean = true,
+    ) {
         executor.execute {
             val result = try {
                 val connection = (URL(BuildConfig.LICENSE_API_BASE_URL + path).openConnection() as HttpURLConnection)
@@ -74,7 +90,7 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
             } catch (error: Exception) {
                 JSONObject().put("ok", false).put("error", "network_error")
             }
-            mainHandler.post { onResult(result) }
+            if (reportResult) mainHandler.post { onResult(result) }
         }
     }
 }

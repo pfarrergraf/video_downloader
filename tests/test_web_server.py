@@ -249,6 +249,10 @@ class _FakeLicenseManager:
         self._state = LicenseState(key=key, valid=valid, tier="lifetime" if valid else None)
         return self._state
 
+    def clear_key(self) -> LicenseState:
+        self._state = LicenseState()
+        return self._state
+
 
 def _make_server(tmp_path: Path, *, license_manager=None) -> ClassyDLServer:
     store = QueueStore(tmp_path / "state.db")
@@ -322,6 +326,21 @@ def test_license_post_accepts_valid_key(tmp_path: Path) -> None:
         status, body, _ = _request(srv, "POST", "/api/license", {"key": "GOOD-KEY"}, cookie=cookie)
         assert status == 200
         assert body == {"valid": True, "tier": "lifetime"}
+    finally:
+        _teardown(srv)
+
+
+def test_license_clear_removes_revoked_local_entitlement(tmp_path: Path) -> None:
+    manager = _FakeLicenseManager(valid=True, tier="lifetime")
+    srv = _make_server(tmp_path, license_manager=manager)
+    try:
+        _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
+        cookie = set_cookie.split(";")[0]
+        status, body, _ = _request(srv, "POST", "/api/license/clear", {}, cookie=cookie)
+        assert status == 200
+        assert body == {"cleared": True}
+        assert manager.status().key is None
+        assert manager.is_pro() is False
     finally:
         _teardown(srv)
 
