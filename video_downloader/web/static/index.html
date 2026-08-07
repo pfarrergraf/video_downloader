@@ -1722,13 +1722,25 @@ function glowHelpButtonOnce() {
   btn.classList.add('glow-pulse');
   btn.addEventListener('animationend', () => btn.classList.remove('glow-pulse'), { once: true });
 }
-$('help-open-btn').addEventListener('click', openHelp);
-$('help-close-btn').addEventListener('click', () => {
+// Shared by the close button and onSharedUrl() below - a share arriving
+// while the auto-opened first-run tutorial is still on screen must close it
+// the same way tapping X does (marks it seen, glows the ? button once),
+// not just leave it sitting there. #help-overlay's z-index (57) sits above
+// #share-format-overlay's (56), so without this the picker only ever shows
+// up *underneath* the tutorial - same overlay, same background dim, easy to
+// mistake for "nothing happened". Confirmed via CI: the tutorial's own
+// inert phone-mockup "format" scene has its own "Video"/"Audio" labels, so
+// with both overlays open the smoke test's "tap the lowest Video match"
+// heuristic could land on the dead mockup button instead of the real one -
+// the share never reached the queue.
+function closeHelp() {
   $('help-overlay').classList.add('hidden');
   stopHelpAnimation();
   markFirstRunHelpSeen();
   glowHelpButtonOnce();
-});
+}
+$('help-open-btn').addEventListener('click', openHelp);
+$('help-close-btn').addEventListener('click', closeHelp);
 $('help-guide-btn').addEventListener('click', () => {
   $('help-overlay').classList.add('hidden');
   stopHelpAnimation();
@@ -1858,6 +1870,9 @@ window.onSharedUrl = (url) => {
     pendingSharedUrl = url;
     return;
   }
+  // A first-run tutorial auto-opened before this share arrived (see
+  // maybeShowFirstRunHelp()) must not keep sitting on top of the picker.
+  if (!$('help-overlay').classList.contains('hidden')) closeHelp();
   $('url-input').value = url;
   $('batch-urls').value = '';
   $('share-format-overlay').classList.remove('hidden');

@@ -55,7 +55,8 @@ def test_help_open_and_close_are_wired() -> None:
     open_helper = html.split("function openHelp() {", 1)[1].split("}\n", 1)[0]
     assert "help-overlay" in open_helper and "remove('hidden')" in open_helper
 
-    close_handler = html.split("$('help-close-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
+    assert "$('help-close-btn').addEventListener('click', closeHelp);" in html
+    close_handler = html.split("function closeHelp() {", 1)[1].split("}\n", 1)[0]
     assert "help-overlay" in close_handler and "add('hidden')" in close_handler
 
 
@@ -77,7 +78,7 @@ def test_reopening_help_animation_always_restarts_from_scene_one() -> None:
     assert "initHelpAnimation()" in open_helper
     assert "restartHelpAnimation()" in open_helper
 
-    close_handler = html.split("$('help-close-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
+    close_handler = html.split("function closeHelp() {", 1)[1].split("}\n", 1)[0]
     assert "stopHelpAnimation()" in close_handler
     guide_open = html.split("$('help-guide-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
     assert "stopHelpAnimation()" in guide_open
@@ -250,7 +251,7 @@ def test_help_open_btn_glows_once_after_the_auto_shown_tutorial_closes() -> None
     assert "firstRunAutoOpened = false;" in glow_fn
     assert "classList.add('glow-pulse')" in glow_fn
 
-    close_handler = html.split("$('help-close-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
+    close_handler = html.split("function closeHelp() {", 1)[1].split("}\n", 1)[0]
     assert "glowHelpButtonOnce()" in close_handler
     guide_close = html.split("$('help-guide-close-btn').addEventListener('click', () => {", 1)[1].split("});", 1)[0]
     assert "glowHelpButtonOnce()" in guide_close

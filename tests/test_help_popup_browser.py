@@ -286,3 +286,50 @@ def test_the_tutorial_does_not_reopen_after_it_has_been_dismissed(browser, base_
         assert page.locator("#help-overlay.hidden").count() == 1, "the tutorial re-opened itself"
     finally:
         context.close()
+
+
+def test_a_share_arriving_during_the_auto_opened_tutorial_reaches_a_clickable_picker(
+    browser, base_url
+) -> None:
+    """Regression, caught in CI by test_android_download_notifications.py's
+    sibling `share_intent_test.sh`: a fresh install auto-opens the tutorial
+    (maybeShowFirstRunHelp() only checks whether the picker is visible *at
+    that moment* - not later), and if a share then arrives while it is still
+    open, onSharedUrl() showed #share-format-overlay without closing it.
+
+    #help-overlay's z-index (57) sits above #share-format-overlay's (56), so
+    the picker rendered *underneath* the tutorial - same dimmed background,
+    easy to mistake for nothing having happened. On device this was worse
+    than a visual glitch: the tutorial's own inert phone-mockup "format"
+    scene carries its own "Video"/"Audio" labels, so the on-device smoke
+    test's "tap whichever Video match sits lowest on screen" heuristic could
+    land on that dead mockup button instead of the real one - the share
+    never reached the queue at all.
+
+    Playwright's click() mirrors that failure mode for free: it refuses to
+    click an element another node is intercepting, so this fails exactly
+    the way the on-device tap did if the fix regresses.
+    """
+    context = browser.new_context(
+        viewport={"width": 412, "height": 915},
+        reduced_motion="no-preference",
+    )
+    try:
+        page = _sign_in(context, base_url, android=True)
+        page.wait_for_selector("#help-overlay:not(.hidden)")
+        _wait_for_phase(page, "share")  # tutorial genuinely mid-run, not just opened
+
+        page.evaluate("window.onSharedUrl('https://example.com/clip.mp4')")
+
+        assert page.locator("#help-overlay.hidden").count() == 1, (
+            "the tutorial was still open once a share arrived"
+        )
+        page.wait_for_selector("#share-format-overlay:not(.hidden)")
+        assert page.locator("#url-input").input_value() == "https://example.com/clip.mp4"
+
+        # The real proof: an actual click must land on the picker's button,
+        # not be swallowed by whatever the tutorial left behind.
+        page.click("#share-format-video-btn", timeout=2000)
+        assert page.locator("#share-format-overlay.hidden").count() == 1
+    finally:
+        context.close()
