@@ -107,7 +107,8 @@
       "audio_toggle": "Nur Ton",
       "download_btn": "Herunterladen",
       "advanced_summary": "Erweitert",
-      "quality_label": "Videoqualität"
+      "quality_label": "Videoqualität",
+      "share_hint": "Tipp: In YouTube, Instagram & Co. auf „Teilen“ tippen und DownloadThat auswählen – oder Link kopieren und hier einfügen."
     },
     "share_format": {
       "title": "Was möchtest du speichern?"
@@ -125,7 +126,15 @@
       "guide_step3": "Wähle Video oder Audio.",
       "guide_step4": "DownloadThat lädt die Daten herunter.",
       "guide_step5": "Die Datei wird lokal auf deinem Gerät gespeichert.",
-      "guide_step6": "Fertig – du findest sie jederzeit unter „Meine Downloads“."
+      "guide_step6": "Fertig – du findest sie jederzeit unter „Meine Downloads“.",
+      "sound_off_label": "Ton der Anleitung einschalten",
+      "sound_on_label": "Ton der Anleitung ausschalten",
+      "anim_step1": "In YouTube, Instagram & Co.: Video öffnen und auf „Teilen“ tippen.",
+      "anim_step2": "DownloadThat aus der Liste auswählen.",
+      "anim_step3": "Video oder Audio wählen.",
+      "anim_step4": "Wird zusammengeführt …",
+      "anim_step5": "Wird lokal auf deinem Gerät verarbeitet.",
+      "anim_step6": "Fertig – direkt auf deinem Gerät gespeichert."
     },
     "status": {
       "pending": "Wartet…",

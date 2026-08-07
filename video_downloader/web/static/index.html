@@ -352,6 +352,7 @@
     margin-top: 0.15rem;
   }
   .muted { color: var(--text-dim); font-size: 0.85rem; }
+  .home-share-hint { margin: 0 0 0.9rem; }
   a.dl-link { color: var(--accent-2); text-decoration: none; font-weight: 500; font-size: 0.85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   button.file-icon-btn {
     width: 48px; height: 48px; min-height: unset;
@@ -833,6 +834,21 @@
      (a stray tap used to derail/freeze the loop, see the comment in
      initHelpAnimation()). */
   #help-overlay [data-pc3-next] { pointer-events: none; }
+  .help-sound-btn {
+    position: absolute; top: 0.6rem; right: 3.4rem; z-index: 2;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--bg-panel); border: 1px solid var(--border); color: var(--text);
+    font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* Same one-off attention cue as help-open-btn's post-close glow (see
+     glowSoundBtnOnce()) - a muted-by-default control needs a nudge on the
+     very first run or nobody will ever discover it exists. */
+  .help-sound-btn.glow-pulse { animation: icon-btn-glow-pulse 1.1s ease-in-out 3; }
+  .pc3-caption {
+    margin: 0 0 0.5rem; min-height: 2.4em; text-align: center;
+    font-size: 0.95rem; font-weight: 600; color: var(--text);
+  }
   .help-guide-btn {
     position: absolute; top: 0.6rem; left: 0.6rem; z-index: 2;
     width: 40px; height: 40px; border-radius: 50%;
@@ -1107,6 +1123,15 @@
   <div class="card">
     <button id="help-close-btn" aria-label="Close" data-i18n-aria="app.help.close_label">✕</button>
     <button id="help-guide-btn" class="help-guide-btn" data-i18n-aria="app.help.guide_btn" aria-label="Guide">📖</button>
+    <!-- Muted by default (see initHelpAnimation()): the animation used to try
+         to unlock WebAudio on the first tap anywhere on screen, but the
+         auto-opened first-run tutorial has no such tap before it starts
+         playing, so every first launch was silently muted end to end (only a
+         later, unrelated tap ever turned sound on). A dedicated, always-
+         visible toggle makes the muted state an intentional, controllable
+         choice instead of an invisible bug - and it doubles as the required
+         user gesture WebAudio needs to actually start making sound. -->
+    <button id="help-sound-btn" class="help-sound-btn" aria-label="Sound" data-i18n-aria="app.help.sound_off_label">🔇</button>
     <div class="help-anim">
       <section class="pc3" data-pc3-root data-pc3-phase="intro">
         <div class="pc3-noise" aria-hidden="true"></div>
@@ -1258,6 +1283,14 @@
           </div>
 
           <div class="pc3-controls">
+            <!-- Written out per scene (per tester feedback: silent icon-only
+                 animation read as "buttons pressed inside this app", not as
+                 "go share from YouTube/Instagram/etc."). Text is set in
+                 show() from app.help.anim_step1..6 - separate keys from the
+                 marketing site's website.hero_cinema.step_* strings sharing
+                 this same aria-label pattern, since instructional wording
+                 ("tap Share in YouTube") reads oddly as marketing copy. -->
+            <p class="pc3-caption" data-pc3-caption aria-live="polite"></p>
             <div class="pc3-timeline" aria-live="polite">
               <span data-pc3-index>01</span>
               <div><i data-pc3-progress></i></div>
@@ -1311,6 +1344,14 @@
   </header>
   <main>
     <div class="card">
+      <!-- Permanent, always-visible reminder that the share flow starts in
+           the OTHER app, not here - per tester feedback that a silent
+           tutorial (icons only, autoplaying once) did not get across that
+           the buttons being demonstrated live in YouTube/Instagram/etc.,
+           not in this app. Kept short/textual (not another icon diagram)
+           since the animated version of the same message already exists
+           in the tutorial and clearly wasn't landing on its own. -->
+      <p class="muted home-share-hint" data-i18n="app.home.share_hint">Tip: in YouTube, Instagram etc. tap "Share" and pick DownloadThat — or copy the link and paste it here.</p>
       <label for="url-input" data-i18n="app.home.url_label">Paste your link here</label>
       <input type="url" id="url-input" inputmode="url" autocomplete="off"
              data-i18n-placeholder="app.home.url_placeholder" placeholder="https://…" />
@@ -1894,6 +1935,10 @@ function openHelp() {
   overlay.classList.remove('hidden');
   initHelpAnimation();
   if (!wasOpen) restartHelpAnimation();
+  // The auto-opened first run has nobody who already knows the 🔇 button is
+  // there to turn sound on - nudge it once so muted-by-default doesn't read
+  // as "this tutorial has no sound" the same way the silent bug did.
+  if (firstRunAutoOpened) glowSoundBtnOnce();
 }
 // Set only while the tutorial was opened automatically (not by someone
 // tapping the ? themselves) - it drives the one-off glow on help-open-btn
@@ -1945,6 +1990,7 @@ function closeHelp() {
 }
 $('help-open-btn').addEventListener('click', openHelp);
 $('help-close-btn').addEventListener('click', closeHelp);
+$('help-sound-btn').addEventListener('click', () => toggleHelpSound());
 $('help-guide-btn').addEventListener('click', () => {
   $('help-overlay').classList.add('hidden');
   stopHelpAnimation();
@@ -2655,6 +2701,8 @@ let helpAnimationStarted = false;
 // (and advancing pc3Phase) in the background while nobody is watching.
 let stopHelpAnimation = () => {};
 let restartHelpAnimation = () => {};
+let toggleHelpSound = () => {};
+let glowSoundBtnOnce = () => {};
 function initHelpAnimation() {
   if (helpAnimationStarted) return;
   helpAnimationStarted = true;
@@ -2779,12 +2827,12 @@ function initHelpAnimation() {
   const SOUND_FX = { click: playClick, swipe: playSwipe };
 
   const sequence = [
-    { id: 'source', at: 0, n: '01' },
-    { id: 'share', at: 2700, n: '02' },
-    { id: 'format', at: 7400, n: '03' },
-    { id: 'stream', at: 9100, n: '04' },
-    { id: 'inside', at: 11550, n: '05' },
-    { id: 'success', at: 13850, n: '06' },
+    { id: 'source', at: 0, n: '01', capKey: 'app.help.anim_step1' },
+    { id: 'share', at: 2700, n: '02', capKey: 'app.help.anim_step2' },
+    { id: 'format', at: 7400, n: '03', capKey: 'app.help.anim_step3' },
+    { id: 'stream', at: 9100, n: '04', capKey: 'app.help.anim_step4' },
+    { id: 'inside', at: 11550, n: '05', capKey: 'app.help.anim_step5' },
+    { id: 'success', at: 13850, n: '06', capKey: 'app.help.anim_step6' },
   ];
   const RUN_DURATION = 15400;
 
@@ -2874,6 +2922,8 @@ function initHelpAnimation() {
     if (id === 'inside') { runPercent(); playDownloadWhirr(); }
     if (number) number.textContent = sequence[idx].n;
     if (progress) progress.style.width = `${((idx + 1) / sequence.length) * 100}%`;
+    const caption = root.querySelector('[data-pc3-caption]');
+    if (caption) caption.textContent = t(sequence[idx].capKey);
   }
 
   function play() {
@@ -2909,12 +2959,29 @@ function initHelpAnimation() {
   // pointer-events: none on [data-pc3-next] (see the .help-anim CSS block)
   // makes these buttons inert here, so there is no click to wire up.
 
-  document.addEventListener('pointerdown', () => {
-    if (soundOn) return;
-    soundOn = true;
-    const ctx = ensureAudioCtx();
-    if (ctx && ctx.state === 'suspended') ctx.resume();
-  }, { once: true });
+  // Sound is muted until the visible 🔇/🔊 toggle is tapped - that tap IS
+  // the user gesture WebAudio needs to leave the "suspended" state, and
+  // unlike the old blanket "any tap anywhere unlocks it" listener, the
+  // muted-by-default state is now an intentional, visible choice rather
+  // than a bug that happened to look fixed after any unrelated tap.
+  const soundBtn = $('help-sound-btn');
+  function setSoundOn(on) {
+    soundOn = on;
+    if (soundBtn) {
+      soundBtn.textContent = on ? '🔊' : '🔇';
+      soundBtn.setAttribute('aria-label', t(on ? 'app.help.sound_on_label' : 'app.help.sound_off_label'));
+    }
+    if (on) {
+      const ctx = ensureAudioCtx();
+      if (ctx && ctx.state === 'suspended') ctx.resume();
+    }
+  }
+  toggleHelpSound = () => setSoundOn(!soundOn);
+  glowSoundBtnOnce = () => {
+    if (!soundBtn) return;
+    soundBtn.classList.add('glow-pulse');
+    soundBtn.addEventListener('animationend', () => soundBtn.classList.remove('glow-pulse'), { once: true });
+  };
 
   if (!reducedBySystem && stage && rig) {
     stage.addEventListener('pointermove', (e) => {
