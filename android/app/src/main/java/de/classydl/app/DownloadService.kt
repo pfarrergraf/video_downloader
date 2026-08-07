@@ -8,7 +8,9 @@ import android.app.Service
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import androidx.core.app.NotificationCompat
 import androidx.core.content.FileProvider
 import org.json.JSONObject
@@ -20,13 +22,27 @@ import java.io.File
  * the repo owner 2026-07-07 — see docs/ANDROID_PERMISSIONS_2026-07-07.md).
  *
  * Notification flow: the Python publisher loop calls NotifierBridge
- * .onJobsChanged(json) about once per second (android_entry._jobs_snapshot).
- * Active jobs drive the ongoing progress notification; completions get a
- * one-shot notification whose tap opens the file (same FileProvider path as
- * android_bridge.open_file). As soon as the queue is empty the service leaves
- * foreground mode and removes its progress notification. The started service
- * keeps the existing Python notifier connection for the next user-initiated
- * queue item (see MainActivity/AndroidBridge).
+ * .onJobsChanged(json) about once per second (android_entry._jobs_snapshot) -
+ * unconditionally, whether or not anything changed, so handleSnapshot() below
+ * runs continuously even while the queue sits idle. Active jobs drive the
+ * ongoing progress notification; completions get a one-shot notification
+ * whose tap opens the file (same FileProvider path as android_bridge.open_file).
+ *
+ * Idle handling used to drop foreground status (and the notification) the
+ * instant the queue emptied. That fixed a real tester complaint ("still says
+ * downloading when it's done") but broke a different guarantee: a foreground
+ * service is the ONLY thing keeping this process (and the embedded Python
+ * server the WebView talks to) alive if the user backgrounds the app - Android
+ * only grants OOM-killer immunity while a visible ongoing notification is up,
+ * there is no "foreground but invisible". Backgrounding right after the last
+ * download finished then had zero protection (caught by
+ * background_survival_test.sh: server dead within 30s). The queue empties ->
+ * notification switches to an honest, dismissible "all done" state (still a
+ * real foreground notification, so the process stays protected) and only
+ * after IDLE_GRACE_MS with nothing new does the service actually leave
+ * foreground mode. The started service keeps the existing Python notifier
+ * connection either way, for the next user-initiated queue item (see
+ * MainActivity/AndroidBridge).
  */
 class DownloadService : Service() {
 
@@ -34,16 +50,33 @@ class DownloadService : Service() {
         private const val CHANNEL_ID = "downloads"
         private const val ONGOING_NOTIFICATION_ID = 1
         private const val COMPLETED_NOTIFICATION_BASE = 1000
+        // Comfortably above background_survival_test.sh's 30s backgrounding
+        // sleep - the whole point is that the process is still
+        // foreground-protected across that window, not just numerically past
+        // it by a hair.
+        private const val IDLE_GRACE_MS = 45_000L
     }
 
     private val notifiedCompletions = mutableSetOf<Int>()
     @Volatile private var inForeground = false
+    private var idleShutdownScheduled = false
+    private val handler = Handler(Looper.getMainLooper())
+    private val idleShutdownRunnable = Runnable {
+        idleShutdownScheduled = false
+        inForeground = false
+        stopForeground(STOP_FOREGROUND_REMOVE)
+    }
 
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onCreate() {
         super.onCreate()
         createChannel()
+    }
+
+    override fun onDestroy() {
+        handler.removeCallbacks(idleShutdownRunnable)
+        super.onDestroy()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -95,6 +128,13 @@ class DownloadService : Service() {
 
         val activeCount = active?.length() ?: 0
         if (activeCount > 0) {
+            if (idleShutdownScheduled) {
+                // New work arrived inside the grace window - the service was
+                // never actually out of foreground, just cancel the pending
+                // drop instead of letting it fire under our feet later.
+                handler.removeCallbacks(idleShutdownRunnable)
+                idleShutdownScheduled = false
+            }
             var downloaded = 0L
             var total = 0L
             var totalsKnown = true
@@ -108,18 +148,32 @@ class DownloadService : Service() {
             val text = resources.getQuantityString(R.plurals.notif_active_downloads, activeCount, activeCount)
             if (!inForeground) goForeground(text)
             notificationManager().notify(ONGOING_NOTIFICATION_ID, buildOngoing(text, pct))
-        } else if (inForeground) {
-            // Do not leave a stale "Downloads running" notification behind
-            // once the last transfer (including any conversion) is done.
-            // Keep this started Service alive without foreground state so its
-            // already-connected Python notifier can promote it again for the
-            // next user-initiated queue item.
-            inForeground = false
-            stopForeground(STOP_FOREGROUND_REMOVE)
+        } else if (inForeground && !idleShutdownScheduled) {
+            // The publisher polls every ~1s regardless of whether anything
+            // changed, so this branch would otherwise run on every idle tick -
+            // idleShutdownScheduled guards it to firing exactly once per
+            // active-to-idle transition instead of continuously re-arming
+            // (and, with postDelayed, endlessly pushing back) the timer.
+            notificationManager().notify(
+                ONGOING_NOTIFICATION_ID,
+                buildOngoing(
+                    getString(R.string.notif_idle),
+                    progressPct = null,
+                    ongoing = false,
+                    icon = android.R.drawable.stat_sys_download_done,
+                ),
+            )
+            idleShutdownScheduled = true
+            handler.postDelayed(idleShutdownRunnable, IDLE_GRACE_MS)
         }
     }
 
-    private fun buildOngoing(text: String, progressPct: Int?): Notification {
+    private fun buildOngoing(
+        text: String,
+        progressPct: Int?,
+        ongoing: Boolean = true,
+        icon: Int = android.R.drawable.stat_sys_download,
+    ): Notification {
         val contentIntent = PendingIntent.getActivity(
             this,
             0,
@@ -127,12 +181,12 @@ class DownloadService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(android.R.drawable.stat_sys_download)
+            .setSmallIcon(icon)
             .setContentTitle(getString(R.string.app_name))
             .setContentText(text)
             .setContentIntent(contentIntent)
             .setOnlyAlertOnce(true)
-            .setOngoing(true)
+            .setOngoing(ongoing)
             .apply {
                 if (progressPct != null) setProgress(100, progressPct, false)
             }
