@@ -99,3 +99,28 @@ def test_notif_idle_string_present_in_both_locales() -> None:
         assert '<string name="notif_idle">' in path.read_text(encoding="utf-8"), (
             f"missing notif_idle in {path}"
         )
+
+
+def test_foreground_promotion_survives_a_background_start_restriction() -> None:
+    # Android 12+ can throw ForegroundServiceStartNotAllowedException when a
+    # service tries to promote itself to foreground while the app is in the
+    # background - a real path here: handleSnapshot() runs continuously on
+    # the Python publisher thread with no Activity in the call stack, and a
+    # queued job's automatic retry-after-failure can land after IDLE_GRACE_MS
+    # has already dropped foreground status and the user has since
+    # backgrounded the app. Android's own guidance is to catch this, not to
+    # try to predict it, so goForeground()'s startForeground() calls must be
+    # wrapped rather than left to crash the whole process.
+    source = SERVICE.read_text(encoding="utf-8")
+    go_foreground = source.split("private fun goForeground(text: String) {", 1)[1].split(
+        "\n    }\n", 1
+    )[0]
+
+    assert "try {" in go_foreground
+    assert "catch (e: IllegalStateException) {" in go_foreground
+    # inForeground must only flip true on the success path, inside the try -
+    # otherwise a caught failure would leave the service believing it is
+    # foreground-protected when it is not.
+    success_path = go_foreground.split("try {", 1)[1].split("} catch", 1)[0]
+    assert "inForeground = true" in success_path
+    assert "inForeground = true" not in go_foreground.split("} catch", 1)[1]

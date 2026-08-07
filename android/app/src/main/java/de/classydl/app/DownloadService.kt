@@ -87,18 +87,41 @@ class DownloadService : Service() {
         return START_STICKY
     }
 
+    // Reached both from a user gesture (onStartCommand(), via the WebView
+    // bridge's onDownloadQueued() - always foreground, always legal) and from
+    // handleSnapshot() below, driven by the Python publisher thread on its
+    // own ~1s cadence with no Activity in the call stack at all. The second
+    // path is the one that can call this while the app is genuinely
+    // backgrounded - e.g. a queued job's automatic retry-after-failure lands
+    // after IDLE_GRACE_MS has already dropped foreground status and the user
+    // has since backgrounded the app. On API 31+ that specific combination
+    // (promoting a service to foreground from a background app state) is
+    // exactly what ForegroundServiceStartNotAllowedException exists to
+    // reject - Android's own guidance is to catch it, not prevent it, since
+    // there is no reliable "am I currently foreground" check to gate the call
+    // on beforehand. Caught as the plain IllegalStateException superclass so
+    // this compiles and behaves identically on every API level instead of
+    // needing an SDK-gated reference to the (API 31+ only) subclass.
     private fun goForeground(text: String) {
         val notification = buildOngoing(text, progressPct = null)
-        if (Build.VERSION.SDK_INT >= 29) {
-            startForeground(
-                ONGOING_NOTIFICATION_ID,
-                notification,
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC,
-            )
-        } else {
-            startForeground(ONGOING_NOTIFICATION_ID, notification)
+        try {
+            if (Build.VERSION.SDK_INT >= 29) {
+                startForeground(
+                    ONGOING_NOTIFICATION_ID,
+                    notification,
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC,
+                )
+            } else {
+                startForeground(ONGOING_NOTIFICATION_ID, notification)
+            }
+            inForeground = true
+        } catch (e: IllegalStateException) {
+            // Not promoted, but not crashed either - the download itself
+            // keeps running unprotected until the next legal chance to
+            // promote (any onDownloadQueued() call, which only ever happens
+            // from a live user gesture in the foreground).
+            android.util.Log.w("ClassyDL", "Could not promote to foreground (app likely backgrounded)", e)
         }
-        inForeground = true
     }
 
     /** Called from the Python publisher thread via Chaquopy — must be thread-safe. */

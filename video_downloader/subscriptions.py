@@ -5,6 +5,7 @@ import json
 import subprocess
 import sys
 from typing import Iterable
+from urllib.parse import urlparse
 
 from .queue_store import QueueStore
 
@@ -100,13 +101,23 @@ def sync_due_subscriptions(store: QueueStore) -> SubscriptionSyncSummary:
     return summary
 
 
+def _is_youtube_host(url: str) -> bool:
+    # A plain `"youtube.com" in url` substring check (CodeQL
+    # py/incomplete-url-substring-sanitization) matches at any position, e.g.
+    # https://evil.example/?ref=youtube.com or https://youtube.com.evil.example/ -
+    # neither is actually youtube.com. Checking the parsed hostname instead
+    # means only the real domain (or a real subdomain of it) counts.
+    host = (urlparse(url).hostname or "").lower()
+    return host in {"youtube.com", "youtu.be"} or host.endswith((".youtube.com", ".youtu.be"))
+
+
 def _normalize_item_url(raw_url: str, item_id: str, source_url: str) -> str:
     value = raw_url.strip()
     if value.startswith("http://") or value.startswith("https://"):
         return value
     if not item_id:
         return ""
-    if "youtube.com" in source_url or "youtu.be" in source_url:
+    if _is_youtube_host(source_url):
         return f"https://www.youtube.com/watch?v={item_id}"
     return value
 
