@@ -105,6 +105,16 @@ def test_native_and_python_share_one_install_identity() -> None:
     assert "license_device_id" in python_entry
 
 
+def test_entitlement_api_supports_result_specific_callbacks() -> None:
+    native_api = (
+        ROOT / "android/app/src/main/java/de/classydl/app/EntitlementApi.kt"
+    ).read_text(encoding="utf-8")
+
+    assert "callback: ((JSONObject) -> Unit)? = null" in native_api
+    assert 'parsed.put("status", status)' in native_api
+    assert "if (callback != null) mainHandler.post { callback(result) }" in native_api
+
+
 def test_play_refund_flow_stays_native_and_purchase_token_bound() -> None:
     controller = (
         ROOT / "android/app/src/play/java/de/classydl/app/PurchaseControllerFactory.kt"

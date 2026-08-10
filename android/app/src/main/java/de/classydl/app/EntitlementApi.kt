@@ -87,6 +87,7 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
         body: JSONObject,
         validatedLicenseKey: String? = null,
         reportResult: Boolean = true,
+        callback: ((JSONObject) -> Unit)? = null,
     ) {
         executor.execute {
             val result = try {
@@ -102,6 +103,7 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
                 val response = stream?.bufferedReader()?.use { it.readText() }.orEmpty()
                 connection.disconnect()
                 val parsed = if (response.isBlank()) JSONObject() else JSONObject(response)
+                parsed.put("status", status)
                 parsed.put("ok", status in 200..299 && parsed.optBoolean("ok", true))
                 if (validatedLicenseKey != null) {
                     parsed.put("requested_license_key", validatedLicenseKey)
@@ -111,7 +113,8 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
             } catch (error: Exception) {
                 JSONObject().put("ok", false).put("error", "network_error")
             }
-            if (reportResult) mainHandler.post { onResult(result) }
+            if (callback != null) mainHandler.post { callback(result) }
+            else if (reportResult) mainHandler.post { onResult(result) }
         }
     }
 }
