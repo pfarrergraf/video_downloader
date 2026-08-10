@@ -90,6 +90,14 @@ adb shell am force-stop de.classydl.app
 sleep 2
 adb shell am start -n de.classydl.app/.MainActivity
 
+# Android 13+ may show the runtime notification-permission dialog as soon as
+# DownloadService first enters the foreground.  Grant it explicitly in this
+# unattended emulator test so the system dialog cannot cover the WebView's
+# share-format picker.  Older API levels (or manifests without the permission)
+# may reject the command, which is harmless for this smoke test.
+adb shell pm grant de.classydl.app android.permission.POST_NOTIFICATIONS \
+  >/dev/null 2>&1 || true
+
 HEALTH_READY=false
 for i in $(seq 1 40); do
   if curl -sf --max-time 2 "$BASE/api/health" >/dev/null 2>&1; then
