@@ -184,8 +184,8 @@
   },
   "website": {
     "meta": {
-      "title": "DownloadThat — Android ಗಾಗಿ ವೀಡಿಯೊ, ಆಡಿಯೊ ಮತ್ತು ಚಿತ್ರ ಡೌನ್‌ಲೋಡರ್",
-      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
+      "title": "DownloadThat — Video & Audio Downloader for Android",
+      "description": "Download videos and audio straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
     },
     "nav": {
       "features": "ವೈಶಿಷ್ಟ್ಯಗಳು",
@@ -196,7 +196,7 @@
     "hero": {
       "title_html": "{emphasis} ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ.<br/>ನೇರವಾಗಿ ನಿಮ್ಮ ಫೋನ್‌ಗೆ.",
       "title_emphasis": "ಬಹುತೇಕ ಎಲ್ಲವನ್ನೂ",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "cta_primary": "ಉಚಿತ ಆಂಡ್ರಾಯ್ಡ್ ಆವೃತ್ತಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
       "cta_secondary": "ಪ್ರೊ ಬೆಲೆ ನೋಡಿ",
       "windows_link": "Windows ಗಾಗಿಯೂ ಲಭ್ಯವಿದೆ →",
@@ -207,13 +207,13 @@
       "title_line_1": "SHARE.",
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
       "step_share": "Pick DownloadThat from the share sheet.",
-      "step_format": "Choose video, audio or images.",
+      "step_format": "Choose video or audio.",
       "step_stream": "Media is bundled together.",
       "step_inside": "The file is processed locally.",
       "step_success": "Saved — right on your device.",
@@ -222,7 +222,6 @@
       "format_title": "What do you want to save?",
       "format_video": "Video",
       "format_audio": "Audio",
-      "format_images": "Images",
       "stream_title": "Bundling the data",
       "inside_title": "Saving locally",
       "success_title": "Saved.",
@@ -237,7 +236,7 @@
       "h2": "ನಿಮಗೆ ಬೇಕಾದ್ದೆಲ್ಲಾ, ಬೇಡದ್ದು ಏನೂ ಇಲ್ಲ",
       "lead": "ಸುಲಭವಾಗಿ ಕೆಲಸ ಮಾಡುವ ವೇಗದ, ಖಾಸಗಿ ಡೌನ್‌ಲೋಡರ್ — ಹೆಚ್ಚು ಬಯಸುವವರಿಗೆ ಪ್ರೊ ಹಂತದೊಂದಿಗೆ.",
       "f1_title": "ಹೆಚ್ಚಿನ ವೀಡಿಯೊ ಅಥವಾ ಆಡಿಯೊ",
-      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
+      "f1_desc": "Save video and audio straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "ಬ್ಯಾಚ್ ಡೌನ್‌ಲೋಡ್‌ಗಳು",
       "f2_desc": "ಪುಟದಲ್ಲಿರುವ ಪ್ರತಿಯೊಂದು ಮೀಡಿಯಾ ಫೈಲ್‌ಗಾಗಿ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ ಮತ್ತು ಆಯ್ಕೆ/ರದ್ದು ಆಯ್ಕೆಯೊಂದಿಗೆ ಅವುಗಳನ್ನು ಒಟ್ಟಿಗೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ.",
       "f3_title": "ವಿನ್ಯಾಸದಿಂದಲೇ ಖಾಸಗಿ",

@@ -9,7 +9,7 @@ Sideload-Dokumente sind historische Evidenz und keine Textquelle.
 
 ## Zulässige Positionierung
 
-- DownloadThat speichert Video, Audio und Bilder aus Links, die Nutzer selbst
+- DownloadThat speichert Video und Audio aus Links, die Nutzer selbst
   bereitstellen und rechtmäßig speichern dürfen.
 - Die Medienverarbeitung erfolgt auf dem Gerät.
 - Lizenzprüfung, Google Play Billing, Quellabruf und Updates benötigen begrenzte

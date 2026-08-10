@@ -30,7 +30,7 @@ Internal shorthand:
 
 Safer external framing:
 
-> DownloadThat is a private Android media utility for downloading video, audio, and images from links you provide, where you have the right to do so.
+> DownloadThat is a private Android media utility for downloading video and audio from links you provide, where you have the right to do so.
 
 ## Security workstreams
 

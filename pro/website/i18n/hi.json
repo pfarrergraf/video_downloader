@@ -184,8 +184,8 @@
   },
   "website": {
     "meta": {
-      "title": "DownloadThat — Android के लिए वीडियो, ऑडियो और इमेज डाउनलोडर",
-      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
+      "title": "DownloadThat — Video & Audio Downloader for Android",
+      "description": "Download videos and audio straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
     },
     "nav": {
       "features": "फीचर्स",
@@ -196,7 +196,7 @@
     "hero": {
       "title_html": "{emphasis} डाउनलोड करें।<br/>सीधे अपने फ़ोन पर।",
       "title_emphasis": "लगभग सब कुछ",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "cta_primary": "फ्री एंड्रॉइड वर्शन डाउनलोड करें",
       "cta_secondary": "Pro मूल्य देखें",
       "windows_link": "Windows के लिए भी उपलब्ध →",
@@ -207,13 +207,13 @@
       "title_line_1": "SHARE.",
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
       "step_share": "Pick DownloadThat from the share sheet.",
-      "step_format": "Choose video, audio or images.",
+      "step_format": "Choose video or audio.",
       "step_stream": "Media is bundled together.",
       "step_inside": "The file is processed locally.",
       "step_success": "Saved — right on your device.",
@@ -222,7 +222,6 @@
       "format_title": "What do you want to save?",
       "format_video": "Video",
       "format_audio": "Audio",
-      "format_images": "Images",
       "stream_title": "Bundling the data",
       "inside_title": "Saving locally",
       "success_title": "Saved.",
@@ -237,7 +236,7 @@
       "h2": "जो चाहिए वह सब कुछ, जो नहीं चाहिए वह कुछ नहीं",
       "lead": "एक तेज़, निजी डाउनलोडर जो बस काम करता है — जो लोग और अधिक चाहते हैं उनके लिए Pro टियर भी है।",
       "f1_title": "ज़्यादातर वीडियो या ऑडियो",
-      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
+      "f1_desc": "Save video and audio straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "बैच डाउनलोड",
       "f2_desc": "किसी पेज पर मौजूद सभी मीडिया फ़ाइलें स्कैन करें और चुनने/हटाने के विकल्प के साथ उन्हें एक साथ डाउनलोड करें।",
       "f3_title": "शुरुआत से ही निजी",

@@ -4,7 +4,7 @@
 
 V3 kombiniert die beiden vollständig ausgebauten Verbesserungen:
 
-1. **Magnetischer Datenstrom**: Video-, Audio- und Bildobjekte bleiben visuell unterscheidbar, bewegen sich auf gekrümmten Bahnen zum Smartphone und formen sich zum DownloadThat-Pfeil.
+1. **Magnetischer Datenstrom**: Video- und Audioobjekte bleiben visuell unterscheidbar, bewegen sich auf gekrümmten Bahnen zum Smartphone und formen sich zum DownloadThat-Pfeil.
 2. **Kamerafahrt durch das Smartphone**: Die Kamera nähert sich während der Bediensequenz, folgt der Datei durch die Glasoberfläche in die lokale Verarbeitung und kehrt anschließend in einen ruhigen Erfolgszustand zurück.
 
 ## Vorschauen
@@ -23,7 +23,7 @@ V3 kombiniert die beiden vollständig ausgebauten Verbesserungen:
 
 1. Medienlink und Share-Button
 2. stilisiertes Teilen-Menü
-3. Auswahl von Video, Audio oder Bildern
+3. Auswahl von Video oder Audio
 4. magnetische Bündelung der drei Medientypen
 5. Morph zum DownloadThat-Pfeil
 6. Kamerafahrt durch die Displayoberfläche

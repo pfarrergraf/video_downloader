@@ -19,7 +19,7 @@ const sources = [...root.querySelectorAll('[data-pc3-source]')];
 const sequence = [
   {id:'source',at:0,n:'01',copy:'Medienlink öffnen und teilen.'},
   {id:'share',at:1350,n:'02',copy:'DownloadThat im Teilen-Menü auswählen.'},
-  {id:'format',at:2850,n:'03',copy:'Video, Audio oder Bilder wählen.'},
+  {id:'format',at:2850,n:'03',copy:'Video oder Audio wählen.'},
   {id:'stream',at:4300,n:'04',copy:'Medien werden magnetisch gebündelt.'},
   {id:'inside',at:6750,n:'05',copy:'Die Kamera folgt der Datei ins Gerät.'},
   {id:'success',at:9050,n:'06',copy:'Gespeichert. Direkt auf dem Gerät.'}

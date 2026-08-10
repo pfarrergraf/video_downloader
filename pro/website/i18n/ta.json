@@ -184,8 +184,8 @@
   },
   "website": {
     "meta": {
-      "title": "DownloadThat — Android-க்கான வீடியோ, ஆடியோ & பட பதிவிறக்கி",
-      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
+      "title": "DownloadThat — Video & Audio Downloader for Android",
+      "description": "Download videos and audio straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
     },
     "nav": {
       "features": "அம்சங்கள்",
@@ -196,7 +196,7 @@
     "hero": {
       "title_html": "{emphasis} பதிவிறக்கவும்.<br/>நேரடியாக உங்கள் மொபைலுக்கு.",
       "title_emphasis": "கிட்டத்தட்ட எல்லாம்",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "cta_primary": "இலவச ஆண்ட்ராய்டு பதிப்பைப் பதிவிறக்கவும்",
       "cta_secondary": "Pro விலையைப் பார்க்கவும்",
       "windows_link": "Windows-க்கும் கிடைக்கிறது →",
@@ -207,13 +207,13 @@
       "title_line_1": "SHARE.",
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
       "step_share": "Pick DownloadThat from the share sheet.",
-      "step_format": "Choose video, audio or images.",
+      "step_format": "Choose video or audio.",
       "step_stream": "Media is bundled together.",
       "step_inside": "The file is processed locally.",
       "step_success": "Saved — right on your device.",
@@ -222,7 +222,6 @@
       "format_title": "What do you want to save?",
       "format_video": "Video",
       "format_audio": "Audio",
-      "format_images": "Images",
       "stream_title": "Bundling the data",
       "inside_title": "Saving locally",
       "success_title": "Saved.",
@@ -237,7 +236,7 @@
       "h2": "உங்களுக்குத் தேவையான அனைத்தும், தேவையற்றது ஒன்றும் இல்லை",
       "lead": "சரியாகச் செயல்படும் வேகமான, தனிப்பட்ட பதிவிறக்கி — மேலும் தேவைப்படுபவர்களுக்கு Pro நிலை உள்ளது.",
       "f1_title": "பெரும்பாலான வீடியோ அல்லது ஆடியோ",
-      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
+      "f1_desc": "Save video and audio straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "தொகுதி பதிவிறக்கங்கள்",
       "f2_desc": "ஒரு பக்கத்தில் உள்ள ஒவ்வொரு மீடியா கோப்பையும் ஸ்கேன் செய்து, தேர்வு/தேர்வுநீக்கத்துடன் அவற்றை ஒன்றாகப் பதிவிறக்கவும்.",
       "f3_title": "வடிவமைப்பிலேயே தனியுரிமை",

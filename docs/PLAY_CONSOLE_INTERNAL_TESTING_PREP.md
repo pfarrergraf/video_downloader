@@ -12,11 +12,11 @@ Distribution start: EU/EEA
 
 Short description (EN):
 
-> Download video, audio and images from links you may lawfully save.
+> Download video and audio from links you may lawfully save.
 
 Kurzbeschreibung (DE):
 
-> Video, Audio und Bilder aus Links laden, die du rechtmäßig speichern darfst.
+> Video und Audio aus Links laden, die du rechtmäßig speichern darfst.
 
 The full description must use verified product facts and follow `security/PUBLIC_CLAIMS_POLICY.md`:
 three free downloads per 24 hours; Pro is a one-time Google Play purchase at the

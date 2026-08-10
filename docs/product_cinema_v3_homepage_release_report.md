@@ -10,7 +10,7 @@
 
 ## Übernommene V3-Funktionen
 
-Magnetischer Datenstrom (Video/Audio/Bild-Quellen, gekrümmte Bahnen, Morph zum
+Magnetischer Datenstrom (Video-/Audio-Quellen, gekrümmte Bahnen, Morph zum
 DownloadThat-Pfeil), Kamerafahrt durch das Smartphone (`source → share → format → stream
 → inside → success`), Glas-/Portalübergang, lokale Dateiverarbeitung, ruhiger
 Erfolgszustand, Replay, manueller Schrittmodus, Motion-Schalter, `prefers-reduced-motion`,

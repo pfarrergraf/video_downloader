@@ -184,8 +184,8 @@
   },
   "website": {
     "meta": {
-      "title": "DownloadThat — אפליקציית הורדת וידאו, אודיו ותמונות לאנדרואיד",
-      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
+      "title": "DownloadThat — Video & Audio Downloader for Android",
+      "description": "Download videos and audio straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
     },
     "nav": {
       "features": "יכולות",
@@ -196,7 +196,7 @@
     "hero": {
       "title_html": "הורידו {emphasis}.<br/>ישירות לטלפון שלכם.",
       "title_emphasis": "כמעט הכול",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "cta_primary": "הורידו את הגרסה החינמית לאנדרואיד",
       "cta_secondary": "צפייה בתמחור Pro",
       "windows_link": "זמין גם עבור Windows →",
@@ -207,13 +207,13 @@
       "title_line_1": "SHARE.",
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
       "step_share": "Pick DownloadThat from the share sheet.",
-      "step_format": "Choose video, audio or images.",
+      "step_format": "Choose video or audio.",
       "step_stream": "Media is bundled together.",
       "step_inside": "The file is processed locally.",
       "step_success": "Saved — right on your device.",
@@ -222,7 +222,6 @@
       "format_title": "What do you want to save?",
       "format_video": "Video",
       "format_audio": "Audio",
-      "format_images": "Images",
       "stream_title": "Bundling the data",
       "inside_title": "Saving locally",
       "success_title": "Saved.",
@@ -237,7 +236,7 @@
       "h2": "כל מה שאתם צריכים, ושום דבר מיותר",
       "lead": "מוריד מהיר ופרטי שפשוט עובד — עם דרגת Pro למי שרוצה עוד.",
       "f1_title": "רוב הווידאו או האודיו",
-      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
+      "f1_desc": "Save video and audio straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "הורדות באצווה",
       "f2_desc": "סרקו עמוד לאיתור כל קבצי המדיה והורידו אותם יחד, עם בחירה/ביטול בחירה.",
       "f3_title": "פרטיות מהיסוד",

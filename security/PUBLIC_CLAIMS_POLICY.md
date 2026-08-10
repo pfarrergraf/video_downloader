@@ -10,15 +10,15 @@ affiliate, sideload and marketing documents.
 
 English:
 
-> DownloadThat is an Android media utility for saving video, audio and images
+> DownloadThat is an Android media utility for saving video and audio
 > from links you provide, where you have the right or permission to do so. Media
 > processing happens on your device. License verification and updates use limited
 > network services.
 
 Deutsch:
 
-> DownloadThat ist eine Android-Medien-App zum Speichern von Video, Audio und
-> Bildern aus Links, die du selbst bereitstellst und rechtmäßig speichern darfst.
+> DownloadThat ist eine Android-Medien-App zum Speichern von Video und Audio aus
+> Links, die du selbst bereitstellst und rechtmäßig speichern darfst.
 > Die Medienverarbeitung erfolgt auf deinem Gerät. Lizenzprüfung und Updates
 > nutzen begrenzte Netzwerkdienste.
 
