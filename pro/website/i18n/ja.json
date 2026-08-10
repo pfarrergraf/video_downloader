@@ -184,8 +184,8 @@
   },
   "website": {
     "meta": {
-      "title": "DownloadThat — Android向け動画・音声・画像ダウンローダー",
-      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
+      "title": "DownloadThat — Video & Audio Downloader for Android",
+      "description": "Download videos and audio straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
     },
     "nav": {
       "features": "機能",
@@ -196,7 +196,7 @@
     "hero": {
       "title_html": "{emphasis}をダウンロード。<br/>そのままスマホへ。",
       "title_emphasis": "ほぼなんでも",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "cta_primary": "無料のAndroid版をダウンロード",
       "cta_secondary": "Proの料金を見る",
       "windows_link": "Windows版もあります →",
@@ -207,13 +207,13 @@
       "title_line_1": "SHARE.",
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
       "step_share": "Pick DownloadThat from the share sheet.",
-      "step_format": "Choose video, audio or images.",
+      "step_format": "Choose video or audio.",
       "step_stream": "Media is bundled together.",
       "step_inside": "The file is processed locally.",
       "step_success": "Saved — right on your device.",
@@ -222,7 +222,6 @@
       "format_title": "What do you want to save?",
       "format_video": "Video",
       "format_audio": "Audio",
-      "format_images": "Images",
       "stream_title": "Bundling the data",
       "inside_title": "Saving locally",
       "success_title": "Saved.",
@@ -237,7 +236,7 @@
       "h2": "必要なものはすべて、余計なものは何もなし",
       "lead": "高速でプライベートなダウンローダーが、そのまま使える。もっと求める人にはProプランも。",
       "f1_title": "ほとんどの動画や音声",
-      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
+      "f1_desc": "Save video and audio straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "一括ダウンロード",
       "f2_desc": "ページ内のすべてのメディアファイルをスキャンし、選択・解除しながらまとめてダウンロードできます。",
       "f3_title": "設計段階からプライバシー重視",

@@ -184,8 +184,8 @@
   },
   "website": {
     "meta": {
-      "title": "DownloadThat — prenašalnik videov, zvoka in slik za Android",
-      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
+      "title": "DownloadThat — Video & Audio Downloader for Android",
+      "description": "Download videos and audio straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
     },
     "nav": {
       "features": "Funkcije",
@@ -196,7 +196,7 @@
     "hero": {
       "title_html": "Prenesi {emphasis}.<br/>Neposredno na telefon.",
       "title_emphasis": "skoraj vse",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "cta_primary": "Prenesi brezplačno različico za Android",
       "cta_secondary": "Poglej cenik Pro",
       "windows_link": "Na voljo tudi za Windows →",
@@ -207,13 +207,13 @@
       "title_line_1": "SHARE.",
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
       "step_share": "Pick DownloadThat from the share sheet.",
-      "step_format": "Choose video, audio or images.",
+      "step_format": "Choose video or audio.",
       "step_stream": "Media is bundled together.",
       "step_inside": "The file is processed locally.",
       "step_success": "Saved — right on your device.",
@@ -222,7 +222,6 @@
       "format_title": "What do you want to save?",
       "format_video": "Video",
       "format_audio": "Audio",
-      "format_images": "Images",
       "stream_title": "Bundling the data",
       "inside_title": "Saving locally",
       "success_title": "Saved.",
@@ -237,7 +236,7 @@
       "h2": "Vse, kar potrebuješ, nič, česar ne bi",
       "lead": "Hiter, zaseben prenašalnik, ki preprosto deluje — z ravnjo Pro za tiste, ki želijo več.",
       "f1_title": "Večina videa ali zvoka",
-      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
+      "f1_desc": "Save video and audio straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Množični prenosi",
       "f2_desc": "Preišči stran za vse vsebine in jih prenesi skupaj, z izbiro posameznih datotek.",
       "f3_title": "Zasebnost po zasnovi",

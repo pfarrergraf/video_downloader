@@ -43,15 +43,15 @@ never show protected-platform brands or imply that every site is supported.
 
 ### Short description (≤80 characters)
 
-**German:** `Video, Audio und Bilder aus Links laden, die du rechtmäßig speichern darfst.`
-**English:** `Download video, audio and images from links you may lawfully save.`
+**German:** `Video und Audio aus Links laden, die du rechtmäßig speichern darfst.`
+**English:** `Download video and audio from links you may lawfully save.`
 
 ### Full description (≤4000 characters)
 
 **German:**
 
 ```
-DownloadThat speichert Videos, Audio und Bilder aus Links, die du rechtmäßig
+DownloadThat speichert Videos und Audio aus Links, die du rechtmäßig
 speichern darfst – direkt auf deinem Gerät.
 
 WICHTIGSTE FUNKTIONEN
@@ -77,7 +77,7 @@ lizenzierte oder ausdrücklich freigegebene Inhalte herunter.
 **English:**
 
 ```
-DownloadThat saves video, audio and images from links you may lawfully save —
+DownloadThat saves video and audio from links you may lawfully save —
 directly on your device.
 
 KEY FEATURES

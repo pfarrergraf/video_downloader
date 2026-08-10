@@ -184,8 +184,8 @@
   },
   "website": {
     "meta": {
-      "title": "DownloadThat: descargador de vídeo, audio e imágenes para Android",
-      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
+      "title": "DownloadThat — Video & Audio Downloader for Android",
+      "description": "Download videos and audio straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
     },
     "nav": {
       "features": "Funciones",
@@ -196,7 +196,7 @@
     "hero": {
       "title_html": "Descarga {emphasis}.<br/>Directamente a tu teléfono.",
       "title_emphasis": "casi todo",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "cta_primary": "Descargar la versión gratuita para Android",
       "cta_secondary": "Ver precios de Pro",
       "windows_link": "También disponible para Windows →",
@@ -207,13 +207,13 @@
       "title_line_1": "SHARE.",
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
       "step_share": "Pick DownloadThat from the share sheet.",
-      "step_format": "Choose video, audio or images.",
+      "step_format": "Choose video or audio.",
       "step_stream": "Media is bundled together.",
       "step_inside": "The file is processed locally.",
       "step_success": "Saved — right on your device.",
@@ -222,7 +222,6 @@
       "format_title": "What do you want to save?",
       "format_video": "Video",
       "format_audio": "Audio",
-      "format_images": "Images",
       "stream_title": "Bundling the data",
       "inside_title": "Saving locally",
       "success_title": "Saved.",
@@ -237,7 +236,7 @@
       "h2": "Todo lo que necesitas, nada de lo que no",
       "lead": "Un descargador rápido y privado que simplemente funciona, con una versión Pro para quien quiera más.",
       "f1_title": "La mayoría de vídeos o audio",
-      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
+      "f1_desc": "Save video and audio straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Descargas por lotes",
       "f2_desc": "Analiza una página en busca de todos los archivos multimedia y descárgalos juntos, seleccionando o deseleccionando cada uno.",
       "f3_title": "Privado por diseño",

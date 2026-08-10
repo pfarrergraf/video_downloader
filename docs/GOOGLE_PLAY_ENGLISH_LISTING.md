@@ -14,7 +14,7 @@ DownloadThat!
 ### Short description
 
 ```text
-Download video, audio and images from links you are allowed to save.
+Download video and audio from links you are allowed to save.
 ```
 
 This is within Google Play's 80-character limit.
@@ -22,7 +22,7 @@ This is within Google Play's 80-character limit.
 ### Full description
 
 ```text
-DownloadThat saves video, audio and images from links you are legally allowed to save — directly on your device.
+DownloadThat saves video and audio from links you are legally allowed to save — directly on your device.
 
 KEY FEATURES
 • One field for a link, multiple links, or an entire playlist

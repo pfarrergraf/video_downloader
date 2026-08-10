@@ -2,10 +2,10 @@ APP NAME
 DownloadThat!
 
 SHORT DESCRIPTION
-Download video, audio and images from links you are allowed to save.
+Download video and audio from links you are allowed to save.
 
 FULL DESCRIPTION
-DownloadThat saves video, audio and images from links you are legally allowed to save — directly on your device.
+DownloadThat saves video and audio from links you are legally allowed to save — directly on your device.
 
 KEY FEATURES
 • One field for a link, multiple links, or an entire playlist

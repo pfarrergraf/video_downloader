@@ -8,10 +8,10 @@ APP NAME
 DownloadThat!
 
 SHORT DESCRIPTION
-Téléchargez vidéos, audio et images que vous avez le droit d’enregistrer.
+Téléchargez les vidéos et l’audio que vous avez le droit d’enregistrer.
 
 FULL DESCRIPTION
-DownloadThat enregistre des vidéos, de l’audio et des images à partir de liens dont l’enregistrement est légalement autorisé, directement sur votre appareil.
+DownloadThat enregistre des vidéos et de l’audio à partir de liens dont l’enregistrement est légalement autorisé, directement sur votre appareil.
 
 FONCTIONNALITÉS PRINCIPALES
 • Un champ pour un lien, plusieurs liens ou une playlist entière
@@ -36,10 +36,10 @@ APP NAME
 DownloadThat!
 
 SHORT DESCRIPTION
-Descarga vídeos, audio e imágenes que tienes derecho a guardar.
+Descarga vídeos y audio que tienes derecho a guardar.
 
 FULL DESCRIPTION
-DownloadThat guarda vídeos, audio e imágenes de enlaces cuyo contenido puedes guardar legalmente, directamente en tu dispositivo.
+DownloadThat guarda vídeos y audio de enlaces cuyo contenido puedes guardar legalmente, directamente en tu dispositivo.
 
 CARACTERÍSTICAS PRINCIPALES
 • Un campo para un enlace, varios enlaces o una lista de reproducción completa
@@ -64,10 +64,10 @@ APP NAME
 DownloadThat!
 
 SHORT DESCRIPTION
-Scarica video, audio e immagini che hai il diritto di salvare.
+Scarica video e audio che hai il diritto di salvare.
 
 FULL DESCRIPTION
-DownloadThat salva video, audio e immagini da link i cui contenuti possono essere salvati legalmente, direttamente sul tuo dispositivo.
+DownloadThat salva video e audio da link i cui contenuti possono essere salvati legalmente, direttamente sul tuo dispositivo.
 
 CARATTERISTICHE PRINCIPALI
 • Un campo per un link, più link o un’intera playlist
@@ -92,10 +92,10 @@ APP NAME
 DownloadThat!
 
 SHORT DESCRIPTION
-Download video, audio en afbeeldingen die je mag opslaan.
+Download video en audio die je mag opslaan.
 
 FULL DESCRIPTION
-DownloadThat slaat video, audio en afbeeldingen op van links waarvan je de inhoud wettelijk mag opslaan, rechtstreeks op je apparaat.
+DownloadThat slaat video en audio op van links waarvan je de inhoud wettelijk mag opslaan, rechtstreeks op je apparaat.
 
 BELANGRIJKSTE FUNCTIES
 • Eén veld voor één link, meerdere links of een volledige playlist
@@ -120,10 +120,10 @@ APP NAME
 DownloadThat!
 
 SHORT DESCRIPTION
-Pobieraj wideo, dźwięk i obrazy, które możesz legalnie zapisać.
+Pobieraj wideo i dźwięk, które możesz legalnie zapisać.
 
 FULL DESCRIPTION
-DownloadThat zapisuje filmy, dźwięk i obrazy z linków, których treści możesz legalnie zapisywać, bezpośrednio na urządzeniu.
+DownloadThat zapisuje filmy i dźwięk z linków, których treści możesz legalnie zapisywać, bezpośrednio na urządzeniu.
 
 NAJWAŻNIEJSZE FUNKCJE
 • Jedno pole na pojedynczy link, wiele linków lub całą playlistę
@@ -148,10 +148,10 @@ APP NAME
 DownloadThat!
 
 SHORT DESCRIPTION
-下载你有权保存的视频、音频和图片。
+下载你有权保存的视频和音频。
 
 FULL DESCRIPTION
-DownloadThat 可将你依法有权保存的链接中的视频、音频和图片直接保存到设备上。
+DownloadThat 可将你依法有权保存的链接中的视频和音频直接保存到设备上。
 
 主要功能
 • 一个输入框，支持单个链接、多个链接或完整播放列表
@@ -176,10 +176,10 @@ APP NAME
 DownloadThat!
 
 SHORT DESCRIPTION
-保存する権利のある動画、音声、画像をダウンロード。
+保存する権利のある動画と音声をダウンロード。
 
 FULL DESCRIPTION
-DownloadThat は、法律上保存が許可されているリンクから動画、音声、画像を端末に直接保存します。
+DownloadThat は、法律上保存が許可されているリンクから動画と音声を端末に直接保存します。
 
 主な機能
 • 1つのリンク、複数のリンク、またはプレイリスト全体に対応
@@ -204,10 +204,10 @@ APP NAME
 DownloadThat!
 
 SHORT DESCRIPTION
-Скачивайте видео, аудио и изображения, которые разрешено сохранять.
+Скачивайте видео и аудио, которые разрешено сохранять.
 
 FULL DESCRIPTION
-DownloadThat сохраняет видео, аудио и изображения из ссылок, содержимое которых разрешено сохранять по закону, прямо на вашем устройстве.
+DownloadThat сохраняет видео и аудио из ссылок, содержимое которых разрешено сохранять по закону, прямо на вашем устройстве.
 
 ВОЗМОЖНОСТИ
 • Одно поле для одной ссылки, нескольких ссылок или целого плейлиста
@@ -232,10 +232,10 @@ APP NAME
 DownloadThat!
 
 SHORT DESCRIPTION
-نزّل الفيديو والصوت والصور التي يحق لك حفظها.
+نزّل الفيديو والصوت الذي يحق لك حفظه.
 
 FULL DESCRIPTION
-يحفظ DownloadThat مقاطع الفيديو والصوت والصور من الروابط التي يُسمح لك قانونيًا بحفظ محتواها، مباشرةً على جهازك.
+يحفظ DownloadThat مقاطع الفيديو والصوت من الروابط التي يُسمح لك قانونيًا بحفظ محتواها، مباشرةً على جهازك.
 
 الميزات الرئيسية
 • حقل واحد لرابط واحد أو عدة روابط أو قائمة تشغيل كاملة

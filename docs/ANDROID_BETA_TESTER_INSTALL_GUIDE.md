@@ -9,7 +9,7 @@
 
 ## What the app does
 
-DownloadThat saves video, audio and images from links you provide and may lawfully
+DownloadThat saves video and audio from links you provide and may lawfully
 save. Media processing happens on your Android device; license checks and updates
 use limited network services. The Free tier needs no account.
 

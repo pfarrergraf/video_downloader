@@ -26,3 +26,31 @@ def test_store_listing_assets_avoid_named_download_platforms() -> None:
     for source in text_sources:
         text = source.read_text(encoding="utf-8").lower()
         assert not any(claim in text for claim in forbidden), source.name
+
+
+def test_android_marketing_does_not_claim_image_downloads() -> None:
+    text_sources = [
+        ROOT / "docs/GOOGLE_PLAY_ENGLISH_LISTING.md",
+        ROOT / "docs/GOOGLE_PLAY_ENGLISH_TEXT.txt",
+        ROOT / "docs/GOOGLE_PLAY_MORE_LANGUAGES.txt",
+        ROOT / "security/PUBLIC_CLAIMS_POLICY.md",
+        ROOT / "store_assets/README.md",
+        ROOT / "pro/website/index.html",
+        *sorted((ROOT / "store_assets").glob("feature_graphic*.svg")),
+        *sorted((ROOT / "pro/website/i18n").glob("*.json")),
+    ]
+    forbidden = (
+        "images",
+        "bilder",
+        "afbeeldingen",
+        "immagini",
+        "imágenes",
+        "obrazy",
+        "图片",
+        "画像",
+        "изображения",
+        "الصور",
+    )
+    for source in text_sources:
+        text = source.read_text(encoding="utf-8").lower()
+        assert not any(claim in text for claim in forbidden), source

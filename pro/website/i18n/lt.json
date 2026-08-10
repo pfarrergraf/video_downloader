@@ -184,8 +184,8 @@
   },
   "website": {
     "meta": {
-      "title": "DownloadThat — vaizdo, garso ir nuotraukų atsisiuntimo programėlė „Android“",
-      "description": "Download videos, audio and images straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
+      "title": "DownloadThat — Video & Audio Downloader for Android",
+      "description": "Download videos and audio straight to your Android phone. Free core, Pro at the local Google Play price — no subscription."
     },
     "nav": {
       "features": "Galimybės",
@@ -196,7 +196,7 @@
     "hero": {
       "title_html": "Atsisiųsk {emphasis}.<br/>Tiesiai į telefoną.",
       "title_emphasis": "beveik viską",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "cta_primary": "Atsisiųsti nemokamą Android versiją",
       "cta_secondary": "Peržiūrėti Pro kainas",
       "windows_link": "Taip pat prieinama „Windows“ →",
@@ -207,13 +207,13 @@
       "title_line_1": "SHARE.",
       "title_line_2": "CHOOSE.",
       "title_line_3": "SAVE.",
-      "lead": "Save video, audio and images straight to your Android device in a few steps.",
+      "lead": "Save video and audio straight to your Android device in a few steps.",
       "trust_local": "Media processing on the device",
       "trust_cloud": "No unnecessary cloud stop",
       "legal": "Only save content you have the necessary rights or permission to use.",
       "step_source": "Open a media link and share it.",
       "step_share": "Pick DownloadThat from the share sheet.",
-      "step_format": "Choose video, audio or images.",
+      "step_format": "Choose video or audio.",
       "step_stream": "Media is bundled together.",
       "step_inside": "The file is processed locally.",
       "step_success": "Saved — right on your device.",
@@ -222,7 +222,6 @@
       "format_title": "What do you want to save?",
       "format_video": "Video",
       "format_audio": "Audio",
-      "format_images": "Images",
       "stream_title": "Bundling the data",
       "inside_title": "Saving locally",
       "success_title": "Saved.",
@@ -237,7 +236,7 @@
       "h2": "Viskas, ko reikia, ir nieko nereikalingo",
       "lead": "Greitas ir privatus atsisiuntimo įrankis, kuris tiesiog veikia — su Pro lygiu tiems, kam reikia daugiau.",
       "f1_title": "Dauguma vaizdo ar garso įrašų",
-      "f1_desc": "Save video, audio and images straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
+      "f1_desc": "Save video and audio straight to your Android device in a few steps. Only save content you have the necessary rights or permission to use.",
       "f2_title": "Atsisiuntimai grupėmis",
       "f2_desc": "Nuskenuok puslapį ir rask visus jame esančius failus, tada atsisiųsk juos kartu, pažymėdamas arba panaikindamas žymėjimą.",
       "f3_title": "Privatumas iš esmės",
