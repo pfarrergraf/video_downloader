@@ -72,6 +72,13 @@ def test_commerce_preflight_is_stripe_free_and_exports_d1_read_only() -> None:
     assert "d1 migrations apply" not in workflow
 
 
+def test_owner_approved_website_dispatch_targets_pages_production() -> None:
+    workflow = _workflow("deploy-pro-website.yml")
+    assert "pages deploy . --project-name=downloadthat --branch=master" in workflow
+    assert 'h.mode !== "play_backend"' in workflow
+    assert "store/apps/details?id=de.classydl.app" in workflow
+
+
 def test_checkout_credentials_are_not_persisted() -> None:
     for path in WORKFLOWS.glob("*.yml"):
         workflow = path.read_text(encoding="utf-8")

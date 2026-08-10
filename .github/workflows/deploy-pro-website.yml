@@ -114,7 +114,9 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: pro/website
-          command: pages deploy . --project-name=downloadthat
+          # workflow_dispatch may deliberately run from a release branch, but
+          # this environment is the owner-approved production deployment.
+          command: pages deploy . --project-name=downloadthat --branch=master
 
       - name: Replace legacy Hello World route and attach production domains
         shell: bash
@@ -156,8 +158,14 @@ jobs:
         run: |
           test -n "$DEPLOYMENT_URL" || { echo "Cloudflare deployment URL is missing"; exit 1; }
           base_url="${DEPLOYMENT_URL%/}"
-          curl --fail --location --retry 5 --retry-all-errors "$base_url/download" >/dev/null
-          curl --fail --retry 5 --retry-all-errors "$base_url/api/health" | tee health.json
+          retry=(--fail --location --retry 10 --retry-all-errors --retry-delay 5 --retry-max-time 120)
+          curl "${retry[@]}" "$base_url/download" >/dev/null
+          curl "${retry[@]}" "$base_url/api/health" | tee health.json
           node -e 'const h=require("./health.json"); if(!h.ok) process.exit(1)'
           test "$(curl -s -o /dev/null -w '%{http_code}' "$base_url/api/create-checkout")" = "404"
           test "$(curl -s -o /dev/null -w '%{http_code}' "$base_url/api/partner/config")" = "404"
+          production_url="${PUBLIC_BASE_URL%/}"
+          curl "${retry[@]}" "$production_url/api/health" | tee production-health.json
+          node -e 'const h=require("./production-health.json"); if(!h.ok || h.mode !== "play_backend") process.exit(1)'
+          curl "${retry[@]}" "$production_url/assets/runtime-config" | tee runtime-config.js
+          grep -F 'https://play.google.com/store/apps/details?id=de.classydl.app' runtime-config.js >/dev/null
