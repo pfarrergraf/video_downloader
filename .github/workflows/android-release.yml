@@ -70,9 +70,13 @@ jobs:
           metadata="$(curl --fail --silent --location https://github.com/pfarrergraf/video_downloader/releases/latest/download/DownloadThat-release.json || true)"
           if [ -n "$metadata" ]; then
             previous="$(printf '%s' "$metadata" | python -c 'import json,sys; print(json.load(sys.stdin)["versionCode"])')"
-            if ! (( VERSION_CODE > previous )); then
-              echo "::error::versionCode $VERSION_CODE (from $RELEASE_TAG) must exceed the released $previous — pick a higher version; an already-released tag cannot be rebuilt."
+            previous_tag="$(printf '%s' "$metadata" | python -c 'import json,sys; print(json.load(sys.stdin).get("releaseTag", ""))')"
+            if (( VERSION_CODE < previous )) || { (( VERSION_CODE == previous )) && [ "$RELEASE_TAG" != "$previous_tag" ]; }; then
+              echo "::error::versionCode $VERSION_CODE (from $RELEASE_TAG) must exceed the released $previous ($previous_tag)."
               exit 1
+            fi
+            if (( VERSION_CODE == previous )); then
+              echo "Retrying the existing $RELEASE_TAG release after an external publishing failure."
             fi
           fi
           echo "$RELEASE_TAG -> versionName=$VERSION_NAME versionCode=$VERSION_CODE" >> "$GITHUB_STEP_SUMMARY"
@@ -258,7 +262,11 @@ jobs:
           metadata="$(curl --fail --silent --location https://github.com/pfarrergraf/video_downloader/releases/latest/download/DownloadThat-release.json || true)"
           if [ -n "$metadata" ]; then
             previous="$(printf '%s' "$metadata" | python -c 'import json,sys; print(json.load(sys.stdin)["versionCode"])')"
-            (( VERSION_CODE > previous )) || { echo "versionCode $VERSION_CODE must exceed released $previous"; exit 1; }
+            previous_tag="$(printf '%s' "$metadata" | python -c 'import json,sys; print(json.load(sys.stdin).get("releaseTag", ""))')"
+            (( VERSION_CODE > previous )) || { (( VERSION_CODE == previous )) && [ "$RELEASE_TAG" = "$previous_tag" ]; } || {
+              echo "versionCode $VERSION_CODE ($RELEASE_TAG) must exceed released $previous ($previous_tag)"
+              exit 1
+            }
           fi
 
       - name: Build signed Direct APK (arm64-v8a only)

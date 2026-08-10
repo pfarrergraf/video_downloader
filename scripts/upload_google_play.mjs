@@ -35,7 +35,10 @@ async function responseJson(response, operation) {
   const body = text ? JSON.parse(text) : {};
   if (!response.ok) {
     const message = body?.error?.message || `${response.status} ${response.statusText}`;
-    throw new Error(`${operation} failed: ${message}`);
+    const apiStatus = body?.error?.status ? `, ${body.error.status}` : "";
+    const reason = body?.error?.details?.find((item) => item?.reason)?.reason;
+    const apiReason = reason ? `, ${reason}` : "";
+    throw new Error(`${operation} failed (${response.status}${apiStatus}${apiReason}): ${message}`);
   }
   return body;
 }

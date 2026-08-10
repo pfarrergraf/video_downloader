@@ -52,3 +52,33 @@ test("uploader refuses any non-internal track", async () => {
     /restricted to the internal track/,
   );
 });
+
+test("uploader preserves Google API status and reason in failures", async () => {
+  let calls = 0;
+  const fetchImpl = async () => {
+    calls += 1;
+    if (calls === 1) return Response.json({ access_token: "token" });
+    return Response.json(
+      {
+        error: {
+          message: "The caller does not have permission",
+          status: "PERMISSION_DENIED",
+          details: [{ reason: "PLAY_CONSOLE_PERMISSION" }],
+        },
+      },
+      { status: 403 },
+    );
+  };
+  await assert.rejects(
+    () => uploadGooglePlayBundle({
+      packageName: "de.classydl.app",
+      releaseName: "v1.0.0",
+      aabBytes: Buffer.from("aab"),
+      email: "ci@example.test",
+      privateKey: PEM,
+      fetchImpl,
+      nowSeconds: 1234,
+    }),
+    /Create Play edit failed \(403, PERMISSION_DENIED, PLAY_CONSOLE_PERMISSION\)/,
+  );
+});
