@@ -64,6 +64,14 @@ def test_play_reconciliation_waits_for_backend_enablement() -> None:
     assert "if: vars.PLAY_BACKEND_CONFIGURED == 'true'" in workflow
 
 
+def test_commerce_preflight_is_stripe_free_and_exports_d1_read_only() -> None:
+    workflow = _workflow("commerce-decommission-preflight.yml")
+    assert "STRIPE_TEST_SECRET_KEY" not in workflow
+    assert "export_stripe_test_evidence.py" not in workflow
+    assert "d1 export downloadthat-licenses --remote" in workflow
+    assert "d1 migrations apply" not in workflow
+
+
 def test_checkout_credentials_are_not_persisted() -> None:
     for path in WORKFLOWS.glob("*.yml"):
         workflow = path.read_text(encoding="utf-8")

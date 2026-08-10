@@ -129,6 +129,11 @@ Nur die mit `# public key:` ausgegebene `age1...`-Zeile kommt als
 7. Erst dann Produktion. Die Website und App verwenden schon das stabile
    Paket-Listing; der direkte APK-Link folgt automatisch dem neuesten GitHub Release.
 
+Der aktive Play-first-Betrieb benötigt keine Stripe-Schlüssel. Der einmalige
+`Commerce decommission preflight` archiviert nach der Owner-Prüfung nur noch den
+D1-Stand; Stripe-Sandboxdaten verbleiben bei Stripe und sind keine
+Laufzeitabhängigkeit der App oder Website.
+
 ## Finance
 
 Einmalige Bucket-Vorbereitung (PowerShell im Repository-Root):

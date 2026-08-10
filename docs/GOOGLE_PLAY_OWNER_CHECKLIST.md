@@ -47,8 +47,9 @@ Details: `docs/CLOUDFLARE_DOWNLOADTHAT_APP_SETUP.md`.
       setzen und `PLAY_AUTOMATED_REFUNDS_ENABLED=false` belassen.
 - [ ] Cloudflare Rate-Limiting-Regel für `POST /api/play/purchases/verify`
       aktivieren, damit anonyme Requests keine Google-API-Quota erschöpfen.
-- [ ] `Commerce decommission preflight` ausführen, Exporthash prüfen und nur bei
-      bestätigten Testdaten `PLAY_DECOMMISSION_APPROVED=true` setzen.
+- [ ] Nach Owner-Prüfung der Stripe-Liveansicht den Stripe-freien
+      `Commerce decommission preflight` ausführen, D1-Exporthash prüfen und nur
+      bei bestätigten Testdaten `PLAY_DECOMMISSION_APPROVED=true` setzen.
 - [ ] Danach alte Stripe-, Resend-, Turnstile- und Affiliate-Secrets in GitHub,
       Cloudflare und den Anbieter-Dashboards widerrufen/löschen.
 
