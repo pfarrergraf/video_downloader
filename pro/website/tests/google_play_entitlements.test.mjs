@@ -123,6 +123,18 @@ test("refund/revocation disables the same cross-platform license", async () => {
   assert.equal(validation.provider, "google_play");
 });
 
+test("repeat revocation does not extend the original refund timestamp", async () => {
+  const { env } = playEnv(() => purchase());
+  await verifyAndApplyPlayPurchase(env, "stable-revocation-token");
+  await revokePlayPurchaseByToken(env, "stable-revocation-token");
+  await env.DB.prepare("UPDATE play_purchases SET revoked_at = 123").run();
+  await revokePlayPurchaseByToken(env, "stable-revocation-token");
+  const second = await env.DB.prepare(
+    "SELECT revoked_at FROM play_purchases WHERE token_hash IS NOT NULL",
+  ).first();
+  assert.equal(second.revoked_at, 123);
+});
+
 test("POST license validation avoids query strings and returns 72-hour Play grace", async () => {
   const { env } = playEnv(() => purchase());
   const granted = await verifyAndApplyPlayPurchase(env, "validation-purchase-token");

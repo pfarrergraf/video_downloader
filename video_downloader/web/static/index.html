@@ -1438,6 +1438,7 @@ const LOCAL_UI_COPY = {
     'app.license.refund_review_toast': 'Deine Anfrage wurde zur manuellen Prüfung gespeichert.',
     'app.license.refund_processing_toast': 'Deine Rückerstattung wird bearbeitet.',
     'app.license.refund_failed_toast': 'Die Rückerstattung konnte nicht angefordert werden. Versuche es erneut oder kontaktiere den Support.',
+    'app.license.purchase_cooldown_toast': 'Du kannst Pro ab {date} erneut kaufen. Die kostenlose Nutzung bleibt verfügbar.',
   },
 };
 
@@ -1721,6 +1722,17 @@ function translationOr(key, fallback) {
   return value === key ? (LOCAL_UI_COPY[activeLanguage]?.[key] || fallback) : value;
 }
 
+function purchaseCooldownMessage(result) {
+  const timestamp = Number(result?.blocked_until || 0) * 1000;
+  const date = timestamp > 0
+    ? new Intl.DateTimeFormat(activeLanguage, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(timestamp))
+    : '';
+  return translationOr(
+    'app.license.purchase_cooldown_toast',
+    'You can purchase Pro again after {date}. Free downloads remain available.',
+  ).replace('{date}', date);
+}
+
 function updateRefundControls(status) {
   const available = !!(status && status.billingAvailable && status.pro && window.AndroidBridge?.requestPlayRefund);
   $('play-refund-controls').classList.toggle('hidden', !available);
@@ -1744,7 +1756,9 @@ window.onNativeEntitlementResult = async function(result) {
   if (result && result.revoked) {
     await clearRevokedNativeLicense();
     updateRefundControls(result);
-    toast(translationOr('app.license.refund_complete_toast', 'Refund completed. Pro has been deactivated.'));
+    if (result.event === 'refund') {
+      toast(translationOr('app.license.refund_complete_toast', 'Refund completed. Pro has been deactivated.'));
+    }
   } else if (result && result.status === 'manual_review') {
     setNativePurchaseBusy(false);
     toast(translationOr('app.license.refund_review_toast', 'Your request was saved for manual review.'));
@@ -1768,12 +1782,15 @@ window.onNativeEntitlementResult = async function(result) {
       purchase_cancelled: 'app.status.cancelled',
       refund_request_failed: 'app.license.refund_failed_toast',
       invalid_refund_reason: 'app.license.refund_failed_toast',
+      purchase_cooldown: 'app.license.purchase_cooldown_toast',
     };
     const errorKey = purchaseErrorKeys[result.error] || 'app.license.purchase_failed_toast';
-    const fallback = String(result.error).startsWith('refund_') || result.error === 'invalid_refund_reason'
-      ? 'The refund request could not be submitted. Try again or contact support.'
-      : t('app.license.purchase_failed_toast');
-    toast(translationOr(errorKey, fallback));
+    const fallback = result.error === 'purchase_cooldown'
+      ? 'You can purchase Pro again later. Free downloads remain available.'
+      : String(result.error).startsWith('refund_') || result.error === 'invalid_refund_reason'
+        ? 'The refund request could not be submitted. Try again or contact support.'
+        : t('app.license.purchase_failed_toast');
+    toast(result.error === 'purchase_cooldown' ? purchaseCooldownMessage(result) : translationOr(errorKey, fallback));
     if (!['purchase_in_progress', 'restoring_purchase'].includes(result.error)) {
       setNativePurchaseBusy(false);
     }

@@ -8,6 +8,7 @@ import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.ConsumeParams
 import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
@@ -33,8 +34,7 @@ private class PlayPurchaseController(
     private val mainHandler = Handler(Looper.getMainLooper())
     private var reconnecting = false
     @Volatile private var purchaseFlowInProgress = false
-    @Volatile private var lastVerifiedPurchaseToken: String? = null
-    private val pendingReadyActions = mutableListOf<() -> Unit>()
+    private val pendingReadyActions = mutableListOf<Pair<Boolean, () -> Unit>>()
 
     private val billingClient = BillingClient.newBuilder(context)
         .setListener { result, purchases -> handleBillingUpdate(result, purchases) }
@@ -61,7 +61,26 @@ private class PlayPurchaseController(
             return
         }
         purchaseFlowInProgress = true
-        connect { checkOwnedBeforePurchase(activity) }
+        api.checkPurchaseEligibility { result ->
+            if (!result.optBoolean("ok")) {
+                purchaseFlowInProgress = false
+                result.put("event", "purchase")
+                deliver(result.toString())
+            } else if (!result.optBoolean("eligible", true)) {
+                purchaseFlowInProgress = false
+                result.put("error", "purchase_cooldown")
+                result.put("event", "purchase")
+                result.put("billingAvailable", true)
+                result.put("pro", false)
+                deliver(result.toString())
+            } else {
+                connect {
+                    loadProduct { details, offerToken ->
+                        launchPurchase(activity, details, offerToken)
+                    }
+                }
+            }
+        }
     }
 
     override fun restore() {
@@ -70,7 +89,7 @@ private class PlayPurchaseController(
             return
         }
         purchaseFlowInProgress = true
-        syncPurchases(reportMissingPurchase = true, remainingEmptyRetries = 2)
+        syncPurchases(reportMissingPurchase = true, remainingEmptyRetries = 2, event = "restore")
     }
 
     override fun requestRefund(reason: String) {
@@ -106,29 +125,10 @@ private class PlayPurchaseController(
         // Returning from Play is also the recovery path for a callback which
         // was lost because the process or Billing connection was interrupted.
         purchaseFlowInProgress = false
-        syncPurchases(reportMissingPurchase = false)
+        syncPurchases(reportMissingPurchase = false, event = "sync")
     }
 
     override fun statusJson(): String = entitlement.statusJson(billingAvailable = true)
-
-    private fun checkOwnedBeforePurchase(activity: Activity) {
-        queryOwnedPurchases(
-            onResult = { purchases ->
-                if (purchases.isNotEmpty()) {
-                    deliver(errorJson("restoring_purchase", ""))
-                    purchases.forEach(::handlePurchase)
-                } else {
-                    loadProduct { details, offerToken ->
-                        launchPurchase(activity, details, offerToken)
-                    }
-                }
-            },
-            onError = { result ->
-                purchaseFlowInProgress = false
-                deliver(errorJson("purchase_check_failed", result.debugMessage))
-            },
-        )
-    }
 
     private fun launchPurchase(activity: Activity, details: ProductDetails, offerToken: String) {
         val productParams = BillingFlowParams.ProductDetailsParams.newBuilder()
@@ -153,14 +153,14 @@ private class PlayPurchaseController(
         val relevant = relevantPurchases(purchases.orEmpty())
         when (PurchaseFlowPolicy.decide(signalFor(result.responseCode), relevant.isNotEmpty())) {
             PurchaseFlowDecision.PROCESS_PURCHASES -> {
-                relevant.forEach(::handlePurchase)
+                relevant.forEach { handlePurchase(it, "purchase") }
             }
             PurchaseFlowDecision.RECONCILE_OWNED -> {
                 deliver(errorJson("restoring_purchase", result.debugMessage))
                 // Play can report ITEM_ALREADY_OWNED just before its local
                 // purchase cache becomes visible. Retry only the query; never
                 // open another checkout for this state.
-                syncPurchases(reportMissingPurchase = true, remainingEmptyRetries = 2)
+                syncPurchases(reportMissingPurchase = true, remainingEmptyRetries = 2, event = "purchase")
             }
             PurchaseFlowDecision.REPORT_CANCELLED -> {
                 purchaseFlowInProgress = false
@@ -195,8 +195,9 @@ private class PlayPurchaseController(
     private fun syncPurchases(
         reportMissingPurchase: Boolean,
         remainingEmptyRetries: Int = 0,
+        event: String,
     ) {
-        connect {
+        connect(reportErrors = reportMissingPurchase) {
             queryOwnedPurchases(
                 onResult = { purchases ->
                     if (purchases.isEmpty() && remainingEmptyRetries > 0) {
@@ -205,6 +206,7 @@ private class PlayPurchaseController(
                                 syncPurchases(
                                     reportMissingPurchase,
                                     remainingEmptyRetries - 1,
+                                    event,
                                 )
                             },
                             500L,
@@ -213,7 +215,7 @@ private class PlayPurchaseController(
                         purchaseFlowInProgress = false
                         deliver(errorJson("no_purchase_found", ""))
                     } else {
-                        purchases.forEach(::handlePurchase)
+                        purchases.forEach { handlePurchase(it, event) }
                     }
                 },
                 onError = { result ->
@@ -249,11 +251,10 @@ private class PlayPurchaseController(
         .filter { BuildConfig.PLAY_PRODUCT_ID in it.products }
         .distinctBy { it.purchaseToken }
 
-    private fun handlePurchase(purchase: Purchase) {
+    private fun handlePurchase(purchase: Purchase, event: String) {
         when (purchase.purchaseState) {
             Purchase.PurchaseState.PURCHASED -> {
-                lastVerifiedPurchaseToken = purchase.purchaseToken
-                api.verifyPurchase(purchase.purchaseToken, BuildConfig.PLAY_PRODUCT_ID)
+                api.verifyPurchase(purchase.purchaseToken, BuildConfig.PLAY_PRODUCT_ID, event)
             }
             Purchase.PurchaseState.PENDING -> {
                 purchaseFlowInProgress = false
@@ -268,6 +269,11 @@ private class PlayPurchaseController(
 
     private fun onServerResult(result: JSONObject) {
         purchaseFlowInProgress = false
+        val verifiedToken = result.optString("_purchase_token").takeIf { it.isNotBlank() }
+        // Purchase tokens are backend credentials. They are attached only
+        // inside the native callback so parallel verification stays bound to
+        // the correct token, and removed before anything reaches WebView JS.
+        result.remove("_purchase_token")
         val licenseKey = result.optString("license_key", result.optString("licenseKey"))
         val active = result.optBoolean(
             "entitled",
@@ -275,16 +281,34 @@ private class PlayPurchaseController(
         )
         if (result.optBoolean("ok") && active && licenseKey.isNotBlank()) {
             entitlement.recordVerified(licenseKey)
-            lastVerifiedPurchaseToken?.let(api::confirmPurchaseDelivered)
-            lastVerifiedPurchaseToken = null
+            verifiedToken?.let(api::confirmPurchaseDelivered)
         }
         // Failed or unknown server results never destroy an existing paid
         // entitlement. Only an explicit, authenticated revocation does.
-        if (result.optBoolean("revoked")) entitlement.clear()
+        if (result.optBoolean("revoked")) {
+            entitlement.clear()
+            verifiedToken?.let(::consumeRevokedPurchase)
+        }
         result.put("pro", entitlement.isPro())
         result.put("licenseKey", entitlement.licenseKey() ?: JSONObject.NULL)
         result.put("billingAvailable", true)
         deliver(result.toString())
+    }
+
+    private fun consumeRevokedPurchase(token: String) {
+        billingClient.consumeAsync(
+            ConsumeParams.newBuilder().setPurchaseToken(token).build(),
+        ) { result, _ ->
+            if (
+                result.responseCode != BillingClient.BillingResponseCode.OK &&
+                result.responseCode != BillingClient.BillingResponseCode.ITEM_NOT_OWNED
+            ) {
+                android.util.Log.w(
+                    "ClassyDL",
+                    "Could not clear a server-revoked Play purchase: ${result.responseCode}",
+                )
+            }
+        }
     }
 
     private fun loadProduct(after: (ProductDetails, String) -> Unit) {
@@ -314,12 +338,12 @@ private class PlayPurchaseController(
         }
     }
 
-    private fun connect(ready: () -> Unit) {
+    private fun connect(reportErrors: Boolean = true, ready: () -> Unit) {
         if (billingClient.isReady) {
             ready()
             return
         }
-        pendingReadyActions += ready
+        pendingReadyActions += reportErrors to ready
         if (reconnecting) return
         reconnecting = true
         billingClient.startConnection(object : BillingClientStateListener {
@@ -328,20 +352,22 @@ private class PlayPurchaseController(
                 if (result.responseCode == BillingClient.BillingResponseCode.OK) {
                     val actions = pendingReadyActions.toList()
                     pendingReadyActions.clear()
-                    actions.forEach { it() }
+                    actions.forEach { (_, action) -> action() }
                 } else {
+                    val shouldReport = pendingReadyActions.any { (report, _) -> report }
                     pendingReadyActions.clear()
                     purchaseFlowInProgress = false
-                    deliver(errorJson("billing_unavailable", result.debugMessage))
+                    if (shouldReport) deliver(errorJson("billing_unavailable", result.debugMessage))
                 }
             }
 
             override fun onBillingServiceDisconnected() {
                 reconnecting = false
                 if (pendingReadyActions.isNotEmpty()) {
+                    val shouldReport = pendingReadyActions.any { (report, _) -> report }
                     pendingReadyActions.clear()
                     purchaseFlowInProgress = false
-                    deliver(errorJson("billing_temporary_error", "service disconnected"))
+                    if (shouldReport) deliver(errorJson("billing_temporary_error", "service disconnected"))
                 }
             }
         })

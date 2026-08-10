@@ -109,6 +109,21 @@ CREATE UNIQUE INDEX idx_play_refund_order ON play_refund_requests(order_id) WHER
 CREATE INDEX idx_play_refund_review ON play_refund_requests(status, requested_at);
 CREATE INDEX idx_play_refund_device ON play_refund_requests(device_id_hash, status);
 
+-- Short-lived, administrator-issued exceptions let release testers exercise
+-- repeat-purchase/refund flows without deleting the audit trail which drives
+-- the production cooldown policy.
+CREATE TABLE play_purchase_cooldown_bypasses (
+  device_id_hash TEXT PRIMARY KEY,
+  expires_at INTEGER NOT NULL,
+  source_refund_request_id TEXT REFERENCES play_refund_requests(id) ON DELETE SET NULL,
+  reason TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+CREATE INDEX idx_play_purchase_cooldown_bypass_expiry
+  ON play_purchase_cooldown_bypasses(expires_at);
+
 -- Server-issued owner/tester grants. Raw bearer keys are returned once at
 -- creation and only their SHA-256 hashes are stored here.
 CREATE TABLE tester_grants (

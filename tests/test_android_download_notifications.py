@@ -29,9 +29,10 @@ def test_empty_queue_never_reintroduces_a_tick_based_idle_counter() -> None:
 
     assert "IDLE_TICKS_BEFORE_STOP" not in source
     assert "stopForeground(STOP_FOREGROUND_REMOVE)" in source
-    # The running service keeps its existing Python notifier connection, so a
-    # subsequent user-initiated queue item can promote it back to foreground.
-    assert "stopSelf()" not in source
+    # Normal idle cleanup retains the service; stopSelf is reserved for the
+    # mandatory Android 15+ foreground-service timeout callback.
+    idle_shutdown = source.split("private val idleShutdownRunnable = Runnable {", 1)[1].split("}\n", 1)[0]
+    assert "stopSelf" not in idle_shutdown
 
 
 def test_queue_emptying_immediately_shows_an_honest_idle_notification() -> None:
@@ -124,3 +125,20 @@ def test_foreground_promotion_survives_a_background_start_restriction() -> None:
     success_path = go_foreground.split("try {", 1)[1].split("} catch", 1)[0]
     assert "inForeground = true" in success_path
     assert "inForeground = true" not in go_foreground.split("} catch", 1)[1]
+
+
+def test_android_15_data_sync_timeout_cancels_work_and_stops_service() -> None:
+    source = SERVICE.read_text(encoding="utf-8")
+    timeout = source.split("override fun onTimeout(startId: Int, fgsType: Int) {", 1)[1].split(
+        "\n    }\n", 1
+    )[0]
+    assert 'callAttr("cancel_active_for_system_timeout")' in timeout
+    assert "stopForeground(STOP_FOREGROUND_REMOVE)" in timeout
+    assert "stopSelf(startId)" in timeout
+
+
+def test_completed_notification_uses_explicit_media_mime_and_chooser() -> None:
+    source = SERVICE.read_text(encoding="utf-8")
+    assert "MediaMimeTypes.forFile(File(path))" in source
+    assert '?: "*/*"' not in source
+    assert "Intent.createChooser(view, null)" in source

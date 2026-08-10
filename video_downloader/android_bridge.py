@@ -14,6 +14,25 @@ from pathlib import Path
 
 FILE_PROVIDER_AUTHORITY = "de.classydl.app.fileprovider"
 
+_MEDIA_MIME_TYPES = {
+    ".mp4": "video/mp4",
+    ".m4v": "video/x-m4v",
+    ".webm": "video/webm",
+    ".mkv": "video/x-matroska",
+    ".mov": "video/quicktime",
+    ".mp3": "audio/mpeg",
+    ".m4a": "audio/mp4",
+    ".aac": "audio/aac",
+    ".opus": "audio/ogg",
+    ".ogg": "audio/ogg",
+    ".wav": "audio/wav",
+    ".flac": "audio/flac",
+}
+
+
+def media_mime_type(path: Path) -> str:
+    return _MEDIA_MIME_TYPES.get(path.suffix.lower()) or mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+
 
 def _application_context():
     from java import jclass  # type: ignore[import-not-found]
@@ -43,7 +62,7 @@ def open_file(path: Path) -> bool:
         java_file = jclass("java.io.File")(str(path))
         uri = file_provider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, java_file)
 
-        mime_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+        mime_type = media_mime_type(path)
         intent_class = jclass("android.content.Intent")
         intent = intent_class(intent_class.ACTION_VIEW)
         intent.setDataAndType(uri, mime_type)
@@ -53,7 +72,9 @@ def open_file(path: Path) -> bool:
         # permission to read a FileProvider Uri that isn't its own.
         intent.addFlags(intent_class.FLAG_ACTIVITY_NEW_TASK | intent_class.FLAG_GRANT_READ_URI_PERMISSION)
 
-        context.startActivity(intent)
+        chooser = intent_class.createChooser(intent, None)
+        chooser.addFlags(intent_class.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(chooser)
         return True
     except Exception:
         traceback.print_exc()
@@ -136,7 +157,7 @@ def share_file(path: Path) -> bool:
         java_file = jclass("java.io.File")(str(path))
         uri = file_provider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, java_file)
 
-        mime_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+        mime_type = media_mime_type(path)
         intent_class = jclass("android.content.Intent")
         send_intent = intent_class(intent_class.ACTION_SEND)
         send_intent.setType(mime_type)
@@ -186,7 +207,7 @@ def export_file(path: Path, tree_uri: str) -> bool:
         if existing is not None and not existing.delete():
             return False
 
-        mime_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+        mime_type = media_mime_type(path)
         new_file = tree_dir.createFile(mime_type, path.name)
         if new_file is None:
             return False

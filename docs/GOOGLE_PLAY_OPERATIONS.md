@@ -10,7 +10,9 @@ Service-Account-JSON oder private `age`-Schlüssel in Git oder App-Artefakte leg
 - Purchase-Token-Verschlüsselungsschlüssel (32 zufällige Bytes, getrennt vom OAuth-Key)
 - Erwartete RTDN-OIDC-Audience und Push-Service-Account-E-Mail
 - Paket-ID `de.classydl.app`, Produkt-ID `pro`; sichtbarer Name `DownloadThat Pro`
-- `PLAY_STORE_URL`: zunächst Internal-/Closed-Test-Link, später öffentliches Listing
+- `PLAY_STORE_URL`: stabiles Paket-Listing
+  `https://play.google.com/store/apps/details?id=de.classydl.app`; der Link
+  bleibt für neue Play-Versionen unverändert
 
 Exakte Cloudflare/GitHub-Namen:
 
@@ -39,20 +41,19 @@ Produktionsendpunkte:
 
 ## Service-Account-Identität und Refund-Recht prüfen
 
-Stand 2026-08-07 zeigt `wrangler pages secret list --project-name downloadthat`
-im Produktionsprojekt **keine** der drei zwingenden Bindings
-`GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY`
-und `PLAY_TOKEN_ENCRYPTION_KEY`. GitHub Actions enthält sie ebenfalls nicht.
-`PLAY_BACKEND_CONFIGURED` allein ist deshalb kein Funktionsnachweis.
+GitHub Actions enthält die benötigten Secret-Namen. Das beweist weder die
+Gültigkeit des Schlüssels noch die Berechtigungen in Play Console; beides wird
+erst durch den echten Internal-Track-Upload und Kauf-/Refund-Test bestätigt.
 
 1. Google Play Console öffnen und `DownloadThat` wählen.
 2. **Nutzer und Berechtigungen** öffnen. Falls die Console stattdessen auf die
    Google Cloud Console verweist, dort unter **IAM und Verwaltung →
    Dienstkonten** die E-Mail des vorgesehenen Kontos kopieren.
 3. In Play Console muss genau diese E-Mail als Nutzer/Service-Account für
-   `DownloadThat` sichtbar sein. Notwendig sind nur die Kauf-/Bestellrechte:
-   Kaufstatus lesen sowie Bestellungen verwalten bzw. erstatten. Keine
-   Release-, Finanzbericht- oder Kontoadministratorrechte hinzufügen.
+   `DownloadThat` sichtbar sein. Für den Backend-Betrieb sind Kaufstatus lesen
+   sowie Bestellungen verwalten/erstatten nötig. Für den CI-Upload zusätzlich
+   ausschließlich **Apps in Testtracks veröffentlichen** erteilen; keine
+   Produktions-, Finanzbericht- oder Kontoadministratorrechte hinzufügen.
 4. Die E-Mail als `GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL`, den zugehörigen privaten
    PKCS#8-Schlüssel als verschlüsseltes
    `GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY` und einen unabhängigen
@@ -80,6 +81,22 @@ Regelwerk:
 - nach 14 Tagen: immer manuell;
 - jede Erstattung ruft Google mit `revoke=true` auf und deaktiviert die Lizenz.
 
+Nach bestätigten Erstattungen sperrt das Backend nur einen weiteren Pro-Kauf;
+die kostenlose Nutzung bleibt vollständig verfügbar. Die Staffel ist:
+
+- nach der ersten Erstattung: 1 Tag;
+- nach der zweiten: 7 Tage;
+- nach der dritten: 30 Tage;
+- ab der vierten: 180 Tage.
+
+Für wiederholbare Release-Tests kann ein Administrator anhand der ID einer
+bereits erstatteten Anfrage eine zeitlich begrenzte Ausnahme setzen, ohne die
+Historie zu löschen (PowerShell, Token nur lokal als Umgebungsvariable halten):
+
+```powershell
+$headers = @{ Authorization = "Bearer $env:PLAY_REFUND_ADMIN_TOKEN" }; $body = @{ id = "REFUND_REQUEST_ID"; action = "grant_test_bypass"; hours = 24 } | ConvertTo-Json; Invoke-RestMethod -Method Post -Uri "https://downloadthat.app/api/admin/play-refunds" -Headers $headers -ContentType "application/json" -Body $body
+```
+
 Der Finanzworkflow verwendet `GCP_WORKLOAD_IDENTITY_PROVIDER`,
 `GCP_FINANCE_ARCHIVER_SERVICE_ACCOUNT`, `PLAY_REPORTS_SOURCE_URI`,
 `GCS_FINANCE_ARCHIVE_BUCKET` und den ausschließlich öffentlichen
@@ -104,10 +121,13 @@ Nur die mit `# public key:` ausgegebene `age1...`-Zeile kommt als
 
 1. CI baut `playRelease` als AAB und `directRelease` als APK.
 2. CI prüft Version, Zertifikat, 16-KiB-Ausrichtung, SBOM, Hashes und Flavor-Trennung.
-3. Internal Track: Kauf, Pending, Abbruch, Restore, Refund, RTDN testen.
-4. Closed Test und Pre-launch Report auswerten.
-5. Data Safety/Rating/Target Audience/App Access bestätigen.
-6. Erst dann Produktion; `PLAY_STORE_URL` zentral auf das öffentliche Listing ändern.
+3. Der Release-Workflow lädt das geprüfte AAB automatisch ausschließlich in
+   den Internal Track; Produktion bleibt eine bewusste Play-Console-Freigabe.
+4. Internal Track: Kauf, Pending, Abbruch, Restore, Refund, RTDN testen.
+5. Closed Test und Pre-launch Report auswerten.
+6. Data Safety/Rating/Target Audience/App Access bestätigen.
+7. Erst dann Produktion. Die Website und App verwenden schon das stabile
+   Paket-Listing; der direkte APK-Link folgt automatisch dem neuesten GitHub Release.
 
 ## Finance
 

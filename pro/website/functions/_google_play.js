@@ -232,7 +232,8 @@ async function storeUnentitledPurchase(env, tokenHash, encrypted, normalized, no
      VALUES (?, ?, ?, ?, ?, ?, ?, NULL, ?, NULL, ?, ?, ?, ?)
      ON CONFLICT(token_hash) DO UPDATE SET
        order_id = excluded.order_id, purchase_state = excluded.purchase_state,
-       verified_at = excluded.verified_at, revoked_at = excluded.revoked_at,
+       verified_at = excluded.verified_at,
+       revoked_at = COALESCE(play_purchases.revoked_at, excluded.revoked_at),
        purchase_completed_at = COALESCE(play_purchases.purchase_completed_at, excluded.purchase_completed_at),
        updated_at = excluded.updated_at`,
   )
@@ -396,7 +397,7 @@ export async function revokePlayPurchaseByToken(env, purchaseToken) {
   if (!row) return false;
   await env.DB.batch([
     env.DB.prepare(
-      `UPDATE play_purchases SET purchase_state = 'revoked', revoked_at = ?, verified_at = ?, updated_at = ?
+      `UPDATE play_purchases SET purchase_state = 'revoked', revoked_at = COALESCE(revoked_at, ?), verified_at = ?, updated_at = ?
        WHERE token_hash = ?`,
     ).bind(now, now, now, tokenHash),
     env.DB.prepare(`UPDATE licenses SET status = 'canceled', updated_at = ? WHERE license_key = ?`)
