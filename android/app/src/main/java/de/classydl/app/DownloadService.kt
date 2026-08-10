@@ -87,6 +87,28 @@ class DownloadService : Service() {
         return START_STICKY
     }
 
+    override fun onTimeout(startId: Int, fgsType: Int) {
+        // Android 15+ gives dataSync services a shared six-hour background
+        // budget and requires stopSelf() within seconds of this callback.
+        // Mark queued/running work cancelled first so the Python workers stop
+        // cooperatively instead of continuing without foreground protection.
+        try {
+            if (com.chaquo.python.Python.isStarted()) {
+                com.chaquo.python.Python.getInstance()
+                    .getModule("video_downloader.android_entry")
+                    .callAttr("cancel_active_for_system_timeout")
+            }
+        } catch (error: Throwable) {
+            android.util.Log.e("ClassyDL", "Could not cancel downloads after FGS timeout", error)
+        } finally {
+            handler.removeCallbacks(idleShutdownRunnable)
+            idleShutdownScheduled = false
+            inForeground = false
+            stopForeground(STOP_FOREGROUND_REMOVE)
+            stopSelf(startId)
+        }
+    }
+
     // Reached both from a user gesture (onStartCommand(), via the WebView
     // bridge's onDownloadQueued() - always foreground, always legal) and from
     // handleSnapshot() below, driven by the Python publisher thread on its
@@ -222,10 +244,12 @@ class DownloadService : Service() {
         val contentIntent = try {
             val uri = FileProvider.getUriForFile(this, "de.classydl.app.fileprovider", File(path))
             val view = Intent(Intent.ACTION_VIEW)
-                .setDataAndType(uri, contentResolver.getType(uri) ?: "*/*")
+                .setDataAndType(uri, MediaMimeTypes.forFile(File(path)))
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
+            val chooser = Intent.createChooser(view, null)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             PendingIntent.getActivity(
-                this, jobId, view,
+                this, jobId, chooser,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
             )
         } catch (e: Exception) {

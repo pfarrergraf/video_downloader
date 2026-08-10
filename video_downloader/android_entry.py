@@ -255,6 +255,19 @@ def _server_already_healthy(port: int) -> bool:
         return False
 
 
+def cancel_active_for_system_timeout() -> int:
+    """Cooperatively stop work when Android exhausts the dataSync FGS budget."""
+    store = _current_store
+    if store is None:
+        return 0
+    cancelled = 0
+    for status in ("pending", "in_progress"):
+        for job in store.list_jobs(status=status, limit=500):
+            if store.mark_job_cancelled(job.id):
+                cancelled += 1
+    return cancelled
+
+
 def start(
     data_dir: str,
     output_dir: str,

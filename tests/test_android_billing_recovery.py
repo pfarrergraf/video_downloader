@@ -13,7 +13,7 @@ def test_play_purchase_is_reconciled_on_foreground_resume() -> None:
         ROOT / "android/app/src/main/java/de/classydl/app/MainActivity.kt"
     ).read_text(encoding="utf-8")
 
-    assert "syncPurchases(reportMissingPurchase = false)" in controller
+    assert 'syncPurchases(reportMissingPurchase = false, event = "sync")' in controller
     assert "override fun refreshPurchases()" in controller
     assert "purchaseController.refreshPurchases()" in activity
 
@@ -28,7 +28,7 @@ def test_automatic_reconciliation_does_not_show_no_purchase_failure() -> None:
     assert "if (reportMissingPurchase)" in controller
 
 
-def test_purchase_checks_owned_items_before_opening_a_new_flow() -> None:
+def test_purchase_checks_server_cooldown_then_opens_a_new_flow() -> None:
     controller = (
         ROOT
         / "android/app/src/play/java/de/classydl/app/PurchaseControllerFactory.kt"
@@ -38,12 +38,10 @@ def test_purchase_checks_owned_items_before_opening_a_new_flow() -> None:
         "override fun restore()", 1
     )[0]
     assert "purchaseFlowInProgress" in purchase_body
-    assert "checkOwnedBeforePurchase(activity)" in purchase_body
-    owned_check = controller.split("private fun checkOwnedBeforePurchase", 1)[1].split(
-        "private fun launchPurchase", 1
-    )[0]
-    assert owned_check.index("queryOwnedPurchases") < owned_check.index("loadProduct")
-    assert "purchases.forEach(::handlePurchase)" in owned_check
+    assert "api.checkPurchaseEligibility" in purchase_body
+    assert 'result.put("error", "purchase_cooldown")' in purchase_body
+    assert purchase_body.index("api.checkPurchaseEligibility") < purchase_body.index("loadProduct")
+    assert "checkOwnedBeforePurchase" not in controller
 
 
 def test_already_owned_and_cancelled_results_are_not_generic_failures() -> None:
@@ -58,6 +56,27 @@ def test_already_owned_and_cancelled_results_are_not_generic_failures() -> None:
     assert "500L" in controller
     assert "USER_CANCELED -> PurchaseFlowSignal.USER_CANCELLED" in controller
     assert 'errorJson("purchase_cancelled"' in controller
+
+
+def test_only_server_revoked_purchase_is_consumed_for_repurchase() -> None:
+    controller = (
+        ROOT / "android/app/src/play/java/de/classydl/app/PurchaseControllerFactory.kt"
+    ).read_text(encoding="utf-8")
+    server_result = controller.split("private fun onServerResult", 1)[1].split(
+        "private fun consumeRevokedPurchase", 1
+    )[0]
+    assert 'if (result.optBoolean("revoked")) {' in server_result
+    assert "verifiedToken?.let(::consumeRevokedPurchase)" in server_result
+    assert "consumeRevokedPurchase" not in server_result.split(
+        'if (result.optBoolean("revoked")) {', 1
+    )[0]
+    consume = controller.split("private fun consumeRevokedPurchase", 1)[1].split(
+        "private fun loadProduct", 1
+    )[0]
+    assert "billingClient.consumeAsync" in consume
+    assert "ITEM_NOT_OWNED" in consume
+    assert 'result.remove("_purchase_token")' in server_result
+    assert "lastVerifiedPurchaseToken" not in controller
 
 
 def test_native_result_waits_for_authenticated_web_callback() -> None:

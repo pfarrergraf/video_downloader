@@ -21,6 +21,11 @@ on:
         description: "Version tag to release, e.g. v0.2.0 (leading 'v' optional)"
         required: true
         type: string
+      upload_to_play:
+        description: "Upload the signed AAB to the Google Play internal test track"
+        required: true
+        default: true
+        type: boolean
 
 permissions:
   contents: read
@@ -363,3 +368,13 @@ jobs:
             android/release-out/DownloadThat-latest.apk.sha256
             android/release-out/DownloadThat-release.json
           generate_release_notes: true
+
+      # Keep this last: once Play accepts a versionCode it cannot be reused.
+      # All local artifact/signature checks and the matching GitHub release
+      # must therefore be complete before the edit is committed to Play.
+      - name: Upload App Bundle to Google Play internal testing
+        if: github.event_name == 'push' || inputs.upload_to_play
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY }}
+        run: node ../scripts/upload_google_play.mjs --aab app/build/outputs/bundle/playRelease/app-play-release.aab --package de.classydl.app --track internal --release-name "$RELEASE_TAG"
