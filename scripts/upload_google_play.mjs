@@ -43,6 +43,10 @@ async function responseJson(response, operation) {
   return body;
 }
 
+async function publisherRequest(fetchImpl, url, options, operation) {
+  return responseJson(await fetchImpl(url, options), operation);
+}
+
 export async function accessToken({ email, privateKey, fetchImpl = fetch, nowSeconds }) {
   const assertion = serviceAccountAssertion({ email, privateKey, nowSeconds });
   const response = await fetchImpl(TOKEN_URL, {
@@ -102,6 +106,89 @@ export async function uploadGooglePlayBundle({
   return { editId: edit.id, versionCode, track: "internal" };
 }
 
+function featureGraphicForLanguage(assets, language) {
+  const normalized = String(language).toLowerCase();
+  if (normalized.startsWith("ja")) return assets.localizedFeatureGraphics?.ja || assets.featureGraphic;
+  if (normalized.startsWith("ru")) return assets.localizedFeatureGraphics?.ru || assets.featureGraphic;
+  if (normalized.startsWith("zh-cn") || normalized.startsWith("zh-hans")) {
+    return assets.localizedFeatureGraphics?.["zh-CN"] || assets.featureGraphic;
+  }
+  return assets.featureGraphic;
+}
+
+export async function syncGooglePlayListingAssets({
+  packageName,
+  assets,
+  email,
+  privateKey,
+  fetchImpl = fetch,
+  nowSeconds,
+}) {
+  if (!packageName) throw new Error("packageName is required");
+  if (!assets?.featureGraphic || !assets?.phoneScreenshots?.length) {
+    throw new Error("A feature graphic and at least one phone screenshot are required");
+  }
+  const token = await accessToken({ email, privateKey, fetchImpl, nowSeconds });
+  const headers = { Authorization: `Bearer ${token}` };
+  const packagePath = encodeURIComponent(packageName);
+  const edit = await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${packagePath}/edits`,
+    { method: "POST", headers: { ...headers, "Content-Type": "application/json" }, body: "{}" },
+    "Create Play asset edit",
+  );
+  if (!edit.id) throw new Error("Create Play asset edit returned no edit id");
+  const editPath = `${packagePath}/edits/${encodeURIComponent(edit.id)}`;
+  const listingResponse = await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}/listings`,
+    { headers },
+    "List Play store listings",
+  );
+  const languages = [...new Set((listingResponse.listings || []).map((listing) => listing.language).filter(Boolean))];
+  if (!languages.length) throw new Error("Google Play returned no store listing languages");
+
+  const uploadImage = async (language, imageType, bytes, operation) => publisherRequest(
+    fetchImpl,
+    `${API}/upload/androidpublisher/v3/applications/${editPath}/listings/${encodeURIComponent(language)}/${imageType}?uploadType=media`,
+    { method: "POST", headers: { ...headers, "Content-Type": "image/png" }, body: bytes },
+    operation,
+  );
+  const deleteImages = async (language, imageType, operation) => publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}/listings/${encodeURIComponent(language)}/${imageType}`,
+    { method: "DELETE", headers },
+    operation,
+  );
+
+  for (const language of languages) {
+    await deleteImages(language, "featureGraphic", `Delete old feature graphic (${language})`);
+    await uploadImage(
+      language,
+      "featureGraphic",
+      featureGraphicForLanguage(assets, language),
+      `Upload feature graphic (${language})`,
+    );
+    await deleteImages(language, "phoneScreenshots", `Delete old phone screenshots (${language})`);
+    for (const [index, screenshot] of assets.phoneScreenshots.entries()) {
+      await uploadImage(
+        language,
+        "phoneScreenshots",
+        screenshot,
+        `Upload phone screenshot ${index + 1} (${language})`,
+      );
+    }
+  }
+
+  await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}:commit?changesInReviewBehavior=ERROR_IF_IN_REVIEW`,
+    { method: "POST", headers },
+    "Commit Play asset edit",
+  );
+  return { editId: edit.id, languages, screenshotsPerLanguage: assets.phoneScreenshots.length };
+}
+
 function parseArgs(argv) {
   const args = {};
   for (let index = 0; index < argv.length; index += 2) {
@@ -114,12 +201,38 @@ function parseArgs(argv) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  for (const required of ["aab", "package", "release-name"]) {
-    if (!args[required]) throw new Error(`--${required} is required`);
-  }
   const email = process.env.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL;
   const privateKey = process.env.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY;
   if (!email || !privateKey) throw new Error("Google Play service-account secrets are not configured");
+  if (args["sync-assets"] === "true") {
+    if (!args.package || !args["asset-dir"]) throw new Error("--package and --asset-dir are required");
+    const assetDir = args["asset-dir"];
+    const result = await syncGooglePlayListingAssets({
+      packageName: args.package,
+      email,
+      privateKey,
+      assets: {
+        featureGraphic: readFileSync(`${assetDir}/feature_graphic-1024x500.png`),
+        localizedFeatureGraphics: {
+          ja: readFileSync(`${assetDir}/feature_graphic-ja-1024x500.png`),
+          ru: readFileSync(`${assetDir}/feature_graphic-ru-1024x500.png`),
+          "zh-CN": readFileSync(`${assetDir}/feature_graphic-zh-CN-1024x500.png`),
+        },
+        phoneScreenshots: [
+          readFileSync(`${assetDir}/screenshot_main.png`),
+          readFileSync(`${assetDir}/screenshot_queue.png`),
+          readFileSync(`${assetDir}/screenshot_settings.png`),
+        ],
+      },
+    });
+    process.stdout.write(
+      `Updated Play listing assets for ${result.languages.length} language(s): ${result.languages.join(", ")}\n`,
+    );
+    return;
+  }
+  for (const required of ["aab", "package", "release-name"]) {
+    if (!args[required]) throw new Error(`--${required} is required`);
+  }
   const result = await uploadGooglePlayBundle({
     packageName: args.package,
     track: args.track || "internal",

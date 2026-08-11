@@ -12,10 +12,10 @@ Prepared ahead of time so registration + submission (see
   `feature_graphic-ru-1024x500.png` — localized feature graphics for Simplified
   Chinese, Japanese, and Russian. Their editable SVG sources are beside them.
 - `screenshot_main.png`, `screenshot_queue.png`, `screenshot_settings.png` — real phone-sized
-  (412×915 @2x) screenshots of the actual running app (captured via Playwright against a local
+  (Pixel 7 emulation, 1082×2202 device pixels) screenshots of the actual running app (captured via Playwright against a local
   `classydl web` instance, not mockups). `screenshot_queue.png` has synthetic job rows (one
-  completed, one in-progress, one pending) inserted directly into the queue store to show all
-  three states in one shot — no real network download happened.
+  playlist video, one audio file, and one video) inserted directly into the queue store — no real
+  network download happened.
 - `icon-pro-1024.png`, `icon-pro-badge-1024.png` — **not committed to git yet, unclear
   status, needs owner review before use.** Appeared as untracked files in the working
   tree on 2026-08-03 (same day as the T22/T23 tester-feedback work) with no
