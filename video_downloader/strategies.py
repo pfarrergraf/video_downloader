@@ -171,10 +171,10 @@ class YtDlpStrategy(Strategy):
             "concurrent_fragment_downloads": max(1, int(request.concurrent_fragments or 1)),
         }
         if request.max_items is not None:
-            if request.allow_playlist:
-                ydl_opts["playlistend"] = request.max_items
-            else:
-                ydl_opts["max_downloads"] = request.max_items
+            # Count successful downloads rather than playlist positions:
+            # private/deleted entries are skipped and must not use up a free
+            # user's remaining allowance.
+            ydl_opts["max_downloads"] = request.max_items
         if request.cookies_from_browser:
             ydl_opts["cookiesfrombrowser"] = (request.cookies_from_browser, None, None, None)
         if ffmpeg_available:

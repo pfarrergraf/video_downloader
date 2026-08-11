@@ -442,11 +442,16 @@ def test_free_and_pro_tiers_use_the_same_unrestricted_profile(tmp_path: Path) ->
         _teardown(srv)
 
 
-def test_free_tier_gets_explicit_playlist_upgrade_response(tmp_path: Path) -> None:
+def test_free_tier_playlist_uses_the_remaining_daily_allowance(tmp_path: Path) -> None:
     srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False))
     try:
         _, _, set_cookie = _request(srv, "POST", "/api/login", {"password": "crypt-keeper"})
         cookie = set_cookie.split(";")[0]
+
+        status, _, _ = _request(
+            srv, "POST", "/api/queue", {"source": "https://example.com/already-used"}, cookie=cookie
+        )
+        assert status == 200
 
         status, body, _ = _request(
             srv,
@@ -455,9 +460,74 @@ def test_free_tier_gets_explicit_playlist_upgrade_response(tmp_path: Path) -> No
             {"source": "https://youtube.com/playlist?list=abc123", "allow_playlist": True},
             cookie=cookie,
         )
+        assert status == 200
+        job = srv.store.get_job(body["job_id"])
+        assert job is not None
+        assert job.allow_playlist is True
+        assert job.max_items == FREE_DAILY_DOWNLOAD_LIMIT - 1
+
+        # The pending playlist reserves both remaining downloads, so another
+        # request is rejected rather than racing past the free quota.
+        status, _, _ = _request(
+            srv, "POST", "/api/queue", {"source": "https://example.com/too-many"}, cookie=cookie
+        )
         assert status == 402
-        assert "recognized as a playlist" in body["detail"]
-        assert srv.store.list_jobs() == []
+    finally:
+        _teardown(srv)
+
+
+def test_completed_free_playlist_charges_actual_files_and_reports_cap(tmp_path: Path) -> None:
+    srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False))
+    try:
+        cookie = _login(srv)
+        status, body, _ = _request(
+            srv,
+            "POST",
+            "/api/queue",
+            {"source": "https://youtube.com/playlist?list=abc123"},
+            cookie=cookie,
+        )
+        assert status == 200
+        job_id = body["job_id"]
+        files = []
+        for index in range(FREE_DAILY_DOWNLOAD_LIMIT):
+            path = tmp_path / f"track-{index}.mp3"
+            path.write_bytes(b"audio")
+            files.append(path)
+        srv.store.mark_job_completed(job_id, files)
+
+        _, queue_body, _ = _request(srv, "GET", "/api/queue", cookie=cookie)
+        serialized = next(job for job in queue_body["jobs"] if job["id"] == job_id)
+        assert serialized["free_playlist_cap_reached"] is True
+
+        status, _, _ = _request(
+            srv, "POST", "/api/queue", {"source": "https://example.com/too-many"}, cookie=cookie
+        )
+        assert status == 402
+    finally:
+        _teardown(srv)
+
+
+def test_short_free_playlist_only_charges_files_it_downloaded(tmp_path: Path) -> None:
+    srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False))
+    try:
+        cookie = _login(srv)
+        _, body, _ = _request(
+            srv,
+            "POST",
+            "/api/queue",
+            {"source": "https://youtube.com/playlist?list=abc123"},
+            cookie=cookie,
+        )
+        job_id = body["job_id"]
+        path = tmp_path / "only-track.mp3"
+        path.write_bytes(b"audio")
+        srv.store.mark_job_completed(job_id, [path])
+
+        status, _, _ = _request(
+            srv, "POST", "/api/queue", {"source": "https://example.com/still-allowed"}, cookie=cookie
+        )
+        assert status == 200
     finally:
         _teardown(srv)
 

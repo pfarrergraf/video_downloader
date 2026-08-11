@@ -285,7 +285,17 @@ def _recent_job_count(store: QueueStore, *, within_hours: int) -> int:
             except ValueError:
                 continue
             if created >= cutoff:
-                count += 1
+                if job.allow_playlist and job.max_items:
+                    # A free playlist reserves all of its remaining allowance
+                    # while queued/running. Once complete, charge only the
+                    # files it actually produced so unavailable entries do not
+                    # consume the user's daily quota.
+                    if job.status == JOB_STATUS_COMPLETED:
+                        count += min(job.max_items, len(store.list_job_files(job.id)))
+                    else:
+                        count += job.max_items
+                else:
+                    count += 1
     return count
 
 
@@ -300,6 +310,12 @@ def _serialize_job(store: QueueStore, job: JobRecord) -> dict[str, Any]:
                     "download_url": f"/api/download/{job.id}/{path.name}",
                 }
             )
+    free_playlist_cap_reached = bool(
+        job.status == JOB_STATUS_COMPLETED
+        and job.allow_playlist
+        and job.max_items
+        and len(files) >= job.max_items
+    )
     return {
         "id": job.id,
         "source": job.source,
@@ -316,6 +332,9 @@ def _serialize_job(store: QueueStore, job: JobRecord) -> dict[str, Any]:
         "files": files,
         "downloaded_bytes": job.downloaded_bytes,
         "total_bytes": job.total_bytes,
+        # Lets the UI show the normal daily-limit screen after the capped
+        # playlist has visibly completed, instead of rejecting it up front.
+        "free_playlist_cap_reached": free_playlist_cap_reached,
     }
 
 
@@ -943,17 +962,6 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
             is_pro = manager is None or manager.is_pro()
             audio_only = bool(body.get("audio_only", False))
             requested_playlist = bool(body.get("allow_playlist", False)) or playlist.is_playlist
-            # Playlists are effectively unlimited downloads in a single job -
-            # counting them as "1" against the free-tier quota would let a
-            # free-tier user bypass the limit entirely. Never silently turn a
-            # recognized playlist into one video: return the same explicit
-            # upgrade response the UI already knows how to surface.
-            if requested_playlist and not is_pro:
-                self._send_json(
-                    402,
-                    {"detail": "Playlist downloads require Pro. The link was recognized as a playlist."},
-                )
-                return
             allow_playlist = requested_playlist
 
             if not is_pro:
@@ -974,6 +982,10 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                         )
                         return
 
+                    # Keep playlist mode enabled, but stop after the remaining
+                    # free downloads. This demonstrates the feature without
+                    # allowing one queue item to bypass the daily quota.
+                    max_items = FREE_DAILY_DOWNLOAD_LIMIT - used if allow_playlist else None
                     profile = _resolve_profile(self.server.store, audio_only)
                     job_id = self.server.store.add_job(
                         source=source,
@@ -981,6 +993,7 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                         output_dir=str(self.server.output_dir),
                         ffmpeg_binary=self.server.ffmpeg_binary,
                         allow_playlist=allow_playlist,
+                        max_items=max_items,
                         quality_height=None if audio_only else _resolve_quality_height(body),
                     )
                     self._send_json(200, {"job_id": job_id})

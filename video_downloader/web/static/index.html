@@ -2640,6 +2640,7 @@ $('clear-history-btn').addEventListener('click', () => openDeleteDialog(null));
 
 function renderJobs(jobs) {
   trackReviewDownloadOutcomes(jobs);
+  maybeShowPlaylistQuotaLimit(jobs);
   const list = $('job-list');
   list.innerHTML = '';
   const hasFinished = jobs.some((j) => FINISHED_STATUSES.includes(j.status));
@@ -2649,6 +2650,28 @@ function renderJobs(jobs) {
     return;
   }
   jobs.forEach((job) => list.appendChild(jobRow(job)));
+}
+
+// A free playlist is allowed to download up to the remaining daily quota.
+// Show the existing upgrade screen only after those files have completed, so
+// users first see that whole-playlist downloading works. Persist the notice
+// per job because SSE/polling renders the same completed job repeatedly.
+function maybeShowPlaylistQuotaLimit(jobs) {
+  for (const job of jobs) {
+    if (!job.free_playlist_cap_reached) continue;
+    const key = `downloadthat:playlist-limit-shown:${job.id}`;
+    try {
+      if (localStorage.getItem(key)) continue;
+      localStorage.setItem(key, '1');
+    } catch (e) {
+      if (maybeShowPlaylistQuotaLimit.shownJobs?.has(job.id)) continue;
+      if (!maybeShowPlaylistQuotaLimit.shownJobs) maybeShowPlaylistQuotaLimit.shownJobs = new Set();
+      maybeShowPlaylistQuotaLimit.shownJobs.add(job.id);
+    }
+    renderLimitBody();
+    $('limit-overlay').classList.remove('hidden');
+    break;
+  }
 }
 
 async function refreshQueue() {

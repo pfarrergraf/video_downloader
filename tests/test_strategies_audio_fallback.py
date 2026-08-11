@@ -159,8 +159,8 @@ def test_playlist_options_skip_bad_entries_and_limit_playlist(monkeypatch, tmp_p
 
     assert opts["noplaylist"] is False
     assert opts["ignoreerrors"] is True
-    assert opts["playlistend"] == 12
-    assert "max_downloads" not in opts
+    assert opts["max_downloads"] == 12
+    assert "playlistend" not in opts
 
 
 def test_playlist_partial_success_reports_skipped_entries(monkeypatch, tmp_path: Path) -> None:
