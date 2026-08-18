@@ -66,6 +66,7 @@ cd pro/website && npm test && npm run check
 | Claude | T24 Tutorial-Nacharbeit | agent/claude/help-tutorial-fixes | `video_downloader/web/static/index.html`, `tests/test_help_popup.py`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-08-06 |
 | Codex | Lokaler Developer Mode | master | `video_downloader/web/server.py`, `video_downloader/web/static/index.html`, Tests, append-only: `docs/*` | erledigt | 2026-08-18 |
 | Codex | Nightly-Engine-Release | agent/codex/nightly-engine-20260818 | `video_downloader/engine_update.py`, Paketpins, Android-Check, Tests, append-only: `docs/*` | erledigt | 2026-08-18 |
+| Codex | Android-Campaign-Exclusion | agent/codex/android-campaign-exclusion-20260818 | `android/app/build.gradle`, Android-Paketprüfung, append-only: `docs/*` | in Arbeit | 2026-08-18 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
 

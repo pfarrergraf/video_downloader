@@ -302,6 +302,9 @@ jobs:
           EXPECTED_UPLOAD_SHA256: ${{ secrets.ANDROID_UPLOAD_CERT_SHA256 }}
         run: bash ../.github/scripts/check_android_release_artifacts.sh app/build/outputs/apk/direct/release/app-direct-release.apk app/build/outputs/bundle/playRelease/app-play-release.aab
 
+      - name: Reject non-runtime files in the Android Python bundle
+        run: python ../scripts/check_android_python_sources.py app/build/outputs/bundle/playRelease/app-play-release.aab
+
       - name: Generate Android CycloneDX SBOM
         run: |
           gradle :app:dependencies --configuration playReleaseRuntimeClasspath > play-release-dependencies.txt

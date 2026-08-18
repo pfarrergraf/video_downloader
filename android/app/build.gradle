@@ -195,13 +195,11 @@ chaquopy {
         main {
             // Points at the repo root (two levels up from android/app) so the
             // existing video_downloader/ package is bundled directly from source —
-            // no separate copy, no wheel-building step. Everything except the
-            // package itself is excluded: in particular "android/**" must be
-            // excluded because it contains this very Gradle project's own build/
-            // output directory, which otherwise creates an implicit-dependency
-            // conflict between :app:mergeDebugPythonSources and the tasks that
-            // produce Android build outputs nested inside the same source tree.
+            // no separate copy, no wheel-building step. Keep this an allowlist:
+            // repo-root material such as campaign videos must never be copied into
+            // the APK merely because it shares the checkout with the app.
             srcDir "${projectDir}/../.."
+            include "video_downloader/**"
             exclude "android/**"
             exclude "tests/**"
             exclude "scripts/**"
@@ -217,6 +215,10 @@ chaquopy {
             // Play Console listing assets (icon/screenshots/feature graphic) —
             // marketing files, not part of the Python package.
             exclude "store_assets/**"
+            // Campaign source media is versioned with the product but is not app
+            // runtime content. Explicitly retain this guard even with the
+            // allowlist above so a future source-set broadening can't regress it.
+            exclude "campaign/**"
         }
     }
 }
