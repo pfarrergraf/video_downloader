@@ -66,7 +66,7 @@ cd pro/website && npm test && npm run check
 | Claude | T24 Tutorial-Nacharbeit | agent/claude/help-tutorial-fixes | `video_downloader/web/static/index.html`, `tests/test_help_popup.py`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-08-06 |
 | Codex | Lokaler Developer Mode | master | `video_downloader/web/server.py`, `video_downloader/web/static/index.html`, Tests, append-only: `docs/*` | erledigt | 2026-08-18 |
 | Codex | Nightly-Engine-Release | agent/codex/nightly-engine-20260818 | `video_downloader/engine_update.py`, Paketpins, Android-Check, Tests, append-only: `docs/*` | erledigt | 2026-08-18 |
-| Codex | Android-Campaign-Exclusion | agent/codex/android-campaign-exclusion-20260818 | `android/app/build.gradle`, Android-Paketprüfung, append-only: `docs/*` | in Arbeit | 2026-08-18 |
+| Codex | Android-Campaign-Exclusion | agent/codex/android-campaign-exclusion-20260818 | `android/app/build.gradle`, Android-Paketprüfung, append-only: `docs/*` | erledigt | 2026-08-18 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
 
@@ -319,3 +319,9 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   Der Windows-Release lädt, prüft und bündelt QuickJS 0.15.1; Android nutzt
   das Nightly-`default`-Extra. Python-Tests, Distributionsprüfung und
   Windows-Build wurden lokal ausgeführt.
+- 2026-08-18 — Codex — Android-Campaign-Exclusion erledigt: Die APK war durch
+  versehentlich eingebundenes `campaign/**` auf 139,71 MB angewachsen. Die
+  Chaquopy-Quelle ist jetzt auf `video_downloader/**` begrenzt; ein
+  Release-Check verwirft künftige AABs mit Nicht-App-Dateien oder einem
+  übergroßen Python-Archiv. `v1.0.3` ist als 35,73-MB-APK und 34,42-MiB-AAB
+  erfolgreich in GitHub Actions gebaut.
