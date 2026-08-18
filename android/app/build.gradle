@@ -179,10 +179,10 @@ chaquopy {
             // are CLI/TUI-only and intentionally excluded to keep the APK smaller.
             install "beautifulsoup4>=4.12.0"
             install "requests>=2.32.0"
-            // Keep yt-dlp and its external challenge scripts aligned. The
-            // runtime updater applies future pairs atomically.
-            install "yt-dlp==2026.7.4"
-            install "yt-dlp-ejs==0.8.0"
+            // Stable 2026.07.04 currently receives deterministic YouTube
+            // media 403s. The upstream nightly's default extra keeps the
+            // EJS challenge solver aligned with this extractor build.
+            install "yt-dlp[default]==2026.8.18.122307.dev0"
             // Explicit, not just relying on it coming in transitively via requests:
             // Android has no OpenSSL system cert store at the paths Python's ssl
             // module checks by default, so HTTPS fails outright unless something

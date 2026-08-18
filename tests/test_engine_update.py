@@ -69,6 +69,18 @@ class FakeIndexHandler(BaseHTTPRequestHandler):
                             "digests": {"sha256": sha},
                         }
                     ],
+                    # PyPI's top-level info.version stays on Stable. Nightly
+                    # wheels are instead published as development releases.
+                    "releases": {
+                        f"{self.version}.dev0": [
+                            {
+                                "filename": f"yt_dlp-{self.version}.dev0-py3-none-any.whl",
+                                "url": f"https://127.0.0.1:{self.server.server_address[1]}/wheel",
+                                "digests": {"sha256": sha},
+                                "yanked": False,
+                            }
+                        ]
+                    },
                 }
             ).encode()
             self.send_response(200)
@@ -181,6 +193,18 @@ def test_engine_update_installs_required_ejs_atomically(tmp_path: Path, monkeypa
     assert (tmp_path / "engine" / f"yt_dlp-{FAKE_VERSION}" / "yt_dlp_ejs" / "__init__.py").is_file()
 
 
+def test_nightly_pypi_version_normalizes_to_the_wheel_module_version(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(engine_update, "bundled_version", lambda: "2026.07.04")
+    engine_update.activate(tmp_path)
+    published = "2026.8.18.122307"
+    module = "2026.08.18.122307"
+    _install_direct(tmp_path, build_fake_wheel(version=module), version=published)
+    current = json.loads((tmp_path / "engine" / "current.json").read_text())
+    assert current["version"] == module
+
+
 def test_checksum_mismatch_is_rejected(tmp_path: Path) -> None:
     engine_update.activate(tmp_path)
     wheel = build_fake_wheel()
@@ -257,6 +281,18 @@ def test_ensure_latest_full_flow_and_throttle(tmp_path: Path, fake_index, monkey
     assert version == FAKE_VERSION
 
 
+def test_check_latest_uses_a_nightly_pypi_release(fake_index, monkeypatch) -> None:
+    server, _ = fake_index
+    port = server.server_address[1]
+    monkeypatch.setattr(
+        engine_update, "PYPI_JSON_URL", f"http://127.0.0.1:{port}/pypi/yt-dlp/json"
+    )
+    version, url, sha256 = engine_update.check_latest()
+    assert version == FAKE_VERSION
+    assert url.endswith("/wheel")
+    assert len(sha256) == 64
+
+
 def test_is_newer_ignores_zero_padding_format_differences() -> None:
     # Regression test: PyPI's JSON reports "2026.7.4" while yt-dlp's own
     # version.py (and thus active_version()) reports "2026.07.04" for the
@@ -277,5 +313,6 @@ def test_check_latest_against_real_pypi() -> None:
     except Exception as exc:  # noqa: BLE001
         pytest.skip(f"PyPI unreachable: {exc}")
     assert version
+    assert len(version.split(".")) == 4  # timestamped nightly, not Stable
     assert url.startswith("https://")
     assert len(sha256) == 64

@@ -22,7 +22,7 @@ $checks = [ordered]@{
     'affiliate app links removed' = $manifest -notmatch '/claim/'
     'separate upload key supported' = $appGradle -match 'ANDROID_UPLOAD_KEYSTORE_BASE64'
     'separate app-signing key supported' = $appGradle -match 'ANDROID_APP_SIGNING_KEYSTORE_BASE64'
-    'yt-dlp EJS package is bundled' = $appGradle -match 'install "yt-dlp-ejs==0\.8\.0"'
+    'yt-dlp nightly with EJS package is bundled' = $appGradle -match 'install "yt-dlp\[default\]==2026\.8\.18\.122307\.dev0"'
     'QuickJS runtime is passed to Python' = $serverRuntime -match 'libqjs\.so' -and $serverRuntime -match 'resolveJsRuntimeBinary'
     'debug workflow packages QuickJS' = $androidBuildWorkflow -match 'libqjs\.so' -and $androidBuildWorkflow -match 'quickjs_exec_test\.sh'
     'release workflow packages QuickJS' = $androidReleaseWorkflow -match 'libqjs\.so'

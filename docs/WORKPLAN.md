@@ -300,14 +300,28 @@ Aus `docs/TESTER_REPORT_ASSESSMENT_2026-08-03.md` und
 - [x] Sieben Klicks auf den Versionsbereich in den Einstellungen blenden lokale,
   begrenzte Transportdiagnosen ein. Sie verändern niemals Lizenzstatus,
   Tageslimit oder Pro-Berechtigung.
-- [x] Die Fragmentzahl ist serverseitig auf 1–8 begrenzt; das Stable-Autoupdate
+- [x] Die Fragmentzahl ist serverseitig auf 1–8 begrenzt; das Engine-Autoupdate
   kann lokal ein- und ausgeschaltet werden.
-- [ ] Nightly-Opt-in und Stable-Rollback bleiben ein eigenes Arbeitspaket. Sie
-  werden nicht durch den lokalen Developer Mode oder eine versteckte
-  Freischaltung aktiviert.
+- [x] Nightly ist die Standardquelle. Ein gegebenenfalls späterer
+  Stable-Rollback bleibt ein eigenes Arbeitspaket und wird nicht durch den
+  lokalen Developer Mode oder eine versteckte Freischaltung aktiviert.
 
 **Log:**
 - 2026-08-18 — Codex — umgesetzt in `video_downloader/web/static/index.html`
   und `video_downloader/web/server.py`; 347 Python-Tests bestanden. Lokaler
   Windows-Web-Build erfolgreich, Android-Build lokal nicht möglich (kein
   Gradle/Android-SDK in dieser Umgebung).
+
+## Nightly-Engine-Notfallrelease
+
+- [x] Nightly wird für den nächsten Release und den Runtime-Updater zur
+  Standardquelle, weil yt-dlp Stable 2026.07.04 bei der reproduzierbaren
+  YouTube-Probe HTTP 403 liefert, die Nightly dagegen erfolgreich lädt.
+
+**Log:**
+
+- 2026-08-18 — Codex — Der Updater ermittelt Nightly-Releases korrekt aus der
+  PyPI-Release-Liste (nicht aus der stets stabilen `info.version`), vergleicht
+  die kanonische Modulversion robust und aktualisiert eine echte
+  Stable-Laufzeit erfolgreich. Windows bündelt zusätzlich verifiziertes
+  QuickJS 0.15.1; der lokale Web-Build und die Python-Test-Suite sind grün.

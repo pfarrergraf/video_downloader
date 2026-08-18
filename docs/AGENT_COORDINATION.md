@@ -65,6 +65,7 @@ cd pro/website && npm test && npm run check
 | Codex | T23 Play-Preistext-Aktualisierung | agent/codex/tester-feedback-improvements | Website-/Play-Dokumentation von 12-EUR-Claim auf lokale Google-Play-Preise umstellen, Tests und Public-Claims prüfen, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-08-03 |
 | Claude | T24 Tutorial-Nacharbeit | agent/claude/help-tutorial-fixes | `video_downloader/web/static/index.html`, `tests/test_help_popup.py`, append-only: `docs/AGENT_COORDINATION.md` | erledigt | 2026-08-06 |
 | Codex | Lokaler Developer Mode | master | `video_downloader/web/server.py`, `video_downloader/web/static/index.html`, Tests, append-only: `docs/*` | erledigt | 2026-08-18 |
+| Codex | Nightly-Engine-Release | agent/codex/nightly-engine-20260818 | `video_downloader/engine_update.py`, Paketpins, Android-Check, Tests, append-only: `docs/*` | erledigt | 2026-08-18 |
 
 _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf „erledigt".)_
 
@@ -310,3 +311,10 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   Versionsbereich blenden ausschließlich begrenzte Transportdiagnosen ein
   (Fragmente 1–8, Stable-Autoupdate). Kein Pro-/Lizenzpfad, keine Cookies,
   Header oder Rohlogs. 347 Python-Tests bestanden; Windows-Web-EXE gebaut.
+- 2026-08-18 — Codex — Nightly-Engine-Notfallrelease erledigt: yt-dlp
+  Nightly ist nun die feste Paket- und Runtime-Updatequelle. Die mitgelieferte
+  Stable 2026.07.04 lieferte bei der angegebenen YouTube-Probe einen echten
+  Medien-HTTP-403, Nightly 2026.08.18.122307 lud dieselbe Probe erfolgreich.
+  Der Windows-Release lädt, prüft und bündelt QuickJS 0.15.1; Android nutzt
+  das Nightly-`default`-Extra. Python-Tests, Distributionsprüfung und
+  Windows-Build wurden lokal ausgeführt.

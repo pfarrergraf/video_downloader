@@ -38,6 +38,19 @@ jobs:
         shell: pwsh
         run: choco install ffmpeg -y --no-progress
 
+      # yt-dlp needs an executable JavaScript runtime for current YouTube
+      # challenge solving. Pin the official QuickJS-NG Windows binary and
+      # verify its published SHA-256 before it reaches the release bundle.
+      - name: Download and verify QuickJS
+        shell: pwsh
+        run: |
+          $quickJsPath = Join-Path $env:RUNNER_TEMP 'qjs.exe'
+          Invoke-WebRequest -Uri 'https://github.com/quickjs-ng/quickjs/releases/download/v0.15.1/qjs-windows-x86_64.exe' -OutFile $quickJsPath
+          $actual = (Get-FileHash -LiteralPath $quickJsPath -Algorithm SHA256).Hash.ToLowerInvariant()
+          $expected = '5ea527b0405f0f3d11904c8722a4f1df9b631a4beed2bf988d0a831eb9f8e913'
+          if ($actual -ne $expected) { throw "QuickJS checksum mismatch: $actual" }
+          "QUICKJS_PATH=$quickJsPath" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
       - name: Validate release version
         shell: pwsh
         run: |
@@ -56,7 +69,7 @@ jobs:
       # yt-dlp leaves low-bitrate WebM/Opus files when post-processing fails.
       - name: Build classydl-web.exe
         shell: pwsh
-        run: pwsh -File scripts/build_windows.ps1 -Target web -BundleAll
+        run: pwsh -File scripts/build_windows.ps1 -Target web -BundleAll -QuickJsPath $env:QUICKJS_PATH
 
       # Both binaries must exist AND run: choco exposes ffmpeg via shimgen
       # shims whose target path is relative to the shim location, so a copied
@@ -79,6 +92,18 @@ jobs:
               throw "$path exists but does not execute (broken Chocolatey shim?)"
             }
             Write-Host ($versionOutput | Select-Object -First 1)
+          }
+
+      - name: Verify bundled QuickJS
+        shell: pwsh
+        run: |
+          $path = 'bundled_bins\qjs.exe'
+          if (-not (Test-Path $path)) {
+            throw 'The Windows release must contain bundled_bins\qjs.exe'
+          }
+          & $path -v
+          if ($LASTEXITCODE -ne 0) {
+            throw 'bundled_bins\qjs.exe does not execute'
           }
 
       # No code-signing certificate configured yet (unlike Android's

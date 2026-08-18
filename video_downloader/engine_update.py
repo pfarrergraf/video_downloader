@@ -58,6 +58,10 @@ _active_dir: str | None = None
 _updating = False
 
 _VERSION_RE = re.compile(r"__version__\s*=\s*['\"]([^'\"]+)['\"]")
+# PyPI distributes upstream yt-dlp nightlies as development releases, e.g.
+# 2026.8.18.122307.dev0. The extracted module reports the same version
+# without the .dev0 suffix, so check_latest returns that module version.
+_NIGHTLY_VERSION_RE = re.compile(r"^(\d+(?:\.\d+){2,3})\.dev0$")
 
 
 def _version_tuple(version: str) -> tuple[int, ...]:
@@ -227,19 +231,35 @@ def read_state() -> dict:
 
 
 def check_latest() -> tuple[str, str, str]:
-    """(version, wheel_url, sha256) of the newest yt-dlp on PyPI."""
+    """(module_version, wheel_url, sha256) of the newest yt-dlp nightly on PyPI.
+
+    yt-dlp's PyPI info.version deliberately remains on the Stable channel.
+    Nightly builds are published under releases as *.dev0 versions, so
+    following info.version silently kept the app on 2026.07.04 even while
+    upstream had fixed the current YouTube 403 regression.
+    """
     with urllib.request.urlopen(PYPI_JSON_URL, timeout=HTTP_TIMEOUT_SECONDS) as response:
         data = json.loads(response.read().decode("utf-8"))
-    version = str(data["info"]["version"])
-    for file_info in data.get("urls", []):
+    releases = data.get("releases", {})
+    candidates: list[tuple[str, list[dict]]] = []
+    if isinstance(releases, dict):
+        for published_version, files in releases.items():
+            match = _NIGHTLY_VERSION_RE.fullmatch(str(published_version))
+            if match and isinstance(files, list):
+                candidates.append((match.group(1), files))
+    if not candidates:
+        raise RuntimeError("No yt-dlp nightly wheel found on PyPI")
+
+    version, files = max(candidates, key=lambda item: _version_tuple(item[0]))
+    for file_info in files:
         filename = str(file_info.get("filename", ""))
-        if filename.endswith("py3-none-any.whl"):
+        if filename.endswith("py3-none-any.whl") and not file_info.get("yanked"):
             url = str(file_info["url"])
             sha256 = str(file_info.get("digests", {}).get("sha256", ""))
             if not url.startswith("https://") or not sha256:
                 break
             return version, url, sha256
-    raise RuntimeError("No py3-none-any wheel with a sha256 digest found on PyPI")
+    raise RuntimeError("No usable py3-none-any nightly wheel with a sha256 digest found on PyPI")
 
 
 def download_and_install(version: str, url: str, sha256: str) -> Path:
@@ -286,7 +306,8 @@ def download_and_install(version: str, url: str, sha256: str) -> Path:
                 wheel.extract(entry, staging)
         if ejs_version:
             _install_ejs_companion(ejs_version, staging)
-        if _read_version_from_package_dir(staging) != version:
+        installed_version = _read_version_from_package_dir(staging)
+        if not installed_version or _version_tuple(installed_version) != _version_tuple(version):
             raise RuntimeError("Extracted wheel's version.py does not match the advertised version")
         shutil.rmtree(target, ignore_errors=True)
         staging.replace(target)
@@ -294,7 +315,11 @@ def download_and_install(version: str, url: str, sha256: str) -> Path:
         tmp_path.unlink(missing_ok=True)
         shutil.rmtree(staging, ignore_errors=True)
 
-    payload = json.dumps({"version": version, "path": target.name})
+    # PyPI normalizes nightly versions (2026.8.18.122307.dev0), while the
+    # wheel's module keeps yt-dlp's zero-padded format (2026.08.18.122307).
+    # Store the module's exact form because activate()/apply_update() compare
+    # it against yt_dlp.version.__version__ on every app launch.
+    payload = json.dumps({"version": installed_version, "path": target.name})
     tmp_json = _engine_base / "current.json.tmp"
     tmp_json.write_text(payload, encoding="utf-8")
     tmp_json.replace(_engine_base / "current.json")
