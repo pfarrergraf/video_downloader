@@ -974,6 +974,22 @@
       <button class="secondary" id="engine-update-btn"><span aria-hidden="true">🔄</span> <span data-i18n="app.engine.update_btn">Check for engine update</span></button>
     </div>
 
+    <!-- Seven deliberate taps on the app version reveal this local panel.
+         It is only a discoverability gate: none of these settings grant Pro,
+         alter licensing, or accept credentials/cookies. -->
+    <section class="hidden" id="developer-tools" aria-label="Developer mode" style="margin-top:1rem; border-top:1px solid var(--border); padding-top:0.8rem;">
+      <label>Developer mode</label>
+      <p class="muted">Local diagnostics only. It does not unlock Pro or change your download limit.</p>
+      <label for="developer-fragments">Parallel fragments (1–8)</label>
+      <input id="developer-fragments" type="number" min="1" max="8" step="1" inputmode="numeric" />
+      <div class="row" style="margin-top:0.5rem;">
+        <label for="developer-auto-update" style="margin:0"><input id="developer-auto-update" type="checkbox" /> Keep stable engine updates enabled</label>
+      </div>
+      <div class="row" style="margin-top:0.5rem;">
+        <button class="ghost" id="developer-mode-hide-btn" type="button">Hide developer mode</button>
+      </div>
+    </section>
+
     <label data-i18n="app.settings.folder_label">Download folder</label>
     <!-- No data-i18n here on purpose: refreshSettings() sets this to either
          the real custom folder label or t('app.settings.folder_default') -
@@ -1013,7 +1029,7 @@
     </div>
 
     <label data-i18n="app.about.title">About</label>
-    <p class="muted">
+    <p class="muted" id="settings-about">
       <span data-i18n="app.about.developed_by">Developed by</span> Benjamin Graf
       <span id="settings-app-version"></span>
     </p>
@@ -1898,6 +1914,7 @@ async function refreshSettings() {
     renderLimitBody();
     setMediaKind(settings.media_kind === 'audio' ? 'audio' : 'video', { skipPersist: true });
     if (settings.quality_height) $('quality-select').value = String(settings.quality_height);
+    renderDeveloperMode(settings);
     $('settings-folder-label').textContent = settings.export_folder_label || t('app.settings.folder_default');
     const androidAvailable = !!(window.AndroidBridge && window.AndroidBridge.isAvailable && window.AndroidBridge.isAvailable());
     $('settings-folder-pick-btn').classList.toggle('hidden', !androidAvailable);
@@ -1910,6 +1927,53 @@ async function refreshSettings() {
   }
 }
 window.refreshSettings = refreshSettings;
+
+const DEVELOPER_MODE_KEY = 'downloadthat:developer-mode:v1';
+let developerTapCount = 0;
+let developerTapTimer = null;
+
+function developerModeEnabled() {
+  try { return localStorage.getItem(DEVELOPER_MODE_KEY) === '1'; } catch (e) { return false; }
+}
+
+function setDeveloperMode(enabled) {
+  try {
+    if (enabled) localStorage.setItem(DEVELOPER_MODE_KEY, '1');
+    else localStorage.removeItem(DEVELOPER_MODE_KEY);
+  } catch (e) { return; }
+  $('developer-tools').classList.toggle('hidden', !enabled);
+}
+
+function renderDeveloperMode(settings) {
+  const enabled = developerModeEnabled();
+  $('developer-tools').classList.toggle('hidden', !enabled);
+  if (!enabled) return;
+  $('developer-fragments').value = String(settings.engine_fragments || 4);
+  $('developer-auto-update').checked = settings.engine_auto_update !== false;
+}
+
+$('settings-about').addEventListener('click', () => {
+  if (developerModeEnabled()) return;
+  developerTapCount += 1;
+  if (developerTapTimer) clearTimeout(developerTapTimer);
+  developerTapTimer = setTimeout(() => { developerTapCount = 0; }, 3000);
+  if (developerTapCount < 7) return;
+  developerTapCount = 0;
+  clearTimeout(developerTapTimer);
+  setDeveloperMode(true);
+  refreshSettings();
+  toast('Developer mode active');
+});
+
+$('developer-fragments').addEventListener('change', (event) => {
+  const value = Number(event.target.value);
+  if (!Number.isInteger(value) || value < 1 || value > 8) { refreshSettings(); return; }
+  api('/api/settings', { method: 'POST', body: { engine_fragments: value } }).catch(() => refreshSettings());
+});
+$('developer-auto-update').addEventListener('change', (event) => {
+  api('/api/settings', { method: 'POST', body: { engine_auto_update: !!event.target.checked } }).catch(() => refreshSettings());
+});
+$('developer-mode-hide-btn').addEventListener('click', () => setDeveloperMode(false));
 
 async function refreshEngine() {
   try {

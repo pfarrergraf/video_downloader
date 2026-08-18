@@ -149,7 +149,7 @@ def test_video_format_selector_ignores_cap_when_none() -> None:
     assert _video_format_selector("bv*+ba/b", ffmpeg_available=True, quality_height=None) == "bv*+ba/b"
 
 
-def test_playlist_options_skip_bad_entries_and_limit_playlist(monkeypatch, tmp_path: Path) -> None:
+def test_playlist_options_forward_explicit_max_items(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
     request = _make_request(tmp_path, audio_only=False)
     request.allow_playlist = True

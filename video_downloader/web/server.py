@@ -72,6 +72,14 @@ mimetypes.add_type("application/manifest+json", ".webmanifest")
 mimetypes.add_type("image/svg+xml", ".svg")
 
 
+def _engine_fragment_setting(store: QueueStore) -> int:
+    """Read the locally stored diagnostic value without trusting old/corrupt state."""
+    try:
+        return max(1, min(8, int(store.get_setting("engine_fragments", "4") or 4)))
+    except (TypeError, ValueError):
+        return 4
+
+
 class SessionStore:
     """In-memory session tokens — fine for a single-process personal deployment."""
 
@@ -700,6 +708,11 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                     "media_kind": store.get_setting("media_kind", "video"),
                     "quality_height": store.get_setting("quality_height", str(DEFAULT_QUALITY_HEIGHT)),
                     "theme": store.get_setting("theme", "auto"),
+                    # Advanced diagnostics deliberately expose only bounded,
+                    # local transport knobs. They never affect licensing or
+                    # the free-tier quota.
+                    "engine_fragments": _engine_fragment_setting(store),
+                    "engine_auto_update": store.get_setting("engine_auto_update", "1") != "0",
                     # Sent so the UI never hardcodes the free-tier number —
                     # the 3/5/1 copy drift this replaces came from exactly
                     # that (see i18n app.limit.body's {limit} placeholder).
@@ -825,6 +838,11 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 store.set_setting("media_kind", body["media_kind"])
             if body.get("theme") in ("auto", "light", "dark"):
                 store.set_setting("theme", body["theme"])
+            fragments = body.get("engine_fragments")
+            if isinstance(fragments, int) and 1 <= fragments <= 8:
+                store.set_setting("engine_fragments", str(fragments))
+            if isinstance(body.get("engine_auto_update"), bool):
+                store.set_setting("engine_auto_update", "1" if body["engine_auto_update"] else "0")
             quality = body.get("quality_height")
             if isinstance(quality, (int, str)) and str(quality).isdigit() and int(quality) in ALLOWED_QUALITY_HEIGHTS:
                 store.set_setting("quality_height", str(int(quality)))

@@ -621,6 +621,8 @@ def test_settings_defaults_to_auto_language_and_no_folder(server: ClassyDLServer
         "media_kind": "video",
         "quality_height": "2160",
         "theme": "auto",
+        "engine_fragments": 4,
+        "engine_auto_update": True,
         "free_limit": FREE_DAILY_DOWNLOAD_LIMIT,
         "free_window_hours": 24,
     }
@@ -786,6 +788,8 @@ def test_settings_include_smart_mode_defaults_and_free_limit(server: ClassyDLSer
     assert body["media_kind"] == "video"
     assert body["quality_height"] == "2160"
     assert body["theme"] == "auto"
+    assert body["engine_fragments"] == 4
+    assert body["engine_auto_update"] is True
     assert body["free_limit"] == FREE_DAILY_DOWNLOAD_LIMIT
     assert body["free_window_hours"] == 24
 
@@ -804,6 +808,28 @@ def test_settings_smart_mode_roundtrip(server: ClassyDLServer) -> None:
     assert body["media_kind"] == "audio"
     assert body["quality_height"] == "720"
     assert body["theme"] == "dark"
+    assert body["engine_fragments"] == 4
+    assert body["engine_auto_update"] is True
+
+
+def test_settings_developer_transport_controls_are_bounded(server: ClassyDLServer) -> None:
+    cookie = _login(server)
+    status, body, _ = _request(
+        server,
+        "POST",
+        "/api/settings",
+        {"engine_fragments": 8, "engine_auto_update": False},
+        cookie=cookie,
+    )
+    assert status == 200
+    assert body == {"saved": True}
+    _, settings, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    assert settings["engine_fragments"] == 8
+    assert settings["engine_auto_update"] is False
+
+    _request(server, "POST", "/api/settings", {"engine_fragments": 99}, cookie=cookie)
+    _, settings, _ = _request(server, "GET", "/api/settings", cookie=cookie)
+    assert settings["engine_fragments"] == 8
 
 
 def test_settings_reject_invalid_smart_mode_values(server: ClassyDLServer) -> None:
