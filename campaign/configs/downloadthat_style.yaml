@@ -1,0 +1,69 @@
+# Shared DownloadThat! campaign style guide.
+# First written for ad07 (Skip the ad / foot-commercial); intended for reuse
+# across future spots that keep the same locked characters.
+
+characters:
+  human_protagonist:
+    manifest: ad07_footad/manifests/main_character.json
+    reference: ad07_footad/refs/character/character_front.png
+    description: >
+      Male, mid-20s, messy dark brown tousled wavy hair, thick full
+      eyebrows, light stubble, navy-blue pullover hoodie, believable rather
+      than cartoonish, mildly sarcastic/skeptical energy.
+  mascot:
+    name: Puzzle Dog
+    manifest: ad07_footad/manifests/mascot.json
+    reference: ad07_footad/refs/mascot/mascot_front.png
+    description: >
+      Small dog-like creature built from visible interlocking jigsaw-puzzle
+      seams, blue body with warm-yellow accents, dark hoodie/collar,
+      oversized expressive eyes, confident dry comic timing (not childish).
+    voice:
+      manifest: ad07_footad/manifests/mascot_voice.json
+      model: Qwen3-TTS-12Hz-1.7B-CustomVoice
+      speaker: Uncle_Fu
+
+palette:
+  # From the mascot's own ChatGPT-generated brand sheet (its own concept
+  # exploration, not necessarily the shipped app's real UI -- compare
+  # store_assets/screenshot_main.png, which is magenta-on-off-white).
+  coral: "#FF5C7A"
+  orange: "#FF9A3C"
+  mint: "#4DECC5"
+  blue: "#586CFF"
+  dark_navy: "#1F2331"
+  graphite: "#2B2D3F"
+  slate: "#3A4052"
+  off_white: "#E6E6F0"
+  fake_ad_world:
+    # The parody-luxury foot-care world each spot's cold open can reuse --
+    # deliberately clashing with the real-brand palette above.
+    pink: "#FF7FB0"
+    magenta: "#C81E6E"
+    pearl: "#FFE9F0"
+
+typography:
+  brand_sheet_font: Poppins  # as designed in the mascot's own brand sheet
+  production_font: Roboto    # actually installed locally; closest available match
+  overlay_rules: >
+    Never trust the image/video model for exact on-screen text (countdown
+    numbers, brand wordmark, taglines) -- composite with Pillow/ffmpeg after
+    generation. See scripts/compose_downloadthat_ad07_overlays.py.
+
+video_recipe:
+  checkpoint: ltx-2.3-22b-dev-fp8.safetensors
+  lora: ltx-2.3-22b-distilled-lora-384.safetensors (strength 0.5)
+  resolution: 704x1280
+  fps: 50
+  img_compression: 0
+  delivery_upscale: 1080x1920 (ffmpeg lanczos, applied to the assembled master)
+  prompt_enhancer: "off (broken -- Florence-2/transformers incompatibility)"
+
+still_recipe:
+  checkpoint: sd_xl_turbo_1.0_fp16.safetensors
+  resolution: 384x704  # native-ish for Turbo; do NOT use 720x1280 (ghosting bug)
+  steps: 4
+  cfg: 1.0
+  sampler: euler_ancestral
+  scheduler: sgm_uniform
+  multi_character_composite: TextEncodeQwenImageEditPlus (image1/image2 reference latents, denoise 1.0, steps 25, cfg 3)

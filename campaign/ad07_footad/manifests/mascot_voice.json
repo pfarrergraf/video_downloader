@@ -1,0 +1,28 @@
+{
+  "model": "Qwen3-TTS-12Hz-1.7B-CustomVoice",
+  "path": "/home/benjamin_graf/models/qwen3-tts/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+  "venv": "/home/benjamin_graf/qwen3_tts/.venv (separate from this repo's own .venv, per campaign/README.md)",
+  "mascot_speaker": "Eric",
+  "human_speaker": "Dylan",
+  "announcer_speaker": "Vivian",
+  "note": "CORRECTED after first delivery: the initial pick used Uncle_Fu for the mascot, which this repo's own prior benchmark (knowledge/qwen3-tts-guide/BENCHMARK.md, data/work/qwen3_tts_research_2026-07-31/HUMAN_RESULT.md) already rated 1/5 naturalness -- 'breathy and unsuitable', explicitly rejected -- something that should have been checked before picking a voice, not after a bad delivery. Switched to Eric (rated 3/5 in that same benchmark; mediocre but not rejected). Dylan (5/5, clear winner in that benchmark) stays for the human protagonist. Vivian/Serena/Ono_Anna/Sohee were not covered by that benchmark (it only scored the 5 male-coded presets) -- still an unverified pick, lowest risk of the untested options since no negative evidence exists either.",
+  "available_presets": ["Vivian", "Serena", "Uncle_Fu", "Dylan", "Eric", "Ryan", "Aiden", "Ono_Anna", "Sohee"],
+  "preset_ratings_from_prior_benchmark": {
+    "Dylan": "5/5 naturalness -- clear winner",
+    "Eric": "3/5 heard, 2/5 natural -- mediocre, usable",
+    "Uncle_Fu": "1/5 -- breathy and unsuitable, REJECTED",
+    "Ryan": "foreign-sounding (tested in German), not scored -- REJECTED",
+    "Aiden": "American-accented (tested in German), not scored -- REJECTED",
+    "note": "Ratings come from a German-language Luther-content evaluation, not English ad copy -- Uncle_Fu's breathiness is a language-independent acoustic property and clearly transfers; Ryan/Aiden's rejections were specifically about German pronunciation and may not transfer to English, but were swapped out anyway since no positive evidence for them exists either."
+  },
+  "lines": [
+    {"id": "01a_tired_of_feet", "speaker": "Vivian", "role": "fake-ad announcer"},
+    {"id": "01b_commercial_you_need", "speaker": "Vivian", "role": "fake-ad announcer"},
+    {"id": "02_human_downloadthat", "speaker": "Dylan", "role": "human protagonist"},
+    {"id": "03_mascot_easy", "speaker": "Eric", "role": "mascot"},
+    {"id": "04_human_how", "speaker": "Dylan", "role": "human protagonist"},
+    {"id": "05_mascot_like_this", "speaker": "Eric", "role": "mascot"},
+    {"id": "06_final_vo", "speaker": "Vivian", "role": "brand tagline VO"}
+  ],
+  "generation_script": "campaign/scripts/gen_vo.py (existing, reused verbatim -- see campaign README)"
+}

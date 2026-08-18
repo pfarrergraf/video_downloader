@@ -1,0 +1,4 @@
+file '/home/benjamin_graf/ComfyUI/output/downloadthat/ad07/final_shotA_macro_push_00001_.mp4'
+file '/home/benjamin_graf/ComfyUI/output/downloadthat/ad07/final_shotB_pullback_reveal_00001_.mp4'
+file '/home/benjamin_graf/ComfyUI/output/downloadthat/ad07/final_shotC_mascot_arrival_00001_.mp4'
+file '/home/benjamin_graf/ComfyUI/output/downloadthat/ad07/final_shotD_phone_reveal_00001_.mp4'

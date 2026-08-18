@@ -1,0 +1,34 @@
+{
+  "name": "Download Fox",
+  "status": "locked",
+  "locked_at": "2026-08-14",
+  "source": "user-provided ChatGPT-generated character stills (6 views), no accompanying ad-concept or human pairing this time",
+  "source_files": [
+    "D:/Bilder/downloadthat_ad/ChatGPT Image Aug 14, 2026, 09_30_31 PM (1).png",
+    "D:/Bilder/downloadthat_ad/ChatGPT Image Aug 14, 2026, 09_30_31 PM (2).png",
+    "D:/Bilder/downloadthat_ad/ChatGPT Image Aug 14, 2026, 09_30_32 PM (3).png",
+    "D:/Bilder/downloadthat_ad/ChatGPT Image Aug 14, 2026, 09_30_32 PM (4).png",
+    "D:/Bilder/downloadthat_ad/ChatGPT Image Aug 14, 2026, 09_30_32 PM (5).png",
+    "D:/Bilder/downloadthat_ad/ChatGPT Image Aug 14, 2026, 09_30_33 PM (6).png"
+  ],
+  "archived_copy": "gAIstreich-comfy-agent/assets/downloadthat_ad_chatgpt_refs/ (full source folder, 26 files, copied there per Benjamin's explicit instruction)",
+  "provenance_note": "Same treatment as ad07's Puzzle Dog: stills are externally sourced, not local ComfyUI inference; all video motion (I2V) is 100% local LTX-2.3. See DECISIONS.md ADR-017.",
+  "design": {
+    "species": "fox",
+    "body_color": "orange with cream muzzle/belly",
+    "accent_color": "cyan (eyebrows, eye rims, vest trim)",
+    "outfit": "black sleeveless vest, coral-to-teal gradient download-arrow logo on chest",
+    "distinguishing_texture": "hexagon/honeycomb pattern on tail (fox's equivalent of Puzzle Dog's jigsaw seams)",
+    "personality": "energetic, confident, fast-talking, direct-to-camera hype-mascot energy -- contrasts Puzzle Dog's dry deadpan"
+  },
+  "reference_views": {
+    "mascot_front_calm.png": "front headshot, calm smile",
+    "mascot_face_closeup.png": "extreme close-up face",
+    "mascot_3quarter_smirk.png": "3/4 angle, hand on hip, confident smirk",
+    "mascot_phone_pose.png": "full body holding phone showing app UI, pointing at it",
+    "mascot_profile_talking.png": "3/4 profile, mouth open as if talking/gesturing",
+    "mascot_fullbody_gesture.png": "full body, one hand raised, neon stage backdrop"
+  },
+  "not_used_as_separate_crops": "All six source images were already clean single-character compositions at 941x1672 -- used directly as storyboard/i2v source frames without additional cropping, unlike ad07's turnaround-sheet source which required manual crop boxes.",
+  "relationship_to_other_mascots": "Fifth campaign concept, not a replacement for Puzzle Dog (ad07) or any earlier concept. Both mascots remain valid, separate creative directions per ADR-017."
+}

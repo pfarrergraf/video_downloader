@@ -1,0 +1,11 @@
+{
+  "model": "Qwen3-TTS-12Hz-1.7B-CustomVoice",
+  "mascot_speaker": "Eric",
+  "note": "CORRECTED after first delivery: initial pick was Ryan, rated 'foreign-sounding' in this repo's own prior benchmark (knowledge/qwen3-tts-guide/BENCHMARK.md / data/work/qwen3_tts_research_2026-07-31/HUMAN_RESULT.md) -- that rating was for German output specifically and may not fully transfer to this ad's English lines, but there was no positive evidence for Ryan either, so switched to Eric (3/5 in the same benchmark) for consistency with ad07's fix. See ad07_footad/manifests/mascot_voice.json for the full preset rating table.",
+  "lines": [
+    {"id": "01_intro", "speaker": "Eric", "role": "mascot"},
+    {"id": "02_explainer", "speaker": "Eric", "role": "mascot"},
+    {"id": "03_closer", "speaker": "Eric", "role": "mascot"}
+  ],
+  "generation_script": "campaign/scripts/gen_vo.py"
+}

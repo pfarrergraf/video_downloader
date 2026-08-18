@@ -1,0 +1,3 @@
+file '/home/benjamin_graf/ComfyUI/output/downloadthat/ad08/final_shot1_intro_00001_.mp4'
+file '/home/benjamin_graf/ComfyUI/output/downloadthat/ad08/final_shot2_explainer_00001_.mp4'
+file '/home/benjamin_graf/ComfyUI/output/downloadthat/ad08/final_shot3_phone_reveal_00001_.mp4'

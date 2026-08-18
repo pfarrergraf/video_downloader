@@ -76,6 +76,10 @@ pro/website/.dev.vars
 
 # uv lock kept in repo for reproducibility — do NOT ignore uv.lock
 
+# AI ad-campaign generation output — disposable, only campaign/selected/
+# finals are curated and committed (see campaign/README.md)
+campaign/raw/
+
 # git worktrees for parallel agents (see docs/AGENT_COORDINATION.md). A
 # worktree directory holds a .git *file*, so `git add` records it as a gitlink
 # (mode 160000) instead of its contents - a submodule reference with no

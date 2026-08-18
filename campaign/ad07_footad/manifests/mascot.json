@@ -1,0 +1,61 @@
+{
+  "name": "Puzzle Dog",
+  "status": "locked",
+  "locked_at": "2026-08-14",
+  "source": "user-provided ChatGPT-generated character sheet, chosen by Benjamin over an earlier from-scratch alternative and over a competing fox-mascot concept from the same batch",
+  "source_files": {
+    "turnaround_sheet": "D:/Bilder/downloadthat_ad/ChatGPT Image Aug 14, 2026, 08_20_51 PM (4).png",
+    "paired_ad_reference": "D:/Bilder/downloadthat_ad/ChatGPT Image Aug 14, 2026, 08_20_51 PM (5).png",
+    "copied_to": "campaign/ad07_footad/refs/mascot/mascot_turnaround_sheet_SOURCE.png"
+  },
+  "provenance_note": "These stills originated outside the local ComfyUI pipeline (external tool, not run by this agent). Reused here as identity/style reference per Benjamin's explicit choice, same treatment as the already-real DownloadThat logo/screenshot assets. All motion synthesis (I2V) from these stills is still 100% local LTX-2.3 per AGENTS.md \u2014 only the character-design stills are externally sourced, not the video generation.",
+  "superseded": {
+    "what": "An earlier from-scratch local SDXL-Turbo teal/cyan+yellow mascot, generated and briefly locked before the ChatGPT batch arrived",
+    "files": "ComfyUI output/downloadthat/ad07/mascot_front_v1-v4*.png, mascot_phone_pose*.png (left in place, not deleted, per AGENTS.md no-delete-ungefragt rule)",
+    "reason": "Benjamin reviewed both and chose the ChatGPT blue puzzle-piece dog as canonical"
+  },
+  "design": {
+    "concept": "small dog-like creature, entire body built from visible interlocking jigsaw-puzzle-piece segments",
+    "body_color": "blue (#2B5B8C-ish mid blue, sampled from sheet)",
+    "accent_color": "warm yellow puzzle-piece patches (#FF9A3C family)",
+    "wears": "dark hoodie/collar",
+    "personality": "clever, relaxed, slightly smug, confident dry comic timing (matches brief \u00a77)"
+  },
+  "brand_system_from_sheet": {
+    "color_palette": {
+      "coral": "#FF5C7A",
+      "orange": "#FF9A3C",
+      "mint": "#4DECC5",
+      "blue": "#586CFF",
+      "dark_navy": "#1F2331",
+      "graphite": "#2B2D3F",
+      "slate": "#3A4052",
+      "off_white": "#E6E6F0"
+    },
+    "typography": "Poppins (Bold/SemiBold/Medium/Regular)",
+    "ui_style_notes": "deep dark surfaces with soft glow accents, rounded corners, neumorphism, gradient CTAs",
+    "note": "This palette/typography is the mascot-sheet's own brand-concept exploration, not necessarily the shipped app's real UI (compare store_assets/screenshot_main.png, which uses a magenta-on-off-white style). Used here for storyboard mascot-side art direction only; real app screenshots (see manifests/brand_assets.json) are composited as-is wherever the literal app UI must appear on screen, per brief \u00a710/\u00a719."
+  },
+  "reference_views": {
+    "mascot_front.png": "front view, cropped from turnaround sheet",
+    "mascot_3quarter.png": "3/4 view, cropped from turnaround sheet",
+    "mascot_side.png": "side view, cropped from turnaround sheet",
+    "mascot_back.png": "back view, cropped from turnaround sheet",
+    "mascot_smile.png": "happy expression, cropped from turnaround sheet",
+    "mascot_deadpan.png": "deadpan expression, cropped from turnaround sheet",
+    "mascot_phone_pose.png": "hero pose holding phone, cropped from turnaround sheet (used directly for storyboard frames 09/10 as the base plate, with the real DownloadThat screenshot composited into the phone screen per brief \u00a710)"
+  },
+  "crop_boxes_px_on_941x1672_sheet": {
+    "mascot_front": [25, 210, 210, 500],
+    "mascot_3quarter": [195, 210, 375, 500],
+    "mascot_side": [365, 210, 545, 500],
+    "mascot_back": [525, 210, 700, 500],
+    "mascot_happy": [25, 580, 215, 790],
+    "mascot_deadpan": [205, 580, 400, 790],
+    "mascot_hero_pose": [25, 845, 400, 1230],
+    "app_icon": [712, 210, 900, 340]
+  },
+  "not_used_deliberately": [
+    "mascot_pointing.png (brief asked for it; no clean isolated pointing pose exists in the source sheet or the paired ad without another element overlapping — skipped rather than fabricated separately, to keep a single consistent identity source)"
+  ]
+}
