@@ -43,6 +43,7 @@ Thumbs.db
 tools/*.local.ps1
 
 # Test artifacts
+artifacts/
 output/playwright/
 **/.playwright-cli/
 downloads/
