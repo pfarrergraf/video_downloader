@@ -5,6 +5,10 @@
     <string name="notif_downloads_running">Downloads laufen</string>
     <string name="notif_download_done">Download fertig</string>
     <string name="notif_idle">Alle Downloads abgeschlossen</string>
+    <string name="player_title">DownloadThat Player</string>
+    <string name="player_back">Zurück</string>
+    <string name="player_unknown_title">Medium</string>
+    <string name="player_could_not_open">Diese Mediendatei konnte nicht geöffnet werden.</string>
     <plurals name="notif_active_downloads">
         <item quantity="one">Lade %d Datei herunter…</item>
         <item quantity="other">Lade %d Dateien herunter…</item>
