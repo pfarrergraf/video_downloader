@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { createSign, createPrivateKey } from "node:crypto";
 import { pathToFileURL } from "node:url";
 
@@ -189,6 +189,107 @@ export async function syncGooglePlayListingAssets({
   return { editId: edit.id, languages, screenshotsPerLanguage: assets.phoneScreenshots.length };
 }
 
+// Separate from syncGooglePlayListingAssets above on purpose: that function
+// broadcasts the same fixed screenshot set to every listing language, which
+// is exactly the behavior below replaces for the home-screen shot without
+// touching (or risking a regression in) the existing feature-graphic sync
+// that function still owns.
+//
+// Google's own Play badge locale set (see pro/website/assets/store-badges.js,
+// which this mirrors) is the closest thing this repo has to a validated list
+// of language tags Play Console actually uses; the aliases below are the
+// same ones already relied on there.
+const PLAY_LANGUAGE_ALIASES = { ar: "ar-SA", ms: "ms-MY", no: "nb-NO", pt: "pt-PT", zh: "zh-CN" };
+
+/** Map a Play Console listing language (e.g. "de-DE", "zh-TW") to the
+ * closest matching screenshot locale code (e.g. "de", "zh"), falling back
+ * to "en" when nothing in `availableCodes` matches. Exported for testing. */
+export function resolveScreenshotLocale(playLanguage, availableCodes) {
+  const codes = new Set(availableCodes);
+  const normalized = String(playLanguage || "en").replace("_", "-");
+  const lower = normalized.toLowerCase();
+  const short = lower.split("-")[0];
+  if (codes.has(short)) return short;
+  const aliasHit = Object.entries(PLAY_LANGUAGE_ALIASES).find(([, tag]) => tag.toLowerCase() === lower);
+  if (aliasHit && codes.has(aliasHit[0])) return aliasHit[0];
+  return codes.has("en") ? "en" : [...codes][0];
+}
+
+/** Replace each listing language's phone screenshots with that language's
+ * localized home-screen capture, light then dark — one real, distinct image
+ * per language instead of the same English screenshots for every locale.
+ * `screenshotsDir` must contain `screenshot_main_<code>.png` and
+ * `screenshot_main_<code>_dark.png` for every code in `availableCodes`. */
+export async function syncGooglePlayLocalizedScreenshots({
+  packageName,
+  screenshotsDir,
+  availableCodes,
+  email,
+  privateKey,
+  fetchImpl = fetch,
+  nowSeconds,
+  readFile = readFileSync,
+}) {
+  if (!packageName) throw new Error("packageName is required");
+  if (!screenshotsDir) throw new Error("screenshotsDir is required");
+  if (!availableCodes?.length) throw new Error("availableCodes must list at least one screenshot locale code");
+
+  const token = await accessToken({ email, privateKey, fetchImpl, nowSeconds });
+  const headers = { Authorization: `Bearer ${token}` };
+  const packagePath = encodeURIComponent(packageName);
+  const edit = await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${packagePath}/edits`,
+    { method: "POST", headers: { ...headers, "Content-Type": "application/json" }, body: "{}" },
+    "Create Play locale-screenshot edit",
+  );
+  if (!edit.id) throw new Error("Create Play locale-screenshot edit returned no edit id");
+  const editPath = `${packagePath}/edits/${encodeURIComponent(edit.id)}`;
+  const listingResponse = await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}/listings`,
+    { headers },
+    "List Play store listings",
+  );
+  const languages = [...new Set((listingResponse.listings || []).map((listing) => listing.language).filter(Boolean))];
+  if (!languages.length) throw new Error("Google Play returned no store listing languages");
+
+  const uploadImage = async (language, bytes, operation) => publisherRequest(
+    fetchImpl,
+    `${API}/upload/androidpublisher/v3/applications/${editPath}/listings/${encodeURIComponent(language)}/phoneScreenshots?uploadType=media`,
+    { method: "POST", headers: { ...headers, "Content-Type": "image/png" }, body: bytes },
+    operation,
+  );
+  const deleteImages = async (language, operation) => publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}/listings/${encodeURIComponent(language)}/phoneScreenshots`,
+    { method: "DELETE", headers },
+    operation,
+  );
+
+  const perLanguageCode = {};
+  for (const language of languages) {
+    const code = resolveScreenshotLocale(language, availableCodes);
+    perLanguageCode[language] = code;
+    const light = readFile(`${screenshotsDir}/screenshot_main_${code}.png`);
+    const dark = readFile(`${screenshotsDir}/screenshot_main_${code}_dark.png`);
+
+    await deleteImages(language, `Delete old phone screenshots (${language})`);
+    // Light before dark, per-language: two images, one theme demonstrated
+    // each, not a broadcast copy of one locale's shots to every language.
+    await uploadImage(language, light, `Upload light screenshot ${code} (${language})`);
+    await uploadImage(language, dark, `Upload dark screenshot ${code} (${language})`);
+  }
+
+  await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}:commit?changesInReviewBehavior=ERROR_IF_IN_REVIEW`,
+    { method: "POST", headers },
+    "Commit Play locale-screenshot edit",
+  );
+  return { editId: edit.id, languages, perLanguageCode };
+}
+
 function parseArgs(argv) {
   const args = {};
   for (let index = 0; index < argv.length; index += 2) {
@@ -227,6 +328,27 @@ async function main() {
     });
     process.stdout.write(
       `Updated Play listing assets for ${result.languages.length} language(s): ${result.languages.join(", ")}\n`,
+    );
+    return;
+  }
+  if (args["sync-locale-screenshots"] === "true") {
+    if (!args.package || !args["screenshots-dir"]) throw new Error("--package and --screenshots-dir are required");
+    const screenshotsDir = args["screenshots-dir"];
+    const availableCodes = [...new Set(
+      readdirSync(screenshotsDir)
+        .map((name) => name.match(/^screenshot_main_([a-z]+)(?:_dark)?\.png$/)?.[1])
+        .filter(Boolean),
+    )];
+    const result = await syncGooglePlayLocalizedScreenshots({
+      packageName: args.package,
+      screenshotsDir,
+      availableCodes,
+      email,
+      privateKey,
+    });
+    process.stdout.write(
+      `Updated localized phone screenshots for ${result.languages.length} language(s): `
+        + `${result.languages.map((lang) => `${lang}->${result.perLanguageCode[lang]}`).join(", ")}\n`,
     );
     return;
   }
