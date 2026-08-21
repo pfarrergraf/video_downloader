@@ -10,17 +10,35 @@ object LocalApiClient {
     data class QueueResult(val ok: Boolean, val jobId: Int? = null, val error: String? = null)
 
     fun enqueue(context: Context, source: String, audioOnly: Boolean): QueueResult {
-        val cookie = login(context) ?: return QueueResult(false, error = "Could not authenticate local DownloadThat service")
+        val cookie = login(context)
+            ?: return QueueResult(false, error = context.getString(R.string.search_local_auth_failed))
+
+        val settings = request("GET", "/api/settings", payload = null, cookie = cookie)
+        val termsAccepted = settings.code in 200..299 && runCatching {
+            JSONObject(settings.body).optBoolean("terms_accepted", false)
+        }.getOrDefault(false)
+        if (!termsAccepted) {
+            return QueueResult(false, error = context.getString(R.string.search_terms_required))
+        }
+
         val payload = JSONObject()
             .put("source", source)
             .put("audio_only", audioOnly)
         val response = request("POST", "/api/queue", payload, cookie)
         if (response.code !in 200..299) {
             val detail = runCatching { JSONObject(response.body).optString("detail") }.getOrNull()
-            return QueueResult(false, error = detail?.takeIf { it.isNotBlank() } ?: "Download could not be queued")
+            return QueueResult(
+                false,
+                error = detail?.takeIf { it.isNotBlank() }
+                    ?: context.getString(R.string.search_queue_failed),
+            )
         }
         val jobId = runCatching { JSONObject(response.body).getInt("job_id") }.getOrNull()
-        return QueueResult(jobId != null, jobId = jobId, error = if (jobId == null) "Missing queue job id" else null)
+        return QueueResult(
+            jobId != null,
+            jobId = jobId,
+            error = if (jobId == null) context.getString(R.string.search_queue_failed) else null,
+        )
     }
 
     private fun login(context: Context): String? {
