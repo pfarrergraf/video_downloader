@@ -83,8 +83,8 @@
             </intent-filter>
         </service>
 
-        <!-- Internal downloads are exposed as temporary content:// grants only;
-             no broad READ_MEDIA_* / storage permission is needed. -->
+        <!-- Internal downloads are exposed as temporary content grants only;
+             no broad media-library permission is needed. -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="de.classydl.app.fileprovider"
