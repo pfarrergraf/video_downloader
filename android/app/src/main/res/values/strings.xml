@@ -6,10 +6,44 @@
     <string name="notif_downloads_running">Downloads running</string>
     <string name="notif_download_done">Download finished</string>
     <string name="notif_idle">All downloads finished</string>
+
     <string name="player_title">DownloadThat Player</string>
     <string name="player_back">Back</string>
     <string name="player_unknown_title">Media</string>
     <string name="player_could_not_open">This media file could not be opened.</string>
+    <string name="player_history">Recent</string>
+    <string name="player_search">Search</string>
+    <string name="player_speed_value">Speed %1$s</string>
+    <string name="player_sleep_off">Sleep off</string>
+    <string name="player_sleep_value">Sleep %1$d min</string>
+
+    <string name="history_title">Continue &amp; recent</string>
+    <string name="history_empty">Play a video or audio file and it will appear here.</string>
+    <string name="history_continue_at">Continue at %1$s</string>
+    <string name="history_play_again">Play again</string>
+    <string name="history_play_all">Play recent</string>
+    <string name="history_clear">Clear history</string>
+
+    <string name="search_title">Search media</string>
+    <string name="search_subtitle">Enter a title, choose a result, then download video or audio.</string>
+    <string name="search_hint">Song, artist, video title…</string>
+    <string name="search_button">Search</string>
+    <string name="search_enter_query">Enter a title first.</string>
+    <string name="search_searching">Searching…</string>
+    <string name="search_no_results">No matching results found.</string>
+    <string name="search_failed">Search failed: %1$s</string>
+    <string name="search_download_video">Video</string>
+    <string name="search_download_audio">Audio</string>
+    <string name="search_queueing">Starting download…</string>
+    <string name="search_queued">Queued: %1$s</string>
+    <string name="search_download_started">Download started</string>
+    <string name="search_queue_failed">Download could not be started.</string>
+    <string name="home_search_media">Search music &amp; video</string>
+    <plurals name="search_results_count">
+        <item quantity="one">%d result</item>
+        <item quantity="other">%d results</item>
+    </plurals>
+
     <plurals name="notif_active_downloads">
         <item quantity="one">Downloading %d file…</item>
         <item quantity="other">Downloading %d files…</item>
