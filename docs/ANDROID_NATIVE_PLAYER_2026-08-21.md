@@ -1,83 +1,128 @@
-# DownloadThat native media player — architecture and rollout
+# DownloadThat native player + retention/discovery — 2026-08-21
 
-Base commit: `d9fbc7bc10e8d2c4ccb947cef1a0aec77bcc5a26` (`before player`)
+## Base and scope
 
-## Goal
+The feature branch is based on commit `d9fbc7bc10e8d2c4ccb947cef1a0aec77bcc5a26` (`before player`).
 
-Turn DownloadThat from a short-session downloader into a repeat-use media utility without destabilizing the existing Python/WebView download stack.
+The Android app now has two product loops instead of only one:
 
-The player is deliberately native Android code. The downloader remains unchanged behind the existing localhost WebView/Python architecture.
+1. **Acquire** — share/paste a supported URL or search by title, then queue video/audio through the existing downloader.
+2. **Retain** — play media in DownloadThat, resume later, keep recent history, queue recent items, use playback speed, sleep timer and video PiP.
 
-## Architecture
+## Player architecture
 
-- `PlayerActivity` — native playback UI and Android `ACTION_VIEW` entry point.
-- `MediaPlaybackService` — owns one app-wide ExoPlayer + MediaSession.
-- Media3 1.10.1 — current stable Media3 release when this feature was prepared.
-- Existing `FileProvider` — hands app-private completed downloads to the player as `content://` URIs.
-- Existing `android_bridge.open_file()` — now starts DownloadThat's player directly for completed downloads.
-- External file managers — can offer DownloadThat for `audio/*`, `video/*`, and `application/ogg` through the manifest intent filter.
+- AndroidX Media3/ExoPlayer `1.10.1`.
+- `MediaPlaybackService` owns the app-wide player and `MediaSession`.
+- `PlayerActivity` is a controller/surface only.
+- Background audio and Android system transport controls remain active through the media session service.
+- `ACTION_VIEW` for `video/*`, `audio/*` and `application/ogg` lets Android offer DownloadThat in compatible file-manager “Open with” flows.
+- Internal completed downloads route directly to `PlayerActivity` through the existing `FileProvider`.
+- No `READ_MEDIA_*`, legacy storage or all-files permission is introduced.
 
-## Why Media3 / ExoPlayer
+## Phase 2 retention features implemented
 
-Media3 is Android's maintained playback stack and avoids introducing another large native runtime such as LibVLC. That matters for this repository because the Android package already contains Chaquopy, FFmpeg and QuickJS native payloads and must continue satisfying Play's native-library/page-alignment constraints.
+### Continue watching / listening
 
-Media3 supports progressive MP4/M4A/FMP4, WebM/Matroska, MP3, Ogg, WAV, MPEG-TS, MPEG-PS, FLV, ADTS/AAC, FLAC and AMR containers. Actual encoded audio/video sample support still depends on Android's available decoders on the device.
+`PlaybackRetentionStore` checkpoints playback every five seconds and on stop/end. A media item resumes only when the previous checkpoint is meaningful: at least five seconds in and not effectively completed.
 
-The shipped FFmpeg CLI remains a downloader/conversion tool; it is not wired in as a real-time decoder. Adding Media3's FFmpeg decoder extension would require a separately maintained native build and should only be considered after measuring real unsupported-codec failures on production devices.
+History stays local in app-private SharedPreferences. `allowBackup=false` means it is not restored to a new install by Android backup.
 
-## Background playback
+### Recently played
 
-The ExoPlayer instance lives in `MediaPlaybackService`, not the Activity. This gives:
+`MediaHistoryActivity` shows up to 30 recent items with:
 
-- screen-off audio playback,
-- app-switch/background audio,
-- lock-screen and notification transport controls,
-- Bluetooth/headset media controls,
-- audio focus handling,
-- automatic pause on unplugged headphones (`setHandleAudioBecomingNoisy(true)`).
+- title;
+- saved position;
+- duration when known;
+- “continue” vs. “play again” semantics;
+- clear-history control.
 
-The required `FOREGROUND_SERVICE_MEDIA_PLAYBACK` permission is added. No broad storage/media read permission is added.
+### Local playback queue
 
-## Storage / privacy model
+“Play recent” builds a Media3 playlist from up to 20 recent items and hands the playlist to the existing service-owned player. Media3 therefore supplies next/previous behavior through normal player/system controls.
 
-External files arrive through the URI permission Android grants with the `ACTION_VIEW` intent. Internal files use the existing app-owned FileProvider. The implementation intentionally does **not** request `READ_MEDIA_VIDEO`, `READ_MEDIA_AUDIO`, `READ_EXTERNAL_STORAGE`, or `MANAGE_EXTERNAL_STORAGE`.
+### Playback speed
 
-This keeps the feature compatible with scoped storage and minimizes Play Console permission review surface.
+The player cycles through `1.0x -> 1.25x -> 1.5x -> 2.0x -> 0.75x` and persists the selected speed locally.
 
-## Retention roadmap after the playback MVP
+### Sleep timer
 
-Do these only after the native playback path is green on CI and physical devices:
+The UI cycles `off -> 15 -> 30 -> 60 -> off`. The deadline is persisted locally and enforced by `MediaPlaybackService`, not by the Activity, so closing the player screen does not silently cancel the timer while background audio continues.
 
-1. Persist `lastPositionMs` + `lastPlayedAt` locally and show **Continue listening / Continue watching**.
-2. Add **Recently played** to the existing DownloadThat UI.
-3. Add queue/playlist playback from completed downloads.
-4. Add playback speed and sleep timer for audio.
-5. Add Picture-in-Picture for video.
-6. Add optional subtitle side-loading (WebVTT/SRT/SSA/ASS supported by Media3).
-7. Instrument privacy-preserving local counters first; only add remote analytics after an explicit product/privacy decision.
+### Picture in Picture
 
-The retention metric to watch is not raw session duration alone. Measure D1/D7 return rate, player starts per downloader completion, repeat playback starts, and percentage of completed downloads opened inside DownloadThat.
+`PlayerActivity` is PiP-enabled for video. Android 12+ uses auto-enter while older supported Android versions enter PiP from `onUserLeaveHint()` when video is playing. Player chrome is hidden in PiP.
 
-## Acceptance matrix
+## Media discovery / search-to-download
 
-Minimum physical-device checks before merge/release:
+`SearchActivity` is reachable from both the main DownloadThat screen and the native player/history surfaces.
 
-- MP4 H.264/AAC downloaded by DownloadThat.
-- WebM VP9/Opus.
-- MP3.
-- M4A/AAC.
-- Ogg/Opus.
-- WAV.
-- FLAC.
-- MKV with a platform-supported codec.
-- File-manager `Open with -> DownloadThat` for MP4 and MP3.
-- Home button while audio plays -> playback continues.
-- Screen lock -> playback continues and lock-screen controls work.
-- Headphones unplugged -> playback pauses.
-- Incoming phone/audio-focus interruption -> playback behaves according to Android audio focus.
-- Existing download queue continues to work while player is active.
-- Play and direct product flavors both compile.
+Flow:
 
-## CI guardrails
+1. user enters a title/artist/video query;
+2. `video_downloader.media_search` uses the already-bundled in-process yt-dlp runtime to request four metadata-only search results;
+3. the app renders title, uploader/duration and a restricted YouTube thumbnail URL;
+4. each result has **Video** and **Audio** actions;
+5. the selected result is submitted to the existing authenticated `/api/queue` endpoint via `LocalApiClient`.
 
-`tests/test_android_player_contract.py` guards the architectural contract without requiring an Android SDK. The repository's Android GitHub Actions workflow remains the authoritative compile/emulator check because `CLAUDE.md` explicitly documents that Android SDK verification is CI-only in this environment.
+The important architectural rule is step 5: discovery does **not** write directly to `QueueStore` and does not create a parallel downloader. The existing API remains authoritative for free-tier quota, Pro entitlement, source normalization, quality defaults and queue behavior.
+
+The search helper is intentionally metadata-only (`skip_download=True`, flat search extraction). It does not stream audiovisual content into the search screen.
+
+## YouTube advertising / embedded playback non-goal
+
+This branch does **not** add an ad blocker, alter an embedded YouTube player, suppress YouTube ads, or market DownloadThat as a “YouTube without ads” client.
+
+Current YouTube API developer policies explicitly prohibit modifying/blocking ads shown by YouTube/API services and prohibit modifying or blocking parts of the YouTube player. Therefore an ad-suppression layer is intentionally kept out of the Play-facing architecture.
+
+DownloadThat’s own native playback of a file already present on the device remains ad-free in the simple product sense that DownloadThat itself does not inject advertising into local playback.
+
+## Format scope
+
+Media3 progressive container support covers the core target set including MP4/M4A/FMP4, WebM/Matroska, MP3, Ogg, WAV, MPEG-TS/PS, FLV, ADTS/AAC, FLAC and AMR. Actual encoded sample support can still depend on the Android device decoder set.
+
+The first production path deliberately does not add LibVLC or a separately built Media3 FFmpeg decoder extension. The repository already ships substantial native payloads (Chaquopy/CPython, ffmpeg CLI, QuickJS) and must preserve Play 16-KB native-library alignment and package-size discipline.
+
+## Tests
+
+- `tests/test_android_player_contract.py`
+- `tests/test_android_player_retention_search_contract.py`
+- `tests/test_media_search.py`
+
+Required physical-device smoke matrix before merge/release:
+
+- MP4/H.264 + AAC;
+- MP4/HEVC when the device supports it;
+- WebM/VP9 + Opus;
+- MKV;
+- MP3;
+- M4A/AAC;
+- Ogg/Opus;
+- WAV;
+- FLAC;
+- Android file-manager `Open with -> DownloadThat`;
+- screen-off audio;
+- headset/Bluetooth play-pause;
+- resume after leaving/reopening;
+- speed persistence;
+- sleep timer;
+- video PiP;
+- recent playlist next/previous;
+- search -> Video queue;
+- search -> Audio queue;
+- free-tier quota rejection from search;
+- simultaneous active download + playback.
+
+## Product metrics worth adding later
+
+Do not optimize only for raw session length. The useful retention metrics are:
+
+- download -> player conversion rate;
+- playback starts per user;
+- resume usage;
+- recent-library return rate;
+- search -> result -> download conversion;
+- D1 / D7 retention;
+- repeated playback of an older download;
+- background-audio session rate;
+- PiP usage.
