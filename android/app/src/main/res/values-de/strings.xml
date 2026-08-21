@@ -37,6 +37,8 @@
     <string name="search_queued">Eingereiht: %1$s</string>
     <string name="search_download_started">Download gestartet</string>
     <string name="search_queue_failed">Download konnte nicht gestartet werden.</string>
+    <string name="search_local_auth_failed">Der lokale DownloadThat-Dienst konnte nicht authentifiziert werden.</string>
+    <string name="search_terms_required">Öffne zuerst die DownloadThat-Hauptseite und akzeptiere die aktuellen Bedingungen, bevor du einen Download startest.</string>
     <string name="home_search_media">Musik &amp; Videos suchen</string>
     <plurals name="search_results_count">
         <item quantity="one">%d Treffer</item>
