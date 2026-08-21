@@ -1,0 +1,137 @@
+schema_version: "1.0"
+app:
+  id: downloadthat
+  name: DownloadThat
+  tagline: ""
+  current_version: "0.8.4.3"
+  lifecycle_phase: PUBLIC_LAUNCH
+  platforms:
+    - android
+  repository_type: android_app
+links:
+  testing_url: ""
+  play_store_url: "https://play.google.com/store/apps/details?id=de.classydl.app"
+  landing_page_url: "https://downloadthat.app/download/android"
+  privacy_policy_url: ""
+  support_url: ""
+positioning:
+  primary_problem: Medien aus unterstützten, berechtigten Quellen auf Android speichern und verwalten.
+  primary_solution: DownloadThat verarbeitet Video- und Audio-Downloads über eine Android-Oberfläche.
+  unique_value_proposition: ""
+  target_audiences: []
+  use_cases:
+    - Video- oder Audioinhalte aus berechtigten Quellen speichern
+    - Audio-only-Ausgabe für unterstützte Quellen
+  differentiators: []
+features:
+  confirmed:
+    - Android-App als Google-Play-first-Anwendung
+    - Video- und Audio-Download-Engine
+    - Audio-only-Modus
+    - Queue mit Wiederholungen
+  experimental: []
+  planned: []
+  removed:
+    - Affiliate-/Creator-System im aktiven Arbeitsstand
+marketing:
+  tester_message_goal: Geeignete Android-Tester gewinnen und belastbares Feedback sammeln.
+  public_message_goal: DownloadThat ist öffentlich veröffentlicht; problembezogen und ohne reißerische Behauptungen vermarkten.
+  keywords:
+    - android app eigene videos speichern
+    - video ohne abo speichern android
+    - audio aus video extrahieren android
+    - android downloader ohne werbung ohne tracking
+  problem_phrases:
+    - Wie kann ich ein eigenes Video auf Android speichern, ohne ein Abo abzuschließen?
+    - Gibt es eine Android-App für Video-Downloads ohne Werbung und ohne Tracking?
+    - Ich suche eine App, um nur die Audiospur aus meinem eigenen Video zu speichern.
+  competitor_terms: []
+  preferred_platforms:
+    - youtube
+    - reddit
+    - tiktok
+  excluded_platforms: []
+  calls_to_action:
+    testing: Wenn du testen und Feedback geben möchtest, melde dich für den Testzugang.
+    public: "Jetzt im Google Play Store verfügbar: https://play.google.com/store/apps/details?id=de.classydl.app"
+claims:
+  allowed:
+    - DownloadThat ist eine Android-App.
+    - Die zugrunde liegende Engine unterstützt Video- und Audio-Downloads.
+    - DownloadThat ist im Google Play Store öffentlich verfügbar (de.classydl.app).
+  forbidden:
+    - DownloadThat umgeht DRM.
+    - DownloadThat darf beliebige urheberrechtlich geschützte Inhalte herunterladen.
+    - DownloadThat unterstützt Bild-/Foto-Downloads.
+  requires_qualification:
+    - Downloads nur aus Quellen und für Inhalte, für die Nutzer die erforderlichen Rechte besitzen.
+limitations:
+  known:
+    - Kein DRM-Bypass
+    - Kein Bild-/Foto-Download aktuell verfügbar
+  unsupported_use_cases:
+    - DRM-geschützte Plattformen umgehen
+  geographic_restrictions: []
+brand_voice:
+  general: Hilfreich, konkret, technisch ehrlich und transparent.
+  developer_disclosure: "Transparenz: Ich bin der Entwickler von DownloadThat."
+  youtube: Kurz, direkt und freundlich.
+  reddit: Community-orientiert, hilfreich und zurückhaltend.
+  tiktok: Knapp und locker.
+  facebook: Persönlich und erklärend.
+  instagram: Knapp und visuell gedacht.
+  x: Prägnant.
+  threads: Dialogorientiert.
+assets:
+  icon: ""
+  screenshots: []
+  demo_videos: []
+  store_graphics: []
+automation:
+  allow_tester_recruitment: true
+  allow_public_marketing: true
+  allow_autoposting: true
+  minimum_relevance_score: 90
+  maximum_daily_posts: 3
+release_status:
+  public: true
+  testing_started_at: ""
+  expected_public_release: ""
+  last_verified_commit: ac7d43db89c01d769076de4f15afebf85aa37926
+source_evidence:
+  - claim: Android-App als Google-Play-first-Anwendung
+    files:
+      - README.md
+      - CLAUDE.md
+    verification: github_documented
+  - claim: Video- und Audio-Download-Engine
+    files:
+      - README.md
+    verification: github_documented
+  - claim: Audio-only-Modus
+    files:
+      - README.md
+    verification: github_documented
+  - claim: Queue mit Wiederholungen
+    files:
+      - README.md
+    verification: github_documented
+  - claim: DownloadThat ist eine Android-App.
+    files:
+      - README.md
+      - CLAUDE.md
+    verification: github_documented
+  - claim: Die zugrunde liegende Engine unterstützt Video- und Audio-Downloads.
+    files:
+      - README.md
+    verification: github_documented
+  - claim: DownloadThat ist im Google Play Store öffentlich verfügbar (de.classydl.app).
+    files: []
+    verification: owner_confirmed_play_console_production_2026-08-19
+last_updated:
+  timestamp: "2026-08-19T00:00:00Z"
+  updated_by: market_my_app profile review — public launch confirmed
+repository:
+  local_path: /mnt/c/ai/video_downloader
+  github_repo: pfarrergraf/video_downloader
+  default_branch: master

@@ -9,6 +9,7 @@ __pycache__/
 # Virtual environments
 .venv/
 .venv-win/
+.compat-venv/
 venv/
 env/
 
@@ -47,6 +48,8 @@ output/playwright/
 downloads/
 downloads_test/
 downloads_smoke*/
+compatibility/private/
+compatibility/results/
 tmp_site/
 .pytest_cache/
 htmlcov/

@@ -60,6 +60,21 @@ uv run classydl download "https://example.com/video-page"
 
 > **Requires** [uv](https://docs.astral.sh/uv/getting-started/installation/) and Python 3.10+.
 
+### Windows environment in this checkout
+
+The repository's `.venv` is a WSL/Linux artifact (`lib64` is a Linux symlink) and
+must not be used by Windows `uv run`. The working Windows environment is
+`.venv-win`; the compatibility runner has its own `.compat-venv`.
+
+```powershell
+# Activate the normal Windows app environment
+.\.venv-win\Scripts\Activate.ps1
+uv run --active classydl ui
+
+# Or bypass activation entirely
+.\.venv-win\Scripts\classydl.exe ui
+```
+
 ## Install
 
 ```bash
@@ -261,15 +276,15 @@ Notes:
 
 Launch a simpler click-first UI with built-in site scraping:
 
-```bash
-uv run classydl ui
-python .\video_downloader\easy_ui.py
+```powershell
+# In this Windows checkout, use the existing Windows environment explicitly
+.\.venv-win\Scripts\classydl.exe ui
 ```
 
 Optional defaults:
 
-```bash
-uv run classydl ui --output "D:\Media\Downloads" --method auto --cookies-from-browser chrome
+```powershell
+.\.venv-win\Scripts\classydl.exe ui --output "D:\Media\Downloads" --method auto --cookies-from-browser firefox
 ```
 
 Easy UI workflow:
@@ -284,11 +299,11 @@ Easy UI workflow:
 - Batch download selected items with one click
 - Toggle **deep scrape** to follow links into sub-pages
 
-If `uv run classydl ui` is interpreted as a URL, refresh scripts and run:
+If you want to use `uv` with the already activated Windows environment, run:
 
-```bash
-uv sync
-uv run python -m video_downloader.cli ui
+```powershell
+.\.venv-win\Scripts\Activate.ps1
+uv run --active classydl ui
 ```
 
 ## Convert WEBM to MP4

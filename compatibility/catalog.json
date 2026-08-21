@@ -1,0 +1,1619 @@
+{
+  "schema_version": 1,
+  "selection_snapshot": "2026-08-21",
+  "selection_basis": [
+    "DACH and global media relevance",
+    "current category traffic rankings",
+    "yt-dlp extractor coverage",
+    "explicit DRM/subscription negative controls"
+  ],
+  "counts": {
+    "baseline": 100,
+    "drm_subscription": 30,
+    "adult": 25,
+    "alternative": 25,
+    "dach": 20
+  },
+  "sites": [
+    {
+      "domain": "youtube.com",
+      "category": "baseline",
+      "category_rank": 1,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "vimeo.com",
+      "category": "baseline",
+      "category_rank": 2,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "twitter.com",
+      "category": "baseline",
+      "category_rank": 3,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "facebook.com",
+      "category": "baseline",
+      "category_rank": 4,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "bilibili.com",
+      "category": "baseline",
+      "category_rank": 5,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "tiktok.com",
+      "category": "baseline",
+      "category_rank": 6,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "soundcloud.com",
+      "category": "baseline",
+      "category_rank": 7,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "twitch.tv",
+      "category": "baseline",
+      "category_rank": 8,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "vk.com",
+      "category": "baseline",
+      "category_rank": 9,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "tv.nrk.no",
+      "category": "baseline",
+      "category_rank": 10,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "rutube.ru",
+      "category": "baseline",
+      "category_rank": 11,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "nicovideo.jp",
+      "category": "baseline",
+      "category_rank": 12,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "cbc.ca",
+      "category": "baseline",
+      "category_rank": 13,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "www3.nhk.or.jp",
+      "category": "baseline",
+      "category_rank": 14,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "music.163.com",
+      "category": "baseline",
+      "category_rank": 15,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "slideslive.com",
+      "category": "baseline",
+      "category_rank": 16,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "redbull.com",
+      "category": "baseline",
+      "category_rank": 17,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "pbs.org",
+      "category": "baseline",
+      "category_rank": 18,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "imgur.com",
+      "category": "baseline",
+      "category_rank": 19,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "bbc.co.uk",
+      "category": "baseline",
+      "category_rank": 20,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "instagram.com",
+      "category": "baseline",
+      "category_rank": 21,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "rtve.es",
+      "category": "baseline",
+      "category_rank": 22,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "radio.nrk.no",
+      "category": "baseline",
+      "category_rank": 23,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "loom.com",
+      "category": "baseline",
+      "category_rank": 24,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "gamejolt.com",
+      "category": "baseline",
+      "category_rank": 25,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "dailymotion.com",
+      "category": "baseline",
+      "category_rank": 26,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "bbc.com",
+      "category": "baseline",
+      "category_rank": 27,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "v.qq.com",
+      "category": "baseline",
+      "category_rank": 28,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "weverse.io",
+      "category": "baseline",
+      "category_rank": 29,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "rumble.com",
+      "category": "baseline",
+      "category_rank": 30,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "ok.ru",
+      "category": "baseline",
+      "category_rank": 31,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "france.tv",
+      "category": "baseline",
+      "category_rank": 32,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "bandlab.com",
+      "category": "baseline",
+      "category_rank": 33,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "yandex.ru",
+      "category": "baseline",
+      "category_rank": 34,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "sbs.com.au",
+      "category": "baseline",
+      "category_rank": 35,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "reddit.com",
+      "category": "baseline",
+      "category_rank": 36,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "mxplayer.in",
+      "category": "baseline",
+      "category_rank": 37,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "mewatch.sg",
+      "category": "baseline",
+      "category_rank": 38,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "cbsnews.com",
+      "category": "baseline",
+      "category_rank": 39,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "archive.org",
+      "category": "baseline",
+      "category_rank": 40,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "rctiplus.com",
+      "category": "baseline",
+      "category_rank": 41,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "nhk.or.jp",
+      "category": "baseline",
+      "category_rank": 42,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "bilibili.tv",
+      "category": "baseline",
+      "category_rank": 43,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "svtplay.se",
+      "category": "baseline",
+      "category_rank": 44,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "ruv.is",
+      "category": "baseline",
+      "category_rank": 45,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "raiplay.it",
+      "category": "baseline",
+      "category_rank": 46,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "npo.nl",
+      "category": "baseline",
+      "category_rank": 47,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "my.mail.ru",
+      "category": "baseline",
+      "category_rank": 48,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "mlb.com",
+      "category": "baseline",
+      "category_rank": 49,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "lbry.tv",
+      "category": "baseline",
+      "category_rank": 50,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "abc.net.au",
+      "category": "baseline",
+      "category_rank": 51,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "viu.com",
+      "category": "baseline",
+      "category_rank": 52,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "vidio.com",
+      "category": "baseline",
+      "category_rank": 53,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "tvw.org",
+      "category": "baseline",
+      "category_rank": 54,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "tvpot.daum.net",
+      "category": "baseline",
+      "category_rank": 55,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "tunein.com",
+      "category": "baseline",
+      "category_rank": 56,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "tmz.com",
+      "category": "baseline",
+      "category_rank": 57,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "svt.se",
+      "category": "baseline",
+      "category_rank": 58,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "startv.com.tr",
+      "category": "baseline",
+      "category_rank": 59,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "smotrim.ru",
+      "category": "baseline",
+      "category_rank": 60,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "polskieradio.pl",
+      "category": "baseline",
+      "category_rank": 61,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "newgrounds.com",
+      "category": "baseline",
+      "category_rank": 62,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "globalplayer.com",
+      "category": "baseline",
+      "category_rank": 63,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "dr.dk",
+      "category": "baseline",
+      "category_rank": 64,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "tver.jp",
+      "category": "baseline",
+      "category_rank": 65,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "thisoldhouse.com",
+      "category": "baseline",
+      "category_rank": 66,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "teamcoco.com",
+      "category": "baseline",
+      "category_rank": 67,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "sonyliv.com",
+      "category": "baseline",
+      "category_rank": 68,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "rts.ch",
+      "category": "baseline",
+      "category_rank": 69,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "odysee.com",
+      "category": "baseline",
+      "category_rank": 70,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "nytimes.com",
+      "category": "baseline",
+      "category_rank": 71,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "nrk.no",
+      "category": "baseline",
+      "category_rank": 72,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "web.archive.org",
+      "category": "baseline",
+      "category_rank": 73,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "likee.video",
+      "category": "baseline",
+      "category_rank": 74,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "la7.it",
+      "category": "baseline",
+      "category_rank": 75,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "imdb.com",
+      "category": "baseline",
+      "category_rank": 76,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "ign.com",
+      "category": "baseline",
+      "category_rank": 77,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "heise.de",
+      "category": "baseline",
+      "category_rank": 78,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "gettr.com",
+      "category": "baseline",
+      "category_rank": 79,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "espn.com",
+      "category": "baseline",
+      "category_rank": 80,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "cda.pl",
+      "category": "baseline",
+      "category_rank": 81,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "linkedin.com",
+      "category": "baseline",
+      "category_rank": 82,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "abema.tv",
+      "category": "baseline",
+      "category_rank": 83,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "abcnews.go.com",
+      "category": "baseline",
+      "category_rank": 84,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "theguardian.com",
+      "category": "baseline",
+      "category_rank": 85,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "washingtonpost.com",
+      "category": "baseline",
+      "category_rank": 86,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "nbcnews.com",
+      "category": "baseline",
+      "category_rank": 87,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "spiegel.de",
+      "category": "baseline",
+      "category_rank": 88,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "msn.com",
+      "category": "baseline",
+      "category_rank": 89,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "aol.com",
+      "category": "baseline",
+      "category_rank": 90,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "vice.com",
+      "category": "baseline",
+      "category_rank": 91,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "kick.com",
+      "category": "baseline",
+      "category_rank": 92,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "bitchute.com",
+      "category": "baseline",
+      "category_rank": 93,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "c-span.org",
+      "category": "baseline",
+      "category_rank": 94,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "nba.com",
+      "category": "baseline",
+      "category_rank": 95,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "nzherald.co.nz",
+      "category": "baseline",
+      "category_rank": 96,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "c.brightcove.com",
+      "category": "baseline",
+      "category_rank": 97,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "ctvnews.ca",
+      "category": "baseline",
+      "category_rank": 98,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "ina.fr",
+      "category": "baseline",
+      "category_rank": 99,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "vod.tvp.pl",
+      "category": "baseline",
+      "category_rank": 100,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "netflix.com",
+      "category": "drm_subscription",
+      "category_rank": 1,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "primevideo.com",
+      "category": "drm_subscription",
+      "category_rank": 2,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "disneyplus.com",
+      "category": "drm_subscription",
+      "category_rank": 3,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "spotify.com",
+      "category": "drm_subscription",
+      "category_rank": 4,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "music.apple.com",
+      "category": "drm_subscription",
+      "category_rank": 5,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "deezer.com",
+      "category": "drm_subscription",
+      "category_rank": 6,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "tidal.com",
+      "category": "drm_subscription",
+      "category_rank": 7,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "qobuz.com",
+      "category": "drm_subscription",
+      "category_rank": 8,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "discoveryplus.com",
+      "category": "drm_subscription",
+      "category_rank": 9,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "tubitv.com",
+      "category": "drm_subscription",
+      "category_rank": 10,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "pluto.tv",
+      "category": "drm_subscription",
+      "category_rank": 11,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "hotstar.com",
+      "category": "drm_subscription",
+      "category_rank": 12,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "patreon.com",
+      "category": "drm_subscription",
+      "category_rank": 13,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "nebula.tv",
+      "category": "drm_subscription",
+      "category_rank": 14,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "medici.tv",
+      "category": "drm_subscription",
+      "category_rank": 15,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "hoichoi.tv",
+      "category": "drm_subscription",
+      "category_rank": 16,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "shahid.mbc.net",
+      "category": "drm_subscription",
+      "category_rank": 17,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "gem.cbc.ca",
+      "category": "drm_subscription",
+      "category_rank": 18,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "nbc.com",
+      "category": "drm_subscription",
+      "category_rank": 19,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "wetv.vip",
+      "category": "drm_subscription",
+      "category_rank": 20,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "ondemandkorea.com",
+      "category": "drm_subscription",
+      "category_rank": 21,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "mediasetinfinity.mediaset.it",
+      "category": "drm_subscription",
+      "category_rank": 22,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "subscription.packtpub.com",
+      "category": "drm_subscription",
+      "category_rank": 23,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "magellantv.com",
+      "category": "drm_subscription",
+      "category_rank": 24,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "americastestkitchen.com",
+      "category": "drm_subscription",
+      "category_rank": 25,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "watch.nba.com",
+      "category": "drm_subscription",
+      "category_rank": 26,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "nfhsnetwork.com",
+      "category": "drm_subscription",
+      "category_rank": 27,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "jiosaavn.com",
+      "category": "drm_subscription",
+      "category_rank": 28,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "music.youtube.com",
+      "category": "drm_subscription",
+      "category_rank": 29,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "watch.thechosen.tv",
+      "category": "drm_subscription",
+      "category_rank": 30,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "protected_or_preview"
+    },
+    {
+      "domain": "pornhub.com",
+      "category": "adult",
+      "category_rank": 1,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "xhamster.com",
+      "category": "adult",
+      "category_rank": 2,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "xvideos.com",
+      "category": "adult",
+      "category_rank": 3,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "xnxx.com",
+      "category": "adult",
+      "category_rank": 4,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "youporn.com",
+      "category": "adult",
+      "category_rank": 5,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "redgifs.com",
+      "category": "adult",
+      "category_rank": 6,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "spankbang.com",
+      "category": "adult",
+      "category_rank": 7,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "eporner.com",
+      "category": "adult",
+      "category_rank": 8,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "beeg.com",
+      "category": "adult",
+      "category_rank": 9,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "tnaflix.com",
+      "category": "adult",
+      "category_rank": 10,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "empflix.com",
+      "category": "adult",
+      "category_rank": 11,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "scrolller.com",
+      "category": "adult",
+      "category_rank": 12,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "thisvid.com",
+      "category": "adult",
+      "category_rank": 13,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "playvids.com",
+      "category": "adult",
+      "category_rank": 14,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "nuvid.com",
+      "category": "adult",
+      "category_rank": 15,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "slutload.com",
+      "category": "adult",
+      "category_rank": 16,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "zenporn.com",
+      "category": "adult",
+      "category_rank": 17,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "pornflip.com",
+      "category": "adult",
+      "category_rank": 18,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "iwara.tv",
+      "category": "adult",
+      "category_rank": 19,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "xvideos.es",
+      "category": "adult",
+      "category_rank": 20,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "picarto.tv",
+      "category": "adult",
+      "category_rank": 21,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "drtuber.com",
+      "category": "adult",
+      "category_rank": 22,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "pr0gramm.com",
+      "category": "adult",
+      "category_rank": 23,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "video.fc2.com",
+      "category": "adult",
+      "category_rank": 24,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "mellow-fan.com",
+      "category": "adult",
+      "category_rank": 25,
+      "required_urls": 3,
+      "private_evidence": true,
+      "expected_access": "public"
+    },
+    {
+      "domain": "mixch.tv",
+      "category": "alternative",
+      "category_rank": 1,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "twitcasting.tv",
+      "category": "alternative",
+      "category_rank": 2,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "rokfin.com",
+      "category": "alternative",
+      "category_rank": 3,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "dumpert.nl",
+      "category": "alternative",
+      "category_rank": 4,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "banbye.com",
+      "category": "alternative",
+      "category_rank": 5,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "subsplash.com",
+      "category": "alternative",
+      "category_rank": 6,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "prankcast.com",
+      "category": "alternative",
+      "category_rank": 7,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "gdcvault.com",
+      "category": "alternative",
+      "category_rank": 8,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "npr.org",
+      "category": "alternative",
+      "category_rank": 9,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "17.live",
+      "category": "alternative",
+      "category_rank": 10,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "weibo.com",
+      "category": "alternative",
+      "category_rank": 11,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "vkvideo.ru",
+      "category": "alternative",
+      "category_rank": 12,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "video.vice.com",
+      "category": "alternative",
+      "category_rank": 13,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "onf.ca",
+      "category": "alternative",
+      "category_rank": 14,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "nfb.ca",
+      "category": "alternative",
+      "category_rank": 15,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "rtl.lu",
+      "category": "alternative",
+      "category_rank": 16,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "bfmtv.com",
+      "category": "alternative",
+      "category_rank": 17,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "rtp.pt",
+      "category": "alternative",
+      "category_rank": 18,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "hungama.com",
+      "category": "alternative",
+      "category_rank": 19,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "lrt.lt",
+      "category": "alternative",
+      "category_rank": 20,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "areena.yle.fi",
+      "category": "alternative",
+      "category_rank": 21,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "rtbf.be",
+      "category": "alternative",
+      "category_rank": 22,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "mojevideo.sk",
+      "category": "alternative",
+      "category_rank": 23,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "rudo.video",
+      "category": "alternative",
+      "category_rank": 24,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "rtvcplay.co",
+      "category": "alternative",
+      "category_rank": 25,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "zdf.de",
+      "category": "dach",
+      "category_rank": 1,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "ardmediathek.de",
+      "category": "dach",
+      "category_rank": 2,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "ndr.de",
+      "category": "dach",
+      "category_rank": 3,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "tagesschau.de",
+      "category": "dach",
+      "category_rank": 4,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "tlc.de",
+      "category": "dach",
+      "category_rank": 5,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "n-joy.de",
+      "category": "dach",
+      "category_rank": 6,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "3sat.de",
+      "category": "dach",
+      "category_rank": 7,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "www1.wdr.de",
+      "category": "dach",
+      "category_rank": 8,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "videocampus.sachsen.de",
+      "category": "dach",
+      "category_rank": 9,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "canalalpha.ch",
+      "category": "dach",
+      "category_rank": 10,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "on.orf.at",
+      "category": "dach",
+      "category_rank": 11,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "moviepilot.de",
+      "category": "dach",
+      "category_rank": 12,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "hearthis.at",
+      "category": "dach",
+      "category_rank": 13,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "playsuisse.ch",
+      "category": "dach",
+      "category_rank": 14,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "sr-mediathek.de",
+      "category": "dach",
+      "category_rank": 15,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "bpb.de",
+      "category": "dach",
+      "category_rank": 16,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "live.rbg.tum.de",
+      "category": "dach",
+      "category_rank": 17,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "southpark.de",
+      "category": "dach",
+      "category_rank": 18,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "mx3.ch",
+      "category": "dach",
+      "category_rank": 19,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    },
+    {
+      "domain": "germanupa.de",
+      "category": "dach",
+      "category_rank": 20,
+      "required_urls": 3,
+      "private_evidence": false,
+      "expected_access": "public"
+    }
+  ]
+}
