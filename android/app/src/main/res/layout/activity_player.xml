@@ -28,8 +28,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/player_back"
             android:padding="12dp"
-            android:src="@android:drawable/ic_media_previous"
-            android:tint="#FFFFFF" />
+            android:src="@drawable/ic_player_back" />
 
         <TextView
             android:id="@+id/player_title"
