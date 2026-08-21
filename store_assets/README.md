@@ -15,7 +15,23 @@ Prepared ahead of time so registration + submission (see
   (Pixel 7 emulation, 1082×2202 device pixels) screenshots of the actual running app (captured via Playwright against a local
   `classydl web` instance, not mockups). `screenshot_queue.png` has synthetic job rows (one
   playlist video, one audio file, and one video) inserted directly into the queue store — no real
-  network download happened.
+  network download happened. **Known issue, not yet fixed:** at 1082×2202 these are
+  height÷width = 2.035, just over Play Console's documented 2:1 cap on phone screenshots
+  ([support.google.com/googleplay/android-developer/answer/9866151](https://support.google.com/googleplay/android-developer/answer/9866151))
+  — re-capture at viewport height 824 (see below) before relying on these for a real upload.
+- `screenshots/screenshot_main_<locale>.png` (light) and `screenshots/screenshot_main_<locale>_dark.png`
+  (dark) — one home-screen screenshot per supported locale per theme, 1082×2163 (kept under
+  the 2:1 cap unlike the three files above), for the Play Console per-language screenshot
+  slots. Generated with `scripts/capture_locale_screenshots.py`, which drives the same
+  in-page `setLanguage()`/`applyTheme()` the settings dropdowns use so what's captured is
+  exactly what a user sees — re-run it after any `video_downloader/web/static/i18n/*.json` or
+  `index.html` copy change:
+  `.venv-win/Scripts/python.exe scripts/capture_locale_screenshots.py` (needs Playwright +
+  Chromium, not a project dependency — `uv pip install playwright && playwright install
+  chromium` first). Locale codes match the filenames under
+  `video_downloader/web/static/i18n/`. Play Console has no separate "dark screenshot" slot —
+  a listing's `phoneScreenshots` is just one ordered array per language, so light/dark is a
+  curation choice (which screenshots go in the array, and in what order), not a technical one.
 - `icon-pro-1024.png`, `icon-pro-badge-1024.png` — **not committed to git yet, unclear
   status, needs owner review before use.** Appeared as untracked files in the working
   tree on 2026-08-03 (same day as the T22/T23 tester-feedback work) with no
