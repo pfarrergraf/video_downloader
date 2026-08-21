@@ -8,6 +8,8 @@ GRADLE = ROOT / "android" / "app" / "build.gradle"
 PLAYER = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "PlayerActivity.kt"
 SERVICE = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "MediaPlaybackService.kt"
 BRIDGE = ROOT / "video_downloader" / "android_bridge.py"
+RETENTION = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "PlaybackRetentionStore.kt"
+DOWNLOAD_SERVICE = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "DownloadService.kt"
 
 
 def test_player_uses_stable_media3_stack() -> None:
@@ -51,3 +53,34 @@ def test_player_does_not_restart_same_item_on_activity_recreation() -> None:
     text = PLAYER.read_text(encoding="utf-8")
     assert "currentMediaItem?.mediaId == mediaId" in text
     assert "setMediaId(mediaId)" in text
+
+
+def test_player_rejects_remote_uris_in_single_items_and_playlists() -> None:
+    player = PLAYER.read_text(encoding="utf-8")
+
+    assert 'LOCAL_URI_SCHEMES = setOf("content", "file")' in player
+    assert "!isLocalPlaybackUri(uri)" in player
+    assert "!isLocalPlaybackUri(Uri.parse(uri))" in player
+    assert "rejectedEntries++" in player
+    assert "player_playlist_items_skipped" in player
+
+
+def test_only_owned_downloads_are_retained_and_missing_history_files_are_handled() -> None:
+    retention = RETENTION.read_text(encoding="utf-8")
+    player = PLAYER.read_text(encoding="utf-8")
+    history = (ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "MediaHistoryActivity.kt").read_text(encoding="utf-8")
+
+    assert 'parsed.authority == FILE_PROVIDER_AUTHORITY' in retention
+    assert "if (!isOwnedDownloadUri(uri)) return" in retention
+    assert "if (!retentionStore.isOwnedDownloadUri(uri)) return" in player
+    assert "contentResolver.openFileDescriptor" in history
+    assert "store.remove(entry.uri)" in history
+
+
+def test_completed_notification_opens_native_player_without_chooser() -> None:
+    source = DOWNLOAD_SERVICE.read_text(encoding="utf-8")
+    completed = source.split("private fun notifyCompleted", 1)[1].split("private fun createChannel", 1)[0]
+
+    assert "Intent(this, PlayerActivity::class.java)" in completed
+    assert "setAction(PlayerActivity.ACTION_PLAY_INTERNAL)" in completed
+    assert "Intent.createChooser" not in completed

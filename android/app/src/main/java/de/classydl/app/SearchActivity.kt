@@ -29,6 +29,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchButton: Button
     private lateinit var statusView: TextView
     private lateinit var resultsContainer: LinearLayout
+    @Volatile private var searchGeneration = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +54,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun runSearch() {
+        val requestGeneration = ++searchGeneration
         val query = queryInput.text?.toString()?.trim().orEmpty()
         if (query.isBlank()) {
             statusView.setText(R.string.search_enter_query)
@@ -92,6 +94,7 @@ class SearchActivity : AppCompatActivity() {
                     }
                 }
                 runOnUiThread {
+                    if (!isCurrentUi(requestGeneration)) return@runOnUiThread
                     searchButton.isEnabled = true
                     if (results.isEmpty()) {
                         statusView.setText(R.string.search_no_results)
@@ -101,11 +104,12 @@ class SearchActivity : AppCompatActivity() {
                             results.size,
                             results.size,
                         )
-                        renderResults(results)
+                        renderResults(results, requestGeneration)
                     }
                 }
             } catch (error: Throwable) {
                 runOnUiThread {
+                    if (!isCurrentUi(requestGeneration)) return@runOnUiThread
                     searchButton.isEnabled = true
                     statusView.text = getString(R.string.search_failed, error.message ?: "unknown error")
                 }
@@ -113,7 +117,15 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderResults(results: List<SearchResult>) {
+    override fun onDestroy() {
+        searchGeneration++
+        super.onDestroy()
+    }
+
+    private fun isCurrentUi(requestGeneration: Int): Boolean =
+        requestGeneration == searchGeneration && !isFinishing && !isDestroyed
+
+    private fun renderResults(results: List<SearchResult>, requestGeneration: Int) {
         resultsContainer.removeAllViews()
         results.forEach { result ->
             val card = LinearLayout(this).apply {
@@ -139,7 +151,7 @@ class SearchActivity : AppCompatActivity() {
                 setBackgroundColor(0xFF1A1930.toInt())
             }
             top.addView(thumbnail, LinearLayout.LayoutParams(dp(128), dp(72)))
-            loadThumbnail(result.thumbnail, thumbnail)
+            loadThumbnail(result.thumbnail, thumbnail, requestGeneration)
 
             val meta = LinearLayout(this).apply {
                 orientation = LinearLayout.VERTICAL
@@ -176,11 +188,11 @@ class SearchActivity : AppCompatActivity() {
             card.addView(actions)
             val video = Button(this).apply {
                 setText(R.string.search_download_video)
-                setOnClickListener { enqueue(result, audioOnly = false, this) }
+                setOnClickListener { enqueue(result, audioOnly = false, this, requestGeneration) }
             }
             val audio = Button(this).apply {
                 setText(R.string.search_download_audio)
-                setOnClickListener { enqueue(result, audioOnly = true, this) }
+                setOnClickListener { enqueue(result, audioOnly = true, this, requestGeneration) }
             }
             actions.addView(video, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
             actions.addView(audio, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply {
@@ -189,7 +201,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun enqueue(result: SearchResult, audioOnly: Boolean, button: Button) {
+    private fun enqueue(result: SearchResult, audioOnly: Boolean, button: Button, requestGeneration: Int) {
         if (result.url.isBlank()) return
         button.isEnabled = false
         statusView.setText(R.string.search_queueing)
@@ -197,6 +209,7 @@ class SearchActivity : AppCompatActivity() {
             val queueResult = runCatching { LocalApiClient.enqueue(this, result.url, audioOnly) }
                 .getOrElse { LocalApiClient.QueueResult(false, error = it.message) }
             runOnUiThread {
+                if (!isCurrentUi(requestGeneration)) return@runOnUiThread
                 button.isEnabled = true
                 if (queueResult.ok) {
                     statusView.text = getString(R.string.search_queued, result.title)
@@ -208,7 +221,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadThumbnail(url: String, imageView: ImageView) {
+    private fun loadThumbnail(url: String, imageView: ImageView, requestGeneration: Int) {
         val parsed = runCatching { URI(url).toURL() }.getOrNull() ?: return
         if (parsed.protocol != "https" || parsed.host !in setOf("i.ytimg.com", "img.youtube.com")) return
         thread(name = "downloadthat-thumbnail", isDaemon = true) {
@@ -220,7 +233,7 @@ class SearchActivity : AppCompatActivity() {
                 connection.getInputStream().use { stream -> BitmapFactory.decodeStream(stream) }
             }.getOrNull() ?: return@thread
             runOnUiThread {
-                if (!isFinishing && !isDestroyed) imageView.setImageBitmap(bitmap)
+                if (isCurrentUi(requestGeneration)) imageView.setImageBitmap(bitmap)
             }
         }
     }

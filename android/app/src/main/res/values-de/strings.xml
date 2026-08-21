@@ -10,6 +10,8 @@
     <string name="player_back">Zurück</string>
     <string name="player_unknown_title">Medium</string>
     <string name="player_could_not_open">Diese Mediendatei konnte nicht geöffnet werden.</string>
+    <string name="player_playlist_items_skipped">Nicht verfügbare Playlist-Einträge wurden übersprungen.</string>
+    <string name="player_file_unavailable">Diese Datei ist nicht mehr verfügbar.</string>
     <string name="player_history">Zuletzt</string>
     <string name="player_search">Suchen</string>
     <string name="player_speed_value">Tempo %1$s</string>

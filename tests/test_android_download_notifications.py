@@ -137,8 +137,11 @@ def test_android_15_data_sync_timeout_cancels_work_and_stops_service() -> None:
     assert "stopSelf(startId)" in timeout
 
 
-def test_completed_notification_uses_explicit_media_mime_and_chooser() -> None:
+def test_completed_notification_uses_explicit_media_mime_and_native_player() -> None:
     source = SERVICE.read_text(encoding="utf-8")
     assert "MediaMimeTypes.forFile(File(path))" in source
     assert '?: "*/*"' not in source
-    assert "Intent.createChooser(view, null)" in source
+    completed = source.split("private fun notifyCompleted", 1)[1].split("private fun createChannel", 1)[0]
+    assert "Intent(this, PlayerActivity::class.java)" in completed
+    assert "PlayerActivity.ACTION_PLAY_INTERNAL" in completed
+    assert "Intent.createChooser" not in completed

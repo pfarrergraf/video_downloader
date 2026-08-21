@@ -51,3 +51,12 @@ def test_discovery_does_not_add_ad_blocking_or_broad_storage_permissions() -> No
     for forbidden in ("adblock", "block ads", "remove ads", "skip ads"):
         assert forbidden not in search
         assert forbidden not in backend
+
+
+def test_search_callbacks_are_ignored_after_activity_is_destroyed() -> None:
+    search = _read("android/app/src/main/java/de/classydl/app/SearchActivity.kt")
+
+    assert "@Volatile private var searchGeneration = 0" in search
+    assert "override fun onDestroy()" in search
+    assert "searchGeneration++" in search
+    assert "isCurrentUi(requestGeneration)" in search

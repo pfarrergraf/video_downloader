@@ -11,6 +11,8 @@
     <string name="player_back">Back</string>
     <string name="player_unknown_title">Media</string>
     <string name="player_could_not_open">This media file could not be opened.</string>
+    <string name="player_playlist_items_skipped">Unavailable playlist items were skipped.</string>
+    <string name="player_file_unavailable">This file is no longer available.</string>
     <string name="player_history">Recent</string>
     <string name="player_search">Search</string>
     <string name="player_speed_value">Speed %1$s</string>

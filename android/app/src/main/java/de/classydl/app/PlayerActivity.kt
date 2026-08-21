@@ -15,6 +15,7 @@ import android.util.Rational
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.media3.common.C
@@ -61,6 +62,10 @@ class PlayerActivity : AppCompatActivity() {
         override fun onPlaybackStateChanged(playbackState: Int) {
             if (playbackState == Player.STATE_ENDED) saveCurrentPosition()
             updatePictureInPictureParams()
+        }
+
+        override fun onPlayerError(error: androidx.media3.common.PlaybackException) {
+            showPlaybackError()
         }
 
         override fun onIsPlayingChanged(isPlaying: Boolean) {
@@ -170,13 +175,16 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun consumeIntent(intent: Intent?) {
+        pendingUri = null
+        pendingMimeType = null
+        pendingPlaylist = emptyList()
         if (intent?.action != Intent.ACTION_VIEW && intent?.action != ACTION_PLAY_INTERNAL) {
             showPlaybackError()
             return
         }
 
         val uri = intent.data
-        if (uri == null || (uri.scheme != "content" && uri.scheme != "file")) {
+        if (uri == null || !isLocalPlaybackUri(uri)) {
             showPlaybackError()
             return
         }
@@ -192,7 +200,11 @@ class PlayerActivity : AppCompatActivity() {
 
         pendingUri = uri
         pendingMimeType = intent.type ?: contentResolver.getType(uri)
-        pendingPlaylist = parsePlaylist(intent.getStringExtra(EXTRA_PLAYLIST_JSON))
+        val playlist = parsePlaylist(intent.getStringExtra(EXTRA_PLAYLIST_JSON))
+        pendingPlaylist = playlist.entries
+        if (playlist.rejectedEntries > 0) {
+            Toast.makeText(this, R.string.player_playlist_items_skipped, Toast.LENGTH_SHORT).show()
+        }
         titleView.text = pendingPlaylist.firstOrNull()?.title
             ?: displayName(uri)
             ?: getString(R.string.player_unknown_title)
@@ -238,6 +250,7 @@ class PlayerActivity : AppCompatActivity() {
         val mediaController = controller ?: return
         val item = mediaController.currentMediaItem ?: return
         val uri = item.mediaId.takeIf { it.isNotBlank() } ?: return
+        if (!retentionStore.isOwnedDownloadUri(uri)) return
         val title = item.mediaMetadata.title?.toString()
             ?.takeIf { it.isNotBlank() }
             ?: titleView.text?.toString().orEmpty()
@@ -311,15 +324,19 @@ class PlayerActivity : AppCompatActivity() {
         return builder.build()
     }
 
-    private fun parsePlaylist(raw: String?): List<PlaylistEntry> {
-        if (raw.isNullOrBlank()) return emptyList()
+    private fun parsePlaylist(raw: String?): PlaylistParseResult {
+        if (raw.isNullOrBlank()) return PlaylistParseResult(emptyList(), 0)
         return runCatching {
             val array = JSONArray(raw)
+            var rejectedEntries = 0
             buildList {
                 for (i in 0 until array.length()) {
                     val item = array.optJSONObject(i) ?: continue
                     val uri = item.optString("uri")
-                    if (uri.isBlank()) continue
+                    if (uri.isBlank() || !isLocalPlaybackUri(Uri.parse(uri))) {
+                        rejectedEntries++
+                        continue
+                    }
                     add(
                         PlaylistEntry(
                             uri = uri,
@@ -328,9 +345,12 @@ class PlayerActivity : AppCompatActivity() {
                         ),
                     )
                 }
-            }
-        }.getOrDefault(emptyList())
+            }.let { PlaylistParseResult(it, rejectedEntries) }
+        }.getOrDefault(PlaylistParseResult(emptyList(), 0))
     }
+
+    /** The native player never receives network streams or embedded web media. */
+    private fun isLocalPlaybackUri(uri: Uri): Boolean = uri.scheme in LOCAL_URI_SCHEMES
 
     private fun displayName(uri: Uri): String? {
         if (uri.scheme != "content") return uri.lastPathSegment
@@ -368,10 +388,16 @@ class PlayerActivity : AppCompatActivity() {
 
     private data class PlaylistEntry(val uri: String, val title: String, val mimeType: String?)
 
+    private data class PlaylistParseResult(
+        val entries: List<PlaylistEntry>,
+        val rejectedEntries: Int,
+    )
+
     companion object {
         const val ACTION_PLAY_INTERNAL = "de.classydl.app.action.PLAY_INTERNAL"
         const val EXTRA_PLAYLIST_JSON = "de.classydl.app.extra.PLAYLIST_JSON"
         private const val CHECKPOINT_MS = 5_000L
+        private val LOCAL_URI_SCHEMES = setOf("content", "file")
         private val SPEEDS = listOf(1.0f, 1.25f, 1.5f, 2.0f, 0.75f)
     }
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONArray
 import org.json.JSONObject
@@ -78,6 +79,12 @@ class MediaHistoryActivity : AppCompatActivity() {
     }
 
     private fun play(entry: PlaybackRetentionStore.Entry) {
+        if (!canRead(entry)) {
+            store.remove(entry.uri)
+            render()
+            Toast.makeText(this, R.string.player_file_unavailable, Toast.LENGTH_SHORT).show()
+            return
+        }
         val intent = Intent(this, PlayerActivity::class.java)
             .setAction(PlayerActivity.ACTION_PLAY_INTERNAL)
             .setDataAndType(Uri.parse(entry.uri), entry.mimeType)
@@ -86,7 +93,11 @@ class MediaHistoryActivity : AppCompatActivity() {
     }
 
     private fun playAllRecent() {
-        val items = store.recent(20)
+        val recent = store.recent(20)
+        val unavailable = recent.filterNot(::canRead)
+        unavailable.forEach { store.remove(it.uri) }
+        val items = recent - unavailable.toSet()
+        if (unavailable.isNotEmpty()) render()
         if (items.isEmpty()) return
         val array = JSONArray()
         items.forEach { entry ->
@@ -106,6 +117,10 @@ class MediaHistoryActivity : AppCompatActivity() {
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),
         )
     }
+
+    private fun canRead(entry: PlaybackRetentionStore.Entry): Boolean = runCatching {
+        contentResolver.openFileDescriptor(Uri.parse(entry.uri), "r")?.use { true } ?: false
+    }.getOrDefault(false)
 
     private fun formatTime(ms: Long): String {
         val totalSeconds = (ms / 1000L).coerceAtLeast(0L)

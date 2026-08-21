@@ -1,20 +1,8 @@
 name: Android release
 
-# Deliberately a separate workflow from android-build.yml (not folded into its
-# `push.paths`-filtered trigger): a release is "build me an installable APK
-# from whatever HEAD currently is," which should happen on every tag push
-# regardless of which files that specific commit touched — combining `tags`
-# and `paths` filters on one `push` trigger ANDs them together and could skip
-# a release for a tag that (say) only bumps a version string.
+# Deliberately manual: an AAB or Play upload must be built from the explicitly
+# selected ref, never from an incidental tag or feature-branch push.
 on:
-  push:
-    tags:
-      - "v*.*.*"
-  # Fallback trigger: GitHub's mobile "New release" web form has proven
-  # unreliable (POST hangs on "Publishing..." and silently produces no tag
-  # or release, no error shown) — this lets a release be built and published
-  # from the much simpler Actions "Run workflow" form instead, without
-  # needing the release-creation UI to work at all.
   workflow_dispatch:
     inputs:
       version:
@@ -24,7 +12,12 @@ on:
       upload_to_play:
         description: "Upload the signed AAB to the Google Play internal test track"
         required: true
-        default: true
+        default: false
+        type: boolean
+      publish_github_release:
+        description: "Publish direct APK assets to a GitHub release after all artifact checks"
+        required: true
+        default: false
         type: boolean
 
 permissions:
@@ -35,13 +28,9 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  # On a tag push, github.ref_name is already the tag (e.g. v0.2.0). On a
-  # manual workflow_dispatch run, ref_name would be the branch name instead,
-  # so the tag to release has to come from the input — and that input is
-  # hand-typed on a phone, so a missing leading "v" is normalised here rather
-  # than failing the run (android_version_from_tag.py stays strict, since a
-  # real pushed tag has no excuse for the wrong shape).
-  RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && (startsWith(inputs.version, 'v') && inputs.version || format('v{0}', inputs.version)) || github.ref_name }}
+  # The workflow is dispatched from the intended branch; normalize a missing
+  # leading v so the version parser still receives its canonical tag shape.
+  RELEASE_TAG: ${{ startsWith(inputs.version, 'v') && inputs.version || format('v{0}', inputs.version) }}
 
 jobs:
   # Both the tag shape and the versionCode monotonicity used to be checked
@@ -361,6 +350,7 @@ jobs:
           JSON
 
       - name: Attach APK to GitHub Release
+        if: inputs.publish_github_release
         uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
         with:
           # tag_name/name are required here (not just github.ref_name): on a
@@ -384,7 +374,7 @@ jobs:
       # All local artifact/signature checks and the matching GitHub release
       # must therefore be complete before the edit is committed to Play.
       - name: Upload App Bundle to Google Play internal testing
-        if: github.event_name == 'push' || inputs.upload_to_play
+        if: inputs.upload_to_play
         env:
           GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL }}
           GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY }}

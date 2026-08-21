@@ -1,6 +1,7 @@
 package de.classydl.app
 
 import android.content.Context
+import android.net.Uri
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -35,7 +36,7 @@ class PlaybackRetentionStore(context: Context) {
         positionMs: Long,
         durationMs: Long,
     ) {
-        if (uri.isBlank()) return
+        if (!isOwnedDownloadUri(uri)) return
         val items = recent(MAX_HISTORY).toMutableList()
         items.removeAll { it.uri == uri }
         items.add(
@@ -56,6 +57,12 @@ class PlaybackRetentionStore(context: Context) {
     fun get(uri: String): Entry? = recent(MAX_HISTORY).firstOrNull { it.uri == uri }
 
     @Synchronized
+    fun remove(uri: String) {
+        if (uri.isBlank()) return
+        writeHistory(recent(MAX_HISTORY).filterNot { it.uri == uri })
+    }
+
+    @Synchronized
     fun recent(limit: Int = MAX_HISTORY): List<Entry> {
         val raw = prefs.getString(KEY_HISTORY, null) ?: return emptyList()
         return try {
@@ -64,7 +71,7 @@ class PlaybackRetentionStore(context: Context) {
                 for (i in 0 until array.length()) {
                     val item = array.optJSONObject(i) ?: continue
                     val uri = item.optString("uri")
-                    if (uri.isBlank()) continue
+                    if (!isOwnedDownloadUri(uri)) continue
                     add(
                         Entry(
                             uri = uri,
@@ -131,6 +138,16 @@ class PlaybackRetentionStore(context: Context) {
         prefs.edit().putString(KEY_HISTORY, array.toString()).apply()
     }
 
+    /**
+     * Retention is deliberately limited to DownloadThat's own FileProvider
+     * URIs. External providers can revoke temporary grants at any time, so
+     * keeping them would create broken recent items.
+     */
+    fun isOwnedDownloadUri(uri: String): Boolean = runCatching {
+        val parsed = Uri.parse(uri)
+        parsed.scheme == "content" && parsed.authority == FILE_PROVIDER_AUTHORITY
+    }.getOrDefault(false)
+
     companion object {
         private const val PREFS_NAME = "downloadthat_playback_retention"
         private const val KEY_HISTORY = "history_json"
@@ -139,5 +156,6 @@ class PlaybackRetentionStore(context: Context) {
         private const val MAX_HISTORY = 50
         private const val MIN_RESUME_MS = 5_000L
         private const val COMPLETION_MARGIN_MS = 8_000L
+        private const val FILE_PROVIDER_AUTHORITY = "de.classydl.app.fileprovider"
     }
 }
