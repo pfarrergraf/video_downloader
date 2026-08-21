@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.chaquo.python.Python
 import org.json.JSONObject
-import java.net.URL
+import java.net.URI
 import kotlin.concurrent.thread
 
 /**
@@ -64,8 +64,8 @@ class SearchActivity : AppCompatActivity() {
 
         thread(name = "downloadthat-media-search", isDaemon = true) {
             try {
-                repeat(60) {
-                    if (Python.isStarted()) return@repeat
+                for (attempt in 0 until 60) {
+                    if (Python.isStarted()) break
                     Thread.sleep(100L)
                 }
                 if (!Python.isStarted()) error("Python runtime did not start")
@@ -209,14 +209,15 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun loadThumbnail(url: String, imageView: ImageView) {
-        val parsed = runCatching { URL(url) }.getOrNull() ?: return
+        val parsed = runCatching { URI(url).toURL() }.getOrNull() ?: return
         if (parsed.protocol != "https" || parsed.host !in setOf("i.ytimg.com", "img.youtube.com")) return
         thread(name = "downloadthat-thumbnail", isDaemon = true) {
             val bitmap = runCatching {
-                parsed.openConnection().apply {
+                val connection = parsed.openConnection().apply {
                     connectTimeout = 4_000
                     readTimeout = 6_000
-                }.getInputStream().use(BitmapFactory::decodeStream)
+                }
+                connection.getInputStream().use { stream -> BitmapFactory.decodeStream(stream) }
             }.getOrNull() ?: return@thread
             runOnUiThread {
                 if (!isFinishing && !isDestroyed) imageView.setImageBitmap(bitmap)
