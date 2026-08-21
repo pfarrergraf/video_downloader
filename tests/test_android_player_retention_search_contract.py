@@ -25,13 +25,15 @@ def test_player_phase2_retention_contract() -> None:
     assert "player?.pause()" in service
 
 
-def test_search_routes_downloads_through_existing_queue() -> None:
+def test_search_routes_downloads_through_existing_queue_and_terms_gate() -> None:
     search = _read("android/app/src/main/java/de/classydl/app/SearchActivity.kt")
     client = _read("android/app/src/main/java/de/classydl/app/LocalApiClient.kt")
     backend = _read("video_downloader/media_search.py")
 
     assert 'callAttr("search_youtube_json", query, 4)' in search
     assert '"/api/login"' in client
+    assert '"/api/settings"' in client
+    assert 'optBoolean("terms_accepted", false)' in client
     assert '"/api/queue"' in client
     assert '.put("audio_only", audioOnly)' in client
     assert 'f"ytsearch{bounded_limit}:{cleaned}"' in backend
