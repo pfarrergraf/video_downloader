@@ -137,6 +137,13 @@ test("resolveScreenshotLocale prefers an exact code, then a known Play alias, th
   assert.equal(resolveScreenshotLocale("xx-XX", codes), "en");
 });
 
+test("resolveScreenshotLocale maps legacy ISO codes Play Console still lists (iw, in) to the modern code", () => {
+  // Confirmed live on this app's actual Play listing: "iw-IL" (Hebrew's old
+  // code) was falling back to English before this was handled.
+  assert.equal(resolveScreenshotLocale("iw-IL", ["en", "he"]), "he");
+  assert.equal(resolveScreenshotLocale("in", ["en", "id"]), "id");
+});
+
 test("locale-screenshot sync uploads each language's own light+dark shot, not a shared broadcast set", async () => {
   const files = {
     "screenshots/screenshot_main_en.png": Buffer.from("en-light"),

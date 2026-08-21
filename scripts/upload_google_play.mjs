@@ -201,6 +201,12 @@ export async function syncGooglePlayListingAssets({
 // same ones already relied on there.
 const PLAY_LANGUAGE_ALIASES = { ar: "ar-SA", ms: "ms-MY", no: "nb-NO", pt: "pt-PT", zh: "zh-CN" };
 
+// Play Console still lists some languages under their old ISO 639-1 codes
+// (pre-1989 Hebrew/Indonesian/Yiddish) instead of the modern ones our
+// screenshot filenames use. Confirmed live: this app's own listing has
+// "iw-IL", which resolved to the English fallback until this was added.
+const LEGACY_SHORT_CODES = { iw: "he", in: "id", ji: "yi" };
+
 /** Map a Play Console listing language (e.g. "de-DE", "zh-TW") to the
  * closest matching screenshot locale code (e.g. "de", "zh"), falling back
  * to "en" when nothing in `availableCodes` matches. Exported for testing. */
@@ -208,7 +214,7 @@ export function resolveScreenshotLocale(playLanguage, availableCodes) {
   const codes = new Set(availableCodes);
   const normalized = String(playLanguage || "en").replace("_", "-");
   const lower = normalized.toLowerCase();
-  const short = lower.split("-")[0];
+  const short = LEGACY_SHORT_CODES[lower.split("-")[0]] || lower.split("-")[0];
   if (codes.has(short)) return short;
   const aliasHit = Object.entries(PLAY_LANGUAGE_ALIASES).find(([, tag]) => tag.toLowerCase() === lower);
   if (aliasHit && codes.has(aliasHit[0])) return aliasHit[0];
