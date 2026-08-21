@@ -38,6 +38,8 @@
     <string name="search_queued">Queued: %1$s</string>
     <string name="search_download_started">Download started</string>
     <string name="search_queue_failed">Download could not be started.</string>
+    <string name="search_local_auth_failed">DownloadThat’s local download service could not be authenticated.</string>
+    <string name="search_terms_required">Open the main DownloadThat screen and accept the current terms before starting a download.</string>
     <string name="home_search_media">Search music &amp; video</string>
     <plurals name="search_results_count">
         <item quantity="one">%d result</item>
