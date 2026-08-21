@@ -4,33 +4,22 @@
     <!-- Required by WebView's network stack even for 127.0.0.1-only traffic. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- The three permissions below were explicitly approved by the repo
-         owner on 2026-07-07 (CLAUDE.md permission guardrail; rationale in
-         docs/ANDROID_PERMISSIONS_2026-07-07.md). Purpose: downloads must
-         survive the user switching apps / turning the screen off, with a
-         progress notification and a tappable "download finished"
-         notification — the DownloadService foreground service. All three
-         are standard for download managers (Seal/YTDLnis use the same set);
-         none grant access to any user data. -->
+    <!-- Download foreground service permissions. -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-    <!-- allowBackup=false: Android's Auto Backup would otherwise restore this
-         app's internal storage (queue database, and MainActivity's
-         per-install random password in SharedPreferences) on a fresh
-         install, defeating both "uninstalling truly resets everything" and
-         the per-install-password design (see getOrCreatePassword()'s
-         comment) - a restored password is no longer unique to this install. -->
+    <!-- Required by MediaSessionService for background audio/video playback.
+         This is a foreground-service capability, not broad storage access. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+
     <application
         android:allowBackup="false"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.ClassyDL"
         android:networkSecurityConfig="@xml/network_security_config">
-        <!-- singleTask: a "Share -> DownloadThat"
-             while the app is already running must route into the existing
-             instance via onNewIntent() instead of stacking a second Activity. -->
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -41,27 +30,51 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- Share target: lets YouTube/TikTok/Instagram/etc. share a link
-                 straight into the app (the 2-tap download flow). -->
+            <!-- Share target: link -> DownloadThat. -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
-
         </activity>
 
-        <!-- Hosts the Python server + downloads outside the Activity
-             lifecycle; dataSync is the canonical type for user-initiated
-             transfers. Not exported: nothing outside this app may start it. -->
+        <!-- Native player and Android file-manager "Open with" target.
+             Intentionally scoped to media MIME types: no application/octet-stream
+             wildcard, so DownloadThat does not advertise itself for arbitrary files. -->
+        <activity
+            android:name=".PlayerActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:label="@string/player_title">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="video/*" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="application/ogg" />
+            </intent-filter>
+        </activity>
+
+        <!-- Hosts Python + downloads outside the Activity lifecycle. -->
         <service
             android:name=".DownloadService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
 
-        <!-- Lets android_bridge.open_file() hand a finished download to another
-             app (e.g. a video player) without exposing a raw file:// Uri, which
-             targetSdk 24+ blocks with a FileUriExposedException. -->
+        <!-- Owns ExoPlayer + MediaSession. Exported as the standard Media3
+             session service so Android/system media clients can discover it. -->
+        <service
+            android:name=".MediaPlaybackService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback">
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaSessionService" />
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
+
+        <!-- Internal downloads are exposed as temporary content:// grants only;
+             no broad READ_MEDIA_* / storage permission is needed. -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="de.classydl.app.fileprovider"
