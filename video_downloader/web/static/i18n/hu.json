@@ -101,14 +101,14 @@
       "body": "Elérted a mai ingyenes limitet, {limit} letöltést. Adj meg alább egy licenckulcsot a korlátlan letöltésekhez, vagy próbáld újra {hours} óra múlva."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Illeszd be a linket ide",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "Videó",
+      "audio_toggle": "Csak hang",
+      "download_btn": "Letöltés",
+      "advanced_summary": "Speciális",
+      "quality_label": "Videó minősége",
+      "share_hint": "Tipp: a YouTube-on, Instagramon stb. koppints a „Megosztás” gombra, és válaszd a DownloadThat-et — vagy másold ki a linket, és illeszd be ide."
     },
     "share_format": {
       "title": "What do you want to save?"

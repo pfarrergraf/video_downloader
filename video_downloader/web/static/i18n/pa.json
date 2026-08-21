@@ -101,14 +101,14 @@
       "body": "ਤੁਸੀਂ ਅੱਜ ਦੀ ਮੁਫ਼ਤ ਸੀਮਾ, {limit} ਡਾਊਨਲੋਡ, ਪੂਰੀ ਕਰ ਲਈ ਹੈ। ਅਸੀਮਤ ਡਾਊਨਲੋਡਾਂ ਲਈ ਹੇਠਾਂ ਲਾਇਸੰਸ ਕੁੰਜੀ ਦਰਜ ਕਰੋ, ਜਾਂ {hours} ਘੰਟਿਆਂ ਬਾਅਦ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "ਆਪਣਾ ਲਿੰਕ ਇੱਥੇ ਪੇਸਟ ਕਰੋ",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "ਵੀਡੀਓ",
+      "audio_toggle": "ਸਿਰਫ਼ ਆਡੀਓ",
+      "download_btn": "ਡਾਊਨਲੋਡ",
+      "advanced_summary": "ਐਡਵਾਂਸਡ",
+      "quality_label": "ਵੀਡੀਓ ਗੁਣਵੱਤਾ",
+      "share_hint": "ਸੁਝਾਅ: YouTube, Instagram ਆਦਿ ਵਿੱਚ “Share” ਟੈਪ ਕਰੋ ਅਤੇ DownloadThat ਚੁਣੋ — ਜਾਂ ਲਿੰਕ ਕਾਪੀ ਕਰੋ ਅਤੇ ਇੱਥੇ ਪੇਸਟ ਕਰੋ।"
     },
     "share_format": {
       "title": "What do you want to save?"

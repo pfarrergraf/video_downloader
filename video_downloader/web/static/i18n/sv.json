@@ -101,14 +101,14 @@
       "body": "Du har nått dagens gratisgräns på {limit} nedladdningar. Ange en licensnyckel nedan för obegränsade nedladdningar, eller försök igen om {hours} timmar."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Klistra in din länk här",
       "url_placeholder": "https://…",
       "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "audio_toggle": "Endast ljud",
+      "download_btn": "Ladda ner",
+      "advanced_summary": "Avancerat",
+      "quality_label": "Videokvalitet",
+      "share_hint": "Tips: i YouTube, Instagram med flera, tryck på “Dela” och välj DownloadThat — eller kopiera länken och klistra in den här."
     },
     "share_format": {
       "title": "What do you want to save?"

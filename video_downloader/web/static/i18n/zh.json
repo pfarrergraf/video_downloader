@@ -101,14 +101,14 @@
       "body": "您已用完今天的免费额度（{limit} 次下载）。请在下方输入许可证密钥以解锁无限下载，或 {hours} 小时后再试。"
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "把链接粘贴到这里",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "视频",
+      "audio_toggle": "仅音频",
+      "download_btn": "下载",
+      "advanced_summary": "高级",
+      "quality_label": "视频质量",
+      "share_hint": "提示：在 YouTube、Instagram 等应用中点击“分享”并选择 DownloadThat — 或复制链接后粘贴到这里。"
     },
     "share_format": {
       "title": "What do you want to save?"

@@ -101,14 +101,14 @@
       "body": "మీరు ఈరోజు ఉచిత పరిమితి, {limit} డౌన్‌లోడ్‌లు, పూర్తి చేశారు. అపరిమిత డౌన్‌లోడ్‌ల కోసం క్రింద లైసెన్స్ కీని నమోదు చేయండి, లేదా {hours} గంటల తర్వాత మళ్లీ ప్రయత్నించండి."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "మీ లింక్‌ని ఇక్కడ పేస్ట్ చేయండి",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "వీడియో",
+      "audio_toggle": "ఆడియో మాత్రమే",
+      "download_btn": "డౌన్‌లోడ్",
+      "advanced_summary": "అధునాతన",
+      "quality_label": "వీడియో నాణ్యత",
+      "share_hint": "సూచన: YouTube, Instagram వంటి వాటిలో “Share” నొక్కి DownloadThat ఎంచుకోండి — లేదా లింక్‌ని కాపీ చేసి ఇక్కడ పేస్ట్ చేయండి."
     },
     "share_format": {
       "title": "What do you want to save?"

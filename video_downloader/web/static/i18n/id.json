@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "only download media you have the rights to.",
+    "tagline": "hanya unduh media yang kamu miliki haknya.",
     "login": {
       "title": "Log in",
       "password_label": "Password",
@@ -28,9 +28,9 @@
       "purchase_failed_toast": "The Google Play purchase could not be completed. Try again or contact support."
     },
     "queue": {
-      "title": "Queue",
-      "subtitle": "Updates automatically.",
-      "empty": "Nothing in the queue yet.",
+      "title": "Unduhan saya",
+      "subtitle": "Diperbarui otomatis.",
+      "empty": "Belum ada apa pun dalam antrean.",
       "cancel_btn": "Cancel",
       "cancel_failed_toast": "Failed to cancel.",
       "queued_toast": "Queued.",
@@ -64,7 +64,7 @@
       "saved_toast": "Settings saved.",
       "close_btn": "Close"
     },
-    "footer": "DownloadThat — only download media you have the rights to.",
+    "footer": "DownloadThat — hanya unduh media yang kamu miliki haknya.",
     "batch": {
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
@@ -101,14 +101,14 @@
       "body": "Anda telah mencapai batas gratis hari ini, yaitu {limit} unduhan. Masukkan kunci lisensi di bawah untuk unduhan tanpa batas, atau coba lagi dalam {hours} jam."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Tempel tautanmu di sini",
       "url_placeholder": "https://…",
       "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "audio_toggle": "Hanya audio",
+      "download_btn": "Unduh",
+      "advanced_summary": "Lanjutan",
+      "quality_label": "Kualitas video",
+      "share_hint": "Tip: di YouTube, Instagram, dll., ketuk “Bagikan” dan pilih DownloadThat — atau salin tautannya dan tempel di sini."
     },
     "share_format": {
       "title": "What do you want to save?"

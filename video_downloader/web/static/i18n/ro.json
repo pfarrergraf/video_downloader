@@ -101,14 +101,14 @@
       "body": "Ai atins limita gratuită de {limit} descărcări de azi. Introdu mai jos o cheie de licență pentru descărcări nelimitate, sau încearcă din nou peste {hours} de ore."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Lipește linkul tău aici",
       "url_placeholder": "https://…",
       "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "audio_toggle": "Doar audio",
+      "download_btn": "Descarcă",
+      "advanced_summary": "Avansat",
+      "quality_label": "Calitate video",
+      "share_hint": "Sfat: pe YouTube, Instagram etc. apasă pe „Trimite” și alege DownloadThat — sau copiază linkul și lipește-l aici."
     },
     "share_format": {
       "title": "What do you want to save?"

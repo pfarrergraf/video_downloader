@@ -101,14 +101,14 @@
       "body": "Bạn đã dùng hết giới hạn miễn phí hôm nay là {limit} lượt tải. Nhập khóa bản quyền bên dưới để tải không giới hạn, hoặc thử lại sau {hours} giờ."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Dán liên kết của bạn vào đây",
       "url_placeholder": "https://…",
       "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "audio_toggle": "Chỉ âm thanh",
+      "download_btn": "Tải xuống",
+      "advanced_summary": "Nâng cao",
+      "quality_label": "Chất lượng video",
+      "share_hint": "Mẹo: trong YouTube, Instagram, v.v., nhấn “Chia sẻ” và chọn DownloadThat — hoặc sao chép liên kết và dán vào đây."
     },
     "share_format": {
       "title": "What do you want to save?"

@@ -101,14 +101,14 @@
       "body": "Dosegli ste današnjo brezplačno omejitev {limit} prenosov. Spodaj vnesite licenčni ključ za neomejene prenose ali poskusite znova čez {hours} ur."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Prilepi svojo povezavo tukaj",
       "url_placeholder": "https://…",
       "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "audio_toggle": "Samo zvok",
+      "download_btn": "Prenesi",
+      "advanced_summary": "Napredno",
+      "quality_label": "Kakovost videa",
+      "share_hint": "Nasvet: v YouTubu, Instagramu itd. tapni „Deli” in izberi DownloadThat — ali kopiraj povezavo in jo prilepi tukaj."
     },
     "share_format": {
       "title": "What do you want to save?"

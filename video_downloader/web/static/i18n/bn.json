@@ -101,14 +101,14 @@
       "body": "You've reached today's free limit of {limit} downloads. Enter a license key below for unlimited downloads, or try again in {hours} hours."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "আপনার লিঙ্ক এখানে পেস্ট করুন",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "ভিডিও",
+      "audio_toggle": "শুধু অডিও",
+      "download_btn": "ডাউনলোড",
+      "advanced_summary": "উন্নত",
+      "quality_label": "ভিডিও মান",
+      "share_hint": "টিপস: YouTube, Instagram ইত্যাদিতে “Share”-এ ট্যাপ করুন ও DownloadThat বেছে নিন — অথবা লিঙ্ক কপি করে এখানে পেস্ট করুন।"
     },
     "share_format": {
       "title": "What do you want to save?"

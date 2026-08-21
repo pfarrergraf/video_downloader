@@ -101,14 +101,14 @@
       "body": "Έχετε φτάσει το δωρεάν όριο των {limit} λήψεων για σήμερα. Εισαγάγετε παρακάτω έναν κωδικό άδειας για απεριόριστες λήψεις, ή δοκιμάστε ξανά σε {hours} ώρες."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Επικολλήστε τον σύνδεσμο εδώ",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "Βίντεο",
+      "audio_toggle": "Μόνο ήχος",
+      "download_btn": "Λήψη",
+      "advanced_summary": "Σύνθετες επιλογές",
+      "quality_label": "Ποιότητα βίντεο",
+      "share_hint": "Συμβουλή: στο YouTube, το Instagram κ.λπ. πατήστε «Κοινοποίηση» και επιλέξτε DownloadThat — ή αντιγράψτε τον σύνδεσμο και επικολλήστε τον εδώ."
     },
     "share_format": {
       "title": "What do you want to save?"

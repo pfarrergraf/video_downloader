@@ -101,14 +101,14 @@
       "body": "Vyčerpal(a) jsi dnešní bezplatný limit {limit} stažení. Zadej níže licenční klíč pro neomezená stažení, nebo to zkus znovu za {hours} hodin."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Vlož svůj odkaz sem",
       "url_placeholder": "https://…",
       "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "audio_toggle": "Jen zvuk",
+      "download_btn": "Stáhnout",
+      "advanced_summary": "Rozšířené",
+      "quality_label": "Kvalita videa",
+      "share_hint": "Tip: v YouTube, Instagramu apod. klepněte na „Sdílet“ a vyberte DownloadThat — nebo zkopírujte odkaz a vložte ho sem."
     },
     "share_format": {
       "title": "What do you want to save?"

@@ -101,14 +101,14 @@
       "body": "Esat sasniedzis šodienas bezmaksas limitu — {limit} lejupielādes. Ievadiet zemāk licences atslēgu neierobežotām lejupielādēm vai mēģiniet vēlreiz pēc {hours} stundām."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Ielīmē savu saiti šeit",
       "url_placeholder": "https://…",
       "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "audio_toggle": "Tikai audio",
+      "download_btn": "Lejupielādēt",
+      "advanced_summary": "Papildu",
+      "quality_label": "Video kvalitāte",
+      "share_hint": "Padoms: YouTube, Instagram u.c. pieskaries “Kopīgot” un izvēlies DownloadThat — vai nokopē saiti un ielīmē to šeit."
     },
     "share_format": {
       "title": "What do you want to save?"

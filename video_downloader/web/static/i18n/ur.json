@@ -101,14 +101,14 @@
       "body": "آپ آج کی مفت حد یعنی {limit} ڈاؤن لوڈز مکمل کر چکے ہیں۔ لامحدود ڈاؤن لوڈز کے لیے نیچے لائسنس کلید درج کریں، یا {hours} گھنٹے بعد دوبارہ کوشش کریں۔"
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "اپنا لنک یہاں پیسٹ کریں",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "ویڈیو",
+      "audio_toggle": "صرف آڈیو",
+      "download_btn": "ڈاؤن لوڈ",
+      "advanced_summary": "ایڈوانسڈ",
+      "quality_label": "ویڈیو کوالٹی",
+      "share_hint": "تجویز: YouTube، Instagram وغیرہ میں “Share” ٹیپ کریں اور DownloadThat منتخب کریں — یا لنک کاپی کر کے یہاں پیسٹ کریں۔"
     },
     "share_format": {
       "title": "What do you want to save?"

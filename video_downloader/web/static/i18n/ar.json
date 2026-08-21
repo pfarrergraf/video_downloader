@@ -101,14 +101,14 @@
       "body": "لقد بلغت الحد المجاني اليوم وهو {limit} تنزيلات. أدخل مفتاح ترخيص أدناه للحصول على تنزيلات غير محدودة، أو حاول مرة أخرى بعد {hours} ساعة."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "ألصق رابطك هنا",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "فيديو",
+      "audio_toggle": "صوت فقط",
+      "download_btn": "تنزيل",
+      "advanced_summary": "خيارات متقدمة",
+      "quality_label": "جودة الفيديو",
+      "share_hint": "نصيحة: في يوتيوب وإنستغرام وغيرهما، اضغط على “مشاركة” واختر DownloadThat — أو انسخ الرابط وألصقه هنا."
     },
     "share_format": {
       "title": "What do you want to save?"

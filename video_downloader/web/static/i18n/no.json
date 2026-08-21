@@ -101,14 +101,14 @@
       "body": "Du har nådd dagens gratis grense på {limit} nedlastinger. Skriv inn en lisensnøkkel nedenfor for ubegrensede nedlastinger, eller prøv igjen om {hours} timer."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Lim inn lenken din her",
       "url_placeholder": "https://…",
       "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "audio_toggle": "Bare lyd",
+      "download_btn": "Last ned",
+      "advanced_summary": "Avansert",
+      "quality_label": "Videokvalitet",
+      "share_hint": "Tips: I YouTube, Instagram osv. trykk på “Del” og velg DownloadThat — eller kopier lenken og lim den inn her."
     },
     "share_format": {
       "title": "What do you want to save?"

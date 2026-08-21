@@ -107,8 +107,8 @@
       "audio_toggle": "Solo audio",
       "download_btn": "Scarica",
       "advanced_summary": "Avanzate",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "quality_label": "Qualità video",
+      "share_hint": "Suggerimento: su YouTube, Instagram ecc. tocca “Condividi” e scegli DownloadThat — oppure copia il link e incollalo qui."
     },
     "share_format": {
       "title": "What do you want to save?"

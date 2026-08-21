@@ -101,14 +101,14 @@
       "body": "இன்றைய இலவச வரம்பான {limit} பதிவிறக்கங்களை நீங்கள் பயன்படுத்திவிட்டீர்கள். வரம்பற்ற பதிவிறக்கங்களுக்கு கீழே உரிம விசையை உள்ளிடவும், அல்லது {hours} மணி நேரம் கழித்து மீண்டும் முயற்சிக்கவும்."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "உங்கள் இணைப்பை இங்கே ஒட்டவும்",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "வீடியோ",
+      "audio_toggle": "ஒலி மட்டும்",
+      "download_btn": "பதிவிறக்கு",
+      "advanced_summary": "மேம்பட்டவை",
+      "quality_label": "வீடியோ தரம்",
+      "share_hint": "குறிப்பு: YouTube, Instagram போன்றவற்றில் “Share”ஐத் தட்டி DownloadThat-ஐத் தேர்ந்தெடுக்கவும் — அல்லது இணைப்பை நகலெடுத்து இங்கே ஒட்டவும்."
     },
     "share_format": {
       "title": "What do you want to save?"

@@ -101,14 +101,14 @@
       "body": "Достигнахте днешния безплатен лимит от {limit} изтегляния. Въведете лицензен ключ по-долу за неограничени изтегляния, или опитайте отново след {hours} часа."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Постави линка си тук",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "Видео",
+      "audio_toggle": "Само звук",
+      "download_btn": "Изтегляне",
+      "advanced_summary": "Разширени",
+      "quality_label": "Качество на видеото",
+      "share_hint": "Съвет: в YouTube, Instagram и др. докоснете „Споделяне“ и изберете DownloadThat — или копирайте връзката и я поставете тук."
     },
     "share_format": {
       "title": "What do you want to save?"

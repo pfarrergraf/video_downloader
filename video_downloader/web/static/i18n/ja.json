@@ -101,14 +101,14 @@
       "body": "本日の無料ダウンロード上限（{limit}回）に達しました。下にライセンスキーを入力すると無制限にダウンロードできます。または{hours}時間後にもう一度お試しください。"
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "リンクをここに貼り付け",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "動画",
+      "audio_toggle": "音声のみ",
+      "download_btn": "ダウンロード",
+      "advanced_summary": "詳細設定",
+      "quality_label": "動画の品質",
+      "share_hint": "ヒント: YouTubeやInstagramなどで「共有」をタップしてDownloadThatを選ぶか、リンクをコピーしてここに貼り付けてください。"
     },
     "share_format": {
       "title": "What do you want to save?"

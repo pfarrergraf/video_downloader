@@ -107,8 +107,8 @@
       "audio_toggle": "Yalnızca ses",
       "download_btn": "İndir",
       "advanced_summary": "Gelişmiş",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "quality_label": "Video kalitesi",
+      "share_hint": "İpucu: YouTube, Instagram vb. uygulamalarda “Paylaş”a dokunup DownloadThat'ı seçin — veya bağlantıyı kopyalayıp buraya yapıştırın."
     },
     "share_format": {
       "title": "What do you want to save?"

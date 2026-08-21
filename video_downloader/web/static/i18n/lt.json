@@ -101,14 +101,14 @@
       "body": "Pasiekėte šiandienos nemokamą {limit} atsisiuntimų ribą. Įveskite licencijos raktą neribotiems atsisiuntimams arba bandykite dar kartą po {hours} valandų."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "Įklijuok savo nuorodą čia",
       "url_placeholder": "https://…",
       "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "audio_toggle": "Tik garsas",
+      "download_btn": "Atsisiųsti",
+      "advanced_summary": "Išplėstiniai",
+      "quality_label": "Vaizdo kokybė",
+      "share_hint": "Patarimas: „YouTube“, „Instagram“ ir kt. bakstelėkite „Bendrinti“ ir pasirinkite DownloadThat — arba nukopijuokite nuorodą ir įklijuokite ją čia."
     },
     "share_format": {
       "title": "What do you want to save?"

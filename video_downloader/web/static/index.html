@@ -1437,6 +1437,7 @@ const LANGUAGES = [
   ['id', 'Bahasa Indonesia'], ['ms', 'Bahasa Melayu'], ['fil', 'Filipino'], ['sw', 'Kiswahili'], ['am', 'አማርኛ'],
 ];
 const SUPPORTED_CODES = LANGUAGES.map((l) => l[0]);
+const RTL_CODES = ['ar', 'he', 'fa', 'ur'];
 let STRINGS = {};
 let languagePref = 'auto';
 let activeLanguage = 'en';
@@ -1505,6 +1506,8 @@ async function setLanguage(pref, opts = {}) {
   const effective = pref === 'auto' ? detectDeviceLang() : pref;
   activeLanguage = effective;
   STRINGS = (await loadStrings(effective)) || (await loadStrings('en')) || {};
+  document.documentElement.lang = effective;
+  document.documentElement.dir = RTL_CODES.includes(effective) ? 'rtl' : 'ltr';
   applyStaticTranslations();
   if ($('settings-language')) $('settings-language').value = pref;
   if (!$('app').classList.contains('hidden')) {

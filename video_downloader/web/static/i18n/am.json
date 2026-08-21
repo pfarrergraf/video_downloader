@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "DownloadThat",
-    "tagline": "only download media you have the rights to.",
+    "tagline": "የማውረድ መብት ያለዎትን ሚዲያ ብቻ ያውርዱ።",
     "login": {
       "title": "Log in",
       "password_label": "Password",
@@ -28,9 +28,9 @@
       "purchase_failed_toast": "The Google Play purchase could not be completed. Try again or contact support."
     },
     "queue": {
-      "title": "Queue",
-      "subtitle": "Updates automatically.",
-      "empty": "Nothing in the queue yet.",
+      "title": "የወረዱ ፋይሎች",
+      "subtitle": "በራስ-ሰር ይዘምናል።",
+      "empty": "እስካሁን ምንም የለም።",
       "cancel_btn": "Cancel",
       "cancel_failed_toast": "Failed to cancel.",
       "queued_toast": "Queued.",
@@ -64,7 +64,7 @@
       "saved_toast": "Settings saved.",
       "close_btn": "Close"
     },
-    "footer": "DownloadThat — only download media you have the rights to.",
+    "footer": "DownloadThat — የማውረድ መብት ያለዎትን ሚዲያ ብቻ ያውርዱ።",
     "batch": {
       "label": "One link per line, or a single playlist link",
       "placeholder": "Paste multiple links (one per line), or a single playlist link",
@@ -101,14 +101,14 @@
       "body": "የዛሬውን ነጻ ገደብ {limit} ውርዶች ተጠቅመዋል። ላልተገደበ ውርዶች ከታች የፈቃድ ቁልፍ ያስገቡ፣ ወይም ከ{hours} ሰዓት በኋላ እንደገና ይሞክሩ።"
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "አገናኙን እዚህ ይለጥፉ",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "ቪዲዮ",
+      "audio_toggle": "ኦዲዮ ብቻ",
+      "download_btn": "ያውርዱ",
+      "advanced_summary": "የላቀ",
+      "quality_label": "የቪዲዮ ጥራት",
+      "share_hint": "ምክር፦ በYouTube፣ Instagram ወዘተ ላይ “Share”ን ተጭነው DownloadThatን ይምረጡ — ወይም አገናኙን ቀድተው እዚህ ይለጥፉት።"
     },
     "share_format": {
       "title": "What do you want to save?"

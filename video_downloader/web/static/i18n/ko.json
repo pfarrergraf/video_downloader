@@ -101,14 +101,14 @@
       "body": "오늘의 무료 한도인 {limit}회 다운로드를 모두 사용했습니다. 무제한 다운로드를 위해 아래에 라이선스 키를 입력하거나 {hours}시간 후 다시 시도하세요."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "여기에 링크를 붙여넣으세요",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "동영상",
+      "audio_toggle": "오디오만",
+      "download_btn": "다운로드",
+      "advanced_summary": "고급",
+      "quality_label": "동영상 품질",
+      "share_hint": "팁: YouTube, Instagram 등에서 “공유”를 탭하고 DownloadThat을 선택하세요 — 또는 링크를 복사해 여기에 붙여넣으세요."
     },
     "share_format": {
       "title": "What do you want to save?"

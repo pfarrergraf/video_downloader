@@ -101,14 +101,14 @@
       "body": "ഇന്നത്തെ സൗജന്യ പരിധിയായ {limit} ഡൗൺലോഡുകൾ നിങ്ങൾ ഉപയോഗിച്ചു കഴിഞ്ഞു. പരിധിയില്ലാത്ത ഡൗൺലോഡിന് താഴെ ലൈസൻസ് കീ നൽകുക, അല്ലെങ്കിൽ {hours} മണിക്കൂർ കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "നിങ്ങളുടെ ലിങ്ക് ഇവിടെ പേസ്റ്റ് ചെയ്യുക",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "വീഡിയോ",
+      "audio_toggle": "ഓഡിയോ മാത്രം",
+      "download_btn": "ഡൗൺലോഡ്",
+      "advanced_summary": "വിപുലം",
+      "quality_label": "വീഡിയോ ഗുണനിലവാരം",
+      "share_hint": "നിർദേശം: YouTube, Instagram തുടങ്ങിയവയിൽ “Share” ടാപ്പ് ചെയ്ത് DownloadThat തിരഞ്ഞെടുക്കുക — അല്ലെങ്കിൽ ലിങ്ക് കോപ്പി ചെയ്ത് ഇവിടെ പേസ്റ്റ് ചെയ്യുക."
     },
     "share_format": {
       "title": "What do you want to save?"

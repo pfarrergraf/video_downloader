@@ -101,14 +101,14 @@
       "body": "You've reached today's free limit of {limit} downloads. Enter a license key below for unlimited downloads, or try again in {hours} hours."
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "لینک خود را اینجا بچسبانید",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "ویدیو",
+      "audio_toggle": "فقط صدا",
+      "download_btn": "دانلود",
+      "advanced_summary": "پیشرفته",
+      "quality_label": "کیفیت ویدیو",
+      "share_hint": "نکته: در یوتیوب، اینستاگرام و مانند آن‌ها روی «اشتراک‌گذاری» ضربه بزنید و DownloadThat را انتخاب کنید — یا لینک را کپی کرده و اینجا بچسبانید."
     },
     "share_format": {
       "title": "What do you want to save?"

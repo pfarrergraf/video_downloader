@@ -101,14 +101,14 @@
       "body": "आपने आज की मुफ्त सीमा, {limit} डाउनलोड, पूरी कर ली है। असीमित डाउनलोड के लिए नीचे लाइसेंस कुंजी डालें, या {hours} घंटे बाद फिर कोशिश करें।"
     },
     "home": {
-      "url_label": "Paste your link here",
+      "url_label": "अपना लिंक यहाँ पेस्ट करें",
       "url_placeholder": "https://…",
-      "video_toggle": "Video",
-      "audio_toggle": "Audio only",
-      "download_btn": "Download",
-      "advanced_summary": "Advanced",
-      "quality_label": "Video quality",
-      "share_hint": "Tip: in YouTube, Instagram etc. tap “Share” and pick DownloadThat — or copy the link and paste it here."
+      "video_toggle": "वीडियो",
+      "audio_toggle": "सिर्फ़ ऑडियो",
+      "download_btn": "डाउनलोड",
+      "advanced_summary": "उन्नत",
+      "quality_label": "वीडियो गुणवत्ता",
+      "share_hint": "सुझाव: YouTube, Instagram आदि में “Share” पर टैप करें और DownloadThat चुनें — या लिंक कॉपी करें और यहाँ पेस्ट करें।"
     },
     "share_format": {
       "title": "What do you want to save?"
