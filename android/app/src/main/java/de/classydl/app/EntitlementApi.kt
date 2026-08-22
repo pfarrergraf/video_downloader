@@ -13,7 +13,6 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
     private val executor = Executors.newSingleThreadExecutor()
     private val mainHandler = Handler(Looper.getMainLooper())
     private val deviceId = InstallIdentity.getOrCreate(context)
-    private val legacyDeviceId = InstallIdentity.legacyForMigration(context)
 
     fun checkPurchaseEligibility(onChecked: (JSONObject) -> Unit) {
         post(
@@ -30,7 +29,8 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
             identityBody()
                 .put("purchase_token", token)
                 .put("product_id", productId)
-                .put("package_name", "de.classydl.app"),
+                .put("package_name", "de.classydl.app")
+                .put("app_version", BuildConfig.VERSION_NAME),
             reportResult = false,
             callback = { result ->
                 result.put("_purchase_token", token)
@@ -81,9 +81,6 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
     private fun identityBody(): JSONObject = JSONObject()
         .put("device_id", deviceId)
         .put("device_id_scheme", DEVICE_ID_SCHEME)
-        .also { body ->
-            legacyDeviceId?.takeIf { it.isNotBlank() }?.let { body.put("legacy_device_id", it) }
-        }
 
     private fun post(
         path: String,
