@@ -25,10 +25,13 @@ export async function onRequestPost({ request, env }) {
          WHERE token_hash = ? AND purchase_state = 'purchased'`,
       ).bind(deviceHash, tokenHash).run();
 
-      // A live Google Play verification is stronger proof than possession of a
-      // copied license key. Let an owned purchase reclaim its single Android
-      // slot after reinstall or a legitimate device change; ordinary license
-      // validation still cannot evict another active device.
+      // Restore-purchase contract: this endpoint is reached with a Play-owned
+      // purchase token, not with an email lookup or merely a copied license
+      // key. verifyAndApplyPlayPurchase above has already checked the token
+      // against Google. That verified ownership is intentionally strong enough
+      // to reclaim the single Android activation slot after reinstall/device
+      // recovery. Plain /api/license validation must never gain this power.
+      // See docs/GOOGLE_PLAY_RESTORE_CONTRACT.md and AGENTS.md.
       await claimVerifiedDeviceSlot(env, {
         key: result.licenseKey,
         platform: "android",
