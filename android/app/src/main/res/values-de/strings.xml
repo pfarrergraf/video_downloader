@@ -5,6 +5,48 @@
     <string name="notif_downloads_running">Downloads laufen</string>
     <string name="notif_download_done">Download fertig</string>
     <string name="notif_idle">Alle Downloads abgeschlossen</string>
+
+    <string name="player_title">DownloadThat Player</string>
+    <string name="player_back">Zurück</string>
+    <string name="player_unknown_title">Medium</string>
+    <string name="player_could_not_open">Diese Mediendatei konnte nicht geöffnet werden.</string>
+    <string name="player_playlist_items_skipped">Nicht verfügbare Playlist-Einträge wurden übersprungen.</string>
+    <string name="player_file_unavailable">Diese Datei ist nicht mehr verfügbar.</string>
+    <string name="player_history">Zuletzt</string>
+    <string name="player_search">Suchen</string>
+    <string name="player_speed_value">Tempo %1$s</string>
+    <string name="player_sleep_off">Sleep aus</string>
+    <string name="player_sleep_value">Sleep %1$d Min.</string>
+
+    <string name="history_title">Weiterhören &amp; zuletzt</string>
+    <string name="history_empty">Spiele ein Video oder Audio ab. Danach erscheint es hier.</string>
+    <string name="history_continue_at">Weiter bei %1$s</string>
+    <string name="history_play_again">Noch einmal abspielen</string>
+    <string name="history_play_all">Zuletzt abspielen</string>
+    <string name="history_clear">Verlauf löschen</string>
+
+    <string name="search_title">Medien suchen</string>
+    <string name="search_subtitle">Titel eingeben, Treffer auswählen und direkt Video oder Audio herunterladen.</string>
+    <string name="search_hint">Song, Interpret, Videotitel…</string>
+    <string name="search_button">Suchen</string>
+    <string name="search_enter_query">Gib zuerst einen Titel ein.</string>
+    <string name="search_searching">Suche läuft…</string>
+    <string name="search_no_results">Keine passenden Treffer gefunden.</string>
+    <string name="search_failed">Suche fehlgeschlagen: %1$s</string>
+    <string name="search_download_video">Video</string>
+    <string name="search_download_audio">Audio</string>
+    <string name="search_queueing">Download wird gestartet…</string>
+    <string name="search_queued">Eingereiht: %1$s</string>
+    <string name="search_download_started">Download gestartet</string>
+    <string name="search_queue_failed">Download konnte nicht gestartet werden.</string>
+    <string name="search_local_auth_failed">Der lokale DownloadThat-Dienst konnte nicht authentifiziert werden.</string>
+    <string name="search_terms_required">Öffne zuerst die DownloadThat-Hauptseite und akzeptiere die aktuellen Bedingungen, bevor du einen Download startest.</string>
+    <string name="home_search_media">Musik &amp; Videos suchen</string>
+    <plurals name="search_results_count">
+        <item quantity="one">%d Treffer</item>
+        <item quantity="other">%d Treffer</item>
+    </plurals>
+
     <plurals name="notif_active_downloads">
         <item quantity="one">Lade %d Datei herunter…</item>
         <item quantity="other">Lade %d Dateien herunter…</item>

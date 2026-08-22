@@ -91,7 +91,7 @@ def test_native_result_waits_for_authenticated_web_callback() -> None:
     assert "window.AndroidBridge.onEntitlementUiReady();" in html
 
 
-def test_native_and_python_share_one_install_identity() -> None:
+def test_native_and_python_share_one_stable_android_identity() -> None:
     native_api = (
         ROOT / "android/app/src/main/java/de/classydl/app/EntitlementApi.kt"
     ).read_text(encoding="utf-8")
@@ -100,7 +100,7 @@ def test_native_and_python_share_one_install_identity() -> None:
     ).read_text(encoding="utf-8")
     python_entry = (ROOT / "video_downloader/android_entry.py").read_text(encoding="utf-8")
 
-    assert "InstallIdentity.getOrCreate(context)" in native_api
+    assert "InstallIdentity.getOrCreate(appContext)" in native_api
     assert "InstallIdentity.getOrCreate(appContext)" in runtime
     assert "license_device_id" in python_entry
 

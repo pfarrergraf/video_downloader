@@ -239,17 +239,16 @@ class DownloadService : Service() {
     }
 
     private fun notifyCompleted(jobId: Int, filename: String, path: String) {
-        // Tap opens the file in a player — the same FileProvider handoff
-        // android_bridge.open_file uses from the in-app "View" button.
+        // Internal completions always open in DownloadThat's own player. This
+        // avoids a system chooser and preserves the local-only playback rule.
         val contentIntent = try {
             val uri = FileProvider.getUriForFile(this, "de.classydl.app.fileprovider", File(path))
-            val view = Intent(Intent.ACTION_VIEW)
+            val view = Intent(this, PlayerActivity::class.java)
+                .setAction(PlayerActivity.ACTION_PLAY_INTERNAL)
                 .setDataAndType(uri, MediaMimeTypes.forFile(File(path)))
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
-            val chooser = Intent.createChooser(view, null)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             PendingIntent.getActivity(
-                this, jobId, chooser,
+                this, jobId, view,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
             )
         } catch (e: Exception) {

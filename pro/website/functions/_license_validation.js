@@ -63,6 +63,38 @@ export async function validateLicense(env, { key, platform, deviceId, appVersion
   return result;
 }
 
+/**
+ * Claim/transfer one platform slot after the caller has independently proven
+ * ownership through Google Play purchase-token verification.
+ *
+ * This is intentionally stronger than normal license-key validation: a bare
+ * license key cannot evict another active device, but a live, verified Play
+ * purchase can. That gives legitimate reinstall/device-transfer recovery
+ * without turning the license endpoint itself into an unlimited transfer API.
+ */
+export async function claimVerifiedDeviceSlot(env, { key, platform, deviceId, appVersion = null }) {
+  if (!key || !platform || !deviceId) return false;
+  const now = Math.floor(Date.now() / 1000);
+  const keyHash = await sha256Hex(key);
+  const deviceHash = await sha256Hex(deviceId);
+
+  await env.DB.prepare(
+    `UPDATE license_activations SET revoked_at = ?
+     WHERE license_key_hash = ? AND platform = ? AND revoked_at IS NULL AND device_id_hash <> ?`,
+  ).bind(now, keyHash, platform, deviceHash).run();
+
+  await env.DB.prepare(
+    `INSERT INTO license_activations
+      (license_key_hash, platform, device_id_hash, first_seen, last_seen, app_version, revoked_at)
+     VALUES (?, ?, ?, ?, ?, ?, NULL)
+     ON CONFLICT(license_key_hash, platform, device_id_hash) DO UPDATE SET
+       last_seen = excluded.last_seen,
+       app_version = excluded.app_version,
+       revoked_at = NULL`,
+  ).bind(keyHash, platform, deviceHash, now, now, appVersion).run();
+  return true;
+}
+
 async function checkDeviceSlot(env, key, platform, deviceId, appVersion, now) {
   const keyHash = await sha256Hex(key);
   const deviceHash = await sha256Hex(deviceId);

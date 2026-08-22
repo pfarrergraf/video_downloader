@@ -42,11 +42,11 @@ def _application_context():
 
 
 def open_file(path: Path) -> bool:
-    """Fire an ACTION_VIEW intent so the device's default app opens `path`.
+    """Open a finished download directly in DownloadThat's native player.
 
-    Uses a FileProvider content:// URI rather than a raw file:// one: apps
-    targeting API 24+ get a FileUriExposedException handing another app a
-    file:// Uri for content outside its own package.
+    The media bytes remain private to the app and are handed to PlayerActivity
+    through a one-file FileProvider content:// grant. No READ_MEDIA_* or broad
+    storage permission is required.
     """
     try:
         from java import jclass  # type: ignore[import-not-found]
@@ -62,19 +62,16 @@ def open_file(path: Path) -> bool:
         java_file = jclass("java.io.File")(str(path))
         uri = file_provider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, java_file)
 
-        mime_type = media_mime_type(path)
         intent_class = jclass("android.content.Intent")
-        intent = intent_class(intent_class.ACTION_VIEW)
-        intent.setDataAndType(uri, mime_type)
-        # NEW_TASK: required because we're starting an Activity from the
-        # Application context, not from an Activity context.
-        # GRANT_READ_URI_PERMISSION: the receiving app has no other
-        # permission to read a FileProvider Uri that isn't its own.
-        intent.addFlags(intent_class.FLAG_ACTIVITY_NEW_TASK | intent_class.FLAG_GRANT_READ_URI_PERMISSION)
-
-        chooser = intent_class.createChooser(intent, None)
-        chooser.addFlags(intent_class.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(chooser)
+        player_activity = jclass("de.classydl.app.PlayerActivity")
+        intent = intent_class(context, player_activity)
+        intent.setAction("de.classydl.app.action.PLAY_INTERNAL")
+        intent.setDataAndType(uri, media_mime_type(path))
+        intent.addFlags(
+            intent_class.FLAG_ACTIVITY_NEW_TASK
+            | intent_class.FLAG_GRANT_READ_URI_PERMISSION
+        )
+        context.startActivity(intent)
         return True
     except Exception:
         traceback.print_exc()
