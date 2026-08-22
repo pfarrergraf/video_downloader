@@ -41,6 +41,25 @@ object LocalApiClient {
         )
     }
 
+    /**
+     * Push a newly verified native/Play entitlement into the embedded Python
+     * LicenseManager immediately. Its normal validation cache is six hours;
+     * without this forced set-key path, a reinstall could successfully reclaim
+     * its server-side slot through Play while the download queue still cached a
+     * pre-restore device_allowed=false result.
+     */
+    fun syncLicense(context: Context, licenseKey: String): Boolean {
+        if (licenseKey.isBlank()) return false
+        val cookie = login(context) ?: return false
+        val response = request(
+            "POST",
+            "/api/license",
+            JSONObject().put("key", licenseKey),
+            cookie,
+        )
+        return response.code in 200..299
+    }
+
     private fun login(context: Context): String? {
         val password = ServerRuntime.getOrCreatePassword(context)
         val payload = JSONObject().put("password", password)
