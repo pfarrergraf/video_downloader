@@ -32,6 +32,9 @@ jobs:
       PLAY_RECONCILIATION_SECRET: ${{ secrets.PLAY_RECONCILIATION_SECRET }}
       PLAY_REFUND_ADMIN_TOKEN: ${{ secrets.PLAY_REFUND_ADMIN_TOKEN }}
       TESTER_GRANTS_ADMIN_TOKEN: ${{ secrets.TESTER_GRANTS_ADMIN_TOKEN }}
+      CLOUDFLARE_ACCESS_TEAM_DOMAIN: ${{ secrets.CLOUDFLARE_ACCESS_TEAM_DOMAIN }}
+      CLOUDFLARE_ACCESS_AUD: ${{ secrets.CLOUDFLARE_ACCESS_AUD }}
+      TESTER_GRANTS_ADMIN_EMAIL: ${{ secrets.TESTER_GRANTS_ADMIN_EMAIL }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
@@ -88,6 +91,11 @@ jobs:
           fi
           if [ -n "$TESTER_GRANTS_ADMIN_TOKEN" ]; then
             put TESTER_GRANTS_ADMIN_TOKEN "$TESTER_GRANTS_ADMIN_TOKEN"
+          fi
+          if [ -n "$CLOUDFLARE_ACCESS_TEAM_DOMAIN" ] && [ -n "$CLOUDFLARE_ACCESS_AUD" ] && [ -n "$TESTER_GRANTS_ADMIN_EMAIL" ]; then
+            put CLOUDFLARE_ACCESS_TEAM_DOMAIN "$CLOUDFLARE_ACCESS_TEAM_DOMAIN"
+            put CLOUDFLARE_ACCESS_AUD "$CLOUDFLARE_ACCESS_AUD"
+            put TESTER_GRANTS_ADMIN_EMAIL "$TESTER_GRANTS_ADMIN_EMAIL"
           fi
 
       - name: Set Google Play backend secrets
