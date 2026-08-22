@@ -14,16 +14,13 @@ future macOS/iOS/Linux builds. Developer-only/debug paths may still opt out by
 not constructing a LicenseManager, but shipped customer builds should wire it
 up to the production license API.
 
-The same key can still only be *actively used* on one device per platform at
-a time (one Android slot, one Windows slot, etc.) - pass `platform=` (and
-optionally `app_version=`) when constructing a LicenseManager to opt into
-this. The server (pro/website/functions/api/validate.js) tracks device slots
-by a random per-install `device_id` (never a hardware identifier) and returns
-`device_allowed: false` once a different device already holds that
-platform's slot; `LicenseState.is_pro` folds that into the usual valid/expired
-check. Leaving `platform` empty (the default) skips this entirely, which is
-why Termux/desktop-CLI callers that construct LicenseManager without it are
-unaffected.
+The same key can still only be actively used on one device per platform at a
+time. Android release builds pass a privacy-preserving, reinstall-stable device
+identifier from Kotlin. Older Android releases used a random install UUID; when
+an explicit stable ID replaces a different persisted legacy ID, this manager
+keeps the previous value in memory long enough to send it once as migration
+proof. The server hashes both values and only migrates an activation when the
+legacy value actually owns the current slot.
 """
 
 from __future__ import annotations
@@ -36,14 +33,11 @@ from pathlib import Path
 
 import requests
 
-# Free tier: same quality as Pro, just rationed — 3 downloads per rolling
-# 24h window (not calendar-day, so there's no "download at 23:59, download
-# again at 00:01" loophole). Pro: no quota at all. See web/server.py's
-# _recent_job_count for how this is enforced.
 FREE_DAILY_DOWNLOAD_LIMIT = 3
 FREE_WINDOW_HOURS = 24
 CACHE_TTL_SECONDS = 6 * 3600
 OFFLINE_GRACE_SECONDS = 72 * 3600
+ANDROID_DEVICE_ID_SCHEME = "android-scoped-v1"
 
 
 @dataclass(slots=True)
@@ -52,17 +46,11 @@ class LicenseState:
     valid: bool = False
     tier: str | None = None
     checked_at: float = 0.0
-    # Random per-install identifier, never the raw device hardware ID -
-    # generated once and persisted so the same install keeps its slot across
-    # restarts. Sent to /api/validate (hashed server-side) to enforce the
-    # one-active-device-per-platform policy; see docs/DESKTOP_WEB_UI_PLAN.md.
+    # Platform-specific identifier used for the one-active-device-per-platform
+    # policy. Android shipped builds supply a reinstall-stable derived ID;
+    # desktop/CLI callers may still use the persisted random fallback.
     device_id: str | None = None
-    # Whether *this* device currently holds the platform's activation slot
-    # for this key. Defaults True so installs that predate this field (or a
-    # manager constructed without a platform) are never held back by it.
     device_allowed: bool = True
-    # Server-issued tester grants expire locally too, so an offline device
-    # cannot extend a temporary grant beyond its intended end time.
     expires_at: float | None = None
 
     @property
@@ -84,17 +72,27 @@ class LicenseManager:
         app_version: str = "",
         device_id: str | None = None,
     ) -> None:
-        # Empty platform (the default, used by Termux/desktop-CLI callers that
-        # never wire this up) means the device-limit check below is skipped
-        # entirely - only shipped Android/desktop builds should pass this.
         self._state_file = state_file
         self._api_base = api_base.rstrip("/")
         self._platform = platform
         self._app_version = app_version
         self._state = self._load()
-        if self._platform and device_id and self._state.device_id != device_id:
-            self._state.device_id = device_id
-            self._save()
+        self._legacy_device_id: str | None = None
+        self._device_id_scheme = ""
+
+        if self._platform and device_id:
+            previous = self._state.device_id
+            if previous and previous != device_id:
+                # Existing Android install upgraded from the old random UUID.
+                # Do not persist this legacy value separately: it is sent only
+                # as short-lived migration proof and must not become a second
+                # long-term device credential.
+                self._legacy_device_id = previous
+            if self._state.device_id != device_id:
+                self._state.device_id = device_id
+                self._save()
+            if self._platform == "android":
+                self._device_id_scheme = ANDROID_DEVICE_ID_SCHEME
         elif self._platform and not self._state.device_id:
             self._state.device_id = secrets.token_hex(16)
             self._save()
@@ -112,8 +110,6 @@ class LicenseManager:
     def _save(self) -> None:
         self._state_file.parent.mkdir(parents=True, exist_ok=True)
         self._state_file.write_text(json.dumps(asdict(self._state)))
-        # Holds the license key + device id; keep it owner-only so a co-tenant
-        # can't lift the key. Best-effort (advisory on Windows).
         try:
             self._state_file.chmod(0o600)
         except OSError:
@@ -132,7 +128,7 @@ class LicenseManager:
         return self._state
 
     def clear_key(self) -> LicenseState:
-        """Remove local entitlement while preserving this install's device identity."""
+        """Remove local entitlement while preserving this device identity."""
         self._state = LicenseState(device_id=self._state.device_id)
         self._save()
         return self._state
@@ -146,6 +142,10 @@ class LicenseManager:
         if self._platform and self._state.device_id:
             payload["platform"] = self._platform
             payload["device_id"] = self._state.device_id
+            if self._device_id_scheme:
+                payload["device_id_scheme"] = self._device_id_scheme
+            if self._legacy_device_id:
+                payload["legacy_device_id"] = self._legacy_device_id
             if self._app_version:
                 payload["app_version"] = self._app_version
         try:
@@ -153,9 +153,6 @@ class LicenseManager:
             response.raise_for_status()
             data = response.json()
         except requests.RequestException:
-            # Offline or the license server is unreachable: keep trusting a
-            # recent "valid" result rather than instantly cutting the user
-            # off, but don't extend that trust indefinitely.
             if time.time() - self._state.checked_at > OFFLINE_GRACE_SECONDS:
                 self._state = LicenseState(
                     key=self._state.key,
@@ -175,5 +172,10 @@ class LicenseManager:
             device_allowed=bool(data.get("device_allowed", True)),
             expires_at=data.get("expires_at"),
         )
+        # Once the backend confirms this stable device is allowed, the legacy
+        # proof is no longer needed in this process. A failed migration keeps it
+        # available for the next explicit refresh/retry.
+        if self._state.device_allowed:
+            self._legacy_device_id = None
         self._save()
         return self._state
