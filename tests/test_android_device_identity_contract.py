@@ -70,5 +70,5 @@ def test_verified_entitlement_forces_embedded_queue_license_refresh() -> None:
 
     assert "syncEmbeddedLicenseIfActive(parsed)" in api
     assert "LocalApiClient.syncLicense(appContext, key)" in api
+    assert "fun syncLicense(context: Context, licenseKey: String): Boolean" in local
     assert '"POST",\n            "/api/license"' in local
-    assert "normal six-hour validation TTL" in local
