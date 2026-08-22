@@ -43,6 +43,19 @@ New invariant:
 
 This design is intentionally documented as a reusable engineering rule in root `AGENTS.md`.
 
+## Important backend precondition for the first test
+
+The Android build and the licensing backend must be tested as a compatible pair.
+
+The new Play-verified slot-transfer helper lives on `feat/native-media-player`. If the internal AAB still points to the production `https://downloadthat.app` backend while that backend is running older code, the automatic Play slot-transfer behavior is **not** present there yet.
+
+Because current evidence indicates that the only real Google Play purchase is the owner's own test purchase, no customer migration machinery is required. Before the first `1.0.4.1` reinstall test, choose one controlled path:
+
+1. **Preferred for branch-isolated testing:** use a branch/preview backend containing the new licensing code and build the internal AAB with `LICENSE_API_BASE_URL` pointing at that preview; or
+2. **Minimal one-time transition:** reset/revoke the owner's old random-UUID Android activation in the live licensing database, then let `1.0.4.1` claim the slot with its new stable identity. From that point, same-device uninstall/reinstall should use the same derived ID even against the existing normal slot-checking logic.
+
+Do not mark the reinstall test green if the app branch and backend under test are on incompatible licensing implementations.
+
 ## Internal-test licensing matrix
 
 Run these on the Play-distributed build:
@@ -68,6 +81,7 @@ Do not start wider rollout unless:
 - Android compile/release build is green;
 - Security/CodeQL/unit/contract tests are green;
 - the Play-delivered `1.0.4.1` build is confirmed on a physical tester device;
+- app/backend licensing versions used for the test are compatible;
 - uninstall/reinstall restores Pro on that same device;
 - a download queued immediately after restore is treated as Pro;
 - no regression appears in existing download/billing/refund paths;
