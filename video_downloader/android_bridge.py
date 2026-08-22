@@ -86,23 +86,19 @@ _SAF_DIRECTORY_MIME_TYPE = "vnd.android.document/directory"
 
 
 def open_folder(export_folder_uri: str | None = None) -> bool:
-    """Show the user where their downloads are.
+    """Open the folder which actually receives finished downloads.
 
-    Android has no intent for "show this exact filesystem path" - a
-    FileProvider content:// Uri pointed at an arbitrary directory (tried
-    first, with a "resource/folder" MIME-type hack) has no consistent
-    handler and was observed opening a random, unrelated app instead of a
-    file manager. Two things actually work reliably:
+    A folder chosen in Settings is stored as a SAF *tree* Uri. Some Android
+    file managers don't resolve ACTION_VIEW for that tree Uri directly, even
+    though the app still has a valid persisted permission and can write files
+    there. Convert it to the corresponding document Uri first, then retain the
+    original tree Uri as a compatibility attempt.
 
-    1. If the user picked an export folder via Settings (a real SAF tree
-       Uri, not an app-private path), DocumentsUI can browse it directly -
-       that's exactly what a tree Uri is for.
-    2. Otherwise, every finished download is also copied into the system's
-       shared Downloads collection via MediaStore on API 29+ (see
-       android_entry.py's _publish_file_to_downloads), so the stock
-       "Downloads" screen (DownloadManager.ACTION_VIEW_DOWNLOADS, a real
-       platform intent every Android device resolves) is a reliable place
-       to point the user, even though it isn't scoped to just this app.
+    If a custom folder is configured, never silently fall back to the generic
+    system Downloads screen: that is a different location and would mislead
+    the user. Returning False lets the UI report that the selected folder
+    couldn't be opened. The system Downloads screen is only the fallback when
+    no custom export folder has been configured at all.
     """
     try:
         from java import jclass  # type: ignore[import-not-found]
@@ -116,14 +112,38 @@ def open_folder(export_folder_uri: str | None = None) -> bool:
         try:
             uri_class = jclass("android.net.Uri")
             tree_uri = uri_class.parse(export_folder_uri)
-            intent = intent_class(intent_class.ACTION_VIEW)
-            intent.setDataAndType(tree_uri, _SAF_DIRECTORY_MIME_TYPE)
-            intent.addFlags(intent_class.FLAG_ACTIVITY_NEW_TASK | intent_class.FLAG_GRANT_READ_URI_PERMISSION)
-            context.startActivity(intent)
-            return True
         except Exception:
             traceback.print_exc()
-            # Fall through to the Downloads screen rather than giving up.
+            return False
+
+        folder_uris = []
+        try:
+            documents_contract = jclass("android.provider.DocumentsContract")
+            document_id = documents_contract.getTreeDocumentId(tree_uri)
+            document_uri = documents_contract.buildDocumentUriUsingTree(tree_uri, document_id)
+            folder_uris.append(document_uri)
+        except Exception:
+            traceback.print_exc()
+
+        folder_uris.append(tree_uri)
+        seen = set()
+        for folder_uri in folder_uris:
+            uri_text = str(folder_uri)
+            if uri_text in seen:
+                continue
+            seen.add(uri_text)
+            try:
+                intent = intent_class(intent_class.ACTION_VIEW)
+                intent.setDataAndType(folder_uri, _SAF_DIRECTORY_MIME_TYPE)
+                intent.addFlags(
+                    intent_class.FLAG_ACTIVITY_NEW_TASK | intent_class.FLAG_GRANT_READ_URI_PERMISSION
+                )
+                context.startActivity(intent)
+                return True
+            except Exception:
+                traceback.print_exc()
+
+        return False
 
     try:
         download_manager = jclass("android.app.DownloadManager")
@@ -194,12 +214,6 @@ def export_file(path: Path, tree_uri: str) -> bool:
         if tree_dir is None or not tree_dir.canWrite():
             return False
 
-        # Overwrite semantics: drop any earlier export of the same filename
-        # first, otherwise SAF's createFile silently appends "(1)" etc. and
-        # re-exporting the same job would keep piling up duplicates. If the
-        # delete itself fails (transient SAF hiccup, revoked permission),
-        # bail out instead of creating a same-named duplicate next to a file
-        # that's still there - the caller retries this on the next poll.
         existing = tree_dir.findFile(path.name)
         if existing is not None and not existing.delete():
             return False
