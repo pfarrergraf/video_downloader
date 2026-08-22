@@ -7,10 +7,15 @@
   const metaEl = document.getElementById('license-meta');
   const copyButton = document.getElementById('copy-button');
   const shareButton = document.getElementById('share-button');
+  const tokenInput = document.getElementById('admin-token');
+  const SESSION_KEY = 'downloadthat-mobile-admin-token';
 
   let currentKey = '';
   let currentLabel = '';
   let currentDays = 14;
+
+  const savedToken = sessionStorage.getItem(SESSION_KEY);
+  if (savedToken) tokenInput.value = savedToken;
 
   function setStatus(message, isError = false) {
     status.textContent = message;
@@ -40,8 +45,12 @@
     event.preventDefault();
     result.classList.remove('visible');
     currentKey = '';
+
+    const token = tokenInput.value.trim();
     const label = document.getElementById('label').value.trim();
     const days = Number(document.getElementById('days').value || 14);
+
+    if (!token) return setStatus('Bitte den Admin-Schlüssel eingeben.', true);
     if (!label) return setStatus('Bitte einen Namen eingeben.', true);
     if (!Number.isInteger(days) || days < 1 || days > 14) {
       return setStatus('Es sind nur 1 bis 14 Tage erlaubt.', true);
@@ -52,15 +61,24 @@
     try {
       const response = await fetch('/api/admin/mobile-tester-grant', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
         cache: 'no-store',
         credentials: 'same-origin',
         body: JSON.stringify({ label, expires_in_days: days }),
       });
       const body = await response.json().catch(() => ({}));
       if (!response.ok) {
+        if (response.status === 401) {
+          sessionStorage.removeItem(SESSION_KEY);
+          throw new Error('Admin-Schlüssel ist ungültig.');
+        }
         throw new Error(body.error || `HTTP ${response.status}`);
       }
+
+      sessionStorage.setItem(SESSION_KEY, token);
       currentKey = body.key;
       currentLabel = body.label;
       currentDays = body.expires_in_days;
