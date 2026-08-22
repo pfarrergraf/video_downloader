@@ -27,7 +27,7 @@ def test_all_android_entitlement_paths_share_the_stable_identity() -> None:
         ROOT / "android/app/src/play/java/de/classydl/app/PurchaseControllerFactory.kt"
     ).read_text(encoding="utf-8")
 
-    assert "InstallIdentity.getOrCreate(context)" in api
+    assert "InstallIdentity.getOrCreate(appContext)" in api
     assert "InstallIdentity.getOrCreate(appContext)" in runtime
     assert "InstallIdentity.getOrCreate(context)" in controller
     assert '.put("device_id_scheme", DEVICE_ID_SCHEME)' in api
@@ -58,3 +58,17 @@ def test_verified_google_play_purchase_is_the_only_automatic_slot_transfer_path(
     assert "claimVerifiedDeviceSlot" not in (
         ROOT / "pro/website/functions/api/license/validate.js"
     ).read_text(encoding="utf-8")
+
+
+def test_verified_entitlement_forces_embedded_queue_license_refresh() -> None:
+    api = (
+        ROOT / "android/app/src/main/java/de/classydl/app/EntitlementApi.kt"
+    ).read_text(encoding="utf-8")
+    local = (
+        ROOT / "android/app/src/main/java/de/classydl/app/LocalApiClient.kt"
+    ).read_text(encoding="utf-8")
+
+    assert "syncEmbeddedLicenseIfActive(parsed)" in api
+    assert "LocalApiClient.syncLicense(appContext, key)" in api
+    assert '"POST",\n            "/api/license"' in local
+    assert "normal six-hour validation TTL" in local
