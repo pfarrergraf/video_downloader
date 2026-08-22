@@ -60,6 +60,35 @@ def test_verified_google_play_purchase_is_the_only_automatic_slot_transfer_path(
     ).read_text(encoding="utf-8")
 
 
+def test_restore_button_uses_google_play_owned_purchase_not_email_lookup() -> None:
+    web = (ROOT / "video_downloader/web/static/index.html").read_text(encoding="utf-8")
+    activity = (
+        ROOT / "android/app/src/main/java/de/classydl/app/MainActivity.kt"
+    ).read_text(encoding="utf-8")
+    controller = (
+        ROOT / "android/app/src/play/java/de/classydl/app/PurchaseControllerFactory.kt"
+    ).read_text(encoding="utf-8")
+    api = (
+        ROOT / "android/app/src/main/java/de/classydl/app/EntitlementApi.kt"
+    ).read_text(encoding="utf-8")
+    verify = (
+        ROOT / "pro/website/functions/api/play/purchases/verify.js"
+    ).read_text(encoding="utf-8")
+
+    assert 'id="license-restore-btn"' in web
+    assert "window.AndroidBridge.restorePurchases();" in web
+    assert "fun restorePurchases()" in activity
+    assert 'syncPurchases(reportMissingPurchase = true, remainingEmptyRetries = 2, event = "restore")' in controller
+    assert "billingClient.queryPurchasesAsync" in controller
+    assert "BuildConfig.PLAY_PRODUCT_ID in it.products" in controller
+    assert "purchase.purchaseToken" in controller
+    assert '"/api/play/purchases/verify"' in api
+    assert '.put("purchase_token", token)' in api
+    assert "verifyAndApplyPlayPurchase" in verify
+    assert "email" not in controller.lower()
+    assert "email" not in api.lower()
+
+
 def test_verified_entitlement_forces_embedded_queue_license_refresh() -> None:
     api = (
         ROOT / "android/app/src/main/java/de/classydl/app/EntitlementApi.kt"
