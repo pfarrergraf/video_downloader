@@ -1,22 +1,31 @@
-import { jsonResponse } from "../../_lib.js";
+import { jsonResponse, sha256Hex } from "../../_lib.js";
 import { createTesterGrant } from "../../_tester_grants.js";
-import { verifyCloudflareAccessAdmin } from "../../_access_admin.js";
 
 const MAX_TEST_DAYS = 14;
 const DEFAULT_TEST_DAYS = 14;
+const MOBILE_ADMIN_TOKEN_HASH = "c910e93308ae744955d45219ea264fe9d80e6703409bc1df59666c8c93b5759e";
 
-function response(body, status = 200) {
+function response(body, status = 200, extraHeaders = {}) {
   return jsonResponse(body, status, {
     "Cache-Control": "no-store, max-age=0",
     Pragma: "no-cache",
+    ...extraHeaders,
   });
+}
+
+async function isAuthorized(request) {
+  const supplied = (request.headers.get("Authorization") || "")
+    .replace(/^Bearer\s+/i, "")
+    .trim();
+  if (!supplied) return false;
+  return (await sha256Hex(supplied)) === MOBILE_ADMIN_TOKEN_HASH;
 }
 
 export async function onRequestPost({ request, env }) {
   if (!env.DB) return response({ error: "DB is not configured" }, 500);
-
-  const auth = await verifyCloudflareAccessAdmin(request, env);
-  if (!auth.ok) return response({ error: auth.error }, auth.status);
+  if (!(await isAuthorized(request))) {
+    return response({ error: "unauthorized" }, 401, { "WWW-Authenticate": "Bearer" });
+  }
 
   let body;
   try {
