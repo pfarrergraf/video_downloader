@@ -1,5 +1,6 @@
 import { jsonResponse, sha256Hex } from "../../../_lib.js";
 import { verifyAndApplyPlayPurchase } from "../../../_google_play.js";
+import { claimVerifiedDeviceSlot } from "../../../_license_validation.js";
 
 export async function onRequestPost({ request, env }) {
   let body;
@@ -23,6 +24,17 @@ export async function onRequestPost({ request, env }) {
         `UPDATE play_purchases SET purchase_device_id_hash = COALESCE(purchase_device_id_hash, ?)
          WHERE token_hash = ? AND purchase_state = 'purchased'`,
       ).bind(deviceHash, tokenHash).run();
+
+      // A live Google Play verification is stronger proof than possession of a
+      // copied license key. Let an owned purchase reclaim its single Android
+      // slot after reinstall or a legitimate device change; ordinary license
+      // validation still cannot evict another active device.
+      await claimVerifiedDeviceSlot(env, {
+        key: result.licenseKey,
+        platform: "android",
+        deviceId: body.device_id,
+        appVersion: typeof body?.app_version === "string" ? body.app_version : null,
+      });
     }
     return jsonResponse({
       entitled: result.entitled,
