@@ -2,25 +2,15 @@
 
 Talks to the license-verification endpoint (POST /api/license/validate —
 see pro/website/functions/api/license/validate.js, a Cloudflare Pages Function on
-the same deployment as the marketing site, not a separate Worker) at most
-once every CACHE_TTL_SECONDS, and keeps trusting the last successful result
-for up to OFFLINE_GRACE_SECONDS if the device has no connectivity, so a brief
-network outage doesn't downgrade a paying user mid-session.
+the same deployment as the marketing site) at most once every
+CACHE_TTL_SECONDS, and keeps trusting the last successful result for up to
+OFFLINE_GRACE_SECONDS if the device has no connectivity.
 
-Free tier and Pro are intentionally cross-platform product rules: distributed
-Android and desktop builds both enforce the same 3-download rolling 24h free
-quota; the same Pro license key should unlock Android, Windows desktop, and
-future macOS/iOS/Linux builds. Developer-only/debug paths may still opt out by
-not constructing a LicenseManager, but shipped customer builds should wire it
-up to the production license API.
-
-The same key can still only be actively used on one device per platform at a
-time. Android release builds pass a privacy-preserving, reinstall-stable device
-identifier from Kotlin. Older Android releases used a random install UUID; when
-an explicit stable ID replaces a different persisted legacy ID, this manager
-keeps the previous value in memory long enough to send it once as migration
-proof. The server hashes both values and only migrates an activation when the
-legacy value actually owns the current slot.
+Free tier and Pro are intentionally cross-platform product rules. The same key
+can only be actively used on one device per platform at a time. Android release
+builds pass a privacy-preserving, reinstall-stable device identifier derived in
+Kotlin; desktop/CLI callers without an explicit device ID keep their persisted
+random fallback.
 """
 
 from __future__ import annotations
@@ -46,9 +36,6 @@ class LicenseState:
     valid: bool = False
     tier: str | None = None
     checked_at: float = 0.0
-    # Platform-specific identifier used for the one-active-device-per-platform
-    # policy. Android shipped builds supply a reinstall-stable derived ID;
-    # desktop/CLI callers may still use the persisted random fallback.
     device_id: str | None = None
     device_allowed: bool = True
     expires_at: float | None = None
@@ -77,17 +64,9 @@ class LicenseManager:
         self._platform = platform
         self._app_version = app_version
         self._state = self._load()
-        self._legacy_device_id: str | None = None
         self._device_id_scheme = ""
 
         if self._platform and device_id:
-            previous = self._state.device_id
-            if previous and previous != device_id:
-                # Existing Android install upgraded from the old random UUID.
-                # Do not persist this legacy value separately: it is sent only
-                # as short-lived migration proof and must not become a second
-                # long-term device credential.
-                self._legacy_device_id = previous
             if self._state.device_id != device_id:
                 self._state.device_id = device_id
                 self._save()
@@ -144,8 +123,6 @@ class LicenseManager:
             payload["device_id"] = self._state.device_id
             if self._device_id_scheme:
                 payload["device_id_scheme"] = self._device_id_scheme
-            if self._legacy_device_id:
-                payload["legacy_device_id"] = self._legacy_device_id
             if self._app_version:
                 payload["app_version"] = self._app_version
         try:
@@ -172,10 +149,5 @@ class LicenseManager:
             device_allowed=bool(data.get("device_allowed", True)),
             expires_at=data.get("expires_at"),
         )
-        # Once the backend confirms this stable device is allowed, the legacy
-        # proof is no longer needed in this process. A failed migration keeps it
-        # available for the next explicit refresh/retry.
-        if self._state.device_allowed:
-            self._legacy_device_id = None
         self._save()
         return self._state
