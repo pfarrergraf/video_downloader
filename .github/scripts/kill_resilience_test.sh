@@ -171,7 +171,7 @@ if [ -z "$STARTED" ]; then
   exit 1
 fi
 
-OLD_PID="$(adb shell pidof de.classydl.app | tr -d '\r')"
+OLD_PID="$(adb shell pidof de.classydl.app 2>/dev/null | tr -d '\r' || true)"
 if [ -z "$OLD_PID" ]; then
   echo "Could not resolve app PID before simulated process death" >&2
   exit 1
@@ -183,7 +183,9 @@ adb shell run-as de.classydl.app kill -9 "$OLD_PID" || true
 # re-open execution only because the persisted queue proves work is pending.
 NEW_PID=""
 for i in $(seq 1 30); do
-  NEW_PID="$(adb shell pidof de.classydl.app 2>/dev/null | tr -d '\r')"
+  # No PID is the expected state between SIGKILL and START_STICKY. Keep that
+  # transient exit code from tripping set -e/pipefail before the retry loop.
+  NEW_PID="$(adb shell pidof de.classydl.app 2>/dev/null | tr -d '\r' || true)"
   if [ -n "$NEW_PID" ] && [ "$NEW_PID" != "$OLD_PID" ]; then
     break
   fi

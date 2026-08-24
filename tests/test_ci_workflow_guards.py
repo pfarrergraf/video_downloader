@@ -134,5 +134,6 @@ def test_kill_resilience_uses_transfer_ui_and_process_death_not_force_stop() -> 
     assert "android.intent.action.SEND" in script
     assert "find_android_ui_target.py" in script
     assert "run-as de.classydl.app kill -9" in script
+    assert "pidof de.classydl.app 2>/dev/null | tr -d '\\r' || true" in script
     assert "am force-stop" not in script
     assert '-X POST "$BASE/api/queue"' not in script
