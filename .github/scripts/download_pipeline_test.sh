@@ -54,6 +54,16 @@ done
 adb reverse "tcp:$FILE_PORT" "tcp:$FILE_PORT"
 
 TEST_URL="http://127.0.0.1:$FILE_PORT/testfile.wav"
+TRANSFER_ID="ci-download-pipeline"
+
+# The Android queue is deliberately fail-closed until a concrete transfer has
+# a visible foreground service. Exercise the same service reservation that a
+# native UI producer obtains through TransferCoordinator; a raw HTTP enqueue
+# would correctly remain pending and would no longer be an end-to-end test.
+adb shell am start-foreground-service \
+  -n de.classydl.app/.DownloadService \
+  -a de.classydl.app.BEGIN_TRANSFER \
+  --es transfer_id "$TRANSFER_ID" >/dev/null
 
 curl -sf -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
   -H "Content-Type: application/json" \
@@ -162,5 +172,11 @@ assert data.get('active_version'), f'active_version missing: {data}'
 assert data.get('updating') is False, f'unexpected updating state: {data}'
 "
 echo "Engine endpoint OK."
+
+adb shell am startservice \
+  -n de.classydl.app/.DownloadService \
+  -a de.classydl.app.COMPLETE_TRANSFER \
+  --es transfer_id "$TRANSFER_ID" \
+  --ez queued true >/dev/null
 
 echo "Download pipeline smoke test passed."
