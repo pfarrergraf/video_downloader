@@ -37,12 +37,14 @@ from . import android_bridge
 from .licensing import LicenseManager
 from .models import JOB_STATUS_COMPLETED, JOB_STATUS_IN_PROGRESS, JOB_STATUS_PENDING
 from .queue_store import QueueStore
+from .execution_gate import ExecutionGate
 from .web.server import create_server
 
 # Set by start() and read by set_export_folder() — MainActivity's SAF folder
 # picker calls back into this same running store instance (via Chaquopy)
 # rather than opening a second sqlite connection to the same file.
 _current_store: QueueStore | None = None
+_execution_gate = ExecutionGate(initially_open=False)
 
 _PUBLISH_MARKER_SUFFIX = ".mediastore-published"
 _EXPORT_MARKER_SUFFIX = ".folder-exported"
@@ -268,6 +270,24 @@ def cancel_active_for_system_timeout() -> int:
     return cancelled
 
 
+def set_execution_enabled(enabled: bool) -> None:
+    """Called only after Android has entered or left dataSync foreground mode."""
+    if enabled:
+        _execution_gate.open()
+    else:
+        _execution_gate.close()
+
+
+def has_pending_work() -> bool:
+    store = _current_store
+    if store is None:
+        return False
+    return any(
+        store.list_jobs(status=status, limit=1)
+        for status in (JOB_STATUS_PENDING, JOB_STATUS_IN_PROGRESS)
+    )
+
+
 def start(
     data_dir: str,
     output_dir: str,
@@ -324,6 +344,7 @@ def start(
             license_manager=license_manager,
             app_version=app_version,
             published_file_remover=_delete_published_download,
+            execution_gate=_execution_gate,
         )
     except OSError as exc:
         if exc.errno == errno.EADDRINUSE and _server_already_healthy(port):

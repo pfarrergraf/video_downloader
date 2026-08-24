@@ -40,6 +40,7 @@ def _capture_create_server(captured: dict, fake: FakeServer):
         license_manager,
         app_version,
         published_file_remover,
+        execution_gate=None,
     ):
         captured.update(
             store=store,
@@ -52,6 +53,7 @@ def _capture_create_server(captured: dict, fake: FakeServer):
             license_manager=license_manager,
             app_version=app_version,
             published_file_remover=published_file_remover,
+            execution_gate=execution_gate,
         )
         return fake
 

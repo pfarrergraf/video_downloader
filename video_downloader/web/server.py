@@ -39,6 +39,7 @@ from ..models import (
 )
 from ..playlist_urls import inspect_playlist_url
 from ..queue_runner import QueueRunner
+from ..execution_gate import ExecutionGate
 from ..queue_store import QueueStore
 from ..scraper import SiteScraper, SsrfBlockedError
 from ..utils import ensure_output_dir
@@ -211,11 +212,22 @@ class BackgroundQueueWorker:
     # on engine-outdated failures - see queue_runner).
     ENGINE_CHECK_INTERVAL_SECONDS = 24 * 3600.0
 
-    def __init__(self, store: QueueStore, output_dir: Path, workers: int) -> None:
+    def __init__(
+        self,
+        store: QueueStore,
+        output_dir: Path,
+        workers: int,
+        execution_gate: ExecutionGate | None = None,
+    ) -> None:
         self._store = store
-        self._runner = QueueRunner(store=store, default_output_dir=output_dir)
         self._workers = workers
         self._stop = threading.Event()
+        self._runner = QueueRunner(
+            store=store,
+            default_output_dir=output_dir,
+            execution_gate=execution_gate,
+            stop_event=self._stop,
+        )
         self._thread = threading.Thread(target=self._loop, name="classydl-web-worker", daemon=True)
         self._last_janitor_run = 0.0
         self._last_engine_check = 0.0
@@ -363,6 +375,7 @@ class ClassyDLServer(ThreadingHTTPServer):
         app_version: str = "",
         published_file_remover=None,
         secure_cookies: bool = False,
+        execution_gate: ExecutionGate | None = None,
     ) -> None:
         super().__init__(address, ClassyDLRequestHandler)
         self.store = store
@@ -383,7 +396,12 @@ class ClassyDLServer(ThreadingHTTPServer):
         self.sessions = SessionStore()
         self.login_throttle = LoginThrottle()
         self.autologin_tokens = AutoLoginTokens()
-        self.worker = BackgroundQueueWorker(store=store, output_dir=output_dir, workers=workers)
+        self.worker = BackgroundQueueWorker(
+            store=store,
+            output_dir=output_dir,
+            workers=workers,
+            execution_gate=execution_gate,
+        )
         # SSE push plumbing: every job-state/progress write in the store
         # bumps the bus; each /api/events client thread waits on it. Bounded
         # because every SSE client holds one ThreadingHTTPServer thread.
@@ -1177,6 +1195,7 @@ def create_server(
     app_version: str = "",
     published_file_remover=None,
     secure_cookies: bool = False,
+    execution_gate: ExecutionGate | None = None,
 ) -> ClassyDLServer:
     if not password:
         raise ValueError(
@@ -1198,6 +1217,7 @@ def create_server(
         app_version=app_version,
         published_file_remover=published_file_remover,
         secure_cookies=secure_cookies,
+        execution_gate=execution_gate,
     )
 
 

@@ -19,6 +19,7 @@ from .models import (
     JobRecord,
 )
 from .queue_store import QueueStore
+from .execution_gate import ExecutionGate
 from .utils import ensure_output_dir
 
 
@@ -53,10 +54,14 @@ class QueueRunner:
         store: QueueStore,
         default_output_dir: Path,
         logger: Callable[[str], None] | None = None,
+        execution_gate: ExecutionGate | None = None,
+        stop_event: threading.Event | None = None,
     ) -> None:
         self.store = store
         self.default_output_dir = default_output_dir
         self.logger = logger
+        self.execution_gate = execution_gate
+        self.stop_event = stop_event or threading.Event()
 
     def run(self, workers: int = 3) -> RunSummary:
         safe_workers = max(1, min(8, int(workers)))
@@ -70,7 +75,11 @@ class QueueRunner:
             manager = DownloadManager(logger=self._log)
 
             while True:
-                job = self.store.claim_next_job()
+                job = (
+                    self.execution_gate.claim_next_job(self.store, stop=self.stop_event)
+                    if self.execution_gate is not None
+                    else self.store.claim_next_job()
+                )
                 if job is None:
                     break
 
