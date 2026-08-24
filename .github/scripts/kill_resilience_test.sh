@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Proves downloads survive the #1 mobile failure mode: Android killing the
-# app process mid-download. Queues a deliberately slow download, force-stops
-# the app while it's in_progress, relaunches, and asserts the job recovers
-# to pending and completes WITHOUT any user action (see
+# app process mid-download. Starts a deliberately slow download through the
+# user-visible Share flow, sends SIGKILL without marking the package stopped,
+# and asserts START_STICKY recovers the job and completes WITHOUT user action (see
 # QueueStore.recover_stale_in_progress, called from BackgroundQueueWorker.start).
 #
-# Runs after download_pipeline_test.sh / share_intent_test.sh in the same
+# Runs after share_intent_test.sh in the same
 # emulator session; follows their local-file-server-over-adb-reverse pattern.
 set -euo pipefail
 
@@ -26,7 +26,7 @@ cleanup() {
 trap cleanup EXIT
 
 # A throttled HTTP server: 4 MiB served in 64 KiB chunks with a pause per
-# chunk (~20s total), slow enough to reliably force-stop mid-transfer.
+# chunk (~20s total), slow enough to reliably kill the process mid-transfer.
 FILE_SIZE=$((4 * 1024 * 1024))
 python3 - "$FILE_PORT" "$FILE_SIZE" <<'PY' > "$TEST_DIR/throttle-server.log" 2>&1 &
 import sys
@@ -79,11 +79,62 @@ curl -sf -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
   -H "Content-Type: application/json" \
   -d "{\"password\": \"$PASSWORD\"}" >/dev/null
 
-JOB_ID="$(curl -sf -b "$COOKIE_JAR" -X POST "$BASE/api/queue" \
-  -H "Content-Type: application/json" \
-  -d "{\"source\": \"$TEST_URL\"}" | python3 -c 'import json,sys; print(json.load(sys.stdin)["job_id"])')"
+# Queue through MainActivity -> WebView -> TransferCoordinator. A direct HTTP
+# POST would intentionally leave the Android worker gate closed.
+adb shell am start -n de.classydl.app/.MainActivity \
+  -a android.intent.action.SEND -t text/plain \
+  --es android.intent.extra.TEXT "'Kill recovery test: $TEST_URL'"
 
-echo "Queued slow job $JOB_ID"
+TAP_XY=""
+for i in $(seq 1 15); do
+  adb shell uiautomator dump /sdcard/window_dump.xml >/dev/null 2>&1 || true
+  adb pull /sdcard/window_dump.xml "$TEST_DIR/window_dump.xml" >/dev/null 2>&1 || true
+  if [ -s "$TEST_DIR/window_dump.xml" ]; then
+    TAP_XY="$(python3 "$(dirname "$0")/find_android_ui_target.py" \
+      "$TEST_DIR/window_dump.xml" || true)"
+  fi
+  if [[ "$TAP_XY" == DISMISS\ * ]]; then
+    read -r _ DISMISS_X DISMISS_Y <<< "$TAP_XY"
+    adb shell input tap "$DISMISS_X" "$DISMISS_Y"
+    TAP_XY=""
+    sleep 2
+    continue
+  fi
+  if [ -n "$TAP_XY" ]; then
+    break
+  fi
+  sleep 1
+done
+if [ -z "$TAP_XY" ]; then
+  echo "Could not locate the slow share picker's Video button" >&2
+  exit 1
+fi
+adb shell input tap $TAP_XY
+
+JOB_ID=""
+for i in $(seq 1 30); do
+  RESPONSE="$(curl -sf --max-time 5 -b "$COOKIE_JAR" "$BASE/api/queue" || true)"
+  if [ -n "$RESPONSE" ]; then
+    JOB_ID="$(printf '%s' "$RESPONSE" | python3 -c "
+import json, sys
+try:
+    jobs = json.load(sys.stdin)['jobs']
+except Exception:
+    jobs = []
+job = next((j for j in jobs if j['source'] == '$TEST_URL'), None)
+print(job['id'] if job else '')
+" || true)"
+  fi
+  if [ -n "$JOB_ID" ]; then
+    break
+  fi
+  sleep 1
+done
+if [ -z "$JOB_ID" ]; then
+  echo "Slow shared URL never appeared in the queue" >&2
+  exit 1
+fi
+echo "Queued slow job $JOB_ID through Share/TransferCoordinator"
 
 # Wait until it's genuinely mid-transfer (in_progress with bytes on the wire).
 #
@@ -120,14 +171,31 @@ if [ -z "$STARTED" ]; then
   exit 1
 fi
 
-echo "Force-stopping the app mid-download..."
-adb shell am force-stop de.classydl.app
-sleep 2
+OLD_PID="$(adb shell pidof de.classydl.app | tr -d '\r')"
+if [ -z "$OLD_PID" ]; then
+  echo "Could not resolve app PID before simulated process death" >&2
+  exit 1
+fi
+echo "Killing app process $OLD_PID mid-download without force-stop..."
+adb shell run-as de.classydl.app kill -9 "$OLD_PID" || true
 
-echo "Relaunching..."
-adb shell am start -n de.classydl.app/.MainActivity
+# START_STICKY must recreate DownloadService with a null intent. That path may
+# re-open execution only because the persisted queue proves work is pending.
+NEW_PID=""
+for i in $(seq 1 30); do
+  NEW_PID="$(adb shell pidof de.classydl.app 2>/dev/null | tr -d '\r')"
+  if [ -n "$NEW_PID" ] && [ "$NEW_PID" != "$OLD_PID" ]; then
+    break
+  fi
+  sleep 1
+done
+if [ -z "$NEW_PID" ] || [ "$NEW_PID" = "$OLD_PID" ]; then
+  echo "Sticky service did not recreate the app process after SIGKILL" >&2
+  exit 1
+fi
+echo "Sticky service recreated app process as $NEW_PID"
 
-# The relaunched server must come back AND recover the stranded job.
+# The restarted server must come back AND recover the stranded job.
 for i in $(seq 1 40); do
   if curl -sf --max-time 2 "$BASE/api/health" >/dev/null 2>&1; then
     break
@@ -163,7 +231,7 @@ print(job['status'] if job else 'missing')
 done
 
 if [ "$STATUS" != "completed" ]; then
-  echo "Job did not recover and complete after force-stop (status: $STATUS)" >&2
+  echo "Job did not recover and complete after SIGKILL (status: $STATUS)" >&2
   adb logcat -d -s python.stdout python.stderr ClassyDL 2>/dev/null | tail -n 100 || true
   exit 1
 fi
@@ -181,4 +249,4 @@ if [ "$SIZE_ON_DEVICE" != "$FILE_SIZE" ]; then
   exit 1
 fi
 
-echo "Kill-resilience test passed: job survived force-stop and completed ($SIZE_ON_DEVICE bytes)."
+echo "Kill-resilience test passed: job survived SIGKILL and completed ($SIZE_ON_DEVICE bytes)."

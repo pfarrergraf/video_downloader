@@ -125,3 +125,14 @@ def test_share_intent_smoke_test_retries_transient_restart_responses() -> None:
     assert "--retry-all-errors" in script
     assert "HEALTH_READY=false" in script
     assert 'if [ "$HEALTH_READY" != "true" ]' in script
+
+
+def test_kill_resilience_uses_transfer_ui_and_process_death_not_force_stop() -> None:
+    script = (ROOT / ".github" / "scripts" / "kill_resilience_test.sh").read_text(
+        encoding="utf-8"
+    )
+    assert "android.intent.action.SEND" in script
+    assert "find_android_ui_target.py" in script
+    assert "run-as de.classydl.app kill -9" in script
+    assert "am force-stop" not in script
+    assert '-X POST "$BASE/api/queue"' not in script
