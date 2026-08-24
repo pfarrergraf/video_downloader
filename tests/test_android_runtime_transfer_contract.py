@@ -29,6 +29,11 @@ def test_transfer_foreground_precedes_python_execution_gate() -> None:
     assert 'failClosed("foreground re-promotion rejected")' in service
     on_destroy = service.split("override fun onDestroy()", 1)[1].split("override fun onTaskRemoved", 1)[0]
     assert "failClosed" in on_destroy
+    task_removed = service.split("override fun onTaskRemoved", 1)[1].split(
+        "override fun onStartCommand", 1
+    )[0]
+    assert "if (!inForeground)" in task_removed
+    assert task_removed.index("if (!inForeground)") < task_removed.index("failClosed")
 
 
 def test_web_and_native_producers_use_transfer_coordinator() -> None:

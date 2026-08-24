@@ -91,8 +91,14 @@ class DownloadService : Service(), ServerRuntime.Listener {
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
-        failClosed("app task removed")
-        stopSelf()
+        // Swiping the Activity from Recents is not a foreground-service
+        // failure. A visible dataSync FGS must keep its active transfer alive.
+        // Only a service which has already lost foreground protection is
+        // failed closed here; normal completion still uses idleShutdownRunnable.
+        if (!inForeground) {
+            failClosed("app task removed after foreground loss")
+            stopSelf()
+        }
         super.onTaskRemoved(rootIntent)
     }
 
