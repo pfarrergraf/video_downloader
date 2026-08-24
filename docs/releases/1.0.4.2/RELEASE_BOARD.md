@@ -20,11 +20,11 @@ board.
 
 | Package | Owner | Reviewer | Status | Evidence |
 |---|---|---|---|---|
-| Refund decommission and Billing contract | Finance/Billing | Critical Reviewer | ACTIVE | pending |
-| Runtime, execution gate, FGS, entitlement | Coding | Critical Reviewer + Finance | ACTIVE | pending |
-| Search, library, playlists, player | Coding | Critical Reviewer | ACTIVE | pending |
+| Refund decommission and Billing contract | Finance/Billing | Critical Reviewer | MERGED | `f134c448`; LOCAL_VERIFIED |
+| Runtime, execution gate, FGS, entitlement | Coding | Critical Reviewer + Finance | MERGED | `13240383`; LOCAL_VERIFIED |
+| Search, library, playlists, player | Coding | Critical Reviewer | BLOCKED | `e009097b`; search cancellation/HOL fix pending |
 | Claims and listing pipeline | Marketing + Listing | Finance + Critical Reviewer | QUEUED | pending |
-| Candidate/promote workflow | Orchestrator | Critical Reviewer | ACTIVE | pending |
+| Candidate/promote workflow | Orchestrator | Critical Reviewer | MERGED | `6c064161`; LOCAL_VERIFIED |
 | Release documentation and evidence | Documenter | Orchestrator | ACTIVE | this directory |
 
 ## Gate status
@@ -34,7 +34,7 @@ Verification levels are never collapsed into a generic "tested" status.
 | Gate | Status | Required evidence |
 |---|---|---|
 | G0 scope, policy, branch | LOCAL_VERIFIED | fixed decisions above; integration branch |
-| G1 local code and contract tests | BLOCKED | all work packages integrated and green |
+| G1 local code and contract tests | BLOCKED | integrated snapshot: 424 passed, 2 skipped; search/listing pending |
 | G2 Android compile and API 34/35 emulator | BLOCKED | final commit CI run |
 | G3 claims, locales, real screenshots | BLOCKED | listing manifest and visual review |
 | G4 TEAM candidate approval | BLOCKED | ACK from all seven roles |
