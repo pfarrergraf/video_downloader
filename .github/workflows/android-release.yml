@@ -1,4 +1,4 @@
-name: Android release
+name: Android candidate build
 
 # Deliberately manual: an AAB or Play upload must be built from the explicitly
 # selected ref, never from an incidental tag or feature-branch push.
@@ -9,13 +9,13 @@ on:
         description: "Version tag to release, e.g. v0.2.0 (leading 'v' optional)"
         required: true
         type: string
-      upload_to_play:
-        description: "Upload the signed AAB to the Google Play internal test track"
+      fgs_declaration_confirmed:
+        description: "Owner confirmed the current Play foreground-service declaration"
         required: true
         default: false
         type: boolean
-      publish_github_release:
-        description: "Publish direct APK assets to a GitHub release after all artifact checks"
+      team_gate_confirmed:
+        description: "All release roles recorded ACK for this exact commit"
         required: true
         default: false
         type: boolean
@@ -52,6 +52,32 @@ jobs:
 
       - name: Derive version code/name from tag
         run: python scripts/android_version_from_tag.py "$RELEASE_TAG" --github-env "$GITHUB_ENV"
+
+      - name: Require owner and TEAM gates
+        shell: bash
+        run: |
+          [ "${{ inputs.fgs_declaration_confirmed }}" = "true" ] || {
+            echo "::error::The Play foreground-service declaration must be confirmed before candidate build."
+            exit 1
+          }
+          [ "${{ inputs.team_gate_confirmed }}" = "true" ] || {
+            echo "::error::The commit-bound TEAM gate must be confirmed before candidate build."
+            exit 1
+          }
+
+      - name: Reject a versionCode already known to Google Play
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY }}
+        shell: bash
+        run: |
+          result="$(node scripts/upload_google_play.mjs --query-highest-version-code true --package de.classydl.app)"
+          highest="$(printf '%s' "$result" | jq -r '.highestVersionCode')"
+          [ "$VERSION_CODE" -gt "$highest" ] || {
+            echo "::error::versionCode $VERSION_CODE must exceed Google Play's current highest code $highest."
+            exit 1
+          }
+          echo "Google Play highest versionCode: $highest" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Reject a non-monotone versionCode
         shell: bash
@@ -135,7 +161,7 @@ jobs:
     needs: [validate-version, build-ffmpeg, build-quickjs]
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
     defaults:
       run:
         working-directory: android
@@ -299,83 +325,48 @@ jobs:
           gradle :app:dependencies --configuration playReleaseRuntimeClasspath > play-release-dependencies.txt
           python ../scripts/gradle_dependencies_to_cyclonedx.py play-release-dependencies.txt DownloadThat-android-sbom.cdx.json
 
-      - name: Upload Android SBOM
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: DownloadThat-${{ env.RELEASE_TAG }}-android-sbom
-          path: android/DownloadThat-android-sbom.cdx.json
-          retention-days: 30
-
-      - name: Upload App Bundle artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: DownloadThat-${{ env.RELEASE_TAG }}-play.aab
-          path: android/app/build/outputs/bundle/playRelease/app-play-release.aab
-          retention-days: 30
-
-      # Two copies: the versioned name is what shows up on the release page;
-      # the "-latest" name is a stable filename so the website's download
-      # button (releases/latest/download/DownloadThat-latest.apk) never needs
-      # updating across releases - GitHub's "latest" alias only works for an
-      # asset name that stays identical release to release.
-      - name: Rename APK to include version tag
+      - name: Package immutable candidate and provenance
+        env:
+          EXPECTED_UPLOAD_SHA256: ${{ secrets.ANDROID_UPLOAD_CERT_SHA256 }}
+        shell: bash
         run: |
-          mkdir -p release-out
-          cp app/build/outputs/apk/direct/release/app-direct-release.apk "release-out/DownloadThat-${RELEASE_TAG}-direct.apk"
-          cp app/build/outputs/apk/direct/release/app-direct-release.apk "release-out/DownloadThat-latest.apk"
-
-      # Lets testers (and android-beta.html) verify the APK they downloaded
-      # actually came from this CI build, not a tampered copy from elsewhere.
-      - name: Generate SHA-256 checksums
-        run: |
-          cd release-out
-          sha256sum "DownloadThat-${RELEASE_TAG}-direct.apk" > "DownloadThat-${RELEASE_TAG}-direct.apk.sha256"
-          sha256sum "DownloadThat-latest.apk" > "DownloadThat-latest.apk.sha256"
-
-      - name: Generate release metadata JSON
-        run: |
-          GENERATED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          SHA256="$(awk '{print $1}' release-out/DownloadThat-latest.apk.sha256)"
-          cat > release-out/DownloadThat-release.json <<JSON
+          set -euo pipefail
+          mkdir -p candidate-out
+          candidate="candidate-out/DownloadThat-${RELEASE_TAG}-play.aab"
+          cp app/build/outputs/bundle/playRelease/app-play-release.aab "$candidate"
+          cp DownloadThat-android-sbom.cdx.json candidate-out/DownloadThat-android-sbom.cdx.json
+          aab_sha="$(sha256sum "$candidate" | awk '{print $1}')"
+          cert_sha="$(keytool -printcert -jarfile "$candidate" | awk -F': ' '/SHA256:/{print $2; exit}' | tr '[:lower:]' '[:upper:]' | tr -d ':')"
+          expected_cert="$(printf '%s' "$EXPECTED_UPLOAD_SHA256" | tr '[:lower:]' '[:upper:]' | tr -d ':')"
+          [ "$cert_sha" = "$expected_cert" ] || { echo "Upload certificate mismatch during provenance generation"; exit 1; }
+          board_sha="$(sha256sum ../docs/releases/1.0.4.2/RELEASE_BOARD.md | awk '{print $1}')"
+          generated_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          cat > candidate-out/candidate-provenance.json <<JSON
           {
-            "appName": "DownloadThat",
+            "schemaVersion": 1,
             "packageName": "de.classydl.app",
+            "releaseTag": "${RELEASE_TAG}",
             "versionName": "${VERSION_NAME}",
             "versionCode": ${VERSION_CODE},
-            "apkFile": "DownloadThat-latest.apk",
-            "sha256": "${SHA256}",
-            "releaseTag": "${RELEASE_TAG}",
-            "generatedAt": "${GENERATED_AT}"
+            "commitSha": "${GITHUB_SHA}",
+            "workflowRunId": "${GITHUB_RUN_ID}",
+            "artifactName": "DownloadThat-${RELEASE_TAG}-play-candidate",
+            "aabFile": "DownloadThat-${RELEASE_TAG}-play.aab",
+            "aabSha256": "${aab_sha}",
+            "uploadCertificateSha256": "${cert_sha}",
+            "releaseBoardSha256": "${board_sha}",
+            "fgsDeclarationConfirmed": true,
+            "teamGateConfirmed": true,
+            "generatedAt": "${generated_at}"
           }
           JSON
+          sha256sum candidate-out/* > candidate-out/SHA256SUMS
+          echo "Candidate AAB SHA-256: $aab_sha" >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Attach APK to GitHub Release
-        if: inputs.publish_github_release
-        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
+      - name: Upload immutable candidate package
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          # tag_name/name are required here (not just github.ref_name): on a
-          # workflow_dispatch run there is no tag yet, so this action creates
-          # one. target_commitish must be explicit too - GitHub's API defaults
-          # a brand-new tag to the repo's default branch (master, stuck on an
-          # ancient commit here) when it's omitted, not to the commit actually
-          # built from.
-          tag_name: ${{ env.RELEASE_TAG }}
-          name: ${{ env.RELEASE_TAG }}
-          target_commitish: ${{ github.sha }}
-          files: |
-            android/release-out/DownloadThat-${{ env.RELEASE_TAG }}-direct.apk
-            android/release-out/DownloadThat-${{ env.RELEASE_TAG }}-direct.apk.sha256
-            android/release-out/DownloadThat-latest.apk
-            android/release-out/DownloadThat-latest.apk.sha256
-            android/release-out/DownloadThat-release.json
-          generate_release_notes: true
-
-      # Keep this last: once Play accepts a versionCode it cannot be reused.
-      # All local artifact/signature checks and the matching GitHub release
-      # must therefore be complete before the edit is committed to Play.
-      - name: Upload App Bundle to Google Play internal testing
-        if: inputs.upload_to_play
-        env:
-          GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL }}
-          GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY }}
-        run: node ../scripts/upload_google_play.mjs --aab app/build/outputs/bundle/playRelease/app-play-release.aab --package de.classydl.app --track internal --release-name "$RELEASE_TAG"
+          name: DownloadThat-${{ env.RELEASE_TAG }}-play-candidate
+          path: android/candidate-out/
+          if-no-files-found: error
+          retention-days: 30

@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { generateKeyPairSync } from "node:crypto";
 import {
+  highestGooglePlayVersionCode,
+  promoteGooglePlayCandidate,
   resolveScreenshotLocale,
   serviceAccountAssertion,
   syncGooglePlayListingAssets,
@@ -87,6 +89,97 @@ test("uploader preserves Google API status and reason in failures", async () => 
     }),
     /Create Play edit failed \(403, PERMISSION_DENIED, PLAY_CONSOLE_PERMISSION\)/,
   );
+});
+
+test("version preflight returns the highest Play code and deletes its temporary edit", async () => {
+  const calls = [];
+  const responses = [
+    { access_token: "token" },
+    { id: "edit-versions" },
+    { bundles: [{ versionCode: 80403 }, { versionCode: "1000401" }, { versionCode: 80500 }] },
+    {},
+  ];
+  const fetchImpl = async (url, options = {}) => {
+    calls.push({ url: String(url), options });
+    return Response.json(responses.shift());
+  };
+  const result = await highestGooglePlayVersionCode({
+    packageName: "de.classydl.app",
+    email: "ci@example.test",
+    privateKey: PEM,
+    fetchImpl,
+    nowSeconds: 1234,
+  });
+  assert.deepEqual(result, {
+    highestVersionCode: 1000401,
+    versionCodes: [80403, 80500, 1000401],
+  });
+  assert.match(calls[2].url, /\/edits\/edit-versions\/bundles$/);
+  assert.equal(calls[3].options.method, "DELETE");
+  assert.match(calls[3].url, /\/edits\/edit-versions$/);
+});
+
+test("candidate promotion uploads only the expected version and commits Internal", async () => {
+  const calls = [];
+  const responses = [
+    { access_token: "token" },
+    { id: "edit-candidate" },
+    { bundles: [{ versionCode: 1000401 }] },
+    { versionCode: 1000402 },
+    { track: "internal", releases: [] },
+    { track: "internal" },
+    { id: "edit-candidate" },
+  ];
+  const fetchImpl = async (url, options = {}) => {
+    calls.push({ url: String(url), options });
+    return Response.json(responses.shift());
+  };
+  const result = await promoteGooglePlayCandidate({
+    packageName: "de.classydl.app",
+    releaseName: "v1.0.4.2",
+    expectedVersionCode: 1000402,
+    aabBytes: Buffer.from("candidate"),
+    email: "ci@example.test",
+    privateKey: PEM,
+    fetchImpl,
+    nowSeconds: 1234,
+  });
+  assert.deepEqual(result, {
+    editId: "edit-candidate",
+    versionCode: "1000402",
+    track: "internal",
+    alreadyPresent: false,
+  });
+  assert.equal(calls.filter((call) => call.url.includes("upload/androidpublisher")).length, 1);
+  assert.match(calls.at(-1).url, /:commit\?changesInReviewBehavior=ERROR_IF_IN_REVIEW$/);
+});
+
+test("candidate promotion retry reuses a version already on Internal without uploading", async () => {
+  const calls = [];
+  const responses = [
+    { access_token: "token" },
+    { id: "edit-retry" },
+    { bundles: [{ versionCode: 1000402 }] },
+    { track: "internal", releases: [{ versionCodes: ["1000402"] }] },
+    {},
+  ];
+  const fetchImpl = async (url, options = {}) => {
+    calls.push({ url: String(url), options });
+    return Response.json(responses.shift());
+  };
+  const result = await promoteGooglePlayCandidate({
+    packageName: "de.classydl.app",
+    releaseName: "v1.0.4.2",
+    expectedVersionCode: 1000402,
+    aabBytes: Buffer.from("candidate"),
+    email: "ci@example.test",
+    privateKey: PEM,
+    fetchImpl,
+    nowSeconds: 1234,
+  });
+  assert.equal(result.alreadyPresent, true);
+  assert.equal(calls.some((call) => call.url.includes("upload/androidpublisher")), false);
+  assert.equal(calls.at(-1).options.method, "DELETE");
 });
 
 test("asset sync replaces graphics for every existing listing language and commits safely", async () => {

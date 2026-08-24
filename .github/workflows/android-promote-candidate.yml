@@ -1,0 +1,144 @@
+name: Android promote exact candidate
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_run_id:
+        description: "Successful Android candidate build run id"
+        required: true
+        type: string
+      artifact_name:
+        description: "Candidate artifact name from its provenance"
+        required: true
+        type: string
+      expected_sha256:
+        description: "Expected SHA-256 of the AAB, copied from reviewed evidence"
+        required: true
+        type: string
+      team_gate_confirmed:
+        description: "All release roles approved this exact candidate"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: android-play-internal-de.classydl.app
+  cancel-in-progress: false
+
+jobs:
+  promote-exact-candidate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate promotion inputs and source run
+        id: source_run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.candidate_run_id }}
+          EXPECTED_SHA256: ${{ inputs.expected_sha256 }}
+          ARTIFACT_NAME: ${{ inputs.artifact_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [ "${{ inputs.team_gate_confirmed }}" = "true" ] || {
+            echo "::error::The commit-bound TEAM gate is not confirmed."
+            exit 1
+          }
+          [[ "$RUN_ID" =~ ^[0-9]+$ ]] || { echo "::error::Invalid candidate run id"; exit 1; }
+          [[ "$EXPECTED_SHA256" =~ ^[0-9A-Fa-f]{64}$ ]] || { echo "::error::Invalid expected SHA-256"; exit 1; }
+          [[ "$ARTIFACT_NAME" =~ ^DownloadThat-v[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?-play-candidate$ ]] || {
+            echo "::error::Unexpected candidate artifact name"
+            exit 1
+          }
+          run_json="$(curl --fail --silent --show-error \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID")"
+          printf '%s' "$run_json" | jq -e '
+            .status == "completed"
+            and .conclusion == "success"
+            and .event == "workflow_dispatch"
+            and .name == "Android candidate build"
+          ' >/dev/null || { echo "::error::Source run is not a successful candidate build"; exit 1; }
+          head_sha="$(printf '%s' "$run_json" | jq -r '.head_sha')"
+          echo "head_sha=$head_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Check out the exact candidate commit
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          ref: ${{ steps.source_run.outputs.head_sha }}
+          persist-credentials: false
+
+      - name: Download the existing candidate artifact
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: ${{ inputs.artifact_name }}
+          path: candidate
+          run-id: ${{ inputs.candidate_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Set up verification Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify provenance, run binding and exact AAB bytes
+        id: candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify_android_candidate.py candidate \
+            --expected-run-id "${{ inputs.candidate_run_id }}" \
+            --expected-sha256 "${{ inputs.expected_sha256 }}" \
+            --expected-artifact-name "${{ inputs.artifact_name }}" \
+            --github-output "$GITHUB_OUTPUT"
+          [ "${{ steps.source_run.outputs.head_sha }}" = "$(jq -r '.commitSha' candidate/candidate-provenance.json)" ] || {
+            echo "::error::Candidate provenance commit does not match source run"
+            exit 1
+          }
+          board_sha="$(sha256sum docs/releases/1.0.4.2/RELEASE_BOARD.md | awk '{print $1}')"
+          [ "$board_sha" = "$(jq -r '.releaseBoardSha256' candidate/candidate-provenance.json)" ] || {
+            echo "::error::Release board differs from the candidate's reviewed board"
+            exit 1
+          }
+
+      - name: Set up JDK for independent certificate verification
+        uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Verify upload certificate again
+        env:
+          EXPECTED_UPLOAD_SHA256: ${{ secrets.ANDROID_UPLOAD_CERT_SHA256 }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          actual="$(keytool -printcert -jarfile "${{ steps.candidate.outputs.aab_path }}" | awk -F': ' '/SHA256:/{print $2; exit}' | tr '[:lower:]' '[:upper:]' | tr -d ':')"
+          expected="$(printf '%s' "$EXPECTED_UPLOAD_SHA256" | tr '[:lower:]' '[:upper:]' | tr -d ':')"
+          provenance="$(printf '%s' "${{ steps.candidate.outputs.upload_cert_sha256 }}" | tr '[:lower:]' '[:upper:]' | tr -d ':')"
+          [ -n "$expected" ] && [ "$actual" = "$expected" ] && [ "$actual" = "$provenance" ] || {
+            echo "::error::Candidate upload certificate mismatch"
+            exit 1
+          }
+
+      # This is intentionally the only external mutation. It consumes the
+      # already downloaded AAB and contains no Gradle, compile or bundle step.
+      - name: Promote exact candidate to Internal Testing
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY }}
+        shell: bash
+        run: |
+          node scripts/upload_google_play.mjs \
+            --aab "${{ steps.candidate.outputs.aab_path }}" \
+            --package de.classydl.app \
+            --track internal \
+            --release-name "${{ steps.candidate.outputs.release_tag }}" \
+            --expected-version-code "${{ steps.candidate.outputs.version_code }}"
+          echo "Promoted candidate run ${{ inputs.candidate_run_id }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "AAB SHA-256: ${{ steps.candidate.outputs.aab_sha256 }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Version: ${{ steps.candidate.outputs.version_name }} (${{ steps.candidate.outputs.version_code }})" >> "$GITHUB_STEP_SUMMARY"

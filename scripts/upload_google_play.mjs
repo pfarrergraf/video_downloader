@@ -106,6 +106,133 @@ export async function uploadGooglePlayBundle({
   return { editId: edit.id, versionCode, track: "internal" };
 }
 
+/** Idempotently promote one already-verified candidate to Internal Testing.
+ * A retry never uploads different bytes under another code: it either uploads
+ * the expected code once, attaches an existing expected code to Internal, or
+ * reports that the exact version is already present on the track. */
+export async function promoteGooglePlayCandidate({
+  packageName,
+  releaseName,
+  expectedVersionCode,
+  aabBytes,
+  email,
+  privateKey,
+  fetchImpl = fetch,
+  nowSeconds,
+}) {
+  const expected = String(expectedVersionCode || "");
+  if (!/^\d+$/.test(expected)) throw new Error("expectedVersionCode must be a positive integer");
+  const token = await accessToken({ email, privateKey, fetchImpl, nowSeconds });
+  const headers = { Authorization: `Bearer ${token}` };
+  const packagePath = encodeURIComponent(packageName);
+  const edit = await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${packagePath}/edits`,
+    { method: "POST", headers: { ...headers, "Content-Type": "application/json" }, body: "{}" },
+    "Create Play candidate edit",
+  );
+  if (!edit.id) throw new Error("Create Play candidate edit returned no edit id");
+  const editPath = `${packagePath}/edits/${encodeURIComponent(edit.id)}`;
+  const bundles = await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}/bundles`,
+    { headers },
+    "List Play candidate bundles",
+  );
+  const bundleExists = (bundles.bundles || []).some((bundle) => String(bundle.versionCode) === expected);
+  if (!bundleExists) {
+    const bundle = await publisherRequest(
+      fetchImpl,
+      `${API}/upload/androidpublisher/v3/applications/${editPath}/bundles?uploadType=media`,
+      { method: "POST", headers: { ...headers, "Content-Type": "application/octet-stream" }, body: aabBytes },
+      "Upload candidate app bundle",
+    );
+    if (String(bundle.versionCode) !== expected) {
+      throw new Error(`Uploaded candidate versionCode ${bundle.versionCode} does not match expected ${expected}`);
+    }
+  }
+  const track = await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}/tracks/internal`,
+    { headers },
+    "Read internal track",
+  );
+  const alreadyOnTrack = (track.releases || []).some((release) =>
+    (release.versionCodes || []).map(String).includes(expected));
+  if (alreadyOnTrack) {
+    await publisherRequest(
+      fetchImpl,
+      `${API}/androidpublisher/v3/applications/${editPath}`,
+      { method: "DELETE", headers },
+      "Delete redundant Play candidate edit",
+    );
+    return { editId: edit.id, versionCode: expected, track: "internal", alreadyPresent: true };
+  }
+  await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}/tracks/internal`,
+    {
+      method: "PUT",
+      headers: { ...headers, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        track: "internal",
+        releases: [{ name: releaseName, versionCodes: [expected], status: "completed" }],
+      }),
+    },
+    "Update internal track with candidate",
+  );
+  await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}:commit?changesInReviewBehavior=ERROR_IF_IN_REVIEW`,
+    { method: "POST", headers },
+    "Commit Play candidate edit",
+  );
+  return { editId: edit.id, versionCode: expected, track: "internal", alreadyPresent: false };
+}
+
+/** Read the version codes already known to Google Play without committing an
+ * edit. The temporary edit is deleted in all cases so a preflight check cannot
+ * leave a competing edit behind. */
+export async function highestGooglePlayVersionCode({
+  packageName,
+  email,
+  privateKey,
+  fetchImpl = fetch,
+  nowSeconds,
+}) {
+  if (!packageName) throw new Error("packageName is required");
+  const token = await accessToken({ email, privateKey, fetchImpl, nowSeconds });
+  const headers = { Authorization: `Bearer ${token}` };
+  const packagePath = encodeURIComponent(packageName);
+  const edit = await publisherRequest(
+    fetchImpl,
+    `${API}/androidpublisher/v3/applications/${packagePath}/edits`,
+    { method: "POST", headers: { ...headers, "Content-Type": "application/json" }, body: "{}" },
+    "Create Play version preflight edit",
+  );
+  if (!edit.id) throw new Error("Create Play version preflight edit returned no edit id");
+  const editPath = `${packagePath}/edits/${encodeURIComponent(edit.id)}`;
+  try {
+    const response = await publisherRequest(
+      fetchImpl,
+      `${API}/androidpublisher/v3/applications/${editPath}/bundles`,
+      { headers },
+      "List Play app bundles",
+    );
+    const versionCodes = [...new Set((response.bundles || [])
+      .map((bundle) => Number(bundle.versionCode))
+      .filter(Number.isInteger))].sort((left, right) => left - right);
+    return { highestVersionCode: versionCodes.at(-1) || 0, versionCodes };
+  } finally {
+    await publisherRequest(
+      fetchImpl,
+      `${API}/androidpublisher/v3/applications/${editPath}`,
+      { method: "DELETE", headers },
+      "Delete Play version preflight edit",
+    );
+  }
+}
+
 function featureGraphicForLanguage(assets, language) {
   const normalized = String(language).toLowerCase();
   if (normalized.startsWith("ja")) return assets.localizedFeatureGraphics?.ja || assets.featureGraphic;
@@ -311,6 +438,16 @@ async function main() {
   const email = process.env.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL;
   const privateKey = process.env.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY;
   if (!email || !privateKey) throw new Error("Google Play service-account secrets are not configured");
+  if (args["query-highest-version-code"] === "true") {
+    if (!args.package) throw new Error("--package is required");
+    const result = await highestGooglePlayVersionCode({
+      packageName: args.package,
+      email,
+      privateKey,
+    });
+    process.stdout.write(`${JSON.stringify(result)}\n`);
+    return;
+  }
   if (args["sync-assets"] === "true") {
     if (!args.package || !args["asset-dir"]) throw new Error("--package and --asset-dir are required");
     const assetDir = args["asset-dir"];
@@ -360,6 +497,21 @@ async function main() {
   }
   for (const required of ["aab", "package", "release-name"]) {
     if (!args[required]) throw new Error(`--${required} is required`);
+  }
+  if (args["expected-version-code"]) {
+    const result = await promoteGooglePlayCandidate({
+      packageName: args.package,
+      releaseName: args["release-name"],
+      expectedVersionCode: args["expected-version-code"],
+      aabBytes: readFileSync(args.aab),
+      email,
+      privateKey,
+    });
+    process.stdout.write(
+      `${result.alreadyPresent ? "Verified existing" : "Promoted"} versionCode ${result.versionCode} `
+        + `on Google Play ${result.track} track.\n`,
+    );
+    return;
   }
   const result = await uploadGooglePlayBundle({
     packageName: args.package,
