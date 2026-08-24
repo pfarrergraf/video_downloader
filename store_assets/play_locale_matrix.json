@@ -1,0 +1,582 @@
+{
+  "schema_version": 1,
+  "source": {
+    "kind": "live-play-listings",
+    "github_actions_run": 32484439312,
+    "observed_at": "2026-08-21T13:11:06Z"
+  },
+  "default_ui_locale": "en",
+  "ui_locale_count": 50,
+  "play_locale_count": 86,
+  "fallback_play_locale_count": 20,
+  "ui_locales": [
+    "am",
+    "ar",
+    "bg",
+    "bn",
+    "cs",
+    "da",
+    "de",
+    "el",
+    "en",
+    "es",
+    "et",
+    "fa",
+    "fi",
+    "fil",
+    "fr",
+    "gu",
+    "he",
+    "hi",
+    "hr",
+    "hu",
+    "id",
+    "it",
+    "ja",
+    "kn",
+    "ko",
+    "lt",
+    "lv",
+    "ml",
+    "mr",
+    "ms",
+    "nl",
+    "no",
+    "pa",
+    "pl",
+    "pt",
+    "ro",
+    "ru",
+    "sk",
+    "sl",
+    "sr",
+    "sv",
+    "sw",
+    "ta",
+    "te",
+    "th",
+    "tr",
+    "uk",
+    "ur",
+    "vi",
+    "zh"
+  ],
+  "mappings": [
+    {
+      "play_locale": "de-DE",
+      "ui_locale": "de",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "en-US",
+      "ui_locale": "en",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "fr-FR",
+      "ui_locale": "fr",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "fr-CA",
+      "ui_locale": "fr",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "es-ES",
+      "ui_locale": "es",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "it-IT",
+      "ui_locale": "it",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "nl-NL",
+      "ui_locale": "nl",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "pl-PL",
+      "ui_locale": "pl",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "zh-CN",
+      "ui_locale": "zh",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "ja-JP",
+      "ui_locale": "ja",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "ru-RU",
+      "ui_locale": "ru",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "ar",
+      "ui_locale": "ar",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "af",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "sq",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "am",
+      "ui_locale": "am",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "hy-AM",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "az-AZ",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "bn-BD",
+      "ui_locale": "bn",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "eu-ES",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "be",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "bg",
+      "ui_locale": "bg",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "my-MM",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "ca",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "zh-HK",
+      "ui_locale": "zh",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "zh-TW",
+      "ui_locale": "zh",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "hr",
+      "ui_locale": "hr",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "cs-CZ",
+      "ui_locale": "cs",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "da-DK",
+      "ui_locale": "da",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "en-AU",
+      "ui_locale": "en",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "en-CA",
+      "ui_locale": "en",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "en-GB",
+      "ui_locale": "en",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "en-IN",
+      "ui_locale": "en",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "en-SG",
+      "ui_locale": "en",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "en-ZA",
+      "ui_locale": "en",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "et",
+      "ui_locale": "et",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "fil",
+      "ui_locale": "fil",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "fi-FI",
+      "ui_locale": "fi",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "gl-ES",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "ka-GE",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "el-GR",
+      "ui_locale": "el",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "gu",
+      "ui_locale": "gu",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "iw-IL",
+      "ui_locale": "he",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "hi-IN",
+      "ui_locale": "hi",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "hu-HU",
+      "ui_locale": "hu",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "is-IS",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "id",
+      "ui_locale": "id",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "kn-IN",
+      "ui_locale": "kn",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "kk",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "km-KH",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "ko-KR",
+      "ui_locale": "ko",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "ky-KG",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "lo-LA",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "lv",
+      "ui_locale": "lv",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "lt",
+      "ui_locale": "lt",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "mk-MK",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "ms-MY",
+      "ui_locale": "ms",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "ms",
+      "ui_locale": "ms",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "ml-IN",
+      "ui_locale": "ml",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "mr-IN",
+      "ui_locale": "mr",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "mn-MN",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "ne-NP",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "no-NO",
+      "ui_locale": "no",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "fa",
+      "ui_locale": "fa",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "fa-AE",
+      "ui_locale": "fa",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "fa-AF",
+      "ui_locale": "fa",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "fa-IR",
+      "ui_locale": "fa",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "pt-BR",
+      "ui_locale": "pt",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "pt-PT",
+      "ui_locale": "pt",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "pa",
+      "ui_locale": "pa",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "ro",
+      "ui_locale": "ro",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "rm",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "sr",
+      "ui_locale": "sr",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "si-LK",
+      "ui_locale": "en",
+      "mapping": "fallback-en",
+      "ui_supported": false
+    },
+    {
+      "play_locale": "sk",
+      "ui_locale": "sk",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "sl",
+      "ui_locale": "sl",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "es-419",
+      "ui_locale": "es",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "es-US",
+      "ui_locale": "es",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "sw",
+      "ui_locale": "sw",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "sv-SE",
+      "ui_locale": "sv",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "ta-IN",
+      "ui_locale": "ta",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "te-IN",
+      "ui_locale": "te",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "th",
+      "ui_locale": "th",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "tr-TR",
+      "ui_locale": "tr",
+      "mapping": "base-language",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "uk",
+      "ui_locale": "uk",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "ur",
+      "ui_locale": "ur",
+      "mapping": "exact",
+      "ui_supported": true
+    },
+    {
+      "play_locale": "vi",
+      "ui_locale": "vi",
+      "mapping": "exact",
+      "ui_supported": true
+    }
+  ]
+}
