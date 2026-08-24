@@ -5,10 +5,10 @@ canonical locale mapping is `play_locale_matrix.json`.
 
 ## Release status
 
-`BLOCKED`: current phone images predate the 1.0.4.2 UI/string freeze and there
+`BLOCKED`: current phone captures predate the 1.0.4.2 UI/string freeze and there
 are no verified 7-inch or 10-inch captures. Nothing in this directory authorizes
 an upload. Final screenshots must be captured from a debug build of the exact
-frozen candidate commit; generated UI, PSD compositions and campaign images are
+frozen candidate commit; generated UI, PSD compositions and campaign artwork are
 not substitutes for product screenshots.
 
 ## Files
