@@ -48,15 +48,19 @@ def test_android_release_checks_complete_signing_configuration() -> None:
     assert "cache-disabled: true" in workflow
 
 
-def test_android_release_uploads_only_to_internal_play_after_github_release() -> None:
-    workflow = _workflow("android-release.yml")
-    upload = "node ../scripts/upload_google_play.mjs"
-    assert "upload_to_play:" in workflow
-    assert "--track internal" in workflow
+def test_android_candidate_and_promotion_are_separate_exact_artifact_workflows() -> None:
+    candidate = _workflow("android-release.yml")
+    promotion = _workflow("android-promote-candidate.yml")
+    assert "name: Android candidate build" in candidate
+    assert "candidate-provenance.json" in candidate
+    assert "--track internal" not in candidate
+    assert "run-id: ${{ inputs.candidate_run_id }}" in promotion
+    assert "--expected-version-code" in promotion
+    assert "--track internal" in promotion
+    assert "gradle " not in promotion.lower()
     assert "changesInReviewBehavior=ERROR_IF_IN_REVIEW" in (
         ROOT / "scripts/upload_google_play.mjs"
     ).read_text(encoding="utf-8")
-    assert workflow.index(upload) > workflow.index("Attach APK to GitHub Release")
 
 
 def test_play_reconciliation_waits_for_backend_enablement() -> None:
