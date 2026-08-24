@@ -19,6 +19,7 @@ actually observed.
 | FGS-001 | UNVERIFIED | Play Console | submitted foreground-service declaration matching final behavior | BLOCKED |
 | CI-001 | UNVERIFIED | final integration commit | Android compile plus API 34/35 emulator runs | BLOCKED |
 | CI-002 | IMPLEMENTED_UNVERIFIED | GitHub run `32763096501` / `a9f07989` | Direct Debug Kotlin compilation failed in `MediaHistoryActivity`: trailing action lambdas bound to the optional layout parameter; fixed in the successor commit | FAIL (no artifact) |
+| CI-003 | IMPLEMENTED_UNVERIFIED | GitHub runs `32763790259`, `32770952566` | app build, health endpoint, ffmpeg and QuickJS passed on API 34/35; the legacy direct-HTTP download probe bypassed the TransferCoordinator, then attempted to start the non-exported service from adb shell. It is removed from the blocking CI path and retained for exact-Internal-AAB device verification. | HARNESS FAIL; no Play artifact |
 | ASSET-001 | UNVERIFIED | final UI commit | real phone, 7-inch and 10-inch captures with visual review | BLOCKED |
 | AAB-001 | UNVERIFIED | candidate run | signed AAB, SBOM, provenance, certificate and SHA-256 | BLOCKED |
 | PLAY-001 | UNVERIFIED | exact candidate | Internal Testing acceptance of the recorded AAB hash | BLOCKED |

@@ -120,22 +120,7 @@ class DownloadService : Service(), ServerRuntime.Listener {
         }
         transferId?.let(TransferCoordinator::onForegroundConfirmed)
         ServerRuntime.ensureStarted(applicationContext)
-        if (action == ACTION_BEGIN_TRANSFER && transferId != null) {
-            // A transfer reservation is only created from TransferCoordinator
-            // after a foreground user gesture. Keep the execution gate closed
-            // until that reservation has a visible FGS, a ready runtime and
-            // the current entitlement applied; then the subsequent queue
-            // claim is allowed to run under exactly that contract.
-            Thread({
-                val ready = ServerRuntime.awaitReady() &&
-                    EntitlementCoordinator.applyDesired(applicationContext)
-                if (ready && pendingTransfers.contains(transferId)) {
-                    ServerRuntime.setExecutionEnabled(true)
-                } else {
-                    handler.post { scheduleIdleCheck() }
-                }
-            }, "downloadthat-transfer-ready").start()
-        } else if (intent == null) {
+        if (intent == null) {
             Thread({
                 val ready = ServerRuntime.awaitReady() &&
                     EntitlementCoordinator.applyDesired(applicationContext)

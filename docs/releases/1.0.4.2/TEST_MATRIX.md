@@ -7,7 +7,7 @@ scenario. Never infer device or Play behavior from source assertions.
 |---|---|---|---|
 | Runtime | concurrent start, bind failure, retry, listener attach/detach | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
 | FGS | no idle notification; every queue producer obtains a transfer lease | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
-| FGS | background transfer, retry, recovery, timeout and idle stop | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
+| FGS | background transfer, retry, recovery, timeout and idle stop | DEVICE_E2E_VERIFIED | UNVERIFIED: the former adb-shell queue probe bypasses the non-exported, user-gesture-bound transfer contract; verify on the exact Internal AAB |
 | Entitlement | slow server, restart, SET/CLEAR revision ordering, offline grace | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
 | Billing | cancel, pending, purchased, lost callback, restore | DEVICE_E2E_VERIFIED | UNVERIFIED |
 | Billing | refund/void, missed RTDN reconciliation, repurchase | DEVICE_E2E_VERIFIED | UNVERIFIED |

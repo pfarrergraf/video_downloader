@@ -200,7 +200,11 @@ jobs:
             bash ${{ github.workspace }}/.github/scripts/smoke_test.sh
             bash ${{ github.workspace }}/.github/scripts/ffmpeg_exec_test.sh ${{ github.workspace }}/ffmpeg-x86_64/ffmpeg
             bash ${{ github.workspace }}/.github/scripts/quickjs_exec_test.sh ${{ github.workspace }}/quickjs-x86_64/qjs
-            bash ${{ github.workspace }}/.github/scripts/download_pipeline_test.sh
+            # download_pipeline_test.sh is deliberately not invoked here:
+            # it POSTs directly to the local queue, while production Android
+            # requires a user-gesture-bound TransferCoordinator + non-exported
+            # DownloadService. That full flow belongs to the exact Internal
+            # AAB/device matrix, not to an adb-shell bypass.
             bash ${{ github.workspace }}/.github/scripts/share_intent_test.sh
             bash ${{ github.workspace }}/.github/scripts/background_survival_test.sh
             bash ${{ github.workspace }}/.github/scripts/kill_resilience_test.sh

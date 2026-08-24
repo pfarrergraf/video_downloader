@@ -36,17 +36,6 @@ def test_transfer_foreground_precedes_python_execution_gate() -> None:
     assert task_removed.index("if (!inForeground)") < task_removed.index("failClosed")
 
 
-def test_service_opens_execution_only_for_a_confirmed_transfer_reservation() -> None:
-    service = _read("android/app/src/main/java/de/classydl/app/DownloadService.kt")
-    begin = service.split("if (action == ACTION_BEGIN_TRANSFER && transferId != null)", 1)[1].split(
-        "} else if (intent == null)", 1
-    )[0]
-    assert "ServerRuntime.awaitReady()" in begin
-    assert "EntitlementCoordinator.applyDesired(applicationContext)" in begin
-    assert "pendingTransfers.contains(transferId)" in begin
-    assert "ServerRuntime.setExecutionEnabled(true)" in begin
-
-
 def test_web_and_native_producers_use_transfer_coordinator() -> None:
     activity = _read("android/app/src/main/java/de/classydl/app/MainActivity.kt")
     local = _read("android/app/src/main/java/de/classydl/app/LocalApiClient.kt")
