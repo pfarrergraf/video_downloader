@@ -78,7 +78,7 @@ def test_search_cancellation_and_enqueue_have_separate_bounded_paths() -> None:
     run_page = search.split("private fun runPage", 1)[1].split("private fun setBusy", 1)[0]
     enqueue = search.split("private fun enqueue", 1)[1].split("private fun loadThumbnail", 1)[0]
 
-    assert "private val searchExecutor = boundedExecutor(1, 1)" in search
+    assert "private val searchExecutor = boundedExecutor(2, 1)" in search
     assert "private val enqueueExecutor = boundedExecutor(1, 4)" in search
     assert "currentSearchFuture?.cancel(true)" in search
     assert "currentCancellation?.cancel()" in search

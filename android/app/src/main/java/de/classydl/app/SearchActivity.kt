@@ -35,7 +35,10 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var moreButton: Button
     private lateinit var statusView: TextView
     private lateinit var adapter: SearchAdapter
-    private val searchExecutor = boundedExecutor(1, 1)
+    // Two workers avoid head-of-line blocking while one cancelled Chaquopy/
+    // yt-dlp call finishes its bounded socket operation. The queue stays at
+    // one and every superseded queued Future is cancelled + purged.
+    private val searchExecutor = boundedExecutor(2, 1)
     private val enqueueExecutor = boundedExecutor(1, 4)
     private val thumbnailExecutor = boundedExecutor(3, 24, discardOldest = true)
     private val thumbnailCache = object : LruCache<String, Bitmap>(12 * 1024 * 1024) {
