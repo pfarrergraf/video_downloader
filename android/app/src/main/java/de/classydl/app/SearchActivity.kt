@@ -43,7 +43,7 @@ class SearchActivity : AppCompatActivity() {
         // Search may be opened from an external PlayerActivity before MainActivity.
         // This starts only the HTTP/Python runtime; a transfer foreground service
         // is acquired later by the shared enqueue coordinator.
-        ServerRuntime.ensureStarted(applicationContext, null)
+        ServerRuntime.ensureStarted(applicationContext)
         findViewById<ViewGroup>(R.id.search_back).setOnClickListener { finish() }
         queryInput = findViewById(R.id.search_query)
         searchButton = findViewById(R.id.search_button)
