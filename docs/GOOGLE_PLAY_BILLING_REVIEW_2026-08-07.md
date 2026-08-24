@@ -127,7 +127,7 @@ Zahlungs- oder personenbezogenen Daten werden ins Repository geschrieben.
 - Cloudflare-Rate-Limit für `POST /api/play/purchases/verify` ist produktiv aktiv.
 - RTDN, täglicher Reconciliation-Job und Alerting sind live verifiziert.
 - Die konkrete betroffene Google-Order ist in Play Console geklärt und bei Bedarf
-  refundiert; App-Code kann keine Google-Abbuchung selbst zurückbuchen.
+  über Google Play erstattet; App-Code kann keine Google-Abbuchung selbst zurückbuchen.
 
 ## Offizielle Referenzen
 

@@ -35,16 +35,14 @@ Details: `docs/CLOUDFLARE_DOWNLOADTHAT_APP_SETUP.md`.
 - [ ] Beim ersten akzeptierten AAB bestätigen, dass die technische Paket-ID
       `de.classydl.app` gebunden wurde.
 - [x] Produkt-ID `pro` mit sichtbarem Namen `DownloadThat Pro` als nicht
-      konsumierbaren Einmalkauf anlegen; Bulk-Preisgrundlage 9,99 EUR, lokale
-      Google-Play-Preise geprüft (Deutschland aktuell 11,99 EUR Endpreis).
+      konsumierbaren Einmalkauf anlegen; lokale Preise und Steuern werden von
+      Google Play je Nutzerregion angezeigt, ohne festen Preis in App oder Website.
 - [ ] License Tester und Internal-Track-Tester eintragen.
 - [ ] Pub/Sub-Thema, Push-Service-Account und RTDN in Play Console verbinden.
 - [ ] GitHub/Cloudflare-Secrets aus `docs/GOOGLE_PLAY_OPERATIONS.md` setzen.
 - [ ] Service-Account-E-Mail in Play Console unter Nutzer/Berechtigungen mit
-      Leserecht für Kaufstatus und Recht zum Verwalten/Erstatten von Bestellungen
-      abgleichen; keine darüber hinausgehenden Rechte vergeben.
-- [ ] D1-Migration `0013_google_play_refunds.sql` anwenden, Refund-Admin-Token
-      setzen und `PLAY_AUTOMATED_REFUNDS_ENABLED=false` belassen.
+      dem minimal erforderlichen Leserecht für Kaufstatus und Reconciliation
+      abgleichen; keine Refund-Admin- oder darüber hinausgehenden Rechte vergeben.
 - [ ] Cloudflare Rate-Limiting-Regel für `POST /api/play/purchases/verify`
       aktivieren, damit anonyme Requests keine Google-API-Quota erschöpfen.
 - [ ] Nach Owner-Prüfung der Stripe-Liveansicht den Stripe-freien
@@ -59,8 +57,8 @@ Details: `docs/CLOUDFLARE_DOWNLOADTHAT_APP_SETUP.md`.
 - [ ] Zielgruppe, Content Rating, App Access und Werbeangaben bestätigen.
 - [ ] Datenschutz-/AGB-Texte rechtlich prüfen lassen; keine automatische
       Rechtsfreigabe aus Code oder Dokumentation ableiten.
-- [x] EU/EWR-Länderliste und lokale Preisvorschau bestätigen; Deutschland zeigt
-      aktuell 11,99 EUR, weitere Länder erhalten lokale Preisstufen und Steuern.
+- [x] EU/EWR-Länderliste und lokale Preisvorschau bestätigen; Nutzer sehen den
+      jeweils aktuellen lokalen Google-Play-Preis einschließlich anwendbarer Steuern.
 
 ## Produktions-Gate
 
@@ -72,10 +70,8 @@ Details: `docs/CLOUDFLARE_DOWNLOADTHAT_APP_SETUP.md`.
 - [ ] Echter License-Tester-Kauf, Neuinstallation/Restore und identischer Schlüssel.
 - [ ] Schlüssel in Play-App, Direct APK und Windows erfolgreich validiert.
 - [ ] Echter Refund/Void deaktiviert die Lizenz über RTDN; Reconciliation ebenfalls getestet.
-- [ ] Refund-Matrix mit echten Testorders: <48h automatisch genau einmal;
-      Tag 3–14 technische Nichtlieferung automatisch; gelieferter Kauf,
-      Wiederholung und >14 Tage ausschließlich manuell. Erst danach
-      `PLAY_AUTOMATED_REFUNDS_ENABLED=true` setzen.
+- [ ] Bestätigen, dass App und Backend keine eigene Refund-Anfrage, automatische
+      Erstattung, Admin-Queue oder refundbasierte Kaufsperre anbieten.
 - [ ] Pre-launch Report ohne blockierende Befunde; Closed Test abgeschlossen.
 - [ ] Monatsarchiv aus Muster-/Testbericht erstellt, Hash geprüft, mit Offline-Key
       entschlüsselt und lokaler Spiegel wiederhergestellt.

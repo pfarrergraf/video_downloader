@@ -37,6 +37,8 @@ Release-Schlüssel sowie unveränderte Finanzoriginale.
   gelesen.
 - Refund/Void/Revoke deaktiviert Kauf und Lizenz. Eine tägliche Reconciliation
   korrigiert verpasste Nachrichten.
+- DownloadThat bietet keine eigene Refund-API, Admin-Queue oder refundbasierte
+  Checkout-Sperre. Google Play entscheidet über berechtigte Erstattungen.
 - Neue Clients senden Lizenzschlüssel nur per POST. Der alte GET-Endpunkt ist
   zeitlich begrenzte Kompatibilität und antwortet mit Deprecation-Headern.
 - Play-Entitlements haben höchstens 72 Stunden Offline-Grace nach der letzten
