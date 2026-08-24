@@ -25,6 +25,7 @@ def _candidate(tmp_path: Path, *, content: bytes = b"candidate") -> tuple[Path, 
                 "aabSha256": digest,
                 "uploadCertificateSha256": "B" * 64,
                 "releaseBoardSha256": "c" * 64,
+                "teamGateSha256": "d" * 64,
                 "fgsDeclarationConfirmed": True,
                 "teamGateConfirmed": True,
             }

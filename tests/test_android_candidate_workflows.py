@@ -16,6 +16,9 @@ def test_candidate_build_has_hard_gates_and_never_uploads_to_play() -> None:
     assert "play-candidate" in source
     assert "Upload App Bundle to Google Play" not in source
     assert "--expected-version-code" not in source
+    assert "environment: android-candidate-signing" in source
+    assert "TEAM_GATE.json" in source
+    assert 'GITHUB_REF_NAME\" = \"release/v1.0.4.2-team' in source
 
 
 def test_promotion_downloads_exact_candidate_and_never_builds() -> None:
@@ -28,6 +31,8 @@ def test_promotion_downloads_exact_candidate_and_never_builds() -> None:
     assert "--expected-version-code" in source
     assert "--track internal" in source
     assert "cancel-in-progress: false" in source
+    assert "environment: google-play-internal" in source
+    assert 'candidate:${{ steps.candidate.outputs.aab_sha256 }}' in source
     for forbidden in ("gradle ", "bundleplayrelease", "assemblerelease", "compileplay"):
         assert forbidden not in lower
 
@@ -35,6 +40,8 @@ def test_promotion_downloads_exact_candidate_and_never_builds() -> None:
 def test_promotion_is_bound_to_successful_candidate_workflow_and_board() -> None:
     source = PROMOTE.read_text(encoding="utf-8")
     assert '.name == "Android candidate build"' in source
+    assert '.path == ".github/workflows/android-release.yml"' in source
+    assert '.head_repository.full_name == "pfarrergraf/video_downloader"' in source
     assert '.conclusion == "success"' in source
     assert 'releaseBoardSha256' in source
     assert "ANDROID_UPLOAD_CERT_SHA256" in source

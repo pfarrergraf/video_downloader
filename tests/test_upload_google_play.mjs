@@ -120,13 +120,14 @@ test("version preflight returns the highest Play code and deletes its temporary 
 });
 
 test("candidate promotion uploads only the expected version and commits Internal", async () => {
+  const binding = `candidate:${"a".repeat(64)}`;
   const calls = [];
   const responses = [
     { access_token: "token" },
     { id: "edit-candidate" },
     { bundles: [{ versionCode: 1000401 }] },
-    { versionCode: 1000402 },
     { track: "internal", releases: [] },
+    { versionCode: 1000402 },
     { track: "internal" },
     { id: "edit-candidate" },
   ];
@@ -136,7 +137,7 @@ test("candidate promotion uploads only the expected version and commits Internal
   };
   const result = await promoteGooglePlayCandidate({
     packageName: "de.classydl.app",
-    releaseName: "v1.0.4.2",
+    releaseName: binding,
     expectedVersionCode: 1000402,
     aabBytes: Buffer.from("candidate"),
     email: "ci@example.test",
@@ -155,12 +156,13 @@ test("candidate promotion uploads only the expected version and commits Internal
 });
 
 test("candidate promotion retry reuses a version already on Internal without uploading", async () => {
+  const binding = `candidate:${"b".repeat(64)}`;
   const calls = [];
   const responses = [
     { access_token: "token" },
     { id: "edit-retry" },
     { bundles: [{ versionCode: 1000402 }] },
-    { track: "internal", releases: [{ versionCodes: ["1000402"] }] },
+    { track: "internal", releases: [{ name: binding, status: "completed", versionCodes: ["1000402"] }] },
     {},
   ];
   const fetchImpl = async (url, options = {}) => {
@@ -169,7 +171,7 @@ test("candidate promotion retry reuses a version already on Internal without upl
   };
   const result = await promoteGooglePlayCandidate({
     packageName: "de.classydl.app",
-    releaseName: "v1.0.4.2",
+    releaseName: binding,
     expectedVersionCode: 1000402,
     aabBytes: Buffer.from("candidate"),
     email: "ci@example.test",
@@ -178,6 +180,36 @@ test("candidate promotion retry reuses a version already on Internal without upl
     nowSeconds: 1234,
   });
   assert.equal(result.alreadyPresent, true);
+  assert.equal(calls.some((call) => call.url.includes("upload/androidpublisher")), false);
+  assert.equal(calls.at(-1).options.method, "DELETE");
+});
+
+test("candidate promotion fails closed for an existing unbound version", async () => {
+  const calls = [];
+  const responses = [
+    { access_token: "token" },
+    { id: "edit-conflict" },
+    { bundles: [{ versionCode: 1000402 }] },
+    { track: "internal", releases: [{ name: "manual", status: "completed", versionCodes: ["1000402"] }] },
+    {},
+  ];
+  const fetchImpl = async (url, options = {}) => {
+    calls.push({ url: String(url), options });
+    return Response.json(responses.shift());
+  };
+  await assert.rejects(
+    promoteGooglePlayCandidate({
+      packageName: "de.classydl.app",
+      releaseName: `candidate:${"c".repeat(64)}`,
+      expectedVersionCode: 1000402,
+      aabBytes: Buffer.from("candidate"),
+      email: "ci@example.test",
+      privateKey: PEM,
+      fetchImpl,
+      nowSeconds: 1234,
+    }),
+    /without the exact completed candidate binding/,
+  );
   assert.equal(calls.some((call) => call.url.includes("upload/androidpublisher")), false);
   assert.equal(calls.at(-1).options.method, "DELETE");
 });

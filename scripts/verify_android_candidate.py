@@ -44,6 +44,7 @@ def verify_candidate(
         "aabSha256",
         "uploadCertificateSha256",
         "releaseBoardSha256",
+        "teamGateSha256",
         "fgsDeclarationConfirmed",
         "teamGateConfirmed",
     }
@@ -66,6 +67,8 @@ def verify_candidate(
         raise ValueError("candidate upload certificate digest is invalid")
     if not HEX_64.fullmatch(str(manifest["releaseBoardSha256"])):
         raise ValueError("candidate release-board digest is invalid")
+    if not HEX_64.fullmatch(str(manifest["teamGateSha256"])):
+        raise ValueError("candidate TEAM-gate digest is invalid")
     expected = expected_sha256.lower()
     if not HEX_64.fullmatch(expected):
         raise ValueError("expected candidate SHA-256 is invalid")
@@ -106,6 +109,7 @@ def main() -> None:
         "version_code": result["versionCode"],
         "upload_cert_sha256": result["uploadCertificateSha256"],
         "release_board_sha256": result["releaseBoardSha256"],
+        "team_gate_sha256": result["teamGateSha256"],
     }
     if args.github_output:
         with args.github_output.open("a", encoding="utf-8") as handle:

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "releaseLine": "1.0.4",
+  "candidate": "v1.0.4.2",
+  "roles": {
+    "coding": "BLOCKED",
+    "criticalReviewer": "BLOCKED",
+    "financeBilling": "BLOCKED",
+    "marketing": "BLOCKED",
+    "listing": "BLOCKED",
+    "documenter": "BLOCKED"
+  }
+}

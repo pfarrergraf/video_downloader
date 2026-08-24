@@ -122,6 +122,9 @@ export async function promoteGooglePlayCandidate({
 }) {
   const expected = String(expectedVersionCode || "");
   if (!/^\d+$/.test(expected)) throw new Error("expectedVersionCode must be a positive integer");
+  if (!/^candidate:[0-9a-f]{64}$/i.test(String(releaseName || ""))) {
+    throw new Error("releaseName must bind the candidate SHA-256");
+  }
   const token = await accessToken({ email, privateKey, fetchImpl, nowSeconds });
   const headers = { Authorization: `Bearer ${token}` };
   const packagePath = encodeURIComponent(packageName);
@@ -133,14 +136,34 @@ export async function promoteGooglePlayCandidate({
   );
   if (!edit.id) throw new Error("Create Play candidate edit returned no edit id");
   const editPath = `${packagePath}/edits/${encodeURIComponent(edit.id)}`;
-  const bundles = await publisherRequest(
-    fetchImpl,
-    `${API}/androidpublisher/v3/applications/${editPath}/bundles`,
-    { headers },
-    "List Play candidate bundles",
-  );
-  const bundleExists = (bundles.bundles || []).some((bundle) => String(bundle.versionCode) === expected);
-  if (!bundleExists) {
+  let committed = false;
+  try {
+    const bundles = await publisherRequest(
+      fetchImpl,
+      `${API}/androidpublisher/v3/applications/${editPath}/bundles`,
+      { headers },
+      "List Play candidate bundles",
+    );
+    const bundleExists = (bundles.bundles || []).some((bundle) => String(bundle.versionCode) === expected);
+    const track = await publisherRequest(
+      fetchImpl,
+      `${API}/androidpublisher/v3/applications/${editPath}/tracks/internal`,
+      { headers },
+      "Read internal track",
+    );
+    const matchingRelease = (track.releases || []).find((release) =>
+      (release.versionCodes || []).map(String).includes(expected));
+    if (bundleExists) {
+      if (matchingRelease?.name === releaseName && matchingRelease?.status === "completed") {
+        return { editId: edit.id, versionCode: expected, track: "internal", alreadyPresent: true };
+      }
+      throw new Error(
+        `Play already knows versionCode ${expected} without the exact completed candidate binding`,
+      );
+    }
+    if (matchingRelease) {
+      throw new Error(`Internal track references versionCode ${expected} without a known bundle`);
+    }
     const bundle = await publisherRequest(
       fetchImpl,
       `${API}/upload/androidpublisher/v3/applications/${editPath}/bundles?uploadType=media`,
@@ -150,44 +173,37 @@ export async function promoteGooglePlayCandidate({
     if (String(bundle.versionCode) !== expected) {
       throw new Error(`Uploaded candidate versionCode ${bundle.versionCode} does not match expected ${expected}`);
     }
-  }
-  const track = await publisherRequest(
-    fetchImpl,
-    `${API}/androidpublisher/v3/applications/${editPath}/tracks/internal`,
-    { headers },
-    "Read internal track",
-  );
-  const alreadyOnTrack = (track.releases || []).some((release) =>
-    (release.versionCodes || []).map(String).includes(expected));
-  if (alreadyOnTrack) {
     await publisherRequest(
       fetchImpl,
-      `${API}/androidpublisher/v3/applications/${editPath}`,
-      { method: "DELETE", headers },
-      "Delete redundant Play candidate edit",
+      `${API}/androidpublisher/v3/applications/${editPath}/tracks/internal`,
+      {
+        method: "PUT",
+        headers: { ...headers, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          track: "internal",
+          releases: [{ name: releaseName, versionCodes: [expected], status: "completed" }],
+        }),
+      },
+      "Update internal track with candidate",
     );
-    return { editId: edit.id, versionCode: expected, track: "internal", alreadyPresent: true };
+    await publisherRequest(
+      fetchImpl,
+      `${API}/androidpublisher/v3/applications/${editPath}:commit?changesInReviewBehavior=ERROR_IF_IN_REVIEW`,
+      { method: "POST", headers },
+      "Commit Play candidate edit",
+    );
+    committed = true;
+    return { editId: edit.id, versionCode: expected, track: "internal", alreadyPresent: false };
+  } finally {
+    if (!committed) {
+      await publisherRequest(
+        fetchImpl,
+        `${API}/androidpublisher/v3/applications/${editPath}`,
+        { method: "DELETE", headers },
+        "Delete uncommitted Play candidate edit",
+      );
+    }
   }
-  await publisherRequest(
-    fetchImpl,
-    `${API}/androidpublisher/v3/applications/${editPath}/tracks/internal`,
-    {
-      method: "PUT",
-      headers: { ...headers, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        track: "internal",
-        releases: [{ name: releaseName, versionCodes: [expected], status: "completed" }],
-      }),
-    },
-    "Update internal track with candidate",
-  );
-  await publisherRequest(
-    fetchImpl,
-    `${API}/androidpublisher/v3/applications/${editPath}:commit?changesInReviewBehavior=ERROR_IF_IN_REVIEW`,
-    { method: "POST", headers },
-    "Commit Play candidate edit",
-  );
-  return { editId: edit.id, versionCode: expected, track: "internal", alreadyPresent: false };
 }
 
 /** Read the version codes already known to Google Play without committing an

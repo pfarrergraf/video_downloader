@@ -32,6 +32,7 @@ concurrency:
 jobs:
   promote-exact-candidate:
     runs-on: ubuntu-latest
+    environment: google-play-internal
     steps:
       - name: Validate promotion inputs and source run
         id: source_run
@@ -62,6 +63,9 @@ jobs:
             and .conclusion == "success"
             and .event == "workflow_dispatch"
             and .name == "Android candidate build"
+            and .path == ".github/workflows/android-release.yml"
+            and .head_repository.full_name == "pfarrergraf/video_downloader"
+            and .head_branch == "release/v1.0.4.2-team"
           ' >/dev/null || { echo "::error::Source run is not a successful candidate build"; exit 1; }
           head_sha="$(printf '%s' "$run_json" | jq -r '.head_sha')"
           echo "head_sha=$head_sha" >> "$GITHUB_OUTPUT"
@@ -104,6 +108,15 @@ jobs:
             echo "::error::Release board differs from the candidate's reviewed board"
             exit 1
           }
+          gate_sha="$(sha256sum docs/releases/1.0.4.2/TEAM_GATE.json | awk '{print $1}')"
+          [ "$gate_sha" = "$(jq -r '.teamGateSha256' candidate/candidate-provenance.json)" ] || {
+            echo "::error::TEAM gate differs from the candidate's reviewed gate"
+            exit 1
+          }
+          jq -e '([.roles[]] | all(. == "ACK"))' docs/releases/1.0.4.2/TEAM_GATE.json >/dev/null || {
+            echo "::error::TEAM gate is not fully ACK"
+            exit 1
+          }
 
       - name: Set up JDK for independent certificate verification
         uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4
@@ -137,7 +150,7 @@ jobs:
             --aab "${{ steps.candidate.outputs.aab_path }}" \
             --package de.classydl.app \
             --track internal \
-            --release-name "${{ steps.candidate.outputs.release_tag }}" \
+            --release-name "candidate:${{ steps.candidate.outputs.aab_sha256 }}" \
             --expected-version-code "${{ steps.candidate.outputs.version_code }}"
           echo "Promoted candidate run ${{ inputs.candidate_run_id }}" >> "$GITHUB_STEP_SUMMARY"
           echo "AAB SHA-256: ${{ steps.candidate.outputs.aab_sha256 }}" >> "$GITHUB_STEP_SUMMARY"
