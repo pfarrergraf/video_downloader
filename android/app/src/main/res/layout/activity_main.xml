@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0b0710">
+    android:background="#0b0710"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/native_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#11101c"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:visibility="invisible">
+
+        <Button
+            android:id="@+id/media_search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="@string/home_search_media" />
+
+        <Button
+            android:id="@+id/media_library_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/home_library" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     <!-- Kept invisible until the loopback server has answered and WebView has
          rendered the real page. This prevents Chromium's white localhost
@@ -14,18 +44,6 @@
         android:layout_height="match_parent"
         android:background="#0b0710"
         android:visibility="invisible" />
-
-    <!-- Android-only discovery entry point. Declared before startup_overlay so
-         the branded cold-start screen covers it until the app is ready. -->
-    <Button
-        android:id="@+id/media_search_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:elevation="10dp"
-        android:minHeight="52dp"
-        android:text="@string/home_search_media" />
 
     <LinearLayout
         android:id="@+id/startup_overlay"
@@ -70,4 +88,5 @@
             android:textColor="#c9c2d0"
             android:textSize="15sp" />
     </LinearLayout>
-</FrameLayout>
+    </FrameLayout>
+</LinearLayout>

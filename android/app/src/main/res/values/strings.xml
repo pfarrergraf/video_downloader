@@ -43,6 +43,9 @@
     <string name="search_local_auth_failed">DownloadThat’s local download service could not be authenticated.</string>
     <string name="search_terms_required">Open the main DownloadThat screen and accept the current terms before starting a download.</string>
     <string name="home_search_media">Search music &amp; video</string>
+    <string name="home_library">Library</string>
+    <string name="search_more">Load more</string>
+    <string name="search_restart">Search results expired. Start the search again.</string>
     <plurals name="search_results_count">
         <item quantity="one">%d result</item>
         <item quantity="other">%d results</item>

@@ -226,6 +226,7 @@ chaquopy {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.webkit:webkit:1.12.1'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
 
     // Stable Media3 release as of 2026-08-21. Keep all Media3 artifacts on the
     // same version. ExoPlayer supplies the native Android playback pipeline,

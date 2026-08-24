@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 import pytest
 
 from video_downloader import media_search
@@ -72,3 +74,24 @@ def test_search_result_limit_is_capped(monkeypatch) -> None:
     monkeypatch.setattr(media_search, "YoutubeDL", _FakeYdl)
     media_search.search_youtube("anything", limit=999)
     assert _FakeYdl.last_query == f"ytsearch{media_search.MAX_RESULTS}:anything"
+
+
+def test_search_session_is_stable_and_paginated(monkeypatch) -> None:
+    results = [{"id": str(i), "title": f"Item {i}"} for i in range(19)]
+    monkeypatch.setattr(media_search, "search_youtube", lambda query, limit: results)
+    first = json.loads(media_search.start_search_session_json("anything"))
+    assert len(first["results"]) == 8
+    assert first["total"] == 19
+    second = json.loads(media_search.continue_search_session_json(first["next_cursor"]))
+    third = json.loads(media_search.continue_search_session_json(second["next_cursor"]))
+    assert [item["id"] for item in first["results"] + second["results"] + third["results"]] == [
+        str(i) for i in range(19)
+    ]
+    assert third["next_cursor"] is None
+
+
+def test_invalid_or_expired_search_cursor_requires_restart(monkeypatch) -> None:
+    assert json.loads(media_search.continue_search_session_json("invalid"))["error"] == "restart_search"
+    monkeypatch.setattr(media_search, "search_youtube", lambda query, limit: [])
+    first = json.loads(media_search.start_search_session_json("anything"))
+    assert first["next_cursor"] is None

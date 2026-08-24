@@ -42,6 +42,9 @@
     <string name="search_local_auth_failed">Der lokale DownloadThat-Dienst konnte nicht authentifiziert werden.</string>
     <string name="search_terms_required">Öffne zuerst die DownloadThat-Hauptseite und akzeptiere die aktuellen Bedingungen, bevor du einen Download startest.</string>
     <string name="home_search_media">Musik &amp; Videos suchen</string>
+    <string name="home_library">Bibliothek</string>
+    <string name="search_more">Mehr laden</string>
+    <string name="search_restart">Die Suchergebnisse sind abgelaufen. Starte die Suche erneut.</string>
     <plurals name="search_results_count">
         <item quantity="one">%d Treffer</item>
         <item quantity="other">%d Treffer</item>

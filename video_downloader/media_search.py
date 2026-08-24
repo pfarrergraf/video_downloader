@@ -9,13 +9,22 @@ one place.
 from __future__ import annotations
 
 import json
+import secrets
+import threading
+import time
 from typing import Any
 
 from yt_dlp import YoutubeDL
 
 MAX_QUERY_CHARS = 200
-MAX_RESULTS = 8
-DEFAULT_RESULTS = 4
+MAX_RESULTS = 24
+DEFAULT_RESULTS = 8
+PAGE_SIZE = 8
+SESSION_TTL_SECONDS = 10 * 60
+MAX_SESSIONS = 12
+
+_sessions: dict[str, tuple[float, list[dict[str, Any]]]] = {}
+_sessions_lock = threading.Lock()
 
 
 def _clean_query(query: str) -> str:
@@ -97,3 +106,58 @@ def search_youtube_json(query: str, limit: int = DEFAULT_RESULTS) -> str:
     """Chaquopy-friendly JSON wrapper used by SearchActivity."""
 
     return json.dumps({"results": search_youtube(query, limit)}, ensure_ascii=False)
+
+
+def _prune_sessions(now: float) -> None:
+    expired = [token for token, (expires_at, _) in _sessions.items() if expires_at <= now]
+    for token in expired:
+        _sessions.pop(token, None)
+
+
+def start_search_session_json(query: str) -> str:
+    """Create a bounded metadata snapshot and return its first page.
+
+    Cursors are opaque, process-local and deliberately short lived. A page is
+    sliced from one immutable snapshot, so loading more never duplicates or
+    reorders results when YouTube changes between requests.
+    """
+
+    results = search_youtube(query, MAX_RESULTS)
+    token = secrets.token_urlsafe(18)
+    now = time.monotonic()
+    with _sessions_lock:
+        _prune_sessions(now)
+        if len(_sessions) >= MAX_SESSIONS:
+            oldest = min(_sessions, key=lambda existing: _sessions[existing][0])
+            _sessions.pop(oldest, None)
+        _sessions[token] = (now + SESSION_TTL_SECONDS, results)
+    return _page_json(token, 0, results)
+
+
+def continue_search_session_json(cursor: str) -> str:
+    try:
+        token, raw_offset = (cursor or "").split(".", 1)
+        offset = int(raw_offset)
+    except (TypeError, ValueError):
+        return json.dumps({"error": "restart_search", "results": []})
+    now = time.monotonic()
+    with _sessions_lock:
+        _prune_sessions(now)
+        session = _sessions.get(token)
+        if session is None:
+            return json.dumps({"error": "restart_search", "results": []})
+        _, results = session
+        _sessions[token] = (now + SESSION_TTL_SECONDS, results)
+    if offset < 0 or offset > len(results):
+        return json.dumps({"error": "restart_search", "results": []})
+    return _page_json(token, offset, results)
+
+
+def _page_json(token: str, offset: int, results: list[dict[str, Any]]) -> str:
+    page = results[offset : offset + PAGE_SIZE]
+    next_offset = offset + len(page)
+    cursor = f"{token}.{next_offset}" if next_offset < len(results) else None
+    return json.dumps(
+        {"results": page, "next_cursor": cursor, "total": len(results)},
+        ensure_ascii=False,
+    )

@@ -82,6 +82,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.media_search_btn).setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
+        findViewById<View>(R.id.media_library_btn).setOnClickListener {
+            startActivity(Intent(this, MediaHistoryActivity::class.java))
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root)) { view, insets ->
             val bars = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout(),
@@ -193,6 +196,7 @@ class MainActivity : AppCompatActivity() {
                 loadRetries = 0
                 webView.visibility = View.VISIBLE
                 startupOverlay.visibility = View.GONE
+                findViewById<View>(R.id.native_navigation).visibility = View.VISIBLE
             }
         }
         waitForServerThenLoad()
