@@ -80,6 +80,13 @@ def test_only_owned_downloads_are_retained_and_missing_history_files_are_handled
     assert "removeFromLibrary" in library
 
 
+def test_library_action_helper_keeps_click_lambda_last_for_weighted_buttons() -> None:
+    history = (ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "MediaHistoryActivity.kt").read_text(encoding="utf-8")
+
+    assert "private fun action(text: Int, params: LinearLayout.LayoutParams? = null, click: () -> Unit)" in history
+    assert "action(R.string.library_add_to_playlist) { choosePlaylist(media) }, weighted()" in history
+
+
 def test_completed_notification_opens_native_player_without_chooser() -> None:
     source = DOWNLOAD_SERVICE.read_text(encoding="utf-8")
     completed = source.split("private fun notifyCompleted", 1)[1].split("private fun createChannel", 1)[0]

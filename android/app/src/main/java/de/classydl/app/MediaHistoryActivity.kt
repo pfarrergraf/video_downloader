@@ -147,7 +147,7 @@ class MediaHistoryActivity : AppCompatActivity() {
     }
 
     private fun canRead(uri: String) = runCatching { contentResolver.openFileDescriptor(Uri.parse(uri), "r")?.use { true } ?: false }.getOrDefault(false)
-    private fun action(text: Int, click: () -> Unit, params: LinearLayout.LayoutParams? = null) = Button(this).apply {
+    private fun action(text: Int, params: LinearLayout.LayoutParams? = null, click: () -> Unit) = Button(this).apply {
         setText(text); isAllCaps = false; setOnClickListener { click() }; params?.let { layoutParams = it }
     }
     private fun weighted() = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)

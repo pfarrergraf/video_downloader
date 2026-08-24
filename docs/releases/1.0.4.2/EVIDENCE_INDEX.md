@@ -18,6 +18,7 @@ actually observed.
 | ENV-001 | UNVERIFIED | external GitHub settings | Required Reviewers and branch restrictions for both release environments | BLOCKED |
 | FGS-001 | UNVERIFIED | Play Console | submitted foreground-service declaration matching final behavior | BLOCKED |
 | CI-001 | UNVERIFIED | final integration commit | Android compile plus API 34/35 emulator runs | BLOCKED |
+| CI-002 | IMPLEMENTED_UNVERIFIED | GitHub run `32763096501` / `a9f07989` | Direct Debug Kotlin compilation failed in `MediaHistoryActivity`: trailing action lambdas bound to the optional layout parameter; fixed in the successor commit | FAIL (no artifact) |
 | ASSET-001 | UNVERIFIED | final UI commit | real phone, 7-inch and 10-inch captures with visual review | BLOCKED |
 | AAB-001 | UNVERIFIED | candidate run | signed AAB, SBOM, provenance, certificate and SHA-256 | BLOCKED |
 | PLAY-001 | UNVERIFIED | exact candidate | Internal Testing acceptance of the recorded AAB hash | BLOCKED |
