@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "status": "canonical",
+  "approved": [
+    {
+      "id": "no-advertising",
+      "en": "No advertising.",
+      "de": "Keine Werbung.",
+      "qualification": "Publish only after the final dependency and SDK scan confirms that no advertising SDK is present.",
+      "evidence": ["android/app/build.gradle", "pyproject.toml"]
+    },
+    {
+      "id": "free-rolling-quota",
+      "en": "3 successful downloads free per rolling 24 hours.",
+      "de": "3 erfolgreiche Downloads je rollierenden 24 Stunden kostenlos.",
+      "evidence": ["video_downloader/licensing.py"]
+    },
+    {
+      "id": "pro-app-limit",
+      "en": "Pro removes DownloadThat's daily app download limit.",
+      "de": "Pro entfernt das tägliche App-Downloadlimit von DownloadThat.",
+      "qualification": "This does not promise source availability, bandwidth, storage, platform access or technical success.",
+      "evidence": ["video_downloader/licensing.py"]
+    },
+    {
+      "id": "one-time-local-play-price",
+      "en": "One-time purchase at your local Google Play price. No subscription.",
+      "de": "Einmaliger Kauf zum lokalen Google-Play-Preis. Kein Abo.",
+      "evidence": ["android/app/build.gradle"]
+    },
+    {
+      "id": "up-to-4k",
+      "en": "Up to 4K when the source offers it.",
+      "de": "Bis zu 4K, sofern die Quelle es anbietet.",
+      "evidence": ["video_downloader/models.py"]
+    },
+    {
+      "id": "supported-lawful-links",
+      "en": "Use supported links and only save media you have the right or permission to save.",
+      "de": "Nutze unterstützte Links und speichere nur Medien, die du rechtmäßig speichern darfst.",
+      "evidence": ["security/PUBLIC_CLAIMS_POLICY.md"]
+    }
+  ],
+  "forbidden": [
+    { "id": "skip-the-ad", "examples": ["Skip the ad"] },
+    { "id": "universal-source", "examples": ["Any link", "Any site", "Any source", "Works everywhere"] },
+    { "id": "unqualified-unlimited", "examples": ["No limits", "Unlimited downloads"] },
+    { "id": "absolute-free", "examples": ["100% free"] },
+    { "id": "fixed-price", "examples": ["Only 4.99", "Einmalig 4,99 EUR"] },
+    { "id": "absolute-local-offline", "examples": ["Completely offline", "Everything is local", "Komplett offline"] }
+  ]
+}

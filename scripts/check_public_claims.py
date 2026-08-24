@@ -33,6 +33,24 @@ EXCLUDED_PARTS = {
 }
 
 FORBIDDEN = {
+    "skip-the-ad claim": re.compile(r"\bskip\s+the\s+ad\b", re.IGNORECASE),
+    "unqualified unlimited claim": re.compile(
+        r"\b(?:unlimited\s+downloads?|no\s+limits?)\b", re.IGNORECASE
+    ),
+    "absolute free claim": re.compile(r"\b100\s*%\s*free\b", re.IGNORECASE),
+    "absolute offline claim": re.compile(
+        r"\b(?:completely|fully|entirely)\s+offline\b|\bkomplett\s+offline\b",
+        re.IGNORECASE,
+    ),
+    "universal link or source claim": re.compile(
+        r"\b(?:download|save|support(?:s|ed)?|works?\s+with)\s+(?:from\s+)?"
+        r"(?:any|every)\s+(?:link|source)\b",
+        re.IGNORECASE,
+    ),
+    "fixed public price claim": re.compile(
+        r"\b(?:only|just|nur)\s*(?:[$€£]\s*\d|\d+[.,]\d{2}\s*(?:eur|usd|gbp|€|\$|£))",
+        re.IGNORECASE,
+    ),
     "universal website support": re.compile(
         r"(?:\bfrom\s+(?:almost\s+|nearly\s+|virtually\s+|most\s+|any\s+|every\s+)"
         r"(?:site|website)s?\b|\b(?:almost|nearly|virtually)\s+any\s+(?:site|website|video)\b|"

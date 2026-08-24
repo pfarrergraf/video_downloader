@@ -16,7 +16,7 @@
       "status_active": "Pro активирован ({tier}). Спасибо за поддержку!",
       "status_invalid": "Бесплатная версия — сохранённый ключ недействителен или истёк.",
       "status_device_limit": "Бесплатная версия — эта лицензия уже активна на другом устройстве этого же типа.",
-      "status_free": "Бесплатная версия — {limit} загрузки в день. Pro: без ограничений.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "Сначала введите лицензионный ключ.",
       "activated_toast": "Лицензия активирована.",
       "invalid_toast": "Недействительный лицензионный ключ.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Достигнут дневной лимит",
-      "body": "Вы достигли сегодняшнего бесплатного лимита в {limit} загрузки. Введите ниже лицензионный ключ для неограниченных загрузок или попробуйте снова через {hours} часа."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "Вставьте ссылку сюда",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Одна лицензия, одна цена",
-      "lead": "Бесплатно навсегда: 3 загрузка в день в полном HD/4K качестве. Безлимит с Pro.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "Лицензия",
       "lifetime_amount_suffix": "единоразово",
       "lifetime_note": "Платите один раз — пользуйтесь всегда",
-      "feature_unlimited": "Неограниченные загрузки (без дневного лимита)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "Пакетная загрузка",
       "feature_priority_updates": "Приоритетные обновления",
       "feature_all_updates": "Включены все будущие обновления",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Часто задаваемые вопросы",
       "q1_title": "Нужен ли Pro для использования приложения?",
-      "q1_body": "Нет. Приложение бесплатно и полностью функционально. Pro снимает ограничения и поддерживает разработку.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Где ввести лицензионный ключ?",

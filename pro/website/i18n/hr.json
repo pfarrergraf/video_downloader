@@ -16,7 +16,7 @@
       "status_active": "Pro aktivan ({tier}). Hvala na podršci!",
       "status_invalid": "Besplatno — spremljeni ključ je nevažeći ili je istekao.",
       "status_device_limit": "Besplatno — ova licenca već je aktivna na drugom uređaju iste vrste.",
-      "status_free": "Besplatno — {limit} preuzimanja dnevno. Pro: neograničeno.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "Najprije unesite licencni ključ.",
       "activated_toast": "Licenca aktivirana.",
       "invalid_toast": "Nevažeći licencni ključ.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Dnevni limit dosegnut",
-      "body": "Iskoristili ste današnji besplatni limit od {limit} preuzimanja. Unesite licencni ključ ispod za neograničena preuzimanja, ili pokušajte ponovno za {hours} sata."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Jedna licenca, jedna cijena",
-      "lead": "Zauvijek besplatno: 3 preuzimanje dnevno u punoj HD/4K kvaliteti. Neograničeno uz Pro.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "Licenca",
       "lifetime_amount_suffix": "jednokratno",
       "lifetime_note": "Platite jednom, koristite zauvijek",
-      "feature_unlimited": "Neograničena preuzimanja (bez dnevnog ograničenja)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "Skupno preuzimanje",
       "feature_priority_updates": "Prioritetna ažuriranja",
       "feature_all_updates": "Uključena sva buduća ažuriranja",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Često postavljana pitanja",
       "q1_title": "Trebam li Pro za korištenje aplikacije?",
-      "q1_body": "Ne. Aplikacija je besplatna i potpuno upotrebljiva. Pro uklanja ograničenja i podržava razvoj.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Gdje unosim svoj licencni ključ?",

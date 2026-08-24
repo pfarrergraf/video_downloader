@@ -16,7 +16,7 @@
       "status_active": "Pro käytössä ({tier}). Kiitos tuestasi!",
       "status_invalid": "Ilmainen — tallennettu avain on virheellinen tai vanhentunut.",
       "status_device_limit": "Ilmainen — tämä lisenssi on jo käytössä toisessa samantyyppisessä laitteessa.",
-      "status_free": "Ilmainen — {limit} latausta päivässä. Pro: rajoittamaton.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "Anna lisenssiavain ensin.",
       "activated_toast": "Lisenssi aktivoitu.",
       "invalid_toast": "Virheellinen lisenssiavain.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Päivittäinen raja saavutettu",
-      "body": "Olet käyttänyt tämän päivän ilmaisen rajan, {limit} latausta. Anna alla lisenssiavain rajoittamattomia latauksia varten, tai yritä uudelleen {hours} tunnin kuluttua."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "Liitä linkkisi tähän",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Yksi lisenssi, yksi hinta",
-      "lead": "Ikuisesti ilmainen: 3 lataus päivässä täydessä HD/4K-laadussa. Rajoittamaton Prolla.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "Lisenssi",
       "lifetime_amount_suffix": "kertamaksu",
       "lifetime_note": "Maksa kerran, käytä ikuisesti",
-      "feature_unlimited": "Rajoittamattomat lataukset (ei päivittäistä rajaa)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "Erälataukset",
       "feature_priority_updates": "Ensisijaiset päivitykset",
       "feature_all_updates": "Kaikki tulevat päivitykset sisältyvät hintaan",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Usein kysytyt kysymykset",
       "q1_title": "Tarvitsenko Pro-version käyttääkseni sovellusta?",
-      "q1_body": "Et. Sovellus on ilmainen ja täysin käyttökelpoinen. Pro poistaa rajoitukset ja tukee kehitystä.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Mistä syötän lisenssiavaimeni?",

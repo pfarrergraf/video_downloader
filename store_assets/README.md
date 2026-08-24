@@ -1,7 +1,15 @@
 # Play Console store listing assets
 
-Prepared ahead of time so registration + submission (see
-`docs/ANDROID_APP_PLAN.md` Phase 7) doesn't block on generating these.
+Existing material and the capture contract for the next Play listing. The
+canonical locale mapping is `play_locale_matrix.json`.
+
+## Release status
+
+`BLOCKED`: current phone images predate the 1.0.4.2 UI/string freeze and there
+are no verified 7-inch or 10-inch captures. Nothing in this directory authorizes
+an upload. Final screenshots must be captured from a debug build of the exact
+frozen candidate commit; generated UI, PSD compositions and campaign images are
+not substitutes for product screenshots.
 
 ## Files
 
@@ -76,12 +84,12 @@ WICHTIGSTE FUNKTIONEN
 • Qualitätsauswahl von 240p bis 4K
 • Automatischer Fortschrittsbalken für laufende Downloads
 • Eigenen Download-Ordner wählen, Dateien direkt öffnen oder teilen
-• Läuft komplett auf deinem Gerät – keine Werbung, kein Tracking
+• Medienverarbeitung auf deinem Gerät – keine Werbung, kein Tracking
 • Verfügbar in vielen Sprachen
 
 KOSTENLOS NUTZBAR
-Die kostenlose Version bietet die volle Qualität bis 4K, begrenzt auf ein
-tägliches Download-Kontingent. Mit DownloadThat Pro entfällt dieses Limit.
+Die kostenlose Version bietet 3 erfolgreiche Downloads je rollierenden 24
+Stunden. Pro entfernt das tägliche App-Downloadlimit von DownloadThat.
 
 WICHTIGER HINWEIS
 DownloadThat ist ein technisches Werkzeug. Du bist selbst dafür verantwortlich,
@@ -106,8 +114,8 @@ KEY FEATURES
 • Available in many languages
 
 FREE TO USE
-The free tier offers full quality up to 4K, limited to a daily download
-quota. DownloadThat Pro removes that limit.
+The Free tier offers 3 successful downloads per rolling 24 hours.
+Pro removes DownloadThat's daily app download limit.
 
 IMPORTANT
 DownloadThat is a technical tool. You are responsible for making sure you
@@ -131,3 +139,23 @@ Image.open('/tmp/fg.png').convert('RGB').save('store_assets/feature_graphic-1024
 
 Screenshots: run `classydl web --password ... -o /tmp/out`, then drive it with Playwright at a
 412×915 viewport (see git history of this file's introducing commit for the exact script used).
+
+## Final screenshot layout and dry-run
+
+After UI/string freeze, place at least four real PNG captures for every real UI
+locale under each of:
+
+- `captures/phone/<ui-locale>/`
+- `captures/7-inch/<ui-locale>/`
+- `captures/10-inch/<ui-locale>/`
+
+The 20 unsupported Play languages deliberately reuse `captures/*/en/` through
+the canonical matrix. Preview all 86×3 assignments without credentials or
+network writes:
+
+```powershell
+node scripts/upload_google_play.mjs --sync-screenshot-assets true --package de.classydl.app --locale-matrix store_assets/play_locale_matrix.json --phone-dir store_assets/captures/phone --seven-inch-dir store_assets/captures/7-inch --ten-inch-dir store_assets/captures/10-inch --dry-run true
+```
+
+An upload requires both `--dry-run false` and `--confirm-upload true`; neither
+is allowed before the documented TEAM-Go.

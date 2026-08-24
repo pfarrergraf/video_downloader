@@ -16,7 +16,7 @@
       "status_active": "ਪ੍ਰੋ ਸਰਗਰਮ ({tier})। ਤੁਹਾਡੇ ਸਹਿਯੋਗ ਲਈ ਧੰਨਵਾਦ!",
       "status_invalid": "ਮੁਫ਼ਤ — ਸੇਵ ਕੀਤੀ ਕੁੰਜੀ ਅਵੈਧ ਹੈ ਜਾਂ ਮਿਆਦ ਪੁੱਗ ਚੁੱਕੀ ਹੈ।",
       "status_device_limit": "ਮੁਫ਼ਤ — ਇਹ ਲਾਇਸੰਸ ਪਹਿਲਾਂ ਹੀ ਇਸੇ ਕਿਸਮ ਦੀ ਕਿਸੇ ਹੋਰ ਡਿਵਾਈਸ 'ਤੇ ਸਰਗਰਮ ਹੈ।",
-      "status_free": "ਮੁਫ਼ਤ — ਪ੍ਰਤੀ ਦਿਨ {limit} ਡਾਊਨਲੋਡ। ਪ੍ਰੋ: ਅਸੀਮਤ।",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "ਪਹਿਲਾਂ ਇੱਕ ਲਾਇਸੈਂਸ ਕੁੰਜੀ ਦਰਜ ਕਰੋ।",
       "activated_toast": "ਲਾਇਸੈਂਸ ਸਰਗਰਮ ਹੋ ਗਿਆ।",
       "invalid_toast": "ਅਵੈਧ ਲਾਇਸੈਂਸ ਕੁੰਜੀ।",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "ਰੋਜ਼ਾਨਾ ਸੀਮਾ ਪੂਰੀ ਹੋਈ",
-      "body": "ਤੁਸੀਂ ਅੱਜ ਦੀ ਮੁਫ਼ਤ ਸੀਮਾ, {limit} ਡਾਊਨਲੋਡ, ਪੂਰੀ ਕਰ ਲਈ ਹੈ। ਅਸੀਮਤ ਡਾਊਨਲੋਡਾਂ ਲਈ ਹੇਠਾਂ ਲਾਇਸੰਸ ਕੁੰਜੀ ਦਰਜ ਕਰੋ, ਜਾਂ {hours} ਘੰਟਿਆਂ ਬਾਅਦ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "ਆਪਣਾ ਲਿੰਕ ਇੱਥੇ ਪੇਸਟ ਕਰੋ",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "ਇੱਕ ਲਾਇਸੰਸ, ਇੱਕ ਕੀਮਤ",
-      "lead": "ਹਮੇਸ਼ਾ ਲਈ ਮੁਫ਼ਤ: ਪੂਰੀ HD/4K ਗੁਣਵੱਤਾ ਵਿੱਚ ਪ੍ਰਤੀ ਦਿਨ 3 ਡਾਊਨਲੋਡ। ਪ੍ਰੋ ਨਾਲ ਅਸੀਮਤ।",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "ਲਾਇਸੰਸ",
       "lifetime_amount_suffix": "ਇੱਕ ਵਾਰ",
       "lifetime_note": "ਇੱਕ ਵਾਰ ਭੁਗਤਾਨ ਕਰੋ, ਹਮੇਸ਼ਾ ਵਰਤੋਂ",
-      "feature_unlimited": "ਅਸੀਮਤ ਡਾਊਨਲੋਡ (ਕੋਈ ਰੋਜ਼ਾਨਾ ਸੀਮਾ ਨਹੀਂ)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "ਬੈਚ ਡਾਊਨਲੋਡ",
       "feature_priority_updates": "ਤਰਜੀਹੀ ਅੱਪਡੇਟ",
       "feature_all_updates": "ਸਾਰੇ ਭਵਿੱਖੀ ਅੱਪਡੇਟ ਸ਼ਾਮਲ",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "ਅਕਸਰ ਪੁੱਛੇ ਜਾਂਦੇ ਸਵਾਲ",
       "q1_title": "ਕੀ ਐਪ ਵਰਤਣ ਲਈ ਮੈਨੂੰ ਪ੍ਰੋ ਦੀ ਲੋੜ ਹੈ?",
-      "q1_body": "ਨਹੀਂ। ਐਪ ਮੁਫ਼ਤ ਹੈ ਅਤੇ ਪੂਰੀ ਤਰ੍ਹਾਂ ਵਰਤੋਂ ਯੋਗ ਹੈ। ਪ੍ਰੋ ਸੀਮਾਵਾਂ ਹਟਾਉਂਦਾ ਹੈ ਅਤੇ ਵਿਕਾਸ ਦਾ ਸਮਰਥਨ ਕਰਦਾ ਹੈ।",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "ਮੈਂ ਆਪਣੀ ਲਾਇਸੈਂਸ ਕੁੰਜੀ ਕਿੱਥੇ ਦਰਜ ਕਰਾਂ?",

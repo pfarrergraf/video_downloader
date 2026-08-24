@@ -24,6 +24,11 @@ Deutsch:
 
 ## Mandatory rules
 
+The machine-readable canonical catalogue is
+`security/PUBLIC_CLAIMS_CATALOG.json`. Its six approved claim families are the
+only marketing claims which may be introduced without a new evidence review.
+Qualifications in that catalogue are part of the claim, not optional footnotes.
+
 - Never claim or imply support for all, almost all, most, arbitrary or every
   website, service, video or app. Compatibility changes and must be described
   factually for a tested source, never as universal coverage.
@@ -59,3 +64,7 @@ locally", "no Play Store needed" and equivalent translations.
   exists, preventing historical affiliate assets from becoming public again.
 - Any intentional policy change must update this file, the security evidence and
   tests in the same change.
+- Unqualified `Unlimited downloads`, `No limits`, `100% free`, `Skip the ad`,
+  fixed-price copy and their translations are release-blocking even when they
+  appear in a localized string file. Pro may only be described as removing
+  DownloadThat's daily *app* download limit.

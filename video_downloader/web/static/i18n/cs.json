@@ -16,7 +16,7 @@
       "status_active": "Pro aktivní ({tier}). Děkujeme za podporu!",
       "status_invalid": "Free — uložený klíč je neplatný nebo mu vypršela platnost.",
       "status_device_limit": "Free — tato licence je již aktivní na jiném zařízení tohoto typu.",
-      "status_free": "Free — {limit} stažení denně. Pro: neomezeně.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "Nejprve zadejte licenční klíč.",
       "activated_toast": "Licence byla aktivována.",
       "invalid_toast": "Neplatný licenční klíč.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Denní limit vyčerpán",
-      "body": "Vyčerpal(a) jsi dnešní bezplatný limit {limit} stažení. Zadej níže licenční klíč pro neomezená stažení, nebo to zkus znovu za {hours} hodin."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "Vlož svůj odkaz sem",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Jedna licence, jedna cena",
-      "lead": "Navždy zdarma: 3 stažení denně v plné kvalitě HD/4K. S Pro neomezeně.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "Licence",
       "lifetime_amount_suffix": "jednorázově",
       "lifetime_note": "Zaplaťte jednou, používejte navždy",
-      "feature_unlimited": "Neomezené stahování (bez denního limitu)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "Hromadné stahování",
       "feature_priority_updates": "Přednostní aktualizace",
       "feature_all_updates": "Všechny budoucí aktualizace v ceně",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Časté dotazy",
       "q1_title": "Potřebuji Pro k používání aplikace?",
-      "q1_body": "Ne. Aplikace je zdarma a plně použitelná. Pro odstraňuje omezení a podporuje vývoj.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Kam zadám svůj licenční klíč?",

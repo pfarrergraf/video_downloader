@@ -16,7 +16,7 @@
       "status_active": "പ്രോ സജീവമാണ് ({tier}). നിങ്ങളുടെ പിന്തുണയ്ക്ക് നന്ദി!",
       "status_invalid": "ഫ്രീ — സേവ് ചെയ്ത കീ അസാധുവാണ് അല്ലെങ്കിൽ കാലഹരണപ്പെട്ടിരിക്കുന്നു.",
       "status_device_limit": "ഫ്രീ — ഈ ലൈസൻസ് ഇതേ തരത്തിലുള്ള മറ്റൊരു ഉപകരണത്തിൽ ഇതിനകം സജീവമാണ്.",
-      "status_free": "ഫ്രീ — ദിവസത്തിൽ {limit} ഡൗൺലോഡ്. പ്രോ: പരിധിയില്ലാതെ.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "ആദ്യം ഒരു ലൈസൻസ് കീ നൽകുക.",
       "activated_toast": "ലൈസൻസ് സജീവമാക്കി.",
       "invalid_toast": "അസാധുവായ ലൈസൻസ് കീ.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "ദൈനംദിന പരിധി എത്തി",
-      "body": "ഇന്നത്തെ സൗജന്യ പരിധിയായ {limit} ഡൗൺലോഡുകൾ നിങ്ങൾ ഉപയോഗിച്ചു കഴിഞ്ഞു. പരിധിയില്ലാത്ത ഡൗൺലോഡിന് താഴെ ലൈസൻസ് കീ നൽകുക, അല്ലെങ്കിൽ {hours} മണിക്കൂർ കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "നിങ്ങളുടെ ലിങ്ക് ഇവിടെ പേസ്റ്റ് ചെയ്യുക",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "ഒരു ലൈസൻസ്, ഒരു വില",
-      "lead": "എന്നും സൗജന്യം: ദിവസത്തിൽ 3 ഡൗൺലോഡ് പൂർണ്ണ HD/4K ഗുണനിലവാരത്തിൽ. പ്രോയിൽ പരിധിയില്ലാതെ.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "ലൈസൻസ്",
       "lifetime_amount_suffix": "ഒറ്റത്തവണ",
       "lifetime_note": "ഒരിക്കൽ പണം നൽകുക, എന്നും ഉപയോഗിക്കുക",
-      "feature_unlimited": "പരിധിയില്ലാത്ത ഡൗൺലോഡുകൾ (ദിവസ പരിധിയില്ല)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "ബാച്ച് ഡൗൺലോഡുകൾ",
       "feature_priority_updates": "മുൻഗണനാ അപ്‌ഡേറ്റുകൾ",
       "feature_all_updates": "ഭാവിയിലെ എല്ലാ അപ്‌ഡേറ്റുകളും ഉൾപ്പെടുന്നു",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "പതിവ് ചോദ്യങ്ങൾ",
       "q1_title": "ആപ്പ് ഉപയോഗിക്കാൻ എനിക്ക് പ്രോ വേണോ?",
-      "q1_body": "വേണ്ട. ആപ്പ് സൗജന്യവും പൂർണ്ണമായി ഉപയോഗിക്കാവുന്നതുമാണ്. പ്രോ പരിധികൾ ഒഴിവാക്കുകയും വികസനത്തെ പിന്തുണയ്ക്കുകയും ചെയ്യുന്നു.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "എന്റെ ലൈസൻസ് കീ ഞാൻ എവിടെ നൽകണം?",

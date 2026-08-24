@@ -16,7 +16,7 @@
       "status_active": "Pro aktyvi ({tier}). Dėkojame už paramą!",
       "status_invalid": "Nemokama versija — išsaugotas raktas negalioja arba nebegaliojantis.",
       "status_device_limit": "Nemokama versija — ši licencija jau aktyvi kitame to paties tipo įrenginyje.",
-      "status_free": "Nemokama versija — {limit} atsisiuntimai per dieną. Pro: neribotai.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "Pirmiausia įveskite licencijos raktą.",
       "activated_toast": "Licencija aktyvuota.",
       "invalid_toast": "Neteisingas licencijos raktas.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Pasiekta dienos riba",
-      "body": "Pasiekėte šiandienos nemokamą {limit} atsisiuntimų ribą. Įveskite licencijos raktą neribotiems atsisiuntimams arba bandykite dar kartą po {hours} valandų."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "Įklijuok savo nuorodą čia",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Viena licencija, viena kaina",
-      "lead": "Visada nemokama: 3 atsisiuntimas per dieną pilnos HD/4K kokybės. Neribotai su Pro.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "Licencija",
       "lifetime_amount_suffix": "vienkartinis mokėjimas",
       "lifetime_note": "Sumokėk vieną kartą, naudokis visada",
-      "feature_unlimited": "Neriboti atsisiuntimai (be dienos limito)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "Atsisiuntimai grupėmis",
       "feature_priority_updates": "Prioritetiniai atnaujinimai",
       "feature_all_updates": "Įtraukti visi būsimi atnaujinimai",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Dažniausiai užduodami klausimai",
       "q1_title": "Ar norint naudotis programėle būtina Pro versija?",
-      "q1_body": "Ne. Programėlė nemokama ir visiškai naudotina. Pro panaikina apribojimus ir palaiko kūrimą.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Kur įvesti savo licencijos raktą?",

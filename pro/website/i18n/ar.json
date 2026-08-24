@@ -16,7 +16,7 @@
       "status_active": "نسخة Pro مفعّلة ({tier}). شكرًا لدعمك!",
       "status_invalid": "مجانية — المفتاح المحفوظ غير صالح أو منتهي الصلاحية.",
       "status_device_limit": "مجانية — هذا الترخيص نشط بالفعل على جهاز آخر من هذا النوع.",
-      "status_free": "مجانية — {limit} تنزيلات يوميًا. مع Pro: بلا حدود.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "أدخل مفتاح الترخيص أولاً.",
       "activated_toast": "تم تفعيل الترخيص.",
       "invalid_toast": "مفتاح الترخيص غير صالح.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "تم بلوغ الحد اليومي",
-      "body": "لقد بلغت الحد المجاني اليوم وهو {limit} تنزيلات. أدخل مفتاح ترخيص أدناه للحصول على تنزيلات غير محدودة، أو حاول مرة أخرى بعد {hours} ساعة."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "ترخيص واحد، سعر واحد",
-      "lead": "مجانية للأبد: 3 عمليات تنزيل يوميًا بجودة HD/4K كاملة. غير محدودة مع Pro.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "الترخيص",
       "lifetime_amount_suffix": "دفعة واحدة",
       "lifetime_note": "ادفع مرة واحدة، استخدم للأبد",
-      "feature_unlimited": "تنزيلات غير محدودة (بلا حد يومي)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "تنزيل دفعي",
       "feature_priority_updates": "تحديثات ذات أولوية",
       "feature_all_updates": "شامل جميع التحديثات المستقبلية",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "الأسئلة الشائعة",
       "q1_title": "هل أحتاج إلى Pro لاستخدام التطبيق؟",
-      "q1_body": "لا. التطبيق مجاني وقابل للاستخدام الكامل. نسخة Pro تزيل الحدود وتدعم تطوير التطبيق.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "أين أدخل مفتاح الترخيص الخاص بي؟",

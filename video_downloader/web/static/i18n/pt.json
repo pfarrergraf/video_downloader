@@ -16,7 +16,7 @@
       "status_active": "Pro ativo ({tier}). Obrigado pelo apoio!",
       "status_invalid": "Gratuito — a chave salva é inválida ou expirou.",
       "status_device_limit": "Gratuito — esta licença já está ativa em outro dispositivo do mesmo tipo.",
-      "status_free": "Gratuito — {limit} downloads por dia. Pro: ilimitado.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "Digite uma chave de licença primeiro.",
       "activated_toast": "Licença ativada.",
       "invalid_toast": "Chave de licença inválida.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Limite diário atingido",
-      "body": "Você atingiu o limite gratuito de {limit} downloads de hoje. Insira uma chave de licença abaixo para downloads ilimitados, ou tente novamente em {hours} horas."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "Cole seu link aqui",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Uma licença, um preço",
-      "lead": "Gratuito para sempre: 3 download por dia em qualidade Full HD/4K. Ilimitado com o Pro.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "Licença",
       "lifetime_amount_suffix": "pagamento único",
       "lifetime_note": "Pague uma vez, use para sempre",
-      "feature_unlimited": "Downloads ilimitados (sem limite diário)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "Downloads em lote",
       "feature_priority_updates": "Atualizações prioritárias",
       "feature_all_updates": "Todas as atualizações futuras incluídas",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Perguntas frequentes",
       "q1_title": "Preciso do Pro para usar o app?",
-      "q1_body": "Não. O app é gratuito e totalmente utilizável. O Pro remove limites e apoia o desenvolvimento.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Onde eu insiro minha chave de licença?",

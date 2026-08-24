@@ -16,7 +16,7 @@
       "status_active": "Pro செயலில் உள்ளது ({tier}). உங்கள் ஆதரவிற்கு நன்றி!",
       "status_invalid": "இலவசம் — சேமிக்கப்பட்ட விசை தவறானது அல்லது காலாவதியானது.",
       "status_device_limit": "இலவசம் — இந்த உரிமம் ஏற்கனவே இதே வகையான வேறொரு சாதனத்தில் செயலில் உள்ளது.",
-      "status_free": "இலவசம் — ஒரு நாளைக்கு {limit} பதிவிறக்கங்கள். Pro: வரம்பற்றது.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "முதலில் ஒரு உரிம விசையை உள்ளிடவும்.",
       "activated_toast": "உரிமம் செயல்படுத்தப்பட்டது.",
       "invalid_toast": "தவறான உரிம விசை.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "தினசரி வரம்பு எட்டப்பட்டது",
-      "body": "இன்றைய இலவச வரம்பான {limit} பதிவிறக்கங்களை நீங்கள் பயன்படுத்திவிட்டீர்கள். வரம்பற்ற பதிவிறக்கங்களுக்கு கீழே உரிம விசையை உள்ளிடவும், அல்லது {hours} மணி நேரம் கழித்து மீண்டும் முயற்சிக்கவும்."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "உங்கள் இணைப்பை இங்கே ஒட்டவும்",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "ஒரு லைசென்ஸ், ஒரு விலை",
-      "lead": "எப்போதும் இலவசம்: முழு HD/4K தரத்தில் ஒரு நாளைக்கு 3 பதிவிறக்கம். Pro உடன் வரம்பற்றது.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "லைசென்ஸ்",
       "lifetime_amount_suffix": "ஒருமுறை",
       "lifetime_note": "ஒருமுறை செலுத்தி, எப்போதும் பயன்படுத்தவும்",
-      "feature_unlimited": "வரம்பற்ற பதிவிறக்கங்கள் (தினசரி வரம்பு இல்லை)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "தொகுதி பதிவிறக்கங்கள்",
       "feature_priority_updates": "முன்னுரிமை புதுப்பிப்புகள்",
       "feature_all_updates": "எதிர்கால புதுப்பிப்புகள் அனைத்தும் அடங்கும்",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "அடிக்கடி கேட்கப்படும் கேள்விகள்",
       "q1_title": "பயன்பாட்டைப் பயன்படுத்த Pro தேவையா?",
-      "q1_body": "இல்லை. பயன்பாடு இலவசம் மற்றும் முழுமையாகப் பயன்படுத்தக்கூடியது. Pro வரம்புகளை நீக்கி, மேம்பாட்டை ஆதரிக்கிறது.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "எனது உரிம விசையை எங்கே உள்ளிடுவது?",

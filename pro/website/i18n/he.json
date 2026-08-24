@@ -16,7 +16,7 @@
       "status_active": "מנוי Pro פעיל ({tier}). תודה על התמיכה!",
       "status_invalid": "חינמי — מפתח הרישיון השמור לא תקין או שפג תוקפו.",
       "status_device_limit": "חינמי — הרישיון הזה כבר פעיל במכשיר אחר מאותו סוג.",
-      "status_free": "חינמי — {limit} הורדות ביום. עם Pro: ללא הגבלה.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "יש להזין קודם מפתח רישיון.",
       "activated_toast": "הרישיון הופעל.",
       "invalid_toast": "מפתח רישיון לא תקין.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "המכסה היומית הגיעה לסיומה",
-      "body": "הגעת למכסה החינמית של היום — {limit} הורדות. הזן מפתח רישיון למטה כדי לקבל הורדות ללא הגבלה, או נסה שוב בעוד {hours} שעות."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "רישיון אחד, מחיר אחד",
-      "lead": "חינמי לתמיד: 3 הורדות ביום באיכות HD/4K מלאה. ללא הגבלה עם Pro.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "רישיון",
       "lifetime_amount_suffix": "תשלום חד-פעמי",
       "lifetime_note": "שלמו פעם אחת, השתמשו לתמיד",
-      "feature_unlimited": "הורדות ללא הגבלה (בלי תקרה יומית)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "הורדות באצווה",
       "feature_priority_updates": "עדכונים בעדיפות גבוהה",
       "feature_all_updates": "כל העדכונים העתידיים כלולים",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "שאלות נפוצות",
       "q1_title": "האם אני צריך Pro כדי להשתמש באפליקציה?",
-      "q1_body": "לא. האפליקציה חינמית וניתנת לשימוש מלא. Pro מסיר הגבלות ותומך בפיתוח.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "איפה מזינים את מפתח הרישיון?",

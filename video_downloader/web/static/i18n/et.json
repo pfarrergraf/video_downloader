@@ -16,7 +16,7 @@
       "status_active": "Pro on aktiivne ({tier}). Täname toetuse eest!",
       "status_invalid": "Tasuta — salvestatud võti on kehtetu või aegunud.",
       "status_device_limit": "Tasuta — see litsents on juba aktiivne teises samat tüüpi seadmes.",
-      "status_free": "Tasuta — {limit} allalaadimist päevas. Pro: piiramatult.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "Sisesta esmalt litsentsivõti.",
       "activated_toast": "Litsents aktiveeritud.",
       "invalid_toast": "Vigane litsentsivõti.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Päevane limiit täis",
-      "body": "Oled kasutanud tänase tasuta limiidi, {limit} allalaadimist. Sisesta allpool litsentsivõti piiramatute allalaadimiste jaoks või proovi uuesti {hours} tunni pärast."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "Kleebi oma link siia",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Üks litsents, üks hind",
-      "lead": "Igavesti tasuta: 3 allalaadimine päevas täielikus HD/4K kvaliteedis. Pro'ga piiramatult.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "Litsents",
       "lifetime_amount_suffix": "ühekordne",
       "lifetime_note": "Maksa üks kord, kasuta igavesti",
-      "feature_unlimited": "Piiramatud allalaadimised (päevast piirangut pole)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "Kogumina allalaadimine",
       "feature_priority_updates": "Prioriteetsed uuendused",
       "feature_all_updates": "Kõik tulevased uuendused sisalduvad",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Korduma kippuvad küsimused",
       "q1_title": "Kas rakenduse kasutamiseks on vaja Pro't?",
-      "q1_body": "Ei. Rakendus on tasuta ja täielikult kasutatav. Pro eemaldab piirangud ja toetab arendust.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Kuhu sisestan oma litsentsivõtme?",

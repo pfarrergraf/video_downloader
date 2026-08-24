@@ -16,7 +16,7 @@
       "status_active": "Pro active ({tier}). Thanks for your support!",
       "status_invalid": "Bure — ufunguo uliohifadhiwa si sahihi au umeisha muda wake.",
       "status_device_limit": "Bure — leseni hii tayari inatumika kwenye kifaa kingine cha aina hii.",
-      "status_free": "Bure — Upakuaji {limit} kwa siku. Pro: bila kikomo.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "Enter a license key first.",
       "activated_toast": "License activated.",
       "invalid_toast": "Invalid license key.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Kikomo cha siku kimefikiwa",
-      "body": "Umetumia kikomo cha bure cha leo cha upakuaji {limit}. Weka ufunguo wa leseni hapa chini kupata upakuaji usio na kikomo, au jaribu tena baada ya saa {hours}."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Leseni moja, bei moja",
-      "lead": "Free forever: 3 download a day in full HD/4K quality. Unlimited with Pro.",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "Leseni",
       "lifetime_amount_suffix": "one-time",
       "lifetime_note": "Pay once, use forever",
-      "feature_unlimited": "Unlimited downloads (no daily cap)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "Batch downloads",
       "feature_priority_updates": "Priority updates",
       "feature_all_updates": "All future updates included",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Frequently asked questions",
       "q1_title": "Do I need Pro to use the app?",
-      "q1_body": "No. The app is free and fully usable. Pro removes limits and supports development.",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Where do I enter my license key?",

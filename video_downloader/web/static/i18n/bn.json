@@ -16,7 +16,7 @@
       "status_active": "প্রো সক্রিয় ({tier})। আপনার সহযোগিতার জন্য ধন্যবাদ!",
       "status_invalid": "ফ্রি — সংরক্ষিত কী-টি অবৈধ বা মেয়াদোত্তীর্ণ।",
       "status_device_limit": "ফ্রি — এই লাইসেন্সটি ইতিমধ্যে এই ধরনের অন্য একটি ডিভাইসে সক্রিয় আছে।",
-      "status_free": "Free — {limit} downloads per day. Pro: unlimited.",
+      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
       "need_key_toast": "প্রথমে একটি লাইসেন্স কী দিন।",
       "activated_toast": "লাইসেন্স সক্রিয় করা হয়েছে।",
       "invalid_toast": "অবৈধ লাইসেন্স কী।",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "দৈনিক সীমা শেষ",
-      "body": "You've reached today's free limit of {limit} downloads. Enter a license key below for unlimited downloads, or try again in {hours} hours."
+      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
     },
     "home": {
       "url_label": "আপনার লিঙ্ক এখানে পেস্ট করুন",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "একটি লাইসেন্স, একটি দাম",
-      "lead": "চিরকাল ফ্রি: পূর্ণ HD/4K মানে দিনে ৩টি ডাউনলোড। প্রো-তে আনলিমিটেড।",
+      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "lifetime_title": "লাইসেন্স",
       "lifetime_amount_suffix": "একবারই",
       "lifetime_note": "একবার পরিশোধ করুন, চিরকাল ব্যবহার করুন",
-      "feature_unlimited": "আনলিমিটেড ডাউনলোড (কোনো দৈনিক সীমা নেই)",
+      "feature_unlimited": "No daily app download limit with Pro",
       "feature_batch": "ব্যাচ ডাউনলোড",
       "feature_priority_updates": "অগ্রাধিকারমূলক আপডেট",
       "feature_all_updates": "ভবিষ্যতের সব আপডেট অন্তর্ভুক্ত",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "সাধারণ জিজ্ঞাসা",
       "q1_title": "অ্যাপ ব্যবহার করতে কি প্রো প্রয়োজন?",
-      "q1_body": "না। অ্যাপটি ফ্রি এবং সম্পূর্ণভাবে ব্যবহারযোগ্য। প্রো সীমা তুলে দেয় এবং উন্নয়নে সহায়তা করে।",
+      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "আমি আমার লাইসেন্স কী কোথায় দেব?",
