@@ -16,7 +16,7 @@
       "status_active": "Pro aktif ({tier}). Desteğiniz için teşekkürler!",
       "status_invalid": "Ücretsiz — kayıtlı anahtar geçersiz veya süresi dolmuş.",
       "status_device_limit": "Ücretsiz — bu lisans zaten aynı türden başka bir cihazda etkin.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "Her kayan 24 saat içinde {limit} başarılı indirme (ücretsiz). Pro, DownloadThat uygulamasındaki günlük indirme sınırını kaldırır.",
       "need_key_toast": "Önce bir lisans anahtarı girin.",
       "activated_toast": "Lisans etkinleştirildi.",
       "invalid_toast": "Geçersiz lisans anahtarı.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Günlük limite ulaşıldı",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "Her kayan 24 saat içinde {limit} başarılı indirme (ücretsiz). Pro, DownloadThat uygulamasındaki günlük indirme sınırını kaldırır. ({hours} h)."
     },
     "home": {
       "url_label": "Bağlantını buraya yapıştır",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Tek lisans, tek fiyat",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "Her kayan 24 saat içinde 3 başarılı indirme (ücretsiz). Pro, DownloadThat uygulamasındaki günlük indirme sınırını kaldırır.",
       "lifetime_title": "Lisans",
       "lifetime_amount_suffix": "tek seferlik",
       "lifetime_note": "Bir kez öde, sonsuza dek kullan",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro, DownloadThat uygulamasındaki günlük indirme sınırını kaldırır.",
       "feature_batch": "Toplu indirme",
       "feature_priority_updates": "Öncelikli güncellemeler",
       "feature_all_updates": "Gelecekteki tüm güncellemeler dahil",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Sıkça sorulan sorular",
       "q1_title": "Uygulamayı kullanmak için Pro'ya ihtiyacım var mı?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "Her kayan 24 saat içinde 3 başarılı indirme (ücretsiz). Pro, DownloadThat uygulamasındaki günlük indirme sınırını kaldırır.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Lisans anahtarımı nereye giriyorum?",

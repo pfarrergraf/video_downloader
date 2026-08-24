@@ -16,7 +16,7 @@
       "status_active": "પ્રો સક્રિય ({tier}). તમારા સપોર્ટ માટે આભાર!",
       "status_invalid": "ફ્રી — સાચવેલી કી અમાન્ય છે અથવા સમાપ્ત થઈ ગઈ છે.",
       "status_device_limit": "ફ્રી — આ લાઇસન્સ પહેલેથી જ આ પ્રકારના અન્ય ડિવાઇસ પર સક્રિય છે.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "દરેક રોલિંગ 24 કલાકમાં {limit} સફળ ડાઉનલોડ (મફત). Pro DownloadThat એપની દૈનિક ડાઉનલોડ મર્યાદા દૂર કરે છે.",
       "need_key_toast": "પહેલા લાઇસન્સ કી દાખલ કરો.",
       "activated_toast": "લાઇસન્સ સક્રિય કરવામાં આવ્યું.",
       "invalid_toast": "અમાન્ય લાઇસન્સ કી.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "દૈનિક મર્યાદા પૂર્ણ થઈ",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "દરેક રોલિંગ 24 કલાકમાં {limit} સફળ ડાઉનલોડ (મફત). Pro DownloadThat એપની દૈનિક ડાઉનલોડ મર્યાદા દૂર કરે છે. ({hours} h)."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "એક લાઇસન્સ, એક કિંમત",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "દરેક રોલિંગ 24 કલાકમાં 3 સફળ ડાઉનલોડ (મફત). Pro DownloadThat એપની દૈનિક ડાઉનલોડ મર્યાદા દૂર કરે છે.",
       "lifetime_title": "લાઇસન્સ",
       "lifetime_amount_suffix": "એક વખત",
       "lifetime_note": "એક વાર ચૂકવો, હંમેશા વાપરો",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro DownloadThat એપની દૈનિક ડાઉનલોડ મર્યાદા દૂર કરે છે.",
       "feature_batch": "બેચ ડાઉનલોડ",
       "feature_priority_updates": "પ્રાયોરિટી અપડેટ્સ",
       "feature_all_updates": "બધા ભાવિ અપડેટ્સ સામેલ",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "વારંવાર પુછાતા પ્રશ્નો",
       "q1_title": "શું મારે એપ વાપરવા માટે પ્રો જોઈએ?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "દરેક રોલિંગ 24 કલાકમાં 3 સફળ ડાઉનલોડ (મફત). Pro DownloadThat એપની દૈનિક ડાઉનલોડ મર્યાદા દૂર કરે છે.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "હું મારી લાઇસન્સ કી ક્યાં દાખલ કરું?",

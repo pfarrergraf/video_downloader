@@ -74,22 +74,20 @@ def test_placeholders_are_preserved_across_languages() -> None:
 INDEX_HTML = Path(__file__).resolve().parent.parent / "video_downloader" / "web" / "static" / "index.html"
 
 
-def test_limit_copy_never_hardcodes_numbers() -> None:
-    # The free-tier count drifted between 1, 3 and 5 across surfaces before
-    # it was moved behind {limit}/{hours} placeholders filled from
-    # /api/settings. A digit creeping back into these strings means the
-    # drift is back - keep them placeholder-only in every language.
-    import re
-
-    digit_re = re.compile(r"\d")
+def test_dynamic_limit_copy_keeps_quota_placeholders() -> None:
+    # The quota count remains supplied by /api/settings. Localized words such
+    # as Japanese "1 day" can legitimately contain other digits; the exact
+    # locale-semantic test owns the rolling-24-hours wording.
     for i18n_dir in (APP_I18N_DIR, WEBSITE_I18N_DIR):
         for path in list(_language_files(i18n_dir)) + [i18n_dir / "en.json"]:
             flat = _flatten(json.loads(path.read_text(encoding="utf-8")))
             for key in ("app.limit.body", "app.license.status_free"):
                 value = str(flat.get(key, ""))
                 assert value, f"{path}:{key} is missing"
-                assert "{limit}" in value, f"{path}:{key} lost the {{limit}} placeholder"
-                assert not digit_re.search(value), f"{path}:{key} hardcodes a number again: {value!r}"
+                assert value.count("{limit}") == 1, f"{path}:{key} lost the {{limit}} placeholder"
+                assert ("{hours}" in value) == (key == "app.limit.body"), (
+                    f"{path}:{key} has inconsistent {{hours}} placeholder usage"
+                )
 
 
 def test_new_ux_keys_exist_in_source() -> None:

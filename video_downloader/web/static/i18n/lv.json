@@ -16,7 +16,7 @@
       "status_active": "Pro aktīvs ({tier}). Paldies par atbalstu!",
       "status_invalid": "Bezmaksas — saglabātā atslēga nav derīga vai ir beigusies.",
       "status_device_limit": "Bezmaksas — šī licence jau ir aktīva citā tāda paša veida ierīcē.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} veiksmīgas lejupielādes katrā slīdošajā 24 stundu periodā (bez maksas). Pro noņem DownloadThat lietotnes dienas lejupielāžu ierobežojumu.",
       "need_key_toast": "Vispirms ievadiet licences atslēgu.",
       "activated_toast": "Licence aktivizēta.",
       "invalid_toast": "Nederīga licences atslēga.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Sasniegts dienas limits",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} veiksmīgas lejupielādes katrā slīdošajā 24 stundu periodā (bez maksas). Pro noņem DownloadThat lietotnes dienas lejupielāžu ierobežojumu. ({hours} h)."
     },
     "home": {
       "url_label": "Ielīmē savu saiti šeit",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Viena licence, viena cena",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 veiksmīgas lejupielādes katrā slīdošajā 24 stundu periodā (bez maksas). Pro noņem DownloadThat lietotnes dienas lejupielāžu ierobežojumu.",
       "lifetime_title": "Licence",
       "lifetime_amount_suffix": "vienreizējs maksājums",
       "lifetime_note": "Maksājiet vienreiz, lietojiet mūžīgi",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro noņem DownloadThat lietotnes dienas lejupielāžu ierobežojumu.",
       "feature_batch": "Lejupielāde partijās",
       "feature_priority_updates": "Prioritāri atjauninājumi",
       "feature_all_updates": "Iekļauti visi turpmākie atjauninājumi",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Biežāk uzdotie jautājumi",
       "q1_title": "Vai man ir nepieciešams Pro, lai lietotu lietotni?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 veiksmīgas lejupielādes katrā slīdošajā 24 stundu periodā (bez maksas). Pro noņem DownloadThat lietotnes dienas lejupielāžu ierobežojumu.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Kur man ievadīt savu licences atslēgu?",

@@ -16,7 +16,7 @@
       "status_active": "Đã kích hoạt Pro ({tier}). Cảm ơn bạn đã ủng hộ!",
       "status_invalid": "Miễn phí — mã đã lưu không hợp lệ hoặc đã hết hạn.",
       "status_device_limit": "Miễn phí — giấy phép này đã được kích hoạt trên một thiết bị khác cùng loại.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} lượt tải xuống thành công trong mỗi khoảng 24 giờ liên tục (miễn phí). Pro loại bỏ giới hạn tải xuống hằng ngày trong ứng dụng DownloadThat.",
       "need_key_toast": "Vui lòng nhập mã giấy phép trước.",
       "activated_toast": "Đã kích hoạt giấy phép.",
       "invalid_toast": "Mã giấy phép không hợp lệ.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Đã đạt giới hạn hằng ngày",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} lượt tải xuống thành công trong mỗi khoảng 24 giờ liên tục (miễn phí). Pro loại bỏ giới hạn tải xuống hằng ngày trong ứng dụng DownloadThat. ({hours} h)."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Một giấy phép, một mức giá",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 lượt tải xuống thành công trong mỗi khoảng 24 giờ liên tục (miễn phí). Pro loại bỏ giới hạn tải xuống hằng ngày trong ứng dụng DownloadThat.",
       "lifetime_title": "Giấy phép",
       "lifetime_amount_suffix": "thanh toán một lần",
       "lifetime_note": "Trả một lần, dùng mãi mãi",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro loại bỏ giới hạn tải xuống hằng ngày trong ứng dụng DownloadThat.",
       "feature_batch": "Tải hàng loạt",
       "feature_priority_updates": "Cập nhật ưu tiên",
       "feature_all_updates": "Bao gồm tất cả bản cập nhật trong tương lai",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Câu hỏi thường gặp",
       "q1_title": "Tôi có cần Pro để dùng ứng dụng không?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 lượt tải xuống thành công trong mỗi khoảng 24 giờ liên tục (miễn phí). Pro loại bỏ giới hạn tải xuống hằng ngày trong ứng dụng DownloadThat.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Tôi nhập mã giấy phép ở đâu?",

@@ -16,7 +16,7 @@
       "status_active": "Pro active ({tier}). Thanks for your support!",
       "status_invalid": "Gratis — kunci yang tersimpan tidak valid atau sudah kedaluwarsa.",
       "status_device_limit": "Gratis — lisensi ini sudah aktif di perangkat lain dengan jenis yang sama.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} unduhan berhasil per 24 jam bergulir (gratis). Pro menghapus batas unduhan harian di aplikasi DownloadThat.",
       "need_key_toast": "Enter a license key first.",
       "activated_toast": "License activated.",
       "invalid_toast": "Invalid license key.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Batas harian tercapai",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} unduhan berhasil per 24 jam bergulir (gratis). Pro menghapus batas unduhan harian di aplikasi DownloadThat. ({hours} h)."
     },
     "home": {
       "url_label": "Tempel tautanmu di sini",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Satu lisensi, satu harga",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 unduhan berhasil per 24 jam bergulir (gratis). Pro menghapus batas unduhan harian di aplikasi DownloadThat.",
       "lifetime_title": "Lisensi",
       "lifetime_amount_suffix": "one-time",
       "lifetime_note": "Pay once, use forever",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro menghapus batas unduhan harian di aplikasi DownloadThat.",
       "feature_batch": "Batch downloads",
       "feature_priority_updates": "Priority updates",
       "feature_all_updates": "All future updates included",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Frequently asked questions",
       "q1_title": "Do I need Pro to use the app?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 unduhan berhasil per 24 jam bergulir (gratis). Pro menghapus batas unduhan harian di aplikasi DownloadThat.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Where do I enter my license key?",

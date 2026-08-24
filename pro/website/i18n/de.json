@@ -16,7 +16,7 @@
       "status_active": "Pro aktiv ({tier}). Danke für deine Unterstützung!",
       "status_invalid": "Kostenlos — der gespeicherte Schlüssel ist ungültig oder abgelaufen.",
       "status_device_limit": "Kostenlos — diese Lizenz ist bereits auf einem anderen Gerät dieses Typs aktiv.",
-      "status_free": "Kostenlos: {limit} erfolgreiche Downloads je rollierendem Tag. Pro entfernt das tägliche App-Downloadlimit von DownloadThat.",
+      "status_free": "{limit} erfolgreiche Downloads je rollierenden 24 Stunden (kostenlos). Pro entfernt das tägliche App-Downloadlimit von DownloadThat.",
       "need_key_toast": "Gib zuerst einen Lizenzschlüssel ein.",
       "activated_toast": "Lizenz aktiviert.",
       "invalid_toast": "Ungültiger Lizenzschlüssel.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Tageslimit erreicht",
-      "body": "Du hast das kostenlose Kontingent von {limit} erfolgreichen Downloads je rollierendem Tag erreicht. Pro entfernt das tägliche App-Downloadlimit von DownloadThat. Oder versuche es in {hours} Stunden erneut."
+      "body": "{limit} erfolgreiche Downloads je rollierenden 24 Stunden (kostenlos). Pro entfernt das tägliche App-Downloadlimit von DownloadThat. ({hours} h)."
     },
     "home": {
       "url_label": "Füge deinen Link hier ein",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Eine Lizenz, ein Preis",
-      "lead": "Kostenlos starten mit 3 erfolgreichen Downloads je rollierenden 24 Stunden. Pro entfernt das tägliche App-Downloadlimit von DownloadThat.",
+      "lead": "3 erfolgreiche Downloads je rollierenden 24 Stunden (kostenlos). Pro entfernt das tägliche App-Downloadlimit von DownloadThat.",
       "lifetime_title": "Lizenzkauf",
       "lifetime_amount_suffix": "einmalig",
       "lifetime_note": "Einmal zahlen, für immer nutzen",
-      "feature_unlimited": "Mit Pro kein tägliches App-Downloadlimit",
+      "feature_unlimited": "Pro entfernt das tägliche App-Downloadlimit von DownloadThat.",
       "feature_batch": "Playlist-Downloads",
       "feature_priority_updates": "Bevorzugte Updates",
       "feature_all_updates": "Alle zukünftigen Updates inklusive",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Häufig gestellte Fragen",
       "q1_title": "Brauche ich Pro, um die App zu nutzen?",
-      "q1_body": "Nein. Du startest kostenlos mit 3 erfolgreichen Downloads je rollierenden 24 Stunden. Pro entfernt das tägliche App-Downloadlimit von DownloadThat.",
+      "q1_body": "3 erfolgreiche Downloads je rollierenden 24 Stunden (kostenlos). Pro entfernt das tägliche App-Downloadlimit von DownloadThat.",
       "q2_title": "Wo kann ich DownloadThat installieren?",
       "q2_body": "Google Play ist die empfohlene Android-Installation. Eine signierte direkte APK bleibt als zweite Option verfügbar.",
       "q3_title": "Wo gebe ich meinen Lizenzschlüssel ein?",

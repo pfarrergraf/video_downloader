@@ -16,7 +16,7 @@
       "status_active": "Το Pro είναι ενεργό ({tier}). Ευχαριστούμε για την υποστήριξη!",
       "status_invalid": "Δωρεάν — το αποθηκευμένο κλειδί δεν είναι έγκυρο ή έχει λήξει.",
       "status_device_limit": "Δωρεάν — αυτή η άδεια είναι ήδη ενεργή σε άλλη συσκευή αυτού του τύπου.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} επιτυχημένες λήψεις ανά κυλιόμενο 24ωρο (δωρεάν). Το Pro καταργεί το ημερήσιο όριο λήψεων της εφαρμογής DownloadThat.",
       "need_key_toast": "Εισάγετε πρώτα ένα κλειδί άδειας χρήσης.",
       "activated_toast": "Η άδεια χρήσης ενεργοποιήθηκε.",
       "invalid_toast": "Μη έγκυρο κλειδί άδειας χρήσης.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Συμπληρώθηκε το ημερήσιο όριο",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} επιτυχημένες λήψεις ανά κυλιόμενο 24ωρο (δωρεάν). Το Pro καταργεί το ημερήσιο όριο λήψεων της εφαρμογής DownloadThat. ({hours} h)."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Μία άδεια, μία τιμή",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 επιτυχημένες λήψεις ανά κυλιόμενο 24ωρο (δωρεάν). Το Pro καταργεί το ημερήσιο όριο λήψεων της εφαρμογής DownloadThat.",
       "lifetime_title": "Άδεια χρήσης",
       "lifetime_amount_suffix": "εφάπαξ",
       "lifetime_note": "Πληρώστε μία φορά, χρησιμοποιήστε το για πάντα",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Το Pro καταργεί το ημερήσιο όριο λήψεων της εφαρμογής DownloadThat.",
       "feature_batch": "Μαζικές λήψεις",
       "feature_priority_updates": "Ενημερώσεις προτεραιότητας",
       "feature_all_updates": "Περιλαμβάνονται όλες οι μελλοντικές ενημερώσεις",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Συχνές ερωτήσεις",
       "q1_title": "Χρειάζομαι το Pro για να χρησιμοποιήσω την εφαρμογή;",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 επιτυχημένες λήψεις ανά κυλιόμενο 24ωρο (δωρεάν). Το Pro καταργεί το ημερήσιο όριο λήψεων της εφαρμογής DownloadThat.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Πού καταχωρώ το κλειδί άδειας χρήσης μου;",

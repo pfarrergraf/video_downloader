@@ -16,7 +16,7 @@
       "status_active": "Pro активен ({tier}). Благодарим за подкрепата!",
       "status_invalid": "Безплатна версия — записаният ключ е невалиден или е изтекъл.",
       "status_device_limit": "Безплатна версия — този лиценз вече е активен на друго устройство от този тип.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} успешни изтегляния за всеки подвижен период от 24 часа (безплатно). Pro премахва дневния лимит за изтегляния в приложението DownloadThat.",
       "need_key_toast": "Първо въведи лицензен ключ.",
       "activated_toast": "Лицензът е активиран.",
       "invalid_toast": "Невалиден лицензен ключ.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Достигнат е дневният лимит",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} успешни изтегляния за всеки подвижен период от 24 часа (безплатно). Pro премахва дневния лимит за изтегляния в приложението DownloadThat. ({hours} h)."
     },
     "home": {
       "url_label": "Постави линка си тук",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Един лиценз, една цена",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 успешни изтегляния за всеки подвижен период от 24 часа (безплатно). Pro премахва дневния лимит за изтегляния в приложението DownloadThat.",
       "lifetime_title": "Лиценз",
       "lifetime_amount_suffix": "еднократно",
       "lifetime_note": "Плати веднъж, ползвай завинаги",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro премахва дневния лимит за изтегляния в приложението DownloadThat.",
       "feature_batch": "Групово изтегляне",
       "feature_priority_updates": "Приоритетни актуализации",
       "feature_all_updates": "Включени всички бъдещи актуализации",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Често задавани въпроси",
       "q1_title": "Трябва ли ми Pro, за да ползвам приложението?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 успешни изтегляния за всеки подвижен период от 24 часа (безплатно). Pro премахва дневния лимит за изтегляния в приложението DownloadThat.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Къде въвеждам своя лицензен ключ?",

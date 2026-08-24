@@ -16,7 +16,7 @@
       "status_active": "Pro je aktiven ({tier}). Hvala za podporo!",
       "status_invalid": "Brezplačno — shranjeni ključ ni veljaven ali je potekel.",
       "status_device_limit": "Brezplačno — ta licenca je že aktivna v drugi napravi iste vrste.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} uspešni prenosi v vsakem drsečem obdobju 24 ur (brezplačno). Pro odstrani dnevno omejitev prenosov v aplikaciji DownloadThat.",
       "need_key_toast": "Najprej vnesi licenčni ključ.",
       "activated_toast": "Licenca aktivirana.",
       "invalid_toast": "Neveljaven licenčni ključ.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Dnevna omejitev dosežena",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} uspešni prenosi v vsakem drsečem obdobju 24 ur (brezplačno). Pro odstrani dnevno omejitev prenosov v aplikaciji DownloadThat. ({hours} h)."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Ena licenca, ena cena",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 uspešni prenosi v vsakem drsečem obdobju 24 ur (brezplačno). Pro odstrani dnevno omejitev prenosov v aplikaciji DownloadThat.",
       "lifetime_title": "Licenca",
       "lifetime_amount_suffix": "enkratno plačilo",
       "lifetime_note": "Plačaj enkrat, uporabljaj za vedno",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro odstrani dnevno omejitev prenosov v aplikaciji DownloadThat.",
       "feature_batch": "Množični prenosi",
       "feature_priority_updates": "Prednostne posodobitve",
       "feature_all_updates": "Vključene vse prihodnje posodobitve",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Pogosta vprašanja",
       "q1_title": "Ali potrebujem Pro za uporabo aplikacije?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 uspešni prenosi v vsakem drsečem obdobju 24 ur (brezplačno). Pro odstrani dnevno omejitev prenosov v aplikaciji DownloadThat.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Kje vnesem svoj licenčni ključ?",

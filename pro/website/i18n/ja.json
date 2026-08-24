@@ -16,7 +16,7 @@
       "status_active": "Pro有効（{tier}）。ご利用ありがとうございます！",
       "status_invalid": "無料版 — 保存されているキーは無効か、期限切れです。",
       "status_device_limit": "無料版 — このライセンスはすでに同じ種類の別の端末で使用されています。",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "ローリング方式の24時間ごとに成功したダウンロード{limit}件 (無料). ProではDownloadThatアプリの1日あたりのダウンロード上限がなくなります。",
       "need_key_toast": "先にライセンスキーを入力してください。",
       "activated_toast": "ライセンスを有効化しました。",
       "invalid_toast": "ライセンスキーが無効です。",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "本日の上限に達しました",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "ローリング方式の24時間ごとに成功したダウンロード{limit}件 (無料). ProではDownloadThatアプリの1日あたりのダウンロード上限がなくなります。 ({hours} h)."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "ひとつのライセンス、ひとつの価格",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "ローリング方式の24時間ごとに成功したダウンロード3件 (無料). ProではDownloadThatアプリの1日あたりのダウンロード上限がなくなります。",
       "lifetime_title": "ライセンス",
       "lifetime_amount_suffix": "一括払い",
       "lifetime_note": "一度支払えば、ずっと使えます",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "ProではDownloadThatアプリの1日あたりのダウンロード上限がなくなります。",
       "feature_batch": "一括ダウンロード",
       "feature_priority_updates": "優先アップデート",
       "feature_all_updates": "今後のアップデートもすべて含む",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "よくある質問",
       "q1_title": "アプリを使うのにProは必要ですか？",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "ローリング方式の24時間ごとに成功したダウンロード3件 (無料). ProではDownloadThatアプリの1日あたりのダウンロード上限がなくなります。",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "ライセンスキーはどこで入力しますか？",

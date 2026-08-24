@@ -16,7 +16,7 @@
       "status_active": "Pro actief ({tier}). Bedankt voor je steun!",
       "status_invalid": "Gratis — de opgeslagen sleutel is ongeldig of verlopen.",
       "status_device_limit": "Gratis — deze licentie is al actief op een ander apparaat van hetzelfde type.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} geslaagde downloads per voortschrijdende 24 uur (gratis). Pro verwijdert de dagelijkse downloadlimiet van de DownloadThat-app.",
       "need_key_toast": "Voer eerst een licentiesleutel in.",
       "activated_toast": "Licentie geactiveerd.",
       "invalid_toast": "Ongeldige licentiesleutel.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Daglimiet bereikt",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} geslaagde downloads per voortschrijdende 24 uur (gratis). Pro verwijdert de dagelijkse downloadlimiet van de DownloadThat-app. ({hours} h)."
     },
     "home": {
       "url_label": "Plak je link hier",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Eén licentie, één prijs",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 geslaagde downloads per voortschrijdende 24 uur (gratis). Pro verwijdert de dagelijkse downloadlimiet van de DownloadThat-app.",
       "lifetime_title": "Licentie",
       "lifetime_amount_suffix": "eenmalig",
       "lifetime_note": "Eén keer betalen, voor altijd gebruiken",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro verwijdert de dagelijkse downloadlimiet van de DownloadThat-app.",
       "feature_batch": "Batchdownloads",
       "feature_priority_updates": "Prioritaire updates",
       "feature_all_updates": "Alle toekomstige updates inbegrepen",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Veelgestelde vragen",
       "q1_title": "Heb ik Pro nodig om de app te gebruiken?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 geslaagde downloads per voortschrijdende 24 uur (gratis). Pro verwijdert de dagelijkse downloadlimiet van de DownloadThat-app.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Waar voer ik mijn licentiesleutel in?",

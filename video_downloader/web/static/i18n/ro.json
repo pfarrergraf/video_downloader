@@ -16,7 +16,7 @@
       "status_active": "Pro activ ({tier}). Mulțumim pentru sprijin!",
       "status_invalid": "Gratuit — cheia salvată este nevalidă sau a expirat.",
       "status_device_limit": "Gratuit — această licență este deja activă pe alt dispozitiv de acest tip.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} descărcări reușite în fiecare interval glisant de 24 de ore (gratuit). Pro elimină limita zilnică de descărcări din aplicația DownloadThat.",
       "need_key_toast": "Introdu mai întâi o cheie de licență.",
       "activated_toast": "Licență activată.",
       "invalid_toast": "Cheie de licență nevalidă.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Limita zilnică a fost atinsă",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} descărcări reușite în fiecare interval glisant de 24 de ore (gratuit). Pro elimină limita zilnică de descărcări din aplicația DownloadThat. ({hours} h)."
     },
     "home": {
       "url_label": "Lipește linkul tău aici",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "O licență, un preț",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 descărcări reușite în fiecare interval glisant de 24 de ore (gratuit). Pro elimină limita zilnică de descărcări din aplicația DownloadThat.",
       "lifetime_title": "Licență",
       "lifetime_amount_suffix": "plată unică",
       "lifetime_note": "Plătești o dată, folosești pentru totdeauna",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro elimină limita zilnică de descărcări din aplicația DownloadThat.",
       "feature_batch": "Descărcări în lot",
       "feature_priority_updates": "Actualizări prioritare",
       "feature_all_updates": "Toate actualizările viitoare incluse",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Întrebări frecvente",
       "q1_title": "Am nevoie de Pro pentru a folosi aplicația?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 descărcări reușite în fiecare interval glisant de 24 de ore (gratuit). Pro elimină limita zilnică de descărcări din aplicația DownloadThat.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Unde introduc cheia de licență?",

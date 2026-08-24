@@ -16,7 +16,7 @@
       "status_active": "Pro 활성화됨 ({tier}). 성원에 감사드립니다!",
       "status_invalid": "무료 — 저장된 키가 유효하지 않거나 만료되었습니다.",
       "status_device_limit": "무료 — 이 라이선스는 이미 동일한 유형의 다른 기기에서 사용 중입니다.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "이동식 24시간마다 성공한 다운로드 {limit}회 (무료). Pro는 DownloadThat 앱의 일일 다운로드 제한을 제거합니다.",
       "need_key_toast": "먼저 라이선스 키를 입력하세요.",
       "activated_toast": "라이선스가 활성화되었습니다.",
       "invalid_toast": "유효하지 않은 라이선스 키입니다.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "일일 한도에 도달했습니다",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "이동식 24시간마다 성공한 다운로드 {limit}회 (무료). Pro는 DownloadThat 앱의 일일 다운로드 제한을 제거합니다. ({hours} h)."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "하나의 라이선스, 하나의 가격",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "이동식 24시간마다 성공한 다운로드 3회 (무료). Pro는 DownloadThat 앱의 일일 다운로드 제한을 제거합니다.",
       "lifetime_title": "라이선스",
       "lifetime_amount_suffix": "일회성 결제",
       "lifetime_note": "한 번 결제하고 평생 사용",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro는 DownloadThat 앱의 일일 다운로드 제한을 제거합니다.",
       "feature_batch": "일괄 다운로드",
       "feature_priority_updates": "우선 업데이트",
       "feature_all_updates": "향후 모든 업데이트 포함",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "자주 묻는 질문",
       "q1_title": "앱을 사용하려면 Pro가 필요한가요?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "이동식 24시간마다 성공한 다운로드 3회 (무료). Pro는 DownloadThat 앱의 일일 다운로드 제한을 제거합니다.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "라이선스 키는 어디에 입력하나요?",

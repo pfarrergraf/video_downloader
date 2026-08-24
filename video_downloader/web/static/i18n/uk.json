@@ -16,7 +16,7 @@
       "status_active": "Pro активовано ({tier}). Дякуємо за підтримку!",
       "status_invalid": "Безкоштовна версія — збережений ключ недійсний або термін його дії минув.",
       "status_device_limit": "Безкоштовна версія — ця ліцензія вже активна на іншому пристрої такого ж типу.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} успішні завантаження за кожні ковзні 24 години (безкоштовно). Pro скасовує добовий ліміт завантажень у застосунку DownloadThat.",
       "need_key_toast": "Спочатку введіть ліцензійний ключ.",
       "activated_toast": "Ліцензію активовано.",
       "invalid_toast": "Недійсний ліцензійний ключ.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Досягнуто денний ліміт",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} успішні завантаження за кожні ковзні 24 години (безкоштовно). Pro скасовує добовий ліміт завантажень у застосунку DownloadThat. ({hours} h)."
     },
     "home": {
       "url_label": "Вставте посилання сюди",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Одна ліцензія, одна ціна",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 успішні завантаження за кожні ковзні 24 години (безкоштовно). Pro скасовує добовий ліміт завантажень у застосунку DownloadThat.",
       "lifetime_title": "Ліцензія",
       "lifetime_amount_suffix": "одноразово",
       "lifetime_note": "Заплатіть один раз — користуйтеся назавжди",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro скасовує добовий ліміт завантажень у застосунку DownloadThat.",
       "feature_batch": "Пакетні завантаження",
       "feature_priority_updates": "Пріоритетні оновлення",
       "feature_all_updates": "Усі майбутні оновлення включено",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Часті запитання",
       "q1_title": "Чи потрібен Pro, щоб користуватися додатком?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 успішні завантаження за кожні ковзні 24 години (безкоштовно). Pro скасовує добовий ліміт завантажень у застосунку DownloadThat.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Де ввести ліцензійний ключ?",

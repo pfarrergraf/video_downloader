@@ -16,7 +16,7 @@
       "status_active": "Pro aktywne ({tier}). Dziękujemy za wsparcie!",
       "status_invalid": "Darmowa wersja — zapisany klucz jest nieprawidłowy lub wygasł.",
       "status_device_limit": "Darmowa wersja — ta licencja jest już aktywna na innym urządzeniu tego samego typu.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} udane pobrania w każdym ruchomym okresie 24 godzin (bezpłatnie). Pro usuwa dzienny limit pobierania w aplikacji DownloadThat.",
       "need_key_toast": "Najpierw wpisz klucz licencyjny.",
       "activated_toast": "Licencja aktywowana.",
       "invalid_toast": "Nieprawidłowy klucz licencyjny.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Osiągnięto dzienny limit",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} udane pobrania w każdym ruchomym okresie 24 godzin (bezpłatnie). Pro usuwa dzienny limit pobierania w aplikacji DownloadThat. ({hours} h)."
     },
     "home": {
       "url_label": "Wklej tutaj swój link",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Jedna licencja, jedna cena",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 udane pobrania w każdym ruchomym okresie 24 godzin (bezpłatnie). Pro usuwa dzienny limit pobierania w aplikacji DownloadThat.",
       "lifetime_title": "Licencja",
       "lifetime_amount_suffix": "jednorazowo",
       "lifetime_note": "Zapłać raz, korzystaj na zawsze",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro usuwa dzienny limit pobierania w aplikacji DownloadThat.",
       "feature_batch": "Pobieranie zbiorcze",
       "feature_priority_updates": "Priorytetowe aktualizacje",
       "feature_all_updates": "Wszystkie przyszłe aktualizacje w cenie",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Najczęściej zadawane pytania",
       "q1_title": "Czy potrzebuję Pro, żeby korzystać z aplikacji?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 udane pobrania w każdym ruchomym okresie 24 godzin (bezpłatnie). Pro usuwa dzienny limit pobierania w aplikacji DownloadThat.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Gdzie wpisać klucz licencyjny?",

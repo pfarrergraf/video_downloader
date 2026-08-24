@@ -16,7 +16,7 @@
       "status_active": "Pro యాక్టివ్‌గా ఉంది ({tier}). మీ మద్దతుకు ధన్యవాదాలు!",
       "status_invalid": "ఫ్రీ — సేవ్ చేసిన కీ చెల్లదు లేదా గడువు ముగిసింది.",
       "status_device_limit": "ఫ్రీ — ఈ లైసెన్స్ ఇప్పటికే ఇదే రకమైన మరో పరికరంలో యాక్టివ్‌గా ఉంది.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "ప్రతి రోలింగ్ 24 గంటల్లో {limit} విజయవంతమైన డౌన్‌లోడ్‌లు (ఉచితంగా). Pro DownloadThat యాప్‌లోని రోజువారీ డౌన్‌లోడ్ పరిమితిని తొలగిస్తుంది.",
       "need_key_toast": "ముందుగా లైసెన్స్ కీని నమోదు చేయండి.",
       "activated_toast": "లైసెన్స్ యాక్టివేట్ చేయబడింది.",
       "invalid_toast": "చెల్లని లైసెన్స్ కీ.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "రోజువారీ పరిమితి చేరుకుంది",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "ప్రతి రోలింగ్ 24 గంటల్లో {limit} విజయవంతమైన డౌన్‌లోడ్‌లు (ఉచితంగా). Pro DownloadThat యాప్‌లోని రోజువారీ డౌన్‌లోడ్ పరిమితిని తొలగిస్తుంది. ({hours} h)."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "ఒక లైసెన్స్, ఒక ధర",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "ప్రతి రోలింగ్ 24 గంటల్లో 3 విజయవంతమైన డౌన్‌లోడ్‌లు (ఉచితంగా). Pro DownloadThat యాప్‌లోని రోజువారీ డౌన్‌లోడ్ పరిమితిని తొలగిస్తుంది.",
       "lifetime_title": "లైసెన్స్",
       "lifetime_amount_suffix": "ఒకేసారి చెల్లింపు",
       "lifetime_note": "ఒకసారి చెల్లించండి, ఎప్పటికీ వాడుకోండి",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro DownloadThat యాప్‌లోని రోజువారీ డౌన్‌లోడ్ పరిమితిని తొలగిస్తుంది.",
       "feature_batch": "బ్యాచ్ డౌన్‌లోడ్‌లు",
       "feature_priority_updates": "ప్రాధాన్యత అప్‌డేట్‌లు",
       "feature_all_updates": "భవిష్యత్ అప్‌డేట్‌లన్నీ చేర్చబడ్డాయి",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "తరచుగా అడిగే ప్రశ్నలు",
       "q1_title": "యాప్‌ను ఉపయోగించడానికి నాకు Pro అవసరమా?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "ప్రతి రోలింగ్ 24 గంటల్లో 3 విజయవంతమైన డౌన్‌లోడ్‌లు (ఉచితంగా). Pro DownloadThat యాప్‌లోని రోజువారీ డౌన్‌లోడ్ పరిమితిని తొలగిస్తుంది.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "నా లైసెన్స్ కీని ఎక్కడ నమోదు చేయాలి?",

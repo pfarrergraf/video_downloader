@@ -16,7 +16,7 @@
       "status_active": "专业版已激活（{tier}）。感谢您的支持！",
       "status_invalid": "免费版 — 已保存的密钥无效或已过期。",
       "status_device_limit": "免费版 — 该许可证已在另一台同类型设备上激活。",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "每个滚动的24小时内可成功下载{limit}次 (免费). Pro 会移除 DownloadThat 应用内的每日下载限制。",
       "need_key_toast": "请先输入许可证密钥。",
       "activated_toast": "许可证已激活。",
       "invalid_toast": "许可证密钥无效。",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "已达每日上限",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "每个滚动的24小时内可成功下载{limit}次 (免费). Pro 会移除 DownloadThat 应用内的每日下载限制。 ({hours} h)."
     },
     "home": {
       "url_label": "把链接粘贴到这里",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "一个许可证，一个价格",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "每个滚动的24小时内可成功下载3次 (免费). Pro 会移除 DownloadThat 应用内的每日下载限制。",
       "lifetime_title": "许可证",
       "lifetime_amount_suffix": "一次性付费",
       "lifetime_note": "一次付费，永久使用",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro 会移除 DownloadThat 应用内的每日下载限制。",
       "feature_batch": "批量下载",
       "feature_priority_updates": "优先获取更新",
       "feature_all_updates": "包含未来所有更新",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "常见问题",
       "q1_title": "使用该应用需要专业版吗？",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "每个滚动的24小时内可成功下载3次 (免费). Pro 会移除 DownloadThat 应用内的每日下载限制。",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "在哪里输入许可证密钥？",

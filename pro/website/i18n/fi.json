@@ -16,7 +16,7 @@
       "status_active": "Pro käytössä ({tier}). Kiitos tuestasi!",
       "status_invalid": "Ilmainen — tallennettu avain on virheellinen tai vanhentunut.",
       "status_device_limit": "Ilmainen — tämä lisenssi on jo käytössä toisessa samantyyppisessä laitteessa.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} onnistunutta latausta liukuvan 24 tunnin aikana (maksutta). Pro poistaa DownloadThat-sovelluksen päivittäisen latausrajan.",
       "need_key_toast": "Anna lisenssiavain ensin.",
       "activated_toast": "Lisenssi aktivoitu.",
       "invalid_toast": "Virheellinen lisenssiavain.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Päivittäinen raja saavutettu",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} onnistunutta latausta liukuvan 24 tunnin aikana (maksutta). Pro poistaa DownloadThat-sovelluksen päivittäisen latausrajan. ({hours} h)."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Yksi lisenssi, yksi hinta",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 onnistunutta latausta liukuvan 24 tunnin aikana (maksutta). Pro poistaa DownloadThat-sovelluksen päivittäisen latausrajan.",
       "lifetime_title": "Lisenssi",
       "lifetime_amount_suffix": "kertamaksu",
       "lifetime_note": "Maksa kerran, käytä ikuisesti",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro poistaa DownloadThat-sovelluksen päivittäisen latausrajan.",
       "feature_batch": "Erälataukset",
       "feature_priority_updates": "Ensisijaiset päivitykset",
       "feature_all_updates": "Kaikki tulevat päivitykset sisältyvät hintaan",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Usein kysytyt kysymykset",
       "q1_title": "Tarvitsenko Pro-version käyttääkseni sovellusta?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 onnistunutta latausta liukuvan 24 tunnin aikana (maksutta). Pro poistaa DownloadThat-sovelluksen päivittäisen latausrajan.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Mistä syötän lisenssiavaimeni?",

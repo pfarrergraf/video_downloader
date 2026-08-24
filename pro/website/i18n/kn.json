@@ -16,7 +16,7 @@
       "status_active": "ಪ್ರೊ ಸಕ್ರಿಯವಾಗಿದೆ ({tier}). ನಿಮ್ಮ ಬೆಂಬಲಕ್ಕೆ ಧನ್ಯವಾದಗಳು!",
       "status_invalid": "ಉಚಿತ — ಉಳಿಸಿದ ಕೀ ಅಮಾನ್ಯವಾಗಿದೆ ಅಥವಾ ಅವಧಿ ಮುಗಿದಿದೆ.",
       "status_device_limit": "ಉಚಿತ — ಈ ಪರವಾನಗಿ ಈಗಾಗಲೇ ಇದೇ ರೀತಿಯ ಇನ್ನೊಂದು ಸಾಧನದಲ್ಲಿ ಸಕ್ರಿಯವಾಗಿದೆ.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "ಪ್ರತಿ ರೋಲಿಂಗ್ 24 ಗಂಟೆಗಳಲ್ಲಿ {limit} ಯಶಸ್ವಿ ಡೌನ್‌ಲೋಡ್‌ಗಳು (ಉಚಿತವಾಗಿ). Pro DownloadThat ಆ್ಯಪ್‌ನ ದೈನಂದಿನ ಡೌನ್‌ಲೋಡ್ ಮಿತಿಯನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ.",
       "need_key_toast": "ಮೊದಲು ಲೈಸೆನ್ಸ್ ಕೀ ನಮೂದಿಸಿ.",
       "activated_toast": "ಲೈಸೆನ್ಸ್ ಸಕ್ರಿಯಗೊಂಡಿದೆ.",
       "invalid_toast": "ಅಮಾನ್ಯ ಲೈಸೆನ್ಸ್ ಕೀ.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "ದೈನಂದಿನ ಮಿತಿ ತಲುಪಿದೆ",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "ಪ್ರತಿ ರೋಲಿಂಗ್ 24 ಗಂಟೆಗಳಲ್ಲಿ {limit} ಯಶಸ್ವಿ ಡೌನ್‌ಲೋಡ್‌ಗಳು (ಉಚಿತವಾಗಿ). Pro DownloadThat ಆ್ಯಪ್‌ನ ದೈನಂದಿನ ಡೌನ್‌ಲೋಡ್ ಮಿತಿಯನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ. ({hours} h)."
     },
     "home": {
       "url_label": "Paste your link here",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "ಒಂದು ಲೈಸೆನ್ಸ್, ಒಂದು ಬೆಲೆ",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "ಪ್ರತಿ ರೋಲಿಂಗ್ 24 ಗಂಟೆಗಳಲ್ಲಿ 3 ಯಶಸ್ವಿ ಡೌನ್‌ಲೋಡ್‌ಗಳು (ಉಚಿತವಾಗಿ). Pro DownloadThat ಆ್ಯಪ್‌ನ ದೈನಂದಿನ ಡೌನ್‌ಲೋಡ್ ಮಿತಿಯನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ.",
       "lifetime_title": "ಲೈಸೆನ್ಸ್",
       "lifetime_amount_suffix": "ಒಂದು ಬಾರಿ",
       "lifetime_note": "ಒಮ್ಮೆ ಪಾವತಿಸಿ, ಶಾಶ್ವತವಾಗಿ ಬಳಸಿ",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro DownloadThat ಆ್ಯಪ್‌ನ ದೈನಂದಿನ ಡೌನ್‌ಲೋಡ್ ಮಿತಿಯನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ.",
       "feature_batch": "ಬ್ಯಾಚ್ ಡೌನ್‌ಲೋಡ್‌ಗಳು",
       "feature_priority_updates": "ಆದ್ಯತೆಯ ಅಪ್‌ಡೇಟ್‌ಗಳು",
       "feature_all_updates": "ಎಲ್ಲಾ ಭವಿಷ್ಯದ ಅಪ್‌ಡೇಟ್‌ಗಳು ಸೇರಿವೆ",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "ಪದೇ ಪದೇ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು",
       "q1_title": "ಆಪ್ ಬಳಸಲು ನನಗೆ ಪ್ರೊ ಬೇಕೇ?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "ಪ್ರತಿ ರೋಲಿಂಗ್ 24 ಗಂಟೆಗಳಲ್ಲಿ 3 ಯಶಸ್ವಿ ಡೌನ್‌ಲೋಡ್‌ಗಳು (ಉಚಿತವಾಗಿ). Pro DownloadThat ಆ್ಯಪ್‌ನ ದೈನಂದಿನ ಡೌನ್‌ಲೋಡ್ ಮಿತಿಯನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "ನನ್ನ ಲೈಸೆನ್ಸ್ ಕೀಯನ್ನು ನಾನು ಎಲ್ಲಿ ನಮೂದಿಸಬೇಕು?",

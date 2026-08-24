@@ -16,7 +16,7 @@
       "status_active": "Pro aktiv ({tier}). Takk for støtten!",
       "status_invalid": "Gratis — den lagrede nøkkelen er ugyldig eller utløpt.",
       "status_device_limit": "Gratis — denne lisensen er allerede aktiv på en annen enhet av samme type.",
-      "status_free": "Free: {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit.",
+      "status_free": "{limit} vellykkede nedlastinger per rullerende 24 timer (gratis). Pro fjerner den daglige nedlastingsgrensen i DownloadThat-appen.",
       "need_key_toast": "Skriv inn en lisensnøkkel først.",
       "activated_toast": "Lisens aktivert.",
       "invalid_toast": "Ugyldig lisensnøkkel.",
@@ -98,7 +98,7 @@
     },
     "limit": {
       "title": "Daglig grense nådd",
-      "body": "You've reached the Free allowance of {limit} successful downloads per rolling day. Pro removes DownloadThat's daily app download limit, or try again in {hours} hours."
+      "body": "{limit} vellykkede nedlastinger per rullerende 24 timer (gratis). Pro fjerner den daglige nedlastingsgrensen i DownloadThat-appen. ({hours} h)."
     },
     "home": {
       "url_label": "Lim inn lenken din her",
@@ -251,11 +251,11 @@
     },
     "pricing": {
       "h2": "Én lisens, én pris",
-      "lead": "Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "lead": "3 vellykkede nedlastinger per rullerende 24 timer (gratis). Pro fjerner den daglige nedlastingsgrensen i DownloadThat-appen.",
       "lifetime_title": "Lisens",
       "lifetime_amount_suffix": "engangsbeløp",
       "lifetime_note": "Betal én gang, bruk for alltid",
-      "feature_unlimited": "No daily app download limit with Pro",
+      "feature_unlimited": "Pro fjerner den daglige nedlastingsgrensen i DownloadThat-appen.",
       "feature_batch": "Batch-nedlastinger",
       "feature_priority_updates": "Prioriterte oppdateringer",
       "feature_all_updates": "Alle fremtidige oppdateringer inkludert",
@@ -265,7 +265,7 @@
     "faq": {
       "h2": "Ofte stilte spørsmål",
       "q1_title": "Trenger jeg Pro for å bruke appen?",
-      "q1_body": "No. Start free with 3 successful downloads per rolling 24 hours. Pro removes DownloadThat's daily app download limit.",
+      "q1_body": "3 vellykkede nedlastinger per rullerende 24 timer (gratis). Pro fjerner den daglige nedlastingsgrensen i DownloadThat-appen.",
       "q2_title": "Where can I install DownloadThat?",
       "q2_body": "Google Play is the recommended Android installation. A signed direct APK remains available as a secondary option.",
       "q3_title": "Hvor legger jeg inn lisensnøkkelen min?",

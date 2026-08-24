@@ -48,7 +48,7 @@ FORBIDDEN = {
         re.IGNORECASE,
     ),
     "fixed public price claim": re.compile(
-        r"\b(?:only|just|nur)\s*(?:[$€£]\s*\d|\d+[.,]\d{2}\s*(?:eur|usd|gbp|€|\$|£))",
+        r"(?:[$€£](?:\s|&nbsp;)*\d|\b\d+(?:[.,]\d{1,2})?(?:\s|&nbsp;)*(?:(?:eur|usd|gbp)\b|[€$£]))",
         re.IGNORECASE,
     ),
     "universal website support": re.compile(
@@ -78,6 +78,11 @@ FORBIDDEN = {
 }
 
 
+def _is_public_price_surface(path: Path) -> bool:
+    """Price literals are forbidden on product surfaces, not in internal plans."""
+    return any(path.is_relative_to(root) for root in ACTIVE_ROOTS)
+
+
 def _active_text_files() -> list[Path]:
     files = [path for path in ACTIVE_FILES if path.exists()]
     for root in ACTIVE_ROOTS:
@@ -104,6 +109,8 @@ def find_violations() -> list[str]:
     for path in _active_text_files():
         text = path.read_text(encoding="utf-8", errors="replace")
         for label, pattern in FORBIDDEN.items():
+            if label == "fixed public price claim" and not _is_public_price_surface(path):
+                continue
             for match in pattern.finditer(text):
                 line = text.count("\n", 0, match.start()) + 1
                 excerpt = " ".join(match.group(0).split())
