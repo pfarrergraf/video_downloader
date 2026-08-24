@@ -19,6 +19,9 @@ def test_candidate_build_has_hard_gates_and_never_uploads_to_play() -> None:
     assert "environment: android-candidate-signing" in source
     assert "TEAM_GATE.json" in source
     assert 'GITHUB_REF_NAME\" = \"release/v1.0.4.2-team' in source
+    assert "check_android_play_aab.sh" in source
+    assert "app-direct-release.apk" not in source
+    assert "check_android_release_artifacts.sh" not in source
 
 
 def test_promotion_downloads_exact_candidate_and_never_builds() -> None:
