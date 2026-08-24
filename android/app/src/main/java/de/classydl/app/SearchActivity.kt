@@ -212,7 +212,10 @@ class SearchActivity : AppCompatActivity() {
         generation.incrementAndGet()
         cancelCurrentSearch()
         searchExecutor.shutdownNow()
-        enqueueExecutor.shutdownNow()
+        // A confirmed user enqueue owns a TransferCoordinator reservation.
+        // Let it reach completeTransfer even if this Activity rotates/closes;
+        // its UI callback is already guarded by isDestroyed/isFinishing.
+        enqueueExecutor.shutdown()
         thumbnailExecutor.shutdownNow()
         super.onDestroy()
     }

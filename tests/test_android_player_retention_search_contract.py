@@ -87,6 +87,11 @@ def test_search_cancellation_and_enqueue_have_separate_bounded_paths() -> None:
     assert "enqueueExecutor.execute" in enqueue
     assert "searchExecutor.execute" not in enqueue
     assert "RejectedExecutionException" in enqueue
+    on_destroy = search.split("override fun onDestroy()", 1)[1].split(
+        "private fun cancelCurrentSearch", 1
+    )[0]
+    assert "enqueueExecutor.shutdown()" in on_destroy
+    assert "enqueueExecutor.shutdownNow()" not in on_destroy
 
 
 def test_library_schema_and_destructive_actions_are_separate() -> None:
