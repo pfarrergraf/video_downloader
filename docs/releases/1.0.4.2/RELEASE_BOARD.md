@@ -23,9 +23,9 @@ board.
 | Refund decommission and Billing contract | Finance/Billing | Critical Reviewer | MERGED | `f134c448`; LOCAL_VERIFIED |
 | Runtime, execution gate, FGS, entitlement | Coding | Critical Reviewer + Finance | MERGED | `13240383`; LOCAL_VERIFIED |
 | Search, library, playlists, player | Coding | Critical Reviewer | MERGED | `b4342f58`; LOCAL_VERIFIED |
-| Claims and listing pipeline | Marketing + Listing | Finance + Critical Reviewer | QUEUED | pending |
+| Claims and listing pipeline | Marketing + Listing | Finance + Critical Reviewer | MERGED | `a9f07989`; LOCAL_VERIFIED; real captures remain blocked |
 | Candidate/promote workflow | Orchestrator | Critical Reviewer | MERGED | `6c064161`; LOCAL_VERIFIED |
-| Release documentation and evidence | Documenter | Orchestrator | ACTIVE | this directory |
+| Release documentation and evidence | Documenter | Orchestrator | MERGED | `ab49ef7e`; LOCAL_VERIFIED |
 
 ## Gate status
 
@@ -34,7 +34,7 @@ Verification levels are never collapsed into a generic "tested" status.
 | Gate | Status | Required evidence |
 |---|---|---|
 | G0 scope, policy, branch | LOCAL_VERIFIED | fixed decisions above; integration branch |
-| G1 local code and contract tests | BLOCKED | integrated snapshot: 427 passed, 2 skipped; marketing/listing pending |
+| G1 local code and contract tests | LOCAL_VERIFIED | `a9f07989`: 433 passed, 2 skipped; 20 Node tests; 30 website tests; claims and no-ad SDK scans pass |
 | G2 Android compile and API 34/35 emulator | BLOCKED | final commit CI run |
 | G3 claims, locales, real screenshots | BLOCKED | listing manifest and visual review |
 | G4 TEAM candidate approval | BLOCKED | ACK from all seven roles |

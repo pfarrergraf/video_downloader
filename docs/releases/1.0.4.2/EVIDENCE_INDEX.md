@@ -1,7 +1,7 @@
 # DownloadThat 1.0.4.2 evidence index
 
-No release evidence exists yet. Add entries only after the command, CI run,
-artifact or external state was actually observed.
+Add entries only after the command, CI run, artifact or external state was
+actually observed.
 
 | ID | Level | Commit/run | Evidence | Result |
 |---|---|---|---|---|
@@ -11,7 +11,8 @@ artifact or external state was actually observed.
 | LIB-001 | LOCAL_VERIFIED | `e009097b` | migration quarantine/readback/timestamp and transfer integration review | PASS |
 | PIPE-001 | LOCAL_VERIFIED | `6c064161` | independent immutable-candidate review; 22 pytest and 12 Node tests | PASS |
 | SEARCH-001 | LOCAL_VERIFIED | `b4342f58` | independent cancellation/HOL/transfer-cleanup review; 26 targeted tests | PASS |
-| INT-001 | LOCAL_VERIFIED | `b4342f58` integration snapshot | complete local pytest suite: 427 passed, 2 skipped | PASS |
+| INT-001 | LOCAL_VERIFIED | `a9f07989` integration snapshot | complete local pytest suite: 433 passed, 2 skipped; 20 Node and 30 website tests | PASS |
+| MKT-001 | LOCAL_VERIFIED | `a9f07989` | public-claims policy scan and no-ad SDK/dependency scan: 140 relevant files, no advertising SDK reference | PASS |
 | DOC-001 | LOCAL_VERIFIED | `c8883fce` | release ADRs and 12-locale release notes; relative links and diff checked | PASS |
 | DOC-002 | LOCAL_VERIFIED | `1e0183fd` | owner gates, blocked external evidence and redacted device E2E checklist | PASS |
 | ENV-001 | UNVERIFIED | external GitHub settings | Required Reviewers and branch restrictions for both release environments | BLOCKED |
