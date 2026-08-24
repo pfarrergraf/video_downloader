@@ -16,7 +16,7 @@ scenario. Never infer device or Play behavior from source assertions.
 | Library | atomic legacy migration, retry, corrupt row, reconciliation | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
 | Player | missing file, resume, playlist ordering and play-all | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
 | Listing | 50 UI locales, 86 Play mapping, RTL and default inheritance | LOCAL_VERIFIED | BLOCKED: real captures absent |
-| Artifact | package, version, upload certificate, 16 KiB, SBOM and hash | SIGNED_AAB_VERIFIED | UNVERIFIED |
+| Artifact | package, version, upload certificate, 16 KiB, SBOM and hash | SIGNED_AAB_VERIFIED | SIGNED_AAB_VERIFIED: run `32779999775`, candidate commit `c1eff16f`, AAB SHA-256 `0fd3416a24ff5d1d0063e2cead744699fbb09f2a137a5a27373754a021ce8971` |
 
 Real Play evidence records only neutral test IDs, candidate hash, UTC time,
 expected/actual outcome and a redacted evidence reference. Do not store GPA

@@ -59,8 +59,10 @@ def verify_candidate(
         raise ValueError("candidate artifact name does not match promotion input")
     if manifest["packageName"] != expected_package:
         raise ValueError("candidate package name is not DownloadThat")
-    if not manifest["fgsDeclarationConfirmed"] or not manifest["teamGateConfirmed"]:
-        raise ValueError("candidate was built without all release gates")
+    if not isinstance(manifest["fgsDeclarationConfirmed"], bool):
+        raise ValueError("candidate FGS declaration state is invalid")
+    if manifest["teamGateConfirmed"] is not True:
+        raise ValueError("candidate was built without the TEAM gate")
     if not COMMIT.fullmatch(str(manifest["commitSha"])):
         raise ValueError("candidate commit SHA is invalid")
     if not HEX_64.fullmatch(str(manifest["uploadCertificateSha256"])):

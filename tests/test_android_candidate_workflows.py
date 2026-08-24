@@ -33,6 +33,8 @@ def test_promotion_downloads_exact_candidate_and_never_builds() -> None:
     assert "expected_sha256" in source
     assert "run-id: ${{ inputs.candidate_run_id }}" in source
     assert "verify_android_candidate.py" in source
+    assert "promotion-verifier/scripts/verify_android_candidate.py" in source
+    assert "ref: ${{ github.sha }}" in source
     assert "--expected-version-code" in source
     assert "--track internal" in source
     assert "cancel-in-progress: false" in source

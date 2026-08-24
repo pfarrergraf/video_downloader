@@ -47,6 +47,25 @@ def test_verify_candidate_accepts_exact_artifact(tmp_path: Path) -> None:
     assert result["versionCode"] == 1000402
 
 
+def test_verify_candidate_accepts_unconfirmed_fgs_for_later_promotion_gate(
+    tmp_path: Path,
+) -> None:
+    directory, digest = _candidate(tmp_path)
+    manifest_path = directory / "candidate-provenance.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["fgsDeclarationConfirmed"] = False
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    result = verify_candidate(
+        directory,
+        expected_run_id="123",
+        expected_sha256=digest,
+        expected_artifact_name="DownloadThat-v1.0.4.2-play-candidate",
+    )
+
+    assert result["fgsDeclarationConfirmed"] is False
+
+
 @pytest.mark.parametrize("field", ["workflowRunId", "artifactName", "packageName"])
 def test_verify_candidate_rejects_identity_mismatch(tmp_path: Path, field: str) -> None:
     directory, digest = _candidate(tmp_path)

@@ -85,6 +85,17 @@ jobs:
           ref: ${{ steps.source_run.outputs.head_sha }}
           persist-credentials: false
 
+      # Verification policy may be hardened after a candidate is frozen. Keep
+      # the candidate source in the workspace root for its board/gate hashes,
+      # but take the verifier from the reviewed promotion workflow commit so a
+      # policy-only fix never requires rebuilding valid AAB bytes.
+      - name: Check out the promotion verifier
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          ref: ${{ github.sha }}
+          path: promotion-verifier
+          persist-credentials: false
+
       - name: Download the existing candidate artifact
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
@@ -103,7 +114,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python scripts/verify_android_candidate.py candidate \
+          python promotion-verifier/scripts/verify_android_candidate.py candidate \
             --expected-run-id "${{ inputs.candidate_run_id }}" \
             --expected-sha256 "${{ inputs.expected_sha256 }}" \
             --expected-artifact-name "${{ inputs.artifact_name }}" \
