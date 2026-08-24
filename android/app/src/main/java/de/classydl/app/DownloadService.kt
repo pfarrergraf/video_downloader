@@ -44,7 +44,7 @@ import java.io.File
  * connection either way, for the next user-initiated queue item (see
  * MainActivity/AndroidBridge).
  */
-class DownloadService : Service() {
+class DownloadService : Service(), ServerRuntime.Listener {
 
     companion object {
         private const val CHANNEL_ID = "downloads"
@@ -54,17 +54,25 @@ class DownloadService : Service() {
         // sleep - the whole point is that the process is still
         // foreground-protected across that window, not just numerically past
         // it by a hair.
-        private const val IDLE_GRACE_MS = 45_000L
+        const val ACTION_BEGIN_TRANSFER = "de.classydl.app.BEGIN_TRANSFER"
+        const val ACTION_COMPLETE_TRANSFER = "de.classydl.app.COMPLETE_TRANSFER"
+        const val EXTRA_TRANSFER_ID = "transfer_id"
+        const val EXTRA_QUEUED = "queued"
+        private const val IDLE_GRACE_MS = 2_000L
     }
 
     private val notifiedCompletions = mutableSetOf<Int>()
+    private val pendingTransfers = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
     @Volatile private var inForeground = false
     private var idleShutdownScheduled = false
     private val handler = Handler(Looper.getMainLooper())
     private val idleShutdownRunnable = Runnable {
         idleShutdownScheduled = false
+        if (pendingTransfers.isNotEmpty() || ServerRuntime.hasPendingWork()) return@Runnable
+        ServerRuntime.setExecutionEnabled(false)
         inForeground = false
         stopForeground(STOP_FOREGROUND_REMOVE)
+        stopSelf()
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -72,19 +80,58 @@ class DownloadService : Service() {
     override fun onCreate() {
         super.onCreate()
         createChannel()
+        ServerRuntime.addListener(this)
     }
 
     override fun onDestroy() {
         handler.removeCallbacks(idleShutdownRunnable)
+        ServerRuntime.removeListener(this)
         super.onDestroy()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        goForeground(getString(R.string.notif_downloads_running))
-        ServerRuntime.ensureStarted(applicationContext, NotifierBridge())
-        // STICKY: if Android reclaims the process mid-download, the service
-        // (and with it the server + queue recovery) is restarted.
+        val action = intent?.action
+        val transferId = intent?.getStringExtra(EXTRA_TRANSFER_ID)
+        if (action == ACTION_COMPLETE_TRANSFER) {
+            transferId?.let(pendingTransfers::remove)
+            scheduleIdleCheck()
+            return START_STICKY
+        }
+
+        if (action == ACTION_BEGIN_TRANSFER && transferId != null) pendingTransfers.add(transferId)
+        if (!goForeground(getString(R.string.notif_downloads_running))) {
+            transferId?.let(pendingTransfers::remove)
+            stopSelf(startId)
+            return START_NOT_STICKY
+        }
+        transferId?.let(TransferCoordinator::onForegroundConfirmed)
+        ServerRuntime.ensureStarted(applicationContext)
+        if (intent == null) {
+            Thread({
+                val ready = ServerRuntime.awaitReady() &&
+                    EntitlementCoordinator.applyDesired(applicationContext)
+                if (ready && ServerRuntime.hasPendingWork()) {
+                    ServerRuntime.setExecutionEnabled(true)
+                } else {
+                    handler.post { scheduleIdleCheck() }
+                }
+            }, "downloadthat-transfer-recovery").start()
+        }
         return START_STICKY
+    }
+
+    override fun onRuntimeStateChanged(state: ServerRuntime.State) {
+        if (state == ServerRuntime.State.FAILED) {
+            handler.post { scheduleIdleCheck() }
+        }
+    }
+
+    override fun onJobsChanged(json: String) {
+        try {
+            handleSnapshot(JSONObject(json))
+        } catch (error: Throwable) {
+            android.util.Log.e("ClassyDL", "Bad jobs snapshot", error)
+        }
     }
 
     override fun onTimeout(startId: Int, fgsType: Int) {
@@ -101,6 +148,7 @@ class DownloadService : Service() {
         } catch (error: Throwable) {
             android.util.Log.e("ClassyDL", "Could not cancel downloads after FGS timeout", error)
         } finally {
+            ServerRuntime.setExecutionEnabled(false)
             handler.removeCallbacks(idleShutdownRunnable)
             idleShutdownScheduled = false
             inForeground = false
@@ -124,7 +172,7 @@ class DownloadService : Service() {
     // on beforehand. Caught as the plain IllegalStateException superclass so
     // this compiles and behaves identically on every API level instead of
     // needing an SDK-gated reference to the (API 31+ only) subclass.
-    private fun goForeground(text: String) {
+    private fun goForeground(text: String): Boolean {
         val notification = buildOngoing(text, progressPct = null)
         try {
             if (Build.VERSION.SDK_INT >= 29) {
@@ -137,23 +185,14 @@ class DownloadService : Service() {
                 startForeground(ONGOING_NOTIFICATION_ID, notification)
             }
             inForeground = true
+            return true
         } catch (e: IllegalStateException) {
             // Not promoted, but not crashed either - the download itself
             // keeps running unprotected until the next legal chance to
             // promote (any onDownloadQueued() call, which only ever happens
             // from a live user gesture in the foreground).
             android.util.Log.w("ClassyDL", "Could not promote to foreground (app likely backgrounded)", e)
-        }
-    }
-
-    /** Called from the Python publisher thread via Chaquopy — must be thread-safe. */
-    inner class NotifierBridge {
-        fun onJobsChanged(json: String) {
-            try {
-                handleSnapshot(JSONObject(json))
-            } catch (e: Throwable) {
-                android.util.Log.e("ClassyDL", "Bad jobs snapshot", e)
-            }
+            return false
         }
     }
 
@@ -193,7 +232,7 @@ class DownloadService : Service() {
             val text = resources.getQuantityString(R.plurals.notif_active_downloads, activeCount, activeCount)
             if (!inForeground) goForeground(text)
             notificationManager().notify(ONGOING_NOTIFICATION_ID, buildOngoing(text, pct))
-        } else if (inForeground && !idleShutdownScheduled) {
+        } else if (inForeground && pendingTransfers.isEmpty()) {
             // The publisher polls every ~1s regardless of whether anything
             // changed, so this branch would otherwise run on every idle tick -
             // idleShutdownScheduled guards it to firing exactly once per
@@ -208,9 +247,14 @@ class DownloadService : Service() {
                     icon = android.R.drawable.stat_sys_download_done,
                 ),
             )
-            idleShutdownScheduled = true
-            handler.postDelayed(idleShutdownRunnable, IDLE_GRACE_MS)
+            scheduleIdleCheck()
         }
+    }
+
+    private fun scheduleIdleCheck() {
+        if (!inForeground || idleShutdownScheduled || pendingTransfers.isNotEmpty()) return
+        idleShutdownScheduled = true
+        handler.postDelayed(idleShutdownRunnable, IDLE_GRACE_MS)
     }
 
     private fun buildOngoing(

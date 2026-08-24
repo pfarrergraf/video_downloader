@@ -1,53 +1,50 @@
 package de.classydl.app
 
 import android.content.Context
+import android.util.Log
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
 import java.security.SecureRandom
+import java.util.concurrent.CopyOnWriteArraySet
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
-/**
- * Owns starting the embedded Python server exactly once per process.
- *
- * Shared by DownloadService (which hosts the server so downloads survive the
- * Activity being backgrounded) and MainActivity (which needs the password for
- * the WebView auto-login). Extracted from MainActivity when the foreground
- * service was introduced.
- */
+/** Process-wide owner of the embedded loopback HTTP runtime. */
 object ServerRuntime {
-
     const val PORT = 8420
     const val SERVER_URL = "http://127.0.0.1:$PORT"
 
+    enum class State { STOPPED, STARTING, READY, FAILED }
+
+    interface Listener {
+        fun onRuntimeStateChanged(state: State) {}
+        fun onJobsChanged(json: String) {}
+    }
+
     private const val PREFS_NAME = "classydl_prefs"
     private const val PREFS_PASSWORD_KEY = "server_password"
-
-    // Fixed in debug builds so CI's download_pipeline_test.sh (and anyone
-    // testing locally) can log in without needing to read it back out of
-    // the app's SharedPreferences. Release builds (the ones actually
-    // sideloaded onto other people's phones) always get a random
-    // per-install password instead — see getOrCreatePassword().
     private const val DEBUG_PASSWORD = "classydl"
+    private const val TAG = "ClassyDL"
 
-    // The POST license endpoint (pro/website/functions/api/license/validate.js)
-    // is a Cloudflare Pages Function on the same deployment as the
-    // marketing site. Only wired up for release builds (see
-    // resolveLicenseApiBase()) so CI's debug-build pipeline tests keep
-    // exercising the always-unrestricted path, unaffected by free-tier
-    // limits.
-    // Idempotency guard: the service (START_STICKY) and the Activity may
-    // both ask for a start; python-side android_entry.start() additionally
-    // handles a stray duplicate bind gracefully (EADDRINUSE + health probe).
-    @Volatile private var serverStarted = false
+    private val lock = Any()
+    private val listeners = CopyOnWriteArraySet<Listener>()
+    @Volatile private var appContext: Context? = null
+    @Volatile private var state = State.STOPPED
+    @Volatile private var readyLatch = CountDownLatch(1)
 
-    /**
-     * Debug builds use a fixed password for reproducibility. Release builds
-     * generate a random one on first launch and persist it, so no two
-     * installs of the distributed app share a credential.
-     */
+    fun currentState(): State = state
+
+    fun addListener(listener: Listener) {
+        listeners.add(listener)
+        listener.onRuntimeStateChanged(state)
+    }
+
+    fun removeListener(listener: Listener) {
+        listeners.remove(listener)
+    }
+
     fun getOrCreatePassword(context: Context): String {
-        if (BuildConfig.DEBUG) {
-            return DEBUG_PASSWORD
-        }
+        if (BuildConfig.DEBUG) return DEBUG_PASSWORD
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.getString(PREFS_PASSWORD_KEY, null)?.let { return it }
         val bytes = ByteArray(18)
@@ -57,68 +54,94 @@ object ServerRuntime {
         return generated
     }
 
-    /** Empty string means "licensing off" to android_entry.start() — see its docstring. */
-    private fun resolveLicenseApiBase(): String = if (BuildConfig.DEBUG) "" else BuildConfig.LICENSE_API_BASE_URL
+    /** Single-flight start. A FAILED runtime may be retried by the next caller. */
+    fun ensureStarted(context: Context) {
+        val appContext = context.applicationContext
+        this.appContext = appContext
+        synchronized(lock) {
+            if (state == State.STARTING || state == State.READY) return
+            readyLatch = CountDownLatch(1)
+            transition(State.STARTING)
+            if (!Python.isStarted()) Python.start(AndroidPlatform(appContext))
+            Thread({ startPythonServer(appContext) }, "downloadthat-server-runtime").apply {
+                isDaemon = true
+                start()
+            }
+        }
+    }
 
-    /**
-     * The bundled ffmpeg CLI (cross-compiled for Android, see
-     * .github/scripts/build_ffmpeg_android.sh) ships under jniLibs — Android's
-     * package installer extracts those into nativeLibraryDir with execute
-     * permission already set, which is one of the few app-private locations
-     * still allowed to run arbitrary native executables post-scoped-storage.
-     * Falls back to the plain "ffmpeg" command name if the bundled binary
-     * isn't present (e.g. an older APK built before Phase 2b).
-     */
+    fun awaitReady(timeoutMs: Long = 20_000L): Boolean {
+        if (state == State.READY) return true
+        return readyLatch.await(timeoutMs, TimeUnit.MILLISECONDS) && state == State.READY
+    }
+
+    fun setExecutionEnabled(enabled: Boolean): Boolean {
+        if (!awaitReady()) return false
+        return runCatching {
+            Python.getInstance().getModule("video_downloader.android_entry")
+                .callAttr("set_execution_enabled", enabled)
+            true
+        }.onFailure { Log.e(TAG, "Could not change Python execution gate", it) }.getOrDefault(false)
+    }
+
+    fun hasPendingWork(): Boolean {
+        if (!awaitReady(2_000L)) return false
+        return runCatching {
+            Python.getInstance().getModule("video_downloader.android_entry")
+                .callAttr("has_pending_work").toBoolean()
+        }.getOrDefault(false)
+    }
+
+    private fun startPythonServer(appContext: Context) {
+        try {
+            val dataDir = appContext.filesDir.resolve("classydl-data").absolutePath
+            val outputDir = (appContext.getExternalFilesDir(null) ?: appContext.filesDir)
+                .resolve("classydl-downloads").absolutePath
+            Python.getInstance().getModule("video_downloader.android_entry").callAttr(
+                "start",
+                dataDir,
+                outputDir,
+                getOrCreatePassword(appContext),
+                PORT,
+                resolveFfmpegBinary(appContext),
+                resolveLicenseApiBase(),
+                BuildConfig.VERSION_NAME,
+                RuntimeBridge,
+                resolveJsRuntimeBinary(appContext),
+                InstallIdentity.getOrCreate(appContext),
+            )
+            if (state == State.STARTING) transition(State.FAILED)
+        } catch (error: Throwable) {
+            Log.e(TAG, "Server runtime crashed", error)
+            transition(State.FAILED)
+        }
+    }
+
+    private fun transition(next: State) {
+        state = next
+        if (next == State.READY || next == State.FAILED) readyLatch.countDown()
+        listeners.forEach { listener -> runCatching { listener.onRuntimeStateChanged(next) } }
+        if (next == State.READY) appContext?.let(EntitlementCoordinator::applyDesiredAsync)
+    }
+
+    /** Chaquopy callback target; dispatch stays valid as services come and go. */
+    object RuntimeBridge {
+        @JvmStatic fun onServerReady() = transition(State.READY)
+        @JvmStatic fun onJobsChanged(json: String) {
+            listeners.forEach { listener -> runCatching { listener.onJobsChanged(json) } }
+        }
+    }
+
+    private fun resolveLicenseApiBase(): String =
+        if (BuildConfig.DEBUG) "" else BuildConfig.LICENSE_API_BASE_URL
+
     private fun resolveFfmpegBinary(context: Context): String {
         val bundled = java.io.File(context.applicationInfo.nativeLibraryDir, "libffmpeg.so")
         return if (bundled.exists()) bundled.absolutePath else "ffmpeg"
     }
 
-    /** QuickJS executes yt-dlp's packaged YouTube challenge solver scripts. */
     private fun resolveJsRuntimeBinary(context: Context): String {
         val bundled = java.io.File(context.applicationInfo.nativeLibraryDir, "libqjs.so")
         return if (bundled.exists()) bundled.absolutePath else ""
-    }
-
-    /**
-     * Starts Python + the web server on a background thread (idempotent).
-     * [notifier] is handed through to android_entry.start() — the Python
-     * publisher loop calls its onJobsChanged(json) about once per second.
-     */
-    fun ensureStarted(context: Context, notifier: Any?) {
-        if (serverStarted) return
-        serverStarted = true
-        val appContext = context.applicationContext
-        if (!Python.isStarted()) {
-            Python.start(AndroidPlatform(appContext))
-        }
-        val password = getOrCreatePassword(appContext)
-        Thread {
-            try {
-                val dataDir = appContext.filesDir.resolve("classydl-data").absolutePath
-                // App-specific external storage, not internal filesDir: needs no
-                // permission on any supported API level (scoped storage exempts an
-                // app's own directory under Android/data/<package>/), and — unlike
-                // internal storage — is reachable by a file manager and by `adb
-                // shell` without root. Falls back to internal storage in the rare
-                // case external storage isn't currently available.
-                val outputDir = (appContext.getExternalFilesDir(null) ?: appContext.filesDir)
-                    .resolve("classydl-downloads").absolutePath
-                val licenseDeviceId = InstallIdentity.getOrCreate(appContext)
-                Python.getInstance()
-                    .getModule("video_downloader.android_entry")
-                    .callAttr(
-                        "start", dataDir, outputDir, password, PORT,
-                        resolveFfmpegBinary(appContext),
-                        resolveLicenseApiBase(), BuildConfig.VERSION_NAME, notifier,
-                        resolveJsRuntimeBinary(appContext), licenseDeviceId,
-                    )
-            } catch (e: Throwable) {
-                android.util.Log.e("ClassyDL", "Server thread crashed", e)
-            }
-        }.apply {
-            isDaemon = true
-            start()
-        }
     }
 }

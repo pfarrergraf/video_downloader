@@ -91,10 +91,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         password = ServerRuntime.getOrCreatePassword(this)
-        // The Python server lives in DownloadService (a dataSync foreground
-        // service) so downloads keep running when this Activity is
-        // backgrounded or destroyed — see docs/ANDROID_PERMISSIONS_2026-07-07.md.
-        startDownloadService()
+        // The loopback HTTP runtime is independent from dataSync foreground
+        // execution. Merely opening the app must not create a download FGS.
+        ServerRuntime.ensureStarted(applicationContext)
 
         // Must be registered before STARTED (i.e. here in onCreate, not lazily
         // inside the bridge call) — ActivityResultRegistry throws otherwise.
@@ -114,6 +113,10 @@ class MainActivity : AppCompatActivity() {
         webView.settings.domStorageEnabled = true
         webView.addJavascriptInterface(WebAppBridge(), "AndroidBridge")
         entitlementStore = EntitlementStore(this)
+        entitlementStore.licenseKey()?.let {
+            EntitlementCoordinator.ensureDesiredSet(this, it)
+            EntitlementCoordinator.applyDesiredAsync(this)
+        }
         entitlementApi = EntitlementApi(this, ::onLicenseValidationResult)
         purchaseController = PurchaseControllerFactory.create(this, ::deliverEntitlementResult)
         purchaseController.start()
@@ -418,9 +421,17 @@ class MainActivity : AppCompatActivity() {
         @JavascriptInterface
         fun onDownloadQueued() {
             runOnUiThread {
-                startDownloadService()
                 maybeRequestNotificationPermission()
             }
+        }
+
+        @JavascriptInterface
+        fun beginTransfer(): String = TransferCoordinator.beginTransfer(this@MainActivity)
+
+        @JavascriptInterface
+        fun completeTransfer(transferId: String, queued: Boolean) {
+            TransferCoordinator.completeTransfer(this@MainActivity, transferId, queued)
+            if (queued) runOnUiThread { maybeRequestNotificationPermission() }
         }
 
         /** Returns the native entitlement state without putting a key in a URL. */
@@ -482,11 +493,15 @@ class MainActivity : AppCompatActivity() {
         ) && result.optBoolean("device_allowed", true)
         if (result.optBoolean("ok") && active && key.isNotBlank()) {
             entitlementStore.recordVerified(key)
+            EntitlementCoordinator.recordVerified(this, key)
+            EntitlementCoordinator.applyDesiredAsync(this)
         } else if (
             result.optBoolean("ok") && !active &&
             result.optString("requested_license_key") == previousKey
         ) {
             entitlementStore.clear()
+            EntitlementCoordinator.recordRevoked(this)
+            EntitlementCoordinator.applyDesiredAsync(this)
             result.put("revoked", true)
         }
         result.put("pro", entitlementStore.isPro())
@@ -522,12 +537,6 @@ class MainActivity : AppCompatActivity() {
                 deliverPendingEntitlementResult()
             }
         }
-    }
-
-    /** Starts (or re-starts, e.g. after it idled out) the foreground service. */
-    private fun startDownloadService() {
-        val intent = Intent(this, DownloadService::class.java)
-        androidx.core.content.ContextCompat.startForegroundService(this, intent)
     }
 
     /**

@@ -90,14 +90,15 @@ def test_restore_button_uses_google_play_owned_purchase_not_email_lookup() -> No
 
 
 def test_verified_entitlement_forces_embedded_queue_license_refresh() -> None:
-    api = (
-        ROOT / "android/app/src/main/java/de/classydl/app/EntitlementApi.kt"
+    coordinator = (
+        ROOT / "android/app/src/main/java/de/classydl/app/EntitlementCoordinator.kt"
     ).read_text(encoding="utf-8")
     local = (
         ROOT / "android/app/src/main/java/de/classydl/app/LocalApiClient.kt"
     ).read_text(encoding="utf-8")
 
-    assert "syncEmbeddedLicenseIfActive(parsed)" in api
-    assert "LocalApiClient.syncLicense(appContext, key)" in api
-    assert "fun syncLicense(context: Context, licenseKey: String): Boolean" in local
-    assert '"POST",\n            "/api/license"' in local
+    assert "revision" in coordinator
+    assert 'record(context, "CLEAR", null' in coordinator
+    assert "LocalApiClient.syncEntitlement(context, desired)" in coordinator
+    assert "fun syncEntitlement(" in local
+    assert '"/api/license/sync"' in local

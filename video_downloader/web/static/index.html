@@ -2071,7 +2071,13 @@ async function startDownload() {
   if (!lines.length) return toast(t('app.batch.need_links_toast'));
   const audioOnly = currentMediaKind() === 'audio';
   $('download-btn').disabled = true;
+  let nativeTransfer = null;
+  let queued = false;
   try {
+    if (window.AndroidBridge && window.AndroidBridge.beginTransfer) {
+      nativeTransfer = window.AndroidBridge.beginTransfer();
+      if (!nativeTransfer) throw new Error(t('app.batch.queue_failed_toast'));
+    }
     if (lines.length === 1) {
       // A single line that looks like a playlist is downloaded as a whole
       // playlist; a single ordinary link is just one download.
@@ -2081,17 +2087,16 @@ async function startDownload() {
         await queueSource(line, audioOnly, isPlaylistUrl(line));
       }
     }
+    queued = true;
     toast(t('app.batch.queued_toast', { count: lines.length }));
     $('url-input').value = '';
     $('batch-urls').value = '';
-    // Android: (re)start the foreground service so this download survives
-    // backgrounding, and trigger the one-time notification-permission ask.
-    if (window.AndroidBridge && window.AndroidBridge.onDownloadQueued) {
-      try { window.AndroidBridge.onDownloadQueued(); } catch (err) { /* bridge absent */ }
-    }
   } catch (e) {
     handleQueueError(e, 'app.batch.queue_failed_toast');
   } finally {
+    if (nativeTransfer && window.AndroidBridge && window.AndroidBridge.completeTransfer) {
+      try { window.AndroidBridge.completeTransfer(nativeTransfer, queued); } catch (err) { /* bridge absent */ }
+    }
     $('download-btn').disabled = false;
   }
 }

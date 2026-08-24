@@ -26,6 +26,7 @@ private class PlayPurchaseController(
     context: Context,
     private val deliver: (String) -> Unit,
 ) : PurchaseController {
+    private val appContext = context.applicationContext
     private val entitlement = EntitlementStore(context)
     private val purchaseAccountId = MessageDigest.getInstance("SHA-256")
         .digest(InstallIdentity.getOrCreate(context).toByteArray(Charsets.UTF_8))
@@ -237,12 +238,16 @@ private class PlayPurchaseController(
         )
         if (result.optBoolean("ok") && active && licenseKey.isNotBlank()) {
             entitlement.recordVerified(licenseKey)
+            EntitlementCoordinator.recordVerified(appContext, licenseKey)
+            EntitlementCoordinator.applyDesiredAsync(appContext)
             verifiedToken?.let(api::confirmPurchaseDelivered)
         }
         // Failed or unknown server results never destroy an existing paid
         // entitlement. Only an explicit, authenticated revocation does.
         if (result.optBoolean("revoked")) {
             entitlement.clear()
+            EntitlementCoordinator.recordRevoked(appContext)
+            EntitlementCoordinator.applyDesiredAsync(appContext)
             verifiedToken?.let(::consumeRevokedPurchase)
         }
         result.put("pro", entitlement.isPro())

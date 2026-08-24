@@ -10,6 +10,25 @@ object LocalApiClient {
     data class QueueResult(val ok: Boolean, val jobId: Int? = null, val error: String? = null)
 
     fun enqueue(context: Context, source: String, audioOnly: Boolean): QueueResult {
+        val transferId = TransferCoordinator.beginTransfer(context)
+        if (transferId.isBlank()) {
+            return QueueResult(false, error = context.getString(R.string.search_local_auth_failed))
+        }
+        var queued = false
+        try {
+            val result = enqueueAfterTransferStarted(context, source, audioOnly)
+            queued = result.ok
+            return result
+        } finally {
+            TransferCoordinator.completeTransfer(context, transferId, queued)
+        }
+    }
+
+    private fun enqueueAfterTransferStarted(
+        context: Context,
+        source: String,
+        audioOnly: Boolean,
+    ): QueueResult {
         val cookie = login(context)
             ?: return QueueResult(false, error = context.getString(R.string.search_local_auth_failed))
 
@@ -50,14 +69,30 @@ object LocalApiClient {
      */
     fun syncLicense(context: Context, licenseKey: String): Boolean {
         if (licenseKey.isBlank()) return false
+        val desired = EntitlementCoordinator.recordVerified(context, licenseKey)
+        return syncEntitlement(context, desired)
+    }
+
+    fun syncEntitlement(
+        context: Context,
+        desired: EntitlementCoordinator.DesiredState,
+    ): Boolean {
         val cookie = login(context) ?: return false
+        val payload = JSONObject()
+            .put("revision", desired.revision)
+            .put("action", desired.action)
+            .put("changed_at", desired.changedAt)
+        desired.licenseKey?.let { payload.put("key", it) }
         val response = request(
             "POST",
-            "/api/license",
-            JSONObject().put("key", licenseKey),
+            "/api/license/sync",
+            payload,
             cookie,
         )
-        return response.code in 200..299
+        if (response.code !in 200..299) return false
+        val applied = runCatching { JSONObject(response.body).optLong("applied_revision", 0L) }
+            .getOrDefault(0L)
+        return applied >= desired.revision
     }
 
     private fun login(context: Context): String? {

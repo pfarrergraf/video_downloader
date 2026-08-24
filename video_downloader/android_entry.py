@@ -288,6 +288,12 @@ def has_pending_work() -> bool:
     )
 
 
+def _notify_server_ready(notifier) -> None:
+    callback = getattr(notifier, "onServerReady", None) if notifier is not None else None
+    if callback is not None:
+        callback()
+
+
 def start(
     data_dir: str,
     output_dir: str,
@@ -348,6 +354,7 @@ def start(
         )
     except OSError as exc:
         if exc.errno == errno.EADDRINUSE and _server_already_healthy(port):
+            _notify_server_ready(notifier)
             print(f"classydl: server already running on port {port}; second start ignored")
             return
         raise
@@ -360,6 +367,7 @@ def start(
     ).start()
 
     server.start_background_worker()
+    _notify_server_ready(notifier)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

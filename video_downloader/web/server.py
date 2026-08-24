@@ -415,6 +415,9 @@ class ClassyDLServer(ThreadingHTTPServer):
         # of them commits a new job, letting a free-tier user queue more than
         # FREE_DAILY_DOWNLOAD_LIMIT downloads in a burst.
         self.quota_lock = threading.Lock()
+        # Revisioned native entitlement SET/CLEAR commands are serialized so
+        # a late callback can never overwrite a newer revocation tombstone.
+        self.entitlement_lock = threading.Lock()
 
     def issue_autologin_token(self) -> str:
         """Mint a single-use desktop auto-login token (see AutoLoginTokens)."""
@@ -830,6 +833,47 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 return
             manager.clear_key()
             self._send_json(200, {"cleared": True})
+            return
+
+        if path == "/api/license/sync":
+            if not self._require_auth():
+                return
+            manager = self.server.license_manager
+            if manager is None:
+                self._send_json(400, {"detail": "Licensing is not enabled on this platform."})
+                return
+            body = self._read_json()
+            try:
+                revision = int(body.get("revision", 0))
+            except (TypeError, ValueError):
+                revision = 0
+            action = str(body.get("action", "")).strip().upper()
+            if revision < 1 or action not in {"SET", "CLEAR"}:
+                self._send_json(400, {"detail": "revision and SET/CLEAR action are required"})
+                return
+            with self.server.entitlement_lock:
+                applied = int(self.server.store.get_setting("entitlement_revision", "0") or "0")
+                applied_action = self.server.store.get_setting("entitlement_action", "") or ""
+                if revision <= applied:
+                    self._send_json(
+                        200,
+                        {"applied_revision": applied, "action": applied_action, "stale": revision < applied},
+                    )
+                    return
+                if action == "SET":
+                    key = str(body.get("key", "")).strip()
+                    if not key:
+                        self._send_json(400, {"detail": "key is required for SET"})
+                        return
+                    state = manager.set_key(key)
+                    if not state.valid or not state.device_allowed:
+                        self._send_json(409, {"detail": "verified entitlement could not be applied"})
+                        return
+                else:
+                    manager.clear_key()
+                self.server.store.set_setting("entitlement_revision", str(revision))
+                self.server.store.set_setting("entitlement_action", action)
+                self._send_json(200, {"applied_revision": revision, "action": action, "stale": False})
             return
 
         if path == "/api/engine/update":

@@ -345,6 +345,61 @@ def test_license_clear_removes_revoked_local_entitlement(tmp_path: Path) -> None
         _teardown(srv)
 
 
+def test_revisioned_entitlement_sync_ignores_late_set_after_clear(tmp_path: Path) -> None:
+    manager = _FakeLicenseManager(valid=False, key=None)
+    srv = _make_server(tmp_path, license_manager=manager)
+    try:
+        cookie = _login(srv)
+        status, body, _ = _request(
+            srv,
+            "POST",
+            "/api/license/sync",
+            {"revision": 4, "action": "SET", "key": "GOOD-KEY"},
+            cookie=cookie,
+        )
+        assert status == 200
+        assert body["applied_revision"] == 4
+        assert manager.is_pro()
+
+        status, body, _ = _request(
+            srv, "POST", "/api/license/sync", {"revision": 5, "action": "CLEAR"}, cookie=cookie
+        )
+        assert status == 200
+        assert body == {"applied_revision": 5, "action": "CLEAR", "stale": False}
+        assert not manager.is_pro()
+
+        status, body, _ = _request(
+            srv,
+            "POST",
+            "/api/license/sync",
+            {"revision": 4, "action": "SET", "key": "GOOD-LATE"},
+            cookie=cookie,
+        )
+        assert status == 200
+        assert body == {"applied_revision": 5, "action": "CLEAR", "stale": True}
+        assert not manager.is_pro()
+    finally:
+        _teardown(srv)
+
+
+def test_same_entitlement_revision_is_idempotent(tmp_path: Path) -> None:
+    manager = _FakeLicenseManager(valid=False, key=None)
+    srv = _make_server(tmp_path, license_manager=manager)
+    try:
+        cookie = _login(srv)
+        payload = {"revision": 1, "action": "SET", "key": "GOOD-KEY"}
+        assert _request(srv, "POST", "/api/license/sync", payload, cookie=cookie)[0] == 200
+        manager.clear_key()
+        status, body, _ = _request(srv, "POST", "/api/license/sync", payload, cookie=cookie)
+        assert status == 200
+        assert body == {"applied_revision": 1, "action": "SET", "stale": False}
+        # A duplicate command doesn't call set_key again and therefore cannot
+        # refresh the LicenseManager's offline-grace timestamp.
+        assert not manager.is_pro()
+    finally:
+        _teardown(srv)
+
+
 def test_free_tier_blocks_downloads_beyond_the_daily_limit(tmp_path: Path) -> None:
     srv = _make_server(tmp_path, license_manager=_FakeLicenseManager(valid=False))
     try:

@@ -3,7 +3,6 @@ package de.classydl.app
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
@@ -87,7 +86,6 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
                     parsed.put("requested_license_key", validatedLicenseKey)
                     if (parsed.optBoolean("valid")) parsed.put("license_key", validatedLicenseKey)
                 }
-                syncEmbeddedLicenseIfActive(parsed)
                 parsed
             } catch (error: Exception) {
                 JSONObject().put("ok", false).put("error", "network_error")
@@ -97,30 +95,7 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
         }
     }
 
-    /**
-     * Native Play verification and the Python download queue keep separate
-     * entitlement caches. Once the backend confirms Pro, force the same key
-     * through the authenticated loopback /api/license route so the queue does
-     * not remain Free for up to its normal six-hour validation TTL.
-     */
-    private fun syncEmbeddedLicenseIfActive(result: JSONObject) {
-        val active = result.optBoolean(
-            "entitled",
-            result.optBoolean("valid", result.optBoolean("pro", result.optBoolean("active", false))),
-        ) && result.optBoolean("device_allowed", true)
-        val key = result.optString("license_key", result.optString("licenseKey"))
-        if (!active || key.isBlank()) return
-
-        repeat(20) {
-            val synced = runCatching { LocalApiClient.syncLicense(appContext, key) }.getOrDefault(false)
-            if (synced) return
-            Thread.sleep(250L)
-        }
-        Log.w(TAG, "Verified entitlement could not be synced to the embedded license cache")
-    }
-
     companion object {
         const val DEVICE_ID_SCHEME = "android-scoped-v1"
-        private const val TAG = "ClassyDL"
     }
 }

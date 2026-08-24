@@ -29,10 +29,11 @@ def test_empty_queue_never_reintroduces_a_tick_based_idle_counter() -> None:
 
     assert "IDLE_TICKS_BEFORE_STOP" not in source
     assert "stopForeground(STOP_FOREGROUND_REMOVE)" in source
-    # Normal idle cleanup retains the service; stopSelf is reserved for the
-    # mandatory Android 15+ foreground-service timeout callback.
+    # The HTTP runtime is now process-owned, so an idle transfer service must
+    # leave foreground and stop itself rather than remain alive as dataSync.
     idle_shutdown = source.split("private val idleShutdownRunnable = Runnable {", 1)[1].split("}\n", 1)[0]
-    assert "stopSelf" not in idle_shutdown
+    assert "stopSelf()" in idle_shutdown
+    assert "ServerRuntime.setExecutionEnabled(false)" in idle_shutdown
 
 
 def test_queue_emptying_immediately_shows_an_honest_idle_notification() -> None:
@@ -54,10 +55,11 @@ def test_leaving_foreground_is_delayed_by_a_time_based_grace_period() -> None:
     # counter would silently stop advancing the moment the queue goes idle
     # (nothing to count), which is exactly how the old logic gave stale
     # coverage. IDLE_GRACE_MS must comfortably exceed
-    # background_survival_test.sh's 30s backgrounding sleep, or CI stays red.
+    # only bridge the enqueue-to-first-snapshot race, not keep idle dataSync
+    # foreground execution alive.
     source = SERVICE.read_text(encoding="utf-8")
 
-    assert "private const val IDLE_GRACE_MS = 45_000L" in source
+    assert "private const val IDLE_GRACE_MS = 2_000L" in source
     assert "handler.postDelayed(idleShutdownRunnable, IDLE_GRACE_MS)" in source
 
     idle_shutdown_runnable = source.split("private val idleShutdownRunnable = Runnable {", 1)[1].split(
@@ -86,7 +88,8 @@ def test_idle_transition_is_guarded_against_the_continuous_publisher_poll() -> N
     # and re-postDelayed(), perpetually pushing the deadline out and
     # reproducing the exact bug this fix closes.
     source = SERVICE.read_text(encoding="utf-8")
-    assert "else if (inForeground && !idleShutdownScheduled) {" in source
+    assert "else if (inForeground && pendingTransfers.isEmpty()) {" in source
+    assert "if (!inForeground || idleShutdownScheduled || pendingTransfers.isNotEmpty()) return" in source
 
 
 def test_pending_idle_shutdown_is_cancelled_on_service_destroy() -> None:
@@ -113,7 +116,7 @@ def test_foreground_promotion_survives_a_background_start_restriction() -> None:
     # try to predict it, so goForeground()'s startForeground() calls must be
     # wrapped rather than left to crash the whole process.
     source = SERVICE.read_text(encoding="utf-8")
-    go_foreground = source.split("private fun goForeground(text: String) {", 1)[1].split(
+    go_foreground = source.split("private fun goForeground(text: String): Boolean {", 1)[1].split(
         "\n    }\n", 1
     )[0]
 
