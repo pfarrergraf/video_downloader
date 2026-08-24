@@ -12,7 +12,19 @@ artifact or external state was actually observed.
 | PIPE-001 | LOCAL_VERIFIED | `6c064161` | independent immutable-candidate review; 22 pytest and 12 Node tests | PASS |
 | SEARCH-001 | LOCAL_VERIFIED | `b4342f58` | independent cancellation/HOL/transfer-cleanup review; 26 targeted tests | PASS |
 | INT-001 | LOCAL_VERIFIED | `b4342f58` integration snapshot | complete local pytest suite: 427 passed, 2 skipped | PASS |
+| DOC-001 | LOCAL_VERIFIED | `c8883fce` | release ADRs and 12-locale release notes; relative links and diff checked | PASS |
+| ENV-001 | UNVERIFIED | external GitHub settings | Required Reviewers and branch restrictions for both release environments | BLOCKED |
+| FGS-001 | UNVERIFIED | Play Console | submitted foreground-service declaration matching final behavior | BLOCKED |
+| CI-001 | UNVERIFIED | final integration commit | Android compile plus API 34/35 emulator runs | BLOCKED |
+| ASSET-001 | UNVERIFIED | final UI commit | real phone, 7-inch and 10-inch captures with visual review | BLOCKED |
+| AAB-001 | UNVERIFIED | candidate run | signed AAB, SBOM, provenance, certificate and SHA-256 | BLOCKED |
+| PLAY-001 | UNVERIFIED | exact candidate | Internal Testing acceptance of the recorded AAB hash | BLOCKED |
+| DEVICE-001 | UNVERIFIED | Internal candidate | redacted completion of `DEVICE_E2E_CHECKLIST.md` | BLOCKED |
 
 Evidence must distinguish local tests, emulator CI, signed artifacts, Play
 acceptance and real-device behavior. External screenshots are anonymized and
 stored outside Git; this file contains only neutral references and hashes.
+
+An evidence row changes from `UNVERIFIED`/`BLOCKED` only after direct
+observation. Workflow source, a checked dispatch input, local unit tests or a
+Chat transcript are not substitutes for Console, artifact or device evidence.

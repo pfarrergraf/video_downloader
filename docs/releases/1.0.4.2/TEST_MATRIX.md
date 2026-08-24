@@ -15,9 +15,13 @@ scenario. Never infer device or Play behavior from source assertions.
 | Search | cursor paging, expiry, rotation, stale results, bounded thumbnails | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
 | Library | atomic legacy migration, retry, corrupt row, reconciliation | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
 | Player | missing file, resume, playlist ordering and play-all | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
-| Listing | 50 UI locales, 86 Play mapping, RTL and default inheritance | LOCAL_VERIFIED | UNVERIFIED |
+| Listing | 50 UI locales, 86 Play mapping, RTL and default inheritance | LOCAL_VERIFIED | BLOCKED: real captures absent |
 | Artifact | package, version, upload certificate, 16 KiB, SBOM and hash | SIGNED_AAB_VERIFIED | UNVERIFIED |
 
 Real Play evidence records only neutral test IDs, candidate hash, UTC time,
 expected/actual outcome and a redacted evidence reference. Do not store GPA
 numbers, account addresses, tester emails or payment data in Git.
+
+The executable owner checklist for device, Billing, identity, FGS and library
+scenarios is [DEVICE_E2E_CHECKLIST.md](DEVICE_E2E_CHECKLIST.md). Every row starts
+`UNVERIFIED`; do not bulk-promote rows based on a single successful install.
