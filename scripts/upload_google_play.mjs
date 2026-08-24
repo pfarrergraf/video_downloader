@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { readFileSync, readdirSync } from "node:fs";
 import { createSign, createPrivateKey } from "node:crypto";
+import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const API = "https://androidpublisher.googleapis.com";
@@ -266,7 +267,9 @@ export async function syncGooglePlayListingAssets({
   privateKey,
   fetchImpl = fetch,
   nowSeconds,
+  confirmUpload = false,
 }) {
+  if (!confirmUpload) throw new Error("Asset upload requires confirmUpload=true after dry-run review");
   if (!packageName) throw new Error("packageName is required");
   if (!assets?.featureGraphic || !assets?.phoneScreenshots?.length) {
     throw new Error("A feature graphic and at least one phone screenshot are required");
@@ -378,7 +381,9 @@ export async function syncGooglePlayLocalizedScreenshots({
   fetchImpl = fetch,
   nowSeconds,
   readFile = readFileSync,
+  confirmUpload = false,
 }) {
+  if (!confirmUpload) throw new Error("Asset upload requires confirmUpload=true after dry-run review");
   if (!packageName) throw new Error("packageName is required");
   if (!screenshotsDir) throw new Error("screenshotsDir is required");
   if (!availableCodes?.length) throw new Error("availableCodes must list at least one screenshot locale code");
@@ -439,6 +444,124 @@ export async function syncGooglePlayLocalizedScreenshots({
   return { editId: edit.id, languages, perLanguageCode };
 }
 
+export const PLAY_SCREENSHOT_CLASSES = Object.freeze([
+  "phoneScreenshots",
+  "sevenInchScreenshots",
+  "tenInchScreenshots",
+]);
+
+/** Build a fully local, non-mutating upload plan for all Play screenshot slots.
+ * Asset convention: <class-root>/<ui-locale>/*.png. Unsupported UI languages
+ * resolve to the explicit `en` mapping in the canonical locale matrix. */
+export function planGooglePlayScreenshotAssets({
+  localeMatrix,
+  assetDirectories,
+  listFiles = readdirSync,
+  minimumScreenshots = 4,
+}) {
+  const mappings = localeMatrix?.mappings || [];
+  if (localeMatrix?.play_locale_count !== 86 || mappings.length !== 86) {
+    throw new Error("Canonical locale matrix must contain exactly 86 Play locales");
+  }
+  if (localeMatrix?.ui_locale_count !== 50 || localeMatrix?.fallback_play_locale_count !== 20) {
+    throw new Error("Canonical locale matrix must declare 50 UI locales and 20 English fallbacks");
+  }
+  const operations = [];
+  const blockers = [];
+  for (const imageType of PLAY_SCREENSHOT_CLASSES) {
+    const root = assetDirectories?.[imageType];
+    if (!root) {
+      blockers.push(`${imageType}: asset directory is not configured`);
+      continue;
+    }
+    const filesByUiLocale = new Map();
+    for (const uiLocale of new Set(mappings.map((item) => item.ui_locale))) {
+      const directory = join(root, uiLocale);
+      let files = [];
+      try {
+        files = listFiles(directory).filter((name) => name.toLowerCase().endsWith(".png")).sort();
+      } catch {
+        blockers.push(`${imageType}/${uiLocale}: capture directory is missing`);
+      }
+      if (files.length < minimumScreenshots) {
+        blockers.push(`${imageType}/${uiLocale}: requires at least ${minimumScreenshots} real PNG captures, found ${files.length}`);
+      }
+      filesByUiLocale.set(uiLocale, files.map((name) => join(directory, name)));
+    }
+    for (const mapping of mappings) {
+      operations.push({
+        playLocale: mapping.play_locale,
+        uiLocale: mapping.ui_locale,
+        mapping: mapping.mapping,
+        imageType,
+        files: filesByUiLocale.get(mapping.ui_locale) || [],
+      });
+    }
+  }
+  return {
+    dryRun: true,
+    playLocaleCount: mappings.length,
+    assetClassCount: PLAY_SCREENSHOT_CLASSES.length,
+    fallbackPlayLocaleCount: mappings.filter((item) => item.mapping === "fallback-en").length,
+    operations,
+    blockers: [...new Set(blockers)],
+  };
+}
+
+/** Upload exactly a previously dry-runnable three-class screenshot layout.
+ * Safe default is dry-run. A write additionally requires confirmUpload=true. */
+export async function syncGooglePlayScreenshotAssets({
+  packageName,
+  localeMatrix,
+  assetDirectories,
+  dryRun = true,
+  confirmUpload = false,
+  email,
+  privateKey,
+  fetchImpl = fetch,
+  nowSeconds,
+  listFiles = readdirSync,
+  readFile = readFileSync,
+}) {
+  if (!packageName) throw new Error("packageName is required");
+  const plan = planGooglePlayScreenshotAssets({ localeMatrix, assetDirectories, listFiles });
+  if (dryRun) return plan;
+  if (!confirmUpload) throw new Error("A successful dry-run review and confirmUpload=true are required for asset upload");
+  if (plan.blockers.length) throw new Error(`Screenshot asset plan is blocked: ${plan.blockers.join("; ")}`);
+  if (!email || !privateKey) throw new Error("Google Play service-account secrets are not configured");
+
+  const token = await accessToken({ email, privateKey, fetchImpl, nowSeconds });
+  const headers = { Authorization: `Bearer ${token}` };
+  const packagePath = encodeURIComponent(packageName);
+  const edit = await publisherRequest(fetchImpl,
+    `${API}/androidpublisher/v3/applications/${packagePath}/edits`,
+    { method: "POST", headers: { ...headers, "Content-Type": "application/json" }, body: "{}" },
+    "Create Play screenshot edit");
+  if (!edit.id) throw new Error("Create Play screenshot edit returned no edit id");
+  const editPath = `${packagePath}/edits/${encodeURIComponent(edit.id)}`;
+  const listings = await publisherRequest(fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}/listings`, { headers }, "List Play store listings");
+  const liveLanguages = [...new Set((listings.listings || []).map((item) => item.language).filter(Boolean))];
+  const plannedLanguages = new Set(localeMatrix.mappings.map((item) => item.play_locale));
+  const unmapped = liveLanguages.filter((language) => !plannedLanguages.has(language));
+  if (unmapped.length) throw new Error(`Live Play locales missing from canonical matrix: ${unmapped.join(", ")}`);
+
+  for (const operation of plan.operations.filter((item) => liveLanguages.includes(item.playLocale))) {
+    const base = `${API}/androidpublisher/v3/applications/${editPath}/listings/${encodeURIComponent(operation.playLocale)}/${operation.imageType}`;
+    await publisherRequest(fetchImpl, base, { method: "DELETE", headers },
+      `Delete ${operation.imageType} (${operation.playLocale})`);
+    for (const [index, file] of operation.files.entries()) {
+      await publisherRequest(fetchImpl, `${API}/upload/androidpublisher/v3/applications/${editPath}/listings/${encodeURIComponent(operation.playLocale)}/${operation.imageType}?uploadType=media`,
+        { method: "POST", headers: { ...headers, "Content-Type": "image/png" }, body: readFile(file) },
+        `Upload ${operation.imageType} ${index + 1} (${operation.playLocale})`);
+    }
+  }
+  await publisherRequest(fetchImpl,
+    `${API}/androidpublisher/v3/applications/${editPath}:commit?changesInReviewBehavior=ERROR_IF_IN_REVIEW`,
+    { method: "POST", headers }, "Commit Play screenshot edit");
+  return { ...plan, dryRun: false, editId: edit.id, blockers: [] };
+}
+
 function parseArgs(argv) {
   const args = {};
   for (let index = 0; index < argv.length; index += 2) {
@@ -451,6 +574,35 @@ function parseArgs(argv) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
+  if (args["sync-screenshot-assets"] === "true") {
+    for (const required of ["package", "locale-matrix", "phone-dir", "seven-inch-dir", "ten-inch-dir"]) {
+      if (!args[required]) throw new Error(`--${required} is required`);
+    }
+    const dryRun = args["dry-run"] !== "false";
+    const result = await syncGooglePlayScreenshotAssets({
+      packageName: args.package,
+      localeMatrix: JSON.parse(readFileSync(args["locale-matrix"], "utf8")),
+      assetDirectories: {
+        phoneScreenshots: args["phone-dir"],
+        sevenInchScreenshots: args["seven-inch-dir"],
+        tenInchScreenshots: args["ten-inch-dir"],
+      },
+      dryRun,
+      confirmUpload: args["confirm-upload"] === "true",
+      email: process.env.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL,
+      privateKey: process.env.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY,
+    });
+    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+    return;
+  }
+  const legacyAssetMutation = args["sync-assets"] === "true" || args["sync-locale-screenshots"] === "true";
+  if (legacyAssetMutation && args["dry-run"] !== "false") {
+    process.stdout.write("Dry run: legacy asset sync was not executed. Use the three-class --sync-screenshot-assets planner.\n");
+    return;
+  }
+  if (legacyAssetMutation && args["confirm-upload"] !== "true") {
+    throw new Error("Asset upload requires --dry-run false --confirm-upload true");
+  }
   const email = process.env.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL;
   const privateKey = process.env.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY;
   if (!email || !privateKey) throw new Error("Google Play service-account secrets are not configured");
@@ -484,6 +636,7 @@ async function main() {
           readFileSync(`${assetDir}/screenshot_settings.png`),
         ],
       },
+      confirmUpload: true,
     });
     process.stdout.write(
       `Updated Play listing assets for ${result.languages.length} language(s): ${result.languages.join(", ")}\n`,
@@ -502,6 +655,7 @@ async function main() {
       packageName: args.package,
       screenshotsDir,
       availableCodes,
+      confirmUpload: true,
       email,
       privateKey,
     });

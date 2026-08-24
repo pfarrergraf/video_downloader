@@ -1,13 +1,16 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { generateKeyPairSync } from "node:crypto";
+import { readFileSync } from "node:fs";
 import {
   highestGooglePlayVersionCode,
+  planGooglePlayScreenshotAssets,
   promoteGooglePlayCandidate,
   resolveScreenshotLocale,
   serviceAccountAssertion,
   syncGooglePlayListingAssets,
   syncGooglePlayLocalizedScreenshots,
+  syncGooglePlayScreenshotAssets,
   uploadGooglePlayBundle,
 } from "../scripts/upload_google_play.mjs";
 
@@ -231,6 +234,7 @@ test("asset sync replaces graphics for every existing listing language and commi
     privateKey: PEM,
     fetchImpl,
     nowSeconds: 1234,
+    confirmUpload: true,
     assets: {
       featureGraphic: Buffer.from("generic-feature"),
       localizedFeatureGraphics: { ja: Buffer.from("japanese-feature") },
@@ -269,6 +273,75 @@ test("resolveScreenshotLocale maps legacy ISO codes Play Console still lists (iw
   assert.equal(resolveScreenshotLocale("in", ["en", "id"]), "id");
 });
 
+test("three-class screenshot plan covers 86 locales and preserves explicit English fallbacks", () => {
+  const localeMatrix = JSON.parse(readFileSync("store_assets/play_locale_matrix.json", "utf8"));
+  const plan = planGooglePlayScreenshotAssets({
+    localeMatrix,
+    assetDirectories: {
+      phoneScreenshots: "captures/phone",
+      sevenInchScreenshots: "captures/7-inch",
+      tenInchScreenshots: "captures/10-inch",
+    },
+    listFiles: () => ["01.png", "02.png", "03.png", "04.png"],
+  });
+  assert.equal(plan.dryRun, true);
+  assert.equal(plan.playLocaleCount, 86);
+  assert.equal(plan.assetClassCount, 3);
+  assert.equal(plan.fallbackPlayLocaleCount, 20);
+  assert.equal(plan.operations.length, 86 * 3);
+  assert.deepEqual(plan.blockers, []);
+  assert.equal(plan.operations.find((item) => item.playLocale === "af").uiLocale, "en");
+  assert.deepEqual(new Set(plan.operations.map((item) => item.imageType)), new Set([
+    "phoneScreenshots", "sevenInchScreenshots", "tenInchScreenshots",
+  ]));
+});
+
+test("screenshot sync is a network-free dry-run by default", async () => {
+  const localeMatrix = JSON.parse(readFileSync("store_assets/play_locale_matrix.json", "utf8"));
+  let networkCalls = 0;
+  const result = await syncGooglePlayScreenshotAssets({
+    packageName: "de.classydl.app",
+    localeMatrix,
+    assetDirectories: {
+      phoneScreenshots: "captures/phone",
+      sevenInchScreenshots: "captures/7-inch",
+      tenInchScreenshots: "captures/10-inch",
+    },
+    listFiles: () => ["01.png", "02.png", "03.png", "04.png"],
+    fetchImpl: async () => { networkCalls += 1; throw new Error("must not run"); },
+  });
+  assert.equal(result.dryRun, true);
+  assert.equal(networkCalls, 0);
+});
+
+test("missing real tablet captures block an upload plan", () => {
+  const localeMatrix = JSON.parse(readFileSync("store_assets/play_locale_matrix.json", "utf8"));
+  const plan = planGooglePlayScreenshotAssets({
+    localeMatrix,
+    assetDirectories: {
+      phoneScreenshots: "captures/phone",
+      sevenInchScreenshots: "captures/7-inch",
+      tenInchScreenshots: "captures/10-inch",
+    },
+    listFiles: (directory) => directory.includes("phone") ? ["01.png", "02.png", "03.png", "04.png"] : [],
+  });
+  assert.ok(plan.blockers.some((item) => item.startsWith("sevenInchScreenshots/")));
+  assert.ok(plan.blockers.some((item) => item.startsWith("tenInchScreenshots/")));
+});
+
+test("legacy asset writers also fail closed without explicit confirmation", async () => {
+  let networkCalls = 0;
+  await assert.rejects(
+    syncGooglePlayListingAssets({
+      packageName: "de.classydl.app",
+      assets: { featureGraphic: Buffer.from("feature"), phoneScreenshots: [Buffer.from("phone")] },
+      fetchImpl: async () => { networkCalls += 1; throw new Error("must not run"); },
+    }),
+    /confirmUpload=true/,
+  );
+  assert.equal(networkCalls, 0);
+});
+
 test("locale-screenshot sync uploads each language's own light+dark shot, not a shared broadcast set", async () => {
   const files = {
     "screenshots/screenshot_main_en.png": Buffer.from("en-light"),
@@ -301,6 +374,7 @@ test("locale-screenshot sync uploads each language's own light+dark shot, not a 
     fetchImpl,
     nowSeconds: 1234,
     readFile,
+    confirmUpload: true,
   });
 
   assert.deepEqual(result, {

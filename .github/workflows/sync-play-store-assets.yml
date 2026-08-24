@@ -20,21 +20,13 @@ jobs:
           persist-credentials: false
       - name: Enforce public claims policy
         run: python scripts/check_public_claims.py
-      - name: Replace feature graphics and phone screenshots for every listing language
-        env:
-          GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL }}
-          GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY }}
-        run: node scripts/upload_google_play.mjs --sync-assets true --package de.classydl.app --asset-dir store_assets
-      # Runs as a second, independent edit right after the step above. It
-      # deletes and replaces whatever phone screenshots that step just set,
-      # this time with each listing language's own localized home screen
-      # (light then dark) instead of the same 3 English screenshots for
-      # every language — the feature graphics the step above uploaded are
-      # untouched. That re-upload-then-replace is a little redundant but
-      # harmless; kept separate deliberately so this step can't regress the
-      # feature-graphic sync above if it ever needs to change on its own.
-      - name: Replace phone screenshots with each listing language's own localized screenshot
-        env:
-          GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL }}
-          GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY }}
-        run: node scripts/upload_google_play.mjs --sync-locale-screenshots true --package de.classydl.app --screenshots-dir store_assets/screenshots
+      - name: Dry-run phone, 7-inch and 10-inch screenshot assignments
+        run: >-
+          node scripts/upload_google_play.mjs
+          --sync-screenshot-assets true
+          --package de.classydl.app
+          --locale-matrix store_assets/play_locale_matrix.json
+          --phone-dir store_assets/captures/phone
+          --seven-inch-dir store_assets/captures/7-inch
+          --ten-inch-dir store_assets/captures/10-inch
+          --dry-run true
