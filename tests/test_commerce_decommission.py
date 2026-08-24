@@ -37,6 +37,7 @@ def test_first_party_play_refund_and_cooldown_routes_are_not_deployed() -> None:
         "functions/api/play/refunds/request.js",
         "functions/api/admin/play-refunds.js",
         "functions/api/play/purchases/eligibility.js",
+        "functions/api/play/purchases/delivered.js",
     )
     assert all(not (WEBSITE / relative).exists() for relative in removed)
 
