@@ -3,20 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DownloadThat foreground service demo</title>
-  <meta name="description" content="A short demonstration of DownloadThat continuing a user-initiated download with visible progress while the app is not in the foreground.">
+  <title>DownloadThat foreground service demonstrations</title>
+  <meta name="description" content="Demonstrations of DownloadThat foreground services for user-initiated downloads and media playback.">
   <link rel="canonical" href="https://downloadthat.app/demo/">
   <link rel="stylesheet" href="/assets/download-pages.css">
 </head>
 <body>
   <header><div class="wrap"><a class="brand" href="/">DownloadThat</a></div></header>
   <main class="wrap">
-    <h1>Foreground service demo</h1>
+    <h1>Foreground service demonstrations</h1>
+
+    <h2>Data sync: user-initiated download</h2>
     <p class="lead">This video demonstrates a user-initiated download continuing while DownloadThat is not in the foreground. The visible notification shows progress, and a completion notification appears when the file is ready.</p>
     <video controls preload="metadata" playsinline width="640" height="480" src="/demo/downloadthat-foreground-service.mp4">
       Your browser does not support HTML video. <a href="/demo/downloadthat-foreground-service.mp4">Open the demo video directly.</a>
     </video>
-    <p><a href="/demo/downloadthat-foreground-service.mp4">Open the video file directly</a></p>
+    <p><a href="/demo/downloadthat-foreground-service.mp4">Open the data sync video directly</a></p>
+
+    <h2>Media playback</h2>
+    <p class="lead">This video demonstrates user-initiated playback in DownloadThat's native player. Playback continues outside the app and remains visible and controllable through Android's media notification.</p>
+    <video controls preload="metadata" playsinline width="392" height="850" src="/demo/downloadthat-media-playback-service.mp4">
+      Your browser does not support HTML video. <a href="/demo/downloadthat-media-playback-service.mp4">Open the demo video directly.</a>
+    </video>
+    <p><a href="/demo/downloadthat-media-playback-service.mp4">Open the media playback video directly</a></p>
+
     <p><a href="/download">Back to downloads</a></p>
   </main>
 </body>
