@@ -323,14 +323,11 @@ def test_native_purchase_errors_are_localized_instead_of_showing_raw_codes() -> 
         "purchase_check_failed",
         "restore_failed",
         "no_purchase_found",
-        "purchase_cooldown",
     ):
         assert code in callback
     assert "toast(result.error)" not in callback
     assert "app.license.purchase_failed_toast" in callback
     assert "result.revoked" in callback
-    assert "result.event === 'refund'" in callback
-    assert "purchaseCooldownMessage(result)" in callback
     assert "/api/license/clear" in html
 
 

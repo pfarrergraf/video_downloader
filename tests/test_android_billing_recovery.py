@@ -28,7 +28,7 @@ def test_automatic_reconciliation_does_not_show_no_purchase_failure() -> None:
     assert "if (reportMissingPurchase)" in controller
 
 
-def test_purchase_checks_server_cooldown_then_opens_a_new_flow() -> None:
+def test_purchase_opens_play_flow_without_a_refund_history_cooldown() -> None:
     controller = (
         ROOT
         / "android/app/src/play/java/de/classydl/app/PurchaseControllerFactory.kt"
@@ -38,9 +38,9 @@ def test_purchase_checks_server_cooldown_then_opens_a_new_flow() -> None:
         "override fun restore()", 1
     )[0]
     assert "purchaseFlowInProgress" in purchase_body
-    assert "api.checkPurchaseEligibility" in purchase_body
-    assert 'result.put("error", "purchase_cooldown")' in purchase_body
-    assert purchase_body.index("api.checkPurchaseEligibility") < purchase_body.index("loadProduct")
+    assert "loadProduct" in purchase_body
+    assert "checkPurchaseEligibility" not in purchase_body
+    assert "purchase_cooldown" not in purchase_body
     assert "checkOwnedBeforePurchase" not in controller
 
 
@@ -115,7 +115,7 @@ def test_entitlement_api_supports_result_specific_callbacks() -> None:
     assert "if (callback != null) mainHandler.post { callback(result) }" in native_api
 
 
-def test_play_refund_flow_stays_native_and_purchase_token_bound() -> None:
+def test_app_has_no_first_party_refund_request_flow() -> None:
     controller = (
         ROOT / "android/app/src/play/java/de/classydl/app/PurchaseControllerFactory.kt"
     ).read_text(encoding="utf-8")
@@ -133,13 +133,8 @@ def test_play_refund_flow_stays_native_and_purchase_token_bound() -> None:
     ).read_text(encoding="utf-8")
     web = (ROOT / "video_downloader/web/static/index.html").read_text(encoding="utf-8")
 
-    assert "fun requestRefund(reason: String)" in interface
-    assert "override fun requestRefund(reason: String)" in controller
-    assert "override fun requestRefund(reason: String)" in direct
-    assert "api.requestRefund(purchase.purchaseToken, reason)" in controller
-    assert '"/api/play/refunds/request"' in api
-    assert '.put("purchase_token", token)' in api
-    assert '.put("device_id", deviceId)' in api
-    assert "fun requestPlayRefund(reason: String)" in activity
-    assert 'id="play-refund-overlay"' in web
-    assert "if (!window.confirm(" not in web
+    combined = "\n".join((controller, direct, interface, api, activity, web))
+    assert "requestRefund" not in combined
+    assert "requestPlayRefund" not in combined
+    assert '"/api/play/refunds/request"' not in combined
+    assert 'id="play-refund-overlay"' not in combined

@@ -442,11 +442,6 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread { purchaseController.restore() }
         }
 
-        @JavascriptInterface
-        fun requestPlayRefund(reason: String) {
-            runOnUiThread { purchaseController.requestRefund(reason) }
-        }
-
         /** Called after the local UI has authenticated to its loopback API. */
         @JavascriptInterface
         fun onEntitlementUiReady() {

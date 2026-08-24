@@ -104,6 +104,22 @@ test("unknown Google purchase state neither grants nor revokes", async () => {
   assert.equal((await validateLicense(env, { key: granted.licenseKey })).valid, true);
 });
 
+test("app-facing verification cannot revoke an established entitlement", async () => {
+  let state = "PURCHASED";
+  const { env } = playEnv(() => purchase(state));
+  const granted = await verifyAndApplyPlayPurchase(env, "client-recheck-purchase-token");
+  state = "CANCELLED";
+
+  const recheck = await verifyAndApplyPlayPurchase(env, "client-recheck-purchase-token");
+  assert.equal(recheck.entitled, false);
+  assert.equal(recheck.state, "revoke_pending");
+  assert.equal((await validateLicense(env, { key: granted.licenseKey })).valid, true);
+
+  const reconciled = await reconcilePlayPurchases(env, 100);
+  assert.equal(reconciled.revoked, 1);
+  assert.equal((await validateLicense(env, { key: granted.licenseKey })).valid, false);
+});
+
 test("wrong verified product and caller-supplied package fail closed", async () => {
   const { env } = playEnv(() => purchase("PURCHASED", "other_product"));
   await assert.rejects(() => verifyAndApplyPlayPurchase(env, "wrong-product-token"), /unexpected product/);

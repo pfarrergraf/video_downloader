@@ -16,15 +16,6 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
     private val mainHandler = Handler(Looper.getMainLooper())
     private val deviceId = InstallIdentity.getOrCreate(appContext)
 
-    fun checkPurchaseEligibility(onChecked: (JSONObject) -> Unit) {
-        post(
-            "/api/play/purchases/eligibility",
-            identityBody(),
-            reportResult = false,
-            callback = onChecked,
-        )
-    }
-
     fun verifyPurchase(token: String, productId: String, event: String) {
         post(
             "/api/play/purchases/verify",
@@ -47,21 +38,6 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
             "/api/play/purchases/delivered",
             identityBody().put("purchase_token", token),
             reportResult = false,
-        )
-    }
-
-    fun requestRefund(token: String, reason: String) {
-        post(
-            "/api/play/refunds/request",
-            identityBody()
-                .put("purchase_token", token)
-                .put("reason", reason),
-            reportResult = false,
-            callback = { result ->
-                result.put("_purchase_token", token)
-                result.put("event", "refund")
-                onResult(result)
-            },
         )
     }
 

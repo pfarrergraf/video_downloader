@@ -32,7 +32,7 @@ export async function onRequestPost({ request, env }) {
     const result = await verifyAndApplyPlayPurchase(env, oneTime.purchaseToken, {
       packageName: notification.packageName,
       productId: oneTime.sku,
-    });
+    }, { revokeSource: "rtdn" });
     return jsonResponse({ received: true, entitled: result.entitled, purchase_state: result.state });
   } catch (error) {
     console.error("RTDN processing failed", { message: String(error?.message || error) });

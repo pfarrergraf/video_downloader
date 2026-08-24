@@ -20,9 +20,6 @@ private class DirectPurchaseController(
     override fun restore() {
         deliver("""{"ok":false,"error":"billing_unavailable","billingAvailable":false}""")
     }
-    override fun requestRefund(reason: String) {
-        deliver("""{"ok":false,"error":"billing_unavailable","billingAvailable":false}""")
-    }
     override fun refreshPurchases() = Unit
     override fun statusJson(): String = entitlement.statusJson(billingAvailable = false)
 }

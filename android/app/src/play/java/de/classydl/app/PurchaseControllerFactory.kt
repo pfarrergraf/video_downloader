@@ -61,24 +61,9 @@ private class PlayPurchaseController(
             return
         }
         purchaseFlowInProgress = true
-        api.checkPurchaseEligibility { result ->
-            if (!result.optBoolean("ok")) {
-                purchaseFlowInProgress = false
-                result.put("event", "purchase")
-                deliver(result.toString())
-            } else if (!result.optBoolean("eligible", true)) {
-                purchaseFlowInProgress = false
-                result.put("error", "purchase_cooldown")
-                result.put("event", "purchase")
-                result.put("billingAvailable", true)
-                result.put("pro", false)
-                deliver(result.toString())
-            } else {
-                connect {
-                    loadProduct { details, offerToken ->
-                        launchPurchase(activity, details, offerToken)
-                    }
-                }
+        connect {
+            loadProduct { details, offerToken ->
+                launchPurchase(activity, details, offerToken)
             }
         }
     }
@@ -90,35 +75,6 @@ private class PlayPurchaseController(
         }
         purchaseFlowInProgress = true
         syncPurchases(reportMissingPurchase = true, remainingEmptyRetries = 2, event = "restore")
-    }
-
-    override fun requestRefund(reason: String) {
-        if (purchaseFlowInProgress) {
-            deliver(errorJson("purchase_in_progress", ""))
-            return
-        }
-        if (reason !in setOf("technical_failure", "accidental_purchase", "other")) {
-            deliver(errorJson("invalid_refund_reason", ""))
-            return
-        }
-        purchaseFlowInProgress = true
-        connect {
-            queryOwnedPurchases(
-                onResult = { purchases ->
-                    val purchase = purchases.firstOrNull { it.purchaseState == Purchase.PurchaseState.PURCHASED }
-                    if (purchase == null) {
-                        purchaseFlowInProgress = false
-                        deliver(errorJson("no_purchase_found", ""))
-                    } else {
-                        api.requestRefund(purchase.purchaseToken, reason)
-                    }
-                },
-                onError = { result ->
-                    purchaseFlowInProgress = false
-                    deliver(errorJson("refund_request_failed", result.debugMessage))
-                },
-            )
-        }
     }
 
     override fun refreshPurchases() {

@@ -205,22 +205,6 @@ export async function acknowledgePlayPurchase(env, purchaseToken, productId) {
   if (!response.ok) throw new Error(`Google Play acknowledgement failed: ${response.status}`);
 }
 
-export async function refundPlayOrder(env, orderId) {
-  if (typeof orderId !== "string" || !orderId.trim()) throw new Error("Google Play order id is required");
-  const { packageName } = expectedConfig(env);
-  const url = `${PLAY_API}/applications/${encodeURIComponent(packageName)}/orders/${encodeURIComponent(orderId)}:refund?revoke=true`;
-  const response = await authorizedPlayFetch(env, url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({}),
-  });
-  if (!response.ok) {
-    const error = new Error(`Google Play refund failed: ${response.status}`);
-    error.status = response.status;
-    throw error;
-  }
-}
-
 async function storeUnentitledPurchase(env, tokenHash, encrypted, normalized, now) {
   const { packageName, productId } = expectedConfig(env);
   const status = stateKind(normalized.state);
@@ -349,7 +333,7 @@ async function grantPurchasedEntitlement(env, purchaseToken, tokenHash, encrypte
   };
 }
 
-export async function verifyAndApplyPlayPurchase(env, purchaseToken, supplied = {}) {
+export async function verifyAndApplyPlayPurchase(env, purchaseToken, supplied = {}, options = {}) {
   if (!env.DB) throw new Error("DB (D1) binding is not configured");
   if (typeof purchaseToken !== "string" || purchaseToken.length < 16 || purchaseToken.length > 4096) {
     const error = new Error("invalid purchase token");
@@ -384,6 +368,21 @@ export async function verifyAndApplyPlayPurchase(env, purchaseToken, supplied = 
     throw error;
   }
   if (purchaseState !== "purchased") {
+    const existing = await env.DB.prepare(
+      `SELECT purchase_state, license_key FROM play_purchases WHERE token_hash = ?`,
+    ).bind(tokenHash).first();
+    const revokeSource = options.revokeSource;
+    const authorizedRevoke = revokeSource === "rtdn" || revokeSource === "reconciliation";
+    // An app-facing verification request may prove that a token is not
+    // currently purchasable, but it is not an entitlement-revoke channel.
+    // Preserve an established license until authenticated RTDN processing or
+    // the server-only reconciliation job confirms the negative state.
+    if (existing?.license_key && !authorizedRevoke) {
+      return {
+        entitled: false,
+        state: existing.purchase_state === "revoked" ? "revoked" : "revoke_pending",
+      };
+    }
     return storeUnentitledPurchase(env, tokenHash, encrypted, normalized, now);
   }
   return grantPurchasedEntitlement(env, purchaseToken, tokenHash, encrypted, normalized, now);
@@ -451,7 +450,7 @@ export async function reconcilePlayPurchases(env, limit = 100) {
     let token;
     try {
       token = await decryptPurchaseToken(env, row.purchase_token_ciphertext, row.purchase_token_iv);
-      const result = await verifyAndApplyPlayPurchase(env, token);
+      const result = await verifyAndApplyPlayPurchase(env, token, {}, { revokeSource: "reconciliation" });
       summary.checked += 1;
       if (result.entitled) summary.entitled += 1;
       else if (result.state === "revoked") summary.revoked += 1;
