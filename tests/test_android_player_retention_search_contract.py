@@ -87,3 +87,39 @@ def test_library_schema_and_destructive_actions_are_separate() -> None:
     assert "legacy_history_v1" in library
     assert "reconcileDownloads" in library
     assert "reconcileMediaLibrary()" in main
+
+
+def test_corrupt_legacy_payload_is_quarantined_before_source_deletion() -> None:
+    library = _read("android/app/src/main/java/de/classydl/app/MediaLibraryStore.kt")
+    assert "CREATE TABLE IF NOT EXISTS library_quarantine" in library
+    assert 'quarantine(db, raw, "invalid_history_json")' in library
+    assert '"quarantined"' in library
+    assert 'runCatching { JSONArray(raw) }.getOrNull() ?: JSONArray()' not in library
+    assert "checkMigrationReadback(db, importedIds, quarantinedFingerprints)" in library
+
+
+def test_corrupt_legacy_entries_are_isolated_while_valid_entries_import() -> None:
+    library = _read("android/app/src/main/java/de/classydl/app/MediaLibraryStore.kt")
+    assert '"invalid_history_entry"' in library
+    assert '"invalid_or_unowned_uri"' in library
+    assert "continue" in library.split('"invalid_history_entry"', 1)[1]
+    assert "importedIds.add(stableId(uri))" in library
+
+
+def test_legacy_timestamp_and_duplicate_uri_readback_contract() -> None:
+    library = _read("android/app/src/main/java/de/classydl/app/MediaLibraryStore.kt")
+    assert "val importedIds = mutableSetOf<String>()" in library
+    assert 'item.optLong("lastPlayedAtMs", 0L)' in library
+    assert 'put("last_played_at_ms", lastPlayedAtMs.coerceAtLeast(0L))' in library
+    assert "last_played_at_ms <= ?" in library
+    assert 'SELECT 1 FROM media WHERE id = ?' in library
+
+
+def test_legacy_migration_is_retryable_across_process_interruption() -> None:
+    library = _read("android/app/src/main/java/de/classydl/app/MediaLibraryStore.kt")
+    migration = library.split("private fun migrateLegacyHistory()", 1)[1]
+    assert "db.beginTransaction()" in migration
+    assert migration.index('put("key", "legacy_history_v1")') < migration.index("db.setTransactionSuccessful()")
+    assert migration.index("db.endTransaction()") < migration.rindex("checkMigrationReadback(db, importedIds")
+    assert migration.index("migrationCommitted") < migration.rindex("prefs.edit().remove(LEGACY_KEY).commit()")
+    assert "MIGRATED_STATES" in migration

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.net.Uri
 import androidx.core.content.FileProvider
 import org.json.JSONArray
+import org.json.JSONException
 import java.io.File
 import java.security.MessageDigest
 
@@ -43,26 +44,41 @@ class MediaLibraryStore(private val context: Context) : SQLiteOpenHelper(
             FOREIGN KEY (playlist_id) REFERENCES playlists(id) ON DELETE CASCADE,
             FOREIGN KEY (media_id) REFERENCES media(id) ON DELETE CASCADE)""")
         db.execSQL("CREATE TABLE library_state (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
+        createQuarantineTable(db)
         db.execSQL("CREATE INDEX media_recent_idx ON media(last_played_at_ms DESC)")
     }
 
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) = Unit
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        if (oldVersion < 2) createQuarantineTable(db)
+    }
 
     @Synchronized
     fun recordPlayback(uri: String, title: String, mimeType: String?, positionMs: Long, durationMs: Long) {
+        recordPlaybackAt(uri, title, mimeType, positionMs, durationMs, System.currentTimeMillis())
+    }
+
+    private fun recordPlaybackAt(
+        uri: String,
+        title: String,
+        mimeType: String?,
+        positionMs: Long,
+        durationMs: Long,
+        lastPlayedAtMs: Long,
+    ) {
         if (!isOwnedUri(uri)) return
         val now = System.currentTimeMillis()
         writableDatabase.insertWithOnConflict("media", null, ContentValues().apply {
             put("id", stableId(uri)); put("uri", uri); put("title", title.ifBlank { "Media" })
             put("mime_type", mimeType); put("duration_ms", durationMs.coerceAtLeast(0L))
             put("position_ms", positionMs.coerceAtLeast(0L)); put("added_at_ms", now)
-            put("last_played_at_ms", now)
+            put("last_played_at_ms", lastPlayedAtMs.coerceAtLeast(0L))
         }, SQLiteDatabase.CONFLICT_IGNORE)
         writableDatabase.update("media", ContentValues().apply {
             put("title", title.ifBlank { "Media" }); put("mime_type", mimeType)
             put("duration_ms", durationMs.coerceAtLeast(0L)); put("position_ms", positionMs.coerceAtLeast(0L))
-            put("last_played_at_ms", now)
-        }, "uri = ?", arrayOf(uri))
+            put("last_played_at_ms", lastPlayedAtMs.coerceAtLeast(0L))
+        }, "uri = ? AND (last_played_at_ms IS NULL OR last_played_at_ms <= ?)",
+            arrayOf(uri, lastPlayedAtMs.coerceAtLeast(0L).toString()))
     }
 
     fun get(uri: String): Media? = readableDatabase.query(
@@ -215,41 +231,97 @@ class MediaLibraryStore(private val context: Context) : SQLiteOpenHelper(
         val db = writableDatabase
         val prefs = context.getSharedPreferences(LEGACY_PREFS, Context.MODE_PRIVATE)
         if (db.rawQuery("SELECT value FROM library_state WHERE key='legacy_history_v1'", null)
-                .use { it.moveToFirst() && it.getString(0) == "done" }) {
+                .use { it.moveToFirst() && it.getString(0) in MIGRATED_STATES }) {
             prefs.edit().remove(LEGACY_KEY).commit()
             return
         }
         val raw = prefs.getString(LEGACY_KEY, null)
         val importedIds = mutableSetOf<String>()
+        val quarantinedFingerprints = mutableSetOf<String>()
         db.beginTransaction()
         try {
-            if (!raw.isNullOrBlank()) {
-                val array = runCatching { JSONArray(raw) }.getOrNull() ?: JSONArray()
-                for (i in 0 until array.length()) {
-                    val item = array.optJSONObject(i) ?: continue
-                    val uri = item.optString("uri"); if (!isOwnedUri(uri)) continue
-                    recordPlayback(uri, item.optString("title", "Media"), item.optString("mimeType").ifBlank { null },
-                        item.optLong("positionMs"), item.optLong("durationMs"))
+            if (raw != null) {
+                val array = try {
+                    JSONArray(raw)
+                } catch (_: JSONException) {
+                    quarantine(db, raw, "invalid_history_json").also(quarantinedFingerprints::add)
+                    null
+                }
+                if (array != null) for (i in 0 until array.length()) {
+                    val item = array.optJSONObject(i)
+                    if (item == null) {
+                        quarantine(db, array.opt(i)?.toString().orEmpty(), "invalid_history_entry")
+                            .also(quarantinedFingerprints::add)
+                        continue
+                    }
+                    val uri = item.optString("uri")
+                    if (!isOwnedUri(uri)) {
+                        quarantine(db, item.toString(), "invalid_or_unowned_uri")
+                            .also(quarantinedFingerprints::add)
+                        continue
+                    }
+                    recordPlaybackAt(
+                        uri,
+                        item.optString("title", "Media"),
+                        item.optString("mimeType").ifBlank { null },
+                        item.optLong("positionMs"),
+                        item.optLong("durationMs"),
+                        item.optLong("lastPlayedAtMs", 0L),
+                    )
                     importedIds.add(stableId(uri))
                 }
             }
+            checkMigrationReadback(db, importedIds, quarantinedFingerprints)
             db.insertWithOnConflict("library_state", null, ContentValues().apply {
-                put("key", "legacy_history_v1"); put("value", "done")
+                put("key", "legacy_history_v1")
+                put("value", if (quarantinedFingerprints.isEmpty()) "done" else "quarantined")
             }, SQLiteDatabase.CONFLICT_REPLACE)
             db.setTransactionSuccessful()
         } finally { db.endTransaction() }
-        val readbackComplete = importedIds.all { id ->
+        checkMigrationReadback(db, importedIds, quarantinedFingerprints)
+        val migrationCommitted = db.rawQuery(
+            "SELECT 1 FROM library_state WHERE key = ? AND value IN (?, ?)",
+            arrayOf("legacy_history_v1", "done", "quarantined"),
+        ).use { it.moveToFirst() }
+        if (migrationCommitted) prefs.edit().remove(LEGACY_KEY).commit()
+    }
+
+    private fun createQuarantineTable(db: SQLiteDatabase) {
+        db.execSQL("""CREATE TABLE IF NOT EXISTS library_quarantine (
+            fingerprint TEXT PRIMARY KEY, source TEXT NOT NULL, payload TEXT NOT NULL,
+            reason TEXT NOT NULL, created_at_ms INTEGER NOT NULL)""")
+    }
+
+    private fun quarantine(db: SQLiteDatabase, payload: String, reason: String): String {
+        val fingerprint = stableId("$LEGACY_KEY\u0000$reason\u0000$payload")
+        db.insertWithOnConflict("library_quarantine", null, ContentValues().apply {
+            put("fingerprint", fingerprint); put("source", LEGACY_KEY); put("payload", payload)
+            put("reason", reason); put("created_at_ms", System.currentTimeMillis())
+        }, SQLiteDatabase.CONFLICT_IGNORE)
+        return fingerprint
+    }
+
+    private fun checkMigrationReadback(
+        db: SQLiteDatabase,
+        importedIds: Set<String>,
+        quarantineFingerprints: Set<String>,
+    ) {
+        check(importedIds.all { id ->
             db.rawQuery("SELECT 1 FROM media WHERE id = ?", arrayOf(id)).use { it.moveToFirst() }
-        }
-        if (readbackComplete) prefs.edit().remove(LEGACY_KEY).commit()
+        }) { "Legacy media readback failed" }
+        check(quarantineFingerprints.all { fingerprint ->
+            db.rawQuery("SELECT 1 FROM library_quarantine WHERE fingerprint = ?", arrayOf(fingerprint))
+                .use { it.moveToFirst() }
+        }) { "Legacy quarantine readback failed" }
     }
 
     companion object {
         private const val DATABASE_NAME = "media_library.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         private const val FILE_PROVIDER_AUTHORITY = "de.classydl.app.fileprovider"
         private const val LEGACY_PREFS = "downloadthat_playback_retention"
         private const val LEGACY_KEY = "history_json"
+        private val MIGRATED_STATES = setOf("done", "quarantined")
         private val MEDIA_COLUMNS = arrayOf("id", "uri", "relative_path", "title", "mime_type", "duration_ms", "position_ms", "added_at_ms", "last_played_at_ms")
         fun stableId(uri: String): String = MessageDigest.getInstance("SHA-256")
             .digest(uri.toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it) }
