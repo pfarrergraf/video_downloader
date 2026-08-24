@@ -1,0 +1,23 @@
+# DownloadThat 1.0.4.2 test matrix
+
+`UNVERIFIED` is intentional until the matching environment has actually run the
+scenario. Never infer device or Play behavior from source assertions.
+
+| Area | Scenario | Required level | Current |
+|---|---|---|---|
+| Runtime | concurrent start, bind failure, retry, listener attach/detach | CI_EMULATOR_VERIFIED | UNVERIFIED |
+| FGS | no idle notification; every queue producer obtains a transfer lease | CI_EMULATOR_VERIFIED | UNVERIFIED |
+| FGS | background transfer, retry, recovery, timeout and idle stop | CI_EMULATOR_VERIFIED | UNVERIFIED |
+| Entitlement | slow server, restart, SET/CLEAR revision ordering, offline grace | CI_EMULATOR_VERIFIED | UNVERIFIED |
+| Billing | cancel, pending, purchased, lost callback, restore | DEVICE_E2E_VERIFIED | UNVERIFIED |
+| Billing | refund/void, missed RTDN reconciliation, repurchase | DEVICE_E2E_VERIFIED | UNVERIFIED |
+| Identity | reinstall same device and reject a second device | DEVICE_E2E_VERIFIED | UNVERIFIED |
+| Search | cursor paging, expiry, rotation, stale results, bounded thumbnails | CI_EMULATOR_VERIFIED | UNVERIFIED |
+| Library | atomic legacy migration, retry, corrupt row, reconciliation | CI_EMULATOR_VERIFIED | UNVERIFIED |
+| Player | missing file, resume, playlist ordering and play-all | CI_EMULATOR_VERIFIED | UNVERIFIED |
+| Listing | 50 UI locales, 86 Play mapping, RTL and default inheritance | LOCAL_VERIFIED | UNVERIFIED |
+| Artifact | package, version, upload certificate, 16 KiB, SBOM and hash | SIGNED_AAB_VERIFIED | UNVERIFIED |
+
+Real Play evidence records only neutral test IDs, candidate hash, UTC time,
+expected/actual outcome and a redacted evidence reference. Do not store GPA
+numbers, account addresses, tester emails or payment data in Git.

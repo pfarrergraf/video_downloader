@@ -1,3 +1,6 @@
+> **SUPERSEDED:** this is the historical `1.0.4.1` test plan. The current
+> release source of truth is `docs/releases/1.0.4.2/RELEASE_BOARD.md`.
+
 # DownloadThat internal test — 1.0.4.1
 
 Planned internal-test build for the `feat/native-media-player` branch.

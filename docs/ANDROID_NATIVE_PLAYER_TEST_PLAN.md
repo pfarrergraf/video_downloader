@@ -1,3 +1,7 @@
+> **SUPERSEDED for the next release:** use
+> `docs/releases/1.0.4.2/RELEASE_BOARD.md` and its test matrix. This file is
+> retained as historical evidence for the earlier native-player test cycle.
+
 # Native player test and internal-release plan
 
 Status: implementation branch `feat/native-media-player`; no merge to `master`.
