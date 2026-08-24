@@ -1,0 +1,48 @@
+<de-DE>
+Zuverlässigere Pro-Synchronisierung und Download-Wiederherstellung.
+Verbesserte Hintergrunddownloads sowie native Suche, Bibliothek, Playlists und Wiedergabe.
+</de-DE>
+<ar>
+مزامنة أكثر موثوقية لحالة Pro واستعادة التنزيلات.
+تحسين التنزيل في الخلفية والبحث والمكتبة وقوائم التشغيل والمشغّل.
+</ar>
+<en-US>
+More reliable Pro synchronization and download recovery.
+Improved background downloads, native search, library, playlists, and playback.
+</en-US>
+<es-ES>
+Sincronización Pro y recuperación de descargas más fiables.
+Mejoras en descargas en segundo plano, búsqueda, biblioteca, listas y reproducción.
+</es-ES>
+<fr-CA>
+Synchronisation Pro et reprise des téléchargements plus fiables.
+Amélioration des téléchargements en arrière-plan, de la recherche, de la bibliothèque, des listes et de la lecture.
+</fr-CA>
+<fr-FR>
+Synchronisation Pro et reprise des téléchargements plus fiables.
+Amélioration des téléchargements en arrière-plan, de la recherche, de la bibliothèque, des playlists et de la lecture.
+</fr-FR>
+<it-IT>
+Sincronizzazione Pro e ripristino dei download più affidabili.
+Download in background, ricerca, raccolta, playlist e riproduzione migliorati.
+</it-IT>
+<ja-JP>
+Pro の同期とダウンロード復元の信頼性を向上しました。
+バックグラウンドダウンロード、検索、ライブラリ、プレイリスト、再生を改善しました。
+</ja-JP>
+<nl-NL>
+Betrouwbaardere Pro-synchronisatie en hervatting van downloads.
+Verbeterde achtergronddownloads, zoekfunctie, bibliotheek, afspeellijsten en weergave.
+</nl-NL>
+<pl-PL>
+Pewniejsza synchronizacja Pro i wznawianie pobierania.
+Ulepszone pobieranie w tle, wyszukiwanie, biblioteka, playlisty i odtwarzanie.
+</pl-PL>
+<ru-RU>
+Более надёжная синхронизация Pro и восстановление загрузок.
+Улучшены фоновые загрузки, поиск, библиотека, плейлисты и воспроизведение.
+</ru-RU>
+<zh-CN>
+提升了 Pro 同步和下载恢复的可靠性。
+改进了后台下载、搜索、媒体库、播放列表和播放体验。
+</zh-CN>
