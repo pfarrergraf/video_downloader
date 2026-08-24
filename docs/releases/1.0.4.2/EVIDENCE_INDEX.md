@@ -10,7 +10,8 @@ artifact or external state was actually observed.
 | RUN-001 | LOCAL_VERIFIED | `13240383` | independent Runtime/FGS/Entitlement review; 34 targeted tests | PASS |
 | LIB-001 | LOCAL_VERIFIED | `e009097b` | migration quarantine/readback/timestamp and transfer integration review | PASS |
 | PIPE-001 | LOCAL_VERIFIED | `6c064161` | independent immutable-candidate review; 22 pytest and 12 Node tests | PASS |
-| INT-001 | LOCAL_VERIFIED | `e009097b` integration snapshot | complete local pytest suite: 424 passed, 2 skipped | PASS |
+| SEARCH-001 | LOCAL_VERIFIED | `b4342f58` | independent cancellation/HOL/transfer-cleanup review; 26 targeted tests | PASS |
+| INT-001 | LOCAL_VERIFIED | `b4342f58` integration snapshot | complete local pytest suite: 427 passed, 2 skipped | PASS |
 
 Evidence must distinguish local tests, emulator CI, signed artifacts, Play
 acceptance and real-device behavior. External screenshots are anonymized and
