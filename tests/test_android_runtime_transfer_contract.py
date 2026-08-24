@@ -25,6 +25,10 @@ def test_transfer_foreground_precedes_python_execution_gate() -> None:
     assert "TransferCoordinator::onForegroundConfirmed" in service
     assert "ServerRuntime.setExecutionEnabled(false)" in service
     assert "stopSelf()" in service
+    assert 'failClosed("foreground promotion rejected")' in service
+    assert 'failClosed("foreground re-promotion rejected")' in service
+    on_destroy = service.split("override fun onDestroy()", 1)[1].split("override fun onTaskRemoved", 1)[0]
+    assert "failClosed" in on_destroy
 
 
 def test_web_and_native_producers_use_transfer_coordinator() -> None:
@@ -46,3 +50,29 @@ def test_server_runtime_is_single_flight_and_retryable() -> None:
     assert "synchronized(lock)" in runtime
     assert "if (state == State.STARTING || state == State.READY) return" in runtime
     assert "CopyOnWriteArraySet<Listener>" in runtime
+
+
+def test_transfer_service_start_failures_clean_up_and_fail_closed() -> None:
+    coordinator = _read("android/app/src/main/java/de/classydl/app/TransferCoordinator.kt")
+    begin = coordinator.split("fun beginTransfer", 1)[1].split("fun onForegroundConfirmed", 1)[0]
+    complete = coordinator.split("fun completeTransfer", 1)[1]
+    assert "try {" in begin and "ContextCompat.startForegroundService" in begin
+    assert "foregroundConfirmations.remove(id)" in begin
+    assert "ServerRuntime.setExecutionEnabled(false)" in begin
+    assert "try {" in complete and "context.startService(intent)" in complete
+    assert "ServerRuntime.cancelActiveTransfers()" in complete
+
+
+def test_stale_native_result_cannot_resurrect_after_clear_tombstone() -> None:
+    coordinator = _read("android/app/src/main/java/de/classydl/app/EntitlementCoordinator.kt")
+    api = _read("android/app/src/main/java/de/classydl/app/EntitlementApi.kt")
+    activity = _read("android/app/src/main/java/de/classydl/app/MainActivity.kt")
+    play = _read("android/app/src/play/java/de/classydl/app/PurchaseControllerFactory.kt")
+    verified = coordinator.split("fun applyVerifiedResult", 1)[1].split(
+        "fun applyRevokedResult", 1
+    )[0]
+    assert "current.revision > requestEpoch" in verified
+    assert "return@synchronized false" in verified
+    assert 'parsed.put("_entitlement_epoch", entitlementEpoch)' in api
+    assert "EntitlementCoordinator.applyVerifiedResult(this, key, requestEpoch)" in activity
+    assert "EntitlementCoordinator.applyVerifiedResult(appContext, licenseKey, requestEpoch)" in play

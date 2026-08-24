@@ -19,7 +19,13 @@ object TransferCoordinator {
         val intent = Intent(context, DownloadService::class.java)
             .setAction(DownloadService.ACTION_BEGIN_TRANSFER)
             .putExtra(DownloadService.EXTRA_TRANSFER_ID, id)
-        ContextCompat.startForegroundService(context, intent)
+        try {
+            ContextCompat.startForegroundService(context, intent)
+        } catch (error: RuntimeException) {
+            foregroundConfirmations.remove(id)
+            ServerRuntime.setExecutionEnabled(false)
+            return ""
+        }
         if (!confirmation.await(5, TimeUnit.SECONDS)) {
             completeTransfer(context, id, queued = false)
             return ""
@@ -47,6 +53,11 @@ object TransferCoordinator {
             .setAction(DownloadService.ACTION_COMPLETE_TRANSFER)
             .putExtra(DownloadService.EXTRA_TRANSFER_ID, id)
             .putExtra(DownloadService.EXTRA_QUEUED, queued)
-        context.startService(intent)
+        try {
+            context.startService(intent)
+        } catch (error: RuntimeException) {
+            ServerRuntime.setExecutionEnabled(false)
+            ServerRuntime.cancelActiveTransfers()
+        }
     }
 }

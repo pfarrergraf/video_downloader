@@ -76,7 +76,8 @@ object ServerRuntime {
     }
 
     fun setExecutionEnabled(enabled: Boolean): Boolean {
-        if (!awaitReady()) return false
+        if (enabled && !awaitReady()) return false
+        if (!enabled && !Python.isStarted()) return true
         return runCatching {
             Python.getInstance().getModule("video_downloader.android_entry")
                 .callAttr("set_execution_enabled", enabled)
@@ -90,6 +91,15 @@ object ServerRuntime {
             Python.getInstance().getModule("video_downloader.android_entry")
                 .callAttr("has_pending_work").toBoolean()
         }.getOrDefault(false)
+    }
+
+    fun cancelActiveTransfers(): Int {
+        if (state != State.READY) return 0
+        return runCatching {
+            Python.getInstance().getModule("video_downloader.android_entry")
+                .callAttr("cancel_active_for_system_timeout").toInt()
+        }.onFailure { Log.e(TAG, "Could not cancel transfers after foreground loss", it) }
+            .getOrDefault(0)
     }
 
     private fun startPythonServer(appContext: Context) {

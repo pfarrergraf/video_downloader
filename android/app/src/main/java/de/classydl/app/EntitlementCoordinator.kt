@@ -30,6 +30,29 @@ object EntitlementCoordinator {
     fun recordRevoked(context: Context): DesiredState =
         record(context, "CLEAR", null, onlyIfDifferent = true)
 
+    fun requestEpoch(context: Context): Long = synchronized(lock) {
+        read(context)?.revision ?: 0L
+    }
+
+    /** Apply a callback only if no newer SET/CLEAR decision happened meanwhile. */
+    fun applyVerifiedResult(context: Context, licenseKey: String, requestEpoch: Long): Boolean =
+        synchronized(lock) {
+            val current = read(context)
+            if (current != null && current.revision > requestEpoch) return@synchronized false
+            record(context, "SET", licenseKey, onlyIfDifferent = true)
+            EntitlementStore(context).recordVerified(licenseKey)
+            true
+        }
+
+    /** Authenticated revocations are also ordered, so an old token can't revoke a repurchase. */
+    fun applyRevokedResult(context: Context, requestEpoch: Long): Boolean = synchronized(lock) {
+        val current = read(context)
+        if (current != null && current.revision > requestEpoch) return@synchronized false
+        record(context, "CLEAR", null, onlyIfDifferent = true)
+        EntitlementStore(context).clear()
+        true
+    }
+
     fun applyDesired(context: Context, timeoutMs: Long = 20_000L): Boolean {
         val desired = read(context) ?: return true
         ServerRuntime.ensureStarted(context)

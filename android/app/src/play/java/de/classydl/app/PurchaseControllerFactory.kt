@@ -226,6 +226,8 @@ private class PlayPurchaseController(
 
     private fun onServerResult(result: JSONObject) {
         purchaseFlowInProgress = false
+        val requestEpoch = result.optLong("_entitlement_epoch", 0L)
+        result.remove("_entitlement_epoch")
         val verifiedToken = result.optString("_purchase_token").takeIf { it.isNotBlank() }
         // Purchase tokens are backend credentials. They are attached only
         // inside the native callback so parallel verification stays bound to
@@ -237,18 +239,22 @@ private class PlayPurchaseController(
             result.optBoolean("pro", result.optBoolean("active", false)),
         )
         if (result.optBoolean("ok") && active && licenseKey.isNotBlank()) {
-            entitlement.recordVerified(licenseKey)
-            EntitlementCoordinator.recordVerified(appContext, licenseKey)
-            EntitlementCoordinator.applyDesiredAsync(appContext)
-            verifiedToken?.let(api::confirmPurchaseDelivered)
+            if (EntitlementCoordinator.applyVerifiedResult(appContext, licenseKey, requestEpoch)) {
+                EntitlementCoordinator.applyDesiredAsync(appContext)
+                verifiedToken?.let(api::confirmPurchaseDelivered)
+            } else {
+                result.put("stale", true)
+            }
         }
         // Failed or unknown server results never destroy an existing paid
         // entitlement. Only an explicit, authenticated revocation does.
         if (result.optBoolean("revoked")) {
-            entitlement.clear()
-            EntitlementCoordinator.recordRevoked(appContext)
-            EntitlementCoordinator.applyDesiredAsync(appContext)
-            verifiedToken?.let(::consumeRevokedPurchase)
+            if (EntitlementCoordinator.applyRevokedResult(appContext, requestEpoch)) {
+                EntitlementCoordinator.applyDesiredAsync(appContext)
+                verifiedToken?.let(::consumeRevokedPurchase)
+            } else {
+                result.put("stale", true)
+            }
         }
         result.put("pro", entitlement.isPro())
         result.put("licenseKey", entitlement.licenseKey() ?: JSONObject.NULL)

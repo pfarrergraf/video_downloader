@@ -44,3 +44,13 @@ def test_stop_releases_waiter_without_claim(tmp_path: Path) -> None:
     thread.join(timeout=3)
     assert result == [None]
     assert store.list_jobs(status="pending", limit=5)
+
+
+def test_service_loss_close_keeps_next_job_pending(tmp_path: Path) -> None:
+    store = _store(tmp_path)
+    gate = ExecutionGate(initially_open=True)
+    stop = threading.Event()
+    gate.close()
+
+    assert gate.claim_next_job(store, stop=stop) is None
+    assert len(store.list_jobs(status="pending", limit=5)) == 1

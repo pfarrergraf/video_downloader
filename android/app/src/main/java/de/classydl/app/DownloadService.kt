@@ -85,8 +85,15 @@ class DownloadService : Service(), ServerRuntime.Listener {
 
     override fun onDestroy() {
         handler.removeCallbacks(idleShutdownRunnable)
+        failClosed("download service destroyed")
         ServerRuntime.removeListener(this)
         super.onDestroy()
+    }
+
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        failClosed("app task removed")
+        stopSelf()
+        super.onTaskRemoved(rootIntent)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -101,6 +108,7 @@ class DownloadService : Service(), ServerRuntime.Listener {
         if (action == ACTION_BEGIN_TRANSFER && transferId != null) pendingTransfers.add(transferId)
         if (!goForeground(getString(R.string.notif_downloads_running))) {
             transferId?.let(pendingTransfers::remove)
+            failClosed("foreground promotion rejected")
             stopSelf(startId)
             return START_NOT_STICKY
         }
@@ -230,7 +238,11 @@ class DownloadService : Service(), ServerRuntime.Listener {
             }
             val pct = if (totalsKnown && total > 0) ((downloaded * 100) / total).toInt() else null
             val text = resources.getQuantityString(R.plurals.notif_active_downloads, activeCount, activeCount)
-            if (!inForeground) goForeground(text)
+            if (!inForeground && !goForeground(text)) {
+                failClosed("foreground re-promotion rejected")
+                stopSelf()
+                return
+            }
             notificationManager().notify(ONGOING_NOTIFICATION_ID, buildOngoing(text, pct))
         } else if (inForeground && pendingTransfers.isEmpty()) {
             // The publisher polls every ~1s regardless of whether anything
@@ -255,6 +267,12 @@ class DownloadService : Service(), ServerRuntime.Listener {
         if (!inForeground || idleShutdownScheduled || pendingTransfers.isNotEmpty()) return
         idleShutdownScheduled = true
         handler.postDelayed(idleShutdownRunnable, IDLE_GRACE_MS)
+    }
+
+    private fun failClosed(reason: String) {
+        ServerRuntime.setExecutionEnabled(false)
+        val cancelled = ServerRuntime.cancelActiveTransfers()
+        android.util.Log.w("ClassyDL", "$reason; execution closed, cancelled=$cancelled")
     }
 
     private fun buildOngoing(

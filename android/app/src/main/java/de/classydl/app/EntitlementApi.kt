@@ -66,6 +66,7 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
         reportResult: Boolean = true,
         callback: ((JSONObject) -> Unit)? = null,
     ) {
+        val entitlementEpoch = EntitlementCoordinator.requestEpoch(appContext)
         executor.execute {
             val result = try {
                 val connection = (URL(BuildConfig.LICENSE_API_BASE_URL + path).openConnection() as HttpURLConnection)
@@ -86,9 +87,13 @@ class EntitlementApi(context: Context, private val onResult: (JSONObject) -> Uni
                     parsed.put("requested_license_key", validatedLicenseKey)
                     if (parsed.optBoolean("valid")) parsed.put("license_key", validatedLicenseKey)
                 }
+                parsed.put("_entitlement_epoch", entitlementEpoch)
                 parsed
             } catch (error: Exception) {
-                JSONObject().put("ok", false).put("error", "network_error")
+                JSONObject()
+                    .put("ok", false)
+                    .put("error", "network_error")
+                    .put("_entitlement_epoch", entitlementEpoch)
             }
             if (callback != null) mainHandler.post { callback(result) }
             else if (reportResult) mainHandler.post { onResult(result) }

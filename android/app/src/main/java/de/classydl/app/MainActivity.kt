@@ -486,23 +486,29 @@ class MainActivity : AppCompatActivity() {
 
     private fun onLicenseValidationResult(result: JSONObject) {
         val previousKey = entitlementStore.licenseKey()
+        val requestEpoch = result.optLong("_entitlement_epoch", 0L)
+        result.remove("_entitlement_epoch")
         val key = result.optString("license_key", result.optString("licenseKey"))
         val active = result.optBoolean(
             "valid",
             result.optBoolean("pro", result.optBoolean("active", false)),
         ) && result.optBoolean("device_allowed", true)
         if (result.optBoolean("ok") && active && key.isNotBlank()) {
-            entitlementStore.recordVerified(key)
-            EntitlementCoordinator.recordVerified(this, key)
-            EntitlementCoordinator.applyDesiredAsync(this)
+            if (EntitlementCoordinator.applyVerifiedResult(this, key, requestEpoch)) {
+                EntitlementCoordinator.applyDesiredAsync(this)
+            } else {
+                result.put("stale", true)
+            }
         } else if (
             result.optBoolean("ok") && !active &&
             result.optString("requested_license_key") == previousKey
         ) {
-            entitlementStore.clear()
-            EntitlementCoordinator.recordRevoked(this)
-            EntitlementCoordinator.applyDesiredAsync(this)
-            result.put("revoked", true)
+            if (EntitlementCoordinator.applyRevokedResult(this, requestEpoch)) {
+                EntitlementCoordinator.applyDesiredAsync(this)
+                result.put("revoked", true)
+            } else {
+                result.put("stale", true)
+            }
         }
         result.put("pro", entitlementStore.isPro())
         result.put("licenseKey", entitlementStore.licenseKey() ?: JSONObject.NULL)
