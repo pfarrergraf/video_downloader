@@ -17,7 +17,7 @@ actually observed.
 | DOC-002 | LOCAL_VERIFIED | `1e0183fd` | owner gates, blocked external evidence and redacted device E2E checklist | PASS |
 | ENV-001 | UNVERIFIED | external GitHub settings | Required Reviewers and branch restrictions for both release environments | BLOCKED |
 | FGS-001 | UNVERIFIED | Play Console | submitted foreground-service declaration matching final behavior | BLOCKED |
-| CI-001 | UNVERIFIED | final integration commit | Android compile plus API 34/35 emulator runs | BLOCKED |
+| CI-001 | CI_EMULATOR_VERIFIED | GitHub run `32778242684` / `26b650ee` | Direct and Play Kotlin compilation plus API 34/35 health, on-device FFmpeg/QuickJS, Share-to-download, background survival, SIGKILL, sticky process recreation and completed 4 MiB recovery download | PASS; debug APK artifact `sha256:c486ffdecf8a525335b4af570be9a46232fc3e3a908e8dd512dbea21f0cb5ef9` |
 | CI-002 | IMPLEMENTED_UNVERIFIED | GitHub run `32763096501` / `a9f07989` | Direct Debug Kotlin compilation failed in `MediaHistoryActivity`: trailing action lambdas bound to the optional layout parameter; fixed in the successor commit | FAIL (no artifact) |
 | CI-003 | IMPLEMENTED_UNVERIFIED | GitHub runs `32763790259`, `32770952566` | app build, health endpoint, ffmpeg and QuickJS passed on API 34/35; the legacy direct-HTTP download probe bypassed the TransferCoordinator, then attempted to start the non-exported service from adb shell. It is removed from the blocking CI path and retained for exact-Internal-AAB device verification. | HARNESS FAIL; no Play artifact |
 | ASSET-001 | UNVERIFIED | final UI commit | real phone, 7-inch and 10-inch captures with visual review | BLOCKED |

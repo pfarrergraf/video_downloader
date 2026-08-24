@@ -5,8 +5,8 @@ scenario. Never infer device or Play behavior from source assertions.
 
 | Area | Scenario | Required level | Current |
 |---|---|---|---|
-| Runtime | concurrent start, bind failure, retry, listener attach/detach | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
-| FGS | no idle notification; every queue producer obtains a transfer lease | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
+| Runtime | concurrent start, bind failure, retry, listener attach/detach | CI_EMULATOR_VERIFIED | CI_EMULATOR_VERIFIED: API 34/35 health and sticky process recreation; concurrency/failure contracts also locally tested |
+| FGS | no idle notification; every queue producer obtains a transfer lease | CI_EMULATOR_VERIFIED | CI_EMULATOR_VERIFIED: Share producer, background survival and post-SIGKILL completion on API 34/35; producer contracts also locally tested |
 | FGS | background transfer, retry, recovery, timeout and idle stop | DEVICE_E2E_VERIFIED | UNVERIFIED: the former adb-shell queue probe bypasses the non-exported, user-gesture-bound transfer contract; verify on the exact Internal AAB |
 | Entitlement | slow server, restart, SET/CLEAR revision ordering, offline grace | CI_EMULATOR_VERIFIED | LOCAL_VERIFIED |
 | Billing | cancel, pending, purchased, lost callback, restore | DEVICE_E2E_VERIFIED | UNVERIFIED |

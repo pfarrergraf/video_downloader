@@ -35,7 +35,7 @@ Verification levels are never collapsed into a generic "tested" status.
 |---|---|---|
 | G0 scope, policy, branch | LOCAL_VERIFIED | fixed decisions above; integration branch |
 | G1 local code and contract tests | LOCAL_VERIFIED | `a9f07989`: 433 passed, 2 skipped; 20 Node tests; 30 website tests; claims and no-ad SDK scans pass |
-| G2 Android compile and API 34/35 emulator | BLOCKED | final commit CI run |
+| G2 Android compile and API 34/35 emulator | CI_EMULATOR_VERIFIED | `26b650ee`; GitHub run `32778242684`; both APIs passed Share, background and SIGKILL/sticky recovery |
 | G3 claims, locales, real screenshots | BLOCKED | listing manifest and visual review |
 | G4 TEAM candidate approval | BLOCKED | ACK from all seven roles |
 | G5 signed candidate AAB | BLOCKED | provenance, signing cert, SHA-256, SBOM |
