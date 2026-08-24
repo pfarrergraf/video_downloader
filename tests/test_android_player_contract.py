@@ -9,6 +9,7 @@ PLAYER = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" 
 SERVICE = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "MediaPlaybackService.kt"
 BRIDGE = ROOT / "video_downloader" / "android_bridge.py"
 RETENTION = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "PlaybackRetentionStore.kt"
+LIBRARY = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "MediaLibraryStore.kt"
 DOWNLOAD_SERVICE = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "DownloadService.kt"
 
 
@@ -67,6 +68,7 @@ def test_player_rejects_remote_uris_in_single_items_and_playlists() -> None:
 
 def test_only_owned_downloads_are_retained_and_missing_history_files_are_handled() -> None:
     retention = RETENTION.read_text(encoding="utf-8")
+    library = LIBRARY.read_text(encoding="utf-8")
     player = PLAYER.read_text(encoding="utf-8")
     history = (ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "MediaHistoryActivity.kt").read_text(encoding="utf-8")
 
@@ -74,7 +76,8 @@ def test_only_owned_downloads_are_retained_and_missing_history_files_are_handled
     assert "if (!isOwnedDownloadUri(uri)) return" in retention
     assert "if (!retentionStore.isOwnedDownloadUri(uri)) return" in player
     assert "contentResolver.openFileDescriptor" in history
-    assert "store.remove(entry.uri)" in history
+    assert "store.pruneUnreadable()" in history
+    assert "removeFromLibrary" in library
 
 
 def test_completed_notification_opens_native_player_without_chooser() -> None:

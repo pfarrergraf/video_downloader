@@ -43,6 +43,7 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var topChrome: View
     private lateinit var retentionActions: View
     private lateinit var retentionStore: PlaybackRetentionStore
+    private lateinit var libraryStore: MediaLibraryStore
     private lateinit var controllerFuture: ListenableFuture<MediaController>
     private var controller: MediaController? = null
     private var pendingUri: Uri? = null
@@ -85,6 +86,7 @@ class PlayerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_player)
 
         retentionStore = PlaybackRetentionStore(this)
+        libraryStore = MediaLibraryStore(this)
         playerView = findViewById(R.id.player_view)
         titleView = findViewById(R.id.player_title)
         speedButton = findViewById(R.id.player_speed)
@@ -129,6 +131,7 @@ class PlayerActivity : AppCompatActivity() {
         controller?.removeListener(playerListener)
         controller?.release()
         controller = null
+        libraryStore.close()
         if (::controllerFuture.isInitialized && !controllerFuture.isDone) {
             controllerFuture.cancel(true)
         }
@@ -212,7 +215,7 @@ class PlayerActivity : AppCompatActivity() {
 
     private fun playPendingMedia(mediaController: MediaController) {
         val uri = pendingUri ?: return
-        val resumeMs = retentionStore.get(uri.toString())
+        val resumeMs = libraryStore.get(uri.toString())
             ?.takeIf { it.isMeaningfulResume }
             ?.positionMs
             ?: 0L
@@ -255,7 +258,7 @@ class PlayerActivity : AppCompatActivity() {
             ?.takeIf { it.isNotBlank() }
             ?: titleView.text?.toString().orEmpty()
         val duration = mediaController.duration.takeIf { it != C.TIME_UNSET && it > 0L } ?: 0L
-        retentionStore.record(
+        libraryStore.recordPlayback(
             uri = uri,
             title = title,
             mimeType = item.localConfiguration?.mimeType ?: pendingMimeType,

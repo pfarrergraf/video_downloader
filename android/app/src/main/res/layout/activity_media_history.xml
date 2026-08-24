@@ -30,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/history_title"
+            android:text="@string/library_title"
             android:textColor="#F3F1FB"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -57,6 +57,18 @@
             android:layout_weight="1"
             android:text="@string/history_play_all" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/library_new_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/library_new_playlist" />
+
+    <LinearLayout
+        android:id="@+id/library_playlists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
 
     <Button
         android:id="@+id/history_clear"

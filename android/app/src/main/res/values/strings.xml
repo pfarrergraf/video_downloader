@@ -25,6 +25,21 @@
     <string name="history_play_again">Play again</string>
     <string name="history_play_all">Play recent</string>
     <string name="history_clear">Clear history</string>
+    <string name="library_title">Library &amp; playlists</string>
+    <string name="library_new_playlist">New playlist</string>
+    <string name="library_playlist_name">Playlist name</string>
+    <string name="library_create">Create</string>
+    <string name="library_rename">Rename</string>
+    <string name="library_delete_playlist">Delete playlist</string>
+    <string name="library_add_to_playlist">Add to playlist</string>
+    <string name="library_remove">Remove from library</string>
+    <string name="library_delete_file">Delete file</string>
+    <string name="library_delete_file_confirm">Delete this file permanently?</string>
+    <string name="library_cancel">Cancel</string>
+    <string name="library_playlist_empty">This playlist is empty.</string>
+    <string name="library_move_up">Move up</string>
+    <string name="library_move_down">Move down</string>
+    <string name="library_remove_from_playlist">Remove</string>
 
     <string name="search_title">Search media</string>
     <string name="search_subtitle">Enter a title, choose a result, then download video or audio.</string>

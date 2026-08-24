@@ -79,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
+        reconcileMediaLibrary()
         findViewById<View>(R.id.media_search_btn).setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
@@ -236,6 +237,18 @@ class MainActivity : AppCompatActivity() {
         if (::purchaseController.isInitialized) purchaseController.close()
         if (::entitlementApi.isInitialized) entitlementApi.close()
         super.onDestroy()
+    }
+
+    /** Import legacy playback state and discover completed downloads off the UI thread. */
+    private fun reconcileMediaLibrary() {
+        thread(name = "downloadthat-library-reconcile", isDaemon = true) {
+            runCatching {
+                MediaLibraryStore(applicationContext).use { store ->
+                    store.reconcileDownloads()
+                    store.pruneUnreadable()
+                }
+            }.onFailure { Log.w(TAG, "Media library reconciliation failed", it) }
+        }
     }
 
     /**

@@ -24,6 +24,21 @@
     <string name="history_play_again">Noch einmal abspielen</string>
     <string name="history_play_all">Zuletzt abspielen</string>
     <string name="history_clear">Verlauf löschen</string>
+    <string name="library_title">Bibliothek &amp; Playlists</string>
+    <string name="library_new_playlist">Neue Playlist</string>
+    <string name="library_playlist_name">Name der Playlist</string>
+    <string name="library_create">Erstellen</string>
+    <string name="library_rename">Umbenennen</string>
+    <string name="library_delete_playlist">Playlist löschen</string>
+    <string name="library_add_to_playlist">Zur Playlist hinzufügen</string>
+    <string name="library_remove">Aus Bibliothek entfernen</string>
+    <string name="library_delete_file">Datei löschen</string>
+    <string name="library_delete_file_confirm">Diese Datei dauerhaft löschen?</string>
+    <string name="library_cancel">Abbrechen</string>
+    <string name="library_playlist_empty">Diese Playlist ist leer.</string>
+    <string name="library_move_up">Nach oben</string>
+    <string name="library_move_down">Nach unten</string>
+    <string name="library_remove_from_playlist">Entfernen</string>
 
     <string name="search_title">Medien suchen</string>
     <string name="search_subtitle">Titel eingeben, Treffer auswählen und direkt Video oder Audio herunterladen.</string>
