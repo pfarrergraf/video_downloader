@@ -10,7 +10,7 @@ on:
         required: true
         type: string
       fgs_declaration_confirmed:
-        description: "Owner confirmed the current Play foreground-service declaration"
+        description: "Record whether the Play foreground-service declaration is already confirmed (promotion still gates it)"
         required: true
         default: false
         type: boolean
@@ -55,13 +55,9 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Require owner and TEAM gates
+      - name: Require TEAM candidate gate
         shell: bash
         run: |
-          [ "${{ inputs.fgs_declaration_confirmed }}" = "true" ] || {
-            echo "::error::The Play foreground-service declaration must be confirmed before candidate build."
-            exit 1
-          }
           [ "${{ inputs.team_gate_confirmed }}" = "true" ] || {
             echo "::error::The commit-bound TEAM gate must be confirmed before candidate build."
             exit 1
@@ -339,7 +335,7 @@ jobs:
             "uploadCertificateSha256": "${cert_sha}",
             "releaseBoardSha256": "${board_sha}",
             "teamGateSha256": "${gate_sha}",
-            "fgsDeclarationConfirmed": true,
+            "fgsDeclarationConfirmed": ${{ inputs.fgs_declaration_confirmed }},
             "teamGateConfirmed": true,
             "generatedAt": "${generated_at}"
           }

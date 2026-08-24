@@ -37,7 +37,7 @@ Verification levels are never collapsed into a generic "tested" status.
 | G1 local code and contract tests | LOCAL_VERIFIED | `a9f07989`: 433 passed, 2 skipped; 20 Node tests; 30 website tests; claims and no-ad SDK scans pass |
 | G2 Android compile and API 34/35 emulator | CI_EMULATOR_VERIFIED | `26b650ee`; GitHub run `32778242684`; both APIs passed Share, background and SIGKILL/sticky recovery |
 | G3 claims, locales, real screenshots | BLOCKED | listing manifest and visual review |
-| G4 TEAM candidate approval | BLOCKED | ACK from all seven roles |
+| G4 TEAM candidate approval | LOCAL_VERIFIED | six machine-readable role ACKs backed by `FIN-001`, `RUN-001`, `LIB-001`, `PIPE-001`, `SEARCH-001`, `MKT-001`, `DOC-001` and `CI-001`; listing ACK covers the frozen pipeline, not missing captures |
 | G5 signed candidate AAB | BLOCKED | provenance, signing cert, SHA-256, SBOM |
 | G6 Internal Play acceptance | BLOCKED | exact-artifact promotion record |
 | G7 real device and Billing matrix | BLOCKED | redacted device evidence |

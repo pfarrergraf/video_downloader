@@ -6,7 +6,7 @@ CANDIDATE = ROOT / ".github/workflows/android-release.yml"
 PROMOTE = ROOT / ".github/workflows/android-promote-candidate.yml"
 
 
-def test_candidate_build_has_hard_gates_and_never_uploads_to_play() -> None:
+def test_candidate_build_has_team_gate_and_never_uploads_to_play() -> None:
     source = CANDIDATE.read_text(encoding="utf-8")
     assert "name: Android candidate build" in source
     assert "fgs_declaration_confirmed" in source
@@ -23,6 +23,7 @@ def test_candidate_build_has_hard_gates_and_never_uploads_to_play() -> None:
     assert "python scripts/check_no_ad_sdk.py" in source
     assert "app-direct-release.apk" not in source
     assert "check_android_release_artifacts.sh" not in source
+    assert '"fgsDeclarationConfirmed": ${{ inputs.fgs_declaration_confirmed }}' in source
 
 
 def test_promotion_downloads_exact_candidate_and_never_builds() -> None:
@@ -36,6 +37,8 @@ def test_promotion_downloads_exact_candidate_and_never_builds() -> None:
     assert "--track internal" in source
     assert "cancel-in-progress: false" in source
     assert "environment: google-play-internal" in source
+    assert "fgs_declaration_confirmed" in source
+    assert "must be confirmed before upload" in source
     assert 'candidate:${{ steps.candidate.outputs.aab_sha256 }}' in source
     for forbidden in ("gradle ", "bundleplayrelease", "assemblerelease", "compileplay"):
         assert forbidden not in lower

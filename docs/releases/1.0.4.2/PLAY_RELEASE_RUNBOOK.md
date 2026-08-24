@@ -22,7 +22,8 @@ enter Git.
 
 1. Freeze the integration commit and require TEAM ACK from Coding, Critical
    Reviewer, Finance/Billing, Marketing, Listing and Documenter.
-2. Confirm the Google Play foreground-service declaration is complete.
+2. Record whether the Google Play foreground-service declaration is complete;
+   an unconfirmed declaration blocks promotion, not creation of signed bytes.
 3. Query the highest version code known to Play. Use `v1.0.4.2` / `1000402` if
    free; otherwise choose the smallest higher `1.0.4.N` revision.
 4. Run the final local and Android debug/emulator gates.
@@ -42,9 +43,11 @@ version name/code, upload-certificate SHA-256 and AAB SHA-256.
 A run that fails before producing a valid candidate consumes no Play version.
 After a valid candidate manifest exists, do not rebuild that version.
 
-Do not dispatch while real phone/tablet assets, Android CI, the Play FGS
-declaration or any TEAM role remain `BLOCKED`/`UNVERIFIED` at their required
-gate. Listing capture jobs may use debug artifacts but never the candidate AAB.
+Do not dispatch while Android CI or any TEAM candidate role remains
+`BLOCKED`/`UNVERIFIED`. Missing real phone/tablet assets and an unconfirmed Play
+FGS declaration remain explicit promotion/listing blockers; the candidate
+provenance records the actual FGS confirmation input. Listing capture jobs may
+use debug artifacts but never the candidate AAB.
 
 ## Promote candidate
 
@@ -52,6 +55,10 @@ Dispatch the promotion workflow with the candidate run id, artifact name and
 expected AAB SHA-256. The workflow must download the existing artifact, verify
 its provenance and certificate, and upload only to Internal Testing. It must not
 run Gradle, compile or bundle anything.
+
+Promotion additionally requires the owner-confirmed Play foreground-service
+declaration. A checked input is authorization for the workflow gate, while the
+separate redacted Console observation remains the evidence for `FGS-001`.
 
 Configuration-only upload failures retry the same artifact. A new AAB is allowed
 only after a demonstrated code defect in the Internal candidate.

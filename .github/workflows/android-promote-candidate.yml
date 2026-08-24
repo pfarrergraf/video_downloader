@@ -15,6 +15,11 @@ on:
         description: "Expected SHA-256 of the AAB, copied from reviewed evidence"
         required: true
         type: string
+      fgs_declaration_confirmed:
+        description: "Owner confirmed the current Play foreground-service declaration"
+        required: true
+        default: false
+        type: boolean
       team_gate_confirmed:
         description: "All release roles approved this exact candidate"
         required: true
@@ -46,6 +51,10 @@ jobs:
           set -euo pipefail
           [ "${{ inputs.team_gate_confirmed }}" = "true" ] || {
             echo "::error::The commit-bound TEAM gate is not confirmed."
+            exit 1
+          }
+          [ "${{ inputs.fgs_declaration_confirmed }}" = "true" ] || {
+            echo "::error::The Play foreground-service declaration must be confirmed before upload."
             exit 1
           }
           [[ "$RUN_ID" =~ ^[0-9]+$ ]] || { echo "::error::Invalid candidate run id"; exit 1; }
