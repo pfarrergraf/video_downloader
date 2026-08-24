@@ -213,11 +213,14 @@ class MediaLibraryStore(private val context: Context) : SQLiteOpenHelper(
     /** Transactional import, then readback, then legacy deletion. Safe after interruption. */
     private fun migrateLegacyHistory() {
         val db = writableDatabase
-        if (db.rawQuery("SELECT value FROM library_state WHERE key='legacy_history_v1'", null)
-                .use { it.moveToFirst() && it.getString(0) == "done" }) return
         val prefs = context.getSharedPreferences(LEGACY_PREFS, Context.MODE_PRIVATE)
+        if (db.rawQuery("SELECT value FROM library_state WHERE key='legacy_history_v1'", null)
+                .use { it.moveToFirst() && it.getString(0) == "done" }) {
+            prefs.edit().remove(LEGACY_KEY).commit()
+            return
+        }
         val raw = prefs.getString(LEGACY_KEY, null)
-        var imported = 0
+        val importedIds = mutableSetOf<String>()
         db.beginTransaction()
         try {
             if (!raw.isNullOrBlank()) {
@@ -227,7 +230,7 @@ class MediaLibraryStore(private val context: Context) : SQLiteOpenHelper(
                     val uri = item.optString("uri"); if (!isOwnedUri(uri)) continue
                     recordPlayback(uri, item.optString("title", "Media"), item.optString("mimeType").ifBlank { null },
                         item.optLong("positionMs"), item.optLong("durationMs"))
-                    imported++
+                    importedIds.add(stableId(uri))
                 }
             }
             db.insertWithOnConflict("library_state", null, ContentValues().apply {
@@ -235,8 +238,10 @@ class MediaLibraryStore(private val context: Context) : SQLiteOpenHelper(
             }, SQLiteDatabase.CONFLICT_REPLACE)
             db.setTransactionSuccessful()
         } finally { db.endTransaction() }
-        val readback = db.rawQuery("SELECT COUNT(*) FROM media", null).use { it.moveToFirst(); it.getInt(0) }
-        if (readback >= imported) prefs.edit().remove(LEGACY_KEY).commit()
+        val readbackComplete = importedIds.all { id ->
+            db.rawQuery("SELECT 1 FROM media WHERE id = ?", arrayOf(id)).use { it.moveToFirst() }
+        }
+        if (readbackComplete) prefs.edit().remove(LEGACY_KEY).commit()
     }
 
     companion object {

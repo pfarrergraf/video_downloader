@@ -145,7 +145,7 @@ class SearchActivity : AppCompatActivity() {
         thumbnailExecutor.execute {
             val bitmap = runCatching {
                 val connection = parsed.openConnection().apply { connectTimeout = 4_000; readTimeout = 6_000 }
-                connection.getInputStream().use(BitmapFactory::decodeStream)
+                connection.getInputStream().use { stream -> BitmapFactory.decodeStream(stream) }
             }.getOrNull() ?: return@execute
             thumbnailCache.put(result.thumbnail, bitmap)
             runOnUiThread { if (image.tag == result.id) image.setImageBitmap(bitmap) }
