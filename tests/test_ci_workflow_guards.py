@@ -127,6 +127,16 @@ def test_share_intent_smoke_test_retries_transient_restart_responses() -> None:
     assert 'if [ "$HEALTH_READY" != "true" ]' in script
 
 
+def test_share_intent_smoke_test_redelivers_after_launcher_anr_boundedly() -> None:
+    script = (ROOT / ".github" / "scripts" / "share_intent_test.sh").read_text(
+        encoding="utf-8"
+    )
+    assert "deliver_share_intent()" in script
+    assert "SHARE_REDELIVERIES=0" in script
+    assert 'if [ "$SHARE_REDELIVERIES" -lt 2 ]' in script
+    assert "Re-delivering ACTION_SEND after launcher ANR" in script
+
+
 def test_kill_resilience_uses_transfer_ui_and_process_death_not_force_stop() -> None:
     script = (ROOT / ".github" / "scripts" / "kill_resilience_test.sh").read_text(
         encoding="utf-8"

@@ -125,9 +125,13 @@ curl "${CURL_RETRY[@]}" -c "$COOKIE_JAR" -X POST "$BASE/api/login" \
 # Share the URL into the app exactly the way another app would - embedded in
 # prose, because YouTube etc. share "title + URL", not a bare URL. The
 # explicit component skips the share-sheet chooser (no UI automation needed).
-adb shell am start -n de.classydl.app/.MainActivity \
-  -a android.intent.action.SEND -t text/plain \
-  --es android.intent.extra.TEXT "'Check this out: $TEST_URL'"
+deliver_share_intent() {
+  adb shell am start -n de.classydl.app/.MainActivity \
+    -a android.intent.action.SEND -t text/plain \
+    --es android.intent.extra.TEXT "'Check this out: $TEST_URL'"
+}
+
+deliver_share_intent
 
 echo "Sent ACTION_SEND intent with $TEST_URL"
 
@@ -139,6 +143,7 @@ echo "Sent ACTION_SEND intent with $TEST_URL"
 # centered modal, so its buttons land further down than the home screen's
 # row, which sits right under the URL field near the top.
 TAP_XY=""
+SHARE_REDELIVERIES=0
 for i in $(seq 1 15); do
   adb shell uiautomator dump /sdcard/window_dump.xml >/dev/null 2>&1 || true
   adb pull /sdcard/window_dump.xml "$TEST_DIR/window_dump.xml" >/dev/null 2>&1 || true
@@ -152,6 +157,16 @@ for i in $(seq 1 15); do
     adb shell input tap "$DISMISS_X" "$DISMISS_Y"
     TAP_XY=""
     sleep 2
+    # On the API 34 hosted image, dismissing a Pixel Launcher ANR can also
+    # discard the picker that DownloadThat had already opened. Re-deliver the
+    # same intent only while no format has been selected, and cap retries so a
+    # genuinely broken UI still fails deterministically.
+    if [ "$SHARE_REDELIVERIES" -lt 2 ]; then
+      SHARE_REDELIVERIES=$((SHARE_REDELIVERIES + 1))
+      echo "Re-delivering ACTION_SEND after launcher ANR ($SHARE_REDELIVERIES/2)..."
+      deliver_share_intent
+      sleep 2
+    fi
     continue
   fi
   if [ -n "$TAP_XY" ]; then
