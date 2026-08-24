@@ -84,6 +84,9 @@ jobs:
             exit 1
           }
 
+      - name: Confirm the no-advertising dependency and source gate
+        run: python scripts/check_no_ad_sdk.py
+
       - name: Select the first free revision on the requested release line
         id: candidate_version
         env:
