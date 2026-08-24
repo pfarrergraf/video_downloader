@@ -51,6 +51,9 @@ def test_search_youtube_is_metadata_only_and_bounded(monkeypatch) -> None:
     assert _FakeYdl.last_query == "ytsearch4:test song"
     assert _FakeYdl.last_options["skip_download"] is True
     assert _FakeYdl.last_options["extract_flat"] == "in_playlist"
+    assert _FakeYdl.last_options["socket_timeout"] == media_search.SEARCH_SOCKET_TIMEOUT_SECONDS
+    assert _FakeYdl.last_options["retries"] == 0
+    assert _FakeYdl.last_options["extractor_retries"] == 0
     assert results[0] == {
         "id": "abc123",
         "title": "First result",
@@ -95,3 +98,40 @@ def test_invalid_or_expired_search_cursor_requires_restart(monkeypatch) -> None:
     monkeypatch.setattr(media_search, "search_youtube", lambda query, limit: [])
     first = json.loads(media_search.start_search_session_json("anything"))
     assert first["next_cursor"] is None
+
+
+def test_cancelled_search_stops_before_network_extraction(monkeypatch) -> None:
+    class Signal:
+        def isCancelled(self):
+            return True
+
+    monkeypatch.setattr(
+        media_search,
+        "YoutubeDL",
+        lambda _options: (_ for _ in ()).throw(AssertionError("must not start yt-dlp")),
+    )
+
+    result = json.loads(media_search.start_search_session_json("anything", Signal()))
+
+    assert result == {"error": "search_cancelled", "results": []}
+
+
+def test_cancel_signal_is_checked_during_yt_dlp_work(monkeypatch) -> None:
+    class Signal:
+        cancelled = False
+
+        def isCancelled(self):
+            return self.cancelled
+
+    signal = Signal()
+
+    class CancellingYdl(_FakeYdl):
+        def extract_info(self, query, download=False):
+            signal.cancelled = True
+            self.last_options["match_filter"]({}, incomplete=True)
+            raise AssertionError("cancellation hook must abort extraction")
+
+    monkeypatch.setattr(media_search, "YoutubeDL", CancellingYdl)
+    result = json.loads(media_search.start_search_session_json("anything", signal))
+
+    assert result["error"] == "search_cancelled"

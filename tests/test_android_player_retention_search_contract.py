@@ -67,9 +67,26 @@ def test_search_uses_recycler_and_bounded_thumbnail_workers() -> None:
     search = _read("android/app/src/main/java/de/classydl/app/SearchActivity.kt")
     layout = _read("android/app/src/main/res/layout/activity_media_search.xml")
     assert "ListAdapter<SearchResult" in search
-    assert "Executors.newFixedThreadPool(3)" in search
+    assert "ArrayBlockingQueue(capacity)" in search
+    assert "boundedExecutor(3, 24, discardOldest = true)" in search
     assert "LruCache<String, Bitmap>" in search
     assert "androidx.recyclerview.widget.RecyclerView" in layout
+
+
+def test_search_cancellation_and_enqueue_have_separate_bounded_paths() -> None:
+    search = _read("android/app/src/main/java/de/classydl/app/SearchActivity.kt")
+    run_page = search.split("private fun runPage", 1)[1].split("private fun setBusy", 1)[0]
+    enqueue = search.split("private fun enqueue", 1)[1].split("private fun loadThumbnail", 1)[0]
+
+    assert "private val searchExecutor = boundedExecutor(1, 1)" in search
+    assert "private val enqueueExecutor = boundedExecutor(1, 4)" in search
+    assert "currentSearchFuture?.cancel(true)" in search
+    assert "currentCancellation?.cancel()" in search
+    assert "mainHandler.postDelayed(timeout, SEARCH_TIMEOUT_MS)" in run_page
+    assert "searchExecutor.submit" in run_page
+    assert "enqueueExecutor.execute" in enqueue
+    assert "searchExecutor.execute" not in enqueue
+    assert "RejectedExecutionException" in enqueue
 
 
 def test_library_schema_and_destructive_actions_are_separate() -> None:

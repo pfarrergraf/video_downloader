@@ -19,7 +19,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chaquo.python.Python
 import org.json.JSONObject
 import java.net.URI
+import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.Executors
+import java.util.concurrent.Future
+import java.util.concurrent.RejectedExecutionException
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 
 /** Metadata-only native discovery with stable, bounded result snapshots. */
@@ -29,12 +35,17 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var moreButton: Button
     private lateinit var statusView: TextView
     private lateinit var adapter: SearchAdapter
-    private val searchExecutor = Executors.newSingleThreadExecutor()
-    private val thumbnailExecutor = Executors.newFixedThreadPool(3)
+    private val searchExecutor = boundedExecutor(1, 1)
+    private val enqueueExecutor = boundedExecutor(1, 4)
+    private val thumbnailExecutor = boundedExecutor(3, 24, discardOldest = true)
     private val thumbnailCache = object : LruCache<String, Bitmap>(12 * 1024 * 1024) {
         override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount
     }
     private val generation = AtomicInteger()
+    private val mainHandler = android.os.Handler(android.os.Looper.getMainLooper())
+    @Volatile private var currentSearchFuture: Future<*>? = null
+    @Volatile private var currentCancellation: SearchCancellationSignal? = null
+    private var currentTimeout: Runnable? = null
     private var nextCursor: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,45 +85,82 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun runPage(token: Int, method: String, argument: String, append: Boolean) {
+        cancelCurrentSearch()
         setBusy(true)
         statusView.setText(R.string.search_searching)
-        searchExecutor.execute {
-            val outcome = runCatching {
-                if (!Python.isStarted()) error("Python runtime is not ready")
-                JSONObject(Python.getInstance().getModule("video_downloader.media_search")
-                    .callAttr(method, argument).toString())
-            }
-            runOnUiThread {
-                if (token != generation.get() || isFinishing || isDestroyed) return@runOnUiThread
-                setBusy(false)
-                outcome.onSuccess { root ->
-                    if (root.optString("error") == "restart_search") {
-                        nextCursor = null
-                        moreButton.visibility = View.GONE
-                        statusView.setText(R.string.search_restart)
-                        return@onSuccess
+        val cancellation = SearchCancellationSignal()
+        currentCancellation = cancellation
+        val timeout = Runnable {
+            if (token != generation.get() || currentCancellation !== cancellation) return@Runnable
+            cancellation.cancel()
+            currentSearchFuture?.cancel(true)
+            searchExecutor.purge()
+            currentSearchFuture = null
+            currentCancellation = null
+            generation.compareAndSet(token, token + 1)
+            setBusy(false)
+            statusView.setText(R.string.search_timeout)
+        }
+        currentTimeout = timeout
+        mainHandler.postDelayed(timeout, SEARCH_TIMEOUT_MS)
+        try {
+            currentSearchFuture = searchExecutor.submit {
+                val outcome = runCatching {
+                    if (!Python.isStarted()) error("Python runtime is not ready")
+                    val module = Python.getInstance().getModule("video_downloader.media_search")
+                    val response = if (method == "start_search_session_json") {
+                        module.callAttr(method, argument, cancellation)
+                    } else {
+                        module.callAttr(method, argument)
                     }
-                    val parsed = buildList {
-                        val array = root.optJSONArray("results") ?: return@buildList
-                        for (i in 0 until array.length()) {
-                            val item = array.optJSONObject(i) ?: continue
-                            add(SearchResult(
-                                id = item.optString("id", item.optString("url")),
-                                title = item.optString("title", getString(R.string.player_unknown_title)),
-                                url = item.optString("url"), thumbnail = item.optString("thumbnail"),
-                                uploader = item.optString("uploader"),
-                                durationSeconds = if (item.isNull("duration")) null else item.optInt("duration"),
-                            ))
+                    JSONObject(response.toString())
+                }
+                runOnUiThread {
+                    if (token != generation.get() || isFinishing || isDestroyed) return@runOnUiThread
+                    mainHandler.removeCallbacks(timeout)
+                    currentTimeout = null
+                    currentSearchFuture = null
+                    currentCancellation = null
+                    setBusy(false)
+                    outcome.onSuccess { root ->
+                        if (root.optString("error") == "search_cancelled") {
+                            statusView.setText(R.string.search_cancelled)
+                            return@onSuccess
                         }
-                    }
-                    val combined = if (append) adapter.currentList + parsed else parsed
-                    adapter.submitList(combined.distinctBy { it.id })
-                    nextCursor = root.optString("next_cursor").takeIf { it.isNotBlank() && it != "null" }
-                    moreButton.visibility = if (nextCursor == null) View.GONE else View.VISIBLE
-                    statusView.text = if (combined.isEmpty()) getString(R.string.search_no_results)
-                    else resources.getQuantityString(R.plurals.search_results_count, combined.size, combined.size)
-                }.onFailure { statusView.text = getString(R.string.search_failed, it.message ?: "unknown error") }
+                        if (root.optString("error") == "restart_search") {
+                            nextCursor = null
+                            moreButton.visibility = View.GONE
+                            statusView.setText(R.string.search_restart)
+                            return@onSuccess
+                        }
+                        val parsed = buildList {
+                            val array = root.optJSONArray("results") ?: return@buildList
+                            for (i in 0 until array.length()) {
+                                val item = array.optJSONObject(i) ?: continue
+                                add(SearchResult(
+                                    id = item.optString("id", item.optString("url")),
+                                    title = item.optString("title", getString(R.string.player_unknown_title)),
+                                    url = item.optString("url"), thumbnail = item.optString("thumbnail"),
+                                    uploader = item.optString("uploader"),
+                                    durationSeconds = if (item.isNull("duration")) null else item.optInt("duration"),
+                                ))
+                            }
+                        }
+                        val combined = if (append) adapter.currentList + parsed else parsed
+                        adapter.submitList(combined.distinctBy { it.id })
+                        nextCursor = root.optString("next_cursor").takeIf { it.isNotBlank() && it != "null" }
+                        moreButton.visibility = if (nextCursor == null) View.GONE else View.VISIBLE
+                        statusView.text = if (combined.isEmpty()) getString(R.string.search_no_results)
+                        else resources.getQuantityString(R.plurals.search_results_count, combined.size, combined.size)
+                    }.onFailure { statusView.text = getString(R.string.search_failed, it.message ?: "unknown error") }
+                }
             }
+        } catch (_: RejectedExecutionException) {
+            mainHandler.removeCallbacks(timeout)
+            currentTimeout = null
+            currentCancellation = null
+            setBusy(false)
+            statusView.setText(R.string.search_cancelled)
         }
     }
 
@@ -122,17 +170,22 @@ class SearchActivity : AppCompatActivity() {
         if (result.url.isBlank()) return
         button.isEnabled = false
         statusView.setText(R.string.search_queueing)
-        searchExecutor.execute {
-            val queueResult = runCatching { LocalApiClient.enqueue(this, result.url, audioOnly) }
-                .getOrElse { LocalApiClient.QueueResult(false, error = it.message) }
-            runOnUiThread {
-                if (isFinishing || isDestroyed) return@runOnUiThread
-                button.isEnabled = true
-                if (queueResult.ok) {
-                    statusView.text = getString(R.string.search_queued, result.title)
-                    Toast.makeText(this, R.string.search_download_started, Toast.LENGTH_SHORT).show()
-                } else statusView.text = queueResult.error ?: getString(R.string.search_queue_failed)
+        try {
+            enqueueExecutor.execute {
+                val queueResult = runCatching { LocalApiClient.enqueue(this, result.url, audioOnly) }
+                    .getOrElse { LocalApiClient.QueueResult(false, error = it.message) }
+                runOnUiThread {
+                    if (isFinishing || isDestroyed) return@runOnUiThread
+                    button.isEnabled = true
+                    if (queueResult.ok) {
+                        statusView.text = getString(R.string.search_queued, result.title)
+                        Toast.makeText(this, R.string.search_download_started, Toast.LENGTH_SHORT).show()
+                    } else statusView.text = queueResult.error ?: getString(R.string.search_queue_failed)
+                }
             }
+        } catch (_: RejectedExecutionException) {
+            button.isEnabled = true
+            statusView.setText(R.string.search_queue_busy)
         }
     }
 
@@ -153,8 +206,28 @@ class SearchActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        generation.incrementAndGet(); searchExecutor.shutdownNow(); thumbnailExecutor.shutdownNow()
+        generation.incrementAndGet()
+        cancelCurrentSearch()
+        searchExecutor.shutdownNow()
+        enqueueExecutor.shutdownNow()
+        thumbnailExecutor.shutdownNow()
         super.onDestroy()
+    }
+
+    private fun cancelCurrentSearch() {
+        currentTimeout?.let(mainHandler::removeCallbacks)
+        currentTimeout = null
+        currentCancellation?.cancel()
+        currentCancellation = null
+        currentSearchFuture?.cancel(true)
+        currentSearchFuture = null
+        searchExecutor.purge()
+    }
+
+    class SearchCancellationSignal {
+        private val cancelled = AtomicBoolean(false)
+        fun cancel() { cancelled.set(true) }
+        fun isCancelled(): Boolean = cancelled.get() || Thread.currentThread().isInterrupted
     }
 
     data class SearchResult(val id: String, val title: String, val url: String, val thumbnail: String,
@@ -195,5 +268,23 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    companion object { private val THUMBNAIL_HOSTS = setOf("i.ytimg.com", "img.youtube.com") }
+    companion object {
+        private const val SEARCH_TIMEOUT_MS = 15_000L
+        private val THUMBNAIL_HOSTS = setOf("i.ytimg.com", "img.youtube.com")
+
+        private fun boundedExecutor(
+            workers: Int,
+            capacity: Int,
+            discardOldest: Boolean = false,
+        ): ThreadPoolExecutor = ThreadPoolExecutor(
+            workers,
+            workers,
+            30L,
+            TimeUnit.SECONDS,
+            ArrayBlockingQueue(capacity),
+            Executors.defaultThreadFactory(),
+            if (discardOldest) ThreadPoolExecutor.DiscardOldestPolicy()
+            else ThreadPoolExecutor.AbortPolicy(),
+        ).apply { allowCoreThreadTimeOut(true) }
+    }
 }

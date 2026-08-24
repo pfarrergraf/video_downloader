@@ -48,6 +48,9 @@
     <string name="search_searching">Suche läuft…</string>
     <string name="search_no_results">Keine passenden Treffer gefunden.</string>
     <string name="search_failed">Suche fehlgeschlagen: %1$s</string>
+    <string name="search_cancelled">Suche abgebrochen.</string>
+    <string name="search_timeout">Zeitüberschreitung bei der Suche. Bitte erneut versuchen.</string>
+    <string name="search_queue_busy">Ein anderer Download wird vorbereitet. Bitte gleich erneut versuchen.</string>
     <string name="search_download_video">Video</string>
     <string name="search_download_audio">Audio</string>
     <string name="search_queueing">Download wird gestartet…</string>

@@ -12,7 +12,7 @@ import json
 import secrets
 import threading
 import time
-from typing import Any
+from typing import Any, Callable
 
 from yt_dlp import YoutubeDL
 
@@ -22,9 +22,19 @@ DEFAULT_RESULTS = 8
 PAGE_SIZE = 8
 SESSION_TTL_SECONDS = 10 * 60
 MAX_SESSIONS = 12
+SEARCH_SOCKET_TIMEOUT_SECONDS = 8
 
 _sessions: dict[str, tuple[float, list[dict[str, Any]]]] = {}
 _sessions_lock = threading.Lock()
+
+
+class SearchCancelled(RuntimeError):
+    pass
+
+
+def _raise_if_cancelled(cancel_check: Callable[[], bool] | None) -> None:
+    if cancel_check is not None and cancel_check():
+        raise SearchCancelled("search_cancelled")
 
 
 def _clean_query(query: str) -> str:
@@ -69,7 +79,11 @@ def _result_from_entry(entry: dict[str, Any]) -> dict[str, Any] | None:
     }
 
 
-def search_youtube(query: str, limit: int = DEFAULT_RESULTS) -> list[dict[str, Any]]:
+def search_youtube(
+    query: str,
+    limit: int = DEFAULT_RESULTS,
+    cancel_check: Callable[[], bool] | None = None,
+) -> list[dict[str, Any]]:
     """Return a compact metadata-only YouTube search result list.
 
     This uses the yt-dlp build already bundled by the Android app. Keeping the
@@ -78,6 +92,7 @@ def search_youtube(query: str, limit: int = DEFAULT_RESULTS) -> list[dict[str, A
     """
 
     cleaned = _clean_query(query)
+    _raise_if_cancelled(cancel_check)
     bounded_limit = max(1, min(int(limit), MAX_RESULTS))
     options = {
         "quiet": True,
@@ -86,12 +101,21 @@ def search_youtube(query: str, limit: int = DEFAULT_RESULTS) -> list[dict[str, A
         "extract_flat": "in_playlist",
         "playlistend": bounded_limit,
         "noplaylist": True,
+        "socket_timeout": SEARCH_SOCKET_TIMEOUT_SECONDS,
+        "retries": 0,
+        "extractor_retries": 0,
+        "fragment_retries": 0,
+        "file_access_retries": 0,
+        "match_filter": lambda *_args, **_kwargs: _raise_if_cancelled(cancel_check),
+        "progress_hooks": [lambda _status: _raise_if_cancelled(cancel_check)],
     }
     with YoutubeDL(options) as ydl:
         info = ydl.extract_info(f"ytsearch{bounded_limit}:{cleaned}", download=False) or {}
 
+    _raise_if_cancelled(cancel_check)
     results: list[dict[str, Any]] = []
     for raw_entry in info.get("entries") or []:
+        _raise_if_cancelled(cancel_check)
         if not isinstance(raw_entry, dict):
             continue
         result = _result_from_entry(raw_entry)
@@ -114,7 +138,7 @@ def _prune_sessions(now: float) -> None:
         _sessions.pop(token, None)
 
 
-def start_search_session_json(query: str) -> str:
+def start_search_session_json(query: str, cancellation_signal=None) -> str:
     """Create a bounded metadata snapshot and return its first page.
 
     Cursors are opaque, process-local and deliberately short lived. A page is
@@ -122,7 +146,18 @@ def start_search_session_json(query: str) -> str:
     reorders results when YouTube changes between requests.
     """
 
-    results = search_youtube(query, MAX_RESULTS)
+    def cancelled() -> bool:
+        callback = getattr(cancellation_signal, "isCancelled", None)
+        return bool(callback()) if callback is not None else False
+
+    try:
+        results = (
+            search_youtube(query, MAX_RESULTS, cancel_check=cancelled)
+            if cancellation_signal is not None
+            else search_youtube(query, MAX_RESULTS)
+        )
+    except SearchCancelled:
+        return json.dumps({"error": "search_cancelled", "results": []})
     token = secrets.token_urlsafe(18)
     now = time.monotonic()
     with _sessions_lock:

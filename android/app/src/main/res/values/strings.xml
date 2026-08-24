@@ -49,6 +49,9 @@
     <string name="search_searching">Searching…</string>
     <string name="search_no_results">No matching results found.</string>
     <string name="search_failed">Search failed: %1$s</string>
+    <string name="search_cancelled">Search cancelled.</string>
+    <string name="search_timeout">Search timed out. Please try again.</string>
+    <string name="search_queue_busy">Another download is being prepared. Please try again shortly.</string>
     <string name="search_download_video">Video</string>
     <string name="search_download_audio">Audio</string>
     <string name="search_queueing">Starting download…</string>
