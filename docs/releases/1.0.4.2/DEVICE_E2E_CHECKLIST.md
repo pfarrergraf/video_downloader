@@ -44,9 +44,9 @@ For each row record `PASS`/`FAIL`, UTC time and a redacted evidence reference.
 | BILL-13 | Repurchase with a new test token after confirmed revoke | Exactly one active entitlement remains; stale callbacks do not resurrect/clear it | UNVERIFIED |
 
 The restore mechanism and device-slot rules are normative in
-[Google Play restore contract](../../../GOOGLE_PLAY_RESTORE_CONTRACT.md). Refund
+[Google Play restore contract](../../GOOGLE_PLAY_RESTORE_CONTRACT.md). Refund
 authority and revoke rules are normative in
-[Google Play refund policy](../../../GOOGLE_PLAY_REFUND_POLICY.md).
+[Google Play refund policy](../../GOOGLE_PLAY_REFUND_POLICY.md).
 
 ## Transfer, FGS, search and media
 

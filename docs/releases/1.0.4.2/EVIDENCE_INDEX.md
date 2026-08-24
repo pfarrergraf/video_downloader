@@ -13,6 +13,7 @@ artifact or external state was actually observed.
 | SEARCH-001 | LOCAL_VERIFIED | `b4342f58` | independent cancellation/HOL/transfer-cleanup review; 26 targeted tests | PASS |
 | INT-001 | LOCAL_VERIFIED | `b4342f58` integration snapshot | complete local pytest suite: 427 passed, 2 skipped | PASS |
 | DOC-001 | LOCAL_VERIFIED | `c8883fce` | release ADRs and 12-locale release notes; relative links and diff checked | PASS |
+| DOC-002 | LOCAL_VERIFIED | `1e0183fd` | owner gates, blocked external evidence and redacted device E2E checklist | PASS |
 | ENV-001 | UNVERIFIED | external GitHub settings | Required Reviewers and branch restrictions for both release environments | BLOCKED |
 | FGS-001 | UNVERIFIED | Play Console | submitted foreground-service declaration matching final behavior | BLOCKED |
 | CI-001 | UNVERIFIED | final integration commit | Android compile plus API 34/35 emulator runs | BLOCKED |
