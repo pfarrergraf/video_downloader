@@ -2025,6 +2025,18 @@ $('settings-folder-reset-btn').addEventListener('click', async () => {
 });
 
 // -- queueing -------------------------------------------------------------
+function beginNativeTransfer() {
+  if (!(window.AndroidBridge && window.AndroidBridge.beginTransfer)) return null;
+  const transfer = window.AndroidBridge.beginTransfer();
+  if (!transfer) throw new Error(t('app.batch.queue_failed_toast'));
+  return transfer;
+}
+
+function completeNativeTransfer(transfer, queued) {
+  if (!transfer || !(window.AndroidBridge && window.AndroidBridge.completeTransfer)) return;
+  try { window.AndroidBridge.completeTransfer(transfer, queued); } catch (err) { /* bridge absent */ }
+}
+
 async function queueSource(source, audioOnly, allowPlaylist) {
   const qualitySelect = $('quality-select');
   const qualityHeight = qualitySelect ? Number(qualitySelect.value) : undefined;
@@ -2074,10 +2086,7 @@ async function startDownload() {
   let nativeTransfer = null;
   let queued = false;
   try {
-    if (window.AndroidBridge && window.AndroidBridge.beginTransfer) {
-      nativeTransfer = window.AndroidBridge.beginTransfer();
-      if (!nativeTransfer) throw new Error(t('app.batch.queue_failed_toast'));
-    }
+    nativeTransfer = beginNativeTransfer();
     if (lines.length === 1) {
       // A single line that looks like a playlist is downloaded as a whole
       // playlist; a single ordinary link is just one download.
@@ -2094,9 +2103,7 @@ async function startDownload() {
   } catch (e) {
     handleQueueError(e, 'app.batch.queue_failed_toast');
   } finally {
-    if (nativeTransfer && window.AndroidBridge && window.AndroidBridge.completeTransfer) {
-      try { window.AndroidBridge.completeTransfer(nativeTransfer, queued); } catch (err) { /* bridge absent */ }
-    }
+    completeNativeTransfer(nativeTransfer, queued);
     $('download-btn').disabled = false;
   }
 }
@@ -2297,8 +2304,16 @@ function jobRow(job) {
       retryBtn.className = 'secondary';
       retryBtn.textContent = t('app.queue.retry_btn');
       retryBtn.addEventListener('click', async () => {
-        try { await api(`/api/queue/${job.id}/retry`, { method: 'POST' }); refreshQueue(); }
+        let nativeTransfer = null;
+        let queued = false;
+        try {
+          nativeTransfer = beginNativeTransfer();
+          await api(`/api/queue/${job.id}/retry`, { method: 'POST' });
+          queued = true;
+          refreshQueue();
+        }
         catch (e) { toast(e.message || ''); }
+        finally { completeNativeTransfer(nativeTransfer, queued); }
       });
       li.appendChild(retryBtn);
     }

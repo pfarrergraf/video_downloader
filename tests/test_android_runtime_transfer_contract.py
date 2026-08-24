@@ -34,7 +34,10 @@ def test_web_and_native_producers_use_transfer_coordinator() -> None:
     assert "TransferCoordinator.beginTransfer(this@MainActivity)" in activity
     assert "TransferCoordinator.beginTransfer(context)" in local
     assert "window.AndroidBridge.beginTransfer()" in web
-    assert "window.AndroidBridge.completeTransfer(nativeTransfer, queued)" in web
+    assert "window.AndroidBridge.completeTransfer(transfer, queued)" in web
+    retry = web.split("// One-tap retry", 1)[1].split("li.appendChild(retryBtn)", 1)[0]
+    assert "beginNativeTransfer()" in retry
+    assert "completeNativeTransfer(nativeTransfer, queued)" in retry
 
 
 def test_server_runtime_is_single_flight_and_retryable() -> None:
