@@ -85,6 +85,7 @@ def test_search_cancellation_and_enqueue_have_separate_bounded_paths() -> None:
     assert "mainHandler.postDelayed(timeout, SEARCH_TIMEOUT_MS)" in run_page
     assert "searchExecutor.submit" in run_page
     assert "enqueueExecutor.execute" in enqueue
+    assert "LocalApiClient.enqueue(applicationContext, result.url, audioOnly)" in enqueue
     assert "searchExecutor.execute" not in enqueue
     assert "RejectedExecutionException" in enqueue
     on_destroy = search.split("override fun onDestroy()", 1)[1].split(

@@ -175,7 +175,9 @@ class SearchActivity : AppCompatActivity() {
         statusView.setText(R.string.search_queueing)
         try {
             enqueueExecutor.execute {
-                val queueResult = runCatching { LocalApiClient.enqueue(this, result.url, audioOnly) }
+                val queueResult = runCatching {
+                    LocalApiClient.enqueue(applicationContext, result.url, audioOnly)
+                }
                     .getOrElse { LocalApiClient.QueueResult(false, error = it.message) }
                 runOnUiThread {
                     if (isFinishing || isDestroyed) return@runOnUiThread
