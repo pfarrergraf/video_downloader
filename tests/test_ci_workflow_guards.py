@@ -26,6 +26,8 @@ def test_android_ci_compiles_play_billing_flavor() -> None:
     workflow = _workflow("android-build.yml")
     assert ":app:assembleDirectDebug" in workflow
     assert ":app:compilePlayDebugKotlin" in workflow
+    assert "api-level: [34, 35]" in workflow
+    assert "api-level: ${{ matrix.api-level }}" in workflow
 
 
 def test_android_candidate_checks_only_upload_signing_configuration() -> None:
