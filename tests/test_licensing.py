@@ -79,6 +79,22 @@ def test_network_error_keeps_trusting_recent_valid_result(tmp_path: Path, monkey
     assert state.valid is True
 
 
+def test_reapplying_same_key_offline_preserves_verified_grace(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(requests, "post", lambda *a, **k: FakeResponse({"valid": True, "tier": "lifetime"}))
+    manager = LicenseManager(tmp_path / "license.json", "https://license.example.com")
+    original = manager.set_key("DLT-GOODKEY")
+
+    def offline(*args, **kwargs):
+        raise requests.ConnectionError("offline")
+
+    monkeypatch.setattr(requests, "post", offline)
+    reapplied = manager.set_key("DLT-GOODKEY")
+
+    assert reapplied.valid is True
+    assert reapplied.tier == "lifetime"
+    assert reapplied.checked_at == original.checked_at
+
+
 def test_network_error_past_offline_grace_falls_back_to_free(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr(requests, "post", lambda *a, **k: FakeResponse({"valid": True, "tier": "monthly"}))
     manager = LicenseManager(tmp_path / "license.json", "https://license.example.com")

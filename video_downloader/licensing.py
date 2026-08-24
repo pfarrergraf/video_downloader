@@ -102,7 +102,11 @@ class LicenseManager:
         return self._state.is_pro
 
     def set_key(self, key: str) -> LicenseState:
-        self._state = LicenseState(key=key, device_id=self._state.device_id)
+        # Re-applying the same key is an entitlement convergence operation,
+        # not a fresh activation. Preserve the last verified state so a
+        # transient network failure cannot erase a still-valid offline grace.
+        if key != self._state.key:
+            self._state = LicenseState(key=key, device_id=self._state.device_id)
         self.refresh(force=True)
         return self._state
 
