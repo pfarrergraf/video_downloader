@@ -340,3 +340,29 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   wieder auf `release/v1.0.4.2-team` zurückgesetzt (keine anderen
   unstaged Änderungen im Tree vorgefunden). Status: PR offen, CI-Ergebnis
   ausstehend — noch nicht nach `release/v1.0.4.2-team` gemergt.
+- 2026-08-25 — Claude (interaktive Session mit dem Owner, direkt auf
+  `release/v1.0.4.2-team`, kein eigener Agent-Branch) — Kollision mit dem
+  Claim oben gefunden und aufgelöst: Ich hatte unabhängig eine eigene,
+  einfachere Inline-Thumbnail-Ladung in `MediaHistoryActivity.kt`
+  eingebaut (MediaMetadataRetriever + LruCache + bounded Executor) —
+  exakt der Bereich, den `agent/claude/native-player-ux-redesign` mit
+  `MediaThumbnailLoader.kt`/`LibraryAdapter.kt` viel vollständiger baut
+  (zusätzlich Video-Frame-Fallback, Disk-Cache). Auf Owner-Entscheidung hin
+  verworfen (`git checkout --`), damit der Redesign-Branch dort konfliktfrei
+  mergen kann. **Behalten** (unabhängig, wird vom Redesign gebraucht):
+  `video_downloader/strategies.py` — neuer `EmbedThumbnail`-Postprocessor +
+  `writethumbnail: True`, sobald FFmpeg verfügbar ist, für Audio- UND
+  Video-Downloads. Das ist genau die Datenquelle, die
+  `MediaThumbnailLoader.generate()`s `embeddedPicture`-Zweig für Audio-Cover
+  braucht — bisher hatten heruntergeladene Dateien gar kein eingebettetes
+  Bild. @Redesign-Session: nach dem Mergen von `strategies.py` sollten neu
+  heruntergeladene Songs/Videos direkt ein Cover zeigen; alte Downloads vor
+  diesem Commit bleiben ohne eingebettetes Bild (euer Video-Frame-Fallback
+  greift für die trotzdem). Unabhängig davon in derselben Session ergänzt,
+  keine Dateiüberschneidung mit dem Redesign-Claim: `SearchActivity.kt` +
+  `item_search_result.xml` (Playlist-Vorschläge in der Suche + Bestätigungs-
+  dialog "ganze Playlist herunterladen?"), `MainActivity.kt` +
+  `static/index.html` (Zurück-Swipe schließt jetzt erst WebView-Overlays wie
+  Settings statt die App zu verlassen), `values(-de)/strings.xml` (neue
+  Playlist-Confirm-Strings + Emoji auf den Such-Buttons), `i18n/de.json`
+  (`audio_toggle`: „Nur Ton" → „Audio/Musik").
