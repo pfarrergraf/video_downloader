@@ -131,6 +131,17 @@ class YtDlpStrategy(Strategy):
             )
         if request.embed_subs:
             postprocessors.append({"key": "FFmpegEmbedSubtitle"})
+        if ffmpeg_available:
+            # Cover art for the library UI (native Android + desktop),
+            # embedded straight into the file's own metadata (ID3 APIC for
+            # mp3, an attached-pic stream for mp4/mkv) instead of kept as a
+            # sibling image - it survives the file being moved/renamed and
+            # shows up in any ordinary media player too, not just this app.
+            # already_have_thumbnail=False (mirrors yt-dlp's own
+            # `--embed-thumbnail` without `--write-thumbnail`) tells the
+            # postprocessor to delete the raw thumbnail it downloads for
+            # embedding once it's done, so nothing extra is left on disk.
+            postprocessors.append({"key": "EmbedThumbnail", "already_have_thumbnail": False})
 
         playlist_errors: list[str] = []
         js_runtimes = _available_js_runtimes()
@@ -187,6 +198,9 @@ class YtDlpStrategy(Strategy):
             # audio download. Pass the resolved absolute path instead;
             # yt-dlp derives the ffprobe path from the same directory.
             ydl_opts["ffmpeg_location"] = ffmpeg_path
+            # Source data for the EmbedThumbnail postprocessor above - without
+            # this yt-dlp never fetches a thumbnail to begin with.
+            ydl_opts["writethumbnail"] = True
         if request.subtitle_langs:
             ydl_opts["writesubtitles"] = True
             ydl_opts["subtitleslangs"] = request.subtitle_langs.split(",")

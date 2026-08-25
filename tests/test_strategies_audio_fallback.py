@@ -77,12 +77,24 @@ def test_audio_only_with_ffmpeg_extracts_mp3(tmp_path: Path, monkeypatch) -> Non
     opts = _run_and_capture_opts(monkeypatch, tmp_path, request, downloaded_name="downloaded.mp3")
 
     assert opts["postprocessors"] == [
-        {"key": "FFmpegExtractAudio", "preferredcodec": "mp3", "preferredquality": "0"}
+        {"key": "FFmpegExtractAudio", "preferredcodec": "mp3", "preferredquality": "0"},
+        {"key": "EmbedThumbnail", "already_have_thumbnail": False},
     ]
+    assert opts["writethumbnail"] is True
     # Must be the which()-resolved absolute path, not the bare command name:
     # yt-dlp treats a non-existent ffmpeg_location as "no ffmpeg" without
     # falling back to PATH.
     assert opts["ffmpeg_location"] == "/usr/bin/ffmpeg"
+
+
+def test_video_with_ffmpeg_also_embeds_a_thumbnail(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: "/usr/bin/ffmpeg")
+    request = _make_request(tmp_path, audio_only=False)
+
+    opts = _run_and_capture_opts(monkeypatch, tmp_path, request)
+
+    assert opts["postprocessors"] == [{"key": "EmbedThumbnail", "already_have_thumbnail": False}]
+    assert opts["writethumbnail"] is True
 
 
 def test_audio_only_flags_when_mp3_conversion_silently_fails(tmp_path: Path, monkeypatch) -> None:
@@ -223,6 +235,10 @@ def test_video_without_ffmpeg_falls_back_to_single_stream_format(tmp_path: Path,
 
     assert "ffmpeg_location" not in opts
     assert opts["format"] == "best"
+    # Without ffmpeg there is nothing to embed a thumbnail into (and no way
+    # to embed it) - writethumbnail/EmbedThumbnail must not be requested.
+    assert "writethumbnail" not in opts
+    assert "postprocessors" not in opts
 
 
 def test_video_with_ffmpeg_keeps_the_configured_selector(tmp_path: Path, monkeypatch) -> None:
