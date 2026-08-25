@@ -271,29 +271,42 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
 Aus `docs/TESTER_REPORT_ASSESSMENT_2026-08-03.md` und
 `docs/GOOGLE_PLAY_OWNER_CHECKLIST.md`, für den Repository-Inhaber:
 
-- **Play-Produkt `pro` real verifizieren:** License-Tester-Kauf, Restore nach
-  Neuinstallation, Refund/Void über RTDN, Reconciliation — mit Beleg
-  (Build/Version, Konto-Rolle, Ergebnis, Zeitstempel, Screenshots ohne
-  personenbezogene/Zahlungsdaten).
-- **Eigene Produktionsdomain:** `downloadthat.app`/`www` als Custom Domain im
-  Pages-Projekt verbinden, DNSSEC/SSL prüfen, danach erst
-  `CANONICAL_REDIRECT_ENABLED=true` setzen.
-- **Play-Konto/Payments:** Identität, Organisation/Privatstatus,
-  Bankkonto/Steuerprofil, Play-Verträge.
-- **RTDN/Secrets:** Pub/Sub-Thema + Push-Service-Account verbinden,
-  GitHub/Cloudflare-Secrets aus `docs/GOOGLE_PLAY_OPERATIONS.md` setzen,
-  Rate-Limiting für `POST /api/play/purchases/verify` aktivieren.
+- **Play-Produkt `pro` real verifizieren** (Stand 2026-08-25, Owner):
+  - [x] Testkauf mehrfach erfolgreich verifiziert.
+  - [x] Refund über Google 2× erfolgreich (Owner-Genehmigung in der Play
+    Console App).
+  - [ ] Restore nach Neuinstallation — weiterhin offen.
+- **Eigene Produktionsdomain** (Stand 2026-08-25, per curl-Check verifiziert):
+  `downloadthat.app` und `www.downloadthat.app` sind bereits als Custom Domain
+  am Pages-Projekt `downloadthat` verbunden, gültiges HTTPS/TLS, `/api/health`
+  antwortet `ok` mit `playServiceAccountConfigured`/`tokenEncryptionConfigured`/
+  `rtdnConfigured: true`. Noch offen:
+  - [ ] DNSSEC am Zone-/Registrar noch nicht aktiv (DS-Record fehlt).
+  - [ ] `CANONICAL_REDIRECT_ENABLED` noch nicht gesetzt — `pages.dev` und
+    `www` liefern beide direkt 200 statt auf den Apex zu redirecten
+    (kosmetisch/SEO, kein funktionaler Blocker). Cloudflare-Pages-Env-Var,
+    nicht per GitHub-CLI setzbar — braucht Dashboard- oder
+    Wrangler-mit-API-Token-Zugriff, hier lokal nicht vorhanden.
+- **Play-Konto/Payments:** vom Owner bewusst auf später verschoben.
+- **RTDN/Secrets:** laut obigem Health-Check bereits konfiguriert
+  (`rtdnConfigured: true`); Rate-Limiting für
+  `POST /api/play/purchases/verify` nicht separat verifiziert.
 - **Data Safety / Zielgruppe / Content Rating / Werbeangaben** in Play Console
-  anhand der tatsächlichen Datenflüsse absenden.
-- **Rechtliche Prüfung:** Datenschutz-/AGB-Texte anwaltlich prüfen lassen —
-  keine automatische Rechtsfreigabe aus Code/Doku ableiten (siehe auch T6).
-- **Store-Screenshots erneuern:** `store_assets/screenshot_*.png` sind laut
-  `TESTER_REPORT_ASSESSMENT` "raw UI captures without benefit captions" —
-  neue, beschriftete, lokalisierte Screenshots vom Release-Build erstellen und
-  in Play Console verifizieren. Zwei unversionierte Kandidaten-Assets liegen
-  bereits in `store_assets/` (`icon-pro-1024.png`, `icon-pro-badge-1024.png`,
-  seit 2026-08-03), aber ohne README-Eintrag oder Verwendung irgendwo — vor
-  Verwendung mit dem Owner abstimmen.
+  anhand der tatsächlichen Datenflüsse absenden. Owner hat um eine
+  Datenfluss-Inventur gebeten — Ergebnis wird hier nachgetragen, sobald
+  verfügbar.
+- **T6 Rechtliche Prüfung:** vom Owner bewusst zurückgestellt, bis mindestens
+  10.000 zahlende Käufer erreicht sind (Stand 2026-08-25: 0 Käufe). Keine
+  automatische Rechtsfreigabe aus Code/Doku ableiten.
+- **Store-Screenshots erneuern:** vom Owner auf nach dem nächsten AAB-Release
+  verschoben ("die Tage" nach v1.0.4.4). `store_assets/screenshot_*.png` sind
+  laut `TESTER_REPORT_ASSESSMENT` "raw UI captures without benefit captions".
+  Zwei unversionierte Kandidaten-Assets liegen bereits in `store_assets/`
+  (`icon-pro-1024.png`, `icon-pro-badge-1024.png`, seit 2026-08-03), aber ohne
+  README-Eintrag oder Verwendung irgendwo — vor Verwendung mit dem Owner
+  abstimmen.
+- **yt-dlp Stable-Rollback:** Owner bestätigt 2026-08-25: Nightly bleibt
+  vorerst, funktioniert gut — kein Wechsel zurück auf Stable geplant.
 
 ## Lokaler Developer Mode
 
