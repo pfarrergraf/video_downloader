@@ -1,0 +1,92 @@
+<resources>
+    <string name="startup_preparing">DownloadThat を準備しています…</string>
+    <string name="startup_failed">DownloadThat を起動できませんでした。アプリを閉じて再度開いてください。</string>
+    <string name="notif_channel_downloads">ダウンロード</string>
+    <string name="notif_downloads_running">ダウンロード実行中</string>
+    <string name="notif_download_done">ダウンロード完了</string>
+    <string name="notif_idle">すべてのダウンロードが完了しました</string>
+
+    <string name="player_title">DownloadThat プレーヤー</string>
+    <string name="player_back">戻る</string>
+    <string name="player_unknown_title">メディア</string>
+    <string name="player_could_not_open">このメディアファイルを開けませんでした。</string>
+    <string name="player_playlist_items_skipped">再生できないプレイリスト項目はスキップされました。</string>
+    <string name="player_file_unavailable">このファイルは利用できなくなりました。</string>
+    <string name="player_history">最近の再生</string>
+    <string name="player_search">検索</string>
+    <string name="player_speed_value">再生速度 %1$s</string>
+    <string name="player_sleep_off">スリープタイマー オフ</string>
+    <string name="player_sleep_value">スリープタイマー %1$d 分</string>
+
+    <string name="history_title">続きから再生・最近の再生</string>
+    <string name="history_empty">動画または音声を再生すると、ここに表示されます。</string>
+    <string name="history_continue_at">%1$s から続けて再生</string>
+    <string name="history_play_again">もう一度再生</string>
+    <string name="history_play_all">最近の項目を再生</string>
+    <string name="history_clear">履歴を消去</string>
+    <string name="library_title">ライブラリとプレイリスト</string>
+    <string name="library_new_playlist">新しいプレイリスト</string>
+    <string name="library_playlist_name">プレイリスト名</string>
+    <string name="library_create">作成</string>
+    <string name="library_rename">名前を変更</string>
+    <string name="library_delete_playlist">プレイリストを削除</string>
+    <string name="library_add_to_playlist">プレイリストに追加</string>
+    <string name="library_remove">ライブラリから削除</string>
+    <string name="library_delete_file">ファイルを削除</string>
+    <string name="library_delete_file_confirm">このファイルを完全に削除しますか？</string>
+    <string name="library_cancel">キャンセル</string>
+    <string name="library_playlist_empty">このプレイリストは空です。</string>
+    <string name="library_move_up">上に移動</string>
+    <string name="library_move_down">下に移動</string>
+    <string name="library_remove_from_playlist">削除</string>
+
+    <string name="search_title">メディアを検索</string>
+    <string name="search_subtitle">タイトルを入力して結果を選び、動画または音声をダウンロードします。</string>
+    <string name="search_hint">曲名、アーティスト、動画タイトル…</string>
+    <string name="search_button">検索</string>
+    <string name="search_enter_query">先にタイトルを入力してください。</string>
+    <string name="search_searching">検索中…</string>
+    <string name="search_no_results">一致する結果が見つかりませんでした。</string>
+    <string name="search_failed">検索に失敗しました: %1$s</string>
+    <string name="search_cancelled">検索をキャンセルしました。</string>
+    <string name="search_timeout">検索がタイムアウトしました。もう一度お試しください。</string>
+    <string name="search_queue_busy">別のダウンロードを準備中です。しばらくしてから再度お試しください。</string>
+    <string name="search_download_video">動画</string>
+    <string name="search_download_audio">音声</string>
+    <string name="search_queueing">ダウンロードを開始しています…</string>
+    <string name="search_queued">キューに追加しました: %1$s</string>
+    <string name="search_download_started">ダウンロードを開始しました</string>
+    <string name="search_queue_failed">ダウンロードを開始できませんでした。</string>
+    <string name="search_local_auth_failed">DownloadThat のローカルダウンロードサービスを認証できませんでした。</string>
+    <string name="search_terms_required">ダウンロードを開始する前に、DownloadThat のメイン画面を開いて最新の利用規約に同意してください。</string>
+    <string name="home_search_media">音楽・動画を検索</string>
+    <string name="home_library">ライブラリ</string>
+    <string name="search_more">もっと読み込む</string>
+    <string name="search_restart">検索結果の有効期限が切れました。検索をやり直してください。</string>
+    <plurals name="search_results_count">
+        <item quantity="other">%d 件の結果</item>
+    </plurals>
+
+    <plurals name="notif_active_downloads">
+        <item quantity="other">%d 件のファイルをダウンロード中…</item>
+    </plurals>
+
+    <string name="library_row_actions">その他の操作</string>
+    <string name="library_playlist_badge">プレイリスト</string>
+    <string name="library_playlist_quick_play">再生</string>
+    <string name="library_tab_folders">フォルダ</string>
+    <string name="library_tab_playlists">プレイリスト</string>
+    <string name="library_folder_unsorted">未分類</string>
+    <string name="library_selection_count">%1$d 件選択中</string>
+    <string name="library_selection_delete">削除</string>
+    <string name="library_selection_move">移動</string>
+    <string name="playlist_detail_shuffle">シャッフル</string>
+    <string name="playlist_repeat_off">リピートオフ</string>
+    <string name="playlist_repeat_all">すべてリピート</string>
+    <string name="playlist_repeat_one">1曲リピート</string>
+    <plurals name="playlist_detail_track_count">
+        <item quantity="other">%d 件の曲</item>
+    </plurals>
+    <string name="library_no_playlists">まだプレイリストが作成されていません。</string>
+    <string name="library_delete_confirm_generic">完全に削除しますか？</string>
+</resources>

@@ -1,0 +1,95 @@
+<resources>
+    <string name="startup_preparing">DownloadThat wordt voorbereid…</string>
+    <string name="startup_failed">DownloadThat kon niet worden gestart. Sluit de app en open deze opnieuw.</string>
+    <string name="notif_channel_downloads">Downloads</string>
+    <string name="notif_downloads_running">Downloads actief</string>
+    <string name="notif_download_done">Download voltooid</string>
+    <string name="notif_idle">Alle downloads voltooid</string>
+
+    <string name="player_title">DownloadThat-speler</string>
+    <string name="player_back">Terug</string>
+    <string name="player_unknown_title">Media</string>
+    <string name="player_could_not_open">Dit mediabestand kon niet worden geopend.</string>
+    <string name="player_playlist_items_skipped">Niet-beschikbare afspeellijstitems zijn overgeslagen.</string>
+    <string name="player_file_unavailable">Dit bestand is niet meer beschikbaar.</string>
+    <string name="player_history">Recent</string>
+    <string name="player_search">Zoeken</string>
+    <string name="player_speed_value">Snelheid %1$s</string>
+    <string name="player_sleep_off">Slaaptimer uit</string>
+    <string name="player_sleep_value">Slaaptimer %1$d min</string>
+
+    <string name="history_title">Doorgaan &amp; recent</string>
+    <string name="history_empty">Speel een video of audio af; het verschijnt dan hier.</string>
+    <string name="history_continue_at">Doorgaan bij %1$s</string>
+    <string name="history_play_again">Opnieuw afspelen</string>
+    <string name="history_play_all">Recent afspelen</string>
+    <string name="history_clear">Geschiedenis wissen</string>
+    <string name="library_title">Bibliotheek &amp; afspeellijsten</string>
+    <string name="library_new_playlist">Nieuwe afspeellijst</string>
+    <string name="library_playlist_name">Naam van de afspeellijst</string>
+    <string name="library_create">Aanmaken</string>
+    <string name="library_rename">Naam wijzigen</string>
+    <string name="library_delete_playlist">Afspeellijst verwijderen</string>
+    <string name="library_add_to_playlist">Toevoegen aan afspeellijst</string>
+    <string name="library_remove">Verwijderen uit bibliotheek</string>
+    <string name="library_delete_file">Bestand verwijderen</string>
+    <string name="library_delete_file_confirm">Dit bestand definitief verwijderen?</string>
+    <string name="library_cancel">Annuleren</string>
+    <string name="library_playlist_empty">Deze afspeellijst is leeg.</string>
+    <string name="library_move_up">Omhoog</string>
+    <string name="library_move_down">Omlaag</string>
+    <string name="library_remove_from_playlist">Verwijderen</string>
+
+    <string name="search_title">Media zoeken</string>
+    <string name="search_subtitle">Voer een titel in, kies een resultaat en download vervolgens video of audio.</string>
+    <string name="search_hint">Nummer, artiest, videotitel…</string>
+    <string name="search_button">Zoeken</string>
+    <string name="search_enter_query">Voer eerst een titel in.</string>
+    <string name="search_searching">Zoeken…</string>
+    <string name="search_no_results">Geen passende resultaten gevonden.</string>
+    <string name="search_failed">Zoeken mislukt: %1$s</string>
+    <string name="search_cancelled">Zoeken geannuleerd.</string>
+    <string name="search_timeout">Time-out bij het zoeken. Probeer het opnieuw.</string>
+    <string name="search_queue_busy">Er wordt al een andere download voorbereid. Probeer het straks opnieuw.</string>
+    <string name="search_download_video">Video</string>
+    <string name="search_download_audio">Audio</string>
+    <string name="search_queueing">Download wordt gestart…</string>
+    <string name="search_queued">In wachtrij: %1$s</string>
+    <string name="search_download_started">Download gestart</string>
+    <string name="search_queue_failed">Download kon niet worden gestart.</string>
+    <string name="search_local_auth_failed">De lokale downloadservice van DownloadThat kon niet worden geverifieerd.</string>
+    <string name="search_terms_required">Open het hoofdscherm van DownloadThat en accepteer de huidige voorwaarden voordat je een download start.</string>
+    <string name="home_search_media">Muziek &amp; video zoeken</string>
+    <string name="home_library">Bibliotheek</string>
+    <string name="search_more">Meer laden</string>
+    <string name="search_restart">De zoekresultaten zijn verlopen. Start de zoekopdracht opnieuw.</string>
+    <plurals name="search_results_count">
+        <item quantity="one">%d resultaat</item>
+        <item quantity="other">%d resultaten</item>
+    </plurals>
+
+    <plurals name="notif_active_downloads">
+        <item quantity="one">%d bestand wordt gedownload…</item>
+        <item quantity="other">%d bestanden worden gedownload…</item>
+    </plurals>
+
+    <string name="library_row_actions">Meer opties</string>
+    <string name="library_playlist_badge">Afspeellijst</string>
+    <string name="library_playlist_quick_play">Afspelen</string>
+    <string name="library_tab_folders">Mappen</string>
+    <string name="library_tab_playlists">Afspeellijsten</string>
+    <string name="library_folder_unsorted">Ongesorteerd</string>
+    <string name="library_selection_count">%1$d geselecteerd</string>
+    <string name="library_selection_delete">Verwijderen</string>
+    <string name="library_selection_move">Verplaatsen</string>
+    <string name="playlist_detail_shuffle">Shuffelen</string>
+    <string name="playlist_repeat_off">Herhalen uit</string>
+    <string name="playlist_repeat_all">Alles herhalen</string>
+    <string name="playlist_repeat_one">Nummer herhalen</string>
+    <plurals name="playlist_detail_track_count">
+        <item quantity="one">%d nummer</item>
+        <item quantity="other">%d nummers</item>
+    </plurals>
+    <string name="library_no_playlists">Je hebt nog geen afspeellijsten gemaakt.</string>
+    <string name="library_delete_confirm_generic">Definitief verwijderen?</string>
+</resources>

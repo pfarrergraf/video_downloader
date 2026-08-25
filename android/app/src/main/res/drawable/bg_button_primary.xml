@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- High-emphasis action pill: "Search music & video" (home), "Search"
+     (media search screen). Gradient matches the launcher icon accent. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/ripple_on_dark">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="28dp" />
+            <gradient
+                android:angle="0"
+                android:startColor="@color/accent_pink"
+                android:centerColor="@color/accent_orange"
+                android:endColor="@color/accent_pink"
+                android:type="linear" />
+        </shape>
+    </item>
+</ripple>

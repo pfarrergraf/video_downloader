@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pairs with ic_transport_play.xml: same accent circle, swapped inner
+     glyph, so play<->pause reads as one consistent button. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/accent_pink"
+        android:pathData="M12,2A10,10 0 1 1 12,22A10,10 0 1 1 12,2Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M9,7h2v10h-2zM13,7h2v10h-2z" />
+</vector>

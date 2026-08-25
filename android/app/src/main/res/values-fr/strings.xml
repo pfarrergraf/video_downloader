@@ -1,0 +1,95 @@
+<resources>
+    <string name="startup_preparing">Préparation de DownloadThat…</string>
+    <string name="startup_failed">DownloadThat n’a pas pu démarrer. Merci de fermer puis rouvrir l’application.</string>
+    <string name="notif_channel_downloads">Téléchargements</string>
+    <string name="notif_downloads_running">Téléchargements en cours</string>
+    <string name="notif_download_done">Téléchargement terminé</string>
+    <string name="notif_idle">Tous les téléchargements sont terminés</string>
+
+    <string name="player_title">Lecteur DownloadThat</string>
+    <string name="player_back">Retour</string>
+    <string name="player_unknown_title">Média</string>
+    <string name="player_could_not_open">Ce fichier média n’a pas pu être ouvert.</string>
+    <string name="player_playlist_items_skipped">Les éléments indisponibles de la playlist ont été ignorés.</string>
+    <string name="player_file_unavailable">Ce fichier n’est plus disponible.</string>
+    <string name="player_history">Récents</string>
+    <string name="player_search">Rechercher</string>
+    <string name="player_speed_value">Vitesse %1$s</string>
+    <string name="player_sleep_off">Minuterie désactivée</string>
+    <string name="player_sleep_value">Minuterie %1$d min</string>
+
+    <string name="history_title">Reprendre &amp; récents</string>
+    <string name="history_empty">Lisez une vidéo ou un fichier audio et il apparaîtra ici.</string>
+    <string name="history_continue_at">Reprendre à %1$s</string>
+    <string name="history_play_again">Rejouer</string>
+    <string name="history_play_all">Lire les récents</string>
+    <string name="history_clear">Effacer l’historique</string>
+    <string name="library_title">Bibliothèque &amp; playlists</string>
+    <string name="library_new_playlist">Nouvelle playlist</string>
+    <string name="library_playlist_name">Nom de la playlist</string>
+    <string name="library_create">Créer</string>
+    <string name="library_rename">Renommer</string>
+    <string name="library_delete_playlist">Supprimer la playlist</string>
+    <string name="library_add_to_playlist">Ajouter à la playlist</string>
+    <string name="library_remove">Retirer de la bibliothèque</string>
+    <string name="library_delete_file">Supprimer le fichier</string>
+    <string name="library_delete_file_confirm">Supprimer définitivement ce fichier ?</string>
+    <string name="library_cancel">Annuler</string>
+    <string name="library_playlist_empty">Cette playlist est vide.</string>
+    <string name="library_move_up">Monter</string>
+    <string name="library_move_down">Descendre</string>
+    <string name="library_remove_from_playlist">Retirer</string>
+
+    <string name="search_title">Rechercher un média</string>
+    <string name="search_subtitle">Saisissez un titre, choisissez un résultat, puis téléchargez la vidéo ou l’audio.</string>
+    <string name="search_hint">Titre de chanson, artiste, vidéo…</string>
+    <string name="search_button">Rechercher</string>
+    <string name="search_enter_query">Saisissez d’abord un titre.</string>
+    <string name="search_searching">Recherche en cours…</string>
+    <string name="search_no_results">Aucun résultat correspondant.</string>
+    <string name="search_failed">La recherche a échoué : %1$s</string>
+    <string name="search_cancelled">Recherche annulée.</string>
+    <string name="search_timeout">La recherche a expiré. Merci de réessayer.</string>
+    <string name="search_queue_busy">Un autre téléchargement est en préparation. Merci de réessayer dans un instant.</string>
+    <string name="search_download_video">Vidéo</string>
+    <string name="search_download_audio">Audio</string>
+    <string name="search_queueing">Démarrage du téléchargement…</string>
+    <string name="search_queued">Ajouté à la file : %1$s</string>
+    <string name="search_download_started">Téléchargement démarré</string>
+    <string name="search_queue_failed">Le téléchargement n’a pas pu démarrer.</string>
+    <string name="search_local_auth_failed">Le service de téléchargement local de DownloadThat n’a pas pu être authentifié.</string>
+    <string name="search_terms_required">Ouvrez l’écran principal de DownloadThat et acceptez les conditions actuelles avant de démarrer un téléchargement.</string>
+    <string name="home_search_media">Rechercher musique &amp; vidéo</string>
+    <string name="home_library">Bibliothèque</string>
+    <string name="search_more">Charger plus</string>
+    <string name="search_restart">Les résultats de recherche ont expiré. Relancez la recherche.</string>
+    <plurals name="search_results_count">
+        <item quantity="one">%d résultat</item>
+        <item quantity="other">%d résultats</item>
+    </plurals>
+
+    <plurals name="notif_active_downloads">
+        <item quantity="one">Téléchargement de %d fichier…</item>
+        <item quantity="other">Téléchargement de %d fichiers…</item>
+    </plurals>
+
+    <string name="library_row_actions">Plus d’options</string>
+    <string name="library_playlist_badge">Playlist</string>
+    <string name="library_playlist_quick_play">Lecture</string>
+    <string name="library_tab_folders">Dossiers</string>
+    <string name="library_tab_playlists">Playlists</string>
+    <string name="library_folder_unsorted">Non trié</string>
+    <string name="library_selection_count">%1$d sélectionné(s)</string>
+    <string name="library_selection_delete">Supprimer</string>
+    <string name="library_selection_move">Déplacer</string>
+    <string name="playlist_detail_shuffle">Aléatoire</string>
+    <string name="playlist_repeat_off">Répétition désactivée</string>
+    <string name="playlist_repeat_all">Tout répéter</string>
+    <string name="playlist_repeat_one">Répéter le titre</string>
+    <plurals name="playlist_detail_track_count">
+        <item quantity="one">%d titre</item>
+        <item quantity="other">%d titres</item>
+    </plurals>
+    <string name="library_no_playlists">Vous n’avez pas encore créé de playlist.</string>
+    <string name="library_delete_confirm_generic">Supprimer définitivement ?</string>
+</resources>

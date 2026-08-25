@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bulk "move/add to playlist" action in the multi-select header. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/text_primary"
+        android:pathData="M3,6h13v2h-13zM3,11h13v2h-13zM3,16h8v2h-8zM17,11h2v3h3v2h-3v3h-2v-3h-3v-2h3z" />
+</vector>

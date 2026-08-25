@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#09070d">
 
+    <!-- texture_view (rather than the default surface_view) so pinch-to-zoom
+         can scale the video surface like any other view; see
+         PlayerActivity.setupGestures(). Trade-off: slightly higher power
+         draw than surface_view, acceptable for a foreground playback UI. -->
     <androidx.media3.ui.PlayerView
         android:id="@+id/player_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:keepScreenOn="true" />
+        android:keepScreenOn="true"
+        app:surface_type="texture_view"
+        app:play_icon="@drawable/ic_transport_play"
+        app:pause_icon="@drawable/ic_transport_pause"
+        app:rewind_icon="@drawable/ic_transport_rewind"
+        app:fastforward_icon="@drawable/ic_transport_forward"
+        app:previous_icon="@drawable/ic_transport_previous"
+        app:next_icon="@drawable/ic_transport_next" />
+
+    <TextView
+        android:id="@+id/player_seek_feedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_overlay_pill"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
 
     <LinearLayout
         android:id="@+id/player_top_chrome"
@@ -65,6 +90,7 @@
 
                 <Button
                     android:id="@+id/player_history"
+                    style="@style/Widget.ClassyDL.Button.PlayerChrome"
                     android:layout_width="wrap_content"
                     android:layout_height="44dp"
                     android:minHeight="44dp"
@@ -72,6 +98,7 @@
 
                 <Button
                     android:id="@+id/player_search"
+                    style="@style/Widget.ClassyDL.Button.PlayerChrome"
                     android:layout_width="wrap_content"
                     android:layout_height="44dp"
                     android:layout_marginStart="8dp"
@@ -80,6 +107,7 @@
 
                 <Button
                     android:id="@+id/player_speed"
+                    style="@style/Widget.ClassyDL.Button.PlayerChrome"
                     android:layout_width="wrap_content"
                     android:layout_height="44dp"
                     android:layout_marginStart="8dp"
@@ -87,6 +115,7 @@
 
                 <Button
                     android:id="@+id/player_sleep"
+                    style="@style/Widget.ClassyDL.Button.PlayerChrome"
                     android:layout_width="wrap_content"
                     android:layout_height="44dp"
                     android:layout_marginStart="8dp"

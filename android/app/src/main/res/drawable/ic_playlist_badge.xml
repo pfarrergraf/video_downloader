@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Small overlay marking a thumbnail as a playlist card rather than a
+     single file, per the user's "klare Playlistdeklarierung per Symbol". -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M3,5h18v3h-18zM3,11h18v3h-18zM3,17h12v3h-12z" />
+</vector>

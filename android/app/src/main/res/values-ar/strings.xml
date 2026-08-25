@@ -1,0 +1,107 @@
+<resources>
+    <string name="startup_preparing">جارٍ تجهيز DownloadThat…</string>
+    <string name="startup_failed">تعذّر تشغيل DownloadThat. يُرجى إغلاق التطبيق وإعادة فتحه.</string>
+    <string name="notif_channel_downloads">التنزيلات</string>
+    <string name="notif_downloads_running">التنزيلات قيد التقدّم</string>
+    <string name="notif_download_done">اكتمل التنزيل</string>
+    <string name="notif_idle">اكتملت جميع التنزيلات</string>
+
+    <string name="player_title">مُشغِّل DownloadThat</string>
+    <string name="player_back">رجوع</string>
+    <string name="player_unknown_title">ملف الوسائط</string>
+    <string name="player_could_not_open">تعذّر فتح ملف الوسائط هذا.</string>
+    <string name="player_playlist_items_skipped">تم تجاوز عناصر قائمة التشغيل غير المتوفرة.</string>
+    <string name="player_file_unavailable">هذا الملف غير متوفر بعد الآن.</string>
+    <string name="player_history">الأحدث</string>
+    <string name="player_search">بحث</string>
+    <string name="player_speed_value">السرعة %1$s</string>
+    <string name="player_sleep_off">مؤقت السكون متوقف</string>
+    <string name="player_sleep_value">مؤقت السكون %1$d دقيقة</string>
+
+    <string name="history_title">استمرار وأحدث العناصر</string>
+    <string name="history_empty">شغّل مقطع فيديو أو صوتي وسيظهر هنا.</string>
+    <string name="history_continue_at">استمرار من %1$s</string>
+    <string name="history_play_again">تشغيل مرة أخرى</string>
+    <string name="history_play_all">تشغيل الأحدث</string>
+    <string name="history_clear">مسح السجل</string>
+    <string name="library_title">المكتبة وقوائم التشغيل</string>
+    <string name="library_new_playlist">قائمة تشغيل جديدة</string>
+    <string name="library_playlist_name">اسم قائمة التشغيل</string>
+    <string name="library_create">إنشاء</string>
+    <string name="library_rename">إعادة تسمية</string>
+    <string name="library_delete_playlist">حذف قائمة التشغيل</string>
+    <string name="library_add_to_playlist">إضافة إلى قائمة التشغيل</string>
+    <string name="library_remove">إزالة من المكتبة</string>
+    <string name="library_delete_file">حذف الملف</string>
+    <string name="library_delete_file_confirm">هل تريد حذف هذا الملف نهائيًا؟</string>
+    <string name="library_cancel">إلغاء</string>
+    <string name="library_playlist_empty">قائمة التشغيل هذه فارغة.</string>
+    <string name="library_move_up">تحريك للأعلى</string>
+    <string name="library_move_down">تحريك للأسفل</string>
+    <string name="library_remove_from_playlist">إزالة</string>
+
+    <string name="search_title">البحث عن وسائط</string>
+    <string name="search_subtitle">أدخل عنوانًا، ثم اختر نتيجة وقم بتنزيل الفيديو أو الصوت.</string>
+    <string name="search_hint">اسم الأغنية أو الفنان أو عنوان الفيديو…</string>
+    <string name="search_button">بحث</string>
+    <string name="search_enter_query">أدخل عنوانًا أولًا.</string>
+    <string name="search_searching">جارٍ البحث…</string>
+    <string name="search_no_results">لم يتم العثور على نتائج مطابقة.</string>
+    <string name="search_failed">فشل البحث: %1$s</string>
+    <string name="search_cancelled">تم إلغاء البحث.</string>
+    <string name="search_timeout">انتهت مهلة البحث. يُرجى المحاولة مرة أخرى.</string>
+    <string name="search_queue_busy">يتم تجهيز تنزيل آخر. يُرجى المحاولة مرة أخرى قريبًا.</string>
+    <string name="search_download_video">فيديو</string>
+    <string name="search_download_audio">صوت</string>
+    <string name="search_queueing">جارٍ بدء التنزيل…</string>
+    <string name="search_queued">في قائمة الانتظار: %1$s</string>
+    <string name="search_download_started">بدأ التنزيل</string>
+    <string name="search_queue_failed">تعذّر بدء التنزيل.</string>
+    <string name="search_local_auth_failed">تعذّر توثيق خدمة التنزيل المحلية في DownloadThat.</string>
+    <string name="search_terms_required">افتح الشاشة الرئيسية لـ DownloadThat واقبل الشروط الحالية قبل بدء أي تنزيل.</string>
+    <string name="home_search_media">البحث عن موسيقى وفيديو</string>
+    <string name="home_library">المكتبة</string>
+    <string name="search_more">تحميل المزيد</string>
+    <string name="search_restart">انتهت صلاحية نتائج البحث. ابدأ البحث من جديد.</string>
+    <plurals name="search_results_count">
+        <item quantity="zero">لا توجد نتائج</item>
+        <item quantity="one">نتيجة واحدة</item>
+        <item quantity="two">نتيجتان</item>
+        <item quantity="few">%d نتائج</item>
+        <item quantity="many">%d نتيجة</item>
+        <item quantity="other">%d نتيجة</item>
+    </plurals>
+
+    <plurals name="notif_active_downloads">
+        <item quantity="zero">لا توجد تنزيلات نشطة</item>
+        <item quantity="one">جارٍ تنزيل ملف واحد…</item>
+        <item quantity="two">جارٍ تنزيل ملفين…</item>
+        <item quantity="few">جارٍ تنزيل %d ملفات…</item>
+        <item quantity="many">جارٍ تنزيل %d ملفًا…</item>
+        <item quantity="other">جارٍ تنزيل %d ملف…</item>
+    </plurals>
+
+    <string name="library_row_actions">خيارات أخرى</string>
+    <string name="library_playlist_badge">قائمة تشغيل</string>
+    <string name="library_playlist_quick_play">تشغيل</string>
+    <string name="library_tab_folders">المجلدات</string>
+    <string name="library_tab_playlists">قوائم التشغيل</string>
+    <string name="library_folder_unsorted">غير مصنّف</string>
+    <string name="library_selection_count">تم تحديد %1$d</string>
+    <string name="library_selection_delete">حذف</string>
+    <string name="library_selection_move">نقل</string>
+    <string name="playlist_detail_shuffle">تشغيل عشوائي</string>
+    <string name="playlist_repeat_off">التكرار متوقف</string>
+    <string name="playlist_repeat_all">تكرار الكل</string>
+    <string name="playlist_repeat_one">تكرار المقطوعة</string>
+    <plurals name="playlist_detail_track_count">
+        <item quantity="zero">لا توجد مقطوعات</item>
+        <item quantity="one">مقطوعة واحدة</item>
+        <item quantity="two">مقطوعتان</item>
+        <item quantity="few">%d مقطوعات</item>
+        <item quantity="many">%d مقطوعة</item>
+        <item quantity="other">%d مقطوعة</item>
+    </plurals>
+    <string name="library_no_playlists">لم تُنشئ أي قائمة تشغيل حتى الآن.</string>
+    <string name="library_delete_confirm_generic">هل تريد الحذف نهائيًا؟</string>
+</resources>

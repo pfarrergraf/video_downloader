@@ -18,12 +18,14 @@
 
         <Button
             android:id="@+id/media_search_btn"
+            style="@style/Widget.ClassyDL.Button.Primary"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:text="@string/home_search_media" />
 
         <Button
             android:id="@+id/media_library_btn"
+            style="@style/Widget.ClassyDL.Button.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"

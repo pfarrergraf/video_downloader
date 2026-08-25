@@ -1,0 +1,101 @@
+<resources>
+    <string name="startup_preparing">Подготовка DownloadThat…</string>
+    <string name="startup_failed">Не удалось запустить DownloadThat. Закройте и снова откройте приложение.</string>
+    <string name="notif_channel_downloads">Загрузки</string>
+    <string name="notif_downloads_running">Загрузки выполняются</string>
+    <string name="notif_download_done">Загрузка завершена</string>
+    <string name="notif_idle">Все загрузки завершены</string>
+
+    <string name="player_title">Плеер DownloadThat</string>
+    <string name="player_back">Назад</string>
+    <string name="player_unknown_title">Медиафайл</string>
+    <string name="player_could_not_open">Не удалось открыть этот медиафайл.</string>
+    <string name="player_playlist_items_skipped">Недоступные элементы плейлиста были пропущены.</string>
+    <string name="player_file_unavailable">Этот файл больше не доступен.</string>
+    <string name="player_history">Недавние</string>
+    <string name="player_search">Поиск</string>
+    <string name="player_speed_value">Скорость %1$s</string>
+    <string name="player_sleep_off">Таймер сна выключен</string>
+    <string name="player_sleep_value">Таймер сна: %1$d мин</string>
+
+    <string name="history_title">Продолжить и недавние</string>
+    <string name="history_empty">Воспроизведите видео или аудио — оно появится здесь.</string>
+    <string name="history_continue_at">Продолжить с %1$s</string>
+    <string name="history_play_again">Воспроизвести снова</string>
+    <string name="history_play_all">Воспроизвести недавние</string>
+    <string name="history_clear">Очистить историю</string>
+    <string name="library_title">Библиотека и плейлисты</string>
+    <string name="library_new_playlist">Новый плейлист</string>
+    <string name="library_playlist_name">Название плейлиста</string>
+    <string name="library_create">Создать</string>
+    <string name="library_rename">Переименовать</string>
+    <string name="library_delete_playlist">Удалить плейлист</string>
+    <string name="library_add_to_playlist">Добавить в плейлист</string>
+    <string name="library_remove">Удалить из библиотеки</string>
+    <string name="library_delete_file">Удалить файл</string>
+    <string name="library_delete_file_confirm">Удалить этот файл навсегда?</string>
+    <string name="library_cancel">Отмена</string>
+    <string name="library_playlist_empty">Этот плейлист пуст.</string>
+    <string name="library_move_up">Вверх</string>
+    <string name="library_move_down">Вниз</string>
+    <string name="library_remove_from_playlist">Удалить</string>
+
+    <string name="search_title">Поиск медиа</string>
+    <string name="search_subtitle">Введите название, выберите результат и загрузите видео или аудио.</string>
+    <string name="search_hint">Песня, исполнитель, название видео…</string>
+    <string name="search_button">Поиск</string>
+    <string name="search_enter_query">Сначала введите название.</string>
+    <string name="search_searching">Идёт поиск…</string>
+    <string name="search_no_results">Совпадений не найдено.</string>
+    <string name="search_failed">Ошибка поиска: %1$s</string>
+    <string name="search_cancelled">Поиск отменён.</string>
+    <string name="search_timeout">Истекло время ожидания поиска. Попробуйте ещё раз.</string>
+    <string name="search_queue_busy">Готовится другая загрузка. Повторите попытку чуть позже.</string>
+    <string name="search_download_video">Видео</string>
+    <string name="search_download_audio">Аудио</string>
+    <string name="search_queueing">Запуск загрузки…</string>
+    <string name="search_queued">В очереди: %1$s</string>
+    <string name="search_download_started">Загрузка начата</string>
+    <string name="search_queue_failed">Не удалось начать загрузку.</string>
+    <string name="search_local_auth_failed">Не удалось авторизовать локальный сервис загрузки DownloadThat.</string>
+    <string name="search_terms_required">Откройте главный экран DownloadThat и примите текущие условия перед началом загрузки.</string>
+    <string name="home_search_media">Поиск музыки и видео</string>
+    <string name="home_library">Библиотека</string>
+    <string name="search_more">Загрузить ещё</string>
+    <string name="search_restart">Результаты поиска устарели. Начните поиск снова.</string>
+    <plurals name="search_results_count">
+        <item quantity="one">%d результат</item>
+        <item quantity="few">%d результата</item>
+        <item quantity="many">%d результатов</item>
+        <item quantity="other">%d результатов</item>
+    </plurals>
+
+    <plurals name="notif_active_downloads">
+        <item quantity="one">Загрузка %d файла…</item>
+        <item quantity="few">Загрузка %d файлов…</item>
+        <item quantity="many">Загрузка %d файлов…</item>
+        <item quantity="other">Загрузка %d файлов…</item>
+    </plurals>
+
+    <string name="library_row_actions">Другие действия</string>
+    <string name="library_playlist_badge">Плейлист</string>
+    <string name="library_playlist_quick_play">Воспроизвести</string>
+    <string name="library_tab_folders">Папки</string>
+    <string name="library_tab_playlists">Плейлисты</string>
+    <string name="library_folder_unsorted">Без сортировки</string>
+    <string name="library_selection_count">Выбрано: %1$d</string>
+    <string name="library_selection_delete">Удалить</string>
+    <string name="library_selection_move">Переместить</string>
+    <string name="playlist_detail_shuffle">Перемешать</string>
+    <string name="playlist_repeat_off">Повтор выключен</string>
+    <string name="playlist_repeat_all">Повторять все</string>
+    <string name="playlist_repeat_one">Повторять один трек</string>
+    <plurals name="playlist_detail_track_count">
+        <item quantity="one">%d трек</item>
+        <item quantity="few">%d трека</item>
+        <item quantity="many">%d треков</item>
+        <item quantity="other">%d треков</item>
+    </plurals>
+    <string name="library_no_playlists">У вас пока нет ни одного плейлиста.</string>
+    <string name="library_delete_confirm_generic">Удалить навсегда?</string>
+</resources>

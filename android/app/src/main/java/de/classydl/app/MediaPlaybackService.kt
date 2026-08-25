@@ -43,6 +43,11 @@ class MediaPlaybackService : MediaSessionService() {
         val player = ExoPlayer.Builder(this)
             .setAudioAttributes(audioAttributes, true)
             .setHandleAudioBecomingNoisy(true)
+            // Matches PlayerActivity's double-tap seek step so the native
+            // controller's rewind/fast-forward glyphs agree with the
+            // gesture layer instead of using ExoPlayer's 5s default.
+            .setSeekBackIncrementMs(SEEK_STEP_MS)
+            .setSeekForwardIncrementMs(SEEK_STEP_MS)
             .build()
 
         mediaSession = MediaSession.Builder(this, player).build()
@@ -61,5 +66,9 @@ class MediaPlaybackService : MediaSessionService() {
         }
         mediaSession = null
         super.onDestroy()
+    }
+
+    companion object {
+        private const val SEEK_STEP_MS = 10_000L
     }
 }
