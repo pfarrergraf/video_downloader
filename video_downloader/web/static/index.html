@@ -2496,6 +2496,47 @@ function reviewPromptHasBlockingOverlay() {
   ].some((id) => !$(id).classList.contains('hidden'));
 }
 
+// Called by MainActivity's back-gesture/back-button handler (edge swipe on
+// Android counts as a back press) before it falls through to the system
+// default of closing the whole app. Closes whichever overlay is topmost
+// (highest z-index first) using that overlay's real close path - not just a
+// blind classList.add('hidden') - so side effects like the first-run-help
+// "seen" flag or the review-prompt decision still get recorded. login/terms
+// are deliberately excluded: those are mandatory gates, not dismissible.
+window.closeTopOverlay = function () {
+  if (!$('review-prompt-overlay').classList.contains('hidden')) {
+    finishReviewPrompt('dismissed');
+    return true;
+  }
+  if (!$('help-guide-overlay').classList.contains('hidden')) {
+    $('help-guide-overlay').classList.add('hidden');
+    markFirstRunHelpSeen();
+    glowHelpButtonOnce();
+    return true;
+  }
+  if (!$('help-overlay').classList.contains('hidden')) {
+    closeHelp();
+    return true;
+  }
+  if (!$('share-format-overlay').classList.contains('hidden')) {
+    closeShareFormatPicker();
+    return true;
+  }
+  if (!$('settings-overlay').classList.contains('hidden')) {
+    $('settings-overlay').classList.add('hidden');
+    return true;
+  }
+  if (!$('delete-overlay').classList.contains('hidden')) {
+    $('delete-overlay').classList.add('hidden');
+    return true;
+  }
+  if (!$('limit-overlay').classList.contains('hidden')) {
+    $('limit-overlay').classList.add('hidden');
+    return true;
+  }
+  return false;
+};
+
 function maybeShowReviewPrompt(triggeredBySuccess) {
   if (triggeredBySuccess) reviewPromptQueued = true;
   if (!reviewPromptQueued || reviewHasActiveDownloads || reviewPromptHasBlockingOverlay()) return;

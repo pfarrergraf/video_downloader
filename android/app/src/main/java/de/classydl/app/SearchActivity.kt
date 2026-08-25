@@ -1,5 +1,6 @@
 package de.classydl.app
 
+import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -8,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -146,6 +149,8 @@ class SearchActivity : AppCompatActivity() {
                                     url = item.optString("url"), thumbnail = item.optString("thumbnail"),
                                     uploader = item.optString("uploader"),
                                     durationSeconds = if (item.isNull("duration")) null else item.optInt("duration"),
+                                    isPlaylist = item.optBoolean("is_playlist", false),
+                                    itemCount = if (item.isNull("item_count")) null else item.optInt("item_count"),
                                 ))
                             }
                         }
@@ -169,8 +174,49 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setBusy(busy: Boolean) { searchButton.isEnabled = !busy; moreButton.isEnabled = !busy }
 
+    // A playlist search result queues the *whole* playlist server-side (the
+    // /api/queue endpoint auto-detects a `list=` URL and forces playlist mode
+    // regardless of what's sent - see playlist_urls.inspect_playlist_url) -
+    // so this confirms intent first rather than silently pulling in dozens of
+    // files from what looked like a single tap. "Don't ask again" is only
+    // ever persisted from the confirming ("Yes") path: if it were saved on
+    // "No" too, a user who once declined a big playlist would be silently
+    // opted out of ever downloading one again.
     private fun enqueue(result: SearchResult, audioOnly: Boolean, button: Button) {
         if (result.url.isBlank()) return
+        if (result.isPlaylist && !playlistConfirmSkipped()) {
+            confirmPlaylistDownload(result, audioOnly, button)
+            return
+        }
+        startEnqueue(result, audioOnly, button)
+    }
+
+    private fun playlistConfirmSkipped(): Boolean =
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getBoolean(PREF_SKIP_PLAYLIST_CONFIRM, false)
+
+    private fun confirmPlaylistDownload(result: SearchResult, audioOnly: Boolean, button: Button) {
+        val remember = CheckBox(this).apply { setText(R.string.playlist_confirm_remember) }
+        val padding = (16 * resources.displayMetrics.density).toInt()
+        val container = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(padding, padding, padding, 0)
+            addView(remember)
+        }
+        AlertDialog.Builder(this)
+            .setTitle(R.string.playlist_confirm_title)
+            .setView(container)
+            .setNegativeButton(R.string.playlist_confirm_no, null)
+            .setPositiveButton(R.string.playlist_confirm_yes) { _, _ ->
+                if (remember.isChecked) {
+                    getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit()
+                        .putBoolean(PREF_SKIP_PLAYLIST_CONFIRM, true).apply()
+                }
+                startEnqueue(result, audioOnly, button)
+            }
+            .show()
+    }
+
+    private fun startEnqueue(result: SearchResult, audioOnly: Boolean, button: Button) {
         button.isEnabled = false
         statusView.setText(R.string.search_queueing)
         try {
@@ -239,7 +285,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     data class SearchResult(val id: String, val title: String, val url: String, val thumbnail: String,
-                            val uploader: String, val durationSeconds: Int?)
+                            val uploader: String, val durationSeconds: Int?,
+                            val isPlaylist: Boolean = false, val itemCount: Int? = null)
 
     private class SearchAdapter(
         val enqueue: (SearchResult, Boolean, Button) -> Unit,
@@ -256,8 +303,16 @@ class SearchActivity : AppCompatActivity() {
             LayoutInflater.from(parent.context).inflate(R.layout.item_search_result, parent, false))
         override fun onBindViewHolder(holder: Holder, position: Int) {
             val item = getItem(position)
+            val context = holder.itemView.context
             holder.title.text = item.title
-            holder.detail.text = listOfNotNull(item.uploader.takeIf(String::isNotBlank), format(item.durationSeconds)).joinToString(" · ")
+            holder.detail.text = if (item.isPlaylist) {
+                listOfNotNull(
+                    context.getString(R.string.search_result_playlist_label),
+                    item.itemCount?.let { context.resources.getQuantityString(R.plurals.search_result_playlist_items, it, it) },
+                ).joinToString(" · ")
+            } else {
+                listOfNotNull(item.uploader.takeIf(String::isNotBlank), format(item.durationSeconds)).joinToString(" · ")
+            }
             holder.video.setOnClickListener { enqueue(item, false, holder.video) }
             holder.audio.setOnClickListener { enqueue(item, true, holder.audio) }
             thumbnail(item, holder.image)
@@ -279,6 +334,10 @@ class SearchActivity : AppCompatActivity() {
     companion object {
         private const val SEARCH_TIMEOUT_MS = 15_000L
         private val THUMBNAIL_HOSTS = setOf("i.ytimg.com", "img.youtube.com")
+        // Shared with MainActivity's prefs file - one settings surface per app,
+        // not a search-specific store.
+        private const val PREFS_NAME = "classydl_prefs"
+        private const val PREF_SKIP_PLAYLIST_CONFIRM = "search_playlist_confirm_skip"
 
         private fun boundedExecutor(
             workers: Int,

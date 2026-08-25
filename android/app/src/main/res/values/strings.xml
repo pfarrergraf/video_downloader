@@ -52,8 +52,8 @@
     <string name="search_cancelled">Search cancelled.</string>
     <string name="search_timeout">Search timed out. Please try again.</string>
     <string name="search_queue_busy">Another download is being prepared. Please try again shortly.</string>
-    <string name="search_download_video">Video</string>
-    <string name="search_download_audio">Audio</string>
+    <string name="search_download_video">🎬 Video</string>
+    <string name="search_download_audio">🎵 Audio</string>
     <string name="search_queueing">Starting download…</string>
     <string name="search_queued">Queued: %1$s</string>
     <string name="search_download_started">Download started</string>
@@ -68,6 +68,15 @@
         <item quantity="one">%d result</item>
         <item quantity="other">%d results</item>
     </plurals>
+    <string name="search_result_playlist_label">Playlist</string>
+    <plurals name="search_result_playlist_items">
+        <item quantity="one">%d video</item>
+        <item quantity="other">%d videos</item>
+    </plurals>
+    <string name="playlist_confirm_title">Download the whole playlist?</string>
+    <string name="playlist_confirm_yes">Yes, download the whole playlist</string>
+    <string name="playlist_confirm_no">No</string>
+    <string name="playlist_confirm_remember">Don\'t ask again</string>
 
     <plurals name="notif_active_downloads">
         <item quantity="one">Downloading %d file…</item>

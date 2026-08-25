@@ -61,6 +61,7 @@ def test_search_youtube_is_metadata_only_and_bounded(monkeypatch) -> None:
         "thumbnail": "https://i.ytimg.com/vi/abc123/hqdefault.jpg",
         "uploader": "Example channel",
         "duration": 125,
+        "is_playlist": False,
     }
     assert results[1]["url"] == "https://www.youtube.com/watch?v=def456"
     assert results[1]["thumbnail"] == "https://i.ytimg.com/vi/def456/hqdefault.jpg"
@@ -81,7 +82,7 @@ def test_search_result_limit_is_capped(monkeypatch) -> None:
 
 def test_search_session_is_stable_and_paginated(monkeypatch) -> None:
     results = [{"id": str(i), "title": f"Item {i}"} for i in range(19)]
-    monkeypatch.setattr(media_search, "search_youtube", lambda query, limit: results)
+    monkeypatch.setattr(media_search, "search_youtube_with_playlists", lambda query, limit: results)
     first = json.loads(media_search.start_search_session_json("anything"))
     assert len(first["results"]) == 8
     assert first["total"] == 19
@@ -95,7 +96,7 @@ def test_search_session_is_stable_and_paginated(monkeypatch) -> None:
 
 def test_invalid_or_expired_search_cursor_requires_restart(monkeypatch) -> None:
     assert json.loads(media_search.continue_search_session_json("invalid"))["error"] == "restart_search"
-    monkeypatch.setattr(media_search, "search_youtube", lambda query, limit: [])
+    monkeypatch.setattr(media_search, "search_youtube_with_playlists", lambda query, limit: [])
     first = json.loads(media_search.start_search_session_json("anything"))
     assert first["next_cursor"] is None
 
@@ -114,6 +115,72 @@ def test_cancelled_search_stops_before_network_extraction(monkeypatch) -> None:
     result = json.loads(media_search.start_search_session_json("anything", Signal()))
 
     assert result == {"error": "search_cancelled", "results": []}
+
+
+class _FakePlaylistYdl(_FakeYdl):
+    def extract_info(self, query, download=False):
+        type(self).last_query = query
+        assert download is False
+        return {
+            "entries": [
+                {
+                    "id": "PL111",
+                    "title": "Best of 2026",
+                    "url": "https://www.youtube.com/playlist?list=PL111",
+                    "thumbnail": "https://i.ytimg.com/vi/PL111/hqdefault.jpg",
+                    "channel": "Example channel",
+                    "playlist_count": 42,
+                },
+            ]
+        }
+
+
+def test_search_youtube_playlists_uses_the_playlist_type_filter(monkeypatch) -> None:
+    monkeypatch.setattr(media_search, "YoutubeDL", _FakePlaylistYdl)
+
+    results = media_search.search_youtube_playlists("road trip mix")
+
+    assert "search_query=road+trip+mix" in _FakePlaylistYdl.last_query
+    assert f"sp={media_search.PLAYLIST_SEARCH_TYPE_FILTER}" not in _FakePlaylistYdl.last_query  # URL-encoded
+    assert "sp=EgIQAw%3D%3D" in _FakePlaylistYdl.last_query
+    assert _FakePlaylistYdl.last_options["extract_flat"] is True
+    assert results == [
+        {
+            "id": "PL111",
+            "title": "Best of 2026",
+            "url": "https://www.youtube.com/playlist?list=PL111",
+            "thumbnail": "https://i.ytimg.com/vi/PL111/hqdefault.jpg",
+            "uploader": "Example channel",
+            "duration": None,
+            "is_playlist": True,
+            "item_count": 42,
+        }
+    ]
+
+
+def test_search_youtube_with_playlists_puts_playlists_first(monkeypatch) -> None:
+    playlists = [{"id": "PL1", "title": "A playlist", "is_playlist": True}]
+    videos = [{"id": "v1", "title": "A video", "is_playlist": False}]
+    monkeypatch.setattr(media_search, "search_youtube_playlists", lambda query, cancel_check=None: playlists)
+    monkeypatch.setattr(media_search, "search_youtube", lambda query, limit, cancel_check=None: videos)
+
+    combined = media_search.search_youtube_with_playlists("anything")
+
+    assert combined == playlists + videos
+
+
+def test_search_youtube_with_playlists_degrades_gracefully_on_playlist_failure(monkeypatch) -> None:
+    videos = [{"id": "v1", "title": "A video", "is_playlist": False}]
+
+    def boom(query, cancel_check=None):
+        raise RuntimeError("YouTube changed its search page again")
+
+    monkeypatch.setattr(media_search, "search_youtube_playlists", boom)
+    monkeypatch.setattr(media_search, "search_youtube", lambda query, limit, cancel_check=None: videos)
+
+    combined = media_search.search_youtube_with_playlists("anything")
+
+    assert combined == videos
 
 
 def test_cancel_signal_is_checked_during_yt_dlp_work(monkeypatch) -> None:

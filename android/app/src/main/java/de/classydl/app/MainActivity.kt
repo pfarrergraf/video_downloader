@@ -15,6 +15,7 @@ import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -116,6 +117,22 @@ class MainActivity : AppCompatActivity() {
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
         webView.addJavascriptInterface(WebAppBridge(), "AndroidBridge")
+        // Closing a WebView-hosted overlay (Settings, Help, share picker...)
+        // must take priority over the system default of finishing/
+        // backgrounding this Activity - otherwise an edge-swipe/back-gesture
+        // while e.g. Settings is open exits the whole app instead of just
+        // closing Settings. See window.closeTopOverlay in static/index.html
+        // for the overlay list and each overlay's real close path.
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                webView.evaluateJavascript("window.closeTopOverlay ? window.closeTopOverlay() : false;") { result ->
+                    if (result == "true") return@evaluateJavascript
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                    isEnabled = true
+                }
+            }
+        })
         entitlementStore = EntitlementStore(this)
         entitlementStore.licenseKey()?.let {
             EntitlementCoordinator.ensureDesiredSet(this, it)

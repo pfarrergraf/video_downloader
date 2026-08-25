@@ -56,6 +56,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="52dp"
+            android:background="@drawable/bg_kind_toggle_btn"
+            android:textColor="#F3F1FB"
+            android:textAllCaps="false"
+            android:textSize="15sp"
             android:text="@string/search_download_video" />
 
         <Button
@@ -64,6 +69,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
+            android:minHeight="52dp"
+            android:background="@drawable/bg_kind_toggle_btn"
+            android:textColor="#F3F1FB"
+            android:textAllCaps="false"
+            android:textSize="15sp"
             android:text="@string/search_download_audio" />
     </LinearLayout>
 </LinearLayout>

@@ -51,8 +51,8 @@
     <string name="search_cancelled">Suche abgebrochen.</string>
     <string name="search_timeout">Zeitüberschreitung bei der Suche. Bitte erneut versuchen.</string>
     <string name="search_queue_busy">Ein anderer Download wird vorbereitet. Bitte gleich erneut versuchen.</string>
-    <string name="search_download_video">Video</string>
-    <string name="search_download_audio">Audio</string>
+    <string name="search_download_video">🎬 Video</string>
+    <string name="search_download_audio">🎵 Audio</string>
     <string name="search_queueing">Download wird gestartet…</string>
     <string name="search_queued">Eingereiht: %1$s</string>
     <string name="search_download_started">Download gestartet</string>
@@ -67,6 +67,15 @@
         <item quantity="one">%d Treffer</item>
         <item quantity="other">%d Treffer</item>
     </plurals>
+    <string name="search_result_playlist_label">Playlist</string>
+    <plurals name="search_result_playlist_items">
+        <item quantity="one">%d Video</item>
+        <item quantity="other">%d Videos</item>
+    </plurals>
+    <string name="playlist_confirm_title">Möchtest du die ganze Playlist herunterladen?</string>
+    <string name="playlist_confirm_yes">Ja, die ganze Playlist herunterladen</string>
+    <string name="playlist_confirm_no">Nein</string>
+    <string name="playlist_confirm_remember">In Zukunft nicht mehr fragen</string>
 
     <plurals name="notif_active_downloads">
         <item quantity="one">Lade %d Datei herunter…</item>
