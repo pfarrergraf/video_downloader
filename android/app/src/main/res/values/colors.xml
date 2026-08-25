@@ -1,0 +1,20 @@
+<resources>
+    <!-- Shared with the app's dark "Gothic" palette already inlined across
+         layouts (activity_main.xml, activity_media_search.xml, etc.) and the
+         launcher icon gradient (ic_launcher_foreground.xml). Kept here too
+         because the new button/control drawables below reuse the same
+         values in several places. -->
+    <color name="bg_app">#0b0710</color>
+    <color name="bg_chrome">#11101c</color>
+    <color name="bg_player">#09070d</color>
+    <color name="bg_card">#1A1930</color>
+    <color name="border_card">#322F52</color>
+    <color name="text_primary">#F3F1FB</color>
+    <color name="text_muted">#A5A0C0</color>
+    <color name="text_hint">#77728F</color>
+    <color name="accent_pink">#ff5c7a</color>
+    <color name="accent_orange">#ff8a5c</color>
+    <color name="accent_teal">#22e0c9</color>
+    <color name="accent">#ff7a6a</color>
+    <color name="ripple_on_dark">#33FFFFFF</color>
+</resources>

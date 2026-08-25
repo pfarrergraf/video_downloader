@@ -73,4 +73,24 @@
         <item quantity="one">Downloading %d file…</item>
         <item quantity="other">Downloading %d files…</item>
     </plurals>
+
+    <string name="library_row_actions">More options</string>
+    <string name="library_playlist_badge">Playlist</string>
+    <string name="library_playlist_quick_play">Play</string>
+    <string name="library_tab_folders">Folders</string>
+    <string name="library_tab_playlists">Playlists</string>
+    <string name="library_folder_unsorted">Unsorted</string>
+    <string name="library_selection_count">%1$d selected</string>
+    <string name="library_selection_delete">Delete</string>
+    <string name="library_selection_move">Move</string>
+    <string name="playlist_detail_shuffle">Shuffle</string>
+    <string name="playlist_repeat_off">Repeat off</string>
+    <string name="playlist_repeat_all">Repeat all</string>
+    <string name="playlist_repeat_one">Repeat one</string>
+    <plurals name="playlist_detail_track_count">
+        <item quantity="one">%d track</item>
+        <item quantity="other">%d tracks</item>
+    </plurals>
+    <string name="library_no_playlists">You haven’t created any playlists yet.</string>
+    <string name="library_delete_confirm_generic">Delete permanently?</string>
 </resources>

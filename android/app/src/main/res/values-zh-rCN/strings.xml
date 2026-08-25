@@ -1,0 +1,92 @@
+<resources>
+    <string name="startup_preparing">正在准备 DownloadThat…</string>
+    <string name="startup_failed">DownloadThat 无法启动，请关闭后重新打开应用。</string>
+    <string name="notif_channel_downloads">下载</string>
+    <string name="notif_downloads_running">下载正在进行</string>
+    <string name="notif_download_done">下载已完成</string>
+    <string name="notif_idle">所有下载均已完成</string>
+
+    <string name="player_title">DownloadThat 播放器</string>
+    <string name="player_back">返回</string>
+    <string name="player_unknown_title">媒体</string>
+    <string name="player_could_not_open">无法打开此媒体文件。</string>
+    <string name="player_playlist_items_skipped">已跳过播放列表中不可用的项目。</string>
+    <string name="player_file_unavailable">此文件已不可用。</string>
+    <string name="player_history">最近</string>
+    <string name="player_search">搜索</string>
+    <string name="player_speed_value">倍速 %1$s</string>
+    <string name="player_sleep_off">睡眠定时已关闭</string>
+    <string name="player_sleep_value">睡眠定时 %1$d 分钟</string>
+
+    <string name="history_title">继续播放与最近内容</string>
+    <string name="history_empty">播放一段视频或音频后，会显示在这里。</string>
+    <string name="history_continue_at">从 %1$s 继续播放</string>
+    <string name="history_play_again">重新播放</string>
+    <string name="history_play_all">播放最近内容</string>
+    <string name="history_clear">清除历史记录</string>
+    <string name="library_title">媒体库与播放列表</string>
+    <string name="library_new_playlist">新建播放列表</string>
+    <string name="library_playlist_name">播放列表名称</string>
+    <string name="library_create">创建</string>
+    <string name="library_rename">重命名</string>
+    <string name="library_delete_playlist">删除播放列表</string>
+    <string name="library_add_to_playlist">添加到播放列表</string>
+    <string name="library_remove">从媒体库中移除</string>
+    <string name="library_delete_file">删除文件</string>
+    <string name="library_delete_file_confirm">要永久删除此文件吗？</string>
+    <string name="library_cancel">取消</string>
+    <string name="library_playlist_empty">此播放列表为空。</string>
+    <string name="library_move_up">上移</string>
+    <string name="library_move_down">下移</string>
+    <string name="library_remove_from_playlist">移除</string>
+
+    <string name="search_title">搜索媒体</string>
+    <string name="search_subtitle">输入标题，选择一个结果，然后下载视频或音频。</string>
+    <string name="search_hint">歌曲、艺人、视频标题…</string>
+    <string name="search_button">搜索</string>
+    <string name="search_enter_query">请先输入标题。</string>
+    <string name="search_searching">正在搜索…</string>
+    <string name="search_no_results">未找到匹配的结果。</string>
+    <string name="search_failed">搜索失败：%1$s</string>
+    <string name="search_cancelled">搜索已取消。</string>
+    <string name="search_timeout">搜索超时，请重试。</string>
+    <string name="search_queue_busy">正在准备另一个下载任务，请稍后再试。</string>
+    <string name="search_download_video">视频</string>
+    <string name="search_download_audio">音频</string>
+    <string name="search_queueing">正在开始下载…</string>
+    <string name="search_queued">已加入队列：%1$s</string>
+    <string name="search_download_started">下载已开始</string>
+    <string name="search_queue_failed">无法开始下载。</string>
+    <string name="search_local_auth_failed">无法验证 DownloadThat 的本地下载服务。</string>
+    <string name="search_terms_required">请先打开 DownloadThat 主界面并接受当前条款，然后再开始下载。</string>
+    <string name="home_search_media">搜索音乐和视频</string>
+    <string name="home_library">媒体库</string>
+    <string name="search_more">加载更多</string>
+    <string name="search_restart">搜索结果已过期，请重新开始搜索。</string>
+    <plurals name="search_results_count">
+        <item quantity="other">%d 个结果</item>
+    </plurals>
+
+    <plurals name="notif_active_downloads">
+        <item quantity="other">正在下载 %d 个文件…</item>
+    </plurals>
+
+    <string name="library_row_actions">更多操作</string>
+    <string name="library_playlist_badge">播放列表</string>
+    <string name="library_playlist_quick_play">播放</string>
+    <string name="library_tab_folders">文件夹</string>
+    <string name="library_tab_playlists">播放列表</string>
+    <string name="library_folder_unsorted">未分类</string>
+    <string name="library_selection_count">已选择 %1$d 项</string>
+    <string name="library_selection_delete">删除</string>
+    <string name="library_selection_move">移动</string>
+    <string name="playlist_detail_shuffle">随机播放</string>
+    <string name="playlist_repeat_off">关闭循环</string>
+    <string name="playlist_repeat_all">循环全部</string>
+    <string name="playlist_repeat_one">单曲循环</string>
+    <plurals name="playlist_detail_track_count">
+        <item quantity="other">%d 首曲目</item>
+    </plurals>
+    <string name="library_no_playlists">你还没有创建任何播放列表。</string>
+    <string name="library_delete_confirm_generic">确定要永久删除吗？</string>
+</resources>

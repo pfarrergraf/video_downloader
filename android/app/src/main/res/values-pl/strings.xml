@@ -1,0 +1,101 @@
+<resources>
+    <string name="startup_preparing">Przygotowywanie DownloadThat…</string>
+    <string name="startup_failed">Nie udało się uruchomić DownloadThat. Zamknij i otwórz aplikację ponownie.</string>
+    <string name="notif_channel_downloads">Pobrania</string>
+    <string name="notif_downloads_running">Pobrania w toku</string>
+    <string name="notif_download_done">Pobieranie zakończone</string>
+    <string name="notif_idle">Wszystkie pobrania zakończone</string>
+
+    <string name="player_title">Odtwarzacz DownloadThat</string>
+    <string name="player_back">Wstecz</string>
+    <string name="player_unknown_title">Multimedia</string>
+    <string name="player_could_not_open">Nie można otworzyć tego pliku multimedialnego.</string>
+    <string name="player_playlist_items_skipped">Niedostępne pozycje playlisty zostały pominięte.</string>
+    <string name="player_file_unavailable">Ten plik nie jest już dostępny.</string>
+    <string name="player_history">Ostatnie</string>
+    <string name="player_search">Szukaj</string>
+    <string name="player_speed_value">Prędkość %1$s</string>
+    <string name="player_sleep_off">Wyłącznik czasowy wyłączony</string>
+    <string name="player_sleep_value">Wyłącznik czasowy %1$d min</string>
+
+    <string name="history_title">Kontynuuj i ostatnie</string>
+    <string name="history_empty">Odtwórz wideo lub audio — pojawi się tutaj.</string>
+    <string name="history_continue_at">Kontynuuj od %1$s</string>
+    <string name="history_play_again">Odtwórz ponownie</string>
+    <string name="history_play_all">Odtwórz ostatnie</string>
+    <string name="history_clear">Wyczyść historię</string>
+    <string name="library_title">Biblioteka i playlisty</string>
+    <string name="library_new_playlist">Nowa playlista</string>
+    <string name="library_playlist_name">Nazwa playlisty</string>
+    <string name="library_create">Utwórz</string>
+    <string name="library_rename">Zmień nazwę</string>
+    <string name="library_delete_playlist">Usuń playlistę</string>
+    <string name="library_add_to_playlist">Dodaj do playlisty</string>
+    <string name="library_remove">Usuń z biblioteki</string>
+    <string name="library_delete_file">Usuń plik</string>
+    <string name="library_delete_file_confirm">Usunąć ten plik na stałe?</string>
+    <string name="library_cancel">Anuluj</string>
+    <string name="library_playlist_empty">Ta playlista jest pusta.</string>
+    <string name="library_move_up">Przenieś wyżej</string>
+    <string name="library_move_down">Przenieś niżej</string>
+    <string name="library_remove_from_playlist">Usuń</string>
+
+    <string name="search_title">Szukaj multimediów</string>
+    <string name="search_subtitle">Wpisz tytuł, wybierz wynik, a następnie pobierz wideo lub audio.</string>
+    <string name="search_hint">Utwór, artysta, tytuł wideo…</string>
+    <string name="search_button">Szukaj</string>
+    <string name="search_enter_query">Najpierw wpisz tytuł.</string>
+    <string name="search_searching">Wyszukiwanie…</string>
+    <string name="search_no_results">Nie znaleziono odpowiednich wyników.</string>
+    <string name="search_failed">Wyszukiwanie nie powiodło się: %1$s</string>
+    <string name="search_cancelled">Wyszukiwanie anulowane.</string>
+    <string name="search_timeout">Przekroczono czas wyszukiwania. Spróbuj ponownie.</string>
+    <string name="search_queue_busy">Inne pobieranie jest właśnie przygotowywane. Spróbuj ponownie za chwilę.</string>
+    <string name="search_download_video">Wideo</string>
+    <string name="search_download_audio">Audio</string>
+    <string name="search_queueing">Uruchamianie pobierania…</string>
+    <string name="search_queued">W kolejce: %1$s</string>
+    <string name="search_download_started">Pobieranie rozpoczęte</string>
+    <string name="search_queue_failed">Nie udało się rozpocząć pobierania.</string>
+    <string name="search_local_auth_failed">Nie udało się uwierzytelnić lokalnej usługi pobierania DownloadThat.</string>
+    <string name="search_terms_required">Otwórz główny ekran DownloadThat i zaakceptuj aktualne warunki przed rozpoczęciem pobierania.</string>
+    <string name="home_search_media">Szukaj muzyki i wideo</string>
+    <string name="home_library">Biblioteka</string>
+    <string name="search_more">Wczytaj więcej</string>
+    <string name="search_restart">Wyniki wyszukiwania wygasły. Zacznij wyszukiwanie od nowa.</string>
+    <plurals name="search_results_count">
+        <item quantity="one">%d wynik</item>
+        <item quantity="few">%d wyniki</item>
+        <item quantity="many">%d wyników</item>
+        <item quantity="other">%d wyników</item>
+    </plurals>
+
+    <plurals name="notif_active_downloads">
+        <item quantity="one">Pobieranie %d pliku…</item>
+        <item quantity="few">Pobieranie %d plików…</item>
+        <item quantity="many">Pobieranie %d plików…</item>
+        <item quantity="other">Pobieranie %d plików…</item>
+    </plurals>
+
+    <string name="library_row_actions">Więcej opcji</string>
+    <string name="library_playlist_badge">Playlista</string>
+    <string name="library_playlist_quick_play">Odtwórz</string>
+    <string name="library_tab_folders">Foldery</string>
+    <string name="library_tab_playlists">Playlisty</string>
+    <string name="library_folder_unsorted">Nieposegregowane</string>
+    <string name="library_selection_count">Wybrano: %1$d</string>
+    <string name="library_selection_delete">Usuń</string>
+    <string name="library_selection_move">Przenieś</string>
+    <string name="playlist_detail_shuffle">Losowo</string>
+    <string name="playlist_repeat_off">Powtarzanie wyłączone</string>
+    <string name="playlist_repeat_all">Powtórz wszystko</string>
+    <string name="playlist_repeat_one">Powtórz utwór</string>
+    <plurals name="playlist_detail_track_count">
+        <item quantity="one">%d utwór</item>
+        <item quantity="few">%d utwory</item>
+        <item quantity="many">%d utworów</item>
+        <item quantity="other">%d utworów</item>
+    </plurals>
+    <string name="library_no_playlists">Nie masz jeszcze żadnych playlist.</string>
+    <string name="library_delete_confirm_generic">Usunąć na stałe?</string>
+</resources>

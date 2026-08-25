@@ -72,4 +72,24 @@
         <item quantity="one">Lade %d Datei herunter…</item>
         <item quantity="other">Lade %d Dateien herunter…</item>
     </plurals>
+
+    <string name="library_row_actions">Weitere Optionen</string>
+    <string name="library_playlist_badge">Playlist</string>
+    <string name="library_playlist_quick_play">Abspielen</string>
+    <string name="library_tab_folders">Ordner</string>
+    <string name="library_tab_playlists">Playlists</string>
+    <string name="library_folder_unsorted">Nicht sortiert</string>
+    <string name="library_selection_count">%1$d ausgewählt</string>
+    <string name="library_selection_delete">Löschen</string>
+    <string name="library_selection_move">Verschieben</string>
+    <string name="playlist_detail_shuffle">Zufällig</string>
+    <string name="playlist_repeat_off">Wiederholung aus</string>
+    <string name="playlist_repeat_all">Alle wiederholen</string>
+    <string name="playlist_repeat_one">Einzeltitel wiederholen</string>
+    <plurals name="playlist_detail_track_count">
+        <item quantity="one">%d Titel</item>
+        <item quantity="other">%d Titel</item>
+    </plurals>
+    <string name="library_no_playlists">Du hast noch keine Playlists erstellt.</string>
+    <string name="library_delete_confirm_generic">Endgültig löschen?</string>
 </resources>

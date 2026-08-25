@@ -61,6 +61,11 @@
             android:label="@string/history_title" />
 
         <activity
+            android:name=".PlaylistDetailActivity"
+            android:exported="false"
+            android:label="@string/library_title" />
+
+        <activity
             android:name=".SearchActivity"
             android:exported="false"
             android:label="@string/search_title" />

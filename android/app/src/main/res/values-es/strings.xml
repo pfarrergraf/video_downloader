@@ -1,0 +1,95 @@
+<resources>
+    <string name="startup_preparing">Preparando DownloadThat…</string>
+    <string name="startup_failed">DownloadThat no pudo iniciarse. Cierra y vuelve a abrir la aplicación.</string>
+    <string name="notif_channel_downloads">Descargas</string>
+    <string name="notif_downloads_running">Descargas en curso</string>
+    <string name="notif_download_done">Descarga finalizada</string>
+    <string name="notif_idle">Todas las descargas han finalizado</string>
+
+    <string name="player_title">Reproductor DownloadThat</string>
+    <string name="player_back">Atrás</string>
+    <string name="player_unknown_title">Medio</string>
+    <string name="player_could_not_open">Este archivo multimedia no se pudo abrir.</string>
+    <string name="player_playlist_items_skipped">Se omitieron los elementos de la lista no disponibles.</string>
+    <string name="player_file_unavailable">Este archivo ya no está disponible.</string>
+    <string name="player_history">Recientes</string>
+    <string name="player_search">Buscar</string>
+    <string name="player_speed_value">Velocidad %1$s</string>
+    <string name="player_sleep_off">Temporizador apagado</string>
+    <string name="player_sleep_value">Temporizador %1$d min</string>
+
+    <string name="history_title">Continuar y recientes</string>
+    <string name="history_empty">Reproduce un vídeo o audio y aparecerá aquí.</string>
+    <string name="history_continue_at">Continuar en %1$s</string>
+    <string name="history_play_again">Reproducir de nuevo</string>
+    <string name="history_play_all">Reproducir recientes</string>
+    <string name="history_clear">Borrar historial</string>
+    <string name="library_title">Biblioteca y listas</string>
+    <string name="library_new_playlist">Nueva lista</string>
+    <string name="library_playlist_name">Nombre de la lista</string>
+    <string name="library_create">Crear</string>
+    <string name="library_rename">Renombrar</string>
+    <string name="library_delete_playlist">Eliminar lista</string>
+    <string name="library_add_to_playlist">Añadir a la lista</string>
+    <string name="library_remove">Quitar de la biblioteca</string>
+    <string name="library_delete_file">Eliminar archivo</string>
+    <string name="library_delete_file_confirm">¿Eliminar este archivo definitivamente?</string>
+    <string name="library_cancel">Cancelar</string>
+    <string name="library_playlist_empty">Esta lista está vacía.</string>
+    <string name="library_move_up">Subir</string>
+    <string name="library_move_down">Bajar</string>
+    <string name="library_remove_from_playlist">Quitar</string>
+
+    <string name="search_title">Buscar medios</string>
+    <string name="search_subtitle">Introduce un título, elige un resultado y descarga el vídeo o el audio.</string>
+    <string name="search_hint">Canción, artista, título del vídeo…</string>
+    <string name="search_button">Buscar</string>
+    <string name="search_enter_query">Introduce primero un título.</string>
+    <string name="search_searching">Buscando…</string>
+    <string name="search_no_results">No se encontraron resultados.</string>
+    <string name="search_failed">Error en la búsqueda: %1$s</string>
+    <string name="search_cancelled">Búsqueda cancelada.</string>
+    <string name="search_timeout">La búsqueda ha superado el tiempo de espera. Inténtalo de nuevo.</string>
+    <string name="search_queue_busy">Se está preparando otra descarga. Inténtalo de nuevo en un momento.</string>
+    <string name="search_download_video">Vídeo</string>
+    <string name="search_download_audio">Audio</string>
+    <string name="search_queueing">Iniciando descarga…</string>
+    <string name="search_queued">En cola: %1$s</string>
+    <string name="search_download_started">Descarga iniciada</string>
+    <string name="search_queue_failed">La descarga no pudo iniciarse.</string>
+    <string name="search_local_auth_failed">No se pudo autenticar el servicio local de descargas de DownloadThat.</string>
+    <string name="search_terms_required">Abre la pantalla principal de DownloadThat y acepta las condiciones actuales antes de iniciar una descarga.</string>
+    <string name="home_search_media">Buscar música y vídeo</string>
+    <string name="home_library">Biblioteca</string>
+    <string name="search_more">Cargar más</string>
+    <string name="search_restart">Los resultados de búsqueda han caducado. Inicia la búsqueda de nuevo.</string>
+    <plurals name="search_results_count">
+        <item quantity="one">%d resultado</item>
+        <item quantity="other">%d resultados</item>
+    </plurals>
+
+    <plurals name="notif_active_downloads">
+        <item quantity="one">Descargando %d archivo…</item>
+        <item quantity="other">Descargando %d archivos…</item>
+    </plurals>
+
+    <string name="library_row_actions">Más opciones</string>
+    <string name="library_playlist_badge">Playlist</string>
+    <string name="library_playlist_quick_play">Reproducir</string>
+    <string name="library_tab_folders">Carpetas</string>
+    <string name="library_tab_playlists">Playlists</string>
+    <string name="library_folder_unsorted">Sin clasificar</string>
+    <string name="library_selection_count">%1$d seleccionados</string>
+    <string name="library_selection_delete">Eliminar</string>
+    <string name="library_selection_move">Mover</string>
+    <string name="playlist_detail_shuffle">Aleatorio</string>
+    <string name="playlist_repeat_off">Repetición desactivada</string>
+    <string name="playlist_repeat_all">Repetir todo</string>
+    <string name="playlist_repeat_one">Repetir una pista</string>
+    <plurals name="playlist_detail_track_count">
+        <item quantity="one">%d pista</item>
+        <item quantity="other">%d pistas</item>
+    </plurals>
+    <string name="library_no_playlists">Todavía no has creado ninguna lista.</string>
+    <string name="library_delete_confirm_generic">¿Eliminar definitivamente?</string>
+</resources>

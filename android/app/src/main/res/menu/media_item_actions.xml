@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MediaHistoryActivity/PlaylistDetailActivity per-row overflow menu.
+     action_remove_from_playlist starts hidden — only shown when the row is
+     rendered inside a specific playlist's track list. -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_add_to_playlist"
+        android:title="@string/library_add_to_playlist" />
+    <item
+        android:id="@+id/action_remove_from_playlist"
+        android:title="@string/library_remove_from_playlist"
+        android:visible="false" />
+    <item
+        android:id="@+id/action_remove"
+        android:title="@string/library_remove" />
+    <item
+        android:id="@+id/action_delete"
+        android:title="@string/library_delete_file" />
+</menu>

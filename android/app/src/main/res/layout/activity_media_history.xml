@@ -3,14 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#11101c"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
+    <!-- Normal header: title + quick actions. Hidden by selection_header while
+         multi-select is active. -->
     <LinearLayout
+        android:id="@+id/normal_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <FrameLayout
             android:id="@+id/history_back"
@@ -34,48 +37,135 @@
             android:textColor="#F3F1FB"
             android:textSize="22sp"
             android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/history_search"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/player_search"
+            android:padding="8dp"
+            android:src="@drawable/ic_search" />
+
+        <ImageButton
+            android:id="@+id/history_play_all"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/history_play_all"
+            android:padding="8dp"
+            android:src="@drawable/ic_transport_play" />
     </LinearLayout>
 
+    <!-- Selection-mode header: replaces normal_header while any row is checked. -->
     <LinearLayout
+        android:id="@+id/selection_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
+        android:background="@color/bg_card"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:visibility="gone">
 
-        <Button
-            android:id="@+id/history_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/player_search" />
+        <ImageButton
+            android:id="@+id/selection_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/library_cancel"
+            android:padding="8dp"
+            android:src="@drawable/ic_close" />
 
-        <Button
-            android:id="@+id/history_play_all"
+        <TextView
+            android:id="@+id/selection_count"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:text="@string/history_play_all" />
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/selection_play"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/library_playlist_quick_play"
+            android:padding="8dp"
+            android:src="@drawable/ic_transport_play" />
+
+        <ImageButton
+            android:id="@+id/selection_move"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/library_selection_move"
+            android:padding="8dp"
+            android:src="@drawable/ic_playlist_add" />
+
+        <ImageButton
+            android:id="@+id/selection_delete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/library_selection_delete"
+            android:padding="8dp"
+            android:src="@drawable/ic_delete" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/library_new_playlist"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/library_new_playlist" />
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <Button
+            android:id="@+id/tab_folders"
+            style="@style/Widget.ClassyDL.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/library_tab_folders" />
+
+        <Button
+            android:id="@+id/tab_playlists"
+            style="@style/Widget.ClassyDL.Button.Secondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="@string/library_tab_playlists" />
+    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/library_playlists"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp">
 
-    <Button
-        android:id="@+id/history_clear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="@string/history_clear" />
+        <Button
+            android:id="@+id/library_new_playlist"
+            style="@style/Widget.ClassyDL.Button.Secondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/library_new_playlist" />
+
+        <Button
+            android:id="@+id/history_clear"
+            style="@style/Widget.ClassyDL.Button.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/history_clear" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/history_empty"
@@ -83,21 +173,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center"
+        android:paddingHorizontal="16dp"
         android:text="@string/history_empty"
         android:textColor="#A5A0C0"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="gone" />
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/library_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:id="@+id/history_results"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="24dp" />
-    </ScrollView>
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp" />
 </LinearLayout>

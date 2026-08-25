@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Per-row "more actions" button — replaces the old always-visible
+     Add-to-playlist/Remove/Delete text buttons with one icon that opens a
+     PopupMenu (MediaHistoryActivity). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/text_muted"
+        android:pathData="M12,4A2,2 0 1 1 12,8A2,2 0 1 1 12,4ZM12,10A2,2 0 1 1 12,14A2,2 0 1 1 12,10ZM12,16A2,2 0 1 1 12,20A2,2 0 1 1 12,16Z" />
+</vector>

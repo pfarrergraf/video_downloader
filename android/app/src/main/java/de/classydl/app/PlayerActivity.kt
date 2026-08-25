@@ -5,13 +5,18 @@ import android.content.ComponentName
 import android.content.Intent
 import android.content.res.Configuration
 import android.database.Cursor
+import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.OpenableColumns
+import android.provider.Settings
 import android.util.Rational
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -22,6 +27,7 @@ import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import androidx.media3.ui.PlayerView
@@ -40,6 +46,7 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var titleView: TextView
     private lateinit var speedButton: Button
     private lateinit var sleepButton: Button
+    private lateinit var seekFeedback: TextView
     private lateinit var topChrome: View
     private lateinit var retentionActions: View
     private lateinit var retentionStore: PlaybackRetentionStore
@@ -49,6 +56,10 @@ class PlayerActivity : AppCompatActivity() {
     private var pendingUri: Uri? = null
     private var pendingMimeType: String? = null
     private var pendingPlaylist: List<PlaylistEntry> = emptyList()
+    private var pendingShuffle = false
+    private var pendingRepeatMode = Player.REPEAT_MODE_OFF
+    private var controlsVisible = true
+    private var videoZoom = 1f
     private val handler = Handler(Looper.getMainLooper())
 
     private val checkpoint = object : Runnable {
@@ -91,6 +102,7 @@ class PlayerActivity : AppCompatActivity() {
         titleView = findViewById(R.id.player_title)
         speedButton = findViewById(R.id.player_speed)
         sleepButton = findViewById(R.id.player_sleep)
+        seekFeedback = findViewById(R.id.player_seek_feedback)
         topChrome = findViewById(R.id.player_top_chrome)
         retentionActions = findViewById(R.id.player_retention_actions)
 
@@ -103,6 +115,7 @@ class PlayerActivity : AppCompatActivity() {
         }
         speedButton.setOnClickListener { cyclePlaybackSpeed() }
         sleepButton.setOnClickListener { cycleSleepTimer() }
+        setupGestures()
 
         consumeIntent(intent)
         updateSpeedButton(retentionStore.playbackSpeed())
@@ -181,6 +194,8 @@ class PlayerActivity : AppCompatActivity() {
         pendingUri = null
         pendingMimeType = null
         pendingPlaylist = emptyList()
+        pendingShuffle = intent?.getBooleanExtra(EXTRA_SHUFFLE, false) ?: false
+        pendingRepeatMode = intent?.getIntExtra(EXTRA_REPEAT_MODE, Player.REPEAT_MODE_OFF) ?: Player.REPEAT_MODE_OFF
         if (intent?.action != Intent.ACTION_VIEW && intent?.action != ACTION_PLAY_INTERNAL) {
             showPlaybackError()
             return
@@ -215,6 +230,11 @@ class PlayerActivity : AppCompatActivity() {
 
     private fun playPendingMedia(mediaController: MediaController) {
         val uri = pendingUri ?: return
+        // Applied unconditionally, ahead of the same-item early-returns below,
+        // so a repeat/shuffle-only change (same playlist, different mode)
+        // still takes effect on a re-delivered intent (onNewIntent).
+        mediaController.shuffleModeEnabled = pendingShuffle
+        mediaController.repeatMode = pendingRepeatMode
         val resumeMs = libraryStore.get(uri.toString())
             ?.takeIf { it.isMeaningfulResume }
             ?.positionMs
@@ -300,6 +320,128 @@ class PlayerActivity : AppCompatActivity() {
         } else {
             getString(R.string.player_sleep_off)
         }
+    }
+
+    /**
+     * VLC-style touch controls layered directly on the video surface:
+     * pinch to zoom in/out, double-tap the left/right third to skip
+     * back/forward 10s, double-tap the middle third to play/pause, a
+     * one-finger vertical drag on the right half for volume and the left
+     * half for screen brightness, and a single tap anywhere to toggle the
+     * chrome. Media3's own tap-to-toggle handling is bypassed once this
+     * listener is attached (a view keeps only one OnTouchListener), so
+     * controller visibility is tracked here instead.
+     */
+    @OptIn(UnstableApi::class)
+    private fun setupGestures() {
+        val scaleDetector = ScaleGestureDetector(
+            this,
+            object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+                override fun onScale(detector: ScaleGestureDetector): Boolean {
+                    videoZoom = (videoZoom * detector.scaleFactor).coerceIn(1f, 3f)
+                    playerView.videoSurfaceView?.let {
+                        it.scaleX = videoZoom
+                        it.scaleY = videoZoom
+                    }
+                    return true
+                }
+            },
+        )
+
+        val gestureDetector = GestureDetector(
+            this,
+            object : GestureDetector.SimpleOnGestureListener() {
+                override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                    controlsVisible = !controlsVisible
+                    if (controlsVisible) playerView.showController() else playerView.hideController()
+                    return true
+                }
+
+                override fun onDoubleTap(e: MotionEvent): Boolean {
+                    val mediaController = controller ?: return false
+                    val width = playerView.width
+                    if (width <= 0) return false
+                    when {
+                        e.x < width / 3f -> seekBy(mediaController, -SEEK_STEP_MS, "-10s")
+                        e.x > width * 2f / 3f -> seekBy(mediaController, SEEK_STEP_MS, "+10s")
+                        else -> if (mediaController.isPlaying) mediaController.pause() else mediaController.play()
+                    }
+                    return true
+                }
+
+                override fun onScroll(e1: MotionEvent?, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
+                    // Ignore a second finger (already owned by scaleDetector) and
+                    // drags that are mostly horizontal, so this only fires for a
+                    // deliberate one-finger vertical swipe.
+                    if (e2.pointerCount > 1 || kotlin.math.abs(distanceY) <= kotlin.math.abs(distanceX)) return false
+                    val width = playerView.width
+                    val height = playerView.height
+                    if (width <= 0 || height <= 0) return false
+                    // GestureDetector reports distanceY as (previous.y - current.y),
+                    // so an upward drag (finger moving to a smaller y) is positive
+                    // here — matches the usual "swipe up to increase" convention.
+                    val fraction = distanceY / height
+                    if (e2.x < width / 2f) adjustBrightness(fraction) else adjustVolume(fraction)
+                    return true
+                }
+            },
+        )
+
+        playerView.setOnTouchListener { view, event ->
+            scaleDetector.onTouchEvent(event)
+            gestureDetector.onTouchEvent(event)
+            if (event.actionMasked == MotionEvent.ACTION_UP) view.performClick()
+            true
+        }
+    }
+
+    private fun seekBy(mediaController: MediaController, deltaMs: Long, label: String) {
+        val duration = mediaController.duration.takeIf { it != C.TIME_UNSET } ?: Long.MAX_VALUE
+        mediaController.seekTo((mediaController.currentPosition + deltaMs).coerceIn(0L, duration))
+        showBubble(label)
+    }
+
+    /** Media stream volume — no permission required for the app's own playback stream. */
+    private fun adjustVolume(fraction: Float) {
+        val audioManager = getSystemService(AUDIO_SERVICE) as? AudioManager ?: return
+        val max = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+        if (max <= 0) return
+        val current = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+        val target = Math.round(current + fraction * max).coerceIn(0, max)
+        if (target != current) audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, target, 0)
+        showBubble("🔊 ${Math.round(target.toFloat() / max * 100)}%")
+    }
+
+    /**
+     * Per-window brightness override only — reverts automatically when this
+     * Activity closes and never touches system brightness, so it needs no
+     * WRITE_SETTINGS permission (a special access this app does not request;
+     * see the Android permission guardrail in CLAUDE.md).
+     */
+    private fun adjustBrightness(fraction: Float) {
+        val params = window.attributes
+        val current = params.screenBrightness.takeIf { it >= 0f } ?: systemBrightnessFraction()
+        val target = (current + fraction).coerceIn(0.05f, 1f)
+        params.screenBrightness = target
+        window.attributes = params
+        showBubble("☀️ ${Math.round(target * 100)}%")
+    }
+
+    private fun systemBrightnessFraction(): Float = runCatching {
+        Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS) / 255f
+    }.getOrDefault(0.5f)
+
+    private fun showBubble(text: String) {
+        seekFeedback.text = text
+        seekFeedback.animate().cancel()
+        seekFeedback.alpha = 1f
+        seekFeedback.visibility = View.VISIBLE
+        seekFeedback.animate()
+            .alpha(0f)
+            .setStartDelay(400)
+            .setDuration(250)
+            .withEndAction { seekFeedback.visibility = View.INVISIBLE }
+            .start()
     }
 
     private fun updatePictureInPictureParams() {
@@ -399,7 +541,10 @@ class PlayerActivity : AppCompatActivity() {
     companion object {
         const val ACTION_PLAY_INTERNAL = "de.classydl.app.action.PLAY_INTERNAL"
         const val EXTRA_PLAYLIST_JSON = "de.classydl.app.extra.PLAYLIST_JSON"
+        const val EXTRA_SHUFFLE = "de.classydl.app.extra.SHUFFLE"
+        const val EXTRA_REPEAT_MODE = "de.classydl.app.extra.REPEAT_MODE"
         private const val CHECKPOINT_MS = 5_000L
+        private const val SEEK_STEP_MS = 10_000L
         private val LOCAL_URI_SCHEMES = setOf("content", "file")
         private val SPEEDS = listOf(1.0f, 1.25f, 1.5f, 2.0f, 0.75f)
     }

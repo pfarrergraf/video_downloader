@@ -80,11 +80,17 @@ def test_only_owned_downloads_are_retained_and_missing_history_files_are_handled
     assert "removeFromLibrary" in library
 
 
-def test_library_action_helper_keeps_click_lambda_last_for_weighted_buttons() -> None:
-    history = (ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "MediaHistoryActivity.kt").read_text(encoding="utf-8")
+def test_library_checkbox_is_noninteractive_so_row_tap_drives_selection() -> None:
+    """Superseded by the tabs/thumbnails/multi-select library redesign, which
+    replaced MediaHistoryActivity's manually-built LinearLayout rows (and the
+    `action()` helper this test used to lock) with a RecyclerView adapter.
+    The equivalent hard-won gotcha in the new code: a CheckBox is Checkable
+    and toggles itself on tap by default, which would desync the checkmark
+    from LibraryAdapter.Callbacks' selection sets unless the checkbox is
+    explicitly made non-interactive and the row body drives selection."""
+    adapter = (ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "LibraryAdapter.kt").read_text(encoding="utf-8")
 
-    assert "private fun action(text: Int, params: LinearLayout.LayoutParams? = null, click: () -> Unit)" in history
-    assert "action(R.string.library_add_to_playlist) { choosePlaylist(media) }, weighted()" in history
+    assert adapter.count("holder.checkbox.isClickable = false") == 2
 
 
 def test_completed_notification_opens_native_player_without_chooser() -> None:

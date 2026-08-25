@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MediaHistoryActivity's per-playlist-card overflow menu. -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_rename_playlist"
+        android:title="@string/library_rename" />
+    <item
+        android:id="@+id/action_delete_playlist"
+        android:title="@string/library_delete_playlist" />
+</menu>
