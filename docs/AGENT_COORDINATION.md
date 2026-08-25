@@ -325,3 +325,18 @@ _(Trage deinen Claim hier ein, bevor du beginnst. Nach Fertigstellung Status auf
   Release-Check verwirft künftige AABs mit Nicht-App-Dateien oder einem
   übergroßen Python-Archiv. `v1.0.3` ist als 35,73-MB-APK und 34,42-MiB-AAB
   erfolgreich in GitHub Actions gebaut.
+- 2026-08-25 — Claude — Claim: natives Player-/Library-Redesign auf
+  `agent/claude/native-player-ux-redesign` (Basis: `release/v1.0.4.2-team`
+  Spitze `1f2b921e`). Scope: `android/app/src/main/java/de/classydl/app/{PlayerActivity,MediaHistoryActivity,MediaPlaybackService,LibraryAdapter,MediaThumbnailLoader,PlaylistDetailActivity}.kt`,
+  zugehörige Layouts/Drawables/Menüs unter `android/app/src/main/res/`,
+  `values*/strings.xml` (+9 neue Locales: fr/es/it/nl/pl/zh-rCN/ja/ru/ar,
+  Key-Parität geprüft), `AndroidManifest.xml` (neue `PlaylistDetailActivity`,
+  keine neuen Permissions), `tests/test_android_player_contract.py` (ein
+  Test bewusst ersetzt, siehe Commit) und `tests/test_android_library_redesign_contract.py`
+  (neu). Push getriggert `android-build.yml` automatisch; `android-release.yml`
+  (AAB) und `deploy-pro-website.yml` bewusst NICHT ausgelöst (beide
+  workflow_dispatch bzw. nur `master`-Push). Ich habe den gemeinsamen
+  Working-Tree-HEAD zwischenzeitlich auf meiner Branch gehabt und danach
+  wieder auf `release/v1.0.4.2-team` zurückgesetzt (keine anderen
+  unstaged Änderungen im Tree vorgefunden). Status: PR offen, CI-Ergebnis
+  ausstehend — noch nicht nach `release/v1.0.4.2-team` gemergt.
