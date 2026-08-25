@@ -116,6 +116,15 @@ Neue Aufgaben unten anhängen, gleiche Struktur (Checkbox + Log).
   bestehender Admin-Session als Authentifizierung, Secret-Sync im Deploy-Workflow.
   Checkbox oben war stehen geblieben, obwohl die Aufgabe bereits erledigt war —
   jetzt nachgezogen.
+- 2026-08-25 — Claude — **Fund: wieder offen.** Der gesamte hier beschriebene
+  Mechanismus (`/api/admin/retention-cleanup`, `retention-cleanup.yml`,
+  `retention_cleanup.test.mjs`) wurde beim Google-Play-first-Umbau zusammen
+  mit dem alten Affiliate-/Stripe-System ersatzlos gelöscht (Commit
+  `bb23df4a`). Für die aktuellen Tabellen `play_purchases`/
+  `license_activations` existiert **kein** automatisierter Lösch-/
+  Aufbewahrungsjob. Die Checkbox oben bleibt zur Historie stehen, ist aber
+  für den aktuellen Codestand nicht mehr zutreffend — relevant für die
+  Data-Safety-Angaben in Play Console, siehe „Offen — Owner-Gates" unten.
 
 ### T6 — Externe Beauftragungen (Owner-Aufgabe, hier nur getrackt)
 - [ ] Anwaltliches Gutachten Urheberrecht/DRM/YouTube-ToS **vor** dem großen Marketing-Push
@@ -292,9 +301,27 @@ Aus `docs/TESTER_REPORT_ASSESSMENT_2026-08-03.md` und
   (`rtdnConfigured: true`); Rate-Limiting für
   `POST /api/play/purchases/verify` nicht separat verifiziert.
 - **Data Safety / Zielgruppe / Content Rating / Werbeangaben** in Play Console
-  anhand der tatsächlichen Datenflüsse absenden. Owner hat um eine
-  Datenfluss-Inventur gebeten — Ergebnis wird hier nachgetragen, sobald
-  verfügbar.
+  anhand der tatsächlichen Datenflüsse absenden. Datenfluss-Inventur
+  2026-08-25 (Details: Explore-Agent-Report, nicht separat abgelegt):
+  App/Backend sammeln minimal (kein Ad-/Analytics-/Crash-SDK, CI-Gate
+  `scripts/check_no_ad_sdk.py` erzwingt das; Download-URLs/-Dateien/-Verlauf
+  und Suchanfragen verlassen nie den DownloadThat-Server; Geräte-ID ist ein
+  doppelt gehashter `ANDROID_ID`, nie roh gespeichert) — deckt sich fast
+  wortgleich mit `pro/website/datenschutz*.html`. Zwei Punkte fürs
+  Data-Safety-Formular explizit prüfen:
+  1. Play Billing sendet per `setObfuscatedAccountId` eine gehashte
+     Geräte-ID direkt an Google (Kauf-Flow) — separat von dem, was der
+     eigene Server bekommt; als Datenweitergabe an Dritte (Google Play
+     Billing) deklarieren.
+  2. **Kein automatisierter Lösch-/Aufbewahrungsjob** existiert aktuell für
+     `play_purchases`/`license_activations` — der frühere "T5
+     Retention-Cleanup" (Workflow + Endpoint + Test) wurde beim
+     Google-Play-first-Umbau zusammen mit dem alten Affiliate-System
+     mitgelöscht (Commit `bb23df4a`) und nie ersetzt. `docs/WORKPLAN.md`s
+     eigener T5-Eintrag oben ("erledigt") ist dadurch veraltet/falsch für
+     den aktuellen Stand — entweder einen Ersatzjob bauen oder im
+     Data-Safety-Formular "unbegrenzt aufbewahrt / keine automatische
+     Löschung" angeben statt sich auf die alte Doku zu verlassen.
 - **T6 Rechtliche Prüfung:** vom Owner bewusst zurückgestellt, bis mindestens
   10.000 zahlende Käufer erreicht sind (Stand 2026-08-25: 0 Käufe). Keine
   automatische Rechtsfreigabe aus Code/Doku ableiten.
