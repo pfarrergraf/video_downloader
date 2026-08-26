@@ -30,9 +30,14 @@ def test_android_ci_compiles_play_billing_flavor() -> None:
     assert "api-level: ${{ matrix.api-level }}" in workflow
 
 
-def test_android_candidate_checks_only_upload_signing_configuration() -> None:
+def test_android_release_checks_existing_app_and_upload_signing_configuration() -> None:
     workflow = _workflow("android-release.yml")
     required_names = (
+        "ANDROID_APP_SIGNING_KEYSTORE_BASE64",
+        "ANDROID_APP_SIGNING_KEYSTORE_PASSWORD",
+        "ANDROID_APP_SIGNING_KEY_ALIAS",
+        "ANDROID_APP_SIGNING_KEY_PASSWORD",
+        "ANDROID_APP_SIGNING_CERT_SHA256",
         "ANDROID_UPLOAD_KEYSTORE_BASE64",
         "ANDROID_UPLOAD_KEYSTORE_PASSWORD",
         "ANDROID_UPLOAD_KEY_ALIAS",
@@ -41,9 +46,10 @@ def test_android_candidate_checks_only_upload_signing_configuration() -> None:
     )
     for name in required_names:
         assert workflow.count(name) >= 2, name
-    assert "ANDROID_APP_SIGNING_KEYSTORE_BASE64" not in workflow
     assert "select_android_candidate_version.py" in workflow
-    assert "assembleDirectRelease" not in workflow
+    assert "assembleDirectRelease" in workflow
+    assert "bundlePlayRelease" in workflow
+    assert "check_android_release_artifacts.sh" in workflow
     assert "cache-disabled: true" in workflow
 
 

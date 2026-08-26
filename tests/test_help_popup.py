@@ -22,6 +22,13 @@ def test_help_button_and_overlay_markup_present() -> None:
     assert 'id="help-guide-close-btn"' in html
 
 
+def test_player_first_home_hides_manual_link_surface_and_skips_auto_tutorial() -> None:
+    html = _html()
+    assert 'class="card hidden" id="manual-download-card" aria-hidden="true"' in html
+    helper = html.split("function maybeShowFirstRunHelp() {", 1)[1].split("\n}", 1)[0]
+    assert "$('manual-download-card').classList.contains('hidden')" in helper
+
+
 def test_help_overlay_embeds_the_hero_cinema_animation() -> None:
     # Per product feedback, the old icon-only 3-step walkthrough was
     # replaced with the exact same "Product Cinema" animation used on the

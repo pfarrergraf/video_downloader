@@ -227,55 +227,43 @@ def test_opening_help_while_it_is_already_open_does_not_rewind_it(page) -> None:
     assert page.evaluate(PHASE) == "share"
 
 
-def test_the_tutorial_auto_opens_once_on_a_native_first_run(browser, base_url) -> None:
+def test_player_first_home_does_not_auto_open_share_tutorial(browser, base_url) -> None:
     context = browser.new_context(
         viewport={"width": 412, "height": 915},
         reduced_motion="no-preference",
     )
     try:
         page = _sign_in(context, base_url, android=True)
-        page.wait_for_selector("#help-overlay:not(.hidden)")
+        page.wait_for_timeout(500)
+        assert page.locator("#help-overlay.hidden").count() == 1
     finally:
         context.close()
 
 
-def test_a_repeat_login_does_not_rewind_the_open_tutorial(browser, base_url) -> None:
-    """Regression: setAuthed(true) is not a once-per-launch event.
-
-    checkAuth(), MainActivity's injected auto-login and the terms gate can all
-    reach it. FIRST_RUN_HELP_KEY does not stop the repeat, because it is only
-    written when the tutorial is *closed* (deliberately - an interrupted first
-    run should be shown again next launch). That leaves a window, for the
-    whole time the first-run tutorial is on screen, in which every extra
-    setAuthed(true) fired maybeShowFirstRunHelp() -> openHelp() again and
-    dragged the viewer back to scene 1.
-    """
+def test_repeat_login_keeps_share_tutorial_closed_on_player_first_home(browser, base_url) -> None:
     context = browser.new_context(
         viewport={"width": 412, "height": 915},
         reduced_motion="no-preference",
     )
     try:
         page = _sign_in(context, base_url, android=True)
-        page.wait_for_selector("#help-overlay:not(.hidden)")
-        _wait_for_phase(page, "share")  # scene 02, and still unclosed
-
-        # A second and third authentication pass, as the WebView produces.
+        assert page.locator("#help-overlay.hidden").count() == 1
         page.evaluate("setAuthed(true)")
         page.evaluate("setAuthed(true)")
-        page.wait_for_timeout(700)  # setAuthed awaits /api/settings, then rAF
-
-        assert page.evaluate(PHASE) == "share", "a repeat login rewound the tutorial"
+        page.wait_for_timeout(700)
+        assert page.locator("#help-overlay.hidden").count() == 1
     finally:
         context.close()
 
 
-def test_the_tutorial_does_not_reopen_after_it_has_been_dismissed(browser, base_url) -> None:
+def test_manually_opened_tutorial_does_not_reopen_after_dismissal(browser, base_url) -> None:
     context = browser.new_context(
         viewport={"width": 412, "height": 915},
         reduced_motion="no-preference",
     )
     try:
         page = _sign_in(context, base_url, android=True)
+        page.click("#help-open-btn")
         page.wait_for_selector("#help-overlay:not(.hidden)")
         page.click("#help-close-btn")
         assert page.locator("#help-overlay.hidden").count() == 1
@@ -288,14 +276,10 @@ def test_the_tutorial_does_not_reopen_after_it_has_been_dismissed(browser, base_
         context.close()
 
 
-def test_a_share_arriving_during_the_auto_opened_tutorial_reaches_a_clickable_picker(
+def test_a_share_arriving_during_a_manually_opened_tutorial_reaches_a_clickable_picker(
     browser, base_url
 ) -> None:
-    """Regression, caught in CI by test_android_download_notifications.py's
-    sibling `share_intent_test.sh`: a fresh install auto-opens the tutorial
-    (maybeShowFirstRunHelp() only checks whether the picker is visible *at
-    that moment* - not later), and if a share then arrives while it is still
-    open, onSharedUrl() showed #share-format-overlay without closing it.
+    """A shared link must close a tutorial which the user opened manually.
 
     #help-overlay's z-index (57) sits above #share-format-overlay's (56), so
     the picker rendered *underneath* the tutorial - same dimmed background,
@@ -316,6 +300,7 @@ def test_a_share_arriving_during_the_auto_opened_tutorial_reaches_a_clickable_pi
     )
     try:
         page = _sign_in(context, base_url, android=True)
+        page.click("#help-open-btn")
         page.wait_for_selector("#help-overlay:not(.hidden)")
         _wait_for_phase(page, "share")  # tutorial genuinely mid-run, not just opened
 

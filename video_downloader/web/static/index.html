@@ -1334,7 +1334,11 @@
     </div>
   </header>
   <main>
-    <div class="card">
+    <!-- Player/search-first Android surface. The manual URL controls remain
+         in the document so the existing queue/share plumbing can be restored
+         without changing the download engine, but they are intentionally not
+         part of the visible home screen. -->
+    <div class="card hidden" id="manual-download-card" aria-hidden="true">
       <label for="url-input" data-i18n="app.home.url_label">Paste your link here</label>
       <input type="url" id="url-input" inputmode="url" autocomplete="off"
              data-i18n-placeholder="app.home.url_placeholder" placeholder="https://…" />
@@ -1938,6 +1942,10 @@ let firstRunAutoOpened = false;
 let firstRunHelpTriggered = false;
 function maybeShowFirstRunHelp() {
   if (firstRunHelpTriggered) return;
+  // The current home screen is player/search-first. Its retained tutorial
+  // explains the optional share flow, so it must never replace search as the
+  // first-run experience while the manual download surface is hidden.
+  if ($('manual-download-card').classList.contains('hidden')) return;
   const androidAvailable = !!(window.AndroidBridge && window.AndroidBridge.isAvailable && window.AndroidBridge.isAvailable());
   if (!androidAvailable || !$('share-format-overlay').classList.contains('hidden')) return;
   try {

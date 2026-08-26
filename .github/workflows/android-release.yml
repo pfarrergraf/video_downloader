@@ -237,6 +237,11 @@ jobs:
 
       - name: Verify app-signing and upload-key secrets are configured
         env:
+          ANDROID_APP_SIGNING_KEYSTORE_BASE64: ${{ secrets.ANDROID_APP_SIGNING_KEYSTORE_BASE64 }}
+          ANDROID_APP_SIGNING_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_APP_SIGNING_KEYSTORE_PASSWORD }}
+          ANDROID_APP_SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_APP_SIGNING_KEY_ALIAS }}
+          ANDROID_APP_SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_APP_SIGNING_KEY_PASSWORD }}
+          ANDROID_APP_SIGNING_CERT_SHA256: ${{ secrets.ANDROID_APP_SIGNING_CERT_SHA256 }}
           ANDROID_UPLOAD_KEYSTORE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_BASE64 }}
           ANDROID_UPLOAD_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}
           ANDROID_UPLOAD_KEY_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
@@ -245,6 +250,11 @@ jobs:
         run: |
           missing=()
           for name in \
+            ANDROID_APP_SIGNING_KEYSTORE_BASE64 \
+            ANDROID_APP_SIGNING_KEYSTORE_PASSWORD \
+            ANDROID_APP_SIGNING_KEY_ALIAS \
+            ANDROID_APP_SIGNING_KEY_PASSWORD \
+            ANDROID_APP_SIGNING_CERT_SHA256 \
             ANDROID_UPLOAD_KEYSTORE_BASE64 \
             ANDROID_UPLOAD_KEYSTORE_PASSWORD \
             ANDROID_UPLOAD_KEY_ALIAS \
@@ -273,6 +283,16 @@ jobs:
             }
           fi
 
+      - name: Build signed Direct APK (arm64-v8a only)
+        env:
+          ANDROID_APP_SIGNING_KEYSTORE_BASE64: ${{ secrets.ANDROID_APP_SIGNING_KEYSTORE_BASE64 }}
+          ANDROID_APP_SIGNING_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_APP_SIGNING_KEYSTORE_PASSWORD }}
+          ANDROID_APP_SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_APP_SIGNING_KEY_ALIAS }}
+          ANDROID_APP_SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_APP_SIGNING_KEY_PASSWORD }}
+        run: |
+          gradle :app:assembleDirectRelease -PabiFilters=arm64-v8a -PplayStoreUrl="$PLAY_STORE_URL" -PlicenseApiBaseUrl="$LICENSE_API_BASE_URL" \
+            -PversionNameOverride="$VERSION_NAME" -PversionCodeOverride="$VERSION_CODE" --stacktrace
+
       # Play Console requires the .aab (App Bundle) format, not a raw APK. CI
       # signs this artifact with the separately revocable upload key; Google
       # verifies it and re-signs delivered APKs with the transferred app-signing
@@ -290,10 +310,11 @@ jobs:
           gradle :app:bundlePlayRelease -PabiFilters=arm64-v8a -PplayStoreUrl="$PLAY_STORE_URL" -PlicenseApiBaseUrl="$LICENSE_API_BASE_URL" \
             -PversionNameOverride="$VERSION_NAME" -PversionCodeOverride="$VERSION_CODE" --stacktrace
 
-      - name: Verify AAB signature, 16 KiB native compatibility and store separation
+      - name: Verify signatures, 16 KiB native compatibility and store separation
         env:
+          EXPECTED_APP_SIGNING_SHA256: ${{ secrets.ANDROID_APP_SIGNING_CERT_SHA256 }}
           EXPECTED_UPLOAD_SHA256: ${{ secrets.ANDROID_UPLOAD_CERT_SHA256 }}
-        run: bash ../.github/scripts/check_android_play_aab.sh app/build/outputs/bundle/playRelease/app-play-release.aab
+        run: bash ../.github/scripts/check_android_release_artifacts.sh app/build/outputs/apk/direct/release/app-direct-release.apk app/build/outputs/bundle/playRelease/app-play-release.aab
 
       - name: Reject non-runtime files in the Android Python bundle
         run: python ../scripts/check_android_python_sources.py app/build/outputs/bundle/playRelease/app-play-release.aab
@@ -348,5 +369,44 @@ jobs:
         with:
           name: DownloadThat-${{ env.RELEASE_TAG }}-play-candidate
           path: android/candidate-out/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Package signed Direct APK
+        env:
+          EXPECTED_APP_SIGNING_SHA256: ${{ secrets.ANDROID_APP_SIGNING_CERT_SHA256 }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p direct-out
+          apk="direct-out/DownloadThat-${RELEASE_TAG}-direct.apk"
+          cp app/build/outputs/apk/direct/release/app-direct-release.apk "$apk"
+          apk_sha="$(sha256sum "$apk" | awk '{print $1}')"
+          cert_sha="$(apksigner verify --print-certs "$apk" | awk -F': ' '/Signer #1 certificate SHA-256 digest/{print $2; exit}' | tr '[:lower:]' '[:upper:]' | tr -d ':')"
+          expected_cert="$(printf '%s' "$EXPECTED_APP_SIGNING_SHA256" | tr '[:lower:]' '[:upper:]' | tr -d ':')"
+          [ "$cert_sha" = "$expected_cert" ] || { echo "App-signing certificate mismatch during Direct packaging"; exit 1; }
+          cat > direct-out/direct-provenance.json <<JSON
+          {
+            "schemaVersion": 1,
+            "packageName": "de.classydl.app",
+            "releaseTag": "${RELEASE_TAG}",
+            "versionName": "${VERSION_NAME}",
+            "versionCode": ${VERSION_CODE},
+            "commitSha": "${GITHUB_SHA}",
+            "workflowRunId": "${GITHUB_RUN_ID}",
+            "apkFile": "DownloadThat-${RELEASE_TAG}-direct.apk",
+            "apkSha256": "${apk_sha}",
+            "appSigningCertificateSha256": "${cert_sha}",
+            "generatedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          JSON
+          sha256sum direct-out/*.apk direct-out/direct-provenance.json > direct-out/SHA256SUMS
+          echo "Direct APK SHA-256: $apk_sha" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload signed Direct APK package
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: DownloadThat-${{ env.RELEASE_TAG }}-direct-apk
+          path: android/direct-out/
           if-no-files-found: error
           retention-days: 30

@@ -19,10 +19,12 @@ def test_candidate_build_has_team_gate_and_never_uploads_to_play() -> None:
     assert "environment: android-candidate-signing" in source
     assert "TEAM_GATE.json" in source
     assert 'GITHUB_REF_NAME\" = \"release/v1.0.4.2-team' in source
-    assert "check_android_play_aab.sh" in source
+    assert "check_android_release_artifacts.sh" in source
     assert "python scripts/check_no_ad_sdk.py" in source
-    assert "app-direct-release.apk" not in source
-    assert "check_android_release_artifacts.sh" not in source
+    assert "app-direct-release.apk" in source
+    assert "check_android_release_artifacts.sh" in source
+    assert "direct-provenance.json" in source
+    assert "direct-apk" in source
     assert '"fgsDeclarationConfirmed": ${{ inputs.fgs_declaration_confirmed }}' in source
 
 
