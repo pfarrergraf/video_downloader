@@ -23,7 +23,7 @@ def interactive_profile_override(base: DownloadProfile) -> DownloadProfile:
     try:
         format_selector = input(f"Format selector [{base.format_selector}]: ").strip() or base.format_selector
         template = input(
-            f"Output template [{base.output_template or '%(title)s [%(id)s].%(ext)s'}]: "
+            f"Output template [{base.output_template or '%(title)s.%(ext)s'}]: "
         ).strip()
         audio_only = _bool_prompt("Audio only", base.audio_only)
         subtitle_langs = input(f"Subtitle langs [{base.subtitle_langs or 'none'}]: ").strip()

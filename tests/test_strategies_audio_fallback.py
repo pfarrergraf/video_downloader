@@ -62,6 +62,33 @@ def test_audio_format_selector_falls_back_to_audio_only_format() -> None:
     assert _audio_format_selector(ffmpeg_available=False) == "bestaudio"
 
 
+def test_default_filename_uses_title_without_bracketed_extractor_id(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
+    request = _make_request(tmp_path, audio_only=False)
+
+    opts = _run_and_capture_opts(monkeypatch, tmp_path, request)
+
+    assert opts["outtmpl"]["default"].endswith("%(title)s.%(ext)s")
+    assert "%(id)s" not in opts["outtmpl"]["default"]
+
+
+def test_default_playlist_filename_uses_index_and_title_without_extractor_id(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
+    request = _make_request(tmp_path, audio_only=False)
+    request.allow_playlist = True
+
+    opts = _run_and_capture_opts(monkeypatch, tmp_path, request)
+
+    assert opts["outtmpl"]["default"].endswith(
+        "%(playlist_index)03d - %(title)s.%(ext)s"
+    )
+    assert "%(id)s" not in opts["outtmpl"]["default"]
+
+
 def test_audio_only_without_ffmpeg_fails_clearly(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr("video_downloader.strategies.shutil.which", lambda name: None)
     request = _make_request(tmp_path, audio_only=True, ffmpeg_binary="/no/such/ffmpeg")

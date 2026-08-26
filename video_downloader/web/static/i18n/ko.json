@@ -108,7 +108,7 @@
       "download_btn": "다운로드",
       "advanced_summary": "고급",
       "quality_label": "동영상 품질",
-      "share_hint": "팁: YouTube, Instagram 등에서 “공유”를 탭하고 DownloadThat을 선택하세요 — 또는 링크를 복사해 여기에 붙여넣으세요."
+      "share_hint": "Share a link from any app, then choose DownloadThat."
     },
     "share_format": {
       "title": "What do you want to save?"
@@ -129,7 +129,7 @@
       "guide_step6": "Done — find it any time in \"My downloads\".",
       "sound_off_label": "Turn tutorial sound on",
       "sound_on_label": "Turn tutorial sound off",
-      "anim_step1": "In YouTube, Instagram & similar apps: open a video and tap Share.",
+      "anim_step1": "Share a link from any app.",
       "anim_step2": "Pick DownloadThat from the list.",
       "anim_step3": "Choose video or audio.",
       "anim_step4": "Bundling the media…",

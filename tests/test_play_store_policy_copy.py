@@ -28,6 +28,28 @@ def test_store_listing_assets_avoid_named_download_platforms() -> None:
         assert not any(claim in text for claim in forbidden), source.name
 
 
+def test_download_queue_never_exposes_source_url_or_hostname() -> None:
+    html = (ROOT / "video_downloader/web/static/index.html").read_text(encoding="utf-8")
+    assert "name.title = job.source" not in html
+    assert "new URL(job.source).hostname" not in html
+    assert "if (job.files && job.files.length) return job.files[0].filename;\n  return '';" in html
+
+
+def test_public_share_instructions_avoid_named_platforms() -> None:
+    forbidden = ("youtube", "instagram", "tiktok", "facebook", "vimeo")
+    locale_roots = (
+        ROOT / "video_downloader/web/static/i18n",
+        ROOT / "pro/website/i18n",
+    )
+    for locale_root in locale_roots:
+        for locale_file in locale_root.glob("*.json"):
+            app = json.loads(locale_file.read_text(encoding="utf-8"))["app"]
+            public_copy = " ".join(
+                (app["home"]["share_hint"], app["help"]["anim_step1"])
+            ).lower()
+            assert not any(name in public_copy for name in forbidden), locale_file
+
+
 def test_android_marketing_does_not_claim_image_downloads() -> None:
     text_sources = [
         ROOT / "docs/GOOGLE_PLAY_ENGLISH_LISTING.md",

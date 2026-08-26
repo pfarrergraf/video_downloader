@@ -107,13 +107,17 @@ class YtDlpStrategy(Strategy):
 
         if request.output_template:
             template = request.output_template
-        elif request.filename and request.allow_playlist:
-            template = f"{safe_filename(request.filename)}_%(playlist_index)s.%(ext)s"
+        elif request.allow_playlist:
+            template = (
+                f"{safe_filename(request.filename)}_%(playlist_index)s.%(ext)s"
+                if request.filename
+                else "%(playlist_index)03d - %(title)s.%(ext)s"
+            )
         else:
             template = (
                 f"{safe_filename(request.filename)}.%(ext)s"
                 if request.filename
-                else "%(title)s [%(id)s].%(ext)s"
+                else "%(title)s.%(ext)s"
             )
 
         http_headers: dict[str, str] = {}

@@ -108,7 +108,7 @@
       "download_btn": "Herunterladen",
       "advanced_summary": "Erweitert",
       "quality_label": "Videoqualität",
-      "share_hint": "Tipp: In YouTube, Instagram & Co. auf „Teilen“ tippen und DownloadThat auswählen – oder Link kopieren und hier einfügen."
+      "share_hint": "Teile einen Link aus einer beliebigen App und wähle DownloadThat."
     },
     "share_format": {
       "title": "Was möchtest du speichern?"
@@ -129,7 +129,7 @@
       "guide_step6": "Fertig – du findest sie jederzeit unter „Meine Downloads“.",
       "sound_off_label": "Ton der Anleitung einschalten",
       "sound_on_label": "Ton der Anleitung ausschalten",
-      "anim_step1": "In YouTube, Instagram & Co.: Video öffnen und auf „Teilen“ tippen.",
+      "anim_step1": "Teile einen Link aus einer beliebigen App.",
       "anim_step2": "DownloadThat aus der Liste auswählen.",
       "anim_step3": "Video oder Audio wählen.",
       "anim_step4": "Wird zusammengeführt …",

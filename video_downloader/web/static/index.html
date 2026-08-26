@@ -1276,11 +1276,11 @@
           <div class="pc3-controls">
             <!-- Written out per scene (per tester feedback: silent icon-only
                  animation read as "buttons pressed inside this app", not as
-                 "go share from YouTube/Instagram/etc."). Text is set in
+                 "go share from the source app"). Text is set in
                  show() from app.help.anim_step1..6 - separate keys from the
                  marketing site's website.hero_cinema.step_* strings sharing
                  this same aria-label pattern, since instructional wording
-                 ("tap Share in YouTube") reads oddly as marketing copy. -->
+                 ("tap Share in the source app") reads oddly as marketing copy. -->
             <p class="pc3-caption" data-pc3-caption aria-live="polite"></p>
             <div class="pc3-timeline" aria-live="polite">
               <span data-pc3-index>01</span>
@@ -1335,14 +1335,6 @@
   </header>
   <main>
     <div class="card">
-      <!-- Permanent, always-visible reminder that the share flow starts in
-           the OTHER app, not here - per tester feedback that a silent
-           tutorial (icons only, autoplaying once) did not get across that
-           the buttons being demonstrated live in YouTube/Instagram/etc.,
-           not in this app. Kept short/textual (not another icon diagram)
-           since the animated version of the same message already exists
-           in the tutorial and clearly wasn't landing on its own. -->
-      <p class="muted home-share-hint" data-i18n="app.home.share_hint">Tip: in YouTube, Instagram etc. tap "Share" and pick DownloadThat — or copy the link and paste it here.</p>
       <label for="url-input" data-i18n="app.home.url_label">Paste your link here</label>
       <input type="url" id="url-input" inputmode="url" autocomplete="off"
              data-i18n-placeholder="app.home.url_placeholder" placeholder="https://…" />
@@ -2236,15 +2228,11 @@ function statusLabel(status) {
   return known.includes(status) ? t(`app.status.${status}`) : status;
 }
 
-// Human title for a row: the filename once we have one, the site's hostname
-// while it's still downloading (a full URL is noise on a small screen).
+// Do not expose the source URL or hostname in the queue. Before the output
+// filename exists, the localized status chip is the complete row label.
 function jobTitle(job) {
   if (job.files && job.files.length) return job.files[0].filename;
-  try {
-    return new URL(job.source).hostname.replace(/^www\./, '');
-  } catch (e) {
-    return job.source;
-  }
+  return '';
 }
 
 function friendlyError(job) {
@@ -2259,11 +2247,14 @@ function jobRow(job) {
   status.textContent = statusLabel(job.status);
   li.appendChild(status);
 
-  const name = document.createElement('span');
-  name.className = 'item-name';
-  name.title = job.source;
-  name.textContent = jobTitle(job);
-  li.appendChild(name);
+  const title = jobTitle(job);
+  if (title) {
+    const name = document.createElement('span');
+    name.className = 'item-name';
+    name.title = title;
+    name.textContent = title;
+    li.appendChild(name);
+  }
 
   // A playlist is ONE job with many files, so per-file trash cans alone would
   // mean 100 taps to clear it. This is the job-level escape hatch; a job with a

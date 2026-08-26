@@ -108,7 +108,7 @@
       "download_btn": "डाउनलोड",
       "advanced_summary": "उन्नत",
       "quality_label": "वीडियो गुणवत्ता",
-      "share_hint": "सुझाव: YouTube, Instagram आदि में “Share” पर टैप करें और DownloadThat चुनें — या लिंक कॉपी करें और यहाँ पेस्ट करें।"
+      "share_hint": "Share a link from any app, then choose DownloadThat."
     },
     "share_format": {
       "title": "What do you want to save?"
@@ -129,7 +129,7 @@
       "guide_step6": "Done — find it any time in \"My downloads\".",
       "sound_off_label": "Turn tutorial sound on",
       "sound_on_label": "Turn tutorial sound off",
-      "anim_step1": "In YouTube, Instagram & similar apps: open a video and tap Share.",
+      "anim_step1": "Share a link from any app.",
       "anim_step2": "Pick DownloadThat from the list.",
       "anim_step3": "Choose video or audio.",
       "anim_step4": "Bundling the media…",

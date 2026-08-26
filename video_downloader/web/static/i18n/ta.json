@@ -108,7 +108,7 @@
       "download_btn": "பதிவிறக்கு",
       "advanced_summary": "மேம்பட்டவை",
       "quality_label": "வீடியோ தரம்",
-      "share_hint": "குறிப்பு: YouTube, Instagram போன்றவற்றில் “Share”ஐத் தட்டி DownloadThat-ஐத் தேர்ந்தெடுக்கவும் — அல்லது இணைப்பை நகலெடுத்து இங்கே ஒட்டவும்."
+      "share_hint": "Share a link from any app, then choose DownloadThat."
     },
     "share_format": {
       "title": "What do you want to save?"
@@ -129,7 +129,7 @@
       "guide_step6": "Done — find it any time in \"My downloads\".",
       "sound_off_label": "Turn tutorial sound on",
       "sound_on_label": "Turn tutorial sound off",
-      "anim_step1": "In YouTube, Instagram & similar apps: open a video and tap Share.",
+      "anim_step1": "Share a link from any app.",
       "anim_step2": "Pick DownloadThat from the list.",
       "anim_step3": "Choose video or audio.",
       "anim_step4": "Bundling the media…",
