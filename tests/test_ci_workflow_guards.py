@@ -50,6 +50,8 @@ def test_android_release_checks_existing_app_and_upload_signing_configuration() 
     assert "assembleDirectRelease" in workflow
     assert "bundlePlayRelease" in workflow
     assert "check_android_release_artifacts.sh" in workflow
+    assert 'name apksigner' in workflow
+    assert 'dirname "$apksigner_path" >> "$GITHUB_PATH"' in workflow
     assert "cache-disabled: true" in workflow
 
 
