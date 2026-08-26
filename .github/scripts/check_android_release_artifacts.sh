@@ -7,7 +7,12 @@ test -f "$apk" && test -f "$aab"
 test -n "${EXPECTED_APP_SIGNING_SHA256:-}" && test -n "${EXPECTED_UPLOAD_SHA256:-}"
 
 normalize() { tr '[:lower:]' '[:upper:]' | tr -d ':'; }
-apk_cert="$(apksigner verify --print-certs "$apk" | awk -F': ' '/Signer #1 certificate SHA-256 digest/{print $2; exit}' | normalize)"
+# Match the label loosely and take the last field: build-tools 36.0.0 prints
+# "Signer #1 certificate SHA-256 digest: <hex>", 37.0.0 prints
+# "V2 Signer: certificate SHA-256 digest: <hex>" - an extra ': ' that would
+# make $2 the label rather than the hash.
+apk_cert="$(apksigner verify --print-certs "$apk" | awk -F': ' '/certificate SHA-256 digest/{print $NF; exit}' | normalize)"
+test -n "$apk_cert" || { echo "Could not parse a signing certificate from $apk"; exit 1; }
 expected_app="$(printf '%s' "$EXPECTED_APP_SIGNING_SHA256" | normalize)"
 test "$apk_cert" = "$expected_app" || { echo "Direct APK signing certificate mismatch"; exit 1; }
 

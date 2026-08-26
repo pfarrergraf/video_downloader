@@ -203,12 +203,21 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
 
-      - name: Expose installed Android build tools
+      # check_android_release_artifacts.sh needs apksigner/zipalign (build-tools),
+      # which setup-android doesn't install by default - only cmdline-tools and
+      # platform-tools. The version is PINNED on purpose: picking "whatever is
+      # newest on the runner" once silently jumped 36.0.0 -> 37.0.0, which
+      # renamed apksigner's --print-certs output and produced a false
+      # "Direct APK signing certificate mismatch" (2026-08-26). See CLAUDE.md.
+      - name: Install build-tools (apksigner, zipalign)
         shell: bash
         run: |
-          apksigner_path="$(find "$ANDROID_HOME/build-tools" -maxdepth 2 -type f -name apksigner | sort -V | tail -1)"
-          [ -x "$apksigner_path" ] || { echo "::error::apksigner was not found in the Android SDK"; exit 1; }
-          dirname "$apksigner_path" >> "$GITHUB_PATH"
+          SDKMANAGER="$(command -v sdkmanager || true)"
+          if [ -z "$SDKMANAGER" ]; then
+            SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -1)"
+          fi
+          "$SDKMANAGER" --install "build-tools;36.0.0"
+          echo "$ANDROID_HOME/build-tools/36.0.0" >> "$GITHUB_PATH"
 
       - name: Set up build-time Python 3.11
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -389,7 +398,10 @@ jobs:
           apk="direct-out/DownloadThat-${RELEASE_TAG}-direct.apk"
           cp app/build/outputs/apk/direct/release/app-direct-release.apk "$apk"
           apk_sha="$(sha256sum "$apk" | awk '{print $1}')"
-          cert_sha="$(apksigner verify --print-certs "$apk" | awk -F': ' '/Signer #1 certificate SHA-256 digest/{print $2; exit}' | tr '[:lower:]' '[:upper:]' | tr -d ':')"
+          # Loose label match + last field: apksigner 37.0.0 renamed this line
+          # from "Signer #1 certificate ..." to "V2 Signer: certificate ...".
+          cert_sha="$(apksigner verify --print-certs "$apk" | awk -F': ' '/certificate SHA-256 digest/{print $NF; exit}' | tr '[:lower:]' '[:upper:]' | tr -d ':')"
+          [ -n "$cert_sha" ] || { echo "Could not parse a signing certificate from $apk"; exit 1; }
           expected_cert="$(printf '%s' "$EXPECTED_APP_SIGNING_SHA256" | tr '[:lower:]' '[:upper:]' | tr -d ':')"
           [ "$cert_sha" = "$expected_cert" ] || { echo "App-signing certificate mismatch during Direct packaging"; exit 1; }
           cat > direct-out/direct-provenance.json <<JSON

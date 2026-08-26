@@ -50,9 +50,23 @@ def test_android_release_checks_existing_app_and_upload_signing_configuration() 
     assert "assembleDirectRelease" in workflow
     assert "bundlePlayRelease" in workflow
     assert "check_android_release_artifacts.sh" in workflow
-    assert 'name apksigner' in workflow
-    assert 'dirname "$apksigner_path" >> "$GITHUB_PATH"' in workflow
+    # The build-tools version must stay pinned: an unpinned "newest installed"
+    # lookup silently moved apksigner 36.0.0 -> 37.0.0 and broke cert parsing.
+    assert '"$SDKMANAGER" --install "build-tools;36.0.0"' in workflow
+    assert 'echo "$ANDROID_HOME/build-tools/36.0.0" >> "$GITHUB_PATH"' in workflow
+    assert "find \"$ANDROID_HOME/build-tools\"" not in workflow
+    # Cert parsing must not hard-code the "Signer #1" label or field position.
+    assert "/Signer #1 certificate SHA-256 digest/{print $2; exit}" not in workflow
+    assert "/certificate SHA-256 digest/{print $NF; exit}" in workflow
     assert "cache-disabled: true" in workflow
+
+
+def test_apksigner_cert_parsing_survives_build_tools_label_changes() -> None:
+    script = (ROOT / ".github" / "scripts" / "check_android_release_artifacts.sh").read_text(
+        encoding="utf-8"
+    )
+    assert "/Signer #1 certificate SHA-256 digest/{print $2; exit}" not in script
+    assert "/certificate SHA-256 digest/{print $NF; exit}" in script
 
 
 def test_android_candidate_and_promotion_are_separate_exact_artifact_workflows() -> None:

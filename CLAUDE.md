@@ -107,6 +107,50 @@ Android/Termux changes on their own phone and reports back errors as screenshots
 expect a debug loop of "push a fix → user pulls and reruns in Termux → reports the
 next error" for anything touching `scripts/termux_*.sh` or `video_downloader/web/`.
 
+## Signing "mismatch" failures: suspect the tool, not the key
+
+On 2026-08-26 the release workflow failed with `Direct APK signing certificate
+mismatch`. **The signing key and the `ANDROID_APP_SIGNING_*` secrets were never
+wrong.** What actually happened:
+
+- The step that puts `apksigner` on PATH had been changed to "pick the newest
+  installed build-tools" (`find … | sort -V | tail -1`) instead of pinning a
+  version. The hosted runner image had moved on to build-tools 37.0.0.
+- apksigner 37.0.0 renamed its `--print-certs` output line from
+  `Signer #1 certificate SHA-256 digest:` to `V2 Signer: certificate SHA-256 digest:`.
+- `check_android_release_artifacts.sh` matched that label literally and took
+  `$2` under `-F': '`. Under 37.0.0 the pattern matched nothing, `apk_cert`
+  became the empty string, apksigner still exited 0 (so `pipefail` did not
+  trip), and the empty string compared unequal to the expected hash.
+
+The false lead this produced is the important part: a prior AI session, shown
+only that failure, concluded the `ANDROID_APP_SIGNING_*` secrets must have been
+uploaded wrong back on 2026-07-16 and proposed re-uploading/rotating them —
+unnecessary and risky action against a live production signing key. It reached
+that conclusion without ever downloading a shipped APK to check. Downloading
+`DownloadThat-v1.0.3-direct.apk` from its GitHub Release and reading its
+certificate out of the v2 signing block showed the expected
+`A4:B5:DB:…:C9:E4` immediately, which disproved the theory in one step. It was
+only caught because the repo owner pushed back and asked for evidence.
+
+Rules that follow from this:
+
+- **A cert/signature "mismatch" in CI is a parsing suspect before it is a key
+  suspect.** Check whether a CLI tool's output format changed — especially right
+  after a version pin was removed or a runner/SDK image moved.
+- **Verify against a known-good artifact before touching any signing secret.**
+  Run the old and new tool versions over a previously shipped release APK; if
+  both report the same certificate, the key is fine and the check is broken.
+- **Never rotate or re-upload a production signing key to "fix" a red CI run.**
+  Play App Signing key material is not recoverable from a mistake here.
+- **Pin Android SDK component versions explicitly** in
+  `.github/workflows/android-release.yml`. "Whatever is newest on the runner" is
+  not reproducible; build-tools is pinned to `36.0.0` for exactly this reason.
+- Cert parsing in `check_android_release_artifacts.sh` and in the workflow's
+  "Package signed Direct APK" step now matches `certificate SHA-256 digest`
+  without the `Signer #1` prefix and takes `$NF`, and fails loudly on an empty
+  parse instead of reporting it as a mismatch.
+
 ## Android permission guardrail
 
 **Do not add dangerous Android permissions to `android/app/src/main/AndroidManifest.xml` without explicit written approval from the repository owner.**
