@@ -1,0 +1,261 @@
+name: Android internal app sharing build
+
+# Builds an installable Play-flavour AAB for Internal app sharing - the
+# throwaway channel used for demos, screenshot recordings and "just let me see
+# it on a phone". This is NOT a release workflow:
+#
+#   - It uses NO signing secrets. Internal app sharing re-signs every upload
+#     with Google's own Internal app sharing key, so the bytes only need *a*
+#     valid signature; this workflow generates a throwaway keystore per run.
+#   - versionCode/versionName are free-form. Internal app sharing accepts
+#     reused version codes, so nothing here can collide with a real release.
+#   - The artifact can never reach a Play track (the API forbids it) and never
+#     appears in App Bundle Explorer.
+#
+# Read docs/ANDROID_PUBLISHING_CHANNELS_AND_KEYS.md before changing anything in
+# here. It explains all three channels and which key belongs to which - the one
+# thing that must not get mixed up in this repo.
+on:
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: "Version name shown in the app's settings panel, e.g. 1.0.4.2"
+        required: true
+        default: "1.0.4.2"
+        type: string
+      share_via_api:
+        description: "Upload to Internal app sharing from CI and print the link in the run summary. THIS REPO IS PUBLIC - only enable this after setting Internal app sharing to 'Restrict access to email lists' in Play Console, otherwise the link becomes a public download channel."
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-internal-sharing-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-ffmpeg:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+      - name: Install NDK
+        run: |
+          SDKMANAGER="$(command -v sdkmanager || true)"
+          if [ -z "$SDKMANAGER" ]; then
+            SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -1)"
+          fi
+          "$SDKMANAGER" --install "ndk;27.0.12077973"
+      - name: Build ffmpeg for arm64-v8a
+        env:
+          ANDROID_NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/27.0.12077973
+        run: bash .github/scripts/build_ffmpeg_android.sh "arm64-v8a" "$PWD/ffmpeg-out"
+      - name: Upload ffmpeg binary
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ffmpeg-arm64-v8a
+          path: ffmpeg-out/bin/ffmpeg
+          retention-days: 1
+
+  build-quickjs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+      - name: Install NDK
+        run: |
+          SDKMANAGER="$(command -v sdkmanager || true)"
+          if [ -z "$SDKMANAGER" ]; then
+            SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -1)"
+          fi
+          "$SDKMANAGER" --install "ndk;27.0.12077973"
+      - name: Build QuickJS for arm64-v8a
+        env:
+          ANDROID_NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/27.0.12077973
+        run: bash .github/scripts/build_quickjs_android.sh "arm64-v8a" "$PWD/quickjs-out"
+      - name: Upload QuickJS binary
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: quickjs-arm64-v8a
+          path: quickjs-out/bin/qjs
+          retention-days: 1
+
+  build:
+    needs: [build-ffmpeg, build-quickjs]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android
+    env:
+      VERSION_NAME: ${{ inputs.version_name }}
+      # Free-form on this channel: Internal app sharing explicitly allows
+      # reusing version codes, so the run number keeps uploads distinguishable
+      # without touching the release line's monotonicity rules.
+      VERSION_CODE: ${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+
+      - name: Set up build-time Python 3.11
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@0b6dd653ba04f4f93bf581ec31e66cbd7dcb644d # v4
+        with:
+          gradle-version: "8.13"
+
+      - name: Download ffmpeg binary
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: ffmpeg-arm64-v8a
+          path: android/ffmpeg-artifacts/ffmpeg-arm64-v8a
+      - name: Download QuickJS binary
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: quickjs-arm64-v8a
+          path: android/quickjs-artifacts/quickjs-arm64-v8a
+
+      - name: Place runtime binaries into jniLibs
+        run: |
+          mkdir -p app/src/main/jniLibs/arm64-v8a
+          cp ffmpeg-artifacts/ffmpeg-arm64-v8a/ffmpeg app/src/main/jniLibs/arm64-v8a/libffmpeg.so
+          cp quickjs-artifacts/quickjs-arm64-v8a/qjs app/src/main/jniLibs/arm64-v8a/libqjs.so
+          chmod +x app/src/main/jniLibs/arm64-v8a/libffmpeg.so
+          chmod +x app/src/main/jniLibs/arm64-v8a/libqjs.so
+
+      # No ANDROID_APP_SIGNING_* / ANDROID_UPLOAD_* env is set here on purpose,
+      # so app/build.gradle attaches no signingConfig and Gradle emits an
+      # unsigned bundle. The R8 release build runs here too, which makes this
+      # the first place the minified app is actually installable on a device.
+      - name: Build unsigned Play App Bundle (arm64-v8a only)
+        run: |
+          gradle :app:bundlePlayRelease -PabiFilters=arm64-v8a \
+            -PversionNameOverride="$VERSION_NAME" -PversionCodeOverride="$VERSION_CODE" --stacktrace
+
+      - name: Reject non-runtime files in the Android Python bundle
+        run: python ../scripts/check_android_python_sources.py app/build/outputs/bundle/playRelease/app-play-release.aab
+
+      - name: Sign the bundle with a throwaway key
+        run: |
+          set -euo pipefail
+          # Play re-signs Internal app sharing uploads with its own Internal
+          # app sharing key, so this signature exists only to make a
+          # structurally valid AAB. It deliberately is NOT the app-signing key
+          # and NOT the upload key: neither secret is available to this
+          # workflow. The keystore is created here, used once, and dies with
+          # the runner.
+          pw="$(openssl rand -hex 24)"
+          keytool -genkeypair -keystore throwaway.p12 -storetype PKCS12 \
+            -storepass "$pw" -keypass "$pw" -alias throwaway \
+            -keyalg RSA -keysize 2048 -validity 90 \
+            -dname "CN=DownloadThat internal app sharing, O=throwaway, C=DE"
+          aab="app/build/outputs/bundle/playRelease/app-play-release.aab"
+          jarsigner -keystore throwaway.p12 -storepass "$pw" -keypass "$pw" \
+            -digestalg SHA-256 -sigalg SHA256withRSA "$aab" throwaway
+          jarsigner -verify "$aab"
+          mkdir -p sharing-out
+          cp "$aab" "sharing-out/DownloadThat-${VERSION_NAME}-internal-sharing.aab"
+          cp app/build/outputs/mapping/playRelease/mapping.txt sharing-out/mapping.txt
+          {
+            echo '```'
+            sha256sum sharing-out/*
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload internal-sharing bundle
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: DownloadThat-internal-sharing-aab
+          path: android/sharing-out/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Explain how to install it
+        run: |
+          {
+            echo "## Install this build on a phone"
+            echo
+            echo "This AAB is not sideloadable. Two ways to get it onto a device:"
+            echo
+            echo "1. **Manual (default, keeps the link private).** Download the"
+            echo "   \`DownloadThat-internal-sharing-aab\` artifact above, then upload the .aab at"
+            echo "   <https://play.google.com/console/internal-app-sharing>. Play returns a private"
+            echo "   download link. Open that link on the phone."
+            echo "2. **Automated.** Re-run this workflow with \`share_via_api = true\`. Only do that"
+            echo "   after switching Internal app sharing to \"Restrict access to email lists\" in"
+            echo "   Play Console: this repository is public, so the link would otherwise be readable"
+            echo "   by anyone and count against the 100-download cap."
+            echo
+            echo "The receiving Google account must enable Internal app sharing once:"
+            echo "Play Store app -> Settings -> About -> tap \"Play Store version\" 7x -> toggle on."
+            echo "Links expire 60 days after upload."
+            echo
+            echo "This build is signed with a throwaway key, so it cannot upgrade over an existing"
+            echo "DownloadThat install - uninstall the old one first."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # Opt-in only. Skipped unless the dispatcher explicitly accepted that the
+  # link lands in a public run summary (see the input's description).
+  share:
+    needs: build
+    if: inputs.share_via_api
+    runs-on: ubuntu-latest
+    environment: google-play-internal
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+
+      - name: Download internal-sharing bundle
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: DownloadThat-internal-sharing-aab
+          path: sharing-in
+
+      # Uses only the Play service-account credentials - no signing secrets.
+      # If this 403s, the service account has not been granted internal app
+      # sharing upload permission in Play Console; that is a Console change,
+      # not a workflow bug.
+      - name: Upload to Internal app sharing
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          aab="$(find sharing-in -name '*.aab' | head -1)"
+          [ -n "$aab" ] || { echo "::error::No .aab found in the build artifact"; exit 1; }
+          result="$(node scripts/upload_google_play.mjs --internal-app-sharing true \
+            --package de.classydl.app --aab "$aab")"
+          url="$(printf '%s' "$result" | jq -r '.downloadUrl')"
+          [ -n "$url" ] && [ "$url" != "null" ] || { echo "::error::Upload returned no download link"; exit 1; }
+          {
+            echo "## Internal app sharing link"
+            echo
+            echo "$url"
+            echo
+            echo "Open on the phone with Internal app sharing enabled in the Play Store app."
+            echo "Expires in 60 days, max 100 downloads."
+          } >> "$GITHUB_STEP_SUMMARY"

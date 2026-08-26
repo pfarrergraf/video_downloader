@@ -107,6 +107,51 @@ export async function uploadGooglePlayBundle({
   return { editId: edit.id, versionCode, track: "internal" };
 }
 
+/** Upload one artifact to Internal app sharing and return its download link.
+ *
+ * This is NOT a release, and it is not the Internal *testing track* (see
+ * uploadGooglePlayBundle / promoteGooglePlayCandidate for that). Internal app
+ * sharing is a third distribution surface with different rules, all of which
+ * this function relies on:
+ *
+ *   - Play re-signs the artifact with the Internal app sharing key, so the
+ *     bytes uploaded here may be signed with ANY key. This repo signs them
+ *     with a throwaway keystore generated inside the workflow run - never the
+ *     app-signing key, never the upload key.
+ *   - versionCode does not have to be new or monotone; it may be reused.
+ *   - The artifact can never reach a track and never appears in App Bundle
+ *     Explorer, so this cannot accidentally publish anything.
+ *
+ * Full rules and the key matrix: docs/ANDROID_PUBLISHING_CHANNELS_AND_KEYS.md
+ */
+export async function shareGooglePlayInternalArtifact({
+  packageName,
+  aabBytes,
+  email,
+  privateKey,
+  fetchImpl = fetch,
+  nowSeconds,
+}) {
+  const token = await accessToken({ email, privateKey, fetchImpl, nowSeconds });
+  const packagePath = encodeURIComponent(packageName);
+  const artifact = await publisherRequest(
+    fetchImpl,
+    `${API}/upload/androidpublisher/v3/applications/internalappsharing/${packagePath}/artifacts/bundle`,
+    {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/octet-stream" },
+      body: aabBytes,
+    },
+    "Upload internal app sharing bundle",
+  );
+  if (!artifact.downloadUrl) throw new Error("Internal app sharing upload returned no downloadUrl");
+  return {
+    downloadUrl: artifact.downloadUrl,
+    sha256: artifact.sha256 ?? null,
+    certificateName: artifact.certificateName ?? null,
+  };
+}
+
 /** Idempotently promote one already-verified candidate to Internal Testing.
  * A retry never uploads different bytes under another code: it either uploads
  * the expected code once, attaches an existing expected code to Internal, or
@@ -614,6 +659,18 @@ async function main() {
       privateKey,
     });
     process.stdout.write(`${JSON.stringify(result)}\n`);
+    return;
+  }
+  if (args["internal-app-sharing"] === "true") {
+    if (!args.package || !args.aab) throw new Error("--package and --aab are required");
+    const result = await shareGooglePlayInternalArtifact({
+      packageName: args.package,
+      aabBytes: readFileSync(args.aab),
+      email,
+      privateKey,
+    });
+    process.stdout.write(`${JSON.stringify(result)}
+`);
     return;
   }
   if (args["sync-assets"] === "true") {

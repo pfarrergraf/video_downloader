@@ -8,6 +8,7 @@ import {
   promoteGooglePlayCandidate,
   resolveScreenshotLocale,
   serviceAccountAssertion,
+  shareGooglePlayInternalArtifact,
   syncGooglePlayListingAssets,
   syncGooglePlayLocalizedScreenshots,
   syncGooglePlayScreenshotAssets,
@@ -395,4 +396,52 @@ test("locale-screenshot sync uploads each language's own light+dark shot, not a 
   assert.equal(uploads[2].options.body.toString(), "en-light");
   assert.equal(uploads[3].options.body.toString(), "en-dark");
   assert.match(calls.at(-1).url, /:commit\?changesInReviewBehavior=ERROR_IF_IN_REVIEW$/);
+});
+
+test("internal app sharing uploads to the sharing endpoint and never touches an edit or track", async () => {
+  const calls = [];
+  const responses = [
+    { access_token: "token" },
+    { downloadUrl: "https://play.google.com/apps/test/abc123", sha256: "deadbeef", certificateName: "internal" },
+  ];
+  const fetchImpl = async (url, options = {}) => {
+    calls.push({ url: String(url), options });
+    return Response.json(responses.shift());
+  };
+  const result = await shareGooglePlayInternalArtifact({
+    packageName: "de.classydl.app",
+    aabBytes: Buffer.from("aab"),
+    email: "ci@example.test",
+    privateKey: PEM,
+    fetchImpl,
+  });
+  assert.equal(result.downloadUrl, "https://play.google.com/apps/test/abc123");
+  assert.equal(calls.length, 2);
+  assert.equal(
+    calls[1].url,
+    "https://androidpublisher.googleapis.com/upload/androidpublisher/v3/applications"
+      + "/internalappsharing/de.classydl.app/artifacts/bundle",
+  );
+  // No edit, no track, no commit: internal app sharing must be incapable of
+  // publishing. If any of these ever appear here, the function has drifted
+  // into the release path.
+  const urls = calls.map((call) => call.url).join(" ");
+  assert.ok(!urls.includes("/edits"));
+  assert.ok(!urls.includes("/tracks/"));
+  assert.ok(!urls.includes(":commit"));
+});
+
+test("internal app sharing fails loudly when Play returns no download link", async () => {
+  const responses = [{ access_token: "token" }, { sha256: "deadbeef" }];
+  const fetchImpl = async () => Response.json(responses.shift());
+  await assert.rejects(
+    shareGooglePlayInternalArtifact({
+      packageName: "de.classydl.app",
+      aabBytes: Buffer.from("aab"),
+      email: "ci@example.test",
+      privateKey: PEM,
+      fetchImpl,
+    }),
+    /no downloadUrl/,
+  );
 });

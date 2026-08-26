@@ -151,6 +151,22 @@ Rules that follow from this:
   without the `Signer #1` prefix and takes `$NF`, and fails loudly on an empty
   parse instead of reporting it as a mismatch.
 
+## Three publishing channels, four signing keys
+
+Before doing anything with signing, releasing, or "get this build on a phone",
+read `docs/ANDROID_PUBLISHING_CHANNELS_AND_KEYS.md`. Short version:
+
+| Channel | Artifact | CI signs with | User's install is signed with |
+|---|---|---|---|
+| Google Play (`android-release.yml` -> `android-promote-candidate.yml`) | `play` AAB | upload key | app-signing key (Play re-signs) |
+| Direct APK (same release workflow) | `direct` APK | app-signing key | app-signing key |
+| Internal app sharing (`android-internal-sharing.yml`) | `play` AAB | throwaway key generated in-run | Internal app sharing key (Play re-signs) |
+
+The channel decides the key - never the other way round. Internal app sharing
+needs no signing secret at all, because Play re-signs it; it can never reach a
+track; and its version codes may be reused. Its installs have a *different*
+signature than production, so they cannot upgrade over each other.
+
 ## Android permission guardrail
 
 **Do not add dangerous Android permissions to `android/app/src/main/AndroidManifest.xml` without explicit written approval from the repository owner.**

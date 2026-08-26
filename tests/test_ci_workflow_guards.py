@@ -84,6 +84,46 @@ def test_android_candidate_and_promotion_are_separate_exact_artifact_workflows()
     ).read_text(encoding="utf-8")
 
 
+def test_internal_app_sharing_is_isolated_from_release_signing() -> None:
+    """The demo channel must stay incapable of signing or publishing a release.
+
+    Internal app sharing re-signs every upload with Google's own key, so this
+    workflow needs no signing secret. If one ever appears here, the throwaway
+    channel has gained the ability to produce something that looks like a real
+    artifact - which is exactly the confusion
+    docs/ANDROID_PUBLISHING_CHANNELS_AND_KEYS.md exists to prevent.
+    """
+    workflow = _workflow("android-internal-sharing.yml")
+    # Matches how a signing secret can actually enter a workflow. The bare
+    # names may still appear in comments explaining what is deliberately absent.
+    for forbidden in ("secrets.ANDROID_", "assembleDirectRelease"):
+        assert forbidden not in workflow, forbidden
+    # No track, no edit, no promotion: the only Play call is the sharing upload.
+    assert "--internal-app-sharing true" in workflow
+    assert "--track" not in workflow
+    assert "--expected-version-code" not in workflow
+    assert "bundlePlayRelease" in workflow
+    # Public repo: the link must not be printed unless explicitly opted in.
+    assert "if: inputs.share_via_api" in workflow
+    assert "default: false" in workflow
+    # A throwaway key, generated per run and never stored.
+    assert "keytool -genkeypair" in workflow
+    assert "jarsigner -verify" in workflow
+
+
+def test_publishing_channel_doc_covers_every_channel_and_key() -> None:
+    doc = (ROOT / "docs" / "ANDROID_PUBLISHING_CHANNELS_AND_KEYS.md").read_text(encoding="utf-8")
+    for channel in ("android-release.yml", "android-promote-candidate.yml", "android-internal-sharing.yml"):
+        assert channel in doc, channel
+    for key in ("App-signing key", "Upload key", "Internal app sharing key", "Throwaway key"):
+        assert key in doc, key
+    # The two facts most likely to be re-derived wrongly by a future session.
+    assert "cannot upgrade over each other" in doc
+    assert "Never rotate or re-upload a production signing key" in doc
+    # CLAUDE.md must point at it, since that is what gets read first.
+    assert "docs/ANDROID_PUBLISHING_CHANNELS_AND_KEYS.md" in (ROOT / "CLAUDE.md").read_text(encoding="utf-8")
+
+
 def test_play_reconciliation_waits_for_backend_enablement() -> None:
     workflow = _workflow("google-play-reconciliation.yml")
     assert "if: vars.PLAY_BACKEND_CONFIGURED == 'true'" in workflow

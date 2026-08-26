@@ -52,6 +52,11 @@ jobs:
           --ignore=tests/test_easy_ui.py
           -q
 
+      # The Play uploader's own tests are node:test, so `pytest tests/` never
+      # collected them - they guarded nothing until this step existed.
+      - name: Run Play uploader tests
+        run: node --test tests/test_upload_google_play.mjs
+
       - name: Enforce public claims policy
         run: uv run python scripts/check_public_claims.py
 
