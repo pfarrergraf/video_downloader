@@ -429,3 +429,20 @@ jobs:
           path: android/direct-out/
           if-no-files-found: error
           retention-days: 30
+
+      # Play receives the playRelease mapping automatically - AGP embeds it in
+      # the AAB under BUNDLE-METADATA once minifyEnabled is on, which is what
+      # clears Console's "no deobfuscation file associated with this App
+      # Bundle" warning. The Direct APK has no such channel, so its mapping is
+      # only recoverable if it is archived here; without it a sideload crash
+      # report is unreadable. if-no-files-found: error doubles as a guard
+      # against R8 being switched back off unnoticed.
+      - name: Upload R8 mapping files
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: DownloadThat-${{ env.RELEASE_TAG }}-r8-mappings
+          path: |
+            android/app/build/outputs/mapping/directRelease/mapping.txt
+            android/app/build/outputs/mapping/playRelease/mapping.txt
+          if-no-files-found: error
+          retention-days: 30

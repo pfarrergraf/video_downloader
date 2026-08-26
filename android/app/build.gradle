@@ -103,7 +103,16 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            // Play Console flags an unoptimized app; R8 shrinks the Media3 /
+            // AndroidX / Billing surface (only a fraction of it is reachable
+            // from this app) and, as a side effect, makes AGP put a
+            // deobfuscation mapping into the AAB automatically, which resolves
+            // Play's "no deobfuscation file associated with this App Bundle"
+            // warning. Every Python-reflected member needs an explicit keep -
+            // see proguard-rules.pro, which explains why each one is there.
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             ndk {
                 // Lets Play symbolize native crashes instead of showing raw
@@ -117,12 +126,34 @@ android {
                 // symbols, they reach Play automatically rather than needing
                 // this to be remembered.
                 //
+                // Play Console therefore warns "you've not uploaded debug
+                // symbols" on every upload. That is accepted, not overlooked
+                // (decided 2026-08-26): clearing it would mean dropping
+                // llvm-strip from the two native build scripts and installing
+                // the NDK in the release-signing job so AGP can strip for
+                // packaging - a change to the native path for symbols that
+                // would only ever cover ffmpeg and quickjs anyway.
+                //
                 // SYMBOL_TABLE, not FULL: FULL packages .debug_info, which for
                 // an unstripped ffmpeg would add hundreds of MB to the upload
                 // for line numbers nobody reads here. Function names are
                 // enough to make a native stack trace legible.
                 debugSymbolLevel 'SYMBOL_TABLE'
             }
+        }
+
+        debug {
+            // Minified on purpose. CI only ever installs and exercises the
+            // DEBUG APK (android-build.yml's emulator matrix); the release
+            // variant is never booted before it ships. With R8 on release
+            // only, every keep rule in proguard-rules.pro would be untested
+            // configuration - and the failure mode it guards against is a
+            // silently skipped Python->Java callback, not a crash. Obfuscation
+            // stays ON here for the same reason: renaming is precisely what
+            // breaks reflection by name, so the smoke tests have to see it.
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
