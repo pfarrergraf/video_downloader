@@ -42,6 +42,25 @@ def test_background_playback_service_contract() -> None:
     assert "setHandleAudioBecomingNoisy(true)" in service
 
 
+def test_background_notification_reopens_current_player_without_restarting_media() -> None:
+    service = SERVICE.read_text(encoding="utf-8")
+    player = PLAYER.read_text(encoding="utf-8")
+
+    assert "Intent(this, PlayerActivity::class.java)" in service
+    assert ".setAction(PlayerActivity.ACTION_SHOW_CURRENT)" in service
+    assert ".setSessionActivity(playerActivity)" in service
+    assert "FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP" in service
+    assert 'const val ACTION_SHOW_CURRENT = "de.classydl.app.action.SHOW_CURRENT_PLAYBACK"' in player
+
+    consume_intent = player.split("private fun consumeIntent", 1)[1].split("private fun playPendingMedia", 1)[0]
+    play_pending = player.split("private fun playPendingMedia", 1)[1].split("private fun showCurrentMedia", 1)[0]
+    show_current = player.split("private fun showCurrentMedia", 1)[1].split("private fun saveCurrentPosition", 1)[0]
+    assert "if (showCurrentSession) return" in consume_intent
+    assert "showCurrentMedia(mediaController)" in play_pending
+    assert "setMediaItem" not in show_current
+    assert "seekTo" not in show_current
+
+
 def test_internal_downloads_open_directly_in_native_player() -> None:
     bridge = BRIDGE.read_text(encoding="utf-8")
     assert 'jclass("de.classydl.app.PlayerActivity")' in bridge

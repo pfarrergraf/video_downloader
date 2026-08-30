@@ -1,5 +1,7 @@
 package de.classydl.app
 
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import androidx.media3.common.AudioAttributes
@@ -50,7 +52,21 @@ class MediaPlaybackService : MediaSessionService() {
             .setSeekForwardIncrementMs(SEEK_STEP_MS)
             .build()
 
-        mediaSession = MediaSession.Builder(this, player).build()
+        val playerActivity = PendingIntent.getActivity(
+            this,
+            PLAYER_ACTIVITY_REQUEST_CODE,
+            Intent(this, PlayerActivity::class.java)
+                .setAction(PlayerActivity.ACTION_SHOW_CURRENT)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+
+        mediaSession = MediaSession.Builder(this, player)
+            // Media3 uses this as the notification/lock-screen quick link.
+            // It must reopen the controller for the already-running service
+            // instead of launching MainActivity or starting the item again.
+            .setSessionActivity(playerActivity)
+            .build()
         handler.post(sleepTimerCheck)
     }
 
@@ -69,6 +85,7 @@ class MediaPlaybackService : MediaSessionService() {
     }
 
     companion object {
+        private const val PLAYER_ACTIVITY_REQUEST_CODE = 41
         private const val SEEK_STEP_MS = 10_000L
     }
 }

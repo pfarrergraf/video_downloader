@@ -58,6 +58,7 @@ class PlayerActivity : AppCompatActivity() {
     private var pendingPlaylist: List<PlaylistEntry> = emptyList()
     private var pendingShuffle = false
     private var pendingRepeatMode = Player.REPEAT_MODE_OFF
+    private var showCurrentSession = false
     private var controlsVisible = true
     private var videoZoom = 1f
     private val handler = Handler(Looper.getMainLooper())
@@ -194,8 +195,10 @@ class PlayerActivity : AppCompatActivity() {
         pendingUri = null
         pendingMimeType = null
         pendingPlaylist = emptyList()
+        showCurrentSession = intent?.action == ACTION_SHOW_CURRENT
         pendingShuffle = intent?.getBooleanExtra(EXTRA_SHUFFLE, false) ?: false
         pendingRepeatMode = intent?.getIntExtra(EXTRA_REPEAT_MODE, Player.REPEAT_MODE_OFF) ?: Player.REPEAT_MODE_OFF
+        if (showCurrentSession) return
         if (intent?.action != Intent.ACTION_VIEW && intent?.action != ACTION_PLAY_INTERNAL) {
             showPlaybackError()
             return
@@ -229,6 +232,10 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun playPendingMedia(mediaController: MediaController) {
+        if (showCurrentSession) {
+            showCurrentMedia(mediaController)
+            return
+        }
         val uri = pendingUri ?: return
         // Applied unconditionally, ahead of the same-item early-returns below,
         // so a repeat/shuffle-only change (same playlist, different mode)
@@ -267,6 +274,20 @@ class PlayerActivity : AppCompatActivity() {
         mediaController.setMediaItem(itemBuilder.build(), resumeMs)
         mediaController.prepare()
         mediaController.play()
+    }
+
+    /** Rebinds the UI to service-owned playback without replacing or seeking it. */
+    private fun showCurrentMedia(mediaController: MediaController) {
+        val item = mediaController.currentMediaItem ?: run {
+            showPlaybackError()
+            return
+        }
+        pendingMimeType = item.localConfiguration?.mimeType
+        titleView.text = item.mediaMetadata.title?.toString()
+            ?.takeIf { it.isNotBlank() }
+            ?: displayName(Uri.parse(item.mediaId))
+            ?: getString(R.string.player_unknown_title)
+        updatePictureInPictureParams()
     }
 
     private fun saveCurrentPosition() {
@@ -540,6 +561,7 @@ class PlayerActivity : AppCompatActivity() {
 
     companion object {
         const val ACTION_PLAY_INTERNAL = "de.classydl.app.action.PLAY_INTERNAL"
+        const val ACTION_SHOW_CURRENT = "de.classydl.app.action.SHOW_CURRENT_PLAYBACK"
         const val EXTRA_PLAYLIST_JSON = "de.classydl.app.extra.PLAYLIST_JSON"
         const val EXTRA_SHUFFLE = "de.classydl.app.extra.SHUFFLE"
         const val EXTRA_REPEAT_MODE = "de.classydl.app.extra.REPEAT_MODE"
