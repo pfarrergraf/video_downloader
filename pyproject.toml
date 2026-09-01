@@ -18,7 +18,7 @@ dependencies = [
   "tomli>=2.0.1; python_version < '3.11'",
   # YouTube changes can invalidate stable yt-dlp releases within days. Keep
   # the app and its updater on the upstream nightly channel by default.
-  "yt-dlp[default]==2026.8.18.122307.dev0",
+  "yt-dlp[default]==2026.8.27.231323.dev0",
 ]
 
 [project.optional-dependencies]
