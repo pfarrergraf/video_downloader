@@ -5,7 +5,6 @@ import android.content.ComponentName
 import android.content.Intent
 import android.content.res.Configuration
 import android.database.Cursor
-import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -85,6 +84,12 @@ class PlayerActivity : AppCompatActivity() {
             updatePictureInPictureParams()
         }
 
+        override fun onVolumeChanged(volume: Float) {
+            // Report the value acknowledged by the service-owned player, not
+            // merely the requested gesture target.
+            showBubble("🔊 ${PlayerGestureMath.percentFromUnitValue(volume)}%")
+        }
+
         override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
             val title = mediaItem?.mediaMetadata?.title?.toString()
             if (!title.isNullOrBlank()) titleView.text = title
@@ -111,8 +116,9 @@ class PlayerActivity : AppCompatActivity() {
         findViewById<Button>(R.id.player_history).setOnClickListener {
             startActivity(Intent(this, MediaHistoryActivity::class.java))
         }
-        findViewById<Button>(R.id.player_search).setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
+        findViewById<Button>(R.id.player_search).apply {
+            visibility = if (BuildConfig.PLAY_POLICY_RESTRICTED) View.GONE else View.VISIBLE
+            setOnClickListener { startActivity(Intent(this@PlayerActivity, SearchActivity::class.java)) }
         }
         speedButton.setOnClickListener { cyclePlaybackSpeed() }
         sleepButton.setOnClickListener { cycleSleepTimer() }
@@ -355,9 +361,18 @@ class PlayerActivity : AppCompatActivity() {
      */
     @OptIn(UnstableApi::class)
     private fun setupGestures() {
+        var gestureStartVolumePercent = MAX_PERCENT
+        var gestureStartBrightnessPercent = MAX_PERCENT / 2
+        var scaleGestureInProgress = false
+
         val scaleDetector = ScaleGestureDetector(
             this,
             object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+                override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+                    scaleGestureInProgress = true
+                    return true
+                }
+
                 override fun onScale(detector: ScaleGestureDetector): Boolean {
                     videoZoom = (videoZoom * detector.scaleFactor).coerceIn(1f, 3f)
                     playerView.videoSurfaceView?.let {
@@ -366,12 +381,18 @@ class PlayerActivity : AppCompatActivity() {
                     }
                     return true
                 }
+
+                override fun onScaleEnd(detector: ScaleGestureDetector) {
+                    scaleGestureInProgress = false
+                }
             },
         )
 
         val gestureDetector = GestureDetector(
             this,
             object : GestureDetector.SimpleOnGestureListener() {
+                override fun onDown(e: MotionEvent): Boolean = true
+
                 override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
                     controlsVisible = !controlsVisible
                     if (controlsVisible) playerView.showController() else playerView.hideController()
@@ -394,21 +415,47 @@ class PlayerActivity : AppCompatActivity() {
                     // Ignore a second finger (already owned by scaleDetector) and
                     // drags that are mostly horizontal, so this only fires for a
                     // deliberate one-finger vertical swipe.
-                    if (e2.pointerCount > 1 || kotlin.math.abs(distanceY) <= kotlin.math.abs(distanceX)) return false
+                    if (e1 == null || e2.pointerCount > 1 || scaleGestureInProgress) return false
+                    val totalX = e2.x - e1.x
+                    val totalY = e1.y - e2.y
+                    if (kotlin.math.abs(totalY) <= kotlin.math.abs(totalX)) return false
                     val width = playerView.width
                     val height = playerView.height
                     if (width <= 0 || height <= 0) return false
-                    // GestureDetector reports distanceY as (previous.y - current.y),
-                    // so an upward drag (finger moving to a smaller y) is positive
-                    // here — matches the usual "swipe up to increase" convention.
-                    val fraction = distanceY / height
-                    if (e2.x < width / 2f) adjustBrightness(fraction) else adjustVolume(fraction)
+                    // Use the full distance from ACTION_DOWN rather than each tiny
+                    // MotionEvent delta. Otherwise sub-percent deltas get rounded
+                    // away independently and a slow swipe can appear to do nothing.
+                    if (e1.x < width / 2f) {
+                        setBrightnessPercent(
+                            PlayerGestureMath.percentFromVerticalDrag(
+                                gestureStartBrightnessPercent,
+                                e1.y,
+                                e2.y,
+                                height,
+                                MIN_BRIGHTNESS_PERCENT,
+                            ),
+                        )
+                    } else {
+                        setVolumePercent(
+                            PlayerGestureMath.percentFromVerticalDrag(
+                                gestureStartVolumePercent,
+                                e1.y,
+                                e2.y,
+                                height,
+                                MIN_VOLUME_PERCENT,
+                            ),
+                        )
+                    }
                     return true
                 }
             },
         )
 
         playerView.setOnTouchListener { view, event ->
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                gestureStartVolumePercent = PlayerGestureMath.percentFromUnitValue(controller?.volume ?: 1f)
+                gestureStartBrightnessPercent = PlayerGestureMath.percentFromUnitValue(currentBrightness())
+            }
             scaleDetector.onTouchEvent(event)
             gestureDetector.onTouchEvent(event)
             if (event.actionMasked == MotionEvent.ACTION_UP) view.performClick()
@@ -422,15 +469,17 @@ class PlayerActivity : AppCompatActivity() {
         showBubble(label)
     }
 
-    /** Media stream volume — no permission required for the app's own playback stream. */
-    private fun adjustVolume(fraction: Float) {
-        val audioManager = getSystemService(AUDIO_SERVICE) as? AudioManager ?: return
-        val max = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-        if (max <= 0) return
-        val current = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-        val target = Math.round(current + fraction * max).coerceIn(0, max)
-        if (target != current) audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, target, 0)
-        showBubble("🔊 ${Math.round(target.toFloat() / max * 100)}%")
+    /**
+     * App-player gain, deliberately independent of Android's coarse device
+     * volume indexes. Media3 exposes a continuous 0..1 value, so the gesture
+     * can offer real 1% steps even on devices whose STREAM_MUSIC has only
+     * around 15 hardware volume levels.
+     */
+    private fun setVolumePercent(percent: Int) {
+        val mediaController = controller ?: return
+        if (!mediaController.isCommandAvailable(Player.COMMAND_SET_VOLUME)) return
+        val target = percent.coerceIn(MIN_VOLUME_PERCENT, MAX_PERCENT)
+        mediaController.volume = PlayerGestureMath.unitValueFromPercent(target, MIN_VOLUME_PERCENT)
     }
 
     /**
@@ -439,14 +488,16 @@ class PlayerActivity : AppCompatActivity() {
      * WRITE_SETTINGS permission (a special access this app does not request;
      * see the Android permission guardrail in CLAUDE.md).
      */
-    private fun adjustBrightness(fraction: Float) {
+    private fun setBrightnessPercent(percent: Int) {
+        val targetPercent = percent.coerceIn(MIN_BRIGHTNESS_PERCENT, MAX_PERCENT)
         val params = window.attributes
-        val current = params.screenBrightness.takeIf { it >= 0f } ?: systemBrightnessFraction()
-        val target = (current + fraction).coerceIn(0.05f, 1f)
-        params.screenBrightness = target
+        params.screenBrightness = PlayerGestureMath.unitValueFromPercent(targetPercent, MIN_BRIGHTNESS_PERCENT)
         window.attributes = params
-        showBubble("☀️ ${Math.round(target * 100)}%")
+        showBubble("☀️ ${PlayerGestureMath.percentFromUnitValue(window.attributes.screenBrightness)}%")
     }
+
+    private fun currentBrightness(): Float =
+        window.attributes.screenBrightness.takeIf { it >= 0f } ?: systemBrightnessFraction()
 
     private fun systemBrightnessFraction(): Float = runCatching {
         Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS) / 255f
@@ -567,6 +618,9 @@ class PlayerActivity : AppCompatActivity() {
         const val EXTRA_REPEAT_MODE = "de.classydl.app.extra.REPEAT_MODE"
         private const val CHECKPOINT_MS = 5_000L
         private const val SEEK_STEP_MS = 10_000L
+        private const val MIN_VOLUME_PERCENT = 0
+        private const val MIN_BRIGHTNESS_PERCENT = 1
+        private const val MAX_PERCENT = 100
         private val LOCAL_URI_SCHEMES = setOf("content", "file")
         private val SPEEDS = listOf(1.0f, 1.25f, 1.5f, 2.0f, 0.75f)
     }

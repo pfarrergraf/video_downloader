@@ -160,8 +160,12 @@ jobs:
           node -e 'const h=require("./health.json"); if(!h.ok) process.exit(1)'
           test "$(curl -s -o /dev/null -w '%{http_code}' "$base_url/api/create-checkout")" = "404"
           test "$(curl -s -o /dev/null -w '%{http_code}' "$base_url/api/partner/config")" = "404"
+          test "$(curl -s -o /dev/null -w '%{http_code}' "$base_url/assets/home/demo-progress.png")" = "404"
+          test "$(curl -s -o /dev/null -w '%{http_code}' "$base_url/assets/home/demo-done.png")" = "404"
           production_url="${PUBLIC_BASE_URL%/}"
           curl "${retry[@]}" "$production_url/api/health" | tee production-health.json
           node -e 'const h=require("./production-health.json"); if(!h.ok || h.mode !== "play_backend") process.exit(1)'
           curl "${retry[@]}" "$production_url/assets/runtime-config" | tee runtime-config.js
           grep -F 'https://play.google.com/store/apps/details?id=de.classydl.app' runtime-config.js >/dev/null
+          test "$(curl -s -o /dev/null -w '%{http_code}' "$production_url/assets/home/demo-progress.png")" = "404"
+          test "$(curl -s -o /dev/null -w '%{http_code}' "$production_url/assets/home/demo-done.png")" = "404"

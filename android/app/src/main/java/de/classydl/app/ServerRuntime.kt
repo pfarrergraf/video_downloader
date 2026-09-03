@@ -119,6 +119,7 @@ object ServerRuntime {
                 RuntimeBridge,
                 resolveJsRuntimeBinary(appContext),
                 InstallIdentity.getOrCreate(appContext),
+                BuildConfig.PLAY_POLICY_RESTRICTED,
             )
             if (state == State.STARTING) transition(State.FAILED)
         } catch (error: Throwable) {

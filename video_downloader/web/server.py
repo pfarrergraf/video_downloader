@@ -376,6 +376,7 @@ class ClassyDLServer(ThreadingHTTPServer):
         published_file_remover=None,
         secure_cookies: bool = False,
         execution_gate: ExecutionGate | None = None,
+        blocked_source_hosts: frozenset[str] = frozenset(),
     ) -> None:
         super().__init__(address, ClassyDLRequestHandler)
         self.store = store
@@ -387,6 +388,9 @@ class ClassyDLServer(ThreadingHTTPServer):
         self.ffmpeg_binary = ffmpeg_binary
         self.license_manager = license_manager
         self.app_version = app_version
+        self.blocked_source_hosts = frozenset(
+            host.lower().rstrip(".") for host in blocked_source_hosts
+        )
         # Optional best-effort hook (filename: str) -> None used by "delete
         # entry + file": on Android this removes the copy the downloads
         # publisher put into the system's shared Downloads collection
@@ -1036,6 +1040,17 @@ class ClassyDLRequestHandler(BaseHTTPRequestHandler):
                 self._send_json(400, {"detail": "source is required"})
                 return
 
+            try:
+                source_host = (urlsplit(source).hostname or "").lower().rstrip(".")
+            except ValueError:
+                source_host = ""
+            if any(
+                source_host == blocked or source_host.endswith(f".{blocked}")
+                for blocked in self.server.blocked_source_hosts
+            ):
+                self._send_json(422, {"detail": "This source is not supported in this app build."})
+                return
+
             playlist = inspect_playlist_url(source)
             source = playlist.normalized
             manager = self.server.license_manager
@@ -1240,6 +1255,7 @@ def create_server(
     published_file_remover=None,
     secure_cookies: bool = False,
     execution_gate: ExecutionGate | None = None,
+    blocked_source_hosts: frozenset[str] = frozenset(),
 ) -> ClassyDLServer:
     if not password:
         raise ValueError(
@@ -1262,6 +1278,7 @@ def create_server(
         published_file_remover=published_file_remover,
         secure_cookies=secure_cookies,
         execution_gate=execution_gate,
+        blocked_source_hosts=blocked_source_hosts,
     )
 
 

@@ -71,8 +71,9 @@ class MediaHistoryActivity : AppCompatActivity() {
         emptyView = findViewById(R.id.history_empty)
 
         findViewById<ViewGroup>(R.id.history_back).setOnClickListener { finish() }
-        findViewById<ImageButton>(R.id.history_search).setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
+        findViewById<ImageButton>(R.id.history_search).apply {
+            visibility = if (BuildConfig.PLAY_POLICY_RESTRICTED) View.GONE else View.VISIBLE
+            setOnClickListener { startActivity(Intent(this@MediaHistoryActivity, SearchActivity::class.java)) }
         }
         findViewById<ImageButton>(R.id.history_play_all).setOnClickListener {
             val recent = store.media(100)

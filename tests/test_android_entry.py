@@ -41,6 +41,7 @@ def _capture_create_server(captured: dict, fake: FakeServer):
         app_version,
         published_file_remover,
         execution_gate=None,
+        blocked_source_hosts=frozenset(),
     ):
         captured.update(
             store=store,
@@ -54,6 +55,7 @@ def _capture_create_server(captured: dict, fake: FakeServer):
             app_version=app_version,
             published_file_remover=published_file_remover,
             execution_gate=execution_gate,
+            blocked_source_hosts=blocked_source_hosts,
         )
         return fake
 
@@ -79,8 +81,24 @@ def test_start_wires_store_and_output_dir(tmp_path: Path, monkeypatch) -> None:
     assert captured["app_version"] == ""
     # "Delete entry + file" must reach the MediaStore copy on Android.
     assert captured["published_file_remover"] is android_entry._delete_published_download
+    assert captured["blocked_source_hosts"] == frozenset()
     # The serve loop actually ran and shut down cleanly.
     assert fake.worker_started and fake.served and fake.closed
+
+
+def test_play_policy_restricted_blocks_youtube_hosts(tmp_path: Path, monkeypatch) -> None:
+    captured: dict = {}
+    monkeypatch.setattr(android_entry, "create_server", _capture_create_server(captured, FakeServer()))
+
+    android_entry.start(
+        str(tmp_path / "data"),
+        str(tmp_path / "downloads"),
+        "secret",
+        8420,
+        play_policy_restricted=True,
+    )
+
+    assert captured["blocked_source_hosts"] == frozenset({"youtube.com", "youtu.be"})
 
 
 def test_start_wires_license_manager_when_api_base_given(tmp_path: Path, monkeypatch) -> None:

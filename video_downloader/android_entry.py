@@ -305,6 +305,7 @@ def start(
     notifier=None,
     js_runtime_binary: str = "",
     license_device_id: str = "",
+    play_policy_restricted: bool = False,
 ) -> None:
     global _current_store
     store = QueueStore(Path(data_dir) / "state.db")
@@ -351,6 +352,11 @@ def start(
             app_version=app_version,
             published_file_remover=_delete_published_download,
             execution_gate=_execution_gate,
+            blocked_source_hosts=(
+                frozenset({"youtube.com", "youtu.be"})
+                if play_policy_restricted
+                else frozenset()
+            ),
         )
     except OSError as exc:
         if exc.errno == errno.EADDRINUSE and _server_already_healthy(port):

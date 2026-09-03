@@ -81,8 +81,9 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
         reconcileMediaLibrary()
-        findViewById<View>(R.id.media_search_btn).setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
+        findViewById<View>(R.id.media_search_btn).apply {
+            visibility = if (BuildConfig.PLAY_POLICY_RESTRICTED) View.GONE else View.VISIBLE
+            setOnClickListener { startActivity(Intent(this@MainActivity, SearchActivity::class.java)) }
         }
         findViewById<View>(R.id.media_library_btn).setOnClickListener {
             startActivity(Intent(this, MediaHistoryActivity::class.java))

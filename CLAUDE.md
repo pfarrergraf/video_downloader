@@ -107,6 +107,29 @@ Android/Termux changes on their own phone and reports back errors as screenshots
 expect a debug loop of "push a fix → user pulls and reruns in Termux → reports the
 next error" for anything touching `scripts/termux_*.sh` or `video_downloader/web/`.
 
+## Only sideload a release-signed Direct APK onto a phone with the Play version installed
+
+On 2026-09-03 a "the phone won't let me install it" report turned into several
+messages of guessing (Play Protect block? update-source dialog? emulator
+instead?) before the real cause surfaced: the file being sideloaded was
+`app-direct-debug.apk`, a **debug** build. `android/app/build.gradle`'s `debug`
+build type sets no `applicationIdSuffix`, so a debug build shares the exact
+same package ID (`de.classydl.app`) as the Play-installed release, but is
+signed with Android's auto-generated debug keystore instead of the real
+app-signing key. Android refuses that install as a certificate mismatch and
+reports only a bare "App nicht installiert" / "App not installed" — no reason
+given — which reads exactly like a hard security block.
+
+Rule: only ever hand the user a **release-signed** Direct APK
+(`DownloadThat-vX.Y.Z-direct.apk`, produced by `android-release.yml`'s
+"Package signed Direct APK" step) for sideloading onto a device that already
+has the Play version installed. It shares the app-signing certificate from
+`docs/ANDROID_SIGNING_AND_RELEASE.md`, so it installs as a clean update (still
+prompting Android's normal "update from a different source than Play?"
+confirmation, which is expected and not an error). Debug APKs
+(`assembleDirectDebug`, whatever CI's emulator job installs) are for CI only —
+never send one to the user for on-device testing.
+
 ## Signing "mismatch" failures: suspect the tool, not the key
 
 On 2026-08-26 the release workflow failed with `Direct APK signing certificate

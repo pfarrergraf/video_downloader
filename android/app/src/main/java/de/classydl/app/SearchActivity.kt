@@ -56,6 +56,10 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (BuildConfig.PLAY_POLICY_RESTRICTED) {
+            finish()
+            return
+        }
         setContentView(R.layout.activity_media_search)
         // Search may be opened from an external PlayerActivity before MainActivity.
         // This starts only the HTTP/Python runtime; a transfer foreground service

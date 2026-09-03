@@ -121,6 +121,69 @@ def test_queue_accepts_allow_playlist_flag(server: ClassyDLServer) -> None:
     assert job.source == "https://www.youtube.com/playlist?list=abc123"
 
 
+def test_queue_rejects_blocked_source_hosts_before_persisting(tmp_path: Path) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    srv = create_server(
+        store=store,
+        output_dir=tmp_path / "downloads",
+        password="crypt-keeper",
+        host="127.0.0.1",
+        port=0,
+        workers=1,
+        blocked_source_hosts=frozenset({"youtube.com", "youtu.be"}),
+    )
+    thread = threading.Thread(target=srv.serve_forever, daemon=True)
+    thread.start()
+    try:
+        cookie = _login(srv)
+        for source in (
+            "https://youtube.com/watch?v=abc",
+            "https://music.youtube.com/watch?v=abc",
+            "https://youtu.be/abc",
+        ):
+            status, body, _ = _request(
+                srv, "POST", "/api/queue", {"source": source}, cookie=cookie
+            )
+            assert status == 422
+            assert body == {"detail": "This source is not supported in this app build."}
+        assert store.list_jobs(limit=10) == []
+    finally:
+        srv.shutdown()
+        srv.stop_background_worker()
+        srv.server_close()
+
+
+def test_queue_blocklist_does_not_match_lookalike_host(tmp_path: Path) -> None:
+    store = QueueStore(tmp_path / "state.db")
+    store.init()
+    srv = create_server(
+        store=store,
+        output_dir=tmp_path / "downloads",
+        password="crypt-keeper",
+        host="127.0.0.1",
+        port=0,
+        workers=1,
+        blocked_source_hosts=frozenset({"youtube.com"}),
+    )
+    thread = threading.Thread(target=srv.serve_forever, daemon=True)
+    thread.start()
+    try:
+        cookie = _login(srv)
+        status, _, _ = _request(
+            srv,
+            "POST",
+            "/api/queue",
+            {"source": "https://notyoutube.com/media"},
+            cookie=cookie,
+        )
+        assert status == 200
+    finally:
+        srv.shutdown()
+        srv.stop_background_worker()
+        srv.server_close()
+
+
 def test_queue_auto_detects_watch_url_playlist(server: ClassyDLServer) -> None:
     cookie = _login(server)
     status, body, _ = _request(

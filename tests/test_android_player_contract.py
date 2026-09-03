@@ -11,6 +11,7 @@ BRIDGE = ROOT / "video_downloader" / "android_bridge.py"
 RETENTION = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "PlaybackRetentionStore.kt"
 LIBRARY = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "MediaLibraryStore.kt"
 DOWNLOAD_SERVICE = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "DownloadService.kt"
+GESTURE_MATH = ROOT / "android" / "app" / "src" / "main" / "java" / "de" / "classydl" / "app" / "PlayerGestureMath.kt"
 
 
 def test_player_uses_stable_media3_stack() -> None:
@@ -73,6 +74,21 @@ def test_player_does_not_restart_same_item_on_activity_recreation() -> None:
     text = PLAYER.read_text(encoding="utf-8")
     assert "currentMediaItem?.mediaId == mediaId" in text
     assert "setMediaId(mediaId)" in text
+
+
+def test_player_touch_volume_uses_continuous_one_percent_player_gain() -> None:
+    player = PLAYER.read_text(encoding="utf-8")
+    gesture_math = GESTURE_MATH.read_text(encoding="utf-8")
+
+    assert "AudioManager" not in player
+    assert "mediaController.volume = PlayerGestureMath.unitValueFromPercent(target, MIN_VOLUME_PERCENT)" in player
+    assert "Player.COMMAND_SET_VOLUME" in player
+    assert "override fun onVolumeChanged(volume: Float)" in player
+    assert 'showBubble("🔊 ${PlayerGestureMath.percentFromUnitValue(volume)}%")' in player
+    assert "gestureStartVolumePercent" in player
+    assert "startY - currentY" in gesture_math
+    assert "roundToInt()" in gesture_math
+    assert "percent.coerceIn(minPercent.coerceIn(0, 100), 100) / 100f" in gesture_math
 
 
 def test_player_rejects_remote_uris_in_single_items_and_playlists() -> None:

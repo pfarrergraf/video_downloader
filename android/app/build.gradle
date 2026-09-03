@@ -82,6 +82,9 @@ android {
         play {
             dimension "distribution"
             buildConfigField "boolean", "PLAY_BILLING_ENABLED", "true"
+            // The Play artifact must not expose or accept YouTube-backed
+            // discovery/downloads (Google Play Device and Network Abuse gate).
+            buildConfigField "boolean", "PLAY_POLICY_RESTRICTED", "true"
             buildConfigField "String", "PLAY_PRODUCT_ID", '"pro"'
             buildConfigField "String", "PLAY_STORE_URL", groovy.json.JsonOutput.toJson(playStoreUrl)
             buildConfigField "String", "LICENSE_API_BASE_URL", groovy.json.JsonOutput.toJson(licenseApiBaseUrl)
@@ -92,6 +95,7 @@ android {
         direct {
             dimension "distribution"
             buildConfigField "boolean", "PLAY_BILLING_ENABLED", "false"
+            buildConfigField "boolean", "PLAY_POLICY_RESTRICTED", "false"
             buildConfigField "String", "PLAY_PRODUCT_ID", '"pro"'
             buildConfigField "String", "PLAY_STORE_URL", groovy.json.JsonOutput.toJson(playStoreUrl)
             buildConfigField "String", "LICENSE_API_BASE_URL", groovy.json.JsonOutput.toJson(licenseApiBaseUrl)

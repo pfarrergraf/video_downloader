@@ -641,12 +641,11 @@ async function main() {
     return;
   }
   const legacyAssetMutation = args["sync-assets"] === "true" || args["sync-locale-screenshots"] === "true";
-  if (legacyAssetMutation && args["dry-run"] !== "false") {
-    process.stdout.write("Dry run: legacy asset sync was not executed. Use the three-class --sync-screenshot-assets planner.\n");
-    return;
-  }
-  if (legacyAssetMutation && args["confirm-upload"] !== "true") {
-    throw new Error("Asset upload requires --dry-run false --confirm-upload true");
+  if (legacyAssetMutation) {
+    throw new Error(
+      "Legacy screenshot upload modes are retired because their source images were rejected. "
+        + "Use the three-class --sync-screenshot-assets planner with fresh captures.",
+    );
   }
   const email = process.env.GOOGLE_PLAY_SERVICE_ACCOUNT_EMAIL;
   const privateKey = process.env.GOOGLE_PLAY_SERVICE_ACCOUNT_PRIVATE_KEY;
@@ -671,55 +670,6 @@ async function main() {
     });
     process.stdout.write(`${JSON.stringify(result)}
 `);
-    return;
-  }
-  if (args["sync-assets"] === "true") {
-    if (!args.package || !args["asset-dir"]) throw new Error("--package and --asset-dir are required");
-    const assetDir = args["asset-dir"];
-    const result = await syncGooglePlayListingAssets({
-      packageName: args.package,
-      email,
-      privateKey,
-      assets: {
-        featureGraphic: readFileSync(`${assetDir}/feature_graphic-1024x500.png`),
-        localizedFeatureGraphics: {
-          ja: readFileSync(`${assetDir}/feature_graphic-ja-1024x500.png`),
-          ru: readFileSync(`${assetDir}/feature_graphic-ru-1024x500.png`),
-          "zh-CN": readFileSync(`${assetDir}/feature_graphic-zh-CN-1024x500.png`),
-        },
-        phoneScreenshots: [
-          readFileSync(`${assetDir}/screenshot_main.png`),
-          readFileSync(`${assetDir}/screenshot_queue.png`),
-          readFileSync(`${assetDir}/screenshot_settings.png`),
-        ],
-      },
-      confirmUpload: true,
-    });
-    process.stdout.write(
-      `Updated Play listing assets for ${result.languages.length} language(s): ${result.languages.join(", ")}\n`,
-    );
-    return;
-  }
-  if (args["sync-locale-screenshots"] === "true") {
-    if (!args.package || !args["screenshots-dir"]) throw new Error("--package and --screenshots-dir are required");
-    const screenshotsDir = args["screenshots-dir"];
-    const availableCodes = [...new Set(
-      readdirSync(screenshotsDir)
-        .map((name) => name.match(/^screenshot_main_([a-z]+)(?:_dark)?\.png$/)?.[1])
-        .filter(Boolean),
-    )];
-    const result = await syncGooglePlayLocalizedScreenshots({
-      packageName: args.package,
-      screenshotsDir,
-      availableCodes,
-      confirmUpload: true,
-      email,
-      privateKey,
-    });
-    process.stdout.write(
-      `Updated localized phone screenshots for ${result.languages.length} language(s): `
-        + `${result.languages.map((lang) => `${lang}->${result.perLanguageCode[lang]}`).join(", ")}\n`,
-    );
     return;
   }
   for (const required of ["aab", "package", "release-name"]) {

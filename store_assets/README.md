@@ -11,6 +11,17 @@ an upload. Final screenshots must be captured from a debug build of the exact
 frozen candidate commit; generated UI, PSD compositions and campaign artwork are
 not substitutes for product screenshots.
 
+**Policy rejection evidence (2026-09-02):** the legacy localized captures under
+`screenshots/` include the old named-platform sharing hint (for example the
+German capture names YouTube and Instagram). Google Play cited that German
+screenshot and the corresponding old in-app screen in a Device and Network Abuse
+/ YouTube Terms of Service rejection. Every file in `screenshots/`, plus
+`screenshot_main.png`, `screenshot_queue.png` and `screenshot_settings.png`, is
+therefore **REJECTED / NOT FOR UPLOAD**, even when a particular image looks
+neutral. Re-capture all Play locales and form factors from a Play build containing
+`PLAY_POLICY_RESTRICTED=true`; never reuse `assets/Videorecording Android Medien.mp4`
+as Play listing media because it shows the same prohibited hint twice.
+
 ## Files
 
 - `icon-512.png` — hi-res icon (512×512, rendered from `video_downloader/web/static/icon.svg`).
