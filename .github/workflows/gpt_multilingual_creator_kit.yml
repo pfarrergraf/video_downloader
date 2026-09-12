@@ -1,0 +1,37 @@
+name: GPT multilingual creator kit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [gpt/influencer-creator-kit-benchmark]
+    paths:
+      - gpt_downloadthat_creator_kit/gpt_multilingual/**
+      - .github/workflows/gpt_multilingual_creator_kit.yml
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install rendering packages
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-noto-core fonts-noto-cjk fonts-noto-extra
+      - uses: astral-sh/setup-uv@v6
+      - name: Render eight language kits
+        run: |
+          uv run --project gpt_downloadthat_creator_kit/gpt_multilingual/gpt_creator_tools \
+            python gpt_downloadthat_creator_kit/gpt_multilingual/gpt_creator_tools/gpt_generate_multilingual_repo.py \
+            --config gpt_downloadthat_creator_kit/gpt_multilingual/gpt_creator_tools/gpt_config.json \
+            --out gpt_downloadthat_creator_kit/gpt_multilingual/gpt_outputs
+      - name: Validate exports
+        run: python gpt_downloadthat_creator_kit/gpt_multilingual/gpt_validate_multilingual_kit.py
+      - name: Package rendered assets
+        run: |
+          cd gpt_downloadthat_creator_kit/gpt_multilingual
+          zip -qr gpt_multilingual_creator_kit.zip gpt_outputs gpt_creator_tools/gpt_config.json gpt_creator_tools/gpt_locales gpt_README_MULTILINGUAL.md gpt_quality_report_multilingual.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gpt-multilingual-creator-kit
+          path: gpt_downloadthat_creator_kit/gpt_multilingual/gpt_multilingual_creator_kit.zip
+          if-no-files-found: error
+          retention-days: 30
