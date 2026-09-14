@@ -15,32 +15,45 @@
       <p lang="de">Empfohlen für automatische Updates, sichere Bezahlung und die Wiederherstellung von DownloadThat Pro.</p>
       <p class="availability" data-play-status>The Google Play link will be enabled for launch.</p>
     </div>
-    <a class="store-badge-link" data-play-store-link aria-disabled="true">
-      <img class="store-badge" data-google-play-badge src="/assets/google-play-badges/en.svg" alt="Get it on Google Play" />
-    </a>
+    <div class="release-action">
+      <span class="version-ribbon" data-version-banner data-release-tooltip data-channel="play" data-fallback-version="1.0.3" tabindex="0">Version 1.0.3</span>
+      <a class="store-badge-link" data-play-store-link aria-disabled="true">
+        <img class="store-badge" data-google-play-badge src="/assets/google-play-badges/en.svg" alt="Get it on Google Play" />
+      </a>
+    </div>
   </article>
 
-  <h2 lang="en">Alternative downloads</h2>
-  <h2 lang="de">Alternative Downloads</h2>
-  <div class="grid">
-    <article class="card platform-card">
+  <h2 lang="en">Direct downloads</h2>
+  <h2 lang="de">Direkte Downloads</h2>
+  <div class="download-choice-grid">
+    <article class="card platform-card download-card">
       <div class="platform-icon apk-mark" aria-hidden="true">APK</div>
       <h2>Android Direct Installation (APK)</h2>
       <p lang="en">Signed direct installation for the Free tier or activation of an existing Pro license. No purchase inside this build.</p>
       <p lang="de">Signierte Direktinstallation für die kostenlose Version oder zur Aktivierung einer vorhandenen Pro-Lizenz. Kein Kauf in diesem Build.</p>
-      <a class="btn" href="/download/direct">APK options</a>
+      <div class="release-action">
+        <span class="version-ribbon" data-version-banner data-release-tooltip data-channel="direct" data-fallback-version="1.0.3" tabindex="0">Version 1.0.3</span>
+        <a class="btn primary" data-direct-apk-link href="/download/direct/apk">APK herunterladen</a>
+      </div>
     </article>
 
-    <article class="card platform-card">
+    <article class="card platform-card download-card">
       <div class="platform-icon" aria-hidden="true">
         <svg viewBox="0 0 48 48"><rect x="6" y="8" width="36" height="25" rx="3"/><path d="M18 40h12M24 33v7"/></svg>
       </div>
       <h2>Windows</h2>
-      <p lang="en">The signed Windows app can use a Pro key bought through Google Play. Version 0.8.4.7 is available.</p>
-      <p lang="de">Die signierte Windows-App kann einen über Google Play gekauften Pro-Schlüssel verwenden. Version 0.8.4.7 ist verfügbar.</p>
-      <a class="btn" href="/download/windows">Windows download</a>
+      <p lang="en">Install the signed Windows app and use a Pro key bought through Google Play.</p>
+      <p lang="de">Installiere die signierte Windows-App und verwende einen über Google Play gekauften Pro-Schlüssel.</p>
+      <div class="release-action">
+        <span class="version-ribbon" data-version-banner data-release-tooltip data-channel="windows" data-fallback-version="1.0.3" tabindex="0">Version 1.0.3</span>
+        <a class="btn primary" data-windows-link href="/download/windows/setup">Windows herunterladen</a>
+      </div>
     </article>
+  </div>
 
+  <h2 lang="en">Other platforms</h2>
+  <h2 lang="de">Weitere Plattformen</h2>
+  <div class="grid">
     <article class="card platform-card">
       <div class="platform-icon" aria-hidden="true">
         <svg viewBox="0 0 48 48"><rect x="8" y="5" width="20" height="38" rx="4"/><rect x="31" y="11" width="11" height="29" rx="3"/><path d="M16 9h4M35 15h3"/></svg>

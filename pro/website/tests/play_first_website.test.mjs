@@ -37,30 +37,50 @@ test("download routes expose Play first, signed APK second, and planned iOS", ()
   assert.ok(landing.indexOf("Google Play") < landing.indexOf("signed APK"));
   assert.match(landing, /data-google-play-badge/);
   assert.match(landing, /Android Direct Installation \(APK\)/);
-  assert.match(landing, /href="\/download\/windows"/);
+  assert.match(landing, /href="\/download\/windows(?:\/setup)?"/);
   assert.match(landing, /iPhone &amp; iPad/);
   assert.match(android, /data-play-store-link/);
   assert.match(android, /data-google-play-badge/);
-  assert.match(android, /href="\/download\/direct"/);
+  assert.match(android, /href="\/download\/direct(?:\/|\")/);
   assert.match(direct, /SHA-256 checksum/);
   assert.match(direct, /data-direct-apk-link/);
   assert.match(direct, /Pro cannot be purchased|no billing/i);
   assert.match(ios, /planned/i);
-  assert.match(windows, /v0\.8\.4\.7\/DownloadThat-v0\.8\.4\.7\.exe/);
+  assert.match(windows, /data-version-banner/);
+  assert.match(windows, /data-windows-link/);
+  assert.match(windows, /data-windows-check-link/);
   assert.match(windows, /SHA-256 checksum/);
 });
 
-test("Play URL is configured centrally and fails closed while unset", () => {
+test("Play URL and release versions are configured centrally", () => {
   const config = read("functions/assets/runtime-config.js");
   const script = read("assets/download-pages.js");
-  for (const page of ["download/index.html", "download/android/index.html", "download/direct/index.html"]) {
+  for (const page of ["download/index.html", "download/android/index.html", "download/direct/index.html", "download/windows/index.html"]) {
     assert.match(read(page), /src="\/assets\/runtime-config"/);
-    assert.doesNotMatch(read(page), /runtime-config\.js/);
   }
   assert.match(config, /env\.PLAY_STORE_URL/);
   assert.match(config, /PLAY_STORE_URL:\s*playStoreUrl/);
+  assert.match(config, /PLAY_STORE_VERSION/);
+  assert.match(config, /releases\/latest/);
+  assert.match(config, /WINDOWS_INSTALLER_AVAILABLE/);
+  assert.match(config, /DEFAULT_RELEASE_HIGHLIGHTS/);
   assert.match(script, /!playUrl\.includes\("__PLAY_STORE_URL__"\)/);
   assert.match(script, /aria-disabled/);
+  assert.match(script, /compareVersions/);
+  assert.match(script, /data-version-banner/);
+  assert.match(read("assets/download-pages.css"), /version-ribbon/);
+  assert.match(read("functions/download/windows/setup.js"), /fetchWindowsAsset/);
+  assert.match(read("functions/download/windows/sha256.js"), /fetchWindowsChecksum/);
+});
+
+test("direct APK and Windows downloads are equal choices below Play", () => {
+  const landing = read("download/index.html");
+  const choices = landing.split('class="download-choice-grid"', 2)[1];
+  assert.ok(choices.indexOf("Android Direct Installation (APK)") < choices.indexOf("Windows"));
+  assert.match(choices, /data-direct-apk-link/);
+  assert.match(choices, /data-windows-link/);
+  assert.equal((choices.match(/data-version-banner/g) || []).length, 2);
+  assert.match(choices, /data-release-tooltip/g);
 });
 
 test("localized Google Play badges cover website languages with an explicit fallback", () => {

@@ -20,6 +20,8 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       PLAY_DECOMMISSION_APPROVED: ${{ vars.PLAY_DECOMMISSION_APPROVED }}
       PLAY_STORE_URL: ${{ vars.PLAY_STORE_URL }}
+      PLAY_STORE_VERSION: ${{ vars.PLAY_STORE_VERSION || '1.0.3' }}
+      DIRECT_RELEASE_HIGHLIGHTS: ${{ vars.DIRECT_RELEASE_HIGHLIGHTS }}
       PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL || 'https://downloadthat.app' }}
       CANONICAL_REDIRECT_ENABLED: ${{ vars.CANONICAL_REDIRECT_ENABLED || 'false' }}
       PLAY_BACKEND_CONFIGURED: ${{ vars.PLAY_BACKEND_CONFIGURED || 'false' }}
@@ -82,6 +84,10 @@ jobs:
           put PLAY_PRODUCT_ID "pro"
           if [ -n "$PLAY_STORE_URL" ]; then
             put PLAY_STORE_URL "$PLAY_STORE_URL"
+          fi
+          put PLAY_STORE_VERSION "$PLAY_STORE_VERSION"
+          if [ -n "$DIRECT_RELEASE_HIGHLIGHTS" ]; then
+            put DIRECT_RELEASE_HIGHLIGHTS "$DIRECT_RELEASE_HIGHLIGHTS"
           fi
           if [ -n "$TESTER_GRANTS_ADMIN_TOKEN" ]; then
             put TESTER_GRANTS_ADMIN_TOKEN "$TESTER_GRANTS_ADMIN_TOKEN"
