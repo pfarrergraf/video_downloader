@@ -6,13 +6,19 @@ import { join } from "node:path";
 const root = new URL("..", import.meta.url);
 const read = (relative) => readFileSync(new URL(relative, root), "utf8");
 
-test("homepage sends purchases to the Play-first Android page", () => {
+test("homepage exposes Google Play, APK, and Windows downloads directly", () => {
   const html = read("index.html");
   assert.match(html, /id="buy-license-btn"[^>]+href="\/download\/android"/);
+  assert.match(html, /id="downloads"[^>]*class="home-downloads"/);
+  assert.match(html, /class="home-download-card home-download-card--play"/);
   assert.match(html, /data-google-play-badge/);
   assert.match(html, /data-play-store-link/);
-  assert.match(html, /href="\/download"[^>]*>Alternative Downloads</);
-  assert.match(html, /href="\/demo\/"[^>]*>Watch demo</);
+  assert.match(html, /data-direct-apk-link[^>]+href="\/download\/direct\/apk"/);
+  assert.match(html, /data-windows-link[^>]+href="\/download\/windows\/setup"/);
+  assert.equal((html.match(/>Download now</g) || []).length, 2);
+  assert.doesNotMatch(html, /website\.nav\.download/);
+  assert.doesNotMatch(html, /href="\/download"[^>]*>Alternative Downloads</);
+  assert.doesNotMatch(html, /class="home-direct-actions"/);
   assert.doesNotMatch(html, /buy\.stripe\.com|data-stripe-link|withdrawal-modal/);
   assert.doesNotMatch(html, /No Play Store|No app store needed|no region locks/i);
 });
@@ -65,6 +71,7 @@ test("Play URL and release versions are configured centrally", () => {
   assert.match(config, /WINDOWS_INSTALLER_AVAILABLE/);
   assert.match(config, /DEFAULT_RELEASE_HIGHLIGHTS/);
   assert.match(script, /!playUrl\.includes\("__PLAY_STORE_URL__"\)/);
+  assert.match(script, /play\.google\.com\/store\/apps\/details\?id=de\.classydl\.app/);
   assert.match(script, /aria-disabled/);
   assert.match(script, /compareVersions/);
   assert.match(script, /data-version-banner/);

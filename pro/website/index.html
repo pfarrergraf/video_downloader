@@ -80,11 +80,40 @@
   .btn-primary:hover { filter: saturate(1.15) brightness(1.06); text-decoration: none; }
   .btn-ghost { border-color: var(--border); color: var(--text); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
-  .home-store-badge-link { display: inline-flex; border-radius: 9px; transition: transform .18s ease, opacity .18s ease; }
-  .home-store-badge-link:hover { transform: translateY(-2px); text-decoration: none; }
-  .home-store-badge-link[aria-disabled="true"] { opacity: .56; pointer-events: none; filter: grayscale(.25); }
-  .home-store-badge { display: block; width: 205px; max-width: 56vw; height: auto; }
-  .pc3-play-status { flex-basis: 100%; margin: 0; color: var(--text-dim); font-size: .78rem; }
+  .home-downloads { padding: 58px 24px 72px; background: var(--bg-elevated); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .home-downloads [lang="de"] { display: none; }
+  html[lang="de"] .home-downloads [lang="de"] { display: block; }
+  html[lang="de"] .home-downloads [lang="en"] { display: none; }
+  .home-download-wrap { max-width: 1060px; margin: 0 auto; }
+  .home-download-heading { text-align: center; }
+  .home-download-heading h2 { margin-bottom: 12px; }
+  .home-download-lead { max-width: 680px; margin: 0 auto; color: var(--text-dim); font-size: 1.05rem; text-align: center; }
+  .home-download-card { border: 1px solid var(--border); border-radius: 18px; padding: 26px; background: var(--card); }
+  .home-download-card--play { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 28px; margin-top: 34px; border-color: var(--accent-dim); }
+  .home-download-card h3 { margin: 0 0 10px; font-size: 1.35rem; }
+  .home-download-card p { color: var(--text-dim); }
+  .home-download-availability { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 0; font-size: .9rem; }
+  .home-download-availability::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-dim); }
+  .home-download-release { position: relative; display: inline-flex; flex-direction: column; align-items: flex-start; padding-top: 8px; }
+  .home-download-version { position: relative; z-index: 1; display: inline-block; margin: 0 0 -2px 8px; padding: 2px 11px; border: 1px solid var(--accent-dim); border-radius: 4px; color: var(--bg); background: var(--accent-dim); font-size: .76rem; font-weight: 900; line-height: 1.35; letter-spacing: .02em; transform: skew(-10deg) rotate(-2deg); cursor: help; }
+  .home-download-version::after { content: attr(data-tooltip); position: absolute; left: 0; top: calc(100% + 9px); z-index: 5; width: min(330px, 80vw); padding: 10px 12px; border: 1px solid var(--border); border-radius: 9px; color: var(--text); background: #151326; box-shadow: 0 8px 24px rgba(0,0,0,.35); font-size: .82rem; font-weight: 500; line-height: 1.45; letter-spacing: 0; opacity: 0; pointer-events: none; transform: skew(10deg) rotate(2deg) translateY(-4px); transition: opacity .15s ease, transform .15s ease; }
+  .home-download-release:hover .home-download-version::after, .home-download-version:focus-visible::after { opacity: 1; transform: skew(10deg) rotate(2deg) translateY(0); }
+  .home-download-store-link { display: inline-flex; border-radius: 9px; transition: transform .18s ease, opacity .18s ease; }
+  .home-download-store-link:hover { transform: translateY(-2px); text-decoration: none; }
+  .home-download-store-link[aria-disabled="true"] { opacity: .56; pointer-events: none; filter: grayscale(.25); }
+  .home-download-badge { display: block; width: min(238px, 62vw); height: auto; }
+  .home-download-section-title { margin: 32px 0 0; text-align: left; }
+  .home-download-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+  .home-download-platform { display: flex; flex-direction: column; min-height: 290px; }
+  .home-download-icon { width: 58px; height: 58px; display: grid; place-items: center; margin-bottom: 20px; border: 1px solid var(--border); border-radius: 15px; color: var(--accent2); background: #151326; }
+  .home-download-icon svg { width: 34px; height: 34px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .home-download-icon--apk { color: var(--bg); background: var(--grad); font-size: .78rem; font-weight: 900; letter-spacing: .06em; }
+  .home-download-button { margin-top: auto; align-self: flex-start; }
+  @media (max-width: 760px) {
+    .home-download-card--play { grid-template-columns: 1fr; }
+    .home-download-grid { grid-template-columns: 1fr; }
+    .home-download-platform { min-height: 0; }
+  }
 
   section { padding: 44px 24px; }
   section h2 { font-size: 1.9rem; text-align: center; margin: 0 0 12px; }
@@ -172,7 +201,7 @@
       <a href="#faq" data-i18n="website.nav.faq">FAQ</a>
     </nav>
     <select class="lang-switcher" aria-label="Language"></select>
-    <a class="btn btn-primary" data-i18n="website.nav.download" href="/download">Download</a>
+    <a class="btn btn-primary" href="#downloads">Download now</a>
   </div>
 </header>
 
@@ -193,12 +222,7 @@
       </h1>
       <p class="pc3-sr-only" data-i18n="website.hero_cinema.lead">Save video and audio straight to your Android device in a few steps.</p>
       <div class="pc3-actions pc3-actions--primary">
-        <a class="home-store-badge-link" data-play-store-link aria-disabled="true">
-          <img class="home-store-badge" data-google-play-badge src="/assets/google-play-badges/en.svg" alt="Get it on Google Play" />
-        </a>
-        <a class="btn btn-ghost" href="/download">Alternative Downloads</a>
-        <a class="btn btn-ghost" href="/demo/">Watch demo</a>
-        <p class="pc3-play-status" data-play-status>The Google Play link will be enabled for launch.</p>
+        <a class="btn btn-primary" href="#downloads">Download now</a>
       </div>
     </div>
 
@@ -370,6 +394,60 @@
           <div><i data-pc3-progress></i></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="downloads" class="home-downloads">
+  <div class="home-download-wrap">
+    <div class="home-download-heading">
+      <h2 lang="en">Download DownloadThat</h2>
+      <h2 lang="de">DownloadThat herunterladen</h2>
+      <p class="home-download-lead" lang="en">Google Play is the recommended Android installation and the only place to buy Pro. You can also choose a signed APK or install the Windows app directly.</p>
+      <p class="home-download-lead" lang="de">Google Play ist die empfohlene Android-Installation und die einzige Verkaufsstelle für Pro. Alternativ kannst du die signierte APK oder die Windows-App direkt installieren.</p>
+    </div>
+
+    <article class="home-download-card home-download-card--play">
+      <div>
+        <h3>Google Play</h3>
+        <p lang="en">Recommended for automatic updates, secure billing and restoring DownloadThat Pro.</p>
+        <p lang="de">Empfohlen für automatische Updates, sichere Bezahlung und die Wiederherstellung von DownloadThat Pro.</p>
+        <p class="home-download-availability" data-play-status>The Google Play link will be enabled for launch.</p>
+      </div>
+      <div class="home-download-release">
+        <span class="home-download-version" data-version-banner data-release-tooltip data-channel="play" data-fallback-version="1.0.3" tabindex="0">Version 1.0.3</span>
+        <a class="home-download-store-link" data-play-store-link aria-disabled="true">
+          <img class="home-download-badge" data-google-play-badge src="/assets/google-play-badges/en.svg" alt="Get it on Google Play" />
+        </a>
+      </div>
+    </article>
+
+    <h2 class="home-download-section-title" lang="en">Direct downloads</h2>
+    <h2 class="home-download-section-title" lang="de">Direkte Downloads</h2>
+    <div class="home-download-grid">
+      <article class="home-download-card home-download-platform">
+        <div class="home-download-icon home-download-icon--apk" aria-hidden="true">APK</div>
+        <h3>Android Direct Installation (APK)</h3>
+        <p lang="en">Signed direct installation for the Free tier or activation of an existing Pro license. No purchase inside this build.</p>
+        <p lang="de">Signierte Direktinstallation für die kostenlose Version oder zur Aktivierung einer vorhandenen Pro-Lizenz. Kein Kauf in diesem Build.</p>
+        <div class="home-download-release">
+          <span class="home-download-version" data-version-banner data-release-tooltip data-channel="direct" data-fallback-version="1.0.3" tabindex="0">Version 1.0.3</span>
+          <a class="btn btn-primary home-download-button" data-direct-apk-link href="/download/direct/apk">APK herunterladen</a>
+        </div>
+      </article>
+
+      <article class="home-download-card home-download-platform">
+        <div class="home-download-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><rect x="6" y="8" width="36" height="25" rx="3"/><path d="M18 40h12M24 33v7"/></svg>
+        </div>
+        <h3>Windows</h3>
+        <p lang="en">Install the signed Windows app and use a Pro key bought through Google Play.</p>
+        <p lang="de">Installiere die signierte Windows-App und verwende einen über Google Play gekauften Pro-Schlüssel.</p>
+        <div class="home-download-release">
+          <span class="home-download-version" data-version-banner data-release-tooltip data-channel="windows" data-fallback-version="1.0.3" tabindex="0">Version 1.0.3</span>
+          <a class="btn btn-primary home-download-button" data-windows-link href="/download/windows/setup">Windows herunterladen</a>
+        </div>
+      </article>
     </div>
   </div>
 </section>

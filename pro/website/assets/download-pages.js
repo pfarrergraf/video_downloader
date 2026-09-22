@@ -1,6 +1,8 @@
 (function () {
   const config = window.DOWNLOADTHAT_CONFIG || {};
-  const playUrl = config.PLAY_STORE_URL;
+  // Keep static previews usable when Pages Functions are not running locally.
+  // Production still supplies the same value through /assets/runtime-config.
+  const playUrl = config.PLAY_STORE_URL || "https://play.google.com/store/apps/details?id=de.classydl.app";
   const playReady = typeof playUrl === "string" && /^https:\/\//.test(playUrl) && !playUrl.includes("__PLAY_STORE_URL__");
   const fallbackVersion = "1.0.3";
 
