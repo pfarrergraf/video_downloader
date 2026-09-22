@@ -1,7 +1,8 @@
 const RELEASE_API_URL =
   "https://api.github.com/repos/pfarrergraf/video_downloader/releases/latest";
-const FALLBACK_RELEASE_VERSION = "1.0.3";
-const FALLBACK_RELEASE_TAG = "v1.0.3";
+const FALLBACK_RELEASE_VERSION = "1.0.4.6";
+const FALLBACK_RELEASE_TAG = "v1.0.4.6";
+const FALLBACK_PLAY_VERSION = "1.0.3";
 // PLAY_STORE_VERSION and DIRECT_RELEASE_HIGHLIGHTS are set by the protected
 // Pages deployment workflow when a new sideload/Play comparison is approved.
 const DEFAULT_RELEASE_HIGHLIGHTS = {
@@ -66,7 +67,7 @@ export async function onRequestGet({ env }) {
     PLAY_STORE_URL: playStoreUrl,
     PLAY_STORE_VERSION: typeof env?.PLAY_STORE_VERSION === "string" && env.PLAY_STORE_VERSION
       ? env.PLAY_STORE_VERSION
-      : FALLBACK_RELEASE_VERSION,
+      : FALLBACK_PLAY_VERSION,
     DIRECT_APK_URL: "/download/direct/apk",
     DIRECT_APK_SHA256_URL: "/download/direct/sha256",
     WINDOWS_URL: "/download/windows/setup",
@@ -80,7 +81,7 @@ export async function onRequestGet({ env }) {
   return new Response(body, {
     headers: {
       "Content-Type": "application/javascript; charset=utf-8",
-      "Cache-Control": "public, max-age=300",
+      "Cache-Control": "no-store",
       "X-Content-Type-Options": "nosniff",
     },
   });

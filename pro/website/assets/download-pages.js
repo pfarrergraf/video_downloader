@@ -5,6 +5,7 @@
   const playUrl = config.PLAY_STORE_URL || "https://play.google.com/store/apps/details?id=de.classydl.app";
   const playReady = typeof playUrl === "string" && /^https:\/\//.test(playUrl) && !playUrl.includes("__PLAY_STORE_URL__");
   const fallbackVersion = "1.0.3";
+  const fallbackDirectVersion = "1.0.4.6";
 
   function versionParts(value) {
     return String(value || "0").split(".").map((part) => Number.parseInt(part, 10) || 0);
@@ -31,7 +32,7 @@
   }
 
   function releaseTooltip(channel, language) {
-    const latest = config.RELEASE_VERSION || fallbackVersion;
+    const latest = config.RELEASE_VERSION || fallbackDirectVersion;
     const play = config.PLAY_STORE_VERSION || fallbackVersion;
     const highlights = highlightsFor(language);
     const windowsDetails = channel === "windows"
@@ -61,7 +62,7 @@
       const channel = node.dataset.channel || "direct";
       const version = channel === "play"
         ? (config.PLAY_STORE_VERSION || node.dataset.fallbackVersion || fallbackVersion)
-        : (config.RELEASE_VERSION || node.dataset.fallbackVersion || fallbackVersion);
+        : (config.RELEASE_VERSION || node.dataset.fallbackVersion || fallbackDirectVersion);
       node.textContent = `Version ${version}`;
       const tooltip = releaseTooltip(channel, language);
       node.dataset.tooltip = tooltip;

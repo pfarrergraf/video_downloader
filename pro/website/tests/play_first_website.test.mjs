@@ -61,12 +61,14 @@ test("download routes expose Play first, signed APK second, and planned iOS", ()
 test("Play URL and release versions are configured centrally", () => {
   const config = read("functions/assets/runtime-config.js");
   const script = read("assets/download-pages.js");
-  for (const page of ["download/index.html", "download/android/index.html", "download/direct/index.html", "download/windows/index.html"]) {
-    assert.match(read(page), /src="\/assets\/runtime-config"/);
+  for (const page of ["index.html", "download/index.html", "download/android/index.html", "download/direct/index.html", "download/windows/index.html"]) {
+    assert.match(read(page), /src="\/assets\/runtime-config\?v=1\.0\.4\.6"/);
   }
   assert.match(config, /env\.PLAY_STORE_URL/);
   assert.match(config, /PLAY_STORE_URL:\s*playStoreUrl/);
   assert.match(config, /PLAY_STORE_VERSION/);
+  assert.match(config, /FALLBACK_RELEASE_VERSION = "1\.0\.4\.6"/);
+  assert.match(config, /FALLBACK_PLAY_VERSION = "1\.0\.3"/);
   assert.match(config, /releases\/latest/);
   assert.match(config, /WINDOWS_INSTALLER_AVAILABLE/);
   assert.match(config, /DEFAULT_RELEASE_HIGHLIGHTS/);
@@ -74,6 +76,7 @@ test("Play URL and release versions are configured centrally", () => {
   assert.match(script, /play\.google\.com\/store\/apps\/details\?id=de\.classydl\.app/);
   assert.match(script, /aria-disabled/);
   assert.match(script, /compareVersions/);
+  assert.match(script, /fallbackDirectVersion = "1\.0\.4\.6"/);
   assert.match(script, /data-version-banner/);
   assert.match(read("assets/download-pages.css"), /version-ribbon/);
   assert.match(read("functions/download/windows/setup.js"), /fetchWindowsAsset/);
